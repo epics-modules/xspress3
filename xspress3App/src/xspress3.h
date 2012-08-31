@@ -43,6 +43,10 @@
 #define xsp3NumChannelsParamString        "NUM_CHANNELS"
 #define xsp3Chan1ArrayParamString         "CHAN1_ARRAY"
 
+extern "C" {
+int xspress3Config(const char *portName, int numChannels);
+}
+
 
 class Xspress3 : public asynPortDriver {
 

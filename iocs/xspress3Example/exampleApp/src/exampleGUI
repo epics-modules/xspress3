@@ -1,0 +1,18 @@
+#!/bin/bash
+
+export XSP3=/dls_sw/work/R3.14.11/support/xspress3
+export AREADETECTOR=/dls_sw/prod/R3.14.11/support/areaDetector/1-8beta6-dls1
+export DEVIOCSTATS=/dls_sw/prod/R3.14.11/support/devIocStats/3-1-5dls4
+export ASYN=/dls_sw/prod/R3.14.11/support/asyn/4-19
+export EPICS_CA_SERVER_PORT=5064
+export EPICS_CA_REPEATER_PORT=5065
+
+pv=mp49:xsp3
+
+export EDMDATAFILES=${EDMDATAFILES}:${XSPRESS3}/data/
+export EDMDATAFILES=${EDMDATAFILES}:${AREADETECTOR}/data/
+export EDMDATAFILES=${EDMDATAFILES}:${DEVIOCSTATS}/data/
+export EDMDATAFILES=${EDMDATAFILES}:${ASYN}/data/
+export PATH=${PATH}:EDMDATAFILES
+#edm -x -m "P=${pv}" -port ${EPICS_CA_SERVER_PORT} ${XSPRESS3}/data/xspress3.edl &
+edm -x -m "ioc=${pv}" -port ${EPICS_CA_SERVER_PORT} ${DEVIOCSTATS}/data/ioc_stats_soft.edl &

@@ -1,0 +1,18 @@
+
+file xspress3.template {
+	pattern {P, R, PORT, ADDR, TIMEOUT}
+                {mp49:, xsp3:, XSP3, 0, 5}
+}
+
+
+file ioc.db
+{
+pattern {IOCNAME}
+        {mp49:xsp3}
+}
+
+file save_restoreStatus.db
+{
+pattern {P}
+        {mp49:xsp3:}
+}

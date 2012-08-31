@@ -3,10 +3,13 @@
 #include <stdexcept>
 
 //Epics headers
+#include <epicsTime.h>
+#include <epicsThread.h>
+#include <epicsExport.h>
+#include <epicsString.h>
 #include <iocsh.h>
 #include <drvSup.h>
 #include <registryFunction.h>
-#include <epicsExport.h>
 
 
 //Xspress3 SDK header
@@ -49,6 +52,8 @@ Xspress3::Xspress3(const char *portName, int numChannels)
   int status = asynSuccess;
   const char *functionName = "Xspress3::Xspress3";
 
+  debug_ = 1;
+
   log(logFlow_, "Start of constructor", functionName); 
 
   //Create the epicsEvent for signaling to the status task when parameters should have changed.
@@ -71,8 +76,8 @@ Xspress3::Xspress3(const char *portName, int numChannels)
  //Initialize non static data members
   acquiring_ = 0;
 
-  pollingPeriod_ = 0.2; //seconds
-  fastPollingPeriod_ = 0.01; //seconds
+  pollingPeriod_ = 0.5; //seconds
+  fastPollingPeriod_ = 0.1; //seconds
 
   /* Create the thread that updates the Xspress3 status */
   status = (epicsThreadCreate("Xsp3StatusTask",
@@ -110,6 +115,12 @@ Xspress3::Xspress3(const char *portName, int numChannels)
   log(logFlow_, "End of constructor", functionName); 
 
 }
+
+Xspress3::~Xspress3() 
+{
+  cout << "Destructor called." << endl;
+}
+
 
 /**
  * Wrapper for asynPrint and local debug prints. If the debug_ data member
@@ -181,6 +192,56 @@ asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   return status;
 }
 
+/**
+ * Status poling task
+ */
+void Xspress3::statusTask(void)
+{
+  asynStatus status = asynSuccess;
+  epicsEventWaitStatus eventStatus;
+  float timeout = pollingPeriod_;
+
+  const char* functionName = "Xspress3::statusTask";
+
+  log(logFlow_, "Started ", functionName);
+
+   while (1) {
+     eventStatus = epicsEventWaitWithTimeout(statusEvent_, timeout);          
+     if (eventStatus == (epicsEventWaitOK || epicsEventWaitTimeout)) {
+       if (debug_) {
+	 log(logFlow_, "Got status event.", functionName);
+       }
+       
+     }
+   }
+     
+ 
+
+}
+
+/**
+ * Data readout task.
+ * Calculate statistics and post waveforms.
+ */
+void Xspress3::dataTask(void)
+{
+  asynStatus status = asynSuccess;
+  epicsEventWaitStatus eventStatus;
+  const char* functionName = "Xspress3::dataTask";
+
+  log(logFlow_, "Started ", functionName);
+
+   while (1) {
+
+     eventStatus = epicsEventWait(dataEvent_);          
+      if (eventStatus == epicsEventWaitOK) {
+        log(logFlow_, "Got data event.", functionName);
+      }
+
+   }
+
+}
+
 
 //Global C utility functions to tie in with EPICS
 
@@ -224,20 +285,27 @@ extern "C" {
     
     return(status);
   }
-
+  
   /* Code for iocsh registration */
-
+  
   /* xspress3Config */
-  static const iocshArg xspress3ConfigArg0 = {"Controller port name", iocshArgString};
-  static const iocshArg xspress3ConfigArg1 = {"Number of channels", iocshArgInt};
-  static const iocshArg * const xspress3ConfigArgs[] = {&xspress3ConfigArg0,
-							&xspress3ConfigArg1};
-  static const iocshFuncDef configxspress3Config = {"xspress3Config", 2, xspress3ConfigArgs};
-  static void configxspress3ConfigCallFunc(const iocshArgBuf *args)
+  static const iocshArg xspress3ConfigArg0 = {"Port name", iocshArgString};
+  static const iocshArg xspress3ConfigArg1 = {"Num Channels", iocshArgInt};
+  static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
+							 &xspress3ConfigArg1};
+  
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 2, xspress3ConfigArgs};
+  static void configXspress3CallFunc(const iocshArgBuf *args)
   {
     xspress3Config(args[0].sval, args[1].ival);
   }
   
+  static void xspress3Register(void)
+  {
+    iocshRegister(&configXspress3, configXspress3CallFunc);
+  }
+  
+  epicsExportRegistrar(xspress3Register);
 
 } // extern "C"
 

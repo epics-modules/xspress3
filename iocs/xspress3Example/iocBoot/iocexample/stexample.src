@@ -1,0 +1,63 @@
+#!$(INSTALL)/bin/$(ARCH)/example
+
+## You may have to change example to something else
+## everywhere it appears in this file
+
+cd "$(INSTALL)"
+
+## Register all support components
+dbLoadDatabase("dbd/example.dbd")
+example_registerRecordDeviceDriver(pdbbase)
+
+##################################################
+# Start Xspress3 driver
+
+xspress3Config("XSP3", 8)
+
+#asynSetTraceMask("XSP3",0,0xFF)
+#asynSetTraceIOMask("XSP3",0,0xFF)
+
+##################################################
+
+
+####################################################################
+### Initialise save restore
+
+save_restoreSet_Debug(0)
+
+### status-PV prefix, so save_restore can find its status PV's.
+save_restoreSet_status_prefix("mp49:xspress3")
+
+### ok to restore a save set that had missing values (no CA connection to PV)?
+### ok to save a file if some CA connections are bad?
+save_restoreSet_IncompleteSetsOk(1)
+
+### In the restore operation, a copy of the save file will be written.  The
+### file name can look like "auto_settings.sav.bu", and be overwritten every
+### reboot, or it can look like "auto_settings.sav_020306-083522" (this is what
+### is meant by a dated backup file) and every reboot will write a new copy.
+save_restoreSet_DatedBackupFiles(1)
+
+### specify where save files should go
+set_savefile_path("/tmp/")
+
+set_requestfile_path("$(INSTALL)/data")
+
+### Only restore after IOC init
+set_pass1_restoreFile("example.sav")
+
+### Number of sequenced backup files (e.g., 'auto_settings.sav0') to write
+save_restoreSet_NumSeqFiles(3)
+
+### Time interval between sequenced backups
+save_restoreSet_SeqPeriodInSeconds(600)
+
+###########################################################
+
+## Load record instances
+dbLoadRecords("db/example.db")
+
+iocInit()
+
+# Save settings every 10 seconds
+create_monitor_set("example.req", 10)
