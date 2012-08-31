@@ -1,0 +1,799 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 363
+y 68
+w 823
+h 476
+font "arial-medium-r-12.0"
+fontAlign "center"
+ctlFont "arial-medium-r-12.0"
+ctlFontAlign "center"
+btnFont "arial-medium-r-12.0"
+btnFontAlign "center"
+fgColor index 14
+bgColor index 3
+textColor index 14
+ctlFgColor1 index 25
+ctlFgColor2 index 30
+ctlBgColor1 index 10
+ctlBgColor2 index 14
+topShadowColor index 1
+botShadowColor index 11
+title "DXP MCA spectrum"
+showGrid
+snapToGrid
+gridSize 5
+disableScroll
+endScreenProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 670
+h 25
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 2
+w 669
+h 25
+lineColor index 1
+fillColor index 0
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 1
+y 3
+w 669
+h 25
+lineColor index 11
+fillColor index 0
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 1
+y 3
+w 669
+h 24
+fgColor index 14
+bgColor index 3
+topShadowColor index 0
+botShadowColor index 0
+font "arial-bold-r-14.0"
+xPosOffset 5
+yPosOffset 5
+button3Popup
+invisible
+buttonLabel "tooltip"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "generic-tooltip"
+}
+setPosition {
+  0 "button"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 1
+y 3
+w 669
+h 25
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 51
+value {
+  "Xspress3 $(P) Channel $(CHAN)"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 40
+w 650
+h 425
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 50
+w 650
+h 290
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 6
+release 0
+# Geometry
+x 20
+y 65
+w 630
+h 260
+# Appearance
+border
+fgColor index 12
+bgColor index 14
+gridColor index 6
+font "arial-medium-r-12.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "AutoScale"
+xMax 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Max 1
+# Trace Properties
+numTraces 2
+yPv {
+  0 "$(P):ARRAY_$(CHAN)_MCA_RBV.VAL"
+  1 "$(P):ARRAY_$(CHAN)_MCA_RBV.BG"
+}
+plotColor {
+  0 index 15
+  1 index 20
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 360
+w 650
+h 105
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 350
+w 112
+h 14
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Region Of Interest  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 130
+y 425
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R0"
+font "arial-medium-r-10.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+precision 0
+nullColor index 0
+smartRefresh
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 130
+y 375
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R0HI"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 130
+y 400
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R0LO"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 25
+y 375
+w 90
+h 20
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "ROI High bin:"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 25
+y 400
+w 90
+h 20
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "ROI Low bin:"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 25
+y 425
+w 90
+h 20
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "ROI total count:"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 195
+y 425
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R1"
+font "arial-medium-r-10.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+precision 0
+nullColor index 0
+smartRefresh
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 195
+y 400
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R1LO"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 195
+y 375
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R1HI"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 260
+y 425
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R2"
+font "arial-medium-r-10.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+precision 0
+nullColor index 0
+smartRefresh
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 260
+y 400
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R2LO"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 260
+y 375
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R2HI"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 325
+y 425
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R3"
+font "arial-medium-r-10.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+precision 0
+nullColor index 0
+smartRefresh
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 325
+y 400
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R3LO"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 325
+y 375
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R3HI"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 390
+y 425
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R4"
+font "arial-medium-r-10.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+precision 0
+nullColor index 0
+smartRefresh
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 390
+y 400
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R4LO"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 390
+y 375
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R4HI"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 455
+y 425
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R5"
+font "arial-medium-r-10.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+precision 0
+nullColor index 0
+smartRefresh
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 455
+y 400
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R5LO"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 455
+y 375
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R5HI"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 40
+w 69
+h 14
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  MCA data  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 520
+y 425
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R6"
+font "arial-medium-r-10.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+precision 0
+nullColor index 0
+smartRefresh
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 520
+y 400
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R6LO"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 520
+y 375
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R6HI"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 585
+y 425
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R7"
+font "arial-medium-r-10.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+precision 0
+nullColor index 0
+smartRefresh
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 585
+y 400
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R7LO"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 585
+y 375
+w 60
+h 20
+controlPv "$(P)$(MCA)$(DET).R7HI"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-10.0"
+fontAlign "center"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+

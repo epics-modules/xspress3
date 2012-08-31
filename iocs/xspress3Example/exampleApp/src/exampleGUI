@@ -14,5 +14,5 @@ export EDMDATAFILES=${EDMDATAFILES}:${AREADETECTOR}/data/
 export EDMDATAFILES=${EDMDATAFILES}:${DEVIOCSTATS}/data/
 export EDMDATAFILES=${EDMDATAFILES}:${ASYN}/data/
 export PATH=${PATH}:EDMDATAFILES
-#edm -x -m "P=${pv}" -port ${EPICS_CA_SERVER_PORT} ${XSPRESS3}/data/xspress3.edl &
+edm -x -m "P=${pv}" -port ${EPICS_CA_SERVER_PORT} ${XSP3}/data/xspress3.edl &
 edm -x -m "ioc=${pv}" -port ${EPICS_CA_SERVER_PORT} ${DEVIOCSTATS}/data/ioc_stats_soft.edl &

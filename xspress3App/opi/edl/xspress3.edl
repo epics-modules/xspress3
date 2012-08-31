@@ -1,0 +1,975 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 491
+y 148
+w 618
+h 762
+font "arial-medium-r-12.0"
+fontAlign "center"
+ctlFont "arial-medium-r-12.0"
+ctlFontAlign "center"
+btnFont "arial-medium-r-12.0"
+btnFontAlign "center"
+fgColor index 14
+bgColor index 3
+textColor index 14
+ctlFgColor1 index 25
+ctlFgColor2 index 30
+ctlBgColor1 index 10
+ctlBgColor2 index 14
+topShadowColor index 1
+botShadowColor index 11
+title "Xspress3 Control"
+showGrid
+snapToGrid
+gridSize 5
+disableScroll
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 355
+y 230
+w 250
+h 475
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 355
+y 50
+w 250
+h 160
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 230
+w 330
+h 250
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 50
+w 330
+h 160
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 500
+w 330
+h 250
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 490
+w 171
+h 14
+font "arial-bold-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  System Operation Settings  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 615
+h 25
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 2
+w 614
+h 25
+lineColor index 1
+fillColor index 0
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 1
+y 3
+w 614
+h 25
+lineColor index 11
+fillColor index 0
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 1
+y 3
+w 614
+h 24
+fgColor index 14
+bgColor index 3
+topShadowColor index 0
+botShadowColor index 0
+font "arial-bold-r-14.0"
+xPosOffset 5
+yPosOffset 5
+button3Popup
+invisible
+buttonLabel "tooltip"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "generic-tooltip"
+}
+setPosition {
+  0 "button"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 1
+y 3
+w 614
+h 25
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 51
+value {
+  "Xspress3 Control - $(P)"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 40
+w 129
+h 14
+font "arial-bold-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Acquisition Control  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 25
+y 70
+w 125
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)StartAll"
+pressValue "1"
+onLabel "Start"
+offLabel "Start"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 200
+y 70
+w 125
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)EraseAll"
+pressValue "1"
+onLabel "Erase"
+offLabel "Erase"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 25
+y 115
+w 125
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)StopAll"
+pressValue "1"
+onLabel "Stop"
+offLabel "Stop"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 25
+y 160
+w 305
+h 35
+controlPv "$(P):STATUS"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 220
+w 168
+h 14
+font "arial-bold-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Acquisition Configuration  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 355
+y 40
+w 142
+h 14
+font "arial-bold-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Acquisition Statistics  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 140
+y 520
+w 85
+h 25
+controlPv "$(P):STATUS_POLL_RATE"
+fgColor index 25
+bgColor index 3
+fill
+font "arial-medium-r-12.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 230
+y 520
+w 85
+h 25
+controlPv "$(P):STATUS_POLL_RATE_RBV"
+font "arial-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 520
+w 100
+h 25
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Poll Time"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 555
+w 100
+h 25
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "MCA Status Rate"
+}
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 140
+y 555
+w 120
+h 25
+fgColor index 25
+bgColor index 3
+inconsistentColor index 0
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)StatusAll.SCAN"
+font "arial-medium-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 265
+y 555
+w 50
+h 25
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)StatusAll.PROC"
+pressValue "1"
+onLabel "Read"
+offLabel "Read"
+3d
+useEnumNumeric
+font "arial-medium-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 265
+y 585
+w 50
+h 25
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)ReadAll.PROC"
+pressValue "1"
+onLabel "Read"
+offLabel "Read"
+3d
+useEnumNumeric
+font "arial-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 140
+y 585
+w 120
+h 25
+fgColor index 25
+bgColor index 3
+inconsistentColor index 0
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)ReadAll.SCAN"
+font "arial-medium-r-12.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 585
+w 100
+h 25
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "MCA Read Rate"
+}
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 265
+y 615
+w 50
+h 25
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)ReadLLParams.PROC"
+pressValue "1"
+onLabel "Read"
+offLabel "Read"
+3d
+useEnumNumeric
+font "arial-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 140
+y 615
+w 120
+h 25
+fgColor index 25
+bgColor index 3
+inconsistentColor index 0
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P)ReadLLParams.SCAN"
+font "arial-medium-r-12.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 615
+w 100
+h 25
+font "arial-medium-r-12.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Low-level params"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 300
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "SCA Windows"
+numPvs 4
+numDsps 16
+displayFileName {
+  0 "dxpROI_SCA32.edl"
+  1 "dxpROI_SCA32.edl"
+  2 "dxpROI_SCA32.edl"
+  3 "dxpROI_SCA32.edl"
+  4 "dxpROI_SCA32.edl"
+  5 "dxpROI_SCA32.edl"
+  6 "dxpROI_SCA32.edl"
+  7 "dxpROI_SCA32.edl"
+  8 "dxpROI_SCA32.edl"
+  9 "dxpROI_SCA32.edl"
+  10 "dxpROI_SCA32.edl"
+  11 "dxpROI_SCA32.edl"
+  12 "dxpROI_SCA32.edl"
+  13 "dxpROI_SCA32.edl"
+  14 "dxpROI_SCA32.edl"
+  15 "dxpROI_SCA32.edl"
+}
+menuLabel {
+  0 "Element 1"
+  1 "Element 2"
+  2 "Element 3"
+  3 "Element 4"
+  4 "Element 5"
+  5 "Element 6"
+  6 "Element 7"
+  7 "Element 8"
+  8 "Element 9"
+  9 "Element 10"
+  10 "Element 11"
+  11 "Element 12"
+  12 "Element 13"
+  13 "Element 14"
+  14 "Element 15"
+  15 "Element 16"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+  2 "parentWindow"
+  3 "parentWindow"
+  4 "parentWindow"
+  5 "parentWindow"
+  6 "parentWindow"
+  7 "parentWindow"
+  8 "parentWindow"
+  9 "parentWindow"
+  10 "parentWindow"
+  11 "parentWindow"
+  12 "parentWindow"
+  13 "parentWindow"
+  14 "parentWindow"
+  15 "parentWindow"
+}
+symbols {
+  0 "DET=1"
+  1 "DET=2"
+  2 "DET=3"
+  3 "DET=4"
+  4 "DET=5"
+  5 "DET=6"
+  6 "DET=7"
+  7 "DET=8"
+  8 "DET=9"
+  9 "DET=10"
+  10 "DET=11"
+  11 "DET=12"
+  12 "DET=13"
+  13 "DET=14"
+  14 "DET=15"
+  15 "DET=16"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 340
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "ROI Settings"
+numPvs 4
+numDsps 16
+displayFileName {
+  0 "dxpROI_SCA32.edl"
+  1 "dxpROI_SCA32.edl"
+  2 "dxpROI_SCA32.edl"
+  3 "dxpROI_SCA32.edl"
+  4 "dxpROI_SCA32.edl"
+  5 "dxpROI_SCA32.edl"
+  6 "dxpROI_SCA32.edl"
+  7 "dxpROI_SCA32.edl"
+  8 "dxpROI_SCA32.edl"
+  9 "dxpROI_SCA32.edl"
+  10 "dxpROI_SCA32.edl"
+  11 "dxpROI_SCA32.edl"
+  12 "dxpROI_SCA32.edl"
+  13 "dxpROI_SCA32.edl"
+  14 "dxpROI_SCA32.edl"
+  15 "dxpROI_SCA32.edl"
+}
+menuLabel {
+  0 "Element 18"
+  1 "Element 19"
+  2 "Element 20"
+  3 "Element 21"
+  4 "Element 22"
+  5 "Element 23"
+  6 "Element 24"
+  7 "Element 25"
+  8 "Element 26"
+  9 "Element 27"
+  10 "Element 28"
+  11 "Element 29"
+  12 "Element 30"
+  13 "Element 31"
+  14 "Element 32"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+  2 "parentWindow"
+  3 "parentWindow"
+  4 "parentWindow"
+  5 "parentWindow"
+  6 "parentWindow"
+  7 "parentWindow"
+  8 "parentWindow"
+  9 "parentWindow"
+  10 "parentWindow"
+  11 "parentWindow"
+  12 "parentWindow"
+  13 "parentWindow"
+  14 "parentWindow"
+}
+symbols {
+  0 "DET=18"
+  1 "DET=19"
+  2 "DET=20"
+  3 "DET=21"
+  4 "DET=22"
+  5 "DET=23"
+  6 "DET=24"
+  7 "DET=25"
+  8 "DET=26"
+  9 "DET=27"
+  10 "DET=28"
+  11 "DET=29"
+  12 "DET=30"
+  13 "DET=31"
+  14 "DET=32"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 355
+y 220
+w 116
+h 14
+font "arial-bold-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Detail Parameters  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 380
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "File Saving..."
+numPvs 4
+numDsps 2
+displayFileName {
+  0 "NDFileHDF5.edl"
+  1 "NDFileNetCDF.edl"
+}
+menuLabel {
+  0 "HDF5"
+  1 "netCDF"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+}
+symbols {
+  0 "R=HDF:"
+  1 "R=CDF:"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 365
+y 65
+w 105
+h 20
+font "arial-medium-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Num Channels"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 470
+y 65
+w 95
+h 20
+controlPv "$(P):NUM_CHANNELS_RBV"
+font "arial-medium-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 260
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "MCA Plots"
+numPvs 4
+numDsps 2
+displayFileName {
+  0 "xspress3_mca.edl"
+  1 "NDFileNetCDF.edl"
+}
+menuLabel {
+  0 "Channel 1 MCA"
+}
+setPosition {
+  0 "parentWindow"
+}
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 200
+y 115
+w 125
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):RESET"
+pressValue "1"
+onLabel "Reset"
+offLabel "Reset"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 505
+y 720
+w 95
+h 25
+fgColor index 46
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+label "EXIT"
+font "arial-bold-r-14.0"
+3d
+endObjectProperties
+
