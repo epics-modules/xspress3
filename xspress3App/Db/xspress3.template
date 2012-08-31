@@ -1,0 +1,40 @@
+#######################################################
+# Database records for the Xspress3
+# Matthew Pearson
+# Sept 2012
+#
+# Channel dependant records are in xspress3Channel.template 
+#
+# Macros:
+#   P,R - PV name
+#   PORT - Asyn port name
+#   ADDR - Asyn address (set to zero)
+#   TIMEOUT - Asyn timeout
+#
+#######################################################
+
+# /// 
+# /// Reset the device.
+# ///
+record(bo, "$(P)$(R)RESET")
+{
+    field(DTYP, "asynInt32")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))RESET")
+}
+
+# ///
+# /// Read the number of channels
+# ///
+record(ai, "$(P)$(R)NUM_CHANNELS_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_CHANNELS")
+   field(SCAN, "I/O Intr")
+}
+
+
+substitute "CHAN=1"
+include "xspress3Channel.template"
+
+
