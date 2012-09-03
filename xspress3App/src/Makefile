@@ -14,12 +14,12 @@ DBD += xspress3Support.dbd
 
 xspress3_DBD += base.dbd
 xspress3_DBD += asyn.dbd
+xspress3_DBD += ADSupport.dbd
 
 # The following are compiled and added to the support library
 xspress3_SRCS += xspress3.cpp
 
 # We need to link against the EPICS Base libraries
-xspress3_LIBS += asyn
 xspress3_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 

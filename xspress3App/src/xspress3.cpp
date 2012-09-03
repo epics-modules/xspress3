@@ -37,16 +37,18 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param portName The Asyn port name to use
  * @param maxChannels The number of channels to use (eg. 8)
  */
-Xspress3::Xspress3(const char *portName, int numChannels)
-  : asynPortDriver(portName,
-                   1, /* maxAddr */ 
-                   NUM_DRIVER_PARAMS,
-                   asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask, /* Interface mask */
-                   asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask,  /* Interrupt mask */
-                   0, /* asynFlags.  This driver does not block and it is not multi-device, so flag is 0 */
-                   1, /* Autoconnect */
-                   0, /* Default priority */
-                   0), /* Default stack size*/
+Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t maxMemory)
+  : asynNDArrayDriver(portName,
+		      1, /* maxAddr */ 
+		      NUM_DRIVER_PARAMS,
+		      maxBuffers,
+		      maxMemory,
+		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask, /* Interface mask */
+		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask,  /* Interrupt mask */
+		      0, /* asynFlags.  This driver does not block and it is not multi-device, so flag is 0 */
+		      1, /* Autoconnect */
+		      0, /* Default priority */
+		      0), /* Default stack size*/
   numChannels_(numChannels)
 {
   int status = asynSuccess;
@@ -271,13 +273,13 @@ static void xsp3DataTaskC(void *drvPvt)
  */
 extern "C" {
 
-  int xspress3Config(const char *portName, int numChannels)
+  int xspress3Config(const char *portName, int numChannels, int maxBuffers, size_t maxMemory)
   {
     asynStatus status = asynSuccess;
     
     /*Instantiate class.*/
     try {
-      new Xspress3(portName, numChannels);
+      new Xspress3(portName, numChannels, maxBuffers, maxMemory);
     } catch (...) {
       cout << "Unknown exception caught when trying to construct Xspress3." << endl;
       status = asynError;
@@ -291,13 +293,17 @@ extern "C" {
   /* xspress3Config */
   static const iocshArg xspress3ConfigArg0 = {"Port name", iocshArgString};
   static const iocshArg xspress3ConfigArg1 = {"Num Channels", iocshArgInt};
+  static const iocshArg xspress3ConfigArg2 = {"Max Buffers", iocshArgInt};
+  static const iocshArg xspress3ConfigArg3 = {"Max Memory", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
-							 &xspress3ConfigArg1};
+							 &xspress3ConfigArg1,
+							 &xspress3ConfigArg2,
+							 &xspress3ConfigArg3};
   
-  static const iocshFuncDef configXspress3 = {"xspress3Config", 2, xspress3ConfigArgs};
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 4, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
-    xspress3Config(args[0].sval, args[1].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].ival);
   }
   
   static void xspress3Register(void)

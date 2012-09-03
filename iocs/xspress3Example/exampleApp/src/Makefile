@@ -35,6 +35,8 @@ example_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 # xxx Support Module
 example_LIBS += xspress3
 example_LIBS += asyn
+example_LIBS += ADBase
+example_LIBS += NDPlugin
 example_LIBS += calc
 example_LIBS += autosave
 example_LIBS += devIocStats

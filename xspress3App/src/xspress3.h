@@ -35,7 +35,7 @@
 
 #include <asynOctetSyncIO.h>
 
-#include "asynPortDriver.h"
+#include "asynNDArrayDriver.h"
 
 /* These are the drvInfo strings that are used to identify the parameters.
  * They are used by asyn clients, including standard asyn device support */
@@ -44,14 +44,14 @@
 #define xsp3Chan1ArrayParamString         "CHAN1_ARRAY"
 
 extern "C" {
-int xspress3Config(const char *portName, int numChannels);
+int xspress3Config(const char *portName, int numChannels, int maxBuffers, size_t maxMemory);
 }
 
 
-class Xspress3 : public asynPortDriver {
+class Xspress3 : public asynNDArrayDriver {
 
  public:
-  Xspress3(const char *portName, int numChannels);
+  Xspress3(const char *portName, int numChannels, int maxBuffers, size_t maxMemory);
   virtual ~Xspress3();
 
   /* These are the methods that we override from asynPortDriver */
