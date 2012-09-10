@@ -30,7 +30,7 @@ BUSY=           $(SUPPORT)/busy/1-4
 CALC=		$(SUPPORT)/calc/2-8dls4
 AUTOSAVE=       $(SUPPORT)/autosave/4-6dls5
 DEVIOCSTATS=    $(SUPPORT)/devIocStats/3-1-5dls4
-XSPRESS3=	$(WORK)/xspress3
+XSPRESS3=	/home/mp49/epics/support/xspress3
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/dls_sw/epics/R3.14.11/base

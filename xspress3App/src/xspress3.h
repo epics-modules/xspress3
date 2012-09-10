@@ -40,6 +40,9 @@
 /* These are the drvInfo strings that are used to identify the parameters.
  * They are used by asyn clients, including standard asyn device support */
 #define xsp3ResetParamString              "RESET"
+#define xsp3EraseParamString              "ERASE"
+#define xsp3StartParamString              "START"
+#define xsp3StopParamString               "STOP"
 #define xsp3NumChannelsParamString        "NUM_CHANNELS"
 #define xsp3Chan1ArrayParamString         "CHAN1_ARRAY"
 
@@ -79,13 +82,17 @@ class Xspress3 : public asynNDArrayDriver {
   const epicsInt32 numChannels_; //The number of channels (this is a constructor param).
 
   epicsEventId statusEvent_;
-  epicsEventId dataEvent_;
+  epicsEventId startEvent_;
+  epicsEventId stopEvent_;
   float pollingPeriod_;
   float fastPollingPeriod_;
 
   //Values used for pasynUser->reason, and indexes into the parameter library.
   int xsp3ResetParam;
   #define FIRST_DRIVER_COMMAND xsp3ResetParam
+  int xsp3EraseParam;
+  int xsp3StartParam;
+  int xsp3StopParam;
   int xsp3NumChannelsParam;
   int xsp3Chan1ArrayParam;
   #define LAST_DRIVER_COMMAND xsp3Chan1ArrayParam

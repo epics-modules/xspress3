@@ -65,14 +65,22 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
     printf("%s:%s epicsEventCreate failure for status event\n", driverName, functionName);
     return;
   }
-  dataEvent_ = epicsEventMustCreate(epicsEventEmpty);
-  if (!dataEvent_) {
-    printf("%s:%s epicsEventCreate failure for data event\n", driverName, functionName);
+  startEvent_ = epicsEventMustCreate(epicsEventEmpty);
+  if (!startEvent_) {
+    printf("%s:%s epicsEventCreate failure for start event\n", driverName, functionName);
+    return;
+  }
+  stopEvent_ = epicsEventMustCreate(epicsEventEmpty);
+  if (!stopEvent_) {
+    printf("%s:%s epicsEventCreate failure for stop event\n", driverName, functionName);
     return;
   }
 
   //Add the params to the paramLib
   createParam(xsp3ResetParamString,   asynParamInt32,       &xsp3ResetParam);
+  createParam(xsp3EraseParamString,   asynParamInt32,       &xsp3EraseParam);
+  createParam(xsp3StartParamString,   asynParamInt32,       &xsp3StartParam);
+  createParam(xsp3StopParamString,    asynParamInt32,       &xsp3StopParam);
   createParam(xsp3Chan1ArrayParamString,   asynParamInt32Array,  &xsp3Chan1ArrayParam);
 
  //Initialize non static data members
@@ -158,6 +166,16 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   if (function == xsp3ResetParam) {
     //Do a system reset
     log(logFlow_, "System reset", functionName);
+  } else if (function == xsp3EraseParam) {
+    //Erase data
+    log(logFlow_, "Erase MCA data, clear SCAs", functionName);
+  } else if (function == xsp3StartParam) {
+    //Start collecting data
+    log(logFlow_, "Start collecting data", functionName);
+    epicsEventSignal(this->startEvent_);
+  } else if (function == xsp3StopParam) {
+    log(logFlow_, "Stop collecting data", functionName);
+    epicsEventSignal(this->stopEvent_);
   } else {
     log(logError_, "No matching parameter.", functionName);
   }
@@ -229,15 +247,22 @@ void Xspress3::dataTask(void)
 {
   asynStatus status = asynSuccess;
   epicsEventWaitStatus eventStatus;
+  epicsFloat64 timeout = 0.0;
   const char* functionName = "Xspress3::dataTask";
 
   log(logFlow_, "Started ", functionName);
 
    while (1) {
 
-     eventStatus = epicsEventWait(dataEvent_);          
+     eventStatus = epicsEventWait(startEvent_);          
+     if (eventStatus == epicsEventWaitOK) {
+        log(logFlow_, "Got start event.", functionName);
+      }
+
+
+      eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
       if (eventStatus == epicsEventWaitOK) {
-        log(logFlow_, "Got data event.", functionName);
+        log(logFlow_, "Got stop event.", functionName);
       }
 
    }

@@ -18,9 +18,53 @@
 # ///
 record(bo, "$(P)$(R)RESET")
 {
-    field(DTYP, "asynInt32")
-    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))RESET")
+    field(DTYP,"asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))RESET")
+    field(ZNAM,"Done")	
+    field(ONAM,"Reset")
 }
+
+# /// 
+# /// Erase MCA data.
+# ///
+record(bo,"$(P)$(R)ERASE") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))ERASE")
+    field(ZNAM,"Done")
+    field(ONAM,"Erase")
+}
+
+# /// 
+# /// Erase MCA data, then start collecting data.
+# ///
+record(bo,"$(P)$(R)ERASE_START") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))ERASE")
+    field(ZNAM,"Done")
+    field(ONAM,"Erase")
+    field(FLNK,"$(P)START")
+}
+
+# /// 
+# /// Start collecting data.
+# ///
+record(bo,"$(P)$(R)START") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))START")
+    field(ZNAM,"Done")
+    field(ONAM,"Start")
+}
+
+# /// 
+# /// Stop collecting data.
+# ///
+record(bo,"$(P)$(R)STOP") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))STOP")
+    field(ZNAM,"Done")
+    field(ONAM,"Stop")
+}
+
 
 # ///
 # /// Read the number of channels
