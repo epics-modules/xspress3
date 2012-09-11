@@ -44,7 +44,30 @@
 #define xsp3StartParamString              "START"
 #define xsp3StopParamString               "STOP"
 #define xsp3NumChannelsParamString        "NUM_CHANNELS"
-#define xsp3Chan1ArrayParamString         "CHAN1_ARRAY"
+#define xsp3TriggerModeParamString        "TRIGGER_MODE"
+#define xsp3NumFramesParamString          "NUM_FRAMES"
+#define xsp3ChanMcaParamString            "CHAN_MCA"
+#define xsp3ChanMcaCorrParamString        "CHAN_MCA_CORR"
+#define xsp3ChanSca1ParamString           "CHAN_SCA1"
+#define xsp3ChanSca2ParamString           "CHAN_SCA2"
+#define xsp3ChanSca3ParamString           "CHAN_SCA3"
+#define xsp3ChanSca4ParamString           "CHAN_SCA4"
+#define xsp3ChanSca1CorrParamString       "CHAN_SCA1_CORR"
+#define xsp3ChanSca2CorrParamString       "CHAN_SCA2_CORR"
+#define xsp3ChanSca3CorrParamString       "CHAN_SCA3_CORR"
+#define xsp3ChanSca4CorrParamString       "CHAN_SCA4_CORR"
+#define xsp3ChanSca1HlmParamString        "CHAN_SCA1_HLM"
+#define xsp3ChanSca2HlmParamString        "CHAN_SCA2_HLM"
+#define xsp3ChanSca3HlmParamString        "CHAN_SCA3_HLM"
+#define xsp3ChanSca4HlmParamString        "CHAN_SCA4_HLM"
+#define xsp3ChanSca1LlmParamString        "CHAN_SCA1_LLM"
+#define xsp3ChanSca2LlmParamString        "CHAN_SCA2_LLM"
+#define xsp3ChanSca3LlmParamString        "CHAN_SCA3_LLM"
+#define xsp3ChanSca4LlmParamString        "CHAN_SCA4_LLM"
+#define xsp3ChanTotalParamString          "CHAN_TOTAL"
+#define xsp3ChanTotalCorrParamString      "CHAN_TOTAL_CORR"
+
+
 
 extern "C" {
 int xspress3Config(const char *portName, int numChannels, int maxBuffers, size_t maxMemory);
@@ -94,8 +117,29 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3StartParam;
   int xsp3StopParam;
   int xsp3NumChannelsParam;
-  int xsp3Chan1ArrayParam;
-  #define LAST_DRIVER_COMMAND xsp3Chan1ArrayParam
+  int xsp3TriggerModeParam;
+  int xsp3NumFramesParam;
+  int xsp3ChanMcaParam;             
+  int xsp3ChanMcaCorrParam;         
+  int xsp3ChanSca1Param;             
+  int xsp3ChanSca2Param;             
+  int xsp3ChanSca3Param;           
+  int xsp3ChanSca4Param;             
+  int xsp3ChanSca1CorrParam;         
+  int xsp3ChanSca2CorrParam;         
+  int xsp3ChanSca3CorrParam;         
+  int xsp3ChanSca4CorrParam;         
+  int xsp3ChanSca1HlmParam;          
+  int xsp3ChanSca2HlmParam;          
+  int xsp3ChanSca3HlmParam;          
+  int xsp3ChanSca4HlmParam;          
+  int xsp3ChanSca1LlmParam;          
+  int xsp3ChanSca2LlmParam;          
+  int xsp3ChanSca3LlmParam;          
+  int xsp3ChanSca4LlmParam;          
+  int xsp3ChanTotalParam;            
+  int xsp3ChanTotalCorrParam;            
+  #define LAST_DRIVER_COMMAND xsp3ChanTotalCorrParam
 
 };
 

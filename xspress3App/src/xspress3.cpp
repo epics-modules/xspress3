@@ -39,7 +39,7 @@ static void xsp3DataTaskC(void *drvPvt);
  */
 Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t maxMemory)
   : asynNDArrayDriver(portName,
-		      1, /* maxAddr */ 
+		      numChannels, /* maxAddr - channels use different param lists*/ 
 		      NUM_DRIVER_PARAMS,
 		      maxBuffers,
 		      maxMemory,
@@ -76,12 +76,38 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
     return;
   }
 
-  //Add the params to the paramLib
-  createParam(xsp3ResetParamString,   asynParamInt32,       &xsp3ResetParam);
-  createParam(xsp3EraseParamString,   asynParamInt32,       &xsp3EraseParam);
-  createParam(xsp3StartParamString,   asynParamInt32,       &xsp3StartParam);
-  createParam(xsp3StopParamString,    asynParamInt32,       &xsp3StopParam);
-  createParam(xsp3Chan1ArrayParamString,   asynParamInt32Array,  &xsp3Chan1ArrayParam);
+  //Add the params to the paramLib 
+  //createParam adds the parameters to all param lists automatically (using maxAddr).
+  createParam(xsp3ResetParamString,         asynParamInt32,       &xsp3ResetParam);
+  createParam(xsp3EraseParamString,         asynParamInt32,       &xsp3EraseParam);
+  createParam(xsp3StartParamString,         asynParamInt32,       &xsp3StartParam);
+  createParam(xsp3StopParamString,          asynParamInt32,       &xsp3StopParam);
+  createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
+  createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
+  createParam(xsp3NumFramesParamString,     asynParamInt32,       &xsp3NumFramesParam);
+  //These params will use different param lists based on asyn address
+  createParam(xsp3ChanMcaParamString,       asynParamInt32Array,  &xsp3ChanMcaParam);
+  createParam(xsp3ChanMcaCorrParamString,   asynParamFloat64Array,&xsp3ChanMcaCorrParam);
+  createParam(xsp3ChanSca1ParamString,      asynParamInt32,       &xsp3ChanSca1Param);
+  createParam(xsp3ChanSca2ParamString,      asynParamInt32,       &xsp3ChanSca2Param);
+  createParam(xsp3ChanSca3ParamString,      asynParamInt32,       &xsp3ChanSca3Param);
+  createParam(xsp3ChanSca4ParamString,      asynParamInt32,       &xsp3ChanSca4Param);
+  createParam(xsp3ChanSca1CorrParamString,  asynParamFloat64,     &xsp3ChanSca1CorrParam);
+  createParam(xsp3ChanSca2CorrParamString,  asynParamFloat64,     &xsp3ChanSca2CorrParam);
+  createParam(xsp3ChanSca3CorrParamString,  asynParamFloat64,     &xsp3ChanSca3CorrParam);
+  createParam(xsp3ChanSca4CorrParamString,  asynParamFloat64,     &xsp3ChanSca4CorrParam);
+  createParam(xsp3ChanSca1HlmParamString,   asynParamInt32,       &xsp3ChanSca1HlmParam);
+  createParam(xsp3ChanSca2HlmParamString,   asynParamInt32,       &xsp3ChanSca2HlmParam);
+  createParam(xsp3ChanSca3HlmParamString,   asynParamInt32,       &xsp3ChanSca3HlmParam);
+  createParam(xsp3ChanSca4HlmParamString,   asynParamInt32,       &xsp3ChanSca4HlmParam);
+  createParam(xsp3ChanSca1LlmParamString,   asynParamInt32,       &xsp3ChanSca1LlmParam);
+  createParam(xsp3ChanSca2LlmParamString,   asynParamInt32,       &xsp3ChanSca2LlmParam);
+  createParam(xsp3ChanSca3LlmParamString,   asynParamInt32,       &xsp3ChanSca3LlmParam);
+  createParam(xsp3ChanSca4LlmParamString,   asynParamInt32,       &xsp3ChanSca4LlmParam);
+  createParam(xsp3ChanTotalParamString,     asynParamInt32,       &xsp3ChanTotalParam);
+  createParam(xsp3ChanTotalCorrParamString, asynParamFloat64,     &xsp3ChanTotalCorrParam);
+  
+  
 
  //Initialize non static data members
   acquiring_ = 0;
@@ -117,7 +143,30 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
 
   //Set any paramLib parameters that need passing up to device support
   setIntegerParam(xsp3NumChannelsParam, numChannels_);
+  setIntegerParam(xsp3TriggerModeParam, 0);
+  setIntegerParam(xsp3NumFramesParam, 0);
+  for (int chan=0; chan<numChannels_; chan++) {
+    setIntegerParam(chan, xsp3ChanSca1Param, 0);
+    setIntegerParam(chan, xsp3ChanSca2Param, 0);
+    setIntegerParam(chan, xsp3ChanSca3Param, 0);
+    setIntegerParam(chan, xsp3ChanSca4Param, 0);
+    setDoubleParam(chan,  xsp3ChanSca1CorrParam, 0);
+    setDoubleParam(chan,  xsp3ChanSca2CorrParam, 0);
+    setDoubleParam(chan,  xsp3ChanSca3CorrParam, 0);
+    setDoubleParam(chan,  xsp3ChanSca4CorrParam, 0);
+    setIntegerParam(chan, xsp3ChanSca1HlmParam, 0);
+    setIntegerParam(chan, xsp3ChanSca2HlmParam, 0);
+    setIntegerParam(chan, xsp3ChanSca3HlmParam, 0);
+    setIntegerParam(chan, xsp3ChanSca4HlmParam, 0);
+    setIntegerParam(chan, xsp3ChanSca1LlmParam, 0);
+    setIntegerParam(chan, xsp3ChanSca2LlmParam, 0);
+    setIntegerParam(chan, xsp3ChanSca3LlmParam, 0);
+    setIntegerParam(chan, xsp3ChanSca4LlmParam, 0);
+    setIntegerParam(chan, xsp3ChanTotalParam, 0);
+    setDoubleParam(chan,  xsp3ChanTotalCorrParam, 0);
+  }
 
+  //Do we need to do a status read now?
   //statusRead();
 
   callParamCallbacks();
@@ -157,11 +206,20 @@ void Xspress3::log(epicsUInt32 mask, const char *msg, const char *function)
 asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
   int function = pasynUser->reason;
+  int addr = 0;
   asynStatus status = asynSuccess;
   const char *functionName = "Xspress3::writeInt32";
   
-  log(logFlow_, "Calling ", functionName);
+  log(logFlow_, "Calling writeInt32", functionName);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d.\n", functionName, function);
+
+  //Read address (channel number).
+  status = getAddress(pasynUser, &addr); 
+  if (status!=asynSuccess) {
+    return(status);
+  }
+
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Asyn addr: &d.\n", functionName, addr);
 
   if (function == xsp3ResetParam) {
     //Do a system reset
@@ -194,13 +252,21 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 {
   int function = pasynUser->reason;
+  int addr = 0;
   asynStatus status = asynSuccess;
   const char *functionName = "Xspress3::writeFloat64";
   
-  log(logFlow_, "Calling ", functionName);
+  log(logFlow_, "Calling writeFloat64", functionName);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d.\n", functionName, function);
 
-  
+  //Read address (channel number).
+  status = getAddress(pasynUser, &addr); 
+  if (status!=asynSuccess) {
+    return(status);
+  }
+
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Asyn addr: &d.\n", functionName, addr);
+
 
   //Set in param lib so the user sees a readback straight away. We might overwrite this in the 
   //status task, depending on the parameter.

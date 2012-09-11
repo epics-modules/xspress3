@@ -3,7 +3,8 @@
 # Matthew Pearson
 # Sept 2012
 #
-# Channel dependant records are in xspress3Channel.template 
+# Channel dependant records are in xspress3Channel.template
+# Channel SCA records are in xspress3ChannelSCA.template
 #
 # Macros:
 #   P,R - PV name
@@ -42,7 +43,7 @@ record(bo,"$(P)$(R)ERASE_START") {
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))ERASE")
     field(ZNAM,"Done")
     field(ONAM,"Erase")
-    field(FLNK,"$(P)START")
+    field(FLNK,"$(P)START.PROC")
 }
 
 # /// 
@@ -69,7 +70,7 @@ record(bo,"$(P)$(R)STOP") {
 # ///
 # /// Read the number of channels
 # ///
-record(ai, "$(P)$(R)NUM_CHANNELS_RBV")
+record(longin, "$(P)$(R)NUM_CHANNELS_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynInt32")
@@ -77,8 +78,61 @@ record(ai, "$(P)$(R)NUM_CHANNELS_RBV")
    field(SCAN, "I/O Intr")
 }
 
+# ///
+# /// Select the trigger source (internal or external).
+# ///
+record(mbbo, "$(P)$(R)TRIGGER_MODE")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))TRIGGER_MODE")
+   field(ZRST, "Internal")
+   field(ZRVL, "0")
+   field(ONST, "External")
+   field(ONVL, "1")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Read the trigger source (internal or external).
+# ///
+record(mbbi, "$(P)$(R)TRIGGER_MODE_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))TRIGGER_MODE")
+   field(ZRST, "Internal")
+   field(ZRVL, "0")
+   field(ONST, "External")
+   field(ONVL, "1")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Set the numer of frames to collect in internal trigger mode.
+# ///
+record(longout, "$(P)$(R)NUM_FRAMES")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_FRAMES")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Get the numer of frames to collect in internal trigger mode.
+# ///
+record(longin, "$(P)$(R)NUM_FRAMES_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_FRAMES")
+   field(SCAN, "I/O Intr")
+}
+
+
 
 substitute "CHAN=1"
+substitute "ADDR=0"
 include "xspress3Channel.template"
 
 
