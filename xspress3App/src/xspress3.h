@@ -43,6 +43,7 @@
 #define xsp3EraseParamString              "ERASE"
 #define xsp3StartParamString              "START"
 #define xsp3StopParamString               "STOP"
+#define xsp3StatusParamString             "STATUS"
 #define xsp3NumChannelsParamString        "NUM_CHANNELS"
 #define xsp3TriggerModeParamString        "TRIGGER_MODE"
 #define xsp3NumFramesParamString          "NUM_FRAMES"
@@ -116,6 +117,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3EraseParam;
   int xsp3StartParam;
   int xsp3StopParam;
+  int xsp3StatusParam;
   int xsp3NumChannelsParam;
   int xsp3TriggerModeParam;
   int xsp3NumFramesParam;

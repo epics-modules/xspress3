@@ -82,6 +82,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
   createParam(xsp3EraseParamString,         asynParamInt32,       &xsp3EraseParam);
   createParam(xsp3StartParamString,         asynParamInt32,       &xsp3StartParam);
   createParam(xsp3StopParamString,          asynParamInt32,       &xsp3StopParam);
+  createParam(xsp3StatusParamString,        asynParamOctet,       &xsp3StatusParam);
   createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
   createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
   createParam(xsp3NumFramesParamString,     asynParamInt32,       &xsp3NumFramesParam);
@@ -168,6 +169,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
 
   //Do we need to do a status read now?
   //statusRead();
+
+  setStringParam(xsp3StatusParam, "System Init Complete");
 
   callParamCallbacks();
 
@@ -274,10 +277,19 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 
   //Set in param lib so the user sees a readback straight away. We might overwrite this in the 
   //status task, depending on the parameter.
-  status = (asynStatus) setIntegerParam(function, value);
+  cout << "****addr: " << addr << endl;
+  cout << "****function: " << function << endl;
+  cout << "****value: " << value << endl;
+  status = (asynStatus) setIntegerParam(addr, function, value);
+  if (status!=asynSuccess) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, 
+	      "%s Error setting parameter. Asyn addr: &d, asynUser->reason: &d.\n", 
+	      functionName, addr, function);
+    return(status);
+  }
 
   //Do callbacks so higher layers see any changes 
-  callParamCallbacks();
+  callParamCallbacks(addr);
 
   return status;
 }

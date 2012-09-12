@@ -66,6 +66,18 @@ record(bo,"$(P)$(R)STOP") {
     field(ONAM,"Stop")
 }
 
+# ///
+# /// System status message (error messages, information messages, etc.)
+# ///
+record(waveform, "$(P)$(R)STATUS_RBV")
+{
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))STATUS")
+    field(FTVL, "UCHAR")
+    field(NELM, "256")
+    field(SCAN, "I/O Intr")
+}
+
 
 # ///
 # /// Read the number of channels
@@ -137,6 +149,30 @@ include "xspress3Channel.template"
 
 substitute "CHAN=2"
 substitute "ADDR=1"
+include "xspress3Channel.template"
+
+substitute "CHAN=3"
+substitute "ADDR=2"
+include "xspress3Channel.template"
+
+substitute "CHAN=4"
+substitute "ADDR=3"
+include "xspress3Channel.template"
+
+substitute "CHAN=5"
+substitute "ADDR=4"
+include "xspress3Channel.template"
+
+substitute "CHAN=6"
+substitute "ADDR=5"
+include "xspress3Channel.template"
+
+substitute "CHAN=7"
+substitute "ADDR=6"
+include "xspress3Channel.template"
+
+substitute "CHAN=8"
+substitute "ADDR=7"
 include "xspress3Channel.template"
 
 
