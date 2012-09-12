@@ -91,6 +91,17 @@ record(longin, "$(P)$(R)NUM_CHANNELS_RBV")
 }
 
 # ///
+# /// Read the max number of channels supported by the system
+# ///
+record(longin, "$(P)$(R)MAX_NUM_CHANNELS_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_NUM_CHANNELS")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
 # /// Select the trigger source (internal or external).
 # ///
 record(mbbo, "$(P)$(R)TRIGGER_MODE")

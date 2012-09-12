@@ -84,6 +84,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
   createParam(xsp3StopParamString,          asynParamInt32,       &xsp3StopParam);
   createParam(xsp3StatusParamString,        asynParamOctet,       &xsp3StatusParam);
   createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
+  createParam(xsp3MaxNumChannelsParamString,asynParamInt32,       &xsp3MaxNumChannelsParam);
   createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
   createParam(xsp3NumFramesParamString,     asynParamInt32,       &xsp3NumFramesParam);
   //These params will use different param lists based on asyn address
@@ -142,8 +143,12 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
 
   running_ = 1;
 
+  //Read the max number of channels supported by the system here
+  
+
   //Set any paramLib parameters that need passing up to device support
   setIntegerParam(xsp3NumChannelsParam, numChannels_);
+  setIntegerParam(xsp3MaxNumChannelsParam, numChannels_); //Set this to what the system reports, not what we pass in
   setIntegerParam(xsp3TriggerModeParam, 0);
   setIntegerParam(xsp3NumFramesParam, 0);
   for (int chan=0; chan<numChannels_; chan++) {
@@ -277,9 +282,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 
   //Set in param lib so the user sees a readback straight away. We might overwrite this in the 
   //status task, depending on the parameter.
-  cout << "****addr: " << addr << endl;
-  cout << "****function: " << function << endl;
-  cout << "****value: " << value << endl;
   status = (asynStatus) setIntegerParam(addr, function, value);
   if (status!=asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, 
