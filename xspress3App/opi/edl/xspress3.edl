@@ -441,13 +441,13 @@ minor 1
 release 0
 x 355
 y 220
-w 116
+w 192
 h 14
 font "arial-bold-r-12.0"
 fgColor index 14
 bgColor index 7
 value {
-  "  Detail Parameters  "
+  "  Data Displays and File Saving  "
 }
 autoSize
 border

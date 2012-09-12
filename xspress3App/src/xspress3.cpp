@@ -108,6 +108,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
   createParam(xsp3ChanSca4LlmParamString,   asynParamInt32,       &xsp3ChanSca4LlmParam);
   createParam(xsp3ChanTotalParamString,     asynParamInt32,       &xsp3ChanTotalParam);
   createParam(xsp3ChanTotalCorrParamString, asynParamFloat64,     &xsp3ChanTotalCorrParam);
+  createParam(xsp3ChanTotalArrayParamString,asynParamInt32Array,  &xsp3ChanTotalArrayParam);
+  createParam(xsp3ChanTotalCorrArrayParamString,asynParamInt32Array,  &xsp3ChanTotalCorrArrayParam);
   
   
 

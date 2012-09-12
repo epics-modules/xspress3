@@ -3,9 +3,9 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 125
-y 120
-w 390
+x 739
+y 59
+w 420
 h 400
 font "arial-medium-r-14.0"
 ctlFont "arial-bold-r-14.0"
@@ -33,7 +33,7 @@ minor 0
 release 0
 x 10
 y 50
-w 365
+w 400
 h 290
 lineColor index 14
 fill
@@ -48,7 +48,7 @@ minor 0
 release 0
 x 0
 y 0
-w 390
+w 415
 h 30
 
 beginGroup
@@ -61,7 +61,7 @@ minor 0
 release 0
 x 0
 y 2
-w 389
+w 414
 h 25
 lineColor index 1
 fillColor index 0
@@ -75,7 +75,7 @@ minor 0
 release 0
 x 1
 y 3
-w 389
+w 414
 h 25
 lineColor index 11
 fillColor index 0
@@ -89,7 +89,7 @@ minor 2
 release 0
 x 1
 y 3
-w 389
+w 414
 h 24
 fgColor index 14
 bgColor index 3
@@ -119,7 +119,7 @@ minor 1
 release 0
 x 1
 y 3
-w 389
+w 414
 h 25
 font "arial-bold-r-16.0"
 fontAlign "center"
@@ -140,7 +140,7 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 275
+x 310
 y 355
 w 100
 h 35
@@ -895,5 +895,237 @@ endObjectProperties
 
 endGroup
 
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 335
+y 95
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_total_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "CHAN=1"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 335
+y 125
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_total_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "CHAN=2"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 335
+y 155
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_total_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "CHAN=3"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 335
+y 185
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_total_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "CHAN=4"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 335
+y 215
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_total_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "CHAN=5"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 335
+y 245
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_total_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "CHAN=6"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 335
+y 275
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_total_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "CHAN=7"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 335
+y 305
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_total_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "CHAN=8"
+}
 endObjectProperties
 

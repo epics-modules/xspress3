@@ -68,6 +68,8 @@
 #define xsp3ChanSca4LlmParamString        "CHAN_SCA4_LLM"
 #define xsp3ChanTotalParamString          "CHAN_TOTAL"
 #define xsp3ChanTotalCorrParamString      "CHAN_TOTAL_CORR"
+#define xsp3ChanTotalArrayParamString     "CHAN_TOTAL_ARRAY"
+#define xsp3ChanTotalCorrArrayParamString "CHAN_TOTAL_CORR_ARRAY"
 
 
 
@@ -142,8 +144,10 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3ChanSca3LlmParam;          
   int xsp3ChanSca4LlmParam;          
   int xsp3ChanTotalParam;            
-  int xsp3ChanTotalCorrParam;            
-  #define LAST_DRIVER_COMMAND xsp3ChanTotalCorrParam
+  int xsp3ChanTotalCorrParam;  
+  int xsp3ChanTotalArrayParam;            
+  int xsp3ChanTotalCorrArrayParam;  
+  #define LAST_DRIVER_COMMAND xsp3ChanTotalCorrArrayParam
 
 };
 
