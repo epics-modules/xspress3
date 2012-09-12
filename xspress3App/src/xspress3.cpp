@@ -45,7 +45,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
 		      maxMemory,
 		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask, /* Interface mask */
 		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask,  /* Interrupt mask */
-		      0, /* asynFlags.  This driver does not block and it is not multi-device, so flag is 0 */
+		      ASYN_CANBLOCK | ASYN_MULTIDEVICE, /* asynFlags.*/
 		      1, /* Autoconnect */
 		      0, /* Default priority */
 		      0), /* Default stack size*/
@@ -191,7 +191,7 @@ Xspress3::~Xspress3()
 void Xspress3::log(epicsUInt32 mask, const char *msg, const char *function)
 {
   if (debug_ == 1) {
-    printf("  %s %s\n", function, msg);
+    cout << function << " " << msg << endl;
   } else {
     if (mask == logFlow_) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s %s.\n", function, msg);
@@ -203,6 +203,9 @@ void Xspress3::log(epicsUInt32 mask, const char *msg, const char *function)
 
 
 
+/**
+ * Reimplementing this function from asynNDArrayDriver to deal with integer values.
+ */ 
 asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
   int function = pasynUser->reason;
@@ -219,21 +222,52 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return(status);
   }
 
+  cout << functionName << " asyn address: " << addr << endl;
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Asyn addr: &d.\n", functionName, addr);
 
   if (function == xsp3ResetParam) {
-    //Do a system reset
     log(logFlow_, "System reset", functionName);
-  } else if (function == xsp3EraseParam) {
-    //Erase data
+  } 
+  else if (function == xsp3EraseParam) {
     log(logFlow_, "Erase MCA data, clear SCAs", functionName);
-  } else if (function == xsp3StartParam) {
-    //Start collecting data
+  } 
+  else if (function == xsp3StartParam) {
     log(logFlow_, "Start collecting data", functionName);
     epicsEventSignal(this->startEvent_);
-  } else if (function == xsp3StopParam) {
+  } 
+  else if (function == xsp3StopParam) {
     log(logFlow_, "Stop collecting data", functionName);
     epicsEventSignal(this->stopEvent_);
+  } 
+  else if (function == xsp3TriggerModeParam) {
+   log(logFlow_, "Set trigger mode", functionName);
+  } 
+  else if (function == xsp3NumFramesParam) {
+    log(logFlow_, "Set the number of frames", functionName);
+  } 
+  else if (function == xsp3ChanSca1HlmParam) {
+    log(logFlow_, "Setting SCA1 high limit.", functionName);
+  } 
+  else if (function == xsp3ChanSca2HlmParam) {
+    log(logFlow_, "Setting SCA2 high limit", functionName);
+  } 
+  else if (function == xsp3ChanSca3HlmParam) {
+    log(logFlow_, "Setting SCA3 high limit", functionName);
+  } 
+  else if (function == xsp3ChanSca4HlmParam) {
+    log(logFlow_, "Setting SCA4 high limit", functionName);
+  } 
+  else if (function == xsp3ChanSca1LlmParam) {
+    log(logFlow_, "Setting SCA1 low limit", functionName);
+  } 
+  else if (function == xsp3ChanSca2LlmParam) {
+    log(logFlow_, "Setting SCA2 low limit", functionName); 
+  } 
+  else if (function == xsp3ChanSca3LlmParam) {
+    log(logFlow_, "Setting SCA3 low limit", functionName);
+  }
+  else if (function == xsp3ChanSca4LlmParam) {
+    log(logFlow_, "Setting SCA4 low limit", functionName);
   } else {
     log(logError_, "No matching parameter.", functionName);
   }
@@ -248,7 +282,9 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   return status;
 }
 
-
+/**
+ * Reimplementing this function from asynNDArrayDriver to deal with floating point values.
+ */ 
 asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 {
   int function = pasynUser->reason;
@@ -289,13 +325,13 @@ void Xspress3::statusTask(void)
 
   const char* functionName = "Xspress3::statusTask";
 
-  log(logFlow_, "Started ", functionName);
+  log(logFlow_, "Started.", functionName);
 
    while (1) {
      eventStatus = epicsEventWaitWithTimeout(statusEvent_, timeout);          
      if (eventStatus == (epicsEventWaitOK || epicsEventWaitTimeout)) {
        if (debug_) {
-	 log(logFlow_, "Got status event.", functionName);
+	 //log(logFlow_, "Got status event.", functionName);
        }
        
      }
@@ -316,7 +352,7 @@ void Xspress3::dataTask(void)
   epicsFloat64 timeout = 0.0;
   const char* functionName = "Xspress3::dataTask";
 
-  log(logFlow_, "Started ", functionName);
+  log(logFlow_, "Started.", functionName);
 
    while (1) {
 

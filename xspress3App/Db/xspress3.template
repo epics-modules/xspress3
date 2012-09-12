@@ -135,4 +135,8 @@ substitute "CHAN=1"
 substitute "ADDR=0"
 include "xspress3Channel.template"
 
+substitute "CHAN=2"
+substitute "ADDR=1"
+include "xspress3Channel.template"
+
 
