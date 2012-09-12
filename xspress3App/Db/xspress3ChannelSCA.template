@@ -21,6 +21,30 @@ record(ai, "$(P)$(R)C$(CHAN)_SCA$(SCA)_CORR_RBV")
    field(PREC, "2")
 }
 
+# ///
+# /// The SCA $(SCA) waveform for channel $(CHAN) 
+# ///
+record(waveform, "$(P)$(R)C$(CHAN)_SCA$(SCA)_ARRAY_RBV")
+{
+    field(DTYP, "asynInt32ArrayIn")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_ARRAY")
+    field(FTVL, "ULONG")
+    field(NELM, "4096")
+    field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// The SCA $(SCA) waveform for channel $(CHAN) (dead time corrected) 
+# ///
+record(waveform, "$(P)$(R)C$(CHAN)_SCA$(SCA)_CORR_ARRAY_RBV")
+{
+    field(DTYP, "asynInt32ArrayIn")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_CORR_ARRAY")
+    field(FTVL, "ULONG")
+    field(NELM, "4096")
+    field(SCAN, "I/O Intr")
+}
+
 
 # ///
 # /// Set the SCA $(SCA) high level window limit on channel $(CHAN)

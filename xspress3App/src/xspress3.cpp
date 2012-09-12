@@ -98,6 +98,14 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
   createParam(xsp3ChanSca2CorrParamString,  asynParamFloat64,     &xsp3ChanSca2CorrParam);
   createParam(xsp3ChanSca3CorrParamString,  asynParamFloat64,     &xsp3ChanSca3CorrParam);
   createParam(xsp3ChanSca4CorrParamString,  asynParamFloat64,     &xsp3ChanSca4CorrParam);
+  createParam(xsp3ChanSca1ArrayParamString,asynParamInt32Array,  &xsp3ChanSca1ArrayParam);
+  createParam(xsp3ChanSca2ArrayParamString,asynParamInt32Array,  &xsp3ChanSca2ArrayParam);
+  createParam(xsp3ChanSca3ArrayParamString,asynParamInt32Array,  &xsp3ChanSca3ArrayParam);
+  createParam(xsp3ChanSca4ArrayParamString,asynParamInt32Array,  &xsp3ChanSca4ArrayParam);
+  createParam(xsp3ChanSca1CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca1CorrArrayParam);
+  createParam(xsp3ChanSca2CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca2CorrArrayParam);
+  createParam(xsp3ChanSca3CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca3CorrArrayParam);
+  createParam(xsp3ChanSca4CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca4CorrArrayParam);
   createParam(xsp3ChanSca1HlmParamString,   asynParamInt32,       &xsp3ChanSca1HlmParam);
   createParam(xsp3ChanSca2HlmParamString,   asynParamInt32,       &xsp3ChanSca2HlmParam);
   createParam(xsp3ChanSca3HlmParamString,   asynParamInt32,       &xsp3ChanSca3HlmParam);
@@ -109,7 +117,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
   createParam(xsp3ChanTotalParamString,     asynParamInt32,       &xsp3ChanTotalParam);
   createParam(xsp3ChanTotalCorrParamString, asynParamFloat64,     &xsp3ChanTotalCorrParam);
   createParam(xsp3ChanTotalArrayParamString,asynParamInt32Array,  &xsp3ChanTotalArrayParam);
-  createParam(xsp3ChanTotalCorrArrayParamString,asynParamInt32Array,  &xsp3ChanTotalCorrArrayParam);
+  createParam(xsp3ChanTotalCorrArrayParamString,asynParamFloat64Array,  &xsp3ChanTotalCorrArrayParam);
   
   
 

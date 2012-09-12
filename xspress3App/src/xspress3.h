@@ -58,6 +58,14 @@
 #define xsp3ChanSca2CorrParamString       "CHAN_SCA2_CORR"
 #define xsp3ChanSca3CorrParamString       "CHAN_SCA3_CORR"
 #define xsp3ChanSca4CorrParamString       "CHAN_SCA4_CORR"
+#define xsp3ChanSca1ArrayParamString           "CHAN_SCA1_ARRAY"
+#define xsp3ChanSca2ArrayParamString           "CHAN_SCA2_ARRAY"
+#define xsp3ChanSca3ArrayParamString           "CHAN_SCA3_ARRAY"
+#define xsp3ChanSca4ArrayParamString           "CHAN_SCA4_ARRAY"
+#define xsp3ChanSca1CorrArrayParamString       "CHAN_SCA1_CORR_ARRAY"
+#define xsp3ChanSca2CorrArrayParamString       "CHAN_SCA2_CORR_ARRAY"
+#define xsp3ChanSca3CorrArrayParamString       "CHAN_SCA3_CORR_ARRAY"
+#define xsp3ChanSca4CorrArrayParamString       "CHAN_SCA4_CORR_ARRAY"
 #define xsp3ChanSca1HlmParamString        "CHAN_SCA1_HLM"
 #define xsp3ChanSca2HlmParamString        "CHAN_SCA2_HLM"
 #define xsp3ChanSca3HlmParamString        "CHAN_SCA3_HLM"
@@ -134,7 +142,15 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3ChanSca1CorrParam;         
   int xsp3ChanSca2CorrParam;         
   int xsp3ChanSca3CorrParam;         
-  int xsp3ChanSca4CorrParam;         
+  int xsp3ChanSca4CorrParam;  
+  int xsp3ChanSca1ArrayParam;
+  int xsp3ChanSca2ArrayParam;
+  int xsp3ChanSca3ArrayParam;
+  int xsp3ChanSca4ArrayParam;
+  int xsp3ChanSca1CorrArrayParam;
+  int xsp3ChanSca2CorrArrayParam;
+  int xsp3ChanSca3CorrArrayParam;
+  int xsp3ChanSca4CorrArrayParam;
   int xsp3ChanSca1HlmParam;          
   int xsp3ChanSca2HlmParam;          
   int xsp3ChanSca3HlmParam;          
