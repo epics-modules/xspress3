@@ -151,43 +151,49 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
     return;
   }
 
-  running_ = 1;
-
-  //Read the max number of channels supported by the system here
-  
-
   //Set any paramLib parameters that need passing up to device support
-  setIntegerParam(xsp3NumChannelsParam, numChannels_);
-  setIntegerParam(xsp3MaxNumChannelsParam, numChannels_); //Set this to what the system reports, not what we pass in
-  setIntegerParam(xsp3TriggerModeParam, 0);
-  setIntegerParam(xsp3NumFramesParam, 0);
+  status = setIntegerParam(xsp3NumChannelsParam, numChannels_);
+  status |= setIntegerParam(xsp3MaxNumChannelsParam, numChannels_); //Set this to what the system reports, not what we pass in
+  status |= setIntegerParam(xsp3TriggerModeParam, 0);
+  status |= setIntegerParam(xsp3NumFramesParam, 0);
   for (int chan=0; chan<numChannels_; chan++) {
-    setIntegerParam(chan, xsp3ChanSca1Param, 0);
-    setIntegerParam(chan, xsp3ChanSca2Param, 0);
-    setIntegerParam(chan, xsp3ChanSca3Param, 0);
-    setIntegerParam(chan, xsp3ChanSca4Param, 0);
-    setDoubleParam(chan,  xsp3ChanSca1CorrParam, 0);
-    setDoubleParam(chan,  xsp3ChanSca2CorrParam, 0);
-    setDoubleParam(chan,  xsp3ChanSca3CorrParam, 0);
-    setDoubleParam(chan,  xsp3ChanSca4CorrParam, 0);
-    setIntegerParam(chan, xsp3ChanSca1HlmParam, 0);
-    setIntegerParam(chan, xsp3ChanSca2HlmParam, 0);
-    setIntegerParam(chan, xsp3ChanSca3HlmParam, 0);
-    setIntegerParam(chan, xsp3ChanSca4HlmParam, 0);
-    setIntegerParam(chan, xsp3ChanSca1LlmParam, 0);
-    setIntegerParam(chan, xsp3ChanSca2LlmParam, 0);
-    setIntegerParam(chan, xsp3ChanSca3LlmParam, 0);
-    setIntegerParam(chan, xsp3ChanSca4LlmParam, 0);
-    setIntegerParam(chan, xsp3ChanTotalParam, 0);
-    setDoubleParam(chan,  xsp3ChanTotalCorrParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca1Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca2Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca3Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca4Param, 0);
+    status |= setDoubleParam(chan,  xsp3ChanSca1CorrParam, 0);
+    status |= setDoubleParam(chan,  xsp3ChanSca2CorrParam, 0);
+    status |= setDoubleParam(chan,  xsp3ChanSca3CorrParam, 0);
+    status |= setDoubleParam(chan,  xsp3ChanSca4CorrParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca1HlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca2HlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca3HlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca4HlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca1LlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca2LlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca3LlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca4LlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanTotalParam, 0);
+    status |= setDoubleParam(chan,  xsp3ChanTotalCorrParam, 0);
   }
+
+  //Init asynNDArray params
+  //NDArraySizeX
+  //NDArraySizeY
+  //NDArraySize
+
 
   //Do we need to do a status read now?
   //statusRead();
 
-  setStringParam(xsp3StatusParam, "System Init Complete");
+  running_ = 1;
+  status |= setStringParam(xsp3StatusParam, "System Init Complete");
 
   callParamCallbacks();
+
+  if (status) {
+    printf("%s:%s Unable to set driver parameters in constructor.\n", driverName, functionName);
+  }
 
   log(logFlow_, "End of constructor", functionName); 
 
@@ -220,6 +226,30 @@ void Xspress3::log(epicsUInt32 mask, const char *msg, const char *function)
 }
 
 
+/** Report status of the driver.
+  * Prints details about the detector in us if details>0.
+  * It then calls the ADDriver::report() method.
+  * \param[in] fp File pointed passed by caller where the output is written to.
+  * \param[in] details Controls the level of detail in the report. */
+void Xspress3::report(FILE *fp, int details)
+{
+ 
+  fprintf(fp, "Xspress3::report.\n");
+
+  fprintf(fp, "Xspress3 port=%s\n", this->portName);
+  if (details > 0) { 
+    fprintf(fp, "Xspress3 driver details...\n");
+  }
+
+  fprintf(fp, "Xspress3 finished.\n");
+  
+  //Call the base class method
+  asynNDArrayDriver::report(fp, details);
+
+}
+
+    
+
 
 /**
  * Reimplementing this function from asynNDArrayDriver to deal with integer values.
@@ -229,6 +259,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int function = pasynUser->reason;
   int addr = 0;
   asynStatus status = asynSuccess;
+  int maxNumChannels = 0;
   const char *functionName = "Xspress3::writeInt32";
   
   log(logFlow_, "Calling writeInt32", functionName);
@@ -256,7 +287,16 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3StopParam) {
     log(logFlow_, "Stop collecting data", functionName);
     epicsEventSignal(this->stopEvent_);
-  } 
+  }
+  else if (function == xsp3NumChannelsParam) {
+   log(logFlow_, "Set number of channels", functionName);
+   cout << "channels: " << value << endl;
+   getIntegerParam(xsp3MaxNumChannelsParam, &maxNumChannels);
+   if ((value > maxNumChannels) || (value < 1)) {
+     log(logError_, "ERROR: num channels out of range.", functionName);
+     return asynError;
+   }
+  }
   else if (function == xsp3TriggerModeParam) {
    log(logFlow_, "Set trigger mode", functionName);
   } 
@@ -345,21 +385,50 @@ void Xspress3::statusTask(void)
 {
   asynStatus status = asynSuccess;
   epicsEventWaitStatus eventStatus;
-  float timeout = pollingPeriod_;
+  epicsFloat32 timeout = 0;
+  epicsUInt32 forcedFastPolls = 0;
 
   const char* functionName = "Xspress3::statusTask";
 
   log(logFlow_, "Started.", functionName);
 
-   while (1) {
-     eventStatus = epicsEventWaitWithTimeout(statusEvent_, timeout);          
-     if (eventStatus == (epicsEventWaitOK || epicsEventWaitTimeout)) {
-       if (debug_) {
-	 //log(logFlow_, "Got status event.", functionName);
-       }
-       
-     }
-   }
+  
+  while(1) {
+
+    //Read timeout for polling freq.
+    this->lock();
+    if (forcedFastPolls > 0) {
+      timeout = fastPollingPeriod_;
+      forcedFastPolls--;
+    } else {
+      timeout = pollingPeriod_;
+    }
+    this->unlock();
+
+    if (timeout != 0.0) {
+      eventStatus = epicsEventWaitWithTimeout(statusEvent_, timeout);
+    } else {
+      eventStatus = epicsEventWait(statusEvent_);
+    }              
+    if (eventStatus == (epicsEventWaitOK || epicsEventWaitTimeout)) {
+      //We got an event, rather than a timeout.  This is because other software
+      //knows that data has arrived, or device should have changed state (parameters changed, etc.).
+      //Force a minimum number of fast polls, because the device status
+      //might not have changed in the first few polls
+      forcedFastPolls = 5;
+    }
+
+    this->lock();
+    
+    if (debug_) {
+      //log(logFlow_, "Got status event.", functionName);
+    }
+    
+    /* Call the callbacks to update any changes */
+    callParamCallbacks();
+    this->unlock();
+    
+  }
      
  
 
@@ -374,22 +443,57 @@ void Xspress3::dataTask(void)
   asynStatus status = asynSuccess;
   epicsEventWaitStatus eventStatus;
   epicsFloat64 timeout = 0.0;
+  int numChannels = 0;
   const char* functionName = "Xspress3::dataTask";
+  NDArray *pArray;
 
   log(logFlow_, "Started.", functionName);
 
    while (1) {
+
+     //SEE Pilatus driver for example for how to avoid start/stop deadlock.
+     //May need to use acquire/aborted flags like in pilatus driver.
 
      eventStatus = epicsEventWait(startEvent_);          
      if (eventStatus == epicsEventWaitOK) {
         log(logFlow_, "Got start event.", functionName);
       }
 
+     //Get the number of channels in use
+     getIntegerParam(xsp3NumChannelsParam, &numChannels);
 
-      eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
-      if (eventStatus == epicsEventWaitOK) {
-        log(logFlow_, "Got stop event.", functionName);
-      }
+     //Start acqusition here.
+
+     //Unlock and wait for a stop event (see below for example).
+
+     //Readout data
+
+     //Use the API function get_bins_per_mca for spectra length. (should be 4096?)
+
+     //Create data arrays of the correct size using pArray = this->pNDArrayPool->alloc
+     //Set NDArraySize
+     //Increment image counters (NDArrayCounter)
+     //Set uniqueId and timestamp in pArray
+     //Set the scalars as attribute data. Get the list like: this->getAttributes(pArray->pAttributeList);
+
+     for (int chan=1; chan<=numChannels; chan++) {
+       
+     }
+
+     //Call this->unlock(); before doCallbacksGenericPointer(pArray, NDArrayData, 0); (the last param is the address).
+     //Then lock() again, and call pArray->release();
+     
+     //Post arrays to channel access, using doCallbacksFloat64Array. Might have to limit this to a preset freq by 
+     //checking the time since last post. Or, not post at all depending on what the user set (until a stop acqusition is done).
+     
+     //callParamCallbacks();
+
+
+     //Check for a stop event with a small timeout?
+     //eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
+     //if (eventStatus == epicsEventWaitOK) {
+     //  log(logFlow_, "Got stop event.", functionName);
+     //}
 
    }
 

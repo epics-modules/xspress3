@@ -6,7 +6,7 @@ record(waveform, "$(P)$(R)C$(CHAN)_MCA_RBV")
     field(DTYP, "asynInt32ArrayIn")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_MCA")
     field(FTVL, "ULONG")
-    field(NELM, "4096")
+    field(NELM, "$(MAX_SPECTRA)")
     field(SCAN, "I/O Intr")
 }
 
@@ -18,7 +18,7 @@ record(waveform, "$(P)$(R)C$(CHAN)_MCA_CORR_RBV")
     field(DTYP, "asynFloat64ArrayIn")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_MCA_CORR")
     field(FTVL, "DOUBLE")
-    field(NELM, "4096")
+    field(NELM, "$(MAX_SPECTRA)")
     field(SCAN, "I/O Intr")
 }
 
@@ -51,7 +51,7 @@ record(waveform, "$(P)$(R)C$(CHAN)_TOTAL_ARRAY_RBV")
     field(DTYP, "asynInt32ArrayIn")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_TOTAL_ARRAY")
     field(FTVL, "ULONG")
-    field(NELM, "4096")
+    field(NELM, "$(MAX_FRAMES)")
     field(SCAN, "I/O Intr")
 }
 
@@ -63,7 +63,7 @@ record(waveform, "$(P)$(R)C$(CHAN)_TOTAL_CORR_ARRAY_RBV")
     field(DTYP, "asynInt32ArrayIn")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_TOTAL_CORR_ARRAY")
     field(FTVL, "ULONG")
-    field(NELM, "4096")
+    field(NELM, "$(MAX_FRAMES)")
     field(SCAN, "I/O Intr")
 }
 
