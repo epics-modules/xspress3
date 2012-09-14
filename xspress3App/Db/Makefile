@@ -10,6 +10,7 @@ include $(TOP)/configure/CONFIG
 DB += xspress3.template
 DB += xspress3Channel.template
 DB += xspress3ChannelSCA.template
+DB += xspress3DataUpdate.template
 
 include $(TOP)/configure/RULES
 #----------------------------------------

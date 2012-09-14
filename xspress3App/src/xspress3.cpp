@@ -25,6 +25,9 @@ using std::endl;
 //Definitions of static class data members
 const epicsUInt32 Xspress3::logFlow_ = 1;
 const epicsUInt32 Xspress3::logError_ = 2;
+const epicsInt32 Xspress3::ctrlDisable_ = 0;
+const epicsInt32 Xspress3::ctrlEnable_ = 1;
+
 
 //C Function prototypes to tie in with EPICS
 static void xsp3StatusTaskC(void *drvPvt);
@@ -118,9 +121,15 @@ Xspress3::Xspress3(const char *portName, int numChannels, int maxBuffers, size_t
   createParam(xsp3ChanTotalCorrParamString, asynParamFloat64,     &xsp3ChanTotalCorrParam);
   createParam(xsp3ChanTotalArrayParamString,asynParamInt32Array,  &xsp3ChanTotalArrayParam);
   createParam(xsp3ChanTotalCorrArrayParamString,asynParamFloat64Array,  &xsp3ChanTotalCorrArrayParam);
+  createParam(xsp3CtrlDataParamString,         asynParamInt32,       &xsp3CtrlDataParam);
+  createParam(xsp3CtrlMcaParamString,         asynParamInt32,       &xsp3CtrlMcaParam);
+  createParam(xsp3CtrlScaParamString,         asynParamInt32,       &xsp3CtrlScaParam);
+  createParam(xsp3CtrlTotalParamString,         asynParamInt32,       &xsp3CtrlTotalParam);
+  createParam(xsp3CtrlDataPeriodParamString,         asynParamInt32,       &xsp3CtrlDataPeriodParam);
+  createParam(xsp3CtrlMcaPeriodParamString,         asynParamInt32,       &xsp3CtrlMcaPeriodParam);
+  createParam(xsp3CtrlScaPeriodParamString,         asynParamInt32,       &xsp3CtrlScaPeriodParam);
+  createParam(xsp3CtrlTotalPeriodParamString,         asynParamInt32,       &xsp3CtrlTotalPeriodParam);
   
-  
-
  //Initialize non static data members
   acquiring_ = 0;
 
@@ -326,7 +335,54 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
   else if (function == xsp3ChanSca4LlmParam) {
     log(logFlow_, "Setting SCA4 low limit", functionName);
-  } else {
+  } 
+  else if (function == xsp3CtrlDataParam) {
+    if (value == ctrlDisable_) {
+      log(logFlow_, "Disabling all live data update.", functionName);
+      setIntegerParam(xsp3CtrlMcaParam, 0);
+      setIntegerParam(xsp3CtrlScaParam, 0);
+      setIntegerParam(xsp3CtrlTotalParam, 0);
+    } else if (value == ctrlEnable_) {
+      log(logFlow_, "Enabling live data update.", functionName);
+    }
+  } 
+  else if (function == xsp3CtrlMcaParam) {
+    if (value == ctrlDisable_) {
+      log(logFlow_, "Disabling MCA data update.", functionName);
+    } else if (value == ctrlEnable_) {
+      log(logFlow_, "Enabling MCA data update.", functionName);
+      setIntegerParam(xsp3CtrlDataParam, 1);
+    }
+  } 
+  else if (function == xsp3CtrlScaParam) {
+    if (value == ctrlDisable_) {
+      log(logFlow_, "Disabling SCA data update.", functionName);
+    } else if (value == ctrlEnable_) {
+      log(logFlow_, "Enabling SCA data update.", functionName);
+      setIntegerParam(xsp3CtrlDataParam, 1);
+    }
+  } 
+  else if (function == xsp3CtrlTotalParam) {
+    if (value == ctrlDisable_) {
+      log(logFlow_, "Disabling total data update.", functionName);
+    } else if (value == ctrlEnable_) {
+      log(logFlow_, "Enabling total data update.", functionName);
+      setIntegerParam(xsp3CtrlDataParam, 1);
+    }
+  } 
+  else if (function == xsp3CtrlDataPeriodParam) {
+    log(logFlow_, "Setting scalar data update rate.", functionName);
+  }
+  else if (function == xsp3CtrlMcaPeriodParam) {
+    log(logFlow_, "Setting MCA data update rate.", functionName);
+  }
+  else if (function == xsp3CtrlScaPeriodParam) {
+    log(logFlow_, "Setting SCA data update rate.", functionName);
+  }
+  else if (function == xsp3CtrlTotalPeriodParam) {
+    log(logFlow_, "Setting total data update rate.", functionName);
+  }
+  else {
     log(logError_, "No matching parameter.", functionName);
   }
 
@@ -475,6 +531,10 @@ void Xspress3::dataTask(void)
      //Increment image counters (NDArrayCounter)
      //Set uniqueId and timestamp in pArray
      //Set the scalars as attribute data. Get the list like: this->getAttributes(pArray->pAttributeList);
+
+     //Notes on data format:
+     //Save a 2D NDArray for the spectra data (channel * MCA bin)
+     //Attach all the scalar data as attributes to this NDArray (seperate attributes per channel, per scalar).
 
      for (int chan=1; chan<=numChannels; chan++) {
        

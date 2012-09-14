@@ -39,6 +39,7 @@
 
 /* These are the drvInfo strings that are used to identify the parameters.
  * They are used by asyn clients, including standard asyn device support */
+//System wide settings
 #define xsp3ResetParamString              "RESET"
 #define xsp3EraseParamString              "ERASE"
 #define xsp3StartParamString              "START"
@@ -48,6 +49,7 @@
 #define xsp3MaxNumChannelsParamString     "MAX_NUM_CHANNELS"
 #define xsp3TriggerModeParamString        "TRIGGER_MODE"
 #define xsp3NumFramesParamString          "NUM_FRAMES"
+//Settings for a channel
 #define xsp3ChanMcaParamString            "CHAN_MCA"
 #define xsp3ChanMcaCorrParamString        "CHAN_MCA_CORR"
 #define xsp3ChanSca1ParamString           "CHAN_SCA1"
@@ -78,6 +80,15 @@
 #define xsp3ChanTotalCorrParamString      "CHAN_TOTAL_CORR"
 #define xsp3ChanTotalArrayParamString     "CHAN_TOTAL_ARRAY"
 #define xsp3ChanTotalCorrArrayParamString "CHAN_TOTAL_CORR_ARRAY"
+//Parameters to control single value and array update rates.
+#define xsp3CtrlDataParamString              "CTRL_DATA_UPDATE"
+#define xsp3CtrlMcaParamString              "CTRL_MCA_UPDATE"
+#define xsp3CtrlScaParamString              "CTRL_SCA_UPDATE"
+#define xsp3CtrlTotalParamString              "CTRL_TOTAL_UPDATE"
+#define xsp3CtrlDataPeriodParamString              "CTRL_DATA_UPDATE_PERIOD"
+#define xsp3CtrlMcaPeriodParamString              "CTRL_MCA_UPDATE_PERIOD"
+#define xsp3CtrlScaPeriodParamString              "CTRL_SCA_UPDATE_PERIOD"
+#define xsp3CtrlTotalPeriodParamString              "CTRL_TOTAL_UPDATE_PERIOD"
 
 
 
@@ -109,6 +120,8 @@ class Xspress3 : public asynNDArrayDriver {
   //Put private static data members here
   static const epicsUInt32 logFlow_;
   static const epicsUInt32 logError_;
+  static const epicsInt32 ctrlDisable_;
+  static const epicsInt32 ctrlEnable_;
 
   //Put private dynamic here
   epicsUInt32 acquiring_; //Data acquisition in progress
@@ -164,7 +177,15 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3ChanTotalCorrParam;  
   int xsp3ChanTotalArrayParam;            
   int xsp3ChanTotalCorrArrayParam;  
-  #define LAST_DRIVER_COMMAND xsp3ChanTotalCorrArrayParam
+  int xsp3CtrlDataParam;
+  int xsp3CtrlMcaParam;
+  int xsp3CtrlScaParam;
+  int xsp3CtrlTotalParam;
+  int xsp3CtrlDataPeriodParam;
+  int xsp3CtrlMcaPeriodParam;
+  int xsp3CtrlScaPeriodParam;
+  int xsp3CtrlTotalPeriodParam;
+  #define LAST_DRIVER_COMMAND xsp3CtrlTotalPeriodParam
 
 };
 

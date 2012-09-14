@@ -5,6 +5,7 @@
 #
 # Channel dependant records are in xspress3Channel.template
 # Channel SCA records are in xspress3ChannelSCA.template
+# Records to control live data update are in xspress3DataUpdate.template
 #
 # Macros:
 #   P,R - PV name
@@ -166,6 +167,8 @@ record(longin, "$(P)$(R)NUM_FRAMES_RBV")
    field(SCAN, "I/O Intr")
 }
 
+
+include "xspress3DataUpdate.template"
 
 
 substitute "CHAN=1"
