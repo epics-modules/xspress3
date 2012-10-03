@@ -6,7 +6,7 @@ include $(TOP)/configure/CONFIG
 # Build an Diamond Support Module
 # -------------------------------
 
-LIBRARY_IOC_Linux += xspress3
+LIBRARY_IOC_Linux += xspress3Epics
 
 # xxxRecord.dbd will be installed into <top>/dbd
 DBD += xspress3.dbd
@@ -17,10 +17,10 @@ xspress3_DBD += asyn.dbd
 xspress3_DBD += ADSupport.dbd
 
 # The following are compiled and added to the support library
-xspress3_SRCS += xspress3.cpp
+xspress3Epics_SRCS += xspress3Epics.cpp
 
 # We need to link against the EPICS Base libraries
-xspress3_LIBS += $(EPICS_BASE_IOC_LIBS)
+xspress3Epics_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 
 include $(TOP)/configure/RULES

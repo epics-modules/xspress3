@@ -33,7 +33,7 @@ example_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 
 # This line says that this IOC Application depends on the
 # xxx Support Module
-example_LIBS += xspress3
+example_LIBS += xspress3Epics
 example_LIBS += asyn
 example_LIBS += ADBase
 example_LIBS += NDPlugin

@@ -17,7 +17,7 @@ extern "C" {
   //#include "xspress3sdk.h"
 }
 
-#include "xspress3.h"
+#include "xspress3Epics.h"
 
 using std::cout;
 using std::endl;
