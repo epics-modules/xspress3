@@ -127,6 +127,7 @@ class Xspress3 : public asynNDArrayDriver {
   epicsUInt32 acquiring_; //Data acquisition in progress
   epicsUInt32 running_; //driver is in good state and we can read data from device
   epicsUInt32 debug_;
+  int xsp3_handle_;
 
   const epicsInt32 numChannels_; //The number of channels (this is a constructor param).
 

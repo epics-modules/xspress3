@@ -52,7 +52,7 @@ Xspress3::Xspress3(const char *portName, int numCards, int numTf, int numChannel
 		      1, /* Autoconnect */
 		      0, /* Default priority */
 		      0), /* Default stack size*/
-    numChannels_(numChannels), debug_(debug)
+    debug_(debug), numChannels_(numChannels) 
 {
   int status = asynSuccess;
   const char *functionName = "Xspress3::Xspress3";
@@ -189,19 +189,33 @@ Xspress3::Xspress3(const char *portName, int numCards, int numTf, int numChannel
   //NDArraySizeY
   //NDArraySize
 
-  //Set up the xspress3 system
+  //Set up the xspress3 system (might have to make all this callable at runtime, using PVs to set the parameters)
   log(logFlow_, "Setting up xsp3 system...", functionName);
-  int xspStatus = xsp3_config(numCards, numTf, "172.23.0.1", -1, NULL, numChannels, 1, NULL, debug_, 0);
-  checkStatus(xspStatus, "xsp3_config");
-  log(logFlow_, "Finished setting up xsp3.", functionName);
+  xsp3_handle_ = xsp3_config(numCards, numTf, "172.23.0.1", -1, NULL, numChannels, 1, NULL, debug_, 0);
+  if (xsp3_handle_ <= 0) {
+    checkStatus(xsp3_handle_, "xsp3_config");
+    log(logError_, "Error setting up xsp3_config.", functionName);
+  } else {
+    log(logFlow_, "Finished setting up xsp3.", functionName);
+    
+    int xsp3_status = 0;
 
-
-  //Do we need to do a status read now?
-  //statusRead();
-
-  running_ = 1;
-  status |= setStringParam(xsp3StatusParam, "System Init Complete");
-
+    for (int i=0; i<numCards; i++) {
+      xsp3_status = xsp3_clocks_setup(xsp3_handle_, i, XSP3_CLK_SRC_INT, XSP3_CLK_FLAGS_MASTER, 0);
+      if (xsp3_status <= 0) {
+	checkStatus(xsp3_handle_, "xsp3_clocks_setup");
+	log(logError_, "Error setting up xsp3_clocks_setup.", functionName);
+      }
+    }
+    
+    //Do we need to do a status read now?
+    //statusRead();
+    
+    running_ = 1;
+    status |= setStringParam(xsp3StatusParam, "System Init Complete");
+    
+  }
+  
   callParamCallbacks();
 
   if (status) {
