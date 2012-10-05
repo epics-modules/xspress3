@@ -12,7 +12,15 @@ example_registerRecordDeviceDriver(pdbbase)
 ##################################################
 # Start Xspress3 driver
 
-xspress3Config("XSP3", 8, -1, -1)
+# Parameters
+# Asyn port
+# Num Cards (used in xsp3_config)
+# Num Time Frames (used in xsp3_config)
+# Num Channels (used in xsp3_config)
+# Asyn max buffers (0=default)
+# Asyn max memory (0=default)
+# Debug (0=off, 1=on)
+xspress3Config("XSP3", 1, 0, 8, -1, -1, 1)
 
 #asynSetTraceMask("XSP3",0,0xFF)
 #asynSetTraceIOMask("XSP3",0,0xFF)
