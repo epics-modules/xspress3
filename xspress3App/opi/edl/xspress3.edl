@@ -36,24 +36,9 @@ major 4
 minor 0
 release 0
 x 355
-y 230
-w 250
-h 475
-lineColor index 14
-fill
-fillColor index 5
-endObjectProperties
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 355
 y 50
 w 250
-h 160
+h 400
 lineColor index 14
 fill
 fillColor index 5
@@ -361,162 +346,16 @@ minor 1
 release 0
 x 355
 y 40
-w 130
+w 143
 h 14
 font "arial-bold-r-12.0"
 fgColor index 14
 bgColor index 7
 value {
-  "  System Information  "
+  "  System Configuration  "
 }
 autoSize
 border
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 370
-y 300
-w 220
-h 30
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "SCA Data & Window Settings"
-numPvs 4
-numDsps 8
-displayFileName {
-  0 "xspress3_sca"
-  1 "xspress3_sca"
-  2 "xspress3_sca"
-  3 "xspress3_sca"
-  4 "xspress3_sca"
-  5 "xspress3_sca"
-  6 "xspress3_sca"
-  7 "xspress3_sca"
-}
-menuLabel {
-  0 "Channel 1"
-  1 "Channel 2"
-  2 "Channel 3"
-  3 "Channel 4"
-  4 "Channel 5"
-  5 "Channel 6"
-  6 "Channel 7"
-  7 "Channel 8"
-}
-setPosition {
-  0 "parentWindow"
-  1 "parentWindow"
-  2 "parentWindow"
-  3 "parentWindow"
-  4 "parentWindow"
-  5 "parentWindow"
-  6 "parentWindow"
-  7 "parentWindow"
-}
-symbols {
-  0 "CHAN=1"
-  1 "CHAN=2"
-  2 "CHAN=3"
-  3 "CHAN=4"
-  4 "CHAN=5"
-  5 "CHAN=6"
-  6 "CHAN=7"
-  7 "CHAN=8"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 355
-y 220
-w 192
-h 14
-font "arial-bold-r-12.0"
-fgColor index 14
-bgColor index 7
-value {
-  "  Data Displays and File Saving  "
-}
-autoSize
-border
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 370
-y 380
-w 220
-h 30
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "File Saving..."
-numPvs 4
-numDsps 2
-displayFileName {
-  0 "NDFileHDF5.edl"
-  1 "NDFileNetCDF.edl"
-}
-menuLabel {
-  0 "HDF5"
-  1 "netCDF"
-}
-setPosition {
-  0 "parentWindow"
-  1 "parentWindow"
-}
-symbols {
-  0 "R=HDF:"
-  1 "R=CDF:"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 370
-y 260
-w 220
-h 30
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "MCA Plots"
-numPvs 4
-numDsps 2
-displayFileName {
-  0 "xspress3_mca.edl"
-  1 "NDFileNetCDF.edl"
-}
-menuLabel {
-  0 "Channel 1 MCA"
-}
-setPosition {
-  0 "parentWindow"
-}
 endObjectProperties
 
 # (Message Button)
@@ -562,32 +401,6 @@ font "arial-bold-r-18.0"
 3d
 endObjectProperties
 
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 370
-y 340
-w 220
-h 30
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Total Rate Readout"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_total"
-}
-setPosition {
-  0 "parentWindow"
-}
-endObjectProperties
-
 # (Text Monitor)
 object activeXTextDspClass:noedit
 beginObjectProperties
@@ -628,25 +441,6 @@ bgColor index 10
 useDisplayBg
 value {
   "Max Num Channels"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 65
-y 305
-w 95
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Num Frames"
 }
 endObjectProperties
 
@@ -710,110 +504,6 @@ fastUpdate
 useHexPrefix
 newPos
 objType "monitors"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 165
-y 300
-w 80
-h 25
-controlPv "$(P):NUM_FRAMES"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 250
-y 300
-w 80
-h 25
-controlPv "$(P):NUM_FRAMES_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 50
-y 340
-w 105
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Num Channels"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 250
-y 335
-w 80
-h 25
-controlPv "$(P):NUM_CHANNELS_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-showUnits
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 165
-y 335
-w 80
-h 25
-controlPv "$(P):NUM_CHANNELS"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
 endObjectProperties
 
 # (Static Text)
@@ -1201,5 +891,522 @@ value {
 }
 autoSize
 border
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 355
+y 465
+w 250
+h 235
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 355
+y 475
+w 250
+h 225
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 545
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "SCA Data & Window Settings"
+numPvs 4
+numDsps 8
+displayFileName {
+  0 "xspress3_sca"
+  1 "xspress3_sca"
+  2 "xspress3_sca"
+  3 "xspress3_sca"
+  4 "xspress3_sca"
+  5 "xspress3_sca"
+  6 "xspress3_sca"
+  7 "xspress3_sca"
+}
+menuLabel {
+  0 "Channel 1"
+  1 "Channel 2"
+  2 "Channel 3"
+  3 "Channel 4"
+  4 "Channel 5"
+  5 "Channel 6"
+  6 "Channel 7"
+  7 "Channel 8"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+  2 "parentWindow"
+  3 "parentWindow"
+  4 "parentWindow"
+  5 "parentWindow"
+  6 "parentWindow"
+  7 "parentWindow"
+}
+symbols {
+  0 "CHAN=1"
+  1 "CHAN=2"
+  2 "CHAN=3"
+  3 "CHAN=4"
+  4 "CHAN=5"
+  5 "CHAN=6"
+  6 "CHAN=7"
+  7 "CHAN=8"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 355
+y 465
+w 192
+h 14
+font "arial-bold-r-12.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Data Displays and File Saving  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 625
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "File Saving..."
+numPvs 4
+numDsps 2
+displayFileName {
+  0 "NDFileHDF5.edl"
+  1 "NDFileNetCDF.edl"
+}
+menuLabel {
+  0 "HDF5"
+  1 "netCDF"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+}
+symbols {
+  0 "R=HDF:"
+  1 "R=CDF:"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 505
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "MCA Plots"
+numPvs 4
+numDsps 2
+displayFileName {
+  0 "xspress3_mca.edl"
+  1 "NDFileNetCDF.edl"
+}
+menuLabel {
+  0 "Channel 1 MCA"
+}
+setPosition {
+  0 "parentWindow"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 585
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Total Rate Readout"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_total"
+}
+setPosition {
+  0 "parentWindow"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 475
+y 100
+w 60
+h 25
+controlPv "$(P):NUM_CHANNELS"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 365
+y 105
+w 105
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Num Channels"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 540
+y 100
+w 55
+h 25
+controlPv "$(P):NUM_CHANNELS_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 540
+y 135
+w 55
+h 25
+controlPv "$(P):NUM_FRAMES_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 475
+y 135
+w 60
+h 25
+controlPv "$(P):NUM_FRAMES"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 375
+y 140
+w 95
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Num Frames"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 385
+y 175
+w 95
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Num Cards"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 540
+y 170
+w 55
+h 25
+controlPv "$(P):NUM_CARDS_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 475
+y 170
+w 60
+h 25
+controlPv "$(P):NUM_CARDS"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 365
+y 370
+w 135
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Config File Path"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 365
+y 395
+w 230
+h 20
+controlPv "$(P):CONFIG_PATH"
+font "helvetica-bold-r-12.0"
+fgColor index 25
+bgColor index 3
+editable
+motifWidget
+limitsFromDb
+nullColor index 0
+useKp
+file
+useHexPrefix
+newPos
+inputFocusUpdates
+objType "controls"
+endObjectProperties
+
+# (Textupdate)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 365
+y 420
+w 230
+h 20
+controlPv "$(P):CONFIG_PATH_RBV"
+fgColor index 16
+fgAlarm
+bgColor index 10
+fill
+font "arial-bold-r-12.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 365
+y 210
+w 95
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):CONNECT"
+pressValue "1"
+onLabel "Connect"
+offLabel "Connect"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 465
+y 210
+w 95
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):DISCONNECT"
+pressValue "1"
+onLabel "Disconnect"
+offLabel "Disconnect"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 210
+w 35
+h 35
+controlPv "$(P):CONNECTED"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
 endObjectProperties
 

@@ -49,6 +49,11 @@
 #define xsp3MaxNumChannelsParamString     "MAX_NUM_CHANNELS"
 #define xsp3TriggerModeParamString        "TRIGGER_MODE"
 #define xsp3NumFramesParamString          "NUM_FRAMES"
+#define xsp3NumCardsParamString           "NUM_CARDS"
+#define xsp3ConfigPathParamString           "CONFIG_PATH"
+#define xsp3ConnectParamString           "CONNECT"
+#define xsp3ConnectedParamString           "CONNECTED"
+#define xsp3DisconnectParamString           "DISCONNECT"
 //Settings for a channel
 #define xsp3ChanMcaParamString            "CHAN_MCA"
 #define xsp3ChanMcaCorrParamString        "CHAN_MCA_CORR"
@@ -93,19 +98,21 @@
 
 
 extern "C" {
-  int xspress3Config(const char *portName, int numCards, int numTf, int numChannels, const char *configPath, int maxBuffers, size_t maxMemory, int debug);
+  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxBuffers, size_t maxMemory, int debug);
 }
 
 
 class Xspress3 : public asynNDArrayDriver {
 
  public:
-  Xspress3(const char *portName, int numCards, int numTf, int numChannels, const char *portName, int maxBuffers, size_t maxMemory, int debug);
+  Xspress3(const char *portName, int numChannels, const char *baseIP, int maxBuffers, size_t maxMemory, int debug);
   virtual ~Xspress3();
 
   /* These are the methods that we override from asynPortDriver */
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
   virtual asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
+  virtual asynStatus writeOctet(asynUser *pasynUser, const char *value, 
+                                    size_t nChars, size_t *nActual);
   virtual void report(FILE *fp, int details);
 
   void dataTask(void);
@@ -116,6 +123,8 @@ class Xspress3 : public asynNDArrayDriver {
   //Put private functions here
   void log(epicsUInt32 mask, const char *msg, const char *function);
   void checkStatus(int status, const char *function, const char *parentFunction);
+  asynStatus connect(void);
+  asynStatus disconnect(void);
 
   //Put private static data members here
   static const epicsUInt32 logFlow_;
@@ -130,6 +139,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3_handle_;
 
   const epicsInt32 numChannels_; //The number of channels (this is a constructor param).
+  char baseIP_[24]; //Constructor param - IP address of host system
 
   epicsEventId statusEvent_;
   epicsEventId startEvent_;
@@ -148,6 +158,11 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3MaxNumChannelsParam;
   int xsp3TriggerModeParam;
   int xsp3NumFramesParam;
+  int xsp3NumCardsParam;
+  int xsp3ConfigPathParam;
+  int xsp3ConnectParam;
+  int xsp3ConnectedParam;
+  int xsp3DisconnectParam;
   int xsp3ChanMcaParam;             
   int xsp3ChanMcaCorrParam;         
   int xsp3ChanSca1Param;             

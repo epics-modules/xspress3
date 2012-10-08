@@ -167,6 +167,94 @@ record(longin, "$(P)$(R)NUM_FRAMES_RBV")
    field(SCAN, "I/O Intr")
 }
 
+# ///
+# /// Set the number of xspress3 cards to set up. 
+# /// This is used in the xsp3_config function.
+# ///
+record(longout, "$(P)$(R)NUM_CARDS")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_CARDS")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Get the number of xspress3 cards to set up. 
+# /// This is used in the xsp3_config function.
+# ///
+record(longin, "$(P)$(R)NUM_CARDS_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_CARDS")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Set the path used for the file configuration. 
+# /// This is used in the xsp3_restore_config function.
+# ///
+record(waveform, "$(P)$(R)CONFIG_PATH")
+{
+    field(PINI, "YES")
+    field(DTYP, "asynOctetWrite")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONFIG_PATH")
+    field(FTVL, "CHAR")
+    field(NELM, "256")
+}
+
+# ///
+# /// Get the path used for the file configuration. 
+# /// This is used in the xsp3_restore_config function.
+# ///
+record(waveform, "$(P)$(R)CONFIG_PATH_RBV")
+{
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONFIG_PATH")
+    field(FTVL, "CHAR")
+    field(NELM, "256")
+    field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Connect to the xspress3. This runs the xsp3_config function as
+# /// well as some other setup functions.
+# ///
+record(bo, "$(P)$(R)CONNECT")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONNECT")
+   field(ZNAM,"Connect")
+   field(ONAM,"Connect")	
+}
+
+# /// 
+# /// Show the connected status.
+# ///
+record(bi,"$(P)$(R)CONNECTED") {
+    field(DTYP, "asynInt32")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONNECTED")
+    field(ZNAM,"Disconnected")
+    field(ONAM,"Connected")
+    field(PINI, "YES")
+    field(VAL, "0")
+}
+
+
+# ///
+# /// Disconnect from the xspress3. This runs the xsp3_close function as
+# /// well as some other setup functions.
+# ///
+record(bo, "$(P)$(R)DISCONNECT")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))DISCONNECT")
+   field(ZNAM,"Disconnect")
+   field(ONAM,"Disconnect")	
+}
+
+
 
 include "xspress3DataUpdate.template"
 
