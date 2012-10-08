@@ -54,6 +54,8 @@
 #define xsp3ConnectParamString           "CONNECT"
 #define xsp3ConnectedParamString           "CONNECTED"
 #define xsp3DisconnectParamString           "DISCONNECT"
+#define xsp3SaveSettingsParamString           "SAVE_SETTINGS"
+#define xsp3RestoreSettingsParamString           "RESTORE_SETTINGS"
 //Settings for a channel
 #define xsp3ChanMcaParamString            "CHAN_MCA"
 #define xsp3ChanMcaCorrParamString        "CHAN_MCA_CORR"
@@ -125,6 +127,8 @@ class Xspress3 : public asynNDArrayDriver {
   void checkStatus(int status, const char *function, const char *parentFunction);
   asynStatus connect(void);
   asynStatus disconnect(void);
+  asynStatus saveSettings(void);
+  asynStatus restoreSettings(void);
 
   //Put private static data members here
   static const epicsUInt32 logFlow_;
@@ -163,6 +167,8 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3ConnectParam;
   int xsp3ConnectedParam;
   int xsp3DisconnectParam;
+  int xsp3SaveSettingsParam;
+  int xsp3RestoreSettingsParam;
   int xsp3ChanMcaParam;             
   int xsp3ChanMcaCorrParam;         
   int xsp3ChanSca1Param;             

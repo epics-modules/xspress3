@@ -254,6 +254,34 @@ record(bo, "$(P)$(R)DISCONNECT")
    field(ONAM,"Disconnect")	
 }
 
+# ///
+# /// Save the current xspress3 settings to a file. This makes use of the 
+# /// API function xsp3_save_settings(). This does nothing if we are not 
+# /// connected or CONFIG_PATH is not set.
+# ///
+record(bo, "$(P)$(R)SAVE_SETTINGS")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))SAVE_SETTINGS")
+   field(ZNAM,"Save")
+   field(ONAM,"Save")	
+}
+
+
+# ///
+# /// Restore the xspress3 settings from a file. This makes use of the 
+# /// API function xsp3_save_settings(). This does nothing if we are not 
+# /// connected or CONFIG_PATH is not set.
+# ///
+record(bo, "$(P)$(R)RESTORE_SETTINGS")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))RESTORE_SETTINGS")
+   field(ZNAM,"Restore")
+   field(ONAM,"Restore")	
+}
+
+
 
 
 include "xspress3DataUpdate.template"

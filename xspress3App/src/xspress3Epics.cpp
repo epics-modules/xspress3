@@ -96,6 +96,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3ConnectParamString,      asynParamInt32,       &xsp3ConnectParam);
   createParam(xsp3ConnectedParamString,      asynParamInt32,       &xsp3ConnectedParam);
   createParam(xsp3DisconnectParamString,      asynParamInt32,       &xsp3DisconnectParam);
+  createParam(xsp3SaveSettingsParamString,      asynParamInt32,       &xsp3SaveSettingsParam);
+  createParam(xsp3RestoreSettingsParamString,      asynParamInt32,       &xsp3RestoreSettingsParam);
   //These params will use different param lists based on asyn address
   createParam(xsp3ChanMcaParamString,       asynParamInt32Array,  &xsp3ChanMcaParam);
   createParam(xsp3ChanMcaCorrParamString,   asynParamFloat64Array,&xsp3ChanMcaCorrParam);
@@ -298,6 +300,69 @@ asynStatus Xspress3::disconnect(void)
   return status;
 }
 
+/**
+ * Save the system settings for the xspress3 system. 
+ * This simply calls xsp3_save_settings().
+ */
+asynStatus Xspress3::saveSettings(void)
+{
+  asynStatus status = asynSuccess;
+  int xsp3_status = 0;
+  char configPath[256];
+  int connected = 0;
+  const char *functionName = "Xspress3::saveSettings";
+
+  log(logFlow_, "Calling saveSettings. This calls xsp3_save_settings().", functionName);
+
+  getIntegerParam(xsp3ConnectedParam, &connected);
+  getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
+
+  if ((configPath == NULL) || (connected != 1)) {
+    log(logError_, "ERROR: Trying to call xsp3_save_settings, but system not setup correctly.", functionName);
+    status = asynError;
+  } else {
+    xsp3_status = xsp3_save_settings(xsp3_handle_, configPath);
+    if (xsp3_status <= 0) {
+      checkStatus(xsp3_status, "xsp3_save_settings", functionName);
+      status = asynError;
+    }
+  }
+  
+  return status;
+}
+
+/**
+ * Restore the system settings for the xspress3 system. 
+ * This simply calls xsp3_restore_settings().
+ */
+asynStatus Xspress3::restoreSettings(void)
+{
+  asynStatus status = asynSuccess;
+  int xsp3_status = 0;
+  char configPath[256];
+  int connected = 0;
+  const char *functionName = "Xspress3::restoreSettings";
+
+  log(logFlow_, "Calling saveSettings. This calls xsp3_restore_settings().", functionName);
+
+  getIntegerParam(xsp3ConnectedParam, &connected);
+  getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
+
+  if ((configPath == NULL) || (connected != 1)) {
+    log(logError_, "ERROR: Trying to call xsp3_restore_settings, but system not setup correctly.", functionName);
+    status = asynError;
+  } else {
+    xsp3_status = xsp3_restore_settings(xsp3_handle_, configPath, 0);
+    if (xsp3_status <= 0) {
+      checkStatus(xsp3_status, "xsp3_restore_settings", functionName);
+      status = asynError;
+    }
+  }
+  
+  return status;
+}
+
+
 
 /**
  * Wrapper for asynPrint and local debug prints. If the debug_ data member
@@ -446,6 +511,14 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     log(logFlow_, "Run the Disconnect function.", functionName);
     status = disconnect();
   }
+  else if (function == xsp3SaveSettingsParam) {
+    log(logFlow_, "Run the saveSettings function.", functionName);
+    status = saveSettings();
+  }
+  else if (function == xsp3RestoreSettingsParam) {
+    log(logFlow_, "Run the restoreSettings function.", functionName);
+    status = restoreSettings();
+  }
   else if (function == xsp3ChanSca1HlmParam) {
     log(logFlow_, "Setting SCA1 high limit.", functionName);
   } 
@@ -518,6 +591,10 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
   else {
     log(logError_, "No matching parameter.", functionName);
+  }
+
+  if (status != asynSuccess) {
+    return asynError;
   }
 
   //Set in param lib so the user sees a readback straight away. We might overwrite this in the 

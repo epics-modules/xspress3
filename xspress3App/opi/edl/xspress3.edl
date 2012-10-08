@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 62
-y 60
+x 61
+y 59
 w 618
 h 762
 font "arial-medium-r-12.0"
@@ -1288,7 +1288,7 @@ major 4
 minor 1
 release 0
 x 365
-y 370
+y 340
 w 135
 h 20
 font "arial-bold-r-14.0"
@@ -1307,7 +1307,7 @@ major 4
 minor 5
 release 0
 x 365
-y 395
+y 360
 w 230
 h 20
 controlPv "$(P):CONFIG_PATH"
@@ -1333,7 +1333,7 @@ major 10
 minor 0
 release 0
 x 365
-y 420
+y 385
 w 230
 h 20
 controlPv "$(P):CONFIG_PATH_RBV"
@@ -1408,5 +1408,53 @@ onColor index 15
 offColor index 19
 lineWidth 2
 numBits 1
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 365
+y 410
+w 95
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):SAVE_SETTINGS"
+pressValue "1"
+onLabel "Save"
+offLabel "Save"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 470
+y 410
+w 95
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):RESTORE_SETTINGS"
+pressValue "1"
+onLabel "Restore"
+offLabel "Restore"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
 endObjectProperties
 
