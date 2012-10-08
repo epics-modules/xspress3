@@ -93,14 +93,14 @@
 
 
 extern "C" {
-  int xspress3Config(const char *portName, int numCards, int numTf, int numChannels, int maxBuffers, size_t maxMemory, int debug);
+  int xspress3Config(const char *portName, int numCards, int numTf, int numChannels, const char *configPath, int maxBuffers, size_t maxMemory, int debug);
 }
 
 
 class Xspress3 : public asynNDArrayDriver {
 
  public:
-  Xspress3(const char *portName, int numCards, int numTf, int numChannels, int maxBuffers, size_t maxMemory, int debug);
+  Xspress3(const char *portName, int numCards, int numTf, int numChannels, const char *portName, int maxBuffers, size_t maxMemory, int debug);
   virtual ~Xspress3();
 
   /* These are the methods that we override from asynPortDriver */
@@ -115,7 +115,7 @@ class Xspress3 : public asynNDArrayDriver {
 
   //Put private functions here
   void log(epicsUInt32 mask, const char *msg, const char *function);
-  void checkStatus(int status, const char *function);
+  void checkStatus(int status, const char *function, const char *parentFunction);
 
   //Put private static data members here
   static const epicsUInt32 logFlow_;

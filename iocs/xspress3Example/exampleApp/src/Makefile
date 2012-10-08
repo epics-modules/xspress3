@@ -31,9 +31,8 @@ example_SRCS_vxWorks += -nil-
 # The following adds object code from base/src/vxWorks
 example_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 
-#USR_INCLUDES_Linux += $(XSPRESS3_API)/lib/objs.x86_64/
-
 USR_LDFLAGS += -L$(BOOST)/stage/lib/
+#USR_LDFLAGS += -L$(BOOST)
 USR_LDFLAGS += -L$(XSPRESS3_API)/libs/libs.linux.x86_64/lib/
 
 # This line says that this IOC Application depends on the

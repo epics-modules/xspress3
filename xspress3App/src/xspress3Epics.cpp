@@ -40,7 +40,7 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param portName The Asyn port name to use
  * @param maxChannels The number of channels to use (eg. 8)
  */
-Xspress3::Xspress3(const char *portName, int numCards, int numTf, int numChannels, int maxBuffers, size_t maxMemory, int debug)
+Xspress3::Xspress3(const char *portName, int numCards, int numTf, int numChannels, const char *configPath, int maxBuffers, size_t maxMemory, int debug)
   : asynNDArrayDriver(portName,
 		      numChannels, /* maxAddr - channels use different param lists*/ 
 		      NUM_DRIVER_PARAMS,
@@ -193,21 +193,30 @@ Xspress3::Xspress3(const char *portName, int numCards, int numTf, int numChannel
   log(logFlow_, "Setting up xsp3 system...", functionName);
   xsp3_handle_ = xsp3_config(numCards, numTf, "172.23.0.1", -1, NULL, numChannels, 1, NULL, debug_, 0);
   if (xsp3_handle_ <= 0) {
-    checkStatus(xsp3_handle_, "xsp3_config");
-    log(logError_, "Error setting up xsp3_config.", functionName);
+    checkStatus(xsp3_handle_, "xsp3_config", functionName);
   } else {
     log(logFlow_, "Finished setting up xsp3.", functionName);
     
     int xsp3_status = 0;
 
+    //Set up clocks on each card
     for (int i=0; i<numCards; i++) {
       xsp3_status = xsp3_clocks_setup(xsp3_handle_, i, XSP3_CLK_SRC_INT, XSP3_CLK_FLAGS_MASTER, 0);
       if (xsp3_status <= 0) {
-	checkStatus(xsp3_handle_, "xsp3_clocks_setup");
-	log(logError_, "Error setting up xsp3_clocks_setup.", functionName);
+	checkStatus(xsp3_handle_, "xsp3_clocks_setup", functionName);
       }
     }
     
+    //Restore settings from a file
+    cout << "Calling xsp3_restore_settings with path: " << configPath << endl;
+    xsp3_status = xsp3_restore_settings(xsp3_handle_, const_cast<char *>(configPath), 0);
+    if (xsp3_status <= 0) {
+      checkStatus(xsp3_handle_, "xsp3_restore_settings", functionName);
+    }
+
+    
+
+
     //Do we need to do a status read now?
     //statusRead();
     
@@ -257,8 +266,9 @@ void Xspress3::log(epicsUInt32 mask, const char *msg, const char *function)
  * The function also take a pointer to the name of the function.
  * @param status The int status returned from an xsp3 function.
  * @param function The name of the called xsp3 function.
+ * @param parentFunction The name of the parent function.
  */
-void Xspress3::checkStatus(int status, const char *function)
+void Xspress3::checkStatus(int status, const char *function, const char *parentFunction)
 {
   if (status == XSP3_OK) {
     log(logFlow_, "XSP3_OK", function);
@@ -278,7 +288,12 @@ void Xspress3::checkStatus(int status, const char *function)
     log(logError_, "XSP3_INVALID_SCOPE_MOD", function);
   } else {
     log(logError_, "Unknown XSP3 error code", function);
-  } 
+  }
+
+  if (status != XSP3_OK) {
+    log(logError_, "ERROR calling XSP3 function.", parentFunction);
+  }
+ 
 }
 
 
@@ -638,13 +653,13 @@ static void xsp3DataTaskC(void *drvPvt)
  */
 extern "C" {
 
-  int xspress3Config(const char *portName, int numCards, int numTf, int numChannels, int maxBuffers, size_t maxMemory, int debug)
+  int xspress3Config(const char *portName, int numCards, int numTf, int numChannels, const char *configPath, int maxBuffers, size_t maxMemory, int debug)
   {
     asynStatus status = asynSuccess;
     
     /*Instantiate class.*/
     try {
-      new Xspress3(portName, numCards, numTf, numChannels, maxBuffers, maxMemory, debug);
+      new Xspress3(portName, numCards, numTf, numChannels, configPath, maxBuffers, maxMemory, debug);
     } catch (...) {
       cout << "Unknown exception caught when trying to construct Xspress3." << endl;
       status = asynError;
@@ -660,21 +675,23 @@ extern "C" {
   static const iocshArg xspress3ConfigArg1 = {"Num Cards", iocshArgInt};
   static const iocshArg xspress3ConfigArg2 = {"Num Time Frames", iocshArgInt};
   static const iocshArg xspress3ConfigArg3 = {"Num Channels", iocshArgInt};
-  static const iocshArg xspress3ConfigArg4 = {"Max Buffers", iocshArgInt};
-  static const iocshArg xspress3ConfigArg5 = {"Max Memory", iocshArgInt};
-  static const iocshArg xspress3ConfigArg6 = {"Debug", iocshArgInt};
+  static const iocshArg xspress3ConfigArg4 = {"Config Path", iocshArgString};
+  static const iocshArg xspress3ConfigArg5 = {"Max Buffers", iocshArgInt};
+  static const iocshArg xspress3ConfigArg6 = {"Max Memory", iocshArgInt};
+  static const iocshArg xspress3ConfigArg7 = {"Debug", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
 							 &xspress3ConfigArg1,
 							 &xspress3ConfigArg2,
 							 &xspress3ConfigArg3,
 							 &xspress3ConfigArg4,
 							 &xspress3ConfigArg5,
-  						         &xspress3ConfigArg6};
+  						         &xspress3ConfigArg6,
+							 &xspress3ConfigArg7};
   
-  static const iocshFuncDef configXspress3 = {"xspress3Config", 7, xspress3ConfigArgs};
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 8, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
-    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].ival, args[4].ival, args[5].ival, args[6].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].ival, args[4].sval, args[5].ival, args[6].ival, args[7].ival);
   }
   
   static void xspress3Register(void)
