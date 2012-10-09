@@ -104,28 +104,16 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3ChanMcaCorrParamString,   asynParamFloat64Array,&xsp3ChanMcaCorrParam);
   createParam(xsp3ChanSca1ParamString,      asynParamInt32,       &xsp3ChanSca1Param);
   createParam(xsp3ChanSca2ParamString,      asynParamInt32,       &xsp3ChanSca2Param);
-  createParam(xsp3ChanSca3ParamString,      asynParamInt32,       &xsp3ChanSca3Param);
-  createParam(xsp3ChanSca4ParamString,      asynParamInt32,       &xsp3ChanSca4Param);
   createParam(xsp3ChanSca1CorrParamString,  asynParamFloat64,     &xsp3ChanSca1CorrParam);
   createParam(xsp3ChanSca2CorrParamString,  asynParamFloat64,     &xsp3ChanSca2CorrParam);
-  createParam(xsp3ChanSca3CorrParamString,  asynParamFloat64,     &xsp3ChanSca3CorrParam);
-  createParam(xsp3ChanSca4CorrParamString,  asynParamFloat64,     &xsp3ChanSca4CorrParam);
   createParam(xsp3ChanSca1ArrayParamString,asynParamInt32Array,  &xsp3ChanSca1ArrayParam);
   createParam(xsp3ChanSca2ArrayParamString,asynParamInt32Array,  &xsp3ChanSca2ArrayParam);
-  createParam(xsp3ChanSca3ArrayParamString,asynParamInt32Array,  &xsp3ChanSca3ArrayParam);
-  createParam(xsp3ChanSca4ArrayParamString,asynParamInt32Array,  &xsp3ChanSca4ArrayParam);
   createParam(xsp3ChanSca1CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca1CorrArrayParam);
   createParam(xsp3ChanSca2CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca2CorrArrayParam);
-  createParam(xsp3ChanSca3CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca3CorrArrayParam);
-  createParam(xsp3ChanSca4CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca4CorrArrayParam);
   createParam(xsp3ChanSca1HlmParamString,   asynParamInt32,       &xsp3ChanSca1HlmParam);
   createParam(xsp3ChanSca2HlmParamString,   asynParamInt32,       &xsp3ChanSca2HlmParam);
-  createParam(xsp3ChanSca3HlmParamString,   asynParamInt32,       &xsp3ChanSca3HlmParam);
-  createParam(xsp3ChanSca4HlmParamString,   asynParamInt32,       &xsp3ChanSca4HlmParam);
   createParam(xsp3ChanSca1LlmParamString,   asynParamInt32,       &xsp3ChanSca1LlmParam);
   createParam(xsp3ChanSca2LlmParamString,   asynParamInt32,       &xsp3ChanSca2LlmParam);
-  createParam(xsp3ChanSca3LlmParamString,   asynParamInt32,       &xsp3ChanSca3LlmParam);
-  createParam(xsp3ChanSca4LlmParamString,   asynParamInt32,       &xsp3ChanSca4LlmParam);
   createParam(xsp3ChanTotalParamString,     asynParamInt32,       &xsp3ChanTotalParam);
   createParam(xsp3ChanTotalCorrParamString, asynParamFloat64,     &xsp3ChanTotalCorrParam);
   createParam(xsp3ChanTotalArrayParamString,asynParamInt32Array,  &xsp3ChanTotalArrayParam);
@@ -179,20 +167,12 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   for (int chan=0; chan<numChannels_; chan++) {
     status |= setIntegerParam(chan, xsp3ChanSca1Param, 0);
     status |= setIntegerParam(chan, xsp3ChanSca2Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca3Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca4Param, 0);
     status |= setDoubleParam(chan,  xsp3ChanSca1CorrParam, 0);
     status |= setDoubleParam(chan,  xsp3ChanSca2CorrParam, 0);
-    status |= setDoubleParam(chan,  xsp3ChanSca3CorrParam, 0);
-    status |= setDoubleParam(chan,  xsp3ChanSca4CorrParam, 0);
     status |= setIntegerParam(chan, xsp3ChanSca1HlmParam, 0);
     status |= setIntegerParam(chan, xsp3ChanSca2HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca3HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca4HlmParam, 0);
     status |= setIntegerParam(chan, xsp3ChanSca1LlmParam, 0);
     status |= setIntegerParam(chan, xsp3ChanSca2LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca3LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca4LlmParam, 0);
     status |= setIntegerParam(chan, xsp3ChanTotalParam, 0);
     status |= setDoubleParam(chan,  xsp3ChanTotalCorrParam, 0);
   }
@@ -418,8 +398,6 @@ void Xspress3::log(epicsUInt32 mask, const char *msg, const char *function)
 void Xspress3::checkStatus(int status, const char *function, const char *parentFunction)
 {
 
-  cout << "xsp3_status 3: " << status << endl;
-
   if (status == XSP3_OK) {
     log(logFlow_, "XSP3_OK", function);
   } else if (status == XSP3_ERROR) {
@@ -442,8 +420,39 @@ void Xspress3::checkStatus(int status, const char *function, const char *parentF
 
   if (status != XSP3_OK) {
     log(logError_, "ERROR calling XSP3 function.", parentFunction);
+    log(logError_, xsp3_get_error_message(), parentFunction);
   }
  
+}
+
+/**
+ * Wrapper for xsp3_set_window that does some error checking.
+ * @param channel The asyn address, mapping to xsp3 channel.
+ * @param sca The SCA number
+ * @param llm The low limit
+ * @param hlm The high limit
+ * @return asynStatus
+ */
+asynStatus Xspress3::setWindow(int channel, int sca, int llm, int hlm)
+{
+  asynStatus status = asynSuccess;
+  int xsp3_status = 0;
+  const char *functionName = "Xspress3::setWindow";
+
+  if ((status = checkConnected()) == asynSuccess) {
+    if (llm > hlm) {
+      log(logError_, "ERROR: SCA low limit is higher than high limit.", functionName);
+      status = asynError;
+    } else {
+      xsp3_status = xsp3_set_window(xsp3_handle_, channel, sca, llm, hlm); 
+      if (xsp3_status != XSP3_OK) {
+	checkStatus(xsp3_status, "xsp3_set_window", functionName);
+	status = asynError;
+      }
+    }
+  }
+  
+  return status;
 }
 
 
@@ -472,8 +481,6 @@ void Xspress3::report(FILE *fp, int details)
 
 }
 
-    
-
 
 /**
  * Reimplementing this function from asynNDArrayDriver to deal with integer values.
@@ -484,6 +491,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int addr = 0;
   int xsp3_status = 0;
   int xsp3_num_cards = 0;
+  int xsp3_sca_lim = 0;
   asynStatus status = asynSuccess;
   int maxNumChannels = 0;
   const char *functionName = "Xspress3::writeInt32";
@@ -498,6 +506,8 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Asyn addr: &d.\n", functionName, addr);
+
+  cout << "VAL: " << value << "  ADDR: " << addr << endl;
 
   if (function == xsp3ResetParam) {
     log(logFlow_, "System reset", functionName);
@@ -574,27 +584,27 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
   else if (function == xsp3ChanSca1HlmParam) {
     log(logFlow_, "Setting SCA1 high limit.", functionName);
+    getIntegerParam(xsp3ChanSca1LlmParam, &xsp3_sca_lim);
+    cout << "Low lim is already: " << xsp3_sca_lim << endl;
+    status = setWindow(addr, 0, xsp3_sca_lim, value); 
   } 
   else if (function == xsp3ChanSca2HlmParam) {
-    log(logFlow_, "Setting SCA2 high limit", functionName);
-  } 
-  else if (function == xsp3ChanSca3HlmParam) {
-    log(logFlow_, "Setting SCA3 high limit", functionName);
-  } 
-  else if (function == xsp3ChanSca4HlmParam) {
-    log(logFlow_, "Setting SCA4 high limit", functionName);
+    log(logFlow_, "Setting SCA2 high limit.", functionName);
+    getIntegerParam(xsp3ChanSca2LlmParam, &xsp3_sca_lim);
+    cout << "Low lim is already: " << xsp3_sca_lim << endl;
+    status = setWindow(addr, 1, xsp3_sca_lim, value); 
   } 
   else if (function == xsp3ChanSca1LlmParam) {
     log(logFlow_, "Setting SCA1 low limit", functionName);
+    getIntegerParam(xsp3ChanSca1HlmParam, &xsp3_sca_lim);
+    cout << "High lim is already: " << xsp3_sca_lim << endl;
+    status = setWindow(addr, 0, value, xsp3_sca_lim); 
   } 
   else if (function == xsp3ChanSca2LlmParam) {
     log(logFlow_, "Setting SCA2 low limit", functionName); 
-  } 
-  else if (function == xsp3ChanSca3LlmParam) {
-    log(logFlow_, "Setting SCA3 low limit", functionName);
-  }
-  else if (function == xsp3ChanSca4LlmParam) {
-    log(logFlow_, "Setting SCA4 low limit", functionName);
+    getIntegerParam(xsp3ChanSca2HlmParam, &xsp3_sca_lim);
+    cout << "High lim is already: " << xsp3_sca_lim << endl;
+    status = setWindow(addr, 1, value, xsp3_sca_lim);
   } 
   else if (function == xsp3CtrlDataParam) {
     if (value == ctrlDisable_) {

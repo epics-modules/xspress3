@@ -76,11 +76,6 @@ include "xspress3ChannelSCA.template"
 substitute "SCA=2"
 include "xspress3ChannelSCA.template"
 
-substitute "SCA=3"
-include "xspress3ChannelSCA.template"
-
-substitute "SCA=4"
-include "xspress3ChannelSCA.template"
 
 
 

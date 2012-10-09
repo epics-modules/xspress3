@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 480
+x 726
 y 47
-w 770
-h 295
+w 790
+h 220
 font "arial-medium-r-14.0"
 ctlFont "arial-bold-r-14.0"
 btnFont "arial-bold-r-14.0"
@@ -33,8 +33,8 @@ minor 0
 release 0
 x 10
 y 50
-w 750
-h 190
+w 770
+h 115
 lineColor index 14
 fill
 fillColor index 5
@@ -140,8 +140,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 660
-y 250
+x 675
+y 175
 w 100
 h 35
 fgColor index 46
@@ -219,46 +219,6 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 20
-y 160
-w 25
-h 20
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 14
-bgColor index 3
-useDisplayBg
-value {
-  "3"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 20
-y 190
-w 25
-h 20
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 14
-bgColor index 3
-useDisplayBg
-value {
-  "4"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
 x 15
 y 70
 w 35
@@ -319,7 +279,7 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 480
+x 500
 y 70
 w 80
 h 20
@@ -339,7 +299,7 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 565
+x 585
 y 70
 w 140
 h 20
@@ -351,153 +311,6 @@ useDisplayBg
 value {
   "Count (Corrected)"
 }
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 55
-y 95
-w 630
-h 25
-
-beginGroup
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 150
-y 95
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA1_LLM_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 55
-y 95
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA1_LLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 345
-y 95
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA1_HLM_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 250
-y 95
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA1_HLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 470
-y 95
-w 105
-h 25
-controlPv "$(P):C$(CHAN)_SCA1_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 580
-y 95
-w 105
-h 25
-controlPv "$(P):C$(CHAN)_SCA1_CORR_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-endGroup
-
 endObjectProperties
 
 # (Text Monitor)
@@ -590,7 +403,7 @@ beginObjectProperties
 major 4
 minor 5
 release 0
-x 470
+x 490
 y 125
 w 105
 h 25
@@ -613,271 +426,11 @@ beginObjectProperties
 major 4
 minor 5
 release 0
-x 580
+x 600
 y 125
 w 105
 h 25
 controlPv "$(P):C$(CHAN)_SCA2_CORR_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 150
-y 155
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA3_LLM_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 55
-y 155
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA3_LLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 345
-y 155
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA3_HLM_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 250
-y 155
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA3_HLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 470
-y 155
-w 105
-h 25
-controlPv "$(P):C$(CHAN)_SCA3_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 580
-y 155
-w 105
-h 25
-controlPv "$(P):C$(CHAN)_SCA3_CORR_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 150
-y 185
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA4_LLM_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 55
-y 185
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA4_LLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 345
-y 185
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA4_HLM_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 250
-y 185
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_SCA4_HLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 470
-y 185
-w 105
-h 25
-controlPv "$(P):C$(CHAN)_SCA4_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 580
-y 185
-w 105
-h 25
-controlPv "$(P):C$(CHAN)_SCA4_CORR_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -896,7 +449,7 @@ beginObjectProperties
 major 4
 minor 2
 release 0
-x 690
+x 710
 y 95
 w 65
 h 25
@@ -925,7 +478,7 @@ beginObjectProperties
 major 4
 minor 2
 release 0
-x 690
+x 710
 y 125
 w 65
 h 25
@@ -948,61 +501,133 @@ symbols {
 }
 endObjectProperties
 
-# (Related Display)
-object relatedDisplayClass
+# (Text Monitor)
+object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 2
+minor 5
 release 0
-x 690
-y 155
-w 65
+x 150
+y 95
+w 90
 h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
+controlPv "$(P):C$(CHAN)_SCA1_LLM_RBV"
 font "arial-bold-r-14.0"
-buttonLabel "Arrays"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_sca_array.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "SCA=3"
-}
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
 endObjectProperties
 
-# (Related Display)
-object relatedDisplayClass
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 55
+y 95
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_SCA1_LLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 2
+minor 5
 release 0
-x 690
-y 185
-w 65
+x 345
+y 95
+w 90
 h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
+controlPv "$(P):C$(CHAN)_SCA1_HLM_RBV"
 font "arial-bold-r-14.0"
-buttonLabel "Arrays"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_sca_array.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "SCA=4"
-}
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 250
+y 95
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_SCA1_HLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 490
+y 95
+w 105
+h 25
+controlPv "$(P):C$(CHAN)_SCA1_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 600
+y 95
+w 105
+h 25
+controlPv "$(P):C$(CHAN)_SCA1_CORR_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
 endObjectProperties
 
