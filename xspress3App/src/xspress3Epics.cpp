@@ -90,6 +90,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
   createParam(xsp3MaxNumChannelsParamString,asynParamInt32,       &xsp3MaxNumChannelsParam);
   createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
+  createParam(xsp3FixedTimeParamString,   asynParamInt32,       &xsp3FixedTimeParam);
   createParam(xsp3NumFramesParamString,     asynParamInt32,       &xsp3NumFramesParam);
   createParam(xsp3NumCardsParamString,      asynParamInt32,       &xsp3NumCardsParam);
   createParam(xsp3ConfigPathParamString,    asynParamOctet,       &xsp3ConfigPathParam);
@@ -172,6 +173,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   status = setIntegerParam(xsp3NumChannelsParam, numChannels_);
   status |= setIntegerParam(xsp3MaxNumChannelsParam, numChannels_); //Set this to what the system reports, not what we pass in
   status |= setIntegerParam(xsp3TriggerModeParam, 0);
+  status |= setIntegerParam(xsp3FixedTimeParam, 0);
   status |= setIntegerParam(xsp3NumFramesParam, 0);
   status |= setIntegerParam(xsp3NumCardsParam, 0);
   for (int chan=0; chan<numChannels_; chan++) {
@@ -245,7 +247,7 @@ asynStatus Xspress3::connect(void)
   cout << "Num channels: " << numChannels_ << endl;
   cout << "Config Path: " << configPath << endl;
   xsp3_handle_ = xsp3_config(xsp3_num_cards, xsp3_num_tf, const_cast<char *>(baseIP_), -1, NULL, numChannels_, 1, NULL, debug_, 0);
-  if (xsp3_handle_ <= 0) {
+  if (xsp3_handle_ < 0) {
     checkStatus(xsp3_handle_, "xsp3_config", functionName);
     status = asynError;
   } else {
@@ -255,8 +257,8 @@ asynStatus Xspress3::connect(void)
     //Set up clocks on each card
     for (int i=0; i<xsp3_num_cards; i++) {
       xsp3_status = xsp3_clocks_setup(xsp3_handle_, i, XSP3_CLK_SRC_INT, XSP3_CLK_FLAGS_MASTER, 0);
-      if (xsp3_status <= 0) {
-	checkStatus(xsp3_handle_, "xsp3_clocks_setup", functionName);
+      if (xsp3_status != XSP3_OK) {
+	checkStatus(xsp3_status, "xsp3_clocks_setup", functionName);
 	status = asynError;
       }
     }
@@ -264,8 +266,8 @@ asynStatus Xspress3::connect(void)
     //Restore settings from a file
     cout << "Calling xsp3_restore_settings with path: " << configPath << endl;
     xsp3_status = xsp3_restore_settings(xsp3_handle_, configPath, 0);
-    if (xsp3_status <= 0) {
-      checkStatus(xsp3_handle_, "xsp3_restore_settings", functionName);
+    if (xsp3_status != XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_restore_settings", functionName);
       status = asynError;
     }
 
@@ -289,16 +291,38 @@ asynStatus Xspress3::disconnect(void)
 
   log(logFlow_, "Calling disconnect. This calls xsp3_close().", functionName);
 
-  xsp3_status = xsp3_close(xsp3_handle_);
-  if (xsp3_status <= 0) {
-    checkStatus(xsp3_status, "xsp3_close", functionName);
-    status = asynError;
+  if ((status = checkConnected()) == asynSuccess) {
+    xsp3_status = xsp3_close(xsp3_handle_);
+    if (xsp3_status != XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_close", functionName);
+      status = asynError;
+    }
+    setIntegerParam(xsp3ConnectedParam, 0);
   }
-
-  setIntegerParam(xsp3ConnectedParam, 0);
   
   return status;
 }
+
+/**
+ * Check the connected status.
+ * @return asynSuccess if connected, or asynError if disconnected.
+ */
+asynStatus Xspress3::checkConnected(void) 
+{
+  int xsp3_connected = 0;
+  const char *functionName = "Xspress3::checkConnected";
+
+  log(logFlow_, "Checking connected status.", functionName);
+
+  getIntegerParam(xsp3ConnectedParam, &xsp3_connected);
+  if (xsp3_connected != 1) {
+    log(logFlow_, "ERROR: We are not connected.", functionName);
+    return asynError;
+  }
+
+  return asynSuccess;
+}
+
 
 /**
  * Save the system settings for the xspress3 system. 
@@ -322,7 +346,7 @@ asynStatus Xspress3::saveSettings(void)
     status = asynError;
   } else {
     xsp3_status = xsp3_save_settings(xsp3_handle_, configPath);
-    if (xsp3_status <= 0) {
+    if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_save_settings", functionName);
       status = asynError;
     }
@@ -353,7 +377,7 @@ asynStatus Xspress3::restoreSettings(void)
     status = asynError;
   } else {
     xsp3_status = xsp3_restore_settings(xsp3_handle_, configPath, 0);
-    if (xsp3_status <= 0) {
+    if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_restore_settings", functionName);
       status = asynError;
     }
@@ -393,6 +417,9 @@ void Xspress3::log(epicsUInt32 mask, const char *msg, const char *function)
  */
 void Xspress3::checkStatus(int status, const char *function, const char *parentFunction)
 {
+
+  cout << "xsp3_status 3: " << status << endl;
+
   if (status == XSP3_OK) {
     log(logFlow_, "XSP3_OK", function);
   } else if (status == XSP3_ERROR) {
@@ -455,12 +482,14 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
   int function = pasynUser->reason;
   int addr = 0;
+  int xsp3_status = 0;
+  int xsp3_num_cards = 0;
   asynStatus status = asynSuccess;
   int maxNumChannels = 0;
   const char *functionName = "Xspress3::writeInt32";
   
   log(logFlow_, "Calling writeInt32", functionName);
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d.\n", functionName, function);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d. value: %d\n", functionName, function, value);
 
   //Read address (channel number).
   status = getAddress(pasynUser, &addr); 
@@ -468,7 +497,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return(status);
   }
 
-  //cout << functionName << " asyn address: " << addr << endl;
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Asyn addr: &d.\n", functionName, addr);
 
   if (function == xsp3ResetParam) {
@@ -491,11 +519,36 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
    getIntegerParam(xsp3MaxNumChannelsParam, &maxNumChannels);
    if ((value > maxNumChannels) || (value < 1)) {
      log(logError_, "ERROR: num channels out of range.", functionName);
-     return asynError;
+     status = asynError;
    }
   }
   else if (function == xsp3TriggerModeParam) {
-   log(logFlow_, "Set trigger mode", functionName);
+    if ((status = checkConnected()) == asynSuccess) {
+      log(logFlow_, "Set trigger mode", functionName);
+      cout << "VAL: " << value << endl;
+      getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+      for (int card=0; card<xsp3_num_cards; card++) {
+	xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, card, value);
+	if (xsp3_status != XSP3_OK) {
+	  checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
+	  status = asynError;
+	}
+      }
+    }
+  } 
+  else if (function == xsp3FixedTimeParam) {
+    if ((status = checkConnected()) == asynSuccess) {
+      log(logFlow_, "Set the fixed time register", functionName);
+      cout << "VAL: " << value << endl;
+      getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+      for (int card=0; card<xsp3_num_cards; card++) {
+	xsp3_status = xsp3_set_glob_timeFixed(xsp3_handle_, card, value);
+	if (xsp3_status != XSP3_OK) {
+	  checkStatus(xsp3_status, "xsp3_set_glob_timeFixed", functionName);
+	  status = asynError;
+	}
+      }
+    }
   } 
   else if (function == xsp3NumFramesParam) {
     log(logFlow_, "Set the number of frames", functionName);

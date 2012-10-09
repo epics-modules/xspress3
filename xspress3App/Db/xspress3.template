@@ -124,10 +124,20 @@ record(mbbo, "$(P)$(R)TRIGGER_MODE")
    field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))TRIGGER_MODE")
-   field(ZRST, "Internal")
+   field(ZRST, "Fixed")
    field(ZRVL, "0")
-   field(ONST, "External")
+   field(ONST, "Internal")
    field(ONVL, "1")
+   field(TWST, "IDC")
+   field(TWVL, "2")
+   field(THST, "TTL Veto Only")
+   field(THVL, "3")
+   field(FRST, "TTL Both")
+   field(FRVL, "4")
+   field(FVST, "LVDS Veto Only")
+   field(FVVL, "5")
+   field(SXST, "LVDS Both")
+   field(SXVL, "6")
    field(VAL,  "0")
 }
 
@@ -138,10 +148,42 @@ record(mbbi, "$(P)$(R)TRIGGER_MODE_RBV")
 {
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))TRIGGER_MODE")
-   field(ZRST, "Internal")
+   field(ZRST, "Fixed")
    field(ZRVL, "0")
-   field(ONST, "External")
+   field(ONST, "Internal")
    field(ONVL, "1")
+   field(TWST, "IDC")
+   field(TWVL, "2")
+   field(THST, "TTL Veto Only")
+   field(THVL, "3")
+   field(FRST, "TTL Both")
+   field(FRVL, "4")
+   field(FVST, "LVDS Veto Only")
+   field(FVVL, "5")
+   field(SXST, "LVDS Both")
+   field(SXVL, "6")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Set the fixed time register, in FIXED trigger mode.
+# ///
+record(longout, "$(P)$(R)FIXED_TIME")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Get the fixed time register, used for FIXED trigger mode.
+# ///
+record(longin, "$(P)$(R)FIXED_TIME_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
    field(SCAN, "I/O Intr")
 }
 

@@ -3,7 +3,7 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 61
+x 62
 y 59
 w 618
 h 762
@@ -450,37 +450,17 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 105
-y 255
-w 60
+x 20
+y 240
+w 100
 h 20
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
 value {
-  "Trigger"
+  "Trigger Mode"
 }
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 165
-y 245
-w 80
-h 40
-fgColor index 14
-bgColor index 3
-selectColor index 3
-inconsistentColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):TRIGGER_MODE"
-font "arial-bold-r-14.0"
 endObjectProperties
 
 # (Text Monitor)
@@ -489,10 +469,10 @@ beginObjectProperties
 major 4
 minor 5
 release 0
-x 250
-y 245
-w 80
-h 40
+x 190
+y 265
+w 140
+h 30
 controlPv "$(P):TRIGGER_MODE_RBV"
 font "arial-bold-r-16.0"
 fontAlign "center"
@@ -1456,5 +1436,86 @@ offLabel "Restore"
 3d
 useEnumNumeric
 font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 40
+y 265
+w 140
+h 30
+fgColor index 14
+bgColor index 3
+inconsistentColor index 14
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):TRIGGER_MODE"
+indicatorPv "$(P):TRIGGER_MODE"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 100
+y 305
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Fixed Time"
+}
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 190
+y 300
+w 65
+h 25
+controlPv "$(P):FIXED_TIME"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 260
+y 300
+w 70
+h 25
+controlPv "$(P):FIXED_TIME_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
 endObjectProperties
 
