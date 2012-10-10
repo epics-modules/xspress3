@@ -177,6 +177,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
     status |= setDoubleParam(chan,  xsp3ChanTotalCorrParam, 0);
   }
 
+  status |= setStringParam(xsp3StatusParam, "Init. System disconnected.");
+
   //Init asynNDArray params
   //NDArraySizeX
   //NDArraySizeY
@@ -207,7 +209,7 @@ Xspress3::~Xspress3()
  */
 asynStatus Xspress3::connect(void)
 {
-  int status = asynSuccess;
+  asynStatus status = asynSuccess;
   int xsp3_num_cards = 0;
   int xsp3_num_tf = 0;
   char configPath[256];
@@ -251,12 +253,27 @@ asynStatus Xspress3::connect(void)
       status = asynError;
     }
 
-    log(logFlow_, "Finished setting up xsp3.", functionName);
-    status |= setStringParam(xsp3StatusParam, "System Connected");
-    status |= setIntegerParam(xsp3ConnectedParam, 1);
+    //Can we do xsp3_format_run here? For normal user operation all the arguments seem to be set to zero.
+    for (int chan=0; chan<numChannels_; chan++) {
+      xsp3_status = xsp3_format_run(xsp3_handle_, chan, 0, 0, 0, 0, 0, 12);
+      if (xsp3_status != XSP3_OK) {
+	checkStatus(xsp3_status, "xsp3_format_run", functionName);
+	status = asynError;
+      }
+    }
+
+    if (status == asynSuccess) {
+      log(logFlow_, "Finished setting up xsp3.", functionName);
+      setStringParam(xsp3StatusParam, "System Connected");
+      setIntegerParam(xsp3ConnectedParam, 1);
+    } else {
+      log(logFlow_, "ERROR: failed to connect to xspress3.", functionName);
+      setStringParam(xsp3StatusParam, "ERROR: failed to connect");
+      setIntegerParam(xsp3ConnectedParam, 0);
+    }
   }
 
-  return static_cast<asynStatus>(status);
+  return status;
 }
 
 /**
@@ -277,6 +294,7 @@ asynStatus Xspress3::disconnect(void)
       checkStatus(xsp3_status, "xsp3_close", functionName);
       status = asynError;
     }
+    setStringParam(xsp3StatusParam, "System disconnected.");
     setIntegerParam(xsp3ConnectedParam, 0);
   }
   
