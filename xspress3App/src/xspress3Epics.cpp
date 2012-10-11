@@ -91,6 +91,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3MaxNumChannelsParamString,asynParamInt32,       &xsp3MaxNumChannelsParam);
   createParam(xsp3MaxSpectraParamString,asynParamInt32,       &xsp3MaxSpectraParam);
   createParam(xsp3MaxFramesParamString,asynParamInt32,       &xsp3MaxFramesParam);
+  createParam(xsp3FrameCountParamString,asynParamInt32,       &xsp3FrameCountParam);
   createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
   createParam(xsp3FixedTimeParamString,   asynParamInt32,       &xsp3FixedTimeParam);
   createParam(xsp3NumFramesParamString,     asynParamInt32,       &xsp3NumFramesParam);
@@ -174,6 +175,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   status |= setIntegerParam(xsp3FixedTimeParam, 0);
   status |= setIntegerParam(xsp3NumFramesParam, 0);
   status |= setIntegerParam(xsp3NumCardsParam, 0);
+  status |= setIntegerParam(xsp3FrameCountParam, 0);
   for (int chan=0; chan<numChannels_; chan++) {
     status |= setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0);
     status |= setIntegerParam(chan, xsp3ChanSca5HlmParam, 0);
@@ -933,10 +935,21 @@ void Xspress3::dataTask(void)
 {
   //asynStatus status = asynSuccess;
   epicsEventWaitStatus eventStatus;
-  //epicsFloat64 timeout = 0.0;
+  epicsFloat64 timeout = 0.01;
   int numChannels = 0;
+  int acquire = 0;
+  int xsp3_status = 0;
+  int status = 0;
+  int xsp3_num_cards = 0;
+  int frame_count = 0;
+  int notBusyCount = 0;
+  int notBusyChan = 0;
+  int frameCounter = 0;
+  int scaDims[2] = {0};
+  XSP3_DMA_MsgCheckDesc dmaCheck;
   const char* functionName = "Xspress3::dataTask";
-  NDArray *pArray;
+  NDArray *pSCA;
+  NDArray *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
 
   log(logFlow_, "Started.", functionName);
 
@@ -945,20 +958,120 @@ void Xspress3::dataTask(void)
      //SEE Pilatus driver for example for how to avoid start/stop deadlock.
      //May need to use acquire/aborted flags like in pilatus driver.
 
+     //Create NDArray for scalar data (max frame * number of SCAs).
+     getIntegerParam(xsp3MaxFramesParam, &scaDims[0]);
+     scaDims[1] = XSP3_SW_NUM_SCALERS;
+     pSCA = this->pNDArrayPool->alloc(2, scaDims, NDInt32, 0, NULL);
+     //Create NDArrays to hold SCA data for the duration of the scan, one per SCA, per channel.
+     for (int chan=0; chan<numChannels_; chan++) {
+       for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+	 pSCA_DATA[chan][sca] = this->pNDArrayPool->alloc(1, scaDims, NDInt32, 0, NULL);
+       }
+     }
+     
+
      eventStatus = epicsEventWait(startEvent_);          
      if (eventStatus == epicsEventWaitOK) {
         log(logFlow_, "Got start event.", functionName);
+	acquire = 1;
       }
 
      //Get the number of channels in use
      getIntegerParam(xsp3NumChannelsParam, &numChannels);
 
-     //Start acqusition here.
+     while (acquire) {
 
-     //Unlock and wait for a stop event (see below for example).
+       //Wait for a stop event (see below for example).
+       eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
+       if (eventStatus == epicsEventWaitOK) {
+	 log(logFlow_, "Got stop event.", functionName);
+	 acquire = 0;
+       }
 
-     //Readout data
+       //If we have stopped, wait until we are not busy twice, on all channels.
+       if (acquire == 0) {
+	 notBusyCount = 0;
+	 notBusyChan = 0;
+	 while (notBusyCount<2) {
+	   for (int chan=0; chan<numChannels; chan++) {
+	     if ((xsp3_histogram_is_busy(xsp3_handle_, chan)) == 0) {
+	       ++notBusyChan;
+	     }
+	   }
+	   if (notBusyChan == numChannels) {
+	     ++notBusyCount;
+	   }
+	   notBusyChan = 0;
+	 }
+       }
 
+       //Read how many scaler data frames have been transferred.
+       getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+       for (int card=0; card<xsp3_num_cards; card++) {
+	 xsp3_status = xsp3_dma_check_desc(xsp3_handle_, card, XSP3_DMA_STREAM_MASK_SCALERS, &dmaCheck);
+	 if (xsp3_status != XSP3_OK) {
+	   checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
+	   status = asynError;
+	 }
+	 frame_count = dmaCheck.num_desc;
+       }
+
+       //Take the value from the last card for now...
+       //Do I need to throttle this based on the scalar update rate timer?
+       setIntegerParam(xsp3FrameCountParam, frame_count);
+
+       if (frame_count > 0) {
+
+	 getIntegerParam(NDArrayCounter, &frameCounter);
+	 frameCounter += frame_count;
+	 setIntegerParam(NDArrayCounter, frameCounter);
+
+	 //Readout here, and copy the scalar data into local arrays.
+	 //For now read out everything everytime, until I know it's working and I can make it more efficient.
+	 xsp3_status = xsp3_scaler_read(xsp3_handle_, static_cast<u_int32_t*>(pSCA->pData), 0, 0, 0, XSP3_SW_NUM_SCALERS, numChannels, frameCounter);
+
+	 epicsUInt32 *pData = NULL;
+	 epicsUInt32 *pRawData = static_cast<epicsUInt32*>(pSCA->pData);
+	 //Now copy the data to the per-channel, per-SCA arrays, to make them available for channel access.
+	 for (int frame=0; frame<frameCounter; ++frame) {
+	   for (int chan=0; chan<numChannels; ++numChannels) {
+	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
+	       pData = (static_cast<epicsUInt32*>(pSCA_DATA[chan][sca]->pData))+frame;
+	       *pData = *(pRawData++);
+	     }
+	   }
+	 }
+
+	 //Debug print first 10 frames
+	 cout << "Debug print first 10 frames..." << endl;
+	 pData = NULL;
+	 for (int chan=0; chan<numChannels; ++numChannels) {
+	   for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
+	     pData = static_cast<epicsUInt32*>(pSCA_DATA[chan][sca]->pData);
+	     for (int i=0; i<10; ++i) {
+	       cout << " CHAN: " << chan << "  SCA: " << sca << "  DATA: " << *pData << endl;
+	       pData++;
+	     }
+	   }
+	 }
+
+
+       }
+
+       //Post scalar data if the timer has expired, using setIntegerParam.
+       //Post scalar array data if the timer has expired, using doCallbacksInt32Array
+       
+       //Take the most recent scalar values and post the values
+       
+       
+
+       callParamCallbacks();
+
+
+
+     }
+
+       
      //Use the API function get_bins_per_mca for spectra length. (should be 4096?)
 
      //Create data arrays of the correct size using pArray = this->pNDArrayPool->alloc
@@ -971,7 +1084,7 @@ void Xspress3::dataTask(void)
      //Save a 2D NDArray for the spectra data (channel * MCA bin)
      //Attach all the scalar data as attributes to this NDArray (seperate attributes per channel, per scalar).
 
-     for (int chan=1; chan<=numChannels; chan++) {
+     for (int chan=0; chan<numChannels; chan++) {
        
      }
 
@@ -983,7 +1096,9 @@ void Xspress3::dataTask(void)
      
      //callParamCallbacks();
 
+     
 
+     //Example of how to wait for stop event
      //Check for a stop event with a small timeout?
      //eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
      //if (eventStatus == epicsEventWaitOK) {

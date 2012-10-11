@@ -49,6 +49,7 @@
 #define xsp3MaxNumChannelsParamString     "MAX_NUM_CHANNELS"
 #define xsp3MaxSpectraParamString     "MAX_SPECTRA"
 #define xsp3MaxFramesParamString     "MAX_FRAMES"
+#define xsp3FrameCountParamString     "FRAME_COUNT"
 #define xsp3TriggerModeParamString        "TRIGGER_MODE"
 #define xsp3FixedTimeParamString        "FIXED_TIME"
 #define xsp3NumFramesParamString          "NUM_FRAMES"
@@ -164,6 +165,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3MaxNumChannelsParam;
   int xsp3MaxSpectraParam;
   int xsp3MaxFramesParam;
+  int xsp3FrameCountParam;
   int xsp3TriggerModeParam;
   int xsp3FixedTimeParam;
   int xsp3NumFramesParam;
