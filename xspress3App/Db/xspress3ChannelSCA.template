@@ -51,7 +51,6 @@ record(waveform, "$(P)$(R)C$(CHAN)_SCA$(SCA)_CORR_ARRAY_RBV")
 # ///
 record(longout, "$(P)$(R)C$(CHAN)_SCA$(SCA)_HLM")
 {
-   field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_HLM")
    field(VAL,  "0")
@@ -73,7 +72,6 @@ record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_HLM_RBV")
 # ///
 record(longout, "$(P)$(R)C$(CHAN)_SCA$(SCA)_LLM")
 {
-   field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_LLM")
    field(VAL,  "0")

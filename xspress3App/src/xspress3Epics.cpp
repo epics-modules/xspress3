@@ -168,27 +168,12 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
 
   //Set any paramLib parameters that need passing up to device support
   status = setIntegerParam(xsp3NumChannelsParam, numChannels_);
-  status |= setIntegerParam(xsp3MaxNumChannelsParam, numChannels_); //Set this to what the system reports, not what we pass in
+  status |= setIntegerParam(xsp3MaxNumChannelsParam, numChannels_); 
   status |= setIntegerParam(xsp3TriggerModeParam, 0);
   status |= setIntegerParam(xsp3FixedTimeParam, 0);
   status |= setIntegerParam(xsp3NumFramesParam, 0);
   status |= setIntegerParam(xsp3NumCardsParam, 0);
-  for (int chan=0; chan<numChannels_; chan++) {
-    status |= setIntegerParam(chan, xsp3ChanSca0Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca1Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca2Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca3Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca4Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca5Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca6Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca7Param, 0);
-    status |= setDoubleParam(chan,  xsp3ChanSca5CorrParam, 0);
-    status |= setDoubleParam(chan,  xsp3ChanSca6CorrParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca5HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca6HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca5LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca6LlmParam, 0);
-  }
+  status |= eraseSCA();
 
   status |= setStringParam(xsp3StatusParam, "Init. System disconnected.");
 
@@ -328,6 +313,7 @@ asynStatus Xspress3::checkConnected(void)
   getIntegerParam(xsp3ConnectedParam, &xsp3_connected);
   if (xsp3_connected != 1) {
     log(logFlow_, "ERROR: We are not connected.", functionName);
+    setStringParam(xsp3StatusParam, "ERROR: Not Connected");
     return asynError;
   }
 
@@ -487,6 +473,79 @@ asynStatus Xspress3::setWindow(int channel, int sca, int llm, int hlm)
 }
 
 
+/**
+ * Call xsp3_histogram_clear, and clear scalar data.
+ * @return asynStatus
+ */
+asynStatus Xspress3::erase(void)
+{
+  asynStatus status = asynSuccess;
+  int xsp3_status = 0;
+  int xsp3_time_frames = 0;
+  int xsp3_num_channels = 0;
+  const char *functionName = "Xspress3::erase";
+
+  if ((status = checkConnected()) == asynSuccess) {
+    log(logFlow_, "Erase MCA data, clear SCAs", functionName);
+
+    status = eraseSCA();
+
+    getIntegerParam(xsp3NumFramesParam, &xsp3_time_frames);
+    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+    xsp3_status = xsp3_histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+    if (xsp3_status != XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_histogram_clear", functionName);
+      status = asynError;
+    } else {
+      if (status == asynSuccess) {
+	setStringParam(xsp3StatusParam, "Erased Data");
+      } else {
+	setStringParam(xsp3StatusParam, "Problem Erasing Data");
+      }
+    }
+  }
+  
+  return status;
+}
+
+/**
+ * Function to clear the SCA data.
+ */
+asynStatus Xspress3::eraseSCA(void)
+{
+  int status = asynSuccess;
+  int xsp3_num_channels = 0;
+  const char *functionName = "Xspress3::eraseSCA";
+
+  log(logFlow_, "Clear SCA data", functionName);
+
+  getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+
+  for (int chan=0; chan<xsp3_num_channels; chan++) {
+    status |= setIntegerParam(chan, xsp3ChanSca0Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca1Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca2Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca3Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca4Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca5Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca6Param, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca7Param, 0);
+    status |= setDoubleParam(chan,  xsp3ChanSca5CorrParam, 0);
+    status |= setDoubleParam(chan,  xsp3ChanSca6CorrParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca5HlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca6HlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca5LlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca6LlmParam, 0);
+  }
+
+  if (status != asynSuccess) {
+    log(logError_, "ERROR clearing SCA data", functionName);
+  }
+
+  return static_cast<asynStatus>(status);
+}
+
+
 
 
 
@@ -543,24 +602,46 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 
   if (function == xsp3ResetParam) {
     log(logFlow_, "System reset", functionName);
-  } 
-  else if (function == xsp3EraseParam) {
-    log(logFlow_, "Erase MCA data, clear SCAs", functionName);
-    getIntegerParam(xsp3NumFramesParam, &xsp3_time_frames);
-    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
-    xsp3_status = xsp3_histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
-    if (xsp3_status != XSP3_OK) {
-      checkStatus(xsp3_status, "xsp3_histogram_clear", functionName);
-      status = asynError;
+    if ((status = checkConnected()) == asynSuccess) {
+      //What do we do here?
     }
   } 
+  else if (function == xsp3EraseParam) {
+    status = erase();
+  } 
   else if (function == xsp3StartParam) {
-    log(logFlow_, "Start collecting data", functionName);
-    epicsEventSignal(this->startEvent_);
+    if ((status = checkConnected()) == asynSuccess) {
+      log(logFlow_, "Start collecting data", functionName);
+      getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+      for (int card=0; card<xsp3_num_cards; card++) {
+	xsp3_status = xsp3_histogram_start(xsp3_handle_, card);
+	if (xsp3_status != XSP3_OK) {
+	  checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
+	  status = asynError;
+	}
+      }
+      if (status == asynSuccess) {
+	epicsEventSignal(this->startEvent_);
+	setStringParam(xsp3StatusParam, "Acquiring Data");
+      }
+    }
   } 
   else if (function == xsp3StopParam) {
-    log(logFlow_, "Stop collecting data", functionName);
-    epicsEventSignal(this->stopEvent_);
+    if ((status = checkConnected()) == asynSuccess) {
+      log(logFlow_, "Stop collecting data", functionName);
+      getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+      for (int card=0; card<xsp3_num_cards; card++) {
+	xsp3_status = xsp3_histogram_stop(xsp3_handle_, card);
+	if (xsp3_status != XSP3_OK) {
+	  checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+	  status = asynError;
+	  setStringParam(xsp3StatusParam, "Stopped Acquiring");
+	}
+      }
+      if (status == asynSuccess) {
+	epicsEventSignal(this->stopEvent_);
+      }
+    }
   }
   else if (function == xsp3NumChannelsParam) {
    log(logFlow_, "Set number of channels", functionName);

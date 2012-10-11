@@ -128,6 +128,8 @@ class Xspress3 : public asynNDArrayDriver {
   asynStatus restoreSettings(void);
   asynStatus checkConnected(void);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
+  asynStatus erase(void);
+  asynStatus eraseSCA(void);
 
   //Put private static data members here
   static const epicsUInt32 logFlow_;

@@ -87,7 +87,7 @@ record(waveform, "$(P)$(R)STATUS_RBV")
 # ///
 record(longout, "$(P)$(R)NUM_CHANNELS")
 {
-   field(PINI, "YES")
+   field(PINI, "YES")	
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_CHANNELS")
    field(VAL,  "1")
@@ -121,7 +121,6 @@ record(longin, "$(P)$(R)MAX_NUM_CHANNELS_RBV")
 # ///
 record(mbbo, "$(P)$(R)TRIGGER_MODE")
 {
-   field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))TRIGGER_MODE")
    field(ZRST, "Fixed")
@@ -170,7 +169,6 @@ record(mbbi, "$(P)$(R)TRIGGER_MODE_RBV")
 # ///
 record(longout, "$(P)$(R)FIXED_TIME")
 {
-   field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
    field(VAL,  "0")
