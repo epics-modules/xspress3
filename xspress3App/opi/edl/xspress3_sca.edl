@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 726
+x 474
 y 47
 w 790
-h 220
+h 405
 font "arial-medium-r-14.0"
 ctlFont "arial-bold-r-14.0"
 btnFont "arial-bold-r-14.0"
@@ -34,7 +34,7 @@ release 0
 x 10
 y 50
 w 770
-h 115
+h 300
 lineColor index 14
 fill
 fillColor index 5
@@ -141,7 +141,7 @@ major 4
 minor 1
 release 0
 x 675
-y 175
+y 360
 w 100
 h 35
 fgColor index 46
@@ -189,7 +189,7 @@ fgColor index 14
 bgColor index 3
 useDisplayBg
 value {
-  "1"
+  "5"
 }
 endObjectProperties
 
@@ -209,7 +209,7 @@ fgColor index 14
 bgColor index 3
 useDisplayBg
 value {
-  "2"
+  "6"
 }
 endObjectProperties
 
@@ -323,7 +323,7 @@ x 150
 y 125
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_SCA2_LLM_RBV"
+controlPv "$(P):C$(CHAN)_SCA6_LLM_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -346,7 +346,7 @@ x 55
 y 125
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_SCA2_LLM"
+controlPv "$(P):C$(CHAN)_SCA6_LLM"
 fgColor index 25
 fgAlarm
 bgColor index 3
@@ -365,7 +365,7 @@ x 345
 y 125
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_SCA2_HLM_RBV"
+controlPv "$(P):C$(CHAN)_SCA6_HLM_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -388,7 +388,7 @@ x 250
 y 125
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_SCA2_HLM"
+controlPv "$(P):C$(CHAN)_SCA6_HLM"
 fgColor index 25
 fgAlarm
 bgColor index 3
@@ -407,7 +407,7 @@ x 490
 y 125
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA2_RBV"
+controlPv "$(P):C$(CHAN)_SCA6_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -430,7 +430,7 @@ x 600
 y 125
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA2_CORR_RBV"
+controlPv "$(P):C$(CHAN)_SCA6_CORR_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -468,7 +468,7 @@ setPosition {
   0 "parentWindow"
 }
 symbols {
-  0 "SCA=1"
+  0 "SCA=5"
 }
 endObjectProperties
 
@@ -497,7 +497,7 @@ setPosition {
   0 "parentWindow"
 }
 symbols {
-  0 "SCA=2"
+  0 "SCA=6"
 }
 endObjectProperties
 
@@ -511,7 +511,7 @@ x 150
 y 95
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_SCA1_LLM_RBV"
+controlPv "$(P):C$(CHAN)_SCA5_LLM_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -534,7 +534,7 @@ x 55
 y 95
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_SCA1_LLM"
+controlPv "$(P):C$(CHAN)_SCA5_LLM"
 fgColor index 25
 fgAlarm
 bgColor index 3
@@ -553,7 +553,7 @@ x 345
 y 95
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_SCA1_HLM_RBV"
+controlPv "$(P):C$(CHAN)_SCA5_HLM_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -576,7 +576,7 @@ x 250
 y 95
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_SCA1_HLM"
+controlPv "$(P):C$(CHAN)_SCA5_HLM"
 fgColor index 25
 fgAlarm
 bgColor index 3
@@ -593,6 +593,75 @@ minor 5
 release 0
 x 490
 y 95
+w 105
+h 25
+controlPv "$(P):C$(CHAN)_SCA5_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 600
+y 95
+w 105
+h 25
+controlPv "$(P):C$(CHAN)_SCA5_CORR_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 490
+y 165
+w 105
+h 25
+controlPv "$(P):C$(CHAN)_SCA0_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 490
+y 195
 w 105
 h 25
 controlPv "$(P):C$(CHAN)_SCA1_RBV"
@@ -614,11 +683,11 @@ beginObjectProperties
 major 4
 minor 5
 release 0
-x 600
-y 95
+x 490
+y 225
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA1_CORR_RBV"
+controlPv "$(P):C$(CHAN)_SCA2_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -629,5 +698,368 @@ fastUpdate
 useHexPrefix
 newPos
 objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 490
+y 255
+w 105
+h 25
+controlPv "$(P):C$(CHAN)_SCA3_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 490
+y 285
+w 105
+h 25
+controlPv "$(P):C$(CHAN)_SCA4_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 490
+y 315
+w 105
+h 25
+controlPv "$(P):C$(CHAN)_SCA7_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 420
+y 170
+w 80
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Time"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 400
+y 200
+w 80
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Reset Ticks"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 395
+y 230
+w 85
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Reset Count"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 260
+w 80
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "All Event"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 410
+y 290
+w 80
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "All Good"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 420
+y 320
+w 80
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Pileup"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 600
+y 165
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_sca_array_single.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "SCA=0"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 600
+y 195
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_sca_array_single.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "SCA=1"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 600
+y 225
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_sca_array_single.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "SCA=2"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 600
+y 255
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_sca_array_single.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "SCA=3"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 600
+y 285
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_sca_array_single.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "SCA=4"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 600
+y 315
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_sca_array_single.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "SCA=7"
+}
 endObjectProperties
 

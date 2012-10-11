@@ -60,22 +60,30 @@
 //Settings for a channel
 #define xsp3ChanMcaParamString            "CHAN_MCA"
 #define xsp3ChanMcaCorrParamString        "CHAN_MCA_CORR"
+#define xsp3ChanSca0ParamString           "CHAN_SCA0"
 #define xsp3ChanSca1ParamString           "CHAN_SCA1"
 #define xsp3ChanSca2ParamString           "CHAN_SCA2"
-#define xsp3ChanSca1CorrParamString       "CHAN_SCA1_CORR"
-#define xsp3ChanSca2CorrParamString       "CHAN_SCA2_CORR"
+#define xsp3ChanSca3ParamString           "CHAN_SCA3"
+#define xsp3ChanSca4ParamString           "CHAN_SCA4"
+#define xsp3ChanSca5ParamString           "CHAN_SCA5"
+#define xsp3ChanSca6ParamString           "CHAN_SCA6"
+#define xsp3ChanSca7ParamString           "CHAN_SCA7"
+#define xsp3ChanSca5CorrParamString       "CHAN_SCA5_CORR"
+#define xsp3ChanSca6CorrParamString       "CHAN_SCA6_CORR"
+#define xsp3ChanSca0ArrayParamString           "CHAN_SCA0_ARRAY"
 #define xsp3ChanSca1ArrayParamString           "CHAN_SCA1_ARRAY"
 #define xsp3ChanSca2ArrayParamString           "CHAN_SCA2_ARRAY"
-#define xsp3ChanSca1CorrArrayParamString       "CHAN_SCA1_CORR_ARRAY"
-#define xsp3ChanSca2CorrArrayParamString       "CHAN_SCA2_CORR_ARRAY"
-#define xsp3ChanSca1HlmParamString        "CHAN_SCA1_HLM"
-#define xsp3ChanSca2HlmParamString        "CHAN_SCA2_HLM"
-#define xsp3ChanSca1LlmParamString        "CHAN_SCA1_LLM"
-#define xsp3ChanSca2LlmParamString        "CHAN_SCA2_LLM"
-#define xsp3ChanTotalParamString          "CHAN_TOTAL"
-#define xsp3ChanTotalCorrParamString      "CHAN_TOTAL_CORR"
-#define xsp3ChanTotalArrayParamString     "CHAN_TOTAL_ARRAY"
-#define xsp3ChanTotalCorrArrayParamString "CHAN_TOTAL_CORR_ARRAY"
+#define xsp3ChanSca3ArrayParamString           "CHAN_SCA3_ARRAY"
+#define xsp3ChanSca4ArrayParamString           "CHAN_SCA4_ARRAY"
+#define xsp3ChanSca5ArrayParamString           "CHAN_SCA5_ARRAY"
+#define xsp3ChanSca6ArrayParamString           "CHAN_SCA6_ARRAY"
+#define xsp3ChanSca7ArrayParamString           "CHAN_SCA7_ARRAY"
+#define xsp3ChanSca5CorrArrayParamString       "CHAN_SCA5_CORR_ARRAY"
+#define xsp3ChanSca6CorrArrayParamString       "CHAN_SCA6_CORR_ARRAY"
+#define xsp3ChanSca5HlmParamString        "CHAN_SCA5_HLM"
+#define xsp3ChanSca6HlmParamString        "CHAN_SCA6_HLM"
+#define xsp3ChanSca5LlmParamString        "CHAN_SCA5_LLM"
+#define xsp3ChanSca6LlmParamString        "CHAN_SCA6_LLM"
 //Parameters to control single value and array update rates.
 #define xsp3CtrlDataParamString              "CTRL_DATA_UPDATE"
 #define xsp3CtrlMcaParamString              "CTRL_MCA_UPDATE"
@@ -163,22 +171,30 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3RestoreSettingsParam;
   int xsp3ChanMcaParam;             
   int xsp3ChanMcaCorrParam;         
+  int xsp3ChanSca0Param;
   int xsp3ChanSca1Param;             
-  int xsp3ChanSca2Param;             
-  int xsp3ChanSca1CorrParam;         
-  int xsp3ChanSca2CorrParam;         
+  int xsp3ChanSca2Param;
+  int xsp3ChanSca3Param;
+  int xsp3ChanSca4Param;
+  int xsp3ChanSca5Param;
+  int xsp3ChanSca6Param;
+  int xsp3ChanSca7Param;             
+  int xsp3ChanSca5CorrParam;         
+  int xsp3ChanSca6CorrParam; 
+  int xsp3ChanSca0ArrayParam;        
   int xsp3ChanSca1ArrayParam;
   int xsp3ChanSca2ArrayParam;
-  int xsp3ChanSca1CorrArrayParam;
-  int xsp3ChanSca2CorrArrayParam;
-  int xsp3ChanSca1HlmParam;          
-  int xsp3ChanSca2HlmParam;          
-  int xsp3ChanSca1LlmParam;          
-  int xsp3ChanSca2LlmParam;          
-  int xsp3ChanTotalParam;            
-  int xsp3ChanTotalCorrParam;  
-  int xsp3ChanTotalArrayParam;            
-  int xsp3ChanTotalCorrArrayParam;  
+  int xsp3ChanSca3ArrayParam;
+  int xsp3ChanSca4ArrayParam;
+  int xsp3ChanSca5ArrayParam;
+  int xsp3ChanSca6ArrayParam;
+  int xsp3ChanSca7ArrayParam;
+  int xsp3ChanSca5CorrArrayParam;
+  int xsp3ChanSca6CorrArrayParam;
+  int xsp3ChanSca5HlmParam;          
+  int xsp3ChanSca6HlmParam;          
+  int xsp3ChanSca5LlmParam;          
+  int xsp3ChanSca6LlmParam;          
   int xsp3CtrlDataParam;
   int xsp3CtrlMcaParam;
   int xsp3CtrlScaParam;

@@ -22,61 +22,30 @@ record(waveform, "$(P)$(R)C$(CHAN)_MCA_CORR_RBV")
     field(SCAN, "I/O Intr")
 }
 
-# ///
-# /// Read total counts on channel $(CHAN)
-# ///
-record(longin, "$(P)$(R)C$(CHAN)_TOTAL_RBV")
-{
-   field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_TOTAL")
-   field(SCAN, "I/O Intr")
-}
 
-# ///
-# /// Read total dead time corrected counts on channel $(CHAN)
-# ///
-record(ai, "$(P)$(R)C$(CHAN)_TOTAL_CORR_RBV")
-{
-   field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_TOTAL_CORR")
-   field(SCAN, "I/O Intr")
-   field(PREC, "2")
-}
-
-# ///
-# /// The total counts waveform for channel $(CHAN) 
-# ///
-record(waveform, "$(P)$(R)C$(CHAN)_TOTAL_ARRAY_RBV")
-{
-    field(DTYP, "asynInt32ArrayIn")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_TOTAL_ARRAY")
-    field(FTVL, "ULONG")
-    field(NELM, "$(MAX_FRAMES)")
-    field(SCAN, "I/O Intr")
-}
-
-# ///
-# /// The total corrected counts waveform for channel $(CHAN) 
-# ///
-record(waveform, "$(P)$(R)C$(CHAN)_TOTAL_CORR_ARRAY_RBV")
-{
-    field(DTYP, "asynInt32ArrayIn")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_TOTAL_CORR_ARRAY")
-    field(FTVL, "ULONG")
-    field(NELM, "$(MAX_FRAMES)")
-    field(SCAN, "I/O Intr")
-}
-
-
-
+substitute "SCA=0"
+include "xspress3ChannelSCANoLimits.template"
 
 substitute "SCA=1"
-include "xspress3ChannelSCA.template"
+include "xspress3ChannelSCANoLimits.template"
 
 substitute "SCA=2"
+include "xspress3ChannelSCANoLimits.template"
+
+substitute "SCA=3"
+include "xspress3ChannelSCANoLimits.template"
+
+substitute "SCA=4"
+include "xspress3ChannelSCANoLimits.template"
+
+substitute "SCA=5"
 include "xspress3ChannelSCA.template"
 
+substitute "SCA=6"
+include "xspress3ChannelSCA.template"
 
+substitute "SCA=7"
+include "xspress3ChannelSCANoLimits.template"
 
 
 
