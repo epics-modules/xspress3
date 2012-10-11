@@ -1,0 +1,44 @@
+# ///
+# /// Read SCA $(SCA) on channel $(CHAN)
+# ///
+record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// The SCA $(SCA) waveform for channel $(CHAN) 
+# ///
+record(waveform, "$(P)$(R)C$(CHAN)_SCA$(SCA)_ARRAY_RBV")
+{
+    field(DTYP, "asynInt32ArrayIn")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_ARRAY")
+    field(FTVL, "ULONG")
+    field(NELM, "$(MAX_FRAMES)")
+    field(SCAN, "I/O Intr")
+}
+
+
+# ///
+# /// Set the SCA $(SCA) threshold on channel $(CHAN)
+# ///
+record(longout, "$(P)$(R)C$(CHAN)_SCA$(SCA)_THRESHOLD")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_THRESHOLD")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Get the SCA $(SCA) threshold on channel $(CHAN)
+# ///
+record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_THRESHOLD_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_THRESHOLD")
+   field(SCAN, "I/O Intr")
+}

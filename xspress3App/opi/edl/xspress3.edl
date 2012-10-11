@@ -681,25 +681,6 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 30
-y 715
-w 45
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Total"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
 x 10
 y 580
 w 131
@@ -712,50 +693,6 @@ value {
 }
 autoSize
 border
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 90
-y 705
-w 80
-h 40
-fgColor index 14
-bgColor index 3
-selectColor index 3
-inconsistentColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):CTRL_TOTAL_UPDATE"
-indicatorPv "$(P):CTRL_TOTAL_UPDATE_RBV"
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 175
-y 705
-w 80
-h 40
-controlPv "$(P):CTRL_TOTAL_UPDATE_RBV"
-font "arial-bold-r-16.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
 endObjectProperties
 
 # (Static Text)
@@ -826,25 +763,6 @@ y 665
 w 65
 h 25
 controlPv "$(P):CTRL_SCA_UPDATE_PERIOD"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 265
-y 715
-w 65
-h 25
-controlPv "$(P):CTRL_TOTAL_UPDATE_PERIOD"
 fgColor index 25
 fgAlarm
 bgColor index 3
@@ -1515,6 +1433,92 @@ limitsFromDb
 nullColor index 30
 fastUpdate
 useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 370
+y 260
+w 140
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Max MCA Elements"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 380
+y 285
+w 140
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Max Num Frames"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 510
+y 260
+w 80
+h 20
+controlPv "$(P):MAX_SPECTRA_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 510
+y 285
+w 80
+h 20
+controlPv "$(P):MAX_FRAMES_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
 newPos
 objType "monitors"
 endObjectProperties

@@ -89,6 +89,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3StatusParamString,        asynParamOctet,       &xsp3StatusParam);
   createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
   createParam(xsp3MaxNumChannelsParamString,asynParamInt32,       &xsp3MaxNumChannelsParam);
+  createParam(xsp3MaxSpectraParamString,asynParamInt32,       &xsp3MaxSpectraParam);
+  createParam(xsp3MaxFramesParamString,asynParamInt32,       &xsp3MaxFramesParam);
   createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
   createParam(xsp3FixedTimeParamString,   asynParamInt32,       &xsp3FixedTimeParam);
   createParam(xsp3NumFramesParamString,     asynParamInt32,       &xsp3NumFramesParam);
@@ -122,6 +124,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3ChanSca7ArrayParamString,asynParamInt32Array,  &xsp3ChanSca7ArrayParam);
   createParam(xsp3ChanSca5CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca5CorrArrayParam);
   createParam(xsp3ChanSca6CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca6CorrArrayParam);
+  createParam(xsp3ChanSca4ThresholdParamString,   asynParamInt32,       &xsp3ChanSca4ThresholdParam);
   createParam(xsp3ChanSca5HlmParamString,   asynParamInt32,       &xsp3ChanSca5HlmParam);
   createParam(xsp3ChanSca6HlmParamString,   asynParamInt32,       &xsp3ChanSca6HlmParam);
   createParam(xsp3ChanSca5LlmParamString,   asynParamInt32,       &xsp3ChanSca5LlmParam);
@@ -130,11 +133,9 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3CtrlDataParamString,         asynParamInt32,       &xsp3CtrlDataParam);
   createParam(xsp3CtrlMcaParamString,         asynParamInt32,       &xsp3CtrlMcaParam);
   createParam(xsp3CtrlScaParamString,         asynParamInt32,       &xsp3CtrlScaParam);
-  createParam(xsp3CtrlTotalParamString,         asynParamInt32,       &xsp3CtrlTotalParam);
   createParam(xsp3CtrlDataPeriodParamString,         asynParamInt32,       &xsp3CtrlDataPeriodParam);
   createParam(xsp3CtrlMcaPeriodParamString,         asynParamInt32,       &xsp3CtrlMcaPeriodParam);
   createParam(xsp3CtrlScaPeriodParamString,         asynParamInt32,       &xsp3CtrlScaPeriodParam);
-  createParam(xsp3CtrlTotalPeriodParamString,         asynParamInt32,       &xsp3CtrlTotalPeriodParam);
   
  //Initialize non static data members
   acquiring_ = 0;
@@ -173,6 +174,13 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   status |= setIntegerParam(xsp3FixedTimeParam, 0);
   status |= setIntegerParam(xsp3NumFramesParam, 0);
   status |= setIntegerParam(xsp3NumCardsParam, 0);
+  for (int chan=0; chan<numChannels_; chan++) {
+    status |= setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca5HlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca6HlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca5LlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanSca6LlmParam, 0);
+  }
   status |= eraseSCA();
 
   status |= setStringParam(xsp3StatusParam, "Init. System disconnected.");
@@ -532,10 +540,6 @@ asynStatus Xspress3::eraseSCA(void)
     status |= setIntegerParam(chan, xsp3ChanSca7Param, 0);
     status |= setDoubleParam(chan,  xsp3ChanSca5CorrParam, 0);
     status |= setDoubleParam(chan,  xsp3ChanSca6CorrParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca5HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca6HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca5LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca6LlmParam, 0);
   }
 
   if (status != asynSuccess) {
@@ -702,6 +706,16 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     log(logFlow_, "Run the restoreSettings function.", functionName);
     status = restoreSettings();
   }
+  else if (function == xsp3ChanSca4ThresholdParam) {
+    if ((status = checkConnected()) == asynSuccess) {
+      log(logFlow_, "Set the SCA4 threshold register", functionName);
+      xsp3_status = xsp3_set_good_thres(xsp3_handle_, addr, value);
+      if (xsp3_status != XSP3_OK) {
+	checkStatus(xsp3_status, "xsp3_set_good_thres", functionName);
+	status = asynError;
+      }
+    }
+  } 
   else if (function == xsp3ChanSca5HlmParam) {
     log(logFlow_, "Setting SCA5 high limit.", functionName);
     getIntegerParam(xsp3ChanSca5LlmParam, &xsp3_sca_lim);
@@ -731,7 +745,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       log(logFlow_, "Disabling all live data update.", functionName);
       setIntegerParam(xsp3CtrlMcaParam, 0);
       setIntegerParam(xsp3CtrlScaParam, 0);
-      setIntegerParam(xsp3CtrlTotalParam, 0);
     } else if (value == ctrlEnable_) {
       log(logFlow_, "Enabling live data update.", functionName);
     }
@@ -752,14 +765,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       setIntegerParam(xsp3CtrlDataParam, 1);
     }
   } 
-  else if (function == xsp3CtrlTotalParam) {
-    if (value == ctrlDisable_) {
-      log(logFlow_, "Disabling total data update.", functionName);
-    } else if (value == ctrlEnable_) {
-      log(logFlow_, "Enabling total data update.", functionName);
-      setIntegerParam(xsp3CtrlDataParam, 1);
-    }
-  } 
   else if (function == xsp3CtrlDataPeriodParam) {
     log(logFlow_, "Setting scalar data update rate.", functionName);
   }
@@ -768,9 +773,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
   else if (function == xsp3CtrlScaPeriodParam) {
     log(logFlow_, "Setting SCA data update rate.", functionName);
-  }
-  else if (function == xsp3CtrlTotalPeriodParam) {
-    log(logFlow_, "Setting total data update rate.", functionName);
   }
   else {
     log(logError_, "No matching parameter.", functionName);

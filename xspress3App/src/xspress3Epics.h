@@ -47,6 +47,8 @@
 #define xsp3StatusParamString             "STATUS"
 #define xsp3NumChannelsParamString        "NUM_CHANNELS"
 #define xsp3MaxNumChannelsParamString     "MAX_NUM_CHANNELS"
+#define xsp3MaxSpectraParamString     "MAX_SPECTRA"
+#define xsp3MaxFramesParamString     "MAX_FRAMES"
 #define xsp3TriggerModeParamString        "TRIGGER_MODE"
 #define xsp3FixedTimeParamString        "FIXED_TIME"
 #define xsp3NumFramesParamString          "NUM_FRAMES"
@@ -80,6 +82,7 @@
 #define xsp3ChanSca7ArrayParamString           "CHAN_SCA7_ARRAY"
 #define xsp3ChanSca5CorrArrayParamString       "CHAN_SCA5_CORR_ARRAY"
 #define xsp3ChanSca6CorrArrayParamString       "CHAN_SCA6_CORR_ARRAY"
+#define xsp3ChanSca4ThresholdParamString        "CHAN_SCA4_THRESHOLD"
 #define xsp3ChanSca5HlmParamString        "CHAN_SCA5_HLM"
 #define xsp3ChanSca6HlmParamString        "CHAN_SCA6_HLM"
 #define xsp3ChanSca5LlmParamString        "CHAN_SCA5_LLM"
@@ -88,11 +91,9 @@
 #define xsp3CtrlDataParamString              "CTRL_DATA_UPDATE"
 #define xsp3CtrlMcaParamString              "CTRL_MCA_UPDATE"
 #define xsp3CtrlScaParamString              "CTRL_SCA_UPDATE"
-#define xsp3CtrlTotalParamString              "CTRL_TOTAL_UPDATE"
 #define xsp3CtrlDataPeriodParamString              "CTRL_DATA_UPDATE_PERIOD"
 #define xsp3CtrlMcaPeriodParamString              "CTRL_MCA_UPDATE_PERIOD"
 #define xsp3CtrlScaPeriodParamString              "CTRL_SCA_UPDATE_PERIOD"
-#define xsp3CtrlTotalPeriodParamString              "CTRL_TOTAL_UPDATE_PERIOD"
 
 
 
@@ -161,6 +162,8 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3StatusParam;
   int xsp3NumChannelsParam;
   int xsp3MaxNumChannelsParam;
+  int xsp3MaxSpectraParam;
+  int xsp3MaxFramesParam;
   int xsp3TriggerModeParam;
   int xsp3FixedTimeParam;
   int xsp3NumFramesParam;
@@ -193,6 +196,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3ChanSca7ArrayParam;
   int xsp3ChanSca5CorrArrayParam;
   int xsp3ChanSca6CorrArrayParam;
+  int xsp3ChanSca4ThresholdParam;          
   int xsp3ChanSca5HlmParam;          
   int xsp3ChanSca6HlmParam;          
   int xsp3ChanSca5LlmParam;          
@@ -200,12 +204,10 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3CtrlDataParam;
   int xsp3CtrlMcaParam;
   int xsp3CtrlScaParam;
-  int xsp3CtrlTotalParam;
   int xsp3CtrlDataPeriodParam;
   int xsp3CtrlMcaPeriodParam;
   int xsp3CtrlScaPeriodParam;
-  int xsp3CtrlTotalPeriodParam;
-  #define LAST_DRIVER_COMMAND xsp3CtrlTotalPeriodParam
+  #define LAST_DRIVER_COMMAND xsp3CtrlScaPeriodParam
 
 };
 

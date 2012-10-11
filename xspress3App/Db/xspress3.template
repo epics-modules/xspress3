@@ -4,7 +4,8 @@
 # Sept 2012
 #
 # Channel dependant records are in xspress3Channel.template
-# Channel SCA records are in xspress3ChannelSCA.template
+# Channel SCA records are in xspress3ChannelSCA.template, xspress3ChannelSCANoLimits.template
+# and xspress3ChannelSCAThreshold.template, depending on the type of SCA.
 # Records to control live data update are in xspress3DataUpdate.template
 #
 # Macros:
@@ -277,8 +278,8 @@ record(bi,"$(P)$(R)CONNECTED") {
     field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONNECTED")
     field(ZNAM,"Disconnected")
     field(ONAM,"Connected")
-    field(PINI, "YES")
     field(VAL, "0")
+    field(SCAN, "I/O Intr")
 }
 
 
@@ -319,6 +320,58 @@ record(bo, "$(P)$(R)RESTORE_SETTINGS")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))RESTORE_SETTINGS")
    field(ZNAM,"Restore")
    field(ONAM,"Restore")	
+}
+
+
+# ///
+# /// Set the max number of elements in a spectra. This is a database parameter, so the
+# /// record has DISP=1 so it can't be changed at runtime (do we need runtime control of this?)
+# ///
+record(longout, "$(P)$(R)MAX_SPECTRA")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_SPECTRA")
+   field(VAL,  "$(MAX_SPECTRA)")
+   field(DISP, "1")
+   field(FLNK, "$(P)$(R)MAX_SPECTRA_RBV.PROC")
+}
+
+# ///
+# /// Read the max spectra size from the driver. This was set at startup
+# /// by $(P)$(R)MAX_SPECTRA.
+# ///
+record(longin, "$(P)$(R)MAX_SPECTRA_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_SPECTRA")
+   field(SCAN, "I/O Intr")
+}
+
+
+# ///
+# /// Set the max number of frames to acquire. This is a database parameter, so the
+# /// record has DISP=1 so it can't be changed at runtime (do we need runtime control of this?)
+# ///
+record(longout, "$(P)$(R)MAX_FRAMES")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_FRAMES")
+   field(VAL,  "$(MAX_FRAMES)")
+   field(DISP, "1")
+   field(FLNK, "$(P)$(R)MAX_FRAMES_RBV.PROC")
+}
+
+# ///
+# /// Read the max number of frames from the driver. This was set at startup
+# /// by $(P)$(R)MAX_FRAMES.
+# ///
+record(longin, "$(P)$(R)MAX_FRAMES_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_FRAMES")
+   field(SCAN, "I/O Intr")
 }
 
 

@@ -22,28 +22,35 @@ record(waveform, "$(P)$(R)C$(CHAN)_MCA_CORR_RBV")
     field(SCAN, "I/O Intr")
 }
 
-
+#Time SCA
 substitute "SCA=0"
 include "xspress3ChannelSCANoLimits.template"
 
+#Reset ticks SCA
 substitute "SCA=1"
 include "xspress3ChannelSCANoLimits.template"
 
+#Reset counts SCA
 substitute "SCA=2"
 include "xspress3ChannelSCANoLimits.template"
 
+#All event SCA
 substitute "SCA=3"
 include "xspress3ChannelSCANoLimits.template"
 
+#All good SCA
 substitute "SCA=4"
-include "xspress3ChannelSCANoLimits.template"
+include "xspress3ChannelSCAThreshold.template"
 
+#Window 1 SCA
 substitute "SCA=5"
 include "xspress3ChannelSCA.template"
 
+#Window 2 SCA
 substitute "SCA=6"
 include "xspress3ChannelSCA.template"
 
+#Pileup SCA
 substitute "SCA=7"
 include "xspress3ChannelSCANoLimits.template"
 
