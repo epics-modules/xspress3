@@ -40,7 +40,7 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param portName The Asyn port name to use
  * @param maxChannels The number of channels to use (eg. 8)
  */
-Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, int maxBuffers, size_t maxMemory, int debug)
+Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug)
   : asynNDArrayDriver(portName,
 		      numChannels, /* maxAddr - channels use different param lists*/ 
 		      NUM_DRIVER_PARAMS,
@@ -170,10 +170,11 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
 
   //Set any paramLib parameters that need passing up to device support
   status = setIntegerParam(xsp3NumChannelsParam, numChannels_);
-  status |= setIntegerParam(xsp3MaxNumChannelsParam, numChannels_); 
+  status |= setIntegerParam(xsp3MaxNumChannelsParam, numChannels_);
   status |= setIntegerParam(xsp3TriggerModeParam, 0);
   status |= setIntegerParam(xsp3FixedTimeParam, 0);
   status |= setIntegerParam(xsp3NumFramesParam, 0);
+  status != setIntegerParam(xsp3MaxFramesParam, maxFrames);
   status |= setIntegerParam(xsp3NumCardsParam, 0);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
   for (int chan=0; chan<numChannels_; chan++) {
@@ -616,7 +617,13 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     status = erase();
   } 
   else if (function == xsp3StartParam) {
+    /////////////////////////////////////////////temp
+    epicsEventSignal(this->startEvent_);
+    /////////////////////////////////////////////////
     if ((status = checkConnected()) == asynSuccess) {
+
+      //Only allow if we are not collecting data
+
       log(logFlow_, "Start collecting data", functionName);
       getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
       for (int card=0; card<xsp3_num_cards; card++) {
@@ -633,7 +640,13 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   } 
   else if (function == xsp3StopParam) {
+    //////////////////////////////////////temp
+    epicsEventSignal(this->stopEvent_);
+    ///////////////////////////////////////////
     if ((status = checkConnected()) == asynSuccess) {
+      
+      //Need to check we are already collecting data here, and if so do not send a stop event.
+
       log(logFlow_, "Stop collecting data", functionName);
       getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
       for (int card=0; card<xsp3_num_cards; card++) {
@@ -944,12 +957,15 @@ void Xspress3::dataTask(void)
   int frame_count = 0;
   int notBusyCount = 0;
   int notBusyChan = 0;
+  int notBusyTotalCount = 0;
   int frameCounter = 0;
-  int scaDims[2] = {0};
+  int scaArraySize = 0;
   XSP3_DMA_MsgCheckDesc dmaCheck;
   const char* functionName = "Xspress3::dataTask";
-  NDArray *pSCA;
-  NDArray *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
+  epicsUInt32 *pSCA;
+  epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
+  
+  int simTest = 1;
 
   log(logFlow_, "Started.", functionName);
 
@@ -958,14 +974,14 @@ void Xspress3::dataTask(void)
      //SEE Pilatus driver for example for how to avoid start/stop deadlock.
      //May need to use acquire/aborted flags like in pilatus driver.
 
-     //Create NDArray for scalar data (max frame * number of SCAs).
-     getIntegerParam(xsp3MaxFramesParam, &scaDims[0]);
-     scaDims[1] = XSP3_SW_NUM_SCALERS;
-     pSCA = this->pNDArrayPool->alloc(2, scaDims, NDInt32, 0, NULL);
-     //Create NDArrays to hold SCA data for the duration of the scan, one per SCA, per channel.
+     //Create array for scalar data (max frame * number of SCAs).
+     getIntegerParam(xsp3MaxFramesParam, &scaArraySize);
+     cout << "scaArraySize: " << scaArraySize << endl;
+     pSCA = static_cast<epicsUInt32*>(calloc(XSP3_SW_NUM_SCALERS*scaArraySize*numChannels_, sizeof(epicsUInt32)));
+     //Create array to hold SCA data for the duration of the scan, one per SCA, per channel.
      for (int chan=0; chan<numChannels_; chan++) {
        for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-	 pSCA_DATA[chan][sca] = this->pNDArrayPool->alloc(1, scaDims, NDInt32, 0, NULL);
+	 pSCA_DATA[chan][sca] = static_cast<epicsInt32*>(calloc(scaArraySize, sizeof(epicsInt32)));
        }
      }
      
@@ -974,6 +990,9 @@ void Xspress3::dataTask(void)
      if (eventStatus == epicsEventWaitOK) {
         log(logFlow_, "Got start event.", functionName);
 	acquire = 1;
+	frameCounter = 0;
+	setIntegerParam(NDArrayCounter, 0);
+	callParamCallbacks();
       }
 
      //Get the number of channels actually in use
@@ -989,115 +1008,170 @@ void Xspress3::dataTask(void)
        }
 
        //If we have stopped, wait until we are not busy twice, on all channels.
-       if (acquire == 0) {
-	 notBusyCount = 0;
-	 notBusyChan = 0;
-	 while (notBusyCount<2) {
-	   for (int chan=0; chan<numChannels; chan++) {
-	     if ((xsp3_histogram_is_busy(xsp3_handle_, chan)) == 0) {
-	       ++notBusyChan;
+       if (!simTest) {
+	 if (acquire == 0) {
+	   notBusyCount = 0;
+	   notBusyChan = 0;
+	   notBusyTotalCount = 0;
+	   while (notBusyCount<2) {
+	     for (int chan=0; chan<numChannels; chan++) {
+	       if ((xsp3_histogram_is_busy(xsp3_handle_, chan)) == 0) {
+		 ++notBusyChan;
+	       }
+	     }
+	     cout << "notBusyChan: " << notBusyChan << endl;
+	     if (notBusyChan == numChannels) {
+	       ++notBusyCount;
+	     }
+	     cout << "notBusyCount: " << notBusyCount << endl;
+	     notBusyChan = 0;
+	     notBusyTotalCount++;
+	     if (notBusyTotalCount==20) {
+	       log(logError_, "ERROR: we polled xsp3_histogram_is_busy 20 times. Giving up.", functionName);
+	       setStringParam(xsp3StatusParam, "ERROR: xspress3 did not stop. Giving up.");
+	       status = asynError;
+	       break;
 	     }
 	   }
-	   cout << "notBusyChan: " << notBusyChan << endl;
-	   if (notBusyChan == numChannels) {
-	     ++notBusyCount;
-	   }
-	   cout << "notBusyCount: " << notBusyCount << endl;
-	   notBusyChan = 0;
 	 }
        }
 
        //Read how many scaler data frames have been transferred.
-       getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-       for (int card=0; card<xsp3_num_cards; card++) {
-	 xsp3_status = xsp3_dma_check_desc(xsp3_handle_, card, XSP3_DMA_STREAM_MASK_SCALERS, &dmaCheck);
-	 if (xsp3_status != XSP3_OK) {
-	   checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
-	   status = asynError;
+       if (!simTest) {
+	 getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+	 for (int card=0; card<xsp3_num_cards; card++) {
+	   xsp3_status = xsp3_dma_check_desc(xsp3_handle_, card, XSP3_DMA_STREAM_MASK_SCALERS, &dmaCheck);
+	   if (xsp3_status != XSP3_OK) {
+	     checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
+	     status = asynError;
+	   }
+	   frame_count = dmaCheck.num_desc;
 	 }
-	 frame_count = dmaCheck.num_desc;
+       } else {
+	 //In sim mode we transfer 100 frames each time
+	 frame_count = 10;
        }
-
+       
        //Take the value from the last card for now...
        //Do I need to throttle this based on the scalar update rate timer?
        setIntegerParam(xsp3FrameCountParam, frame_count);
-
-       cout << "frame_count: " << frame_count << endl;
        
        if (frame_count > 0) {
 
 	 getIntegerParam(NDArrayCounter, &frameCounter);
 	 frameCounter += frame_count;
+	 cout << "frameCounter: " << frameCounter << endl;
+	 if (frameCounter >= scaArraySize) {
+	   log(logFlow_, "ERROR: max frames reached. Stopping.", functionName);
+	   acquire=0;
+	   break;
+	 }
 	 setIntegerParam(NDArrayCounter, frameCounter);
 
+	 epicsUInt32 *pData = NULL;
 	 //Readout here, and copy the scalar data into local arrays.
 	 //For now read out everything everytime, until I know it's working and I can make it more efficient.
-	 xsp3_status = xsp3_scaler_read(xsp3_handle_, static_cast<u_int32_t*>(pSCA->pData), 0, 0, 0, XSP3_SW_NUM_SCALERS, numChannels, frameCounter);
-
-	 epicsUInt32 *pData = NULL;
-	 epicsUInt32 *pRawData = static_cast<epicsUInt32*>(pSCA->pData);
+	 if (!simTest) {
+	   xsp3_status = xsp3_scaler_read(xsp3_handle_, static_cast<u_int32_t*>(pSCA), 0, 0, 0, XSP3_SW_NUM_SCALERS, numChannels, frameCounter);
+	 } else {
+	   //Fill the array with dummy data in simTest mode
+	   pData = pSCA;
+	   for (int i=0; i<(XSP3_SW_NUM_SCALERS*scaArraySize*numChannels); ++i) {
+	     //cout << "i: " << i << endl;
+	     *(pData++) = i;
+	   }
+	   if (acquire) {
+	     epicsThreadSleep(0.1);
+	   }
+	 }
+	 cout << "point 1" << endl;
+	 
+	 pData = pSCA;
+	 epicsInt32 *pDataArray = NULL;
 	 //Now copy the data to the per-channel, per-SCA arrays, to make them available for channel access.
 	 for (int frame=0; frame<frameCounter; ++frame) {
-	   for (int chan=0; chan<numChannels; ++numChannels) {
+	   for (int chan=0; chan<numChannels; ++chan) {
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
-	       pData = (static_cast<epicsUInt32*>(pSCA_DATA[chan][sca]->pData))+frame;
-	       *pData = *(pRawData++);
+	       pDataArray = (static_cast<epicsInt32*>((pSCA_DATA[chan][sca])+frame));
+	       *pDataArray = *(pData++);
 	     }
 	   }
 	 }
 
-	 //Debug print first 10 frames
-	 cout << "Debug print first 10 frames..." << endl;
-	 pData = NULL;
-	 for (int chan=0; chan<numChannels; ++numChannels) {
+	 cout << "point 2" << endl;
+
+	 //Debug print first 100 frames
+	 /*cout << "Debug print first two frames..." << endl;
+	 pDataArray = NULL;
+	 for (int chan=0; chan<numChannels; ++chan) {
 	   for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
-	     pData = static_cast<epicsUInt32*>(pSCA_DATA[chan][sca]->pData);
-	     for (int i=0; i<10; ++i) {
-	       cout << " CHAN: " << chan << "  SCA: " << sca << "  DATA: " << *pData << endl;
-	       pData++;
+	     pDataArray = static_cast<epicsInt32*>(pSCA_DATA[chan][sca]);
+	     for (int i=0; i<102; ++i) {
+	       cout << " CHAN: " << chan << "  SCA: " << sca << "  FRAME " << i << ": " << *pDataArray << endl;
+	       pDataArray++;
 	     }
 	   }
-	 }
+	   }*/
 	 
 	 int scalerUpdate = 0;
 	 int scalerArrayUpdate = 0; 
 	 getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 
 	 getIntegerParam(xsp3CtrlScaParam, &scalerArrayUpdate); 
 
+	 int offset = frameCounter-1;
 	 //Post scalar data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
 	 if (scalerUpdate || !acquire) {
+	   cout << "Posting scaler data values..." << endl;
 	   //Take the most recent scalar values and post the values
-	   for (int chan=0; chan<numChannels; ++numChannels) {
-	     setIntegerParam(chan, xsp3ChanSca0Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][0]->pData))+frame_count));
-	     setIntegerParam(chan, xsp3ChanSca1Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][1]->pData))+frame_count));
-	     setIntegerParam(chan, xsp3ChanSca2Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][2]->pData))+frame_count));
-	     setIntegerParam(chan, xsp3ChanSca3Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][3]->pData))+frame_count));
-	     setIntegerParam(chan, xsp3ChanSca4Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][4]->pData))+frame_count));
-	     setIntegerParam(chan, xsp3ChanSca5Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][5]->pData))+frame_count));
-	     setIntegerParam(chan, xsp3ChanSca6Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][6]->pData))+frame_count));
-	     setIntegerParam(chan, xsp3ChanSca7Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][7]->pData))+frame_count));
+	   for (int chan=0; chan<numChannels; ++chan) {
+	     cout << frame_count << endl;
+	     cout << (static_cast<epicsInt32*>(pSCA_DATA[chan][0])) << endl;
+	     cout << ((static_cast<epicsInt32*>(pSCA_DATA[chan][0]))+offset) << endl;
+	     cout << *(static_cast<epicsInt32*>(pSCA_DATA[chan][0])) << endl;
+	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][0]))+offset) << endl;
+	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][1]))+offset) << endl;
+	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][2]))+offset) << endl;
+	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][3]))+offset) << endl;
+	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][4]))+offset) << endl;
+	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][5]))+offset) << endl;
+	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][6]))+offset) << endl;
+	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][7]))+offset) << endl;
+	     setIntegerParam(chan, xsp3ChanSca0Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][0]))+offset));
+	     setIntegerParam(chan, xsp3ChanSca1Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][1]))+offset));
+	     setIntegerParam(chan, xsp3ChanSca2Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][2]))+offset));
+	     setIntegerParam(chan, xsp3ChanSca3Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][3]))+offset));
+	     setIntegerParam(chan, xsp3ChanSca4Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][4]))+offset));
+	     setIntegerParam(chan, xsp3ChanSca5Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][5]))+offset));
+	     setIntegerParam(chan, xsp3ChanSca6Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][6]))+offset));
+	     setIntegerParam(chan, xsp3ChanSca7Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][7]))+offset));
 	   }
+	   cout << "Done." << endl;
 	 }
-	 
+
 	 //Post scalar array data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
 	 if ((scalerArrayUpdate == 1) || !acquire) {
-	   for (int chan=0; chan<numChannels; ++numChannels) {
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][0]->pData), frame_count, xsp3ChanSca0ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][1]->pData), frame_count, xsp3ChanSca1ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][2]->pData), frame_count, xsp3ChanSca2ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][3]->pData), frame_count, xsp3ChanSca3ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][4]->pData), frame_count, xsp3ChanSca4ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][5]->pData), frame_count, xsp3ChanSca5ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][6]->pData), frame_count, xsp3ChanSca6ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][7]->pData), frame_count, xsp3ChanSca7ArrayParam, chan);
+	   cout << "Posting scaler array data values..." << endl;
+	   for (int chan=0; chan<numChannels; ++chan) {
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][0]), offset, xsp3ChanSca0ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][1]), offset, xsp3ChanSca1ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][2]), offset, xsp3ChanSca2ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][3]), offset, xsp3ChanSca3ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][4]), offset, xsp3ChanSca4ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][5]), offset, xsp3ChanSca5ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][6]), offset, xsp3ChanSca6ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][7]), offset, xsp3ChanSca7ArrayParam, chan);
 	   }
-
+	   cout << "Done." << endl;
 	 }
 
-	 callParamCallbacks();
-
-
        }  //end of frame_count > 0
+
+       frame_count = 0;
+
+       //Need to call callParamCallbacks for each list (ie. channel, indexed by Asyn address).
+       for (int addr=0; addr<maxAddr; addr++) {
+	 callParamCallbacks(addr);
+       }
 
      } //end of while(acquire)
 
@@ -1165,13 +1239,13 @@ static void xsp3DataTaskC(void *drvPvt)
  */
 extern "C" {
 
-  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxBuffers, size_t maxMemory, int debug)
+  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug)
   {
     asynStatus status = asynSuccess;
     
     /*Instantiate class.*/
     try {
-      new Xspress3(portName, numChannels, baseIP, maxBuffers, maxMemory, debug);
+      new Xspress3(portName, numChannels, baseIP, maxFrames, maxBuffers, maxMemory, debug);
     } catch (...) {
       cout << "Unknown exception caught when trying to construct Xspress3." << endl;
       status = asynError;
@@ -1186,20 +1260,22 @@ extern "C" {
   static const iocshArg xspress3ConfigArg0 = {"Port name", iocshArgString};
   static const iocshArg xspress3ConfigArg1 = {"Num Channels", iocshArgInt};
   static const iocshArg xspress3ConfigArg2 = {"Base IP Address", iocshArgString};
-  static const iocshArg xspress3ConfigArg3 = {"Max Buffers", iocshArgInt};
-  static const iocshArg xspress3ConfigArg4 = {"Max Memory", iocshArgInt};
-  static const iocshArg xspress3ConfigArg5 = {"Debug", iocshArgInt};
+  static const iocshArg xspress3ConfigArg3 = {"Max Frames", iocshArgInt};
+  static const iocshArg xspress3ConfigArg4 = {"Max Buffers", iocshArgInt};
+  static const iocshArg xspress3ConfigArg5 = {"Max Memory", iocshArgInt};
+  static const iocshArg xspress3ConfigArg6 = {"Debug", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
 							 &xspress3ConfigArg1,
 							 &xspress3ConfigArg2,
 							 &xspress3ConfigArg3,
 							 &xspress3ConfigArg4,
-							 &xspress3ConfigArg5};
+							 &xspress3ConfigArg5,
+							 &xspress3ConfigArg6};
   
-  static const iocshFuncDef configXspress3 = {"xspress3Config", 6, xspress3ConfigArgs};
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 7, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
-    xspress3Config(args[0].sval, args[1].ival, args[2].sval, args[3].ival, args[4].ival, args[5].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].sval, args[3].ival, args[4].ival, args[5].ival, args[6].ival);
   }
   
   static void xspress3Register(void)

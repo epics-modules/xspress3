@@ -99,14 +99,14 @@
 
 
 extern "C" {
-  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxBuffers, size_t maxMemory, int debug);
+  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug);
 }
 
 
 class Xspress3 : public asynNDArrayDriver {
 
  public:
-  Xspress3(const char *portName, int numChannels, const char *baseIP, int maxBuffers, size_t maxMemory, int debug);
+  Xspress3(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug);
   virtual ~Xspress3();
 
   /* These are the methods that we override from asynPortDriver */
