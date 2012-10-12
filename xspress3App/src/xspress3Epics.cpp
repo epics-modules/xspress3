@@ -720,25 +720,25 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   } 
   else if (function == xsp3ChanSca5HlmParam) {
     log(logFlow_, "Setting SCA5 high limit.", functionName);
-    getIntegerParam(xsp3ChanSca5LlmParam, &xsp3_sca_lim);
+    getIntegerParam(addr, xsp3ChanSca5LlmParam, &xsp3_sca_lim);
     cout << "Low lim is already: " << xsp3_sca_lim << endl;
     status = setWindow(addr, 0, xsp3_sca_lim, value); 
   } 
   else if (function == xsp3ChanSca6HlmParam) {
     log(logFlow_, "Setting SCA6 high limit.", functionName);
-    getIntegerParam(xsp3ChanSca6LlmParam, &xsp3_sca_lim);
+    getIntegerParam(addr, xsp3ChanSca6LlmParam, &xsp3_sca_lim);
     cout << "Low lim is already: " << xsp3_sca_lim << endl;
     status = setWindow(addr, 1, xsp3_sca_lim, value); 
   } 
   else if (function == xsp3ChanSca5LlmParam) {
     log(logFlow_, "Setting SCA5 low limit", functionName);
-    getIntegerParam(xsp3ChanSca5HlmParam, &xsp3_sca_lim);
+    getIntegerParam(addr, xsp3ChanSca5HlmParam, &xsp3_sca_lim);
     cout << "High lim is already: " << xsp3_sca_lim << endl;
     status = setWindow(addr, 0, value, xsp3_sca_lim); 
   } 
   else if (function == xsp3ChanSca6LlmParam) {
     log(logFlow_, "Setting SCA6 low limit", functionName); 
-    getIntegerParam(xsp3ChanSca6HlmParam, &xsp3_sca_lim);
+    getIntegerParam(addr, xsp3ChanSca6HlmParam, &xsp3_sca_lim);
     cout << "High lim is already: " << xsp3_sca_lim << endl;
     status = setWindow(addr, 1, value, xsp3_sca_lim);
   } 
@@ -935,7 +935,7 @@ void Xspress3::dataTask(void)
 {
   //asynStatus status = asynSuccess;
   epicsEventWaitStatus eventStatus;
-  epicsFloat64 timeout = 0.01;
+  epicsFloat64 timeout = 0.05;
   int numChannels = 0;
   int acquire = 0;
   int xsp3_status = 0;
@@ -976,12 +976,12 @@ void Xspress3::dataTask(void)
 	acquire = 1;
       }
 
-     //Get the number of channels in use
+     //Get the number of channels actually in use
      getIntegerParam(xsp3NumChannelsParam, &numChannels);
 
      while (acquire) {
 
-       //Wait for a stop event (see below for example).
+       //Wait for a stop event, with a short timeout.
        eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
        if (eventStatus == epicsEventWaitOK) {
 	 log(logFlow_, "Got stop event.", functionName);
@@ -998,9 +998,11 @@ void Xspress3::dataTask(void)
 	       ++notBusyChan;
 	     }
 	   }
+	   cout << "notBusyChan: " << notBusyChan << endl;
 	   if (notBusyChan == numChannels) {
 	     ++notBusyCount;
 	   }
+	   cout << "notBusyCount: " << notBusyCount << endl;
 	   notBusyChan = 0;
 	 }
        }
@@ -1020,6 +1022,8 @@ void Xspress3::dataTask(void)
        //Do I need to throttle this based on the scalar update rate timer?
        setIntegerParam(xsp3FrameCountParam, frame_count);
 
+       cout << "frame_count: " << frame_count << endl;
+       
        if (frame_count > 0) {
 
 	 getIntegerParam(NDArrayCounter, &frameCounter);
@@ -1054,22 +1058,48 @@ void Xspress3::dataTask(void)
 	     }
 	   }
 	 }
+	 
+	 int scalerUpdate = 0;
+	 int scalerArrayUpdate = 0; 
+	 getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 
+	 getIntegerParam(xsp3CtrlScaParam, &scalerArrayUpdate); 
+
+	 //Post scalar data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
+	 if (scalerUpdate || !acquire) {
+	   //Take the most recent scalar values and post the values
+	   for (int chan=0; chan<numChannels; ++numChannels) {
+	     setIntegerParam(chan, xsp3ChanSca0Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][0]->pData))+frame_count));
+	     setIntegerParam(chan, xsp3ChanSca1Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][1]->pData))+frame_count));
+	     setIntegerParam(chan, xsp3ChanSca2Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][2]->pData))+frame_count));
+	     setIntegerParam(chan, xsp3ChanSca3Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][3]->pData))+frame_count));
+	     setIntegerParam(chan, xsp3ChanSca4Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][4]->pData))+frame_count));
+	     setIntegerParam(chan, xsp3ChanSca5Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][5]->pData))+frame_count));
+	     setIntegerParam(chan, xsp3ChanSca6Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][6]->pData))+frame_count));
+	     setIntegerParam(chan, xsp3ChanSca7Param, *((static_cast<epicsUInt32*>(pSCA_DATA[chan][7]->pData))+frame_count));
+	   }
+	 }
+	 
+	 //Post scalar array data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
+	 if ((scalerArrayUpdate == 1) || !acquire) {
+	   for (int chan=0; chan<numChannels; ++numChannels) {
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][0]->pData), frame_count, xsp3ChanSca0ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][1]->pData), frame_count, xsp3ChanSca1ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][2]->pData), frame_count, xsp3ChanSca2ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][3]->pData), frame_count, xsp3ChanSca3ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][4]->pData), frame_count, xsp3ChanSca4ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][5]->pData), frame_count, xsp3ChanSca5ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][6]->pData), frame_count, xsp3ChanSca6ArrayParam, chan);
+	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][7]->pData), frame_count, xsp3ChanSca7ArrayParam, chan);
+	   }
+
+	 }
+
+	 callParamCallbacks();
 
 
-       }
+       }  //end of frame_count > 0
 
-       //Post scalar data if the timer has expired, using setIntegerParam.
-       //Post scalar array data if the timer has expired, using doCallbacksInt32Array
-       
-       //Take the most recent scalar values and post the values
-       
-       
-
-       callParamCallbacks();
-
-
-
-     }
+     } //end of while(acquire)
 
        
      //Use the API function get_bins_per_mca for spectra length. (should be 4096?)
@@ -1084,10 +1114,7 @@ void Xspress3::dataTask(void)
      //Save a 2D NDArray for the spectra data (channel * MCA bin)
      //Attach all the scalar data as attributes to this NDArray (seperate attributes per channel, per scalar).
 
-     for (int chan=0; chan<numChannels; chan++) {
-       
-     }
-
+     
      //Call this->unlock(); before doCallbacksGenericPointer(pArray, NDArrayData, 0); (the last param is the address).
      //Then lock() again, and call pArray->release();
      
