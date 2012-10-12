@@ -967,6 +967,17 @@ void Xspress3::dataTask(void)
   int notBusyTotalCount = 0;
   int frameCounter = 0;
   int scaArraySize = 0;
+  int dataTimeout = 0;
+  int scaArrayTimeout = 0;
+  epicsTimeStamp startTimeData;
+  epicsTimeStamp startTimeArray;
+  epicsTimeStamp diffTime;
+  int scalerUpdate = 0;
+  int scalerArrayUpdate = 0;
+  double startTimeDataVal = 0.0;
+  double startTimeDataArrayVal = 0.0;
+  double diffTimeDataVal = 0.0;
+  double diffTimeDataArrayVal = 0.0;
   XSP3_DMA_MsgCheckDesc dmaCheck;
   const char* functionName = "Xspress3::dataTask";
   epicsUInt32 *pSCA;
@@ -974,34 +985,37 @@ void Xspress3::dataTask(void)
 
   log(logFlow_, "Started.", functionName);
 
-   while (1) {
+  //Create array for scalar data (max frame * number of SCAs).
+  getIntegerParam(xsp3MaxFramesParam, &scaArraySize);
+  cout << "scaArraySize: " << scaArraySize << endl;
+  pSCA = static_cast<epicsUInt32*>(calloc(XSP3_SW_NUM_SCALERS*scaArraySize*numChannels_, sizeof(epicsUInt32)));
+  //Create array to hold SCA data for the duration of the scan, one per SCA, per channel.
+  for (int chan=0; chan<numChannels_; chan++) {
+    for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+      pSCA_DATA[chan][sca] = static_cast<epicsInt32*>(calloc(scaArraySize, sizeof(epicsInt32)));
+    }
+  }
 
-     //SEE Pilatus driver for example for how to avoid start/stop deadlock.
-     //May need to use acquire/aborted flags like in pilatus driver.
-
-     //Create array for scalar data (max frame * number of SCAs).
-     getIntegerParam(xsp3MaxFramesParam, &scaArraySize);
-     cout << "scaArraySize: " << scaArraySize << endl;
-     pSCA = static_cast<epicsUInt32*>(calloc(XSP3_SW_NUM_SCALERS*scaArraySize*numChannels_, sizeof(epicsUInt32)));
-     //Create array to hold SCA data for the duration of the scan, one per SCA, per channel.
-     for (int chan=0; chan<numChannels_; chan++) {
-       for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-	 pSCA_DATA[chan][sca] = static_cast<epicsInt32*>(calloc(scaArraySize, sizeof(epicsInt32)));
-       }
-     }
-     
-
+  while (1) {
+    
      eventStatus = epicsEventWait(startEvent_);          
      if (eventStatus == epicsEventWaitOK) {
         log(logFlow_, "Got start event.", functionName);
 	acquire = 1;
 	frameCounter = 0;
+	lock();
 	setIntegerParam(xsp3FrameCountParam, 0);
 	setIntegerParam(xsp3FrameCountTotalParam, 0);
 	setIntegerParam(xsp3BusyParam, 1);
 	setStringParam(xsp3StatusParam, "Acquiring Data");
 	callParamCallbacks();
+	unlock();
       }
+
+     /* Get the current time */
+     epicsTimeGetCurrent(&startTimeData);
+     epicsTimeGetCurrent(&startTimeArray);
+     
 
      //Get the number of channels actually in use
      getIntegerParam(xsp3NumChannelsParam, &numChannels);
@@ -1016,6 +1030,7 @@ void Xspress3::dataTask(void)
 	 setStringParam(xsp3StatusParam, "Stopped Acquiring");
 	 acquire = 0;
        }
+       lock();
 
        //If we have stopped, wait until we are not busy twice, on all channels.
        if (!simTest_) {
@@ -1072,9 +1087,11 @@ void Xspress3::dataTask(void)
 	 frameCounter += frame_count;
 	 cout << "frameCounter: " << frameCounter << endl;
 	 if (frameCounter >= scaArraySize) {
-	   log(logFlow_, "ERROR: max frames reached. Stopping.", functionName);
+	   log(logError_, "Max frames reached. Stopping.", functionName);
+	   setStringParam(xsp3StatusParam, "Max Frames Reached. Stopped.");
 	   setIntegerParam(xsp3BusyParam, 0);
 	   acquire=0;
+	   unlock();
 	   break;
 	 }
 	 setIntegerParam(xsp3FrameCountTotalParam, frameCounter);
@@ -1092,7 +1109,8 @@ void Xspress3::dataTask(void)
 	     *(pData++) = i;
 	   }
 	   if (acquire) {
-	     epicsThreadSleep(0.02);
+	     getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
+	     epicsThreadSleep(dataTimeout/1000.0);
 	   }
 	 }
 	 
@@ -1121,10 +1139,27 @@ void Xspress3::dataTask(void)
 	   }
 	   }*/
 	 
-	 int scalerUpdate = 0;
-	 int scalerArrayUpdate = 0; 
+	 
+	 //Control the update rate of scalers and arrays.
 	 getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 
 	 getIntegerParam(xsp3CtrlScaParam, &scalerArrayUpdate); 
+	 getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
+	 getIntegerParam(xsp3CtrlScaPeriodParam, &scaArrayTimeout);
+	 epicsTimeGetCurrent(&diffTime);
+	 startTimeDataVal = startTimeData.secPastEpoch + startTimeData.nsec / 1.e9;
+	 startTimeDataArrayVal = startTimeArray.secPastEpoch + startTimeArray.nsec / 1.e9;
+	 diffTimeDataVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeDataVal;
+	 diffTimeDataArrayVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeDataArrayVal;
+	 if (diffTimeDataVal < (dataTimeout/1000.0)) {
+	   scalerUpdate = 0;
+	 } else {
+	   epicsTimeGetCurrent(&startTimeData);
+	 }
+	 if (diffTimeDataArrayVal < (scaArrayTimeout/1000.0)) {
+	   scalerArrayUpdate = 0;
+	 } else {
+	   epicsTimeGetCurrent(&startTimeArray);
+	 }
 
 	 int offset = frameCounter-1;
 	 //Post scalar data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
@@ -1132,18 +1167,6 @@ void Xspress3::dataTask(void)
 	   cout << "Posting scaler data values..." << endl;
 	   //Take the most recent scalar values and post the values
 	   for (int chan=0; chan<numChannels; ++chan) {
-	     cout << frame_count << endl;
-	     cout << (static_cast<epicsInt32*>(pSCA_DATA[chan][0])) << endl;
-	     cout << ((static_cast<epicsInt32*>(pSCA_DATA[chan][0]))+offset) << endl;
-	     cout << *(static_cast<epicsInt32*>(pSCA_DATA[chan][0])) << endl;
-	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][0]))+offset) << endl;
-	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][1]))+offset) << endl;
-	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][2]))+offset) << endl;
-	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][3]))+offset) << endl;
-	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][4]))+offset) << endl;
-	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][5]))+offset) << endl;
-	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][6]))+offset) << endl;
-	     cout << *((static_cast<epicsInt32*>(pSCA_DATA[chan][7]))+offset) << endl;
 	     setIntegerParam(chan, xsp3ChanSca0Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][0]))+offset));
 	     setIntegerParam(chan, xsp3ChanSca1Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][1]))+offset));
 	     setIntegerParam(chan, xsp3ChanSca2Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][2]))+offset));
@@ -1155,6 +1178,8 @@ void Xspress3::dataTask(void)
 	   }
 	   cout << "Done." << endl;
 	 }
+
+	 unlock();
 
 	 //Post scalar array data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
 	 if ((scalerArrayUpdate == 1) || !acquire) {
