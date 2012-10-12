@@ -70,6 +70,18 @@ record(bo,"$(P)$(R)STOP") {
     field(ONAM,"Stop")
 }
 
+# /// 
+# /// Show the busy status.
+# ///
+record(bi,"$(P)$(R)BUSY") {
+    field(DTYP, "asynInt32")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))BUSY")
+    field(ZNAM,"Idle")
+    field(ONAM,"Busy")
+    field(VAL, "0")
+    field(SCAN, "I/O Intr")
+}
+
 # ///
 # /// System status message (error messages, information messages, etc.)
 # ///

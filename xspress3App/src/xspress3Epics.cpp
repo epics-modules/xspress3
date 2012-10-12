@@ -40,7 +40,7 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param portName The Asyn port name to use
  * @param maxChannels The number of channels to use (eg. 8)
  */
-Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug)
+Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest)
   : asynNDArrayDriver(portName,
 		      numChannels, /* maxAddr - channels use different param lists*/ 
 		      NUM_DRIVER_PARAMS,
@@ -52,7 +52,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
 		      1, /* Autoconnect */
 		      0, /* Default priority */
 		      0), /* Default stack size*/
-    debug_(debug), numChannels_(numChannels)
+    debug_(debug), numChannels_(numChannels), simTest_(simTest)
 {
   int status = asynSuccess;
   const char *functionName = "Xspress3::Xspress3";
@@ -86,6 +86,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3EraseParamString,         asynParamInt32,       &xsp3EraseParam);
   createParam(xsp3StartParamString,         asynParamInt32,       &xsp3StartParam);
   createParam(xsp3StopParamString,          asynParamInt32,       &xsp3StopParam);
+  createParam(xsp3BusyParamString,          asynParamInt32,       &xsp3BusyParam);
   createParam(xsp3StatusParamString,        asynParamOctet,       &xsp3StatusParam);
   createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
   createParam(xsp3MaxNumChannelsParamString,asynParamInt32,       &xsp3MaxNumChannelsParam);
@@ -178,6 +179,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   status != setIntegerParam(xsp3MaxFramesParam, maxFrames);
   status |= setIntegerParam(xsp3NumCardsParam, 0);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
+  status |= setIntegerParam(xsp3BusyParam, 0);
   for (int chan=0; chan<numChannels_; chan++) {
     status |= setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0);
     status |= setIntegerParam(chan, xsp3ChanSca5HlmParam, 0);
@@ -187,8 +189,11 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   }
   status |= eraseSCA();
 
-  status |= setStringParam(xsp3StatusParam, "Init. System disconnected.");
-
+  if (simTest_) {
+    status |= setStringParam(xsp3StatusParam, "Init. Simulation Mode.");
+  } else {
+    status |= setStringParam(xsp3StatusParam, "Init. System Disconnected.");
+  }
   //Init asynNDArray params
   //NDArraySizeX
   //NDArraySizeY
@@ -591,6 +596,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int xsp3_num_cards = 0;
   int xsp3_sca_lim = 0;
   int xsp3_time_frames = 0;
+  int busy = 0;
   asynStatus status = asynSuccess;
   int xsp3_num_channels = 0;
   const char *functionName = "Xspress3::writeInt32";
@@ -603,6 +609,8 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   if (status!=asynSuccess) {
     return(status);
   }
+
+  getIntegerParam(xsp3BusyParam, &busy);
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Asyn addr: &d.\n", functionName, addr);
 
@@ -618,48 +626,46 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     status = erase();
   } 
   else if (function == xsp3StartParam) {
-    /////////////////////////////////////////////temp
-    epicsEventSignal(this->startEvent_);
-    /////////////////////////////////////////////////
-    if ((status = checkConnected()) == asynSuccess) {
-
-      //Only allow if we are not collecting data
-
-      log(logFlow_, "Start collecting data", functionName);
-      getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-      for (int card=0; card<xsp3_num_cards; card++) {
-	xsp3_status = xsp3_histogram_start(xsp3_handle_, card);
-	if (xsp3_status != XSP3_OK) {
-	  checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
-	  status = asynError;
-	}
-      }
-      if (status == asynSuccess) {
+    if (!busy) {
+      if (simTest_) {
 	epicsEventSignal(this->startEvent_);
-	setStringParam(xsp3StatusParam, "Acquiring Data");
+      } else {
+	if ((status = checkConnected()) == asynSuccess) {
+	  log(logFlow_, "Start collecting data", functionName);
+	  getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+	  for (int card=0; card<xsp3_num_cards; card++) {
+	    xsp3_status = xsp3_histogram_start(xsp3_handle_, card);
+	    if (xsp3_status != XSP3_OK) {
+	      checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
+	      status = asynError;
+	    }
+	  }
+	  if (status == asynSuccess) {
+	    epicsEventSignal(this->startEvent_);
+	  }
+	}
       }
     }
   } 
   else if (function == xsp3StopParam) {
-    //////////////////////////////////////temp
-    epicsEventSignal(this->stopEvent_);
-    ///////////////////////////////////////////
-    if ((status = checkConnected()) == asynSuccess) {
-      
-      //Need to check we are already collecting data here, and if so do not send a stop event.
-
-      log(logFlow_, "Stop collecting data", functionName);
-      getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-      for (int card=0; card<xsp3_num_cards; card++) {
-	xsp3_status = xsp3_histogram_stop(xsp3_handle_, card);
-	if (xsp3_status != XSP3_OK) {
-	  checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
-	  status = asynError;
-	  setStringParam(xsp3StatusParam, "Stopped Acquiring");
-	}
-      }
-      if (status == asynSuccess) {
+    if (busy) {
+      if (simTest_) {
 	epicsEventSignal(this->stopEvent_);
+      } else {
+	if ((status = checkConnected()) == asynSuccess) {
+	  log(logFlow_, "Stop collecting data", functionName);
+	  getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+	  for (int card=0; card<xsp3_num_cards; card++) {
+	    xsp3_status = xsp3_histogram_stop(xsp3_handle_, card);
+	    if (xsp3_status != XSP3_OK) {
+	      checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+	      status = asynError;
+	    }
+	  }
+	  if (status == asynSuccess) {
+	    epicsEventSignal(this->stopEvent_);
+	  }
+	}
       }
     }
   }
@@ -949,7 +955,7 @@ void Xspress3::dataTask(void)
 {
   //asynStatus status = asynSuccess;
   epicsEventWaitStatus eventStatus;
-  epicsFloat64 timeout = 0.05;
+  epicsFloat64 timeout = 0.01;
   int numChannels = 0;
   int acquire = 0;
   int xsp3_status = 0;
@@ -965,8 +971,6 @@ void Xspress3::dataTask(void)
   const char* functionName = "Xspress3::dataTask";
   epicsUInt32 *pSCA;
   epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
-  
-  int simTest = 1;
 
   log(logFlow_, "Started.", functionName);
 
@@ -994,6 +998,8 @@ void Xspress3::dataTask(void)
 	frameCounter = 0;
 	setIntegerParam(xsp3FrameCountParam, 0);
 	setIntegerParam(xsp3FrameCountTotalParam, 0);
+	setIntegerParam(xsp3BusyParam, 1);
+	setStringParam(xsp3StatusParam, "Acquiring Data");
 	callParamCallbacks();
       }
 
@@ -1006,11 +1012,13 @@ void Xspress3::dataTask(void)
        eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
        if (eventStatus == epicsEventWaitOK) {
 	 log(logFlow_, "Got stop event.", functionName);
+	 setIntegerParam(xsp3BusyParam, 0);
+	 setStringParam(xsp3StatusParam, "Stopped Acquiring");
 	 acquire = 0;
        }
 
        //If we have stopped, wait until we are not busy twice, on all channels.
-       if (!simTest) {
+       if (!simTest_) {
 	 if (acquire == 0) {
 	   notBusyCount = 0;
 	   notBusyChan = 0;
@@ -1039,7 +1047,7 @@ void Xspress3::dataTask(void)
        }
 
        //Read how many scaler data frames have been transferred.
-       if (!simTest) {
+       if (!simTest_) {
 	 getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
 	 for (int card=0; card<xsp3_num_cards; card++) {
 	   xsp3_status = xsp3_dma_check_desc(xsp3_handle_, card, XSP3_DMA_STREAM_MASK_SCALERS, &dmaCheck);
@@ -1065,6 +1073,7 @@ void Xspress3::dataTask(void)
 	 cout << "frameCounter: " << frameCounter << endl;
 	 if (frameCounter >= scaArraySize) {
 	   log(logFlow_, "ERROR: max frames reached. Stopping.", functionName);
+	   setIntegerParam(xsp3BusyParam, 0);
 	   acquire=0;
 	   break;
 	 }
@@ -1073,17 +1082,17 @@ void Xspress3::dataTask(void)
 	 epicsUInt32 *pData = NULL;
 	 //Readout here, and copy the scalar data into local arrays.
 	 //For now read out everything everytime, until I know it's working and I can make it more efficient.
-	 if (!simTest) {
+	 if (!simTest_) {
 	   xsp3_status = xsp3_scaler_read(xsp3_handle_, static_cast<u_int32_t*>(pSCA), 0, 0, 0, XSP3_SW_NUM_SCALERS, numChannels, frameCounter);
 	 } else {
-	   //Fill the array with dummy data in simTest mode
+	   //Fill the array with dummy data in simTest_ mode
 	   pData = pSCA;
 	   for (int i=0; i<(XSP3_SW_NUM_SCALERS*scaArraySize*numChannels); ++i) {
 	     //cout << "i: " << i << endl;
 	     *(pData++) = i;
 	   }
 	   if (acquire) {
-	     epicsThreadSleep(0.1);
+	     epicsThreadSleep(0.02);
 	   }
 	 }
 	 
@@ -1238,13 +1247,13 @@ static void xsp3DataTaskC(void *drvPvt)
  */
 extern "C" {
 
-  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug)
+  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest)
   {
     asynStatus status = asynSuccess;
     
     /*Instantiate class.*/
     try {
-      new Xspress3(portName, numChannels, baseIP, maxFrames, maxBuffers, maxMemory, debug);
+      new Xspress3(portName, numChannels, baseIP, maxFrames, maxBuffers, maxMemory, debug, simTest);
     } catch (...) {
       cout << "Unknown exception caught when trying to construct Xspress3." << endl;
       status = asynError;
@@ -1263,18 +1272,20 @@ extern "C" {
   static const iocshArg xspress3ConfigArg4 = {"Max Buffers", iocshArgInt};
   static const iocshArg xspress3ConfigArg5 = {"Max Memory", iocshArgInt};
   static const iocshArg xspress3ConfigArg6 = {"Debug", iocshArgInt};
+  static const iocshArg xspress3ConfigArg7 = {"Sim Test", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
 							 &xspress3ConfigArg1,
 							 &xspress3ConfigArg2,
 							 &xspress3ConfigArg3,
 							 &xspress3ConfigArg4,
 							 &xspress3ConfigArg5,
-							 &xspress3ConfigArg6};
+							 &xspress3ConfigArg6,
+							 &xspress3ConfigArg7};
   
-  static const iocshFuncDef configXspress3 = {"xspress3Config", 7, xspress3ConfigArgs};
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 8, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
-    xspress3Config(args[0].sval, args[1].ival, args[2].sval, args[3].ival, args[4].ival, args[5].ival, args[6].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].sval, args[3].ival, args[4].ival, args[5].ival, args[6].ival, args[7].ival);
   }
   
   static void xspress3Register(void)

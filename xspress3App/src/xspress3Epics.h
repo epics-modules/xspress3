@@ -44,6 +44,7 @@
 #define xsp3EraseParamString              "ERASE"
 #define xsp3StartParamString              "START"
 #define xsp3StopParamString               "STOP"
+#define xsp3BusyParamString               "BUSY"
 #define xsp3StatusParamString             "STATUS"
 #define xsp3NumChannelsParamString        "NUM_CHANNELS"
 #define xsp3MaxNumChannelsParamString     "MAX_NUM_CHANNELS"
@@ -100,14 +101,14 @@
 
 
 extern "C" {
-  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug);
+  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest);
 }
 
 
 class Xspress3 : public asynNDArrayDriver {
 
  public:
-  Xspress3(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug);
+  Xspress3(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest);
   virtual ~Xspress3();
 
   /* These are the methods that we override from asynPortDriver */
@@ -147,6 +148,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3_handle_;
 
   const epicsInt32 numChannels_; //The number of channels (this is a constructor param).
+  epicsUInt32 simTest_;
   char baseIP_[24]; //Constructor param - IP address of host system
 
   epicsEventId statusEvent_;
@@ -161,6 +163,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3EraseParam;
   int xsp3StartParam;
   int xsp3StopParam;
+  int xsp3BusyParam;
   int xsp3StatusParam;
   int xsp3NumChannelsParam;
   int xsp3MaxNumChannelsParam;

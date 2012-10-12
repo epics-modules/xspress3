@@ -303,7 +303,7 @@ minor 5
 release 0
 x 25
 y 160
-w 305
+w 260
 h 35
 controlPv "$(P):STATUS_RBV"
 font "arial-bold-r-16.0"
@@ -1581,5 +1581,23 @@ useHexPrefix
 showUnits
 newPos
 objType "monitors"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 290
+y 160
+w 35
+h 35
+controlPv "$(P):BUSY"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
 endObjectProperties
 
