@@ -1346,7 +1346,7 @@ x 250
 y 205
 w 80
 h 25
-controlPv "$(P):ArrayCounter_RBV"
+controlPv "$(P):FRAME_COUNT_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -1366,16 +1366,16 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 110
+x 70
 y 210
-w 135
+w 170
 h 20
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
 value {
-  "Total Num Frames"
+  "Num Frames / Readout"
 }
 endObjectProperties
 
@@ -1538,5 +1538,48 @@ menuLabel {
 setPosition {
   0 "parentWindow"
 }
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 105
+y 240
+w 135
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Total Num Frames"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 250
+y 235
+w 80
+h 25
+controlPv "$(P):FRAME_COUNT_TOTAL_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
 endObjectProperties
 

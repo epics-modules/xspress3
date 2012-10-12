@@ -92,6 +92,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3MaxSpectraParamString,asynParamInt32,       &xsp3MaxSpectraParam);
   createParam(xsp3MaxFramesParamString,asynParamInt32,       &xsp3MaxFramesParam);
   createParam(xsp3FrameCountParamString,asynParamInt32,       &xsp3FrameCountParam);
+  createParam(xsp3FrameCountTotalParamString,asynParamInt32,       &xsp3FrameCountTotalParam);
   createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
   createParam(xsp3FixedTimeParamString,   asynParamInt32,       &xsp3FixedTimeParam);
   createParam(xsp3NumFramesParamString,     asynParamInt32,       &xsp3NumFramesParam);
@@ -991,7 +992,8 @@ void Xspress3::dataTask(void)
         log(logFlow_, "Got start event.", functionName);
 	acquire = 1;
 	frameCounter = 0;
-	setIntegerParam(NDArrayCounter, 0);
+	setIntegerParam(xsp3FrameCountParam, 0);
+	setIntegerParam(xsp3FrameCountTotalParam, 0);
 	callParamCallbacks();
       }
 
@@ -1048,7 +1050,7 @@ void Xspress3::dataTask(void)
 	   frame_count = dmaCheck.num_desc;
 	 }
        } else {
-	 //In sim mode we transfer 100 frames each time
+	 //In sim mode we transfer 10 frames each time
 	 frame_count = 10;
        }
        
@@ -1058,7 +1060,7 @@ void Xspress3::dataTask(void)
        
        if (frame_count > 0) {
 
-	 getIntegerParam(NDArrayCounter, &frameCounter);
+	 getIntegerParam(xsp3FrameCountTotalParam, &frameCounter);
 	 frameCounter += frame_count;
 	 cout << "frameCounter: " << frameCounter << endl;
 	 if (frameCounter >= scaArraySize) {
@@ -1066,7 +1068,7 @@ void Xspress3::dataTask(void)
 	   acquire=0;
 	   break;
 	 }
-	 setIntegerParam(NDArrayCounter, frameCounter);
+	 setIntegerParam(xsp3FrameCountTotalParam, frameCounter);
 
 	 epicsUInt32 *pData = NULL;
 	 //Readout here, and copy the scalar data into local arrays.
@@ -1084,7 +1086,6 @@ void Xspress3::dataTask(void)
 	     epicsThreadSleep(0.1);
 	   }
 	 }
-	 cout << "point 1" << endl;
 	 
 	 pData = pSCA;
 	 epicsInt32 *pDataArray = NULL;
@@ -1097,8 +1098,6 @@ void Xspress3::dataTask(void)
 	     }
 	   }
 	 }
-
-	 cout << "point 2" << endl;
 
 	 //Debug print first 100 frames
 	 /*cout << "Debug print first two frames..." << endl;

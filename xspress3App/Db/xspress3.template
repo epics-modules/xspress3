@@ -385,6 +385,17 @@ record(longin, "$(P)$(R)FRAME_COUNT_RBV")
    field(SCAN, "I/O Intr")
 }
 
+# ///
+# /// Read the total number of frames acquired in an acquisition. This is
+# /// updated during an acqusition.
+# ///
+record(longin, "$(P)$(R)FRAME_COUNT_TOTAL_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FRAME_COUNT_TOTAL")
+   field(SCAN, "I/O Intr")
+}
+
 
 include "xspress3DataUpdate.template"
 
@@ -422,19 +433,3 @@ substitute "ADDR=7"
 include "xspress3Channel.template"
 
 
-# ///
-# /// Instantiate some records for parameters from asynNDArrayDriver.
-# /// 
-
-record(longout, "$(P)$(R)ArrayCounter")
-{
-    field(DTYP, "asynInt32")
-    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))ARRAY_COUNTER")
-}
-
-record(longin, "$(P)$(R)ArrayCounter_RBV")
-{
-    field(DTYP, "asynInt32")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))ARRAY_COUNTER")
-    field(SCAN, "I/O Intr")
-}
