@@ -97,6 +97,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
   createParam(xsp3FixedTimeParamString,   asynParamInt32,       &xsp3FixedTimeParam);
   createParam(xsp3NumFramesParamString,     asynParamInt32,       &xsp3NumFramesParam);
+  createParam(xsp3NumFramesConfigParamString,     asynParamInt32,       &xsp3NumFramesConfigParam);
   createParam(xsp3NumCardsParamString,      asynParamInt32,       &xsp3NumCardsParam);
   createParam(xsp3ConfigPathParamString,    asynParamOctet,       &xsp3ConfigPathParam);
   createParam(xsp3ConnectParamString,      asynParamInt32,       &xsp3ConnectParam);
@@ -176,6 +177,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   status |= setIntegerParam(xsp3TriggerModeParam, 0);
   status |= setIntegerParam(xsp3FixedTimeParam, 0);
   status |= setIntegerParam(xsp3NumFramesParam, 0);
+  status |= setIntegerParam(xsp3NumFramesConfigParam, 0);
   status != setIntegerParam(xsp3MaxFramesParam, maxFrames);
   status |= setIntegerParam(xsp3NumCardsParam, 0);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
@@ -233,7 +235,7 @@ asynStatus Xspress3::connect(void)
   log(logFlow_, "Calling connect", functionName);
 
   getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-  getIntegerParam(xsp3NumFramesParam, &xsp3_num_tf);
+  getIntegerParam(xsp3NumFramesConfigParam, &xsp3_num_tf);
   getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
 
   //Set up the xspress3 system (might have to make all this callable at runtime, using PVs to set the parameters)
@@ -532,11 +534,19 @@ asynStatus Xspress3::eraseSCA(void)
 {
   int status = asynSuccess;
   int xsp3_num_channels = 0;
+  int scaArraySize = 0;
+  epicsInt32 *pSCA = NULL;
   const char *functionName = "Xspress3::eraseSCA";
 
   log(logFlow_, "Clear SCA data", functionName);
 
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+  getIntegerParam(xsp3MaxFramesParam, &scaArraySize);
+
+  pSCA = static_cast<epicsInt32*>(calloc(scaArraySize, sizeof(epicsUInt32)));
+  if (pSCA == NULL) {
+    return asynError;
+  }
 
   for (int chan=0; chan<xsp3_num_channels; chan++) {
     status |= setIntegerParam(chan, xsp3ChanSca0Param, 0);
@@ -549,6 +559,17 @@ asynStatus Xspress3::eraseSCA(void)
     status |= setIntegerParam(chan, xsp3ChanSca7Param, 0);
     status |= setDoubleParam(chan,  xsp3ChanSca5CorrParam, 0);
     status |= setDoubleParam(chan,  xsp3ChanSca6CorrParam, 0);
+
+    doCallbacksInt32Array(pSCA, scaArraySize, xsp3ChanSca0ArrayParam, chan);
+    doCallbacksInt32Array(pSCA, scaArraySize, xsp3ChanSca1ArrayParam, chan);
+    doCallbacksInt32Array(pSCA, scaArraySize, xsp3ChanSca2ArrayParam, chan);
+    doCallbacksInt32Array(pSCA, scaArraySize, xsp3ChanSca3ArrayParam, chan);
+    doCallbacksInt32Array(pSCA, scaArraySize, xsp3ChanSca4ArrayParam, chan);
+    doCallbacksInt32Array(pSCA, scaArraySize, xsp3ChanSca5ArrayParam, chan);
+    doCallbacksInt32Array(pSCA, scaArraySize, xsp3ChanSca6ArrayParam, chan);
+    doCallbacksInt32Array(pSCA, scaArraySize, xsp3ChanSca7ArrayParam, chan);
+
+    callParamCallbacks(chan);
   }
 
   if (status != asynSuccess) {
@@ -623,7 +644,15 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   } 
   else if (function == xsp3EraseParam) {
-    status = erase();
+    if (!busy) {
+      //If we are in sim mode, simply clear the params. Otherwise, use the API erase function too.
+      if (simTest_) {
+	status = eraseSCA();
+	setStringParam(xsp3StatusParam, "Erased Data");
+      } else {
+	status = erase();
+      }
+    }
   } 
   else if (function == xsp3StartParam) {
     if (!busy) {
@@ -693,22 +722,37 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   } 
   else if (function == xsp3FixedTimeParam) {
-    if ((status = checkConnected()) == asynSuccess) {
-      log(logFlow_, "Set the fixed time register", functionName);
-      cout << "VAL: " << value << endl;
-      getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-      for (int card=0; card<xsp3_num_cards; card++) {
-	xsp3_status = xsp3_set_glob_timeFixed(xsp3_handle_, card, value);
-	if (xsp3_status != XSP3_OK) {
-	  checkStatus(xsp3_status, "xsp3_set_glob_timeFixed", functionName);
-	  status = asynError;
+    if (!simTest_) {
+      if ((status = checkConnected()) == asynSuccess) {
+	log(logFlow_, "Set the fixed time register", functionName);
+	cout << "VAL: " << value << endl;
+	getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+	for (int card=0; card<xsp3_num_cards; card++) {
+	  xsp3_status = xsp3_set_glob_timeFixed(xsp3_handle_, card, value);
+	  if (xsp3_status != XSP3_OK) {
+	    checkStatus(xsp3_status, "xsp3_set_glob_timeFixed", functionName);
+	    status = asynError;
+	  }
 	}
       }
     }
   } 
   else if (function == xsp3NumFramesParam) {
     log(logFlow_, "Set the number of frames", functionName);
-  } 
+    getIntegerParam(xsp3NumFramesConfigParam, &xsp3_time_frames);
+    if (value > xsp3_time_frames) {
+      log(logError_, "ERROR: num frames higher than number configured.", functionName);
+      status = asynError;
+    }
+  }
+  else if (function == xsp3NumFramesConfigParam) {
+    log(logFlow_, "Set the number of frames for configuration", functionName);
+    getIntegerParam(xsp3MaxFramesParam, &xsp3_time_frames);
+    if (value > xsp3_time_frames) {
+      log(logError_, "ERROR: num frames for config too high.", functionName);
+      status = asynError;
+    }
+  }
   else if (function == xsp3NumCardsParam) {
     log(logFlow_, "Set the number of cards", functionName);
   } 
@@ -957,6 +1001,7 @@ void Xspress3::dataTask(void)
   epicsEventWaitStatus eventStatus;
   epicsFloat64 timeout = 0.01;
   int numChannels = 0;
+  int numFrames = 0;
   int acquire = 0;
   int xsp3_status = 0;
   int status = 0;
@@ -1019,6 +1064,7 @@ void Xspress3::dataTask(void)
 
      //Get the number of channels actually in use
      getIntegerParam(xsp3NumChannelsParam, &numChannels);
+     getIntegerParam(xsp3NumFramesParam, &numFrames);
 
      while (acquire) {
 
@@ -1078,7 +1124,6 @@ void Xspress3::dataTask(void)
        }
        
        //Take the value from the last card for now...
-       //Do I need to throttle this based on the scalar update rate timer?
        setIntegerParam(xsp3FrameCountParam, frame_count);
        
        if (frame_count > 0) {
@@ -1086,14 +1131,31 @@ void Xspress3::dataTask(void)
 	 getIntegerParam(xsp3FrameCountTotalParam, &frameCounter);
 	 frameCounter += frame_count;
 	 cout << "frameCounter: " << frameCounter << endl;
+	 int remainingFrames = 0;
 	 if (frameCounter >= scaArraySize) {
-	   log(logError_, "Max frames reached. Stopping.", functionName);
-	   setStringParam(xsp3StatusParam, "Max Frames Reached. Stopped.");
+	   //remainingFrames = frameCounter - scaArraySize;
+	   frameCounter = scaArraySize;
+	   log(logError_, "ERROR: Stopping acqusition because we reached the max number of frames.", functionName);
+	   setStringParam(xsp3StatusParam, "Stopped. Max Frames Reached.");
 	   setIntegerParam(xsp3BusyParam, 0);
 	   acquire=0;
+	   //unlock();
+	   //break;
+	 } else if (frameCounter >= numFrames) {
+	   //remainingFrames = frameCounter - numFrames;
+	   frameCounter = numFrames;
+	   setStringParam(xsp3StatusParam, "Completed Acqusition.");
+	   setIntegerParam(xsp3BusyParam, 0);
+	   acquire=0;
+	   //unlock();
+	   //break;
+	 }
+	 //If we don't need to read out any more frames, immediately stop.
+	 if (frameCounter == 0) {
 	   unlock();
 	   break;
 	 }
+	 
 	 setIntegerParam(xsp3FrameCountTotalParam, frameCounter);
 
 	 epicsUInt32 *pData = NULL;
@@ -1109,7 +1171,7 @@ void Xspress3::dataTask(void)
 	     *(pData++) = i;
 	   }
 	   if (acquire) {
-	     getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
+	     getIntegerParam(xsp3FixedTimeParam, &dataTimeout);
 	     epicsThreadSleep(dataTimeout/1000.0);
 	   }
 	 }
@@ -1160,6 +1222,7 @@ void Xspress3::dataTask(void)
 	 } else {
 	   epicsTimeGetCurrent(&startTimeArray);
 	 }
+
 
 	 int offset = frameCounter-1;
 	 //Post scalar data if we have enabled it and the timer has expired, or if we have stopped acquiring. 

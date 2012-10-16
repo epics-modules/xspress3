@@ -185,6 +185,7 @@ record(longout, "$(P)$(R)FIXED_TIME")
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
    field(VAL,  "0")
+   field(EGU,  "ms")
 }
 
 # ///
@@ -196,10 +197,11 @@ record(longin, "$(P)$(R)FIXED_TIME_RBV")
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
    field(SCAN, "I/O Intr")
+   field(EGU,  "ms")
 }
 
 # ///
-# /// Set the numer of frames to collect in internal trigger mode.
+# /// Set the numer of frames to collect before stopping automatically.
 # ///
 record(longout, "$(P)$(R)NUM_FRAMES")
 {
@@ -210,13 +212,35 @@ record(longout, "$(P)$(R)NUM_FRAMES")
 }
 
 # ///
-# /// Get the numer of frames to collect in internal trigger mode.
+# /// Get the numer of frames to collect before stopping automatically.
 # ///
 record(longin, "$(P)$(R)NUM_FRAMES_RBV")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_FRAMES")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Set the numer of frames to configure the system with.
+# ///
+record(longout, "$(P)$(R)NUM_FRAMES_CONFIG")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_FRAMES_CONFIG")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Get the numer of frames to configure the system with.
+# ///
+record(longin, "$(P)$(R)NUM_FRAMES_CONFIG_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_FRAMES_CONFIG")
    field(SCAN, "I/O Intr")
 }
 

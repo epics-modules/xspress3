@@ -55,6 +55,7 @@
 #define xsp3TriggerModeParamString        "TRIGGER_MODE"
 #define xsp3FixedTimeParamString        "FIXED_TIME"
 #define xsp3NumFramesParamString          "NUM_FRAMES"
+#define xsp3NumFramesConfigParamString          "NUM_FRAMES_CONFIG"
 #define xsp3NumCardsParamString           "NUM_CARDS"
 #define xsp3ConfigPathParamString           "CONFIG_PATH"
 #define xsp3ConnectParamString           "CONNECT"
@@ -174,6 +175,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3TriggerModeParam;
   int xsp3FixedTimeParam;
   int xsp3NumFramesParam;
+  int xsp3NumFramesConfigParam;
   int xsp3NumCardsParam;
   int xsp3ConfigPathParam;
   int xsp3ConnectParam;
