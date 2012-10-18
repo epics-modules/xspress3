@@ -942,72 +942,6 @@ major 4
 minor 0
 release 0
 x 365
-y 210
-w 95
-h 35
-fgColor index 25
-onColor index 3
-offColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):CONNECT"
-pressValue "1"
-onLabel "Connect"
-offLabel "Connect"
-3d
-useEnumNumeric
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 465
-y 210
-w 95
-h 35
-fgColor index 25
-onColor index 3
-offColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):DISCONNECT"
-pressValue "1"
-onLabel "Disconnect"
-offLabel "Disconnect"
-3d
-useEnumNumeric
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Byte)
-object ByteClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 565
-y 210
-w 35
-h 35
-controlPv "$(P):CONNECTED"
-lineColor index 14
-onColor index 15
-offColor index 19
-lineWidth 2
-numBits 1
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 365
 y 410
 w 95
 h 35
@@ -1047,92 +981,6 @@ offLabel "Restore"
 3d
 useEnumNumeric
 font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 370
-y 260
-w 140
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Max MCA Elements"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 380
-y 285
-w 140
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Max Num Frames"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 510
-y 260
-w 80
-h 20
-controlPv "$(P):MAX_SPECTRA_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-showUnits
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 510
-y 285
-w 80
-h 20
-controlPv "$(P):MAX_FRAMES_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-showUnits
-newPos
-objType "monitors"
 endObjectProperties
 
 # (Text Monitor)
@@ -1563,5 +1411,234 @@ useDisplayBg
 value {
   "Num Cards"
 }
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 370
+y 285
+w 220
+h 45
+
+beginGroup
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 370
+y 285
+w 140
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Max MCA Elements"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 380
+y 310
+w 140
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Max Num Frames"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 510
+y 285
+w 80
+h 20
+controlPv "$(P):MAX_SPECTRA_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 510
+y 310
+w 80
+h 20
+controlPv "$(P):MAX_FRAMES_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 365
+y 240
+w 235
+h 35
+
+beginGroup
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 365
+y 240
+w 95
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):CONNECT"
+pressValue "1"
+onLabel "Connect"
+offLabel "Connect"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 465
+y 240
+w 95
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):DISCONNECT"
+pressValue "1"
+onLabel "Disconnect"
+offLabel "Disconnect"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 240
+w 35
+h 35
+controlPv "$(P):CONNECTED"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 365
+y 200
+w 105
+h 30
+fgColor index 14
+bgColor index 3
+inconsistentColor index 14
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):RUN_FLAGS"
+indicatorPv "$(P):RUN_FLAGS_RBV"
+font "arial-bold-r-10.0"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 475
+y 200
+w 120
+h 30
+controlPv "$(P):RUN_FLAGS_RBV"
+font "arial-bold-r-10.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
 endObjectProperties
 

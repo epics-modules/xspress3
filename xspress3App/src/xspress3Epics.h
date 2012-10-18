@@ -63,6 +63,7 @@
 #define xsp3DisconnectParamString           "DISCONNECT"
 #define xsp3SaveSettingsParamString           "SAVE_SETTINGS"
 #define xsp3RestoreSettingsParamString           "RESTORE_SETTINGS"
+#define xsp3RunFlagsParamString           "RUN_FLAGS"
 //Settings for a channel
 #define xsp3ChanMcaParamString            "CHAN_MCA"
 #define xsp3ChanMcaCorrParamString        "CHAN_MCA_CORR"
@@ -141,6 +142,8 @@ class Xspress3 : public asynNDArrayDriver {
   static const epicsUInt32 logError_;
   static const epicsInt32 ctrlDisable_;
   static const epicsInt32 ctrlEnable_;
+  static const epicsUInt32 runFlag_MCA_SPECTRA_;
+  static const epicsUInt32 runFlag_PLAYB_MCA_SPECTRA_;
 
   //Put private dynamic here
   epicsUInt32 acquiring_; //Data acquisition in progress
@@ -183,6 +186,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3DisconnectParam;
   int xsp3SaveSettingsParam;
   int xsp3RestoreSettingsParam;
+  int xsp3RunFlagsParam;
   int xsp3ChanMcaParam;             
   int xsp3ChanMcaCorrParam;         
   int xsp3ChanSca0Param;

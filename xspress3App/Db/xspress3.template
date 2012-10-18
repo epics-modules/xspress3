@@ -423,6 +423,40 @@ record(longin, "$(P)$(R)FRAME_COUNT_TOTAL_RBV")
 }
 
 
+# ///
+# /// Set the run flags. This can be used to readout playback data
+# /// instead of normal data. 
+# /// This has to be done at connect time.
+# ///
+record(mbbo, "$(P)$(R)RUN_FLAGS")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))RUN_FLAGS")
+   field(ZRST, "SCALERS & HIST")
+   field(ZRVL, "0")
+   field(ONST, "PLAYB, SCALERS & HIST")
+   field(ONVL, "1")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Read the run flags. This can be used to readout playback data
+# /// instead of normal data. 
+# /// This has to be done at connect time.
+# ///
+record(mbbi, "$(P)$(R)RUN_FLAGS_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))RUN_FLAGS")
+   field(ZRST, "SCALERS & HIST")
+   field(ZRVL, "0")
+   field(ONST, "PLAYB, SCALERS & HIST")
+   field(ONVL, "1")
+   field(SCAN, "I/O Intr")
+}
+
+
+
 include "xspress3DataUpdate.template"
 
 
@@ -442,20 +476,20 @@ substitute "CHAN=4"
 substitute "ADDR=3"
 include "xspress3Channel.template"
 
-#substitute "CHAN=5"
-#substitute "ADDR=4"
-#include "xspress3Channel.template"
+substitute "CHAN=5"
+substitute "ADDR=4"
+include "xspress3Channel.template"
 
-#substitute "CHAN=6"
-#substitute "ADDR=5"
-#include "xspress3Channel.template"
+substitute "CHAN=6"
+substitute "ADDR=5"
+include "xspress3Channel.template"
 
-#substitute "CHAN=7"
-#substitute "ADDR=6"
-#include "xspress3Channel.template"
+substitute "CHAN=7"
+substitute "ADDR=6"
+include "xspress3Channel.template"
 
-#substitute "CHAN=8"
-#substitute "ADDR=7"
-#include "xspress3Channel.template"
+substitute "CHAN=8"
+substitute "ADDR=7"
+include "xspress3Channel.template"
 
 

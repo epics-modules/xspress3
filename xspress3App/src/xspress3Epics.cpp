@@ -25,8 +25,10 @@ using std::endl;
 //Definitions of static class data members
 const epicsUInt32 Xspress3::logFlow_ = 1;
 const epicsUInt32 Xspress3::logError_ = 2;
-const epicsInt32 Xspress3::ctrlDisable_ = 0;
-const epicsInt32 Xspress3::ctrlEnable_ = 1;
+const epicsInt32  Xspress3::ctrlDisable_ = 0;
+const epicsInt32  Xspress3::ctrlEnable_ = 1;
+const epicsUInt32 Xspress3::runFlag_MCA_SPECTRA_ = 0;
+const epicsUInt32 Xspress3::runFlag_PLAYB_MCA_SPECTRA_ = 1;
 
 
 //C Function prototypes to tie in with EPICS
@@ -105,6 +107,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3DisconnectParamString,      asynParamInt32,       &xsp3DisconnectParam);
   createParam(xsp3SaveSettingsParamString,      asynParamInt32,       &xsp3SaveSettingsParam);
   createParam(xsp3RestoreSettingsParamString,      asynParamInt32,       &xsp3RestoreSettingsParam);
+  createParam(xsp3RunFlagsParamString,      asynParamInt32,       &xsp3RunFlagsParam);
   //These params will use different param lists based on asyn address
   createParam(xsp3ChanMcaParamString,       asynParamInt32Array,  &xsp3ChanMcaParam);
   createParam(xsp3ChanMcaCorrParamString,   asynParamFloat64Array,&xsp3ChanMcaCorrParam);
@@ -177,7 +180,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   status |= setIntegerParam(xsp3TriggerModeParam, 0);
   status |= setIntegerParam(xsp3FixedTimeParam, 0);
   status |= setIntegerParam(xsp3NumFramesParam, 0);
-  status |= setIntegerParam(xsp3NumFramesConfigParam, 0);
+  status |= setIntegerParam(xsp3NumFramesConfigParam, maxFrames);
   status != setIntegerParam(xsp3MaxFramesParam, maxFrames);
   status |= setIntegerParam(xsp3NumCardsParam, numCards);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
@@ -230,6 +233,8 @@ asynStatus Xspress3::connect(void)
   int xsp3_num_cards = 0;
   int xsp3_num_tf = 0;
   int xsp3_status = 0;
+  int xsp3_run_flags = 0;
+  int xsp3_num_channels = 0;
   char configPath[256];
   const char *functionName = "Xspress3::connect";
 
@@ -237,6 +242,7 @@ asynStatus Xspress3::connect(void)
 
   getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
   getIntegerParam(xsp3NumFramesConfigParam, &xsp3_num_tf);
+  getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
   getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
 
   //Set up the xspress3 system (might have to make all this callable at runtime, using PVs to set the parameters)
@@ -246,7 +252,7 @@ asynStatus Xspress3::connect(void)
   cout << "Num frames: " << xsp3_num_tf << endl;
   cout << "Num channels: " << numChannels_ << endl;
   cout << "Config Path: " << configPath << endl;
-  xsp3_handle_ = xsp3_config(xsp3_num_cards, xsp3_num_tf, const_cast<char *>(baseIP_), -1, NULL, numChannels_, 1, NULL, debug_, 0);
+  xsp3_handle_ = xsp3_config(xsp3_num_cards, xsp3_num_tf, const_cast<char *>(baseIP_), -1, NULL, xsp3_num_channels, 1, NULL, debug_, 0);
   if (xsp3_handle_ < 0) {
     checkStatus(xsp3_handle_, "xsp3_config", functionName);
     status = asynError;
@@ -270,7 +276,7 @@ asynStatus Xspress3::connect(void)
     }
 
     //Can we do xsp3_format_run here? For normal user operation all the arguments seem to be set to zero.
-    for (int chan=0; chan<numChannels_; chan++) {
+    for (int chan=0; chan<xsp3_num_channels; chan++) {
       xsp3_status = xsp3_format_run(xsp3_handle_, chan, 0, 0, 0, 0, 0, 12);
       if (xsp3_status < XSP3_OK) {
 	checkStatus(xsp3_status, "xsp3_format_run", functionName);
@@ -281,7 +287,16 @@ asynStatus Xspress3::connect(void)
     }
 
     //Will need to enable playback here, as an option. XSP3_RUN_FLAGS_PLAYBACK
-    xsp3_status = xsp3_set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+    //Read run flags parameter
+    getIntegerParam(xsp3RunFlagsParam, &xsp3_run_flags);
+    if (xsp3_run_flags == runFlag_MCA_SPECTRA_) {
+      xsp3_status = xsp3_set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+    } else if (xsp3_run_flags == runFlag_PLAYB_MCA_SPECTRA_) {
+      xsp3_status = xsp3_set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+    } else {
+      log(logError_, "Invalid run flag option when trying to set xsp3_set_run_flags.", functionName);
+      status = asynError;
+    }
     if (xsp3_status < XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_set_run_flags", functionName);
       status = asynError;
@@ -844,6 +859,9 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
   else if (function == xsp3CtrlScaPeriodParam) {
     log(logFlow_, "Setting SCA data update rate.", functionName);
+  }
+  else if (function == xsp3RunFlagsParam) {
+    log(logFlow_, "Setting the run flags.", functionName);
   }
   else {
     log(logError_, "No matching parameter.", functionName);
