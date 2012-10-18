@@ -179,26 +179,26 @@ record(mbbi, "$(P)$(R)TRIGGER_MODE_RBV")
 
 # ///
 # /// Set the fixed time register, in FIXED trigger mode.
+# /// This sets the number of the first time frame (not normally used).
 # ///
-record(longout, "$(P)$(R)FIXED_TIME")
-{
-   field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
-   field(VAL,  "0")
-   field(EGU,  "ms")
-}
+#record(longout, "$(P)$(R)FIXED_TIME")
+#{
+#   field(DTYP, "asynInt32")
+#   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
+#   field(VAL,  "0")
+#}
 
 # ///
 # /// Get the fixed time register, used for FIXED trigger mode.
+# /// This sets the number of the first time frame (not normally used).
 # ///
-record(longin, "$(P)$(R)FIXED_TIME_RBV")
-{
-   field(PINI, "YES")
-   field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
-   field(SCAN, "I/O Intr")
-   field(EGU,  "ms")
-}
+#record(longin, "$(P)$(R)FIXED_TIME_RBV")
+#{
+#   field(PINI, "YES")
+#   field(DTYP, "asynInt32")
+#   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
+#   field(SCAN, "I/O Intr")
+#}
 
 # ///
 # /// Set the numer of frames to collect before stopping automatically.
@@ -244,21 +244,11 @@ record(longin, "$(P)$(R)NUM_FRAMES_CONFIG_RBV")
    field(SCAN, "I/O Intr")
 }
 
-# ///
-# /// Set the number of xspress3 cards to set up. 
-# /// This is used in the xsp3_config function.
-# ///
-record(longout, "$(P)$(R)NUM_CARDS")
-{
-   field(PINI, "YES")
-   field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_CARDS")
-   field(VAL,  "0")
-}
 
 # ///
 # /// Get the number of xspress3 cards to set up. 
-# /// This is used in the xsp3_config function.
+# /// This is used in the xsp3_config function. It is passed into the 
+# /// driver config function at IOC startup.
 # ///
 record(longin, "$(P)$(R)NUM_CARDS_RBV")
 {
@@ -452,20 +442,20 @@ substitute "CHAN=4"
 substitute "ADDR=3"
 include "xspress3Channel.template"
 
-substitute "CHAN=5"
-substitute "ADDR=4"
-include "xspress3Channel.template"
+#substitute "CHAN=5"
+#substitute "ADDR=4"
+#include "xspress3Channel.template"
 
-substitute "CHAN=6"
-substitute "ADDR=5"
-include "xspress3Channel.template"
+#substitute "CHAN=6"
+#substitute "ADDR=5"
+#include "xspress3Channel.template"
 
-substitute "CHAN=7"
-substitute "ADDR=6"
-include "xspress3Channel.template"
+#substitute "CHAN=7"
+#substitute "ADDR=6"
+#include "xspress3Channel.template"
 
-substitute "CHAN=8"
-substitute "ADDR=7"
-include "xspress3Channel.template"
+#substitute "CHAN=8"
+#substitute "ADDR=7"
+#include "xspress3Channel.template"
 
 

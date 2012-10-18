@@ -40,7 +40,7 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param portName The Asyn port name to use
  * @param maxChannels The number of channels to use (eg. 8)
  */
-Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest)
+Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest)
   : asynNDArrayDriver(portName,
 		      numChannels, /* maxAddr - channels use different param lists*/ 
 		      NUM_DRIVER_PARAMS,
@@ -179,7 +179,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, const char *baseIP, in
   status |= setIntegerParam(xsp3NumFramesParam, 0);
   status |= setIntegerParam(xsp3NumFramesConfigParam, 0);
   status != setIntegerParam(xsp3MaxFramesParam, maxFrames);
-  status |= setIntegerParam(xsp3NumCardsParam, 0);
+  status |= setIntegerParam(xsp3NumCardsParam, numCards);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
   status |= setIntegerParam(xsp3BusyParam, 0);
   for (int chan=0; chan<numChannels_; chan++) {
@@ -229,6 +229,7 @@ asynStatus Xspress3::connect(void)
   asynStatus status = asynSuccess;
   int xsp3_num_cards = 0;
   int xsp3_num_tf = 0;
+  int xsp3_status = 0;
   char configPath[256];
   const char *functionName = "Xspress3::connect";
 
@@ -250,8 +251,6 @@ asynStatus Xspress3::connect(void)
     checkStatus(xsp3_handle_, "xsp3_config", functionName);
     status = asynError;
   } else {
-    
-    int xsp3_status = 0;
 
     //Set up clocks on each card
     for (int i=0; i<xsp3_num_cards; i++) {
@@ -273,11 +272,20 @@ asynStatus Xspress3::connect(void)
     //Can we do xsp3_format_run here? For normal user operation all the arguments seem to be set to zero.
     for (int chan=0; chan<numChannels_; chan++) {
       xsp3_status = xsp3_format_run(xsp3_handle_, chan, 0, 0, 0, 0, 0, 12);
-      if (xsp3_status != XSP3_OK) {
+      if (xsp3_status < XSP3_OK) {
 	checkStatus(xsp3_status, "xsp3_format_run", functionName);
 	status = asynError;
+      } else {
+	cout << "Num time frames: " << xsp3_status << endl;
       }
     }
+
+    //Will need to enable playback here, as an option. XSP3_RUN_FLAGS_PLAYBACK
+    xsp3_status = xsp3_set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+    if (xsp3_status < XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_set_run_flags", functionName);
+      status = asynError;
+    } 
 
     if (status == asynSuccess) {
       log(logFlow_, "Finished setting up xsp3.", functionName);
@@ -753,9 +761,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       status = asynError;
     }
   }
-  else if (function == xsp3NumCardsParam) {
-    log(logFlow_, "Set the number of cards", functionName);
-  } 
   else if (function == xsp3ConnectParam) {
     log(logFlow_, "Run the connect function.", functionName);
     status = connect();
@@ -897,7 +902,9 @@ asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 }
 
 
-
+/**
+ * Reimplementing this function from asynNDArrayDriver to deal with strings.
+ */
 asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value, 
                                     size_t nChars, size_t *nActual)
 {
@@ -1054,7 +1061,7 @@ void Xspress3::dataTask(void)
 	setIntegerParam(xsp3BusyParam, 1);
 	setStringParam(xsp3StatusParam, "Acquiring Data");
 	callParamCallbacks();
-	unlock();
+	//unlock();
       }
 
      /* Get the current time */
@@ -1067,6 +1074,8 @@ void Xspress3::dataTask(void)
      getIntegerParam(xsp3NumFramesParam, &numFrames);
 
      while (acquire) {
+
+       unlock();
 
        //Wait for a stop event, with a short timeout.
        eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
@@ -1107,21 +1116,31 @@ void Xspress3::dataTask(void)
 	 }
        }
 
+       //epicsThreadSleep(0.1);
+
        //Read how many scaler data frames have been transferred.
        if (!simTest_) {
+	 memset(&dmaCheck, 0, sizeof(dmaCheck));
 	 getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
 	 for (int card=0; card<xsp3_num_cards; card++) {
-	   xsp3_status = xsp3_dma_check_desc(xsp3_handle_, card, XSP3_DMA_STREAM_MASK_SCALERS, &dmaCheck);
-	   if (xsp3_status != XSP3_OK) {
+	   xsp3_status = xsp3_dma_check_desc(xsp3_handle_, card, XSP3_DMA_STREAM_BNUM_SCALERS, &dmaCheck);
+	   if (xsp3_status < XSP3_OK) {
 	     checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
 	     status = asynError;
 	   }
-	   frame_count = dmaCheck.num_desc;
+	   frame_count = xsp3_status;
+	   ///////////////////////////////////////hack, until xsp3_dma_check_desc is fixed///////////////////////////////
+	   if (acquire == 0) {
+	     frame_count = 1;
+	   }
+	   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	   cout << "frame_count: " << frame_count << endl;
 	 }
        } else {
 	 //In sim mode we transfer 10 frames each time
 	 frame_count = 10;
        }
+       //unlock();
        
        //Take the value from the last card for now...
        setIntegerParam(xsp3FrameCountParam, frame_count);
@@ -1151,12 +1170,15 @@ void Xspress3::dataTask(void)
 	   //break;
 	 }
 	 //If we don't need to read out any more frames, immediately stop.
-	 if (frameCounter == 0) {
-	   unlock();
-	   break;
-	 }
+	 //if (frameCounter == 0) {
+	 // acquire=0;
+	   //unlock();
+	 // break;
+	 //}
 	 
 	 setIntegerParam(xsp3FrameCountTotalParam, frameCounter);
+
+	 //lock();
 
 	 epicsUInt32 *pData = NULL;
 	 //Readout here, and copy the scalar data into local arrays.
@@ -1242,7 +1264,7 @@ void Xspress3::dataTask(void)
 	   cout << "Done." << endl;
 	 }
 
-	 unlock();
+	 //unlock();
 
 	 //Post scalar array data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
 	 if ((scalerArrayUpdate == 1) || !acquire) {
@@ -1270,6 +1292,8 @@ void Xspress3::dataTask(void)
        }
 
      } //end of while(acquire)
+
+     unlock();
 
        
      //Use the API function get_bins_per_mca for spectra length. (should be 4096?)
@@ -1335,13 +1359,13 @@ static void xsp3DataTaskC(void *drvPvt)
  */
 extern "C" {
 
-  int xspress3Config(const char *portName, int numChannels, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest)
+  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest)
   {
     asynStatus status = asynSuccess;
     
     /*Instantiate class.*/
     try {
-      new Xspress3(portName, numChannels, baseIP, maxFrames, maxBuffers, maxMemory, debug, simTest);
+      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxBuffers, maxMemory, debug, simTest);
     } catch (...) {
       cout << "Unknown exception caught when trying to construct Xspress3." << endl;
       status = asynError;
@@ -1355,12 +1379,13 @@ extern "C" {
   /* xspress3Config */
   static const iocshArg xspress3ConfigArg0 = {"Port name", iocshArgString};
   static const iocshArg xspress3ConfigArg1 = {"Num Channels", iocshArgInt};
-  static const iocshArg xspress3ConfigArg2 = {"Base IP Address", iocshArgString};
-  static const iocshArg xspress3ConfigArg3 = {"Max Frames", iocshArgInt};
-  static const iocshArg xspress3ConfigArg4 = {"Max Buffers", iocshArgInt};
-  static const iocshArg xspress3ConfigArg5 = {"Max Memory", iocshArgInt};
-  static const iocshArg xspress3ConfigArg6 = {"Debug", iocshArgInt};
-  static const iocshArg xspress3ConfigArg7 = {"Sim Test", iocshArgInt};
+  static const iocshArg xspress3ConfigArg2 = {"Num Cards", iocshArgInt};
+  static const iocshArg xspress3ConfigArg3 = {"Base IP Address", iocshArgString};
+  static const iocshArg xspress3ConfigArg4 = {"Max Frames", iocshArgInt};
+  static const iocshArg xspress3ConfigArg5 = {"Max Buffers", iocshArgInt};
+  static const iocshArg xspress3ConfigArg6 = {"Max Memory", iocshArgInt};
+  static const iocshArg xspress3ConfigArg7 = {"Debug", iocshArgInt};
+  static const iocshArg xspress3ConfigArg8 = {"Sim Test", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
 							 &xspress3ConfigArg1,
 							 &xspress3ConfigArg2,
@@ -1368,12 +1393,13 @@ extern "C" {
 							 &xspress3ConfigArg4,
 							 &xspress3ConfigArg5,
 							 &xspress3ConfigArg6,
-							 &xspress3ConfigArg7};
+							 &xspress3ConfigArg7,
+							 &xspress3ConfigArg8};
   
-  static const iocshFuncDef configXspress3 = {"xspress3Config", 8, xspress3ConfigArgs};
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 9, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
-    xspress3Config(args[0].sval, args[1].ival, args[2].sval, args[3].ival, args[4].ival, args[5].ival, args[6].ival, args[7].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival);
   }
   
   static void xspress3Register(void)

@@ -15,12 +15,13 @@ example_registerRecordDeviceDriver(pdbbase)
 # Parameters
 # Asyn port
 # Max Num Channels (also used in xsp3_config)
+# Num Cards (used in xsp3_config)
 # Max Frames (used to limit how big driver arrays are). Needs to match database MAX_FRAMES_RBV.
 # Asyn max buffers (0=default)
 # Asyn max memory (0=default)
 # Debug (0=off, 1=on)
 # simTest - Run up the driver in simulation mode.
-xspress3Config("XSP3", 8, "172.23.0.1", 4096, -1, -1, 1, 0)
+xspress3Config("XSP3", 4, 1, "192.168.0.1", 16384, -1, -1, 1, 0)
 
 #asynSetTraceMask("XSP3",0,0xFF)
 #asynSetTraceIOMask("XSP3",0,0xFF)
@@ -31,34 +32,34 @@ xspress3Config("XSP3", 8, "172.23.0.1", 4096, -1, -1, 1, 0)
 ####################################################################
 ### Initialise save restore
 
-save_restoreSet_Debug(0)
+#save_restoreSet_Debug(0)
 
 ### status-PV prefix, so save_restore can find its status PV's.
-save_restoreSet_status_prefix("mp49:xspress3")
+#save_restoreSet_status_prefix("mp49:xspress3")
 
 ### ok to restore a save set that had missing values (no CA connection to PV)?
 ### ok to save a file if some CA connections are bad?
-save_restoreSet_IncompleteSetsOk(1)
+#save_restoreSet_IncompleteSetsOk(1)
 
 ### In the restore operation, a copy of the save file will be written.  The
 ### file name can look like "auto_settings.sav.bu", and be overwritten every
 ### reboot, or it can look like "auto_settings.sav_020306-083522" (this is what
 ### is meant by a dated backup file) and every reboot will write a new copy.
-save_restoreSet_DatedBackupFiles(1)
+#save_restoreSet_DatedBackupFiles(1)
 
 ### specify where save files should go
-set_savefile_path("/tmp/")
+#set_savefile_path("/tmp/")
 
-set_requestfile_path("$(INSTALL)/data")
+#set_requestfile_path("$(INSTALL)/data")
 
 ### Only restore after IOC init
-set_pass1_restoreFile("example.sav")
+#set_pass1_restoreFile("example.sav")
 
 ### Number of sequenced backup files (e.g., 'auto_settings.sav0') to write
-save_restoreSet_NumSeqFiles(3)
+#save_restoreSet_NumSeqFiles(3)
 
 ### Time interval between sequenced backups
-save_restoreSet_SeqPeriodInSeconds(600)
+#save_restoreSet_SeqPeriodInSeconds(600)
 
 ###########################################################
 
