@@ -47,7 +47,7 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param portName The Asyn port name to use
  * @param maxChannels The number of channels to use (eg. 8)
  */
-Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest)
+Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
   : asynNDArrayDriver(portName,
 		      numChannels, /* maxAddr - channels use different param lists*/ 
 		      NUM_DRIVER_PARAMS,
@@ -204,6 +204,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   status |= setIntegerParam(xsp3FixedTimeParam, 0);
   status |= setIntegerParam(xsp3NumFramesParam, 0);
   status |= setIntegerParam(xsp3NumFramesConfigParam, maxFrames);
+  status |= setIntegerParam(xsp3MaxSpectraParam, maxSpectra);
   status != setIntegerParam(xsp3MaxFramesParam, maxFrames);
   status |= setIntegerParam(xsp3NumCardsParam, numCards);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
@@ -579,7 +580,24 @@ asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
 {
   asynStatus status = asynSuccess;
   int xsp3_status = 0;
+  int maxSpectra = 0;
   const char *functionName = "Xspress3::checkRoi";
+
+  getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
+
+  if ((llm < 0) || (hlm < 0)) {
+    log(logError_, "ERROR: Negative ROI limits not allowed.", functionName);
+    setStringParam(xsp3StatusParam, "ERROR: Negative ROI limits not allowed.");
+    setIntegerParam(xsp3StatParam, statError_);
+    status = asynError;
+  }
+
+  if ((llm >= maxSpectra) || (hlm > maxSpectra)) {
+    log(logError_, "ERROR: Negative ROI limits not allowed.", functionName);
+    setStringParam(xsp3StatusParam, "ERROR: Negative ROI limits not allowed.");
+    setIntegerParam(xsp3StatParam, statError_);
+    status = asynError;
+  }
 
   if (llm > hlm) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, 
@@ -588,7 +606,9 @@ asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
     setStringParam(xsp3StatusParam, "ERROR: ROI low limit is higher than high limit.");
     setIntegerParam(xsp3StatParam, statError_);
     status = asynError;
-  } else {
+  }
+
+  if (status != asynError) {
     setStringParam(xsp3StatusParam, "Set ROI Limit.");
   }
   
@@ -615,6 +635,7 @@ asynStatus Xspress3::erase(void)
 
     getIntegerParam(xsp3NumFramesParam, &xsp3_time_frames);
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+
     xsp3_status = xsp3_histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_histogram_clear", functionName);
@@ -653,6 +674,9 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   if (pSCA == NULL) {
     return asynError;
   }
+
+  status |= setIntegerParam(xsp3FrameCountTotalParam, 0);
+  status |= setIntegerParam(xsp3FrameCountParam, 0);
 
   for (int chan=0; chan<xsp3_num_channels; chan++) {
     status |= setIntegerParam(chan, xsp3ChanSca0Param, 0);
@@ -1517,13 +1541,13 @@ static void xsp3DataTaskC(void *drvPvt)
  */
 extern "C" {
 
-  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxBuffers, size_t maxMemory, int debug, int simTest)
+  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
   {
     asynStatus status = asynSuccess;
     
     /*Instantiate class.*/
     try {
-      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxBuffers, maxMemory, debug, simTest);
+      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest);
     } catch (...) {
       cout << "Unknown exception caught when trying to construct Xspress3." << endl;
       status = asynError;
@@ -1540,10 +1564,11 @@ extern "C" {
   static const iocshArg xspress3ConfigArg2 = {"Num Cards", iocshArgInt};
   static const iocshArg xspress3ConfigArg3 = {"Base IP Address", iocshArgString};
   static const iocshArg xspress3ConfigArg4 = {"Max Frames", iocshArgInt};
-  static const iocshArg xspress3ConfigArg5 = {"Max Buffers", iocshArgInt};
-  static const iocshArg xspress3ConfigArg6 = {"Max Memory", iocshArgInt};
-  static const iocshArg xspress3ConfigArg7 = {"Debug", iocshArgInt};
-  static const iocshArg xspress3ConfigArg8 = {"Sim Test", iocshArgInt};
+  static const iocshArg xspress3ConfigArg5 = {"Max Spectra", iocshArgInt};
+  static const iocshArg xspress3ConfigArg6 = {"Max Buffers", iocshArgInt};
+  static const iocshArg xspress3ConfigArg7 = {"Max Memory", iocshArgInt};
+  static const iocshArg xspress3ConfigArg8 = {"Debug", iocshArgInt};
+  static const iocshArg xspress3ConfigArg9 = {"Sim Test", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
 							 &xspress3ConfigArg1,
 							 &xspress3ConfigArg2,
@@ -1552,12 +1577,13 @@ extern "C" {
 							 &xspress3ConfigArg5,
 							 &xspress3ConfigArg6,
 							 &xspress3ConfigArg7,
-							 &xspress3ConfigArg8};
+							 &xspress3ConfigArg8,
+							 &xspress3ConfigArg9};
   
-  static const iocshFuncDef configXspress3 = {"xspress3Config", 9, xspress3ConfigArgs};
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 10, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
-    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival);
   }
   
   static void xspress3Register(void)

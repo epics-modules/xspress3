@@ -169,14 +169,12 @@ yMax 1
 y2AxisSrc "AutoScale"
 y2Max 1
 # Trace Properties
-numTraces 2
+numTraces 1
 yPv {
-  0 "$(P):ARRAY_$(CHAN)_MCA_RBV.VAL"
-  1 "$(P):ARRAY_$(CHAN)_MCA_RBV.BG"
+  0 "$(P):C$(CHAN)_MCA_CORR_RBV.VAL"
 }
 plotColor {
   0 index 15
-  1 index 20
 }
 endObjectProperties
 
@@ -260,8 +258,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 25
-y 490
+x 50
+y 525
 w 100
 h 20
 font "arial-bold-r-14.0"
@@ -280,8 +278,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 25
-y 520
+x 50
+y 495
 w 100
 h 20
 font "arial-bold-r-14.0"
@@ -300,8 +298,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 25
-y 550
+x 30
+y 555
 w 120
 h 20
 font "arial-bold-r-14.0"

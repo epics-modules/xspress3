@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1233
-y 402
+x 677
+y 144
 w 670
 h 400
 font "arial-medium-r-12.0"
@@ -171,14 +171,12 @@ yMax 1
 y2AxisSrc "AutoScale"
 y2Max 1
 # Trace Properties
-numTraces 2
+numTraces 1
 yPv {
-  0 "$(P):C$(CHAN)_SCA$(SCA)_ARRAY_RBV.VAL"
-  1 "$(P):C$(CHAN)_SCA$(SCA)_CORR_ARRAY_RBV.VAL"
+  0 "$(P):C$(CHAN)_MCA_ROI$(ROI)_ARRAY_RBV.VAL"
 }
 plotColor {
   0 index 15
-  1 index 20
 }
 endObjectProperties
 
