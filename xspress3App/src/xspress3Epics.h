@@ -46,6 +46,7 @@
 #define xsp3StopParamString               "STOP"
 #define xsp3BusyParamString               "BUSY"
 #define xsp3StatusParamString             "STATUS"
+#define xsp3StatParamString             "STAT"
 #define xsp3NumChannelsParamString        "NUM_CHANNELS"
 #define xsp3MaxNumChannelsParamString     "MAX_NUM_CHANNELS"
 #define xsp3MaxSpectraParamString     "MAX_SPECTRA"
@@ -67,6 +68,22 @@
 //Settings for a channel
 #define xsp3ChanMcaParamString            "CHAN_MCA"
 #define xsp3ChanMcaCorrParamString        "CHAN_MCA_CORR"
+#define xsp3ChanMcaRoi1LlmParamString     "CHAN_ROI1_LLM"
+#define xsp3ChanMcaRoi2LlmParamString     "CHAN_ROI2_LLM"
+#define xsp3ChanMcaRoi3LlmParamString     "CHAN_ROI3_LLM"
+#define xsp3ChanMcaRoi4LlmParamString     "CHAN_ROI4_LLM"
+#define xsp3ChanMcaRoi1HlmParamString     "CHAN_ROI1_HLM"
+#define xsp3ChanMcaRoi2HlmParamString     "CHAN_ROI2_HLM"
+#define xsp3ChanMcaRoi3HlmParamString     "CHAN_ROI3_HLM"
+#define xsp3ChanMcaRoi4HlmParamString     "CHAN_ROI4_HLM"
+#define xsp3ChanMcaRoi1ParamString        "CHAN_ROI1"
+#define xsp3ChanMcaRoi2ParamString        "CHAN_ROI2"
+#define xsp3ChanMcaRoi3ParamString        "CHAN_ROI3"
+#define xsp3ChanMcaRoi4ParamString        "CHAN_ROI4"
+#define xsp3ChanMcaRoi1ArrayParamString        "CHAN_ROI1_ARRAY"
+#define xsp3ChanMcaRoi2ArrayParamString        "CHAN_ROI2_ARRAY"
+#define xsp3ChanMcaRoi3ArrayParamString        "CHAN_ROI3_ARRAY"
+#define xsp3ChanMcaRoi4ArrayParamString        "CHAN_ROI4_ARRAY"
 #define xsp3ChanSca0ParamString           "CHAN_SCA0"
 #define xsp3ChanSca1ParamString           "CHAN_SCA1"
 #define xsp3ChanSca2ParamString           "CHAN_SCA2"
@@ -99,6 +116,7 @@
 #define xsp3CtrlDataPeriodParamString              "CTRL_DATA_UPDATE_PERIOD"
 #define xsp3CtrlMcaPeriodParamString              "CTRL_MCA_UPDATE_PERIOD"
 #define xsp3CtrlScaPeriodParamString              "CTRL_SCA_UPDATE_PERIOD"
+#define xsp3RoiEnableParamString        "CTRL_MCA_ROI"
 
 
 
@@ -134,17 +152,24 @@ class Xspress3 : public asynNDArrayDriver {
   asynStatus restoreSettings(void);
   asynStatus checkConnected(void);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
+  asynStatus checkRoi(int channel, int roi, int llm, int hlm);
   asynStatus erase(void);
-  asynStatus eraseSCA(void);
+  asynStatus eraseSCAMCAROI(void);
 
   //Put private static data members here
   static const epicsUInt32 logFlow_;
   static const epicsUInt32 logError_;
   static const epicsInt32 ctrlDisable_;
   static const epicsInt32 ctrlEnable_;
-  static const epicsUInt32 runFlag_MCA_SPECTRA_;
-  static const epicsUInt32 runFlag_PLAYB_MCA_SPECTRA_;
-
+  static const epicsInt32 runFlag_MCA_SPECTRA_;
+  static const epicsInt32 runFlag_PLAYB_MCA_SPECTRA_;
+  static const epicsInt32 statIdle_;
+  static const epicsInt32 statAcquire_;
+  static const epicsInt32 statReadout_;
+  static const epicsInt32 statAborted_;
+  static const epicsInt32 statError_;
+  static const epicsInt32 statDisconnected_;
+  
   //Put private dynamic here
   epicsUInt32 acquiring_; //Data acquisition in progress
   epicsUInt32 running_; //driver is in good state and we can read data from device
@@ -169,6 +194,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3StopParam;
   int xsp3BusyParam;
   int xsp3StatusParam;
+  int xsp3StatParam;
   int xsp3NumChannelsParam;
   int xsp3MaxNumChannelsParam;
   int xsp3MaxSpectraParam;
@@ -188,7 +214,23 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3RestoreSettingsParam;
   int xsp3RunFlagsParam;
   int xsp3ChanMcaParam;             
-  int xsp3ChanMcaCorrParam;         
+  int xsp3ChanMcaCorrParam; 
+  int xsp3ChanMcaRoi1LlmParam;  
+  int xsp3ChanMcaRoi2LlmParam;   
+  int xsp3ChanMcaRoi3LlmParam;   
+  int xsp3ChanMcaRoi4LlmParam;   
+  int xsp3ChanMcaRoi1HlmParam;   
+  int xsp3ChanMcaRoi2HlmParam;   
+  int xsp3ChanMcaRoi3HlmParam;   
+  int xsp3ChanMcaRoi4HlmParam;   
+  int xsp3ChanMcaRoi1Param;      
+  int xsp3ChanMcaRoi2Param;      
+  int xsp3ChanMcaRoi3Param;      
+  int xsp3ChanMcaRoi4Param;      
+  int xsp3ChanMcaRoi1ArrayParam; 
+  int xsp3ChanMcaRoi2ArrayParam; 
+  int xsp3ChanMcaRoi3ArrayParam; 
+  int xsp3ChanMcaRoi4ArrayParam; 
   int xsp3ChanSca0Param;
   int xsp3ChanSca1Param;             
   int xsp3ChanSca2Param;
@@ -220,7 +262,8 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3CtrlDataPeriodParam;
   int xsp3CtrlMcaPeriodParam;
   int xsp3CtrlScaPeriodParam;
-  #define LAST_DRIVER_COMMAND xsp3CtrlScaPeriodParam
+  int xsp3RoiEnableParam;
+  #define LAST_DRIVER_COMMAND xsp3RoiEnableParam
 
 };
 

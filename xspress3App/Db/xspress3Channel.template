@@ -1,17 +1,18 @@
 # ///
-# /// The raw data MCA readout for channel $(CHAN) 
+# /// The raw data MCA readout for channel $(CHAN)
+# /// Do I need to read uncorrected spectra data? 
 # ///
-record(waveform, "$(P)$(R)C$(CHAN)_MCA_RBV")
-{
-    field(DTYP, "asynInt32ArrayIn")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_MCA")
-    field(FTVL, "ULONG")
-    field(NELM, "$(MAX_SPECTRA)")
-    field(SCAN, "I/O Intr")
-}
+#record(waveform, "$(P)$(R)C$(CHAN)_MCA_RBV")
+#{
+#    field(DTYP, "asynInt32ArrayIn")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_MCA")
+#    field(FTVL, "ULONG")
+#    field(NELM, "$(MAX_SPECTRA)")
+#    field(SCAN, "I/O Intr")
+#}
 
 # ///
-# /// The corrected data MCA readout for channel $(CHAN) 
+# /// The deadtime corrected data MCA readout for channel $(CHAN) 
 # ///
 record(waveform, "$(P)$(R)C$(CHAN)_MCA_CORR_RBV")
 {
@@ -21,6 +22,11 @@ record(waveform, "$(P)$(R)C$(CHAN)_MCA_CORR_RBV")
     field(NELM, "$(MAX_SPECTRA)")
     field(SCAN, "I/O Intr")
 }
+
+
+##########################################################################
+# Add in SCA records.
+##########################################################################
 
 #Time SCA
 substitute "SCA=0"
@@ -55,4 +61,19 @@ substitute "SCA=7"
 include "xspress3ChannelSCANoLimits.template"
 
 
+##########################################################################
+# Add in MCA records.
+##########################################################################
+
+substitute "ROI=1"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=2"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=3"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=4"
+include "xspress3ChannelMCAROI.template"
 

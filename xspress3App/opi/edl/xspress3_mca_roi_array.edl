@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 924
-y 587
+x 1233
+y 402
 w 670
 h 400
 font "arial-medium-r-12.0"
@@ -22,7 +22,7 @@ ctlBgColor1 index 10
 ctlBgColor2 index 14
 topShadowColor index 1
 botShadowColor index 11
-title "Xspress3 SCA Data"
+title "Xspress3 MCA ROI Data"
 showGrid
 snapToGrid
 gridSize 5
@@ -115,7 +115,7 @@ fontAlign "center"
 fgColor index 14
 bgColor index 51
 value {
-  "$(P) Channel $(CHAN) SCA$(SCA) Data   "
+  "$(P) Channel $(CHAN) MCA ROI$(ROI) Data   "
 }
 endObjectProperties
 
@@ -190,13 +190,13 @@ minor 1
 release 0
 x 10
 y 40
-w 367
+w 241
 h 14
 font "arial-medium-r-12.0"
 fgColor index 14
 bgColor index 7
 value {
-  "  Channel $(CHAN) SCA$(SCA) Data (Uncorrected & Corrected)  "
+  "  Channel $(CHAN) MCA ROI$(ROI) Data   "
 }
 autoSize
 border

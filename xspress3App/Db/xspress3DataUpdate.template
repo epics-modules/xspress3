@@ -108,3 +108,29 @@ record(longout, "$(P)$(R)CTRL_DATA_UPDATE_PERIOD")
    field(VAL,  "100")
 }
 
+
+# ///
+# /// Disable or enable MCA ROI calculations.
+# ///
+record(bo,"$(P)$(R)CTRL_MCA_ROI") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_MCA_ROI")
+    field(ZNAM,"Disable")
+    field(ONAM,"Enable")
+    field(PINI, "YES")
+    field(VAL, "0")
+}
+
+# /// 
+# /// Readback disable or enable MCA ROI calculations.
+# ///
+record(bi, "$(P)$(R)CTRL_MCA_ROI_RBV")
+{
+    field(DTYP,"asynInt32")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_MCA_ROI")
+    field(ZNAM,"Disabled")	
+    field(ONAM,"Enabled")
+    field(SCAN, "I/O Intr")	
+}
+
+

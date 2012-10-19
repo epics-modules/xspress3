@@ -94,6 +94,28 @@ record(waveform, "$(P)$(R)STATUS_RBV")
     field(SCAN, "I/O Intr")
 }
 
+# ///
+# /// System state.
+# ///
+record(mbbi, "$(P)$(R)STAT_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))STAT")
+   field(ZRST, "Idle")
+   field(ZRVL, "0")
+   field(ONST, "Acquire")
+   field(ONVL, "1")
+   field(TWST, "Readout")
+   field(TWVL, "2")
+   field(THST, "Aborted")
+   field(THVL, "3")
+   field(FRST, "Error")
+   field(FRVL, "4")
+   field(FVST, "Disconnected")
+   field(FVVL, "5")
+   field(SCAN, "I/O Intr")
+}
+
 
 # ///
 # /// Set the numer of channels to read out.

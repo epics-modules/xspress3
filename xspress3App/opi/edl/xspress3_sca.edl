@@ -830,19 +830,6 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 75
-y 165
-w 270
-h 175
-
-beginGroup
-
 # (Text Monitor)
 object activeXTextDspClass:noedit
 beginObjectProperties
@@ -1116,7 +1103,7 @@ bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
 font "arial-bold-r-14.0"
-buttonLabel "Arrays"
+buttonLabel "Array"
 numPvs 4
 numDsps 1
 displayFileName {
@@ -1145,7 +1132,7 @@ bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
 font "arial-bold-r-14.0"
-buttonLabel "Arrays"
+buttonLabel "Array"
 numPvs 4
 numDsps 1
 displayFileName {
@@ -1174,7 +1161,7 @@ bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
 font "arial-bold-r-14.0"
-buttonLabel "Arrays"
+buttonLabel "Array"
 numPvs 4
 numDsps 1
 displayFileName {
@@ -1203,7 +1190,7 @@ bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
 font "arial-bold-r-14.0"
-buttonLabel "Arrays"
+buttonLabel "Array"
 numPvs 4
 numDsps 1
 displayFileName {
@@ -1232,7 +1219,7 @@ bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
 font "arial-bold-r-14.0"
-buttonLabel "Arrays"
+buttonLabel "Array"
 numPvs 4
 numDsps 1
 displayFileName {
@@ -1261,7 +1248,7 @@ bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
 font "arial-bold-r-14.0"
-buttonLabel "Arrays"
+buttonLabel "Array"
 numPvs 4
 numDsps 1
 displayFileName {
@@ -1273,9 +1260,5 @@ setPosition {
 symbols {
   0 "SCA=7"
 }
-endObjectProperties
-
-endGroup
-
 endObjectProperties
 

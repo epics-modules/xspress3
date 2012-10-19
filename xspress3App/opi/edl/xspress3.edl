@@ -68,7 +68,7 @@ release 0
 x 10
 y 50
 w 330
-h 235
+h 250
 lineColor index 14
 fill
 fillColor index 5
@@ -990,7 +990,7 @@ major 4
 minor 5
 release 0
 x 250
-y 205
+y 235
 w 80
 h 25
 controlPv "$(P):FRAME_COUNT_RBV"
@@ -1014,7 +1014,7 @@ major 4
 minor 1
 release 0
 x 70
-y 210
+y 235
 w 170
 h 20
 font "arial-bold-r-14.0"
@@ -1048,7 +1048,7 @@ major 4
 minor 2
 release 0
 x 370
-y 545
+y 605
 w 220
 h 30
 fgColor index 43
@@ -1128,7 +1128,7 @@ major 4
 minor 2
 release 0
 x 370
-y 585
+y 645
 w 220
 h 30
 fgColor index 43
@@ -1157,36 +1157,6 @@ symbols {
 }
 endObjectProperties
 
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 370
-y 505
-w 220
-h 30
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "MCA Data"
-numPvs 4
-numDsps 2
-displayFileName {
-  0 "xspress3_mca.edl"
-  1 "NDFileNetCDF.edl"
-}
-menuLabel {
-  0 "Channel 1 MCA"
-}
-setPosition {
-  0 "parentWindow"
-}
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -1194,7 +1164,7 @@ major 4
 minor 1
 release 0
 x 105
-y 240
+y 265
 w 135
 h 20
 font "arial-bold-r-14.0"
@@ -1213,7 +1183,7 @@ major 4
 minor 5
 release 0
 x 250
-y 235
+y 265
 w 80
 h 25
 controlPv "$(P):FRAME_COUNT_TOTAL_RBV"
@@ -1638,6 +1608,172 @@ limitsFromDb
 nullColor index 30
 fastUpdate
 useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 565
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "MCA Data and ROI Settings"
+numPvs 4
+numDsps 8
+displayFileName {
+  0 "xspress3_mca"
+  1 "xspress3_mca"
+  2 "xspress3_mca"
+  3 "xspress3_mca"
+  4 "xspress3_mca"
+  5 "xspress3_mca"
+  6 "xspress3_mca"
+  7 "xspress3_mca"
+}
+menuLabel {
+  0 "Channel 1"
+  1 "Channel 2"
+  2 "Channel 3"
+  3 "Channel 4"
+  4 "Channel 5"
+  5 "Channel 6"
+  6 "Channel 7"
+  7 "Channel 8"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+  2 "parentWindow"
+  3 "parentWindow"
+  4 "parentWindow"
+  5 "parentWindow"
+  6 "parentWindow"
+  7 "parentWindow"
+}
+symbols {
+  0 "CHAN=1"
+  1 "CHAN=2"
+  2 "CHAN=3"
+  3 "CHAN=4"
+  4 "CHAN=5"
+  5 "CHAN=6"
+  6 "CHAN=7"
+  7 "CHAN=8"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 365
+y 485
+w 125
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "ROI Calculations"
+}
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 390
+y 510
+w 80
+h 40
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):CTRL_MCA_ROI"
+indicatorPv "$(P):CTRL_MCA_ROI_RBV"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 480
+y 510
+w 80
+h 40
+controlPv "$(P):CTRL_MCA_ROI_RBV"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 155
+y 205
+w 55
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Status"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 205
+y 205
+w 125
+h 25
+controlPv "$(P):STAT_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
 newPos
 objType "monitors"
 endObjectProperties
