@@ -144,7 +144,6 @@ class Xspress3 : public asynNDArrayDriver {
  private:
 
   //Put private functions here
-  void log(epicsUInt32 mask, const char *msg, const char *function);
   void checkStatus(int status, const char *function, const char *parentFunction);
   asynStatus connect(void);
   asynStatus disconnect(void);
@@ -157,8 +156,6 @@ class Xspress3 : public asynNDArrayDriver {
   asynStatus eraseSCAMCAROI(void);
 
   //Put private static data members here
-  static const epicsUInt32 logFlow_;
-  static const epicsUInt32 logError_;
   static const epicsInt32 ctrlDisable_;
   static const epicsInt32 ctrlEnable_;
   static const epicsInt32 runFlag_MCA_SPECTRA_;
@@ -169,6 +166,7 @@ class Xspress3 : public asynNDArrayDriver {
   static const epicsInt32 statAborted_;
   static const epicsInt32 statError_;
   static const epicsInt32 statDisconnected_;
+  static const epicsInt32 maxNumRoi_;
   
   //Put private dynamic here
   epicsUInt32 acquiring_; //Data acquisition in progress

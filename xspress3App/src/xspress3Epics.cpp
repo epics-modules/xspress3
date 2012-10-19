@@ -23,8 +23,6 @@ using std::cout;
 using std::endl;
 
 //Definitions of static class data members
-const epicsUInt32 Xspress3::logFlow_ = 1;
-const epicsUInt32 Xspress3::logError_ = 2;
 const epicsInt32  Xspress3::ctrlDisable_ = 0;
 const epicsInt32  Xspress3::ctrlEnable_ = 1;
 const epicsInt32 Xspress3::runFlag_MCA_SPECTRA_ = 0;
@@ -35,6 +33,7 @@ const epicsInt32 Xspress3::statReadout_ = 2;
 const epicsInt32 Xspress3::statAborted_ = 3;
 const epicsInt32 Xspress3::statError_ = 4;
 const epicsInt32 Xspress3::statDisconnected_ = 5;
+const epicsInt32 Xspress3::maxNumRoi_ = 4;
 
 //C Function prototypes to tie in with EPICS
 static void xsp3StatusTaskC(void *drvPvt);
@@ -66,8 +65,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 
   strncpy(baseIP_, baseIP, 16);
   baseIP_[16] = '\0';
-
-  log(logFlow_, "Start of constructor", functionName); 
 
   //Create the epicsEvent for signaling to the status task when parameters should have changed.
   //This will cause it to do a poll immediately, rather than wait for the poll time period.
@@ -246,7 +243,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     printf("%s:%s Unable to set driver parameters in constructor.\n", driverName, functionName);
   }
 
-  log(logFlow_, "End of constructor", functionName); 
+  cout << "End of constructor " << functionName << endl;
 
 }
 
@@ -271,20 +268,19 @@ asynStatus Xspress3::connect(void)
   char configPath[256];
   const char *functionName = "Xspress3::connect";
 
-  log(logFlow_, "Calling connect", functionName);
-
   getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
   getIntegerParam(xsp3NumFramesConfigParam, &xsp3_num_tf);
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
   getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
 
-  //Set up the xspress3 system (might have to make all this callable at runtime, using PVs to set the parameters)
-  log(logFlow_, "Setting up xsp3 system...", functionName);
-  cout << "baseIP_ is: " << baseIP_ << endl;
-  cout << "Num cards: " << xsp3_num_cards << endl;
-  cout << "Num frames: " << xsp3_num_tf << endl;
-  cout << "Num channels: " << numChannels_ << endl;
-  cout << "Config Path: " << configPath << endl;
+  //Set up the xspress3 system
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling xsp3_config.\n", functionName);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Base IP address is: %s\n", functionName, baseIP_);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of cards is: %d\n", functionName, xsp3_num_cards);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of frames is: %d\n", functionName, xsp3_num_tf);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of channels is: %d\n", functionName, numChannels_);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Config path is: %d\n", functionName, configPath);
+
   xsp3_handle_ = xsp3_config(xsp3_num_cards, xsp3_num_tf, const_cast<char *>(baseIP_), -1, NULL, xsp3_num_channels, 1, NULL, debug_, 0);
   if (xsp3_handle_ < 0) {
     checkStatus(xsp3_handle_, "xsp3_config", functionName);
@@ -301,7 +297,6 @@ asynStatus Xspress3::connect(void)
     }
     
     //Restore settings from a file
-    cout << "Calling xsp3_restore_settings with path: " << configPath << endl;
     xsp3_status = xsp3_restore_settings(xsp3_handle_, configPath, 0);
     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_restore_settings", functionName);
@@ -315,7 +310,7 @@ asynStatus Xspress3::connect(void)
 	checkStatus(xsp3_status, "xsp3_format_run", functionName);
 	status = asynError;
       } else {
-	cout << "Num time frames: " << xsp3_status << endl;
+	asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of time frames configured: %d\n", functionName, xsp3_status);
       }
     }
 
@@ -327,7 +322,7 @@ asynStatus Xspress3::connect(void)
     } else if (xsp3_run_flags == runFlag_PLAYB_MCA_SPECTRA_) {
       xsp3_status = xsp3_set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
     } else {
-      log(logError_, "Invalid run flag option when trying to set xsp3_set_run_flags.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Invalid run flag option when trying to set xsp3_set_run_flags.\n", functionName);
       status = asynError;
     }
     if (xsp3_status < XSP3_OK) {
@@ -336,12 +331,12 @@ asynStatus Xspress3::connect(void)
     } 
 
     if (status == asynSuccess) {
-      log(logFlow_, "Finished setting up xsp3.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Finished setting up Xspress3.\n", functionName);
       setStringParam(xsp3StatusParam, "System Connected");
       setIntegerParam(xsp3StatParam, statIdle_);
       setIntegerParam(xsp3ConnectedParam, 1);
     } else {
-      log(logFlow_, "ERROR: failed to connect to xspress3.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR setting up Xspress3.\n", functionName);
       setStringParam(xsp3StatusParam, "ERROR: failed to connect");
       setIntegerParam(xsp3StatParam, statDisconnected_);
       setIntegerParam(xsp3ConnectedParam, 0);
@@ -361,7 +356,7 @@ asynStatus Xspress3::disconnect(void)
   int xsp3_status = 0;
   const char *functionName = "Xspress3::disconnect";
 
-  log(logFlow_, "Calling disconnect. This calls xsp3_close().", functionName);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling disconnect. This calls xsp3_close().\n", functionName);
 
   if ((status = checkConnected()) == asynSuccess) {
     xsp3_status = xsp3_close(xsp3_handle_);
@@ -386,11 +381,11 @@ asynStatus Xspress3::checkConnected(void)
   int xsp3_connected = 0;
   const char *functionName = "Xspress3::checkConnected";
 
-  log(logFlow_, "Checking connected status.", functionName);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Checking connected status.\n", functionName);
 
   getIntegerParam(xsp3ConnectedParam, &xsp3_connected);
   if (xsp3_connected != 1) {
-    log(logFlow_, "ERROR: We are not connected.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: We are not connected.\n", functionName);
     setStringParam(xsp3StatusParam, "ERROR: Not Connected");
     return asynError;
   }
@@ -411,13 +406,13 @@ asynStatus Xspress3::saveSettings(void)
   int connected = 0;
   const char *functionName = "Xspress3::saveSettings";
 
-  log(logFlow_, "Calling saveSettings. This calls xsp3_save_settings().", functionName);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Saving Xspress3 settings. This calls xsp3_save_settings().\n", functionName);
 
   getIntegerParam(xsp3ConnectedParam, &connected);
   getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
 
   if ((configPath == NULL) || (connected != 1)) {
-    log(logError_, "ERROR: Trying to call xsp3_save_settings, but system not setup correctly.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: No config path set, or not connected.\n", functionName);
     setIntegerParam(xsp3StatParam, statError_);
     status = asynError;
   } else {
@@ -449,13 +444,13 @@ asynStatus Xspress3::restoreSettings(void)
   int connected = 0;
   const char *functionName = "Xspress3::restoreSettings";
 
-  log(logFlow_, "Calling saveSettings. This calls xsp3_restore_settings().", functionName);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Restoring Xspress3 settings. This calls xsp3_restore_settings().\n", functionName);
 
   getIntegerParam(xsp3ConnectedParam, &connected);
   getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
 
   if ((configPath == NULL) || (connected != 1)) {
-    log(logError_, "ERROR: Trying to call xsp3_restore_settings, but system not setup correctly.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: No config path set, or not connected.\n", functionName);
     setIntegerParam(xsp3StatParam, statError_);
     status = asynError;
   } else {
@@ -474,27 +469,6 @@ asynStatus Xspress3::restoreSettings(void)
 }
 
 
-
-/**
- * Wrapper for asynPrint and local debug prints. If the debug_ data member
- * is on, then it simply prints the message. Otherwise if uses asynPrint statements.
- * @param mask Use either logFlow_ or logError_
- * @param msg The message to print
- * @param function The name of the calling function
- */
-void Xspress3::log(epicsUInt32 mask, const char *msg, const char *function)
-{
-  if (debug_ == 1) {
-    cout << function << " " << msg << endl;
-  } else {
-    if (mask == logFlow_) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s %s.\n", function, msg);
-    } else {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s %s.\n", function, msg);
-    }
-  }
-}
-
 /**
  * Funtion to log an error if any of the Xsp3 functions return an error.
  * The function also take a pointer to the name of the function.
@@ -506,28 +480,28 @@ void Xspress3::checkStatus(int status, const char *function, const char *parentF
 {
 
   if (status == XSP3_OK) {
-    log(logFlow_, "XSP3_OK", function);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s returned XSP3_OK.\n", function);
   } else if (status == XSP3_ERROR) {
-    log(logError_, "XSP3_ERROR", function);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s returned XSP3_ERROR.\n", function);
   } else if (status == XSP3_INVALID_PATH) {
-    log(logError_, "XSP3_INVALID_PATH", function);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s returned XSP3_ILLEGAL_PATH.\n", function);
   } else if (status == XSP3_ILLEGAL_CARD) {
-    log(logError_, "XSP3_ILLEGAL_CARD", function);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s returned XSP3_ILLEGAL_CARD.\n", function);
   } else if (status == XSP3_ILLEGAL_SUBPATH) {
-    log(logError_, "XSP3_ILLEGAL_SUBPATH", function);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s returned XSP3_ILLEGAL_SUBPATH.\n", function);
   } else if (status == XSP3_INVALID_DMA_STREAM) {
-    log(logError_, "XSP3_INVALID_DMA_STREAM", function);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s returned XSP3_INVALID_DMA_STREAM.\n", function);
   } else if (status == XSP3_RANGE_CHECK) {
-    log(logError_, "XSP3_RANGE_CHECK", function);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s returned XSP3_RANGE_CHECK.\n", function);
   } else if (status == XSP3_INVALID_SCOPE_MOD) {
-    log(logError_, "XSP3_INVALID_SCOPE_MOD", function);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s returned XSP3_INVALID_SCOPE_MOD.\n", function);
   } else {
-    log(logError_, "Unknown XSP3 error code", function);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s returned unknown XSP3 error code.\n", function);
   }
 
   if (status != XSP3_OK) {
-    log(logError_, "ERROR calling XSP3 function.", parentFunction);
-    log(logError_, xsp3_get_error_message(), parentFunction);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "API Error Message: %s.\n", xsp3_get_error_message());
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "EPICS Driver Calling Function: %s.\n", parentFunction);
   }
  
 }
@@ -548,7 +522,7 @@ asynStatus Xspress3::setWindow(int channel, int sca, int llm, int hlm)
 
   if ((status = checkConnected()) == asynSuccess) {
     if (llm > hlm) {
-      log(logError_, "ERROR: SCA low limit is higher than high limit.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: SCA low limit is higher than high limit.\n", functionName);
       setStringParam(xsp3StatusParam, "ERROR: SCA low limit is higher than high limit.");
       setIntegerParam(xsp3StatParam, statError_);
       status = asynError;
@@ -586,14 +560,14 @@ asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
   getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
 
   if ((llm < 0) || (hlm < 0)) {
-    log(logError_, "ERROR: Negative ROI limits not allowed.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Negative ROI limits not allowed.\n", functionName);
     setStringParam(xsp3StatusParam, "ERROR: Negative ROI limits not allowed.");
     setIntegerParam(xsp3StatParam, statError_);
     status = asynError;
   }
 
   if ((llm >= maxSpectra) || (hlm > maxSpectra)) {
-    log(logError_, "ERROR: Negative ROI limits not allowed.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: ROI limits set too high.\n", functionName);
     setStringParam(xsp3StatusParam, "ERROR: Negative ROI limits not allowed.");
     setIntegerParam(xsp3StatParam, statError_);
     status = asynError;
@@ -629,7 +603,7 @@ asynStatus Xspress3::erase(void)
   const char *functionName = "Xspress3::erase";
 
   if ((status = checkConnected()) == asynSuccess) {
-    log(logFlow_, "Erase MCA data, clear SCAs", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erase data.\n", functionName);
 
     status = eraseSCAMCAROI();
 
@@ -665,7 +639,7 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   epicsInt32 *pSCA = NULL;
   const char *functionName = "Xspress3::eraseSCA";
 
-  log(logFlow_, "Clear SCA data", functionName);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
 
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
   getIntegerParam(xsp3MaxFramesParam, &maxNumFrames);
@@ -713,7 +687,7 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   }
 
   if (status != asynSuccess) {
-    log(logError_, "ERROR clearing SCA data", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR erasing data.\n", functionName);
   }
 
   return static_cast<asynStatus>(status);
@@ -763,8 +737,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int xsp3_num_channels = 0;
   const char *functionName = "Xspress3::writeInt32";
   
-  log(logFlow_, "Calling writeInt32", functionName);
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d. value: %d\n", functionName, function, value);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeInt32.\n", functionName);
 
   //Read address (channel number).
   status = getAddress(pasynUser, &addr); 
@@ -772,14 +745,12 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return(status);
   }
 
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d, value: %d, addr: %d\n", functionName, function, value, addr);
+
   getIntegerParam(xsp3BusyParam, &busy);
 
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Asyn addr: &d.\n", functionName, addr);
-
-  cout << "VAL: " << value << "  ADDR: " << addr << endl;
-
   if (function == xsp3ResetParam) {
-    log(logFlow_, "System reset", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s System Reset.\n", functionName);
     if ((status = checkConnected()) == asynSuccess) {
       //What do we do here?
     }
@@ -801,7 +772,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	epicsEventSignal(this->startEvent_);
       } else {
 	if ((status = checkConnected()) == asynSuccess) {
-	  log(logFlow_, "Start collecting data", functionName);
+	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection.\n", functionName);
 	  getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
 	  for (int card=0; card<xsp3_num_cards; card++) {
 	    xsp3_status = xsp3_histogram_start(xsp3_handle_, card);
@@ -823,7 +794,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	epicsEventSignal(this->stopEvent_);
       } else {
 	if ((status = checkConnected()) == asynSuccess) {
-	  log(logFlow_, "Stop collecting data", functionName);
+	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Stop Data Collection.\n", functionName);
 	  getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
 	  for (int card=0; card<xsp3_num_cards; card++) {
 	    xsp3_status = xsp3_histogram_stop(xsp3_handle_, card);
@@ -840,18 +811,16 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   }
   else if (function == xsp3NumChannelsParam) {
-   log(logFlow_, "Set number of channels", functionName);
-   cout << "channels: " << value << endl;
-   getIntegerParam(xsp3MaxNumChannelsParam, &xsp3_num_channels);
-   if ((value > xsp3_num_channels) || (value < 1)) {
-     log(logError_, "ERROR: num channels out of range.", functionName);
-     status = asynError;
-   }
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Channels.\n", functionName);
+    getIntegerParam(xsp3MaxNumChannelsParam, &xsp3_num_channels);
+    if ((value > xsp3_num_channels) || (value < 1)) {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s ERROR: Num Channels Out Of Range.\n", functionName);
+      status = asynError;
+    }
   }
   else if (function == xsp3TriggerModeParam) {
     if ((status = checkConnected()) == asynSuccess) {
-      log(logFlow_, "Set trigger mode", functionName);
-      cout << "VAL: " << value << endl;
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Trigger Mode.\n", functionName);
       getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
       for (int card=0; card<xsp3_num_cards; card++) {
 	xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, card, value);
@@ -865,8 +834,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3FixedTimeParam) {
     if (!simTest_) {
       if ((status = checkConnected()) == asynSuccess) {
-	log(logFlow_, "Set the fixed time register", functionName);
-	cout << "VAL: " << value << endl;
 	getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
 	for (int card=0; card<xsp3_num_cards; card++) {
 	  xsp3_status = xsp3_set_glob_timeFixed(xsp3_handle_, card, value);
@@ -879,48 +846,46 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   } 
   else if (function == xsp3NumFramesParam) {
-    log(logFlow_, "Set the number of frames", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames To Read Out.\n", functionName);
     getIntegerParam(xsp3NumFramesConfigParam, &xsp3_time_frames);
     if (value > xsp3_time_frames) {
-      log(logError_, "ERROR: num frames higher than number configured.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Num Frames Higher Than Number Configured..\n", functionName);
       status = asynError;
     }
   }
   else if (function == xsp3NumFramesConfigParam) {
-    log(logFlow_, "Set the number of frames for configuration", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames For Intial Configuration.\n", functionName);
     getIntegerParam(xsp3MaxFramesParam, &xsp3_time_frames);
     if (value > xsp3_time_frames) {
-      log(logError_, "ERROR: num frames for config too high.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Num Frames For Config Too High.\n", functionName);
       status = asynError;
     }
   }
   else if (function == xsp3ConnectParam) {
-    log(logFlow_, "Run the connect function.", functionName);
     status = connect();
   }
   else if (function == xsp3DisconnectParam) {
-    log(logFlow_, "Run the Disconnect function.", functionName);
     status = disconnect();
   }
   else if (function == xsp3SaveSettingsParam) {
     if ((!busy) && (!simTest_)) {
-      log(logFlow_, "Run the saveSettings function.", functionName);
       status = saveSettings();
     } else {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Saving Not Allowed In This Mode.\n", functionName);
       status = asynError;
     }
   }
   else if (function == xsp3RestoreSettingsParam) {
     if ((!busy) && (!simTest_)) {
-      log(logFlow_, "Run the restoreSettings function.", functionName);
       status = restoreSettings();
     } else {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Restoring Not Allowed In This Mode.\n", functionName);
       status = asynError;
     }
   }
   else if (function == xsp3ChanSca4ThresholdParam) {
     if ((status = checkConnected()) == asynSuccess) {
-      log(logFlow_, "Set the SCA4 threshold register", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The SCA4 Threshold Register.\n", functionName);
       xsp3_status = xsp3_set_good_thres(xsp3_handle_, addr, value);
       if (xsp3_status != XSP3_OK) {
 	checkStatus(xsp3_status, "xsp3_set_good_thres", functionName);
@@ -929,124 +894,122 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   } 
   else if (function == xsp3ChanSca5HlmParam) {
-    log(logFlow_, "Setting SCA5 high limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The SCA5 High Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanSca5LlmParam, &xsp3_sca_lim);
     status = setWindow(addr, 0, xsp3_sca_lim, value); 
   } 
   else if (function == xsp3ChanSca6HlmParam) {
-    log(logFlow_, "Setting SCA6 high limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The SCA6 High Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanSca6LlmParam, &xsp3_sca_lim);
     status = setWindow(addr, 1, xsp3_sca_lim, value); 
   } 
   else if (function == xsp3ChanSca5LlmParam) {
-    log(logFlow_, "Setting SCA5 low limit", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The SCA5 Low Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanSca5HlmParam, &xsp3_sca_lim);
     status = setWindow(addr, 0, value, xsp3_sca_lim); 
   } 
   else if (function == xsp3ChanSca6LlmParam) {
-    log(logFlow_, "Setting SCA6 low limit", functionName); 
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The SCA6 Low Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanSca6HlmParam, &xsp3_sca_lim);
     status = setWindow(addr, 1, value, xsp3_sca_lim);
   } 
   else if (function == xsp3ChanMcaRoi1LlmParam) {
-    log(logFlow_, "Setting MCA ROI1 low limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI1 Low Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanMcaRoi1HlmParam, &xsp3_roi_lim);
     status = checkRoi(addr, 1, value, xsp3_roi_lim); 
   }
   else if (function == xsp3ChanMcaRoi2LlmParam) {
-    log(logFlow_, "Setting MCA ROI2 low limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI2 Low Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanMcaRoi2HlmParam, &xsp3_roi_lim);
     status = checkRoi(addr, 2, value, xsp3_roi_lim); 
   }
   else if (function == xsp3ChanMcaRoi3LlmParam) {
-    log(logFlow_, "Setting MCA ROI3 low limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI3 Low Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanMcaRoi3HlmParam, &xsp3_roi_lim);
     status = checkRoi(addr, 3, value, xsp3_roi_lim); 
   }
   else if (function == xsp3ChanMcaRoi4LlmParam) {
-    log(logFlow_, "Setting MCA ROI4 low limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI4 Low Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanMcaRoi4HlmParam, &xsp3_roi_lim);
     status = checkRoi(addr, 4, value, xsp3_roi_lim); 
   }
   else if (function == xsp3ChanMcaRoi1HlmParam) {
-    log(logFlow_, "Setting MCA ROI1 high limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI1 High Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanMcaRoi1LlmParam, &xsp3_roi_lim);
     status = checkRoi(addr, 1, xsp3_roi_lim, value); 
   }
   else if (function == xsp3ChanMcaRoi2HlmParam) {
-    log(logFlow_, "Setting MCA ROI2 high limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI2 High Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanMcaRoi2LlmParam, &xsp3_roi_lim);
     status = checkRoi(addr, 2, xsp3_roi_lim, value); 
   }
   else if (function == xsp3ChanMcaRoi3HlmParam) {
-    log(logFlow_, "Setting MCA ROI3 high limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI3 High Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanMcaRoi3LlmParam, &xsp3_roi_lim);
     status = checkRoi(addr, 3, xsp3_roi_lim, value); 
   }
   else if (function == xsp3ChanMcaRoi4HlmParam) {
-    log(logFlow_, "Setting MCA ROI4 high limit.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI4 High Limit.\n", functionName);
     getIntegerParam(addr, xsp3ChanMcaRoi4LlmParam, &xsp3_roi_lim);
     status = checkRoi(addr, 4, xsp3_roi_lim, value); 
   }
   else if (function == xsp3RoiEnableParam) {
     if (value == ctrlDisable_) {
-      log(logFlow_, "Disabling ROI calculations.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling ROI Calculations.\n", functionName);
     } else if (value == ctrlEnable_) {
-      log(logFlow_, "Enabling ROI calculations.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling ROI Calculations.\n", functionName);
     }
   } 
   else if (function == xsp3CtrlDataParam) {
     if (value == ctrlDisable_) {
-      log(logFlow_, "Disabling all live data update.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling All Live Data Update.\n", functionName);
       setIntegerParam(xsp3CtrlMcaParam, 0);
       setIntegerParam(xsp3CtrlScaParam, 0);
     } else if (value == ctrlEnable_) {
-      log(logFlow_, "Enabling live data update.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling All Live Data Update.\n", functionName);
     }
   } 
   else if (function == xsp3CtrlMcaParam) {
     if (value == ctrlDisable_) {
-      log(logFlow_, "Disabling MCA data update.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling MCA Array Live Data Update.\n", functionName);
     } else if (value == ctrlEnable_) {
-      log(logFlow_, "Enabling MCA data update.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling MCA Array Live Data Update.\n", functionName);
       setIntegerParam(xsp3CtrlDataParam, 1);
     }
   } 
   else if (function == xsp3CtrlScaParam) {
     if (value == ctrlDisable_) {
-      log(logFlow_, "Disabling SCA data update.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling SCA Array Live Data Update.\n", functionName);
     } else if (value == ctrlEnable_) {
-      log(logFlow_, "Enabling SCA data update.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling SCA Array Live Data Update.\n", functionName);
       setIntegerParam(xsp3CtrlDataParam, 1);
     }
   } 
   else if (function == xsp3CtrlDataPeriodParam) {
-    log(logFlow_, "Setting scalar data update rate.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set SCA And ROI Data Update Rate.\n", functionName);
   }
   else if (function == xsp3CtrlMcaPeriodParam) {
-    log(logFlow_, "Setting MCA data update rate.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set MCA Array Data Update Rate.\n", functionName);
   }
   else if (function == xsp3CtrlScaPeriodParam) {
-    log(logFlow_, "Setting SCA data update rate.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set SCA Array Data Update Rate.\n", functionName);
   }
   else if (function == xsp3RunFlagsParam) {
-    log(logFlow_, "Setting the run flags.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The Run Flags.\n", functionName);
   }
   else {
-    log(logError_, "No matching parameter.", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Matching Parameter In Xspress3 Driver.\n", functionName);
   }
 
   if (status != asynSuccess) {
     return asynError;
   }
 
-  //Set in param lib so the user sees a readback straight away. We might overwrite this in the 
-  //status task, depending on the parameter.
   status = (asynStatus) setIntegerParam(addr, function, value);
   if (status!=asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, 
-	      "%s Error setting parameter. Asyn addr: &d, asynUser->reason: &d.\n", 
-	      functionName, addr, function);
+	      "%s Error Setting Parameter. Asyn addr: &d, asynUser->reason: &d, value: %d\n", 
+	      functionName, addr, function, value);
     return(status);
   }
 
@@ -1066,17 +1029,13 @@ asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   asynStatus status = asynSuccess;
   const char *functionName = "Xspress3::writeFloat64";
   
-  log(logFlow_, "Calling writeFloat64", functionName);
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d.\n", functionName, function);
-
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeFloat64.\n", functionName);
   //Read address (channel number).
   status = getAddress(pasynUser, &addr); 
   if (status!=asynSuccess) {
     return(status);
   }
-
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Asyn addr: &d.\n", functionName, addr);
-
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d, value: %d, addr: %d\n", functionName, function, value, addr);
 
   //Set in param lib so the user sees a readback straight away. We might overwrite this in the 
   //status task, depending on the parameter.
@@ -1096,31 +1055,32 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
                                     size_t nChars, size_t *nActual)
 {
     int function = pasynUser->reason;
+    int addr = 0;
     asynStatus status = asynSuccess;
     const char *functionName = "Xspress3::writeOctet";
 
-    /* Set the parameter in the parameter library. */
-    status = (asynStatus)setStringParam(function, (char *)value);
-
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeOctet.\n", functionName);
+    
     if (function == xsp3ConfigPathParam) {
-        log(logFlow_, "Setting config path param.", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Config Path Param.\n", functionName);
     } else {
         /* If this parameter belongs to a base class call its method */
-        if (function < FIRST_DRIVER_COMMAND) status = asynNDArrayDriver::writeOctet(pasynUser, value, nChars, nActual);
+      if (function < FIRST_DRIVER_COMMAND) {
+	status = asynNDArrayDriver::writeOctet(pasynUser, value, nChars, nActual);
+      }
     }
     
+    /* Set the parameter in the parameter library. */
+    status = (asynStatus)setStringParam(function, (char *)value);
     /* Do callbacks so higher layers see any changes */
     status = (asynStatus)callParamCallbacks();
     
     if (status) {
-      epicsSnprintf(pasynUser->errorMessage, pasynUser->errorMessageSize, 
-		    "%s:%s: status=%d, function=%d, value=%s", 
-		    driverName, functionName, status, function, value);
-    } else {
-      asynPrint(pasynUser, ASYN_TRACEIO_DRIVER, 
-		"%s:%s: function=%d, value=%s\n", 
-		driverName, functionName, function, value);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, 
+	      "%s Error Setting Parameter. asynUser->reason: &d\n", 
+	      functionName, function);
     }
+
     *nActual = nChars;
     return status;
 }
@@ -1130,7 +1090,7 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
 
 
 /**
- * Status poling task
+ * Status poling task  //////////Do I need this? Can I just poll in data thread between readouts?
  */
 void Xspress3::statusTask(void)
 {
@@ -1141,7 +1101,7 @@ void Xspress3::statusTask(void)
 
   const char* functionName = "Xspress3::statusTask";
 
-  log(logFlow_, "Started.", functionName);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Status Thread.\n", functionName);
 
   
   while(1) {
@@ -1170,10 +1130,6 @@ void Xspress3::statusTask(void)
     }
 
     this->lock();
-    
-    if (debug_) {
-      //log(logFlow_, "Got status event.", functionName);
-    }
     
     /* Call the callbacks to update any changes */
     callParamCallbacks();
@@ -1206,6 +1162,7 @@ void Xspress3::dataTask(void)
   int notBusyTotalCount = 0;
   int frameCounter = 0;
   int maxNumFrames = 0;
+  int maxSpectra = 0;
   int dataTimeout = 0;
   int scaArrayTimeout = 0;
   epicsTimeStamp startTimeData;
@@ -1221,11 +1178,15 @@ void Xspress3::dataTask(void)
   const char* functionName = "Xspress3::dataTask";
   epicsUInt32 *pSCA;
   epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
+  epicsFloat64 *pMCA[numChannels_];
+  epicsInt32 *pMCA_ROI[numChannels_][maxNumRoi_];
+  
 
-  log(logFlow_, "Started.", functionName);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
 
   //Create array for scalar data (max frame * number of SCAs).
   getIntegerParam(xsp3MaxFramesParam, &maxNumFrames);
+  getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
   pSCA = static_cast<epicsUInt32*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsUInt32)));
   //Create array to hold SCA data for the duration of the scan, one per SCA, per channel.
   for (int chan=0; chan<numChannels_; chan++) {
@@ -1234,22 +1195,30 @@ void Xspress3::dataTask(void)
     }
   }
 
+  //Create data arrays for MCA spectra and ROI arrays
+  for (int chan=0; chan<numChannels_; chan++) {
+    pMCA[chan] = static_cast<epicsFloat64*>(calloc(maxSpectra, sizeof(epicsInt32)));
+    for (int roi=0; roi<maxNumRoi_; roi++) {
+      pMCA_ROI[chan][roi] = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsInt32)));
+    }
+  }
+  
   while (1) {
     
      eventStatus = epicsEventWait(startEvent_);          
      if (eventStatus == epicsEventWaitOK) {
-        log(logFlow_, "Got start event.", functionName);
-	acquire = 1;
-	frameCounter = 0;
-	lock();
-	setIntegerParam(xsp3FrameCountParam, 0);
-	setIntegerParam(xsp3FrameCountTotalParam, 0);
-	setIntegerParam(xsp3BusyParam, 1);
-	setIntegerParam(xsp3StatParam, statAcquire_);
-	setStringParam(xsp3StatusParam, "Acquiring Data");
-	callParamCallbacks();
-      }
-
+       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Start Event.\n", functionName);
+       acquire = 1;
+       frameCounter = 0;
+       lock();
+       setIntegerParam(xsp3FrameCountParam, 0);
+       setIntegerParam(xsp3FrameCountTotalParam, 0);
+       setIntegerParam(xsp3BusyParam, 1);
+       setIntegerParam(xsp3StatParam, statAcquire_);
+       setStringParam(xsp3StatusParam, "Acquiring Data");
+       callParamCallbacks();
+     }
+     
      /* Get the current time */
      epicsTimeGetCurrent(&startTimeData);
      epicsTimeGetCurrent(&startTimeArray);
@@ -1267,7 +1236,7 @@ void Xspress3::dataTask(void)
        //Wait for a stop event, with a short timeout.
        eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
        if (eventStatus == epicsEventWaitOK) {
-	 log(logFlow_, "Got stop event.", functionName);
+	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Stop Event.\n", functionName);
 	 setIntegerParam(xsp3BusyParam, 0);
 	 setIntegerParam(xsp3StatParam, statAborted_);
 	 setStringParam(xsp3StatusParam, "Stopped Acquiring");
@@ -1294,8 +1263,8 @@ void Xspress3::dataTask(void)
 	     notBusyTotalCount++;
 	     /////////TODO - check this works if we force xsp3_histogram_is_busy to fail.
 	     if (notBusyTotalCount==20) {
-	       log(logError_, "ERROR: we polled xsp3_histogram_is_busy 20 times. Giving up.", functionName);
-	       setStringParam(xsp3StatusParam, "ERROR: xspress3 did not stop. Giving up.");
+	       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: we polled xsp3_histogram_is_busy 20 times. Giving up.\n", functionName);
+	       setStringParam(xsp3StatusParam, "ERROR: Xspress3 Did Not Stop. Giving Up.");
 	       setIntegerParam(xsp3StatParam, statError_);
 	       status = asynError;
 	       break;
@@ -1304,7 +1273,7 @@ void Xspress3::dataTask(void)
 	 }
        }
 
-       //Read how many scaler data frames have been transferred.
+       //Read how many data frames have been transferred.
        if (!simTest_) {
 	 memset(&dmaCheck, 0, sizeof(dmaCheck));
 	 getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
@@ -1339,7 +1308,7 @@ void Xspress3::dataTask(void)
 	 if (frameCounter >= maxNumFrames) {
 	   //remainingFrames = frameCounter - maxNumFrames;
 	   frameCounter = maxNumFrames;
-	   log(logError_, "ERROR: Stopping acqusition because we reached the max number of frames.", functionName);
+	   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
 	   setStringParam(xsp3StatusParam, "Stopped. Max Frames Reached.");
 	   setIntegerParam(xsp3BusyParam, 0);
 	   acquire=0;
@@ -1370,6 +1339,7 @@ void Xspress3::dataTask(void)
 	 //For now read out everything everytime, until I know it's working and I can make it more efficient.
 	 if (!simTest_) {
 	   xsp3_status = xsp3_scaler_read(xsp3_handle_, static_cast<u_int32_t*>(pSCA), 0, 0, 0, XSP3_SW_NUM_SCALERS, numChannels, frameCounter);
+	   
 	 } else {
 	   //Fill the array with dummy data in simTest_ mode
 	   pData = pSCA;
@@ -1434,8 +1404,8 @@ void Xspress3::dataTask(void)
 	 int offset = frameCounter-1;
 	 //Post scalar data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
 	 if (scalerUpdate || !acquire) {
-	   log(logFlow_, "Posting most recent scaler data values on all channels...", functionName);
 	   for (int chan=0; chan<numChannels; ++chan) {
+	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting Most Recent Scaler Data On Chan %d.\n", functionName, chan);
 	     setIntegerParam(chan, xsp3ChanSca0Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][0]))+offset));
 	     setIntegerParam(chan, xsp3ChanSca1Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][1]))+offset));
 	     setIntegerParam(chan, xsp3ChanSca2Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][2]))+offset));
@@ -1445,13 +1415,12 @@ void Xspress3::dataTask(void)
 	     setIntegerParam(chan, xsp3ChanSca6Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][6]))+offset));
 	     setIntegerParam(chan, xsp3ChanSca7Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][7]))+offset));
 	   }
-	   log(logFlow_, "Done posting most recent scaler data values.", functionName);
 	 }
 
 	 //Post scalar array data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
 	 if ((scalerArrayUpdate == 1) || !acquire) {
-	   log(logFlow_, "Posting most recent scaler data array values on all channels...", functionName);
 	   for (int chan=0; chan<numChannels; ++chan) {
+	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting Scaler Arrays On Chan %d.\n", functionName, chan);
 	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][0]), offset, xsp3ChanSca0ArrayParam, chan);
 	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][1]), offset, xsp3ChanSca1ArrayParam, chan);
 	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][2]), offset, xsp3ChanSca2ArrayParam, chan);
@@ -1461,7 +1430,6 @@ void Xspress3::dataTask(void)
 	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][6]), offset, xsp3ChanSca6ArrayParam, chan);
 	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][7]), offset, xsp3ChanSca7ArrayParam, chan);
 	   }
-	   log(logFlow_, "Done posting most recent scaler data array values.", functionName);
 	 }
 
        }  //end of frame_count > 0
