@@ -265,6 +265,8 @@ asynStatus Xspress3::connect(void)
   int xsp3_status = 0;
   int xsp3_run_flags = 0;
   int xsp3_num_channels = 0;
+  u_int32_t xsp3_sca_param1 = 0;
+  u_int32_t xsp3_sca_param2 = 0;
   char configPath[256];
   const char *functionName = "Xspress3::connect";
 
@@ -310,7 +312,7 @@ asynStatus Xspress3::connect(void)
 	checkStatus(xsp3_status, "xsp3_format_run", functionName);
 	status = asynError;
       } else {
-	asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of time frames configured: %d\n", functionName, xsp3_status);
+	asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel: %d, Number of time frames configured: %d\n", functionName, chan, xsp3_status);
       }
     }
 
@@ -330,6 +332,7 @@ asynStatus Xspress3::connect(void)
       status = asynError;
     } 
 
+    //Set connected status
     if (status == asynSuccess) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Finished setting up Xspress3.\n", functionName);
       setStringParam(xsp3StatusParam, "System Connected");
@@ -341,7 +344,48 @@ asynStatus Xspress3::connect(void)
       setIntegerParam(xsp3StatParam, statDisconnected_);
       setIntegerParam(xsp3ConnectedParam, 0);
     }
-  }
+
+    //Need to read existing SCA window limits (for SCA 5 and 6) and threshold for SCA 4, for each channel.
+    if (status == asynSuccess) {
+      for (int chan=0; chan<xsp3_num_channels; chan++) {
+	//SCA 5 window limits
+	xsp3_status = xsp3_get_window(xsp3_handle_, chan, 0, &xsp3_sca_param1, &xsp3_sca_param2);
+	if (xsp3_status < XSP3_OK) {
+	  checkStatus(xsp3_status, "xsp3_get_window", functionName);
+	  status = asynError;
+	} else {
+	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA5 window limits: %d, %d\n", 
+		    functionName, chan, xsp3_sca_param1, xsp3_sca_param2);
+	  setIntegerParam(chan, xsp3ChanSca5LlmParam, xsp3_sca_param1);
+	  setIntegerParam(chan, xsp3ChanSca5HlmParam, xsp3_sca_param2);
+	}
+	//SCA 6 window limits
+	xsp3_status = xsp3_get_window(xsp3_handle_, chan, 1, &xsp3_sca_param1, &xsp3_sca_param2);
+	if (xsp3_status < XSP3_OK) {
+	  checkStatus(xsp3_status, "xsp3_get_window", functionName);
+	  status = asynError;
+	} else {
+	  setIntegerParam(chan, xsp3ChanSca6LlmParam, xsp3_sca_param1);
+	  setIntegerParam(chan, xsp3ChanSca6HlmParam, xsp3_sca_param2);
+	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA6 window limits: %d, %d\n", 
+		    functionName, chan, xsp3_sca_param1, xsp3_sca_param2);
+	}
+	//SCA 4 threshold limit
+	xsp3_status = xsp3_get_good_thres(xsp3_handle_, chan, &xsp3_sca_param1);
+	if (xsp3_status < XSP3_OK) {
+	  checkStatus(xsp3_status, "xsp3_get_good_thres", functionName);
+	  status = asynError;
+	} else {
+	  setIntegerParam(chan, xsp3ChanSca4ThresholdParam, xsp3_sca_param1);
+	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA4 threshold limit: %d\n", 
+		    functionName, chan, xsp3_sca_param1);
+	}
+	
+	callParamCallbacks(chan);
+      }
+    }
+    
+  } // End of if xsp3_handle_ < 0
 
   return status;
 }
