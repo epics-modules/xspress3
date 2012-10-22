@@ -59,6 +59,7 @@
 #define xsp3NumFramesConfigParamString          "NUM_FRAMES_CONFIG"
 #define xsp3NumCardsParamString           "NUM_CARDS"
 #define xsp3ConfigPathParamString           "CONFIG_PATH"
+#define xsp3ConfigSavePathParamString           "CONFIG_SAVE_PATH"
 #define xsp3ConnectParamString           "CONNECT"
 #define xsp3ConnectedParamString           "CONNECTED"
 #define xsp3DisconnectParamString           "DISCONNECT"
@@ -154,6 +155,7 @@ class Xspress3 : public asynNDArrayDriver {
   asynStatus checkRoi(int channel, int roi, int llm, int hlm);
   asynStatus erase(void);
   asynStatus eraseSCAMCAROI(void);
+  asynStatus checkSaveDir(const char *dirName);
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;
@@ -205,6 +207,7 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3NumFramesConfigParam;
   int xsp3NumCardsParam;
   int xsp3ConfigPathParam;
+  int xsp3ConfigSavePathParam;
   int xsp3ConnectParam;
   int xsp3ConnectedParam;
   int xsp3DisconnectParam;

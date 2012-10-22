@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 61
-y 59
+x 66
+y 80
 w 618
 h 762
 font "arial-medium-r-12.0"
@@ -872,117 +872,6 @@ value {
 }
 endObjectProperties
 
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 365
-y 340
-w 135
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Config File Path"
-}
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 365
-y 360
-w 230
-h 20
-controlPv "$(P):CONFIG_PATH"
-font "helvetica-bold-r-12.0"
-fgColor index 25
-bgColor index 3
-editable
-motifWidget
-limitsFromDb
-nullColor index 0
-useKp
-file
-useHexPrefix
-newPos
-inputFocusUpdates
-objType "controls"
-endObjectProperties
-
-# (Textupdate)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 365
-y 385
-w 230
-h 20
-controlPv "$(P):CONFIG_PATH_RBV"
-fgColor index 16
-fgAlarm
-bgColor index 10
-fill
-font "arial-bold-r-12.0"
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 365
-y 410
-w 95
-h 35
-fgColor index 25
-onColor index 3
-offColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):SAVE_SETTINGS"
-pressValue "1"
-onLabel "Save"
-offLabel "Save"
-3d
-useEnumNumeric
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 470
-y 410
-w 95
-h 35
-fgColor index 25
-onColor index 3
-offColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):RESTORE_SETTINGS"
-pressValue "1"
-onLabel "Restore"
-offLabel "Restore"
-3d
-useEnumNumeric
-font "arial-bold-r-14.0"
-endObjectProperties
-
 # (Text Monitor)
 object activeXTextDspClass:noedit
 beginObjectProperties
@@ -1776,5 +1665,31 @@ useHexPrefix
 showUnits
 newPos
 objType "monitors"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 370
+y 405
+w 220
+h 30
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "System Configuration"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_config"
+}
+setPosition {
+  0 "parentWindow"
+}
 endObjectProperties
 

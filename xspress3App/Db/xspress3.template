@@ -282,7 +282,7 @@ record(longin, "$(P)$(R)NUM_CARDS_RBV")
 
 # ///
 # /// Set the path used for the file configuration. 
-# /// This is used in the xsp3_restore_config function.
+# /// This is used in the xsp3_restore_settings function.
 # ///
 record(waveform, "$(P)$(R)CONFIG_PATH")
 {
@@ -295,12 +295,38 @@ record(waveform, "$(P)$(R)CONFIG_PATH")
 
 # ///
 # /// Get the path used for the file configuration. 
-# /// This is used in the xsp3_restore_config function.
+# /// This is used in the xsp3_restore_settings function.
 # ///
 record(waveform, "$(P)$(R)CONFIG_PATH_RBV")
 {
     field(DTYP, "asynOctetRead")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONFIG_PATH")
+    field(FTVL, "CHAR")
+    field(NELM, "256")
+    field(SCAN, "I/O Intr")
+}
+
+
+# ///
+# /// Set the path used for config file saving.
+# /// This is used in the xsp3_save_settings function.
+# ///
+record(waveform, "$(P)$(R)CONFIG_SAVE_PATH")
+{
+    field(DTYP, "asynOctetWrite")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONFIG_SAVE_PATH")
+    field(FTVL, "CHAR")
+    field(NELM, "256")
+}
+
+# ///
+# /// Get the path used for config file saving.
+# /// This is used in the xsp3_save_settings function.
+# ///
+record(waveform, "$(P)$(R)CONFIG_SAVE_PATH_RBV")
+{
+    field(DTYP, "asynOctetRead")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONFIG_SAVE_PATH")
     field(FTVL, "CHAR")
     field(NELM, "256")
     field(SCAN, "I/O Intr")

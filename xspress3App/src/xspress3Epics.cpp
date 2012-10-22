@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdexcept>
+#include "dirent.h"
 
 //Epics headers
 #include <epicsTime.h>
@@ -105,6 +106,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3NumFramesConfigParamString,     asynParamInt32,       &xsp3NumFramesConfigParam);
   createParam(xsp3NumCardsParamString,      asynParamInt32,       &xsp3NumCardsParam);
   createParam(xsp3ConfigPathParamString,    asynParamOctet,       &xsp3ConfigPathParam);
+  createParam(xsp3ConfigSavePathParamString,    asynParamOctet,       &xsp3ConfigSavePathParam);
   createParam(xsp3ConnectParamString,      asynParamInt32,       &xsp3ConnectParam);
   createParam(xsp3ConnectedParamString,      asynParamInt32,       &xsp3ConnectedParam);
   createParam(xsp3DisconnectParamString,      asynParamInt32,       &xsp3DisconnectParam);
@@ -267,13 +269,15 @@ asynStatus Xspress3::connect(void)
   int xsp3_num_channels = 0;
   u_int32_t xsp3_sca_param1 = 0;
   u_int32_t xsp3_sca_param2 = 0;
-  char configPath[256];
+  char configPath[256] = {0};
+  char configSavePath[256] = {0};
   const char *functionName = "Xspress3::connect";
 
   getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
   getIntegerParam(xsp3NumFramesConfigParam, &xsp3_num_tf);
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
   getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
+  getStringParam(xsp3ConfigSavePathParam, static_cast<int>(sizeof(configSavePath)), configSavePath);
 
   //Set up the xspress3 system
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling xsp3_config.\n", functionName);
@@ -282,6 +286,7 @@ asynStatus Xspress3::connect(void)
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of frames is: %d\n", functionName, xsp3_num_tf);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of channels is: %d\n", functionName, numChannels_);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Config path is: %d\n", functionName, configPath);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Config save path is: %d\n", functionName, configSavePath);
 
   xsp3_handle_ = xsp3_config(xsp3_num_cards, xsp3_num_tf, const_cast<char *>(baseIP_), -1, NULL, xsp3_num_channels, 1, NULL, debug_, 0);
   if (xsp3_handle_ < 0) {
@@ -446,21 +451,21 @@ asynStatus Xspress3::saveSettings(void)
 {
   asynStatus status = asynSuccess;
   int xsp3_status = 0;
-  char configPath[256];
+  char configSavePath[256] = {0};
   int connected = 0;
   const char *functionName = "Xspress3::saveSettings";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Saving Xspress3 settings. This calls xsp3_save_settings().\n", functionName);
 
   getIntegerParam(xsp3ConnectedParam, &connected);
-  getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
+  getStringParam(xsp3ConfigSavePathParam, static_cast<int>(sizeof(configSavePath)), configSavePath);
 
-  if ((configPath == NULL) || (connected != 1)) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: No config path set, or not connected.\n", functionName);
+  if ((configSavePath == NULL) || (connected != 1)) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: No config save path set, or not connected.\n", functionName);
     setIntegerParam(xsp3StatParam, statError_);
     status = asynError;
   } else {
-    xsp3_status = xsp3_save_settings(xsp3_handle_, configPath);
+    xsp3_status = xsp3_save_settings(xsp3_handle_, configSavePath);
     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_save_settings", functionName);
       setStringParam(xsp3StatusParam, "Error Saving Configuration.");
@@ -484,7 +489,7 @@ asynStatus Xspress3::restoreSettings(void)
 {
   asynStatus status = asynSuccess;
   int xsp3_status = 0;
-  char configPath[256];
+  char configPath[256] = {0};
   int connected = 0;
   const char *functionName = "Xspress3::restoreSettings";
 
@@ -628,6 +633,7 @@ asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
 
   if (status != asynError) {
     setStringParam(xsp3StatusParam, "Set ROI Limit.");
+    setIntegerParam(xsp3StatParam, statIdle_);
   }
   
   return status;
@@ -914,6 +920,11 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3SaveSettingsParam) {
     if ((!busy) && (!simTest_)) {
       status = saveSettings();
+      //Do I need to change the files to be read only? Or can the API do that?
+      if (status == asynSuccess) {
+	//Clear the save path so the user is forced to use a new path next time.
+	setStringParam(xsp3ConfigSavePathParam, " ");
+      }
     } else {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Saving Not Allowed In This Mode.\n", functionName);
       status = asynError;
@@ -1046,6 +1057,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
 
   if (status != asynSuccess) {
+    callParamCallbacks(addr);
     return asynError;
   }
 
@@ -1107,11 +1119,19 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
     
     if (function == xsp3ConfigPathParam) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Config Path Param.\n", functionName);
+    } else if (function == xsp3ConfigSavePathParam) {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Config Save Path Param.\n", functionName);
+      status = checkSaveDir(value);
     } else {
         /* If this parameter belongs to a base class call its method */
       if (function < FIRST_DRIVER_COMMAND) {
 	status = asynNDArrayDriver::writeOctet(pasynUser, value, nChars, nActual);
       }
+    }
+    
+    if (status != asynSuccess) {
+      callParamCallbacks();
+      return asynError;
     }
     
     /* Set the parameter in the parameter library. */
@@ -1129,7 +1149,46 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
     return status;
 }
 
+/**
+ * Check if a save directory is empty. Reurn an error if not.
+ * This is to prevent users overwriting existing condfig files.
+ */
+asynStatus Xspress3::checkSaveDir(const char *dirName) 
+{
+  asynStatus status = asynSuccess;
+  int countFiles = 0;
+  struct dirent *d;
+  const char *functionName = "Xspress3::checkSaveDir";
 
+  DIR *dir = opendir(dirName);
+  if (dir == NULL) {
+    //Directory doesn't exist.
+    perror(functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Cannot Open Save Dir.\n", functionName);
+    setStringParam(xsp3StatusParam, "Error Opening Save Directory.");
+    setIntegerParam(xsp3StatParam, statError_);
+    status = asynError;
+  }
+  if (status != asynError) {
+    while ((d = readdir(dir)) != NULL) {
+      if (++countFiles > 2) {
+	asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Files Already Exist In This Directory.\n", functionName);
+	setStringParam(xsp3StatusParam, "Files Already Exist In This Directory.");
+	setIntegerParam(xsp3StatParam, statError_);
+	status = asynError;
+	break;
+      }
+    }
+  }
+  closedir(dir);
+
+  if (status != asynError) {
+    setStringParam(xsp3StatusParam, "Set Save Directory.");
+    setIntegerParam(xsp3StatParam, statIdle_);
+  }
+
+  return status;
+}
 
 
 
