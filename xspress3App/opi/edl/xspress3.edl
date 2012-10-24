@@ -1144,22 +1144,18 @@ botShadowColor index 11
 font "arial-bold-r-14.0"
 buttonLabel "File Saving"
 numPvs 4
-numDsps 2
+numDsps 1
 displayFileName {
   0 "NDFileHDF5.edl"
-  1 "NDFileNetCDF.edl"
 }
 menuLabel {
   0 "HDF5"
-  1 "netCDF"
 }
 setPosition {
   0 "parentWindow"
-  1 "parentWindow"
 }
 symbols {
-  0 "R=HDF:"
-  1 "R=CDF:"
+  0 "R=:hdf5:"
 }
 endObjectProperties
 

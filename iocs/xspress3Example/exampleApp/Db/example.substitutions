@@ -4,6 +4,23 @@ file xspress3.template {
                 {mp49:, xsp3:, XSP3, 0,    5,       4096,        16384}
 }
 
+file NDPluginBase.template {
+	pattern {P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT, NDARRAY_ADDR, Enabled}
+		{mp49:, xsp3:hdf5:, XSP3.HDF5, 1, 0, XSP3, 0, 0}
+}
+
+file NDFile.template {
+	pattern {P, R, PORT, TIMEOUT, ADDR}
+		{mp49:, xsp3:hdf5:, XSP3.HDF5, 1, 0}
+}
+
+
+file NDFileHDF5.template {
+	pattern {P, R, PORT}
+		{mp49:, xsp3:hdf5:, XSP3.HDF5}
+}
+
+
 
 file ioc.db
 {

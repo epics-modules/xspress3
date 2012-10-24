@@ -21,10 +21,16 @@ example_registerRecordDeviceDriver(pdbbase)
 # Asyn max memory (0=default)
 # Debug (0=off, 1=on)
 # simTest - Run up the driver in simulation mode.
-xspress3Config("XSP3", 4, 1, "192.168.0.1", 16384, 4096, -1, -1, 1, 0)
+xspress3Config("XSP3", 8, 1, "192.168.0.1", 16384, 4096, -1, -1, 1, 0)
 
-asynSetTraceMask("XSP3",0,0x11)
-asynSetTraceIOMask("XSP3",0,0x11)
+# NDFileHDF5Configure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr)
+NDFileHDF5Configure("XSP3.HDF5", 100, 0, "XSP3", 0)
+
+#asynSetTraceMask("XSP3",0,0x11)
+#asynSetTraceIOMask("XSP3",0,0x11)
+#asynSetTraceMask("XSP3.HDF5",0,0xFF)
+#asynSetTraceIOMask("XSP3.HDF5",0,0xFF)
+
 
 ##################################################
 

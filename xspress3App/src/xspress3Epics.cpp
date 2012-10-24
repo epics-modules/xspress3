@@ -53,8 +53,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 		      NUM_DRIVER_PARAMS,
 		      maxBuffers,
 		      maxMemory,
-		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask, /* Interface mask */
-		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask,  /* Interrupt mask */
+		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask | asynGenericPointerMask, /* Interface mask */
+		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask | asynGenericPointerMask,  /* Interrupt mask */
 		      ASYN_CANBLOCK | ASYN_MULTIDEVICE, /* asynFlags.*/
 		      1, /* Autoconnect */
 		      0, /* Default priority */
@@ -1359,8 +1359,9 @@ void Xspress3::dataTask(void)
   const char* functionName = "Xspress3::dataTask";
   epicsUInt32 *pSCA;
   epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
-  epicsFloat64 *pMCA[numChannels_];
+  //epicsFloat64 *pMCA[numChannels_];
   epicsInt32 *pMCA_ROI[numChannels_][maxNumRoi_];
+  NDArray *pMCA[numChannels_];
   
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
@@ -1378,7 +1379,8 @@ void Xspress3::dataTask(void)
 
   //Create data arrays for MCA spectra and ROI arrays
   for (int chan=0; chan<numChannels_; chan++) {
-    pMCA[chan] = static_cast<epicsFloat64*>(calloc(maxSpectra, sizeof(epicsInt32)));
+    //We do this for each frame below, using this->pNDArrayPool->alloc, in the acquire loop.
+    //pMCA[chan] = static_cast<epicsFloat64*>(calloc(maxSpectra, sizeof(epicsInt32)));
     for (int roi=0; roi<maxNumRoi_; roi++) {
       pMCA_ROI[chan][roi] = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsInt32)));
     }
