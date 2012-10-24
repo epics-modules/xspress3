@@ -111,7 +111,7 @@ fontAlign "center"
 fgColor index 14
 bgColor index 51
 value {
-  "$(P) Save & Restore Xspress3 Settings  "
+  "$(P) Xspress3 Configuration "
 }
 endObjectProperties
 
@@ -515,14 +515,14 @@ minor 1
 release 0
 x 10
 y 245
-w 370
+w 315
 h 20
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 7
 value {
-  "Save And Restore Paths For Configuration Files  "
+  "Save And Restore Paths For Config Files  "
 }
 border
 endObjectProperties
@@ -761,14 +761,14 @@ minor 1
 release 0
 x 310
 y 405
-w 290
+w 205
 h 20
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 7
 value {
-  "Save And Restore Xspress3 Settings    "
+  "Save And Restore Config  "
 }
 border
 endObjectProperties
@@ -819,5 +819,23 @@ offLabel "Restore"
 3d
 useEnumNumeric
 font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 245
+y 435
+w 35
+h 35
+controlPv "$(P):CONNECTED"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
 endObjectProperties
 
