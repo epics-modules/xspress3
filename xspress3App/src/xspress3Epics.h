@@ -110,6 +110,11 @@
 #define xsp3ChanSca6HlmParamString        "CHAN_SCA6_HLM"
 #define xsp3ChanSca5LlmParamString        "CHAN_SCA5_LLM"
 #define xsp3ChanSca6LlmParamString        "CHAN_SCA6_LLM"
+#define xsp3ChanDtcFlagsParamString            "CHAN_DTC_FLAGS"
+#define xsp3ChanDtcAegParamString            "CHAN_DTC_AEG"
+#define xsp3ChanDtcAeoParamString            "CHAN_DTC_AEO"
+#define xsp3ChanDtcIwgParamString            "CHAN_DTC_IWG"
+#define xsp3ChanDtcIwoParamString            "CHAN_DTC_IWO"
 //Parameters to control single value and array update rates.
 #define xsp3CtrlDataParamString              "CTRL_DATA_UPDATE"
 #define xsp3CtrlMcaParamString              "CTRL_MCA_UPDATE"
@@ -156,6 +161,8 @@ class Xspress3 : public asynNDArrayDriver {
   asynStatus erase(void);
   asynStatus eraseSCAMCAROI(void);
   asynStatus checkSaveDir(const char *dirName);
+  asynStatus readSCAParams(void);
+  asynStatus readDTCParams(void); 
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;
@@ -256,7 +263,12 @@ class Xspress3 : public asynNDArrayDriver {
   int xsp3ChanSca5HlmParam;          
   int xsp3ChanSca6HlmParam;          
   int xsp3ChanSca5LlmParam;          
-  int xsp3ChanSca6LlmParam;          
+  int xsp3ChanSca6LlmParam;  
+  int xsp3ChanDtcFlagsParam;  
+  int xsp3ChanDtcAegParam;  
+  int xsp3ChanDtcAeoParam;  
+  int xsp3ChanDtcIwgParam;  
+  int xsp3ChanDtcIwoParam;  
   int xsp3CtrlDataParam;
   int xsp3CtrlMcaParam;
   int xsp3CtrlScaParam;

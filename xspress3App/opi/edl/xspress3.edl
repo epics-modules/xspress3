@@ -6,7 +6,7 @@ release 1
 x 66
 y 80
 w 775
-h 620
+h 660
 font "arial-medium-r-12.0"
 fontAlign "center"
 ctlFont "arial-medium-r-12.0"
@@ -146,8 +146,8 @@ minor 1
 release 0
 x 10
 y 35
-w 235
-h 20
+w 237
+h 16
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 7
@@ -179,7 +179,7 @@ onLabel "Start"
 offLabel "Start"
 3d
 useEnumNumeric
-font "arial-bold-r-14.0"
+font "arial-bold-r-16.0"
 endObjectProperties
 
 # (Message Button)
@@ -203,7 +203,7 @@ onLabel "Erase"
 offLabel "Erase"
 3d
 useEnumNumeric
-font "arial-bold-r-14.0"
+font "arial-bold-r-16.0"
 endObjectProperties
 
 # (Message Button)
@@ -227,7 +227,7 @@ onLabel "Stop"
 offLabel "Stop"
 3d
 useEnumNumeric
-font "arial-bold-r-14.0"
+font "arial-bold-r-16.0"
 endObjectProperties
 
 # (Text Monitor)
@@ -274,7 +274,7 @@ onLabel "Reset"
 offLabel "Reset"
 3d
 useEnumNumeric
-font "arial-bold-r-14.0"
+font "arial-bold-r-16.0"
 endObjectProperties
 
 # (Text Monitor)
@@ -288,7 +288,7 @@ y 145
 w 125
 h 35
 controlPv "$(P):FRAME_COUNT_RBV"
-font "arial-bold-r-14.0"
+font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -350,7 +350,7 @@ y 185
 w 125
 h 35
 controlPv "$(P):FRAME_COUNT_TOTAL_RBV"
-font "arial-bold-r-14.0"
+font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -387,16 +387,16 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 45
-y 155
-w 100
+x 20
+y 230
+w 60
 h 20
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
 value {
-  "Trigger Mode"
+  "Trigger"
 }
 endObjectProperties
 
@@ -407,8 +407,8 @@ major 4
 minor 5
 release 0
 x 285
-y 145
-w 125
+y 225
+w 195
 h 35
 controlPv "$(P):TRIGGER_MODE_RBV"
 font "arial-bold-r-16.0"
@@ -429,9 +429,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 150
-y 145
-w 125
+x 80
+y 225
+w 195
 h 35
 fgColor index 14
 bgColor index 3
@@ -450,7 +450,7 @@ major 4
 minor 1
 release 0
 x 45
-y 195
+y 155
 w 95
 h 20
 font "arial-bold-r-14.0"
@@ -469,11 +469,11 @@ major 4
 minor 5
 release 0
 x 285
-y 185
+y 145
 w 125
 h 35
 controlPv "$(P):NUM_FRAMES_RBV"
-font "arial-bold-r-14.0"
+font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -492,7 +492,7 @@ major 10
 minor 0
 release 0
 x 150
-y 185
+y 145
 w 125
 h 35
 controlPv "$(P):NUM_FRAMES"
@@ -500,7 +500,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "arial-bold-r-16.0"
 fontAlign "center"
 endObjectProperties
 
@@ -534,7 +534,7 @@ y 105
 w 125
 h 35
 controlPv "$(P):STAT_RBV"
-font "arial-bold-r-14.0"
+font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -554,7 +554,7 @@ major 4
 minor 0
 release 0
 x 150
-y 225
+y 185
 w 125
 h 35
 fgColor index 14
@@ -575,7 +575,7 @@ major 4
 minor 5
 release 0
 x 285
-y 225
+y 185
 w 125
 h 35
 controlPv "$(P):CTRL_MCA_ROI_RBV"
@@ -654,7 +654,7 @@ major 4
 minor 1
 release 0
 x 20
-y 230
+y 190
 w 125
 h 20
 font "arial-bold-r-14.0"
@@ -674,8 +674,8 @@ minor 0
 release 0
 x 10
 y 335
-w 330
-h 275
+w 450
+h 270
 lineColor index 14
 fill
 fillColor index 5
@@ -690,7 +690,7 @@ release 0
 x 10
 y 325
 w 285
-h 25
+h 16
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 7
@@ -699,328 +699,6 @@ value {
 }
 autoSize
 border
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 410
-w 330
-h 185
-
-beginGroup
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 20
-y 440
-w 60
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "All Data"
-}
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 90
-y 430
-w 80
-h 40
-fgColor index 14
-bgColor index 3
-selectColor index 3
-inconsistentColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):CTRL_DATA_UPDATE"
-indicatorPv "$(P):CTRL_DATA_UPDATE_RBV"
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 175
-y 430
-w 80
-h 40
-controlPv "$(P):CTRL_DATA_UPDATE_RBV"
-font "arial-bold-r-16.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 30
-y 515
-w 40
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "MCA"
-}
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 90
-y 505
-w 80
-h 40
-fgColor index 14
-bgColor index 3
-selectColor index 3
-inconsistentColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):CTRL_MCA_UPDATE"
-indicatorPv "$(P):CTRL_MCA_UPDATE_RBV"
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 175
-y 510
-w 80
-h 40
-controlPv "$(P):CTRL_MCA_UPDATE_RBV"
-font "arial-bold-r-16.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 30
-y 565
-w 35
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "SCA"
-}
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 90
-y 555
-w 80
-h 40
-fgColor index 14
-bgColor index 3
-selectColor index 3
-inconsistentColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):CTRL_SCA_UPDATE"
-indicatorPv "$(P):CTRL_SCA_UPDATE_RBV"
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 175
-y 555
-w 80
-h 40
-controlPv "$(P):CTRL_SCA_UPDATE_RBV"
-font "arial-bold-r-16.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 10
-y 480
-w 130
-h 14
-font "arial-bold-r-12.0"
-fgColor index 14
-bgColor index 7
-value {
-  "  Array Data Updates   "
-}
-autoSize
-border
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 260
-y 420
-w 80
-h 20
-font "arial-bold-r-12.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Period (ms)"
-}
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 265
-y 445
-w 65
-h 25
-controlPv "$(P):CTRL_DATA_UPDATE_PERIOD"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 265
-y 520
-w 65
-h 25
-controlPv "$(P):CTRL_MCA_UPDATE_PERIOD"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 265
-y 565
-w 65
-h 25
-controlPv "$(P):CTRL_SCA_UPDATE_PERIOD"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 10
-y 410
-w 136
-h 14
-font "arial-bold-r-12.0"
-fgColor index 14
-bgColor index 7
-value {
-  "  Scalar Data Updates   "
-}
-autoSize
-border
-endObjectProperties
-
-endGroup
-
 endObjectProperties
 
 # (Related Display)
@@ -1049,16 +727,321 @@ setPosition {
 }
 endObjectProperties
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 20
+y 440
+w 60
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "All Data"
+}
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 85
+y 435
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):CTRL_DATA_UPDATE"
+indicatorPv "$(P):CTRL_DATA_UPDATE_RBV"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 220
+y 435
+w 125
+h 35
+controlPv "$(P):CTRL_DATA_UPDATE_RBV"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 40
+y 520
+w 40
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "MCA"
+}
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 85
+y 510
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):CTRL_MCA_UPDATE"
+indicatorPv "$(P):CTRL_MCA_UPDATE_RBV"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 220
+y 510
+w 125
+h 35
+controlPv "$(P):CTRL_MCA_UPDATE_RBV"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 40
+y 560
+w 35
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "SCA"
+}
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 85
+y 550
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):CTRL_SCA_UPDATE"
+indicatorPv "$(P):CTRL_SCA_UPDATE_RBV"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 220
+y 550
+w 125
+h 35
+controlPv "$(P):CTRL_SCA_UPDATE_RBV"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 480
+w 159
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Array Data Updates   "
+}
+autoSize
+border
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 360
+y 405
+w 95
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Period (ms)"
+}
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 355
+y 435
+w 95
+h 35
+controlPv "$(P):CTRL_DATA_UPDATE_PERIOD"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 355
+y 510
+w 95
+h 35
+controlPv "$(P):CTRL_MCA_UPDATE_PERIOD"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 355
+y 550
+w 95
+h 35
+controlPv "$(P):CTRL_SCA_UPDATE_PERIOD"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 405
+w 165
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Scalar Data Updates   "
+}
+autoSize
+border
+endObjectProperties
+
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 350
+x 475
 y 335
 w 285
-h 275
+h 270
 lineColor index 14
 fill
 fillColor index 5
@@ -1070,8 +1053,8 @@ beginObjectProperties
 major 4
 minor 2
 release 0
-x 365
-y 405
+x 490
+y 400
 w 251
 h 36
 fgColor index 43
@@ -1130,10 +1113,10 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 350
+x 475
 y 325
-w 262
-h 24
+w 229
+h 16
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 7
@@ -1150,8 +1133,8 @@ beginObjectProperties
 major 4
 minor 2
 release 0
-x 365
-y 450
+x 490
+y 490
 w 251
 h 36
 fgColor index 43
@@ -1186,8 +1169,8 @@ beginObjectProperties
 major 4
 minor 2
 release 0
-x 365
-y 360
+x 490
+y 355
 w 251
 h 36
 fgColor index 43
@@ -1246,8 +1229,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 655
-y 575
+x 660
+y 615
 w 100
 h 35
 fgColor index 46
@@ -1257,5 +1240,65 @@ botShadowColor index 11
 label "EXIT"
 font "arial-bold-r-18.0"
 3d
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 490
+y 445
+w 251
+h 36
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Dead Time Correction Params"
+numPvs 4
+numDsps 8
+displayFileName {
+  0 "xspress3_dtc"
+  1 "xspress3_dtc"
+  2 "xspress3_dtc"
+  3 "xspress3_dtc"
+  4 "xspress3_dtc"
+  5 "xspress3_dtc"
+  6 "xspress3_dtc"
+  7 "xspress3_dtc"
+}
+menuLabel {
+  0 "Channel 1"
+  1 "Channel 2"
+  2 "Channel 3"
+  3 "Channel 4"
+  4 "Channel 5"
+  5 "Channel 6"
+  6 "Channel 7"
+  7 "Channel 8"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+  2 "parentWindow"
+  3 "parentWindow"
+  4 "parentWindow"
+  5 "parentWindow"
+  6 "parentWindow"
+  7 "parentWindow"
+}
+symbols {
+  0 "CHAN=1"
+  1 "CHAN=2"
+  2 "CHAN=3"
+  3 "CHAN=4"
+  4 "CHAN=5"
+  5 "CHAN=6"
+  6 "CHAN=7"
+  7 "CHAN=8"
+}
 endObjectProperties
 

@@ -157,6 +157,11 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3ChanSca6HlmParamString,   asynParamInt32,       &xsp3ChanSca6HlmParam);
   createParam(xsp3ChanSca5LlmParamString,   asynParamInt32,       &xsp3ChanSca5LlmParam);
   createParam(xsp3ChanSca6LlmParamString,   asynParamInt32,       &xsp3ChanSca6LlmParam);
+  createParam(xsp3ChanDtcFlagsParamString,   asynParamInt32,       &xsp3ChanDtcFlagsParam);
+  createParam(xsp3ChanDtcAegParamString,   asynParamFloat64,       &xsp3ChanDtcAegParam);
+  createParam(xsp3ChanDtcAeoParamString,   asynParamFloat64,       &xsp3ChanDtcAeoParam);
+  createParam(xsp3ChanDtcIwgParamString,   asynParamFloat64,       &xsp3ChanDtcIwgParam);
+  createParam(xsp3ChanDtcIwoParamString,   asynParamFloat64,       &xsp3ChanDtcIwoParam);
   //These control data update rates and ROI calculations
   createParam(xsp3CtrlDataParamString,         asynParamInt32,       &xsp3CtrlDataParam);
   createParam(xsp3CtrlMcaParamString,         asynParamInt32,       &xsp3CtrlMcaParam);
@@ -204,7 +209,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   status |= setIntegerParam(xsp3NumFramesParam, 0);
   status |= setIntegerParam(xsp3NumFramesConfigParam, maxFrames);
   status |= setIntegerParam(xsp3MaxSpectraParam, maxSpectra);
-  status != setIntegerParam(xsp3MaxFramesParam, maxFrames);
+  status |= setIntegerParam(xsp3MaxFramesParam, maxFrames);
   status |= setIntegerParam(xsp3NumCardsParam, numCards);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
   status |= setIntegerParam(xsp3BusyParam, 0);
@@ -223,6 +228,11 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     status |= setIntegerParam(chan, xsp3ChanSca6HlmParam, 0);
     status |= setIntegerParam(chan, xsp3ChanSca5LlmParam, 0);
     status |= setIntegerParam(chan, xsp3ChanSca6LlmParam, 0);
+    status |= setIntegerParam(chan, xsp3ChanDtcFlagsParam, 0);
+    status |= setDoubleParam(chan, xsp3ChanDtcAegParam, 0);
+    status |= setDoubleParam(chan, xsp3ChanDtcAeoParam, 0);
+    status |= setDoubleParam(chan, xsp3ChanDtcIwgParam, 0);
+    status |= setDoubleParam(chan, xsp3ChanDtcIwoParam, 0);
   }
   status |= eraseSCAMCAROI();
 
@@ -267,8 +277,6 @@ asynStatus Xspress3::connect(void)
   int xsp3_status = 0;
   int xsp3_run_flags = 0;
   int xsp3_num_channels = 0;
-  u_int32_t xsp3_sca_param1 = 0;
-  u_int32_t xsp3_sca_param2 = 0;
   char configPath[256] = {0};
   char configSavePath[256] = {0};
   const char *functionName = "Xspress3::connect";
@@ -350,50 +358,120 @@ asynStatus Xspress3::connect(void)
       setIntegerParam(xsp3ConnectedParam, 0);
     }
 
-    //Need to read existing SCA window limits (for SCA 5 and 6) and threshold for SCA 4, for each channel.
+    //Need to read existing SCA params, and DTC params
     if (status == asynSuccess) {
-      for (int chan=0; chan<xsp3_num_channels; chan++) {
-	//SCA 5 window limits
-	xsp3_status = xsp3_get_window(xsp3_handle_, chan, 0, &xsp3_sca_param1, &xsp3_sca_param2);
-	if (xsp3_status < XSP3_OK) {
-	  checkStatus(xsp3_status, "xsp3_get_window", functionName);
-	  status = asynError;
-	} else {
-	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA5 window limits: %d, %d\n", 
-		    functionName, chan, xsp3_sca_param1, xsp3_sca_param2);
-	  setIntegerParam(chan, xsp3ChanSca5LlmParam, xsp3_sca_param1);
-	  setIntegerParam(chan, xsp3ChanSca5HlmParam, xsp3_sca_param2);
-	}
-	//SCA 6 window limits
-	xsp3_status = xsp3_get_window(xsp3_handle_, chan, 1, &xsp3_sca_param1, &xsp3_sca_param2);
-	if (xsp3_status < XSP3_OK) {
-	  checkStatus(xsp3_status, "xsp3_get_window", functionName);
-	  status = asynError;
-	} else {
-	  setIntegerParam(chan, xsp3ChanSca6LlmParam, xsp3_sca_param1);
-	  setIntegerParam(chan, xsp3ChanSca6HlmParam, xsp3_sca_param2);
-	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA6 window limits: %d, %d\n", 
-		    functionName, chan, xsp3_sca_param1, xsp3_sca_param2);
-	}
-	//SCA 4 threshold limit
-	xsp3_status = xsp3_get_good_thres(xsp3_handle_, chan, &xsp3_sca_param1);
-	if (xsp3_status < XSP3_OK) {
-	  checkStatus(xsp3_status, "xsp3_get_good_thres", functionName);
-	  status = asynError;
-	} else {
-	  setIntegerParam(chan, xsp3ChanSca4ThresholdParam, xsp3_sca_param1);
-	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA4 threshold limit: %d\n", 
-		    functionName, chan, xsp3_sca_param1);
-	}
-	
-	callParamCallbacks(chan);
-      }
+      status = readSCAParams();
+    }
+    if (status == asynSuccess) {
+      status = readDTCParams();
     }
     
   } // End of if xsp3_handle_ < 0
 
   return status;
 }
+
+/**
+ * Read the SCA window limits (for SCA 5 and 6) and threshold for SCA 4, for each channel.
+ */
+asynStatus Xspress3::readSCAParams(void) 
+{
+  asynStatus status = asynSuccess;
+  int xsp3_num_channels = 0;
+  int xsp3_status = 0;
+  u_int32_t xsp3_sca_param1 = 0;
+  u_int32_t xsp3_sca_param2 = 0;
+  const char *functionName = "Xspress3::readSCAParams";
+
+  getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+
+  for (int chan=0; chan<xsp3_num_channels; chan++) {
+    //SCA 5 window limits
+    xsp3_status = xsp3_get_window(xsp3_handle_, chan, 0, &xsp3_sca_param1, &xsp3_sca_param2);
+    if (xsp3_status < XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_get_window", functionName);
+      status = asynError;
+    } else {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA5 window limits: %d, %d\n", 
+		functionName, chan, xsp3_sca_param1, xsp3_sca_param2);
+      setIntegerParam(chan, xsp3ChanSca5LlmParam, xsp3_sca_param1);
+      setIntegerParam(chan, xsp3ChanSca5HlmParam, xsp3_sca_param2);
+    }
+    //SCA 6 window limits
+    xsp3_status = xsp3_get_window(xsp3_handle_, chan, 1, &xsp3_sca_param1, &xsp3_sca_param2);
+    if (xsp3_status < XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_get_window", functionName);
+      status = asynError;
+    } else {
+      setIntegerParam(chan, xsp3ChanSca6LlmParam, xsp3_sca_param1);
+      setIntegerParam(chan, xsp3ChanSca6HlmParam, xsp3_sca_param2);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA6 window limits: %d, %d\n", 
+		functionName, chan, xsp3_sca_param1, xsp3_sca_param2);
+    }
+    //SCA 4 threshold limit
+    xsp3_status = xsp3_get_good_thres(xsp3_handle_, chan, &xsp3_sca_param1);
+    if (xsp3_status < XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_get_good_thres", functionName);
+      status = asynError;
+    } else {
+      setIntegerParam(chan, xsp3ChanSca4ThresholdParam, xsp3_sca_param1);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA4 threshold limit: %d\n", 
+		functionName, chan, xsp3_sca_param1);
+    }
+    
+    callParamCallbacks(chan);
+  }
+
+  return status;
+}
+
+/**
+ * Read the dead time correction (DTC) parameters for each channel.
+ */
+asynStatus Xspress3::readDTCParams(void) 
+{
+  asynStatus status = asynSuccess;
+  int xsp3_num_channels = 0;
+  int xsp3_status = 0;
+  int xsp3_dtc_flags = 0;
+  double xsp3_dtc_all_event_grad = 0.0;
+  double xsp3_dtc_all_event_off = 0.0;
+  double xsp3_dtc_in_window_grad = 0.0;
+  double xsp3_dtc_in_window_off = 0.0;
+  const char *functionName = "Xspress3::readDTCParams";
+
+  getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+
+  for (int chan=0; chan<xsp3_num_channels; chan++) {
+    xsp3_status = xsp3_getDeadtimeCorrectionParameters(xsp3_handle_, 
+						       chan, 
+						       &xsp3_dtc_flags, 
+						       &xsp3_dtc_all_event_grad,
+						       &xsp3_dtc_all_event_off,
+						       &xsp3_dtc_in_window_off,
+						       &xsp3_dtc_in_window_grad);
+    if (xsp3_status < XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_getDeadtimeCorrectionParameters", functionName);
+      status = asynError;
+    } else {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, 
+		"%s Channel %d Dead Time Correction Params: Flags: %d, All Event Grad: %f, All Event Off: %f, In Win Off: %f, In Win Grad: %f\n", 
+		functionName, chan, xsp3_dtc_flags, xsp3_dtc_all_event_grad, xsp3_dtc_all_event_off, xsp3_dtc_in_window_off, xsp3_dtc_in_window_grad);
+      
+      setIntegerParam(chan, xsp3ChanDtcFlagsParam, xsp3_dtc_flags);
+      setDoubleParam(chan, xsp3ChanDtcAegParam, xsp3_dtc_all_event_grad);
+      setDoubleParam(chan, xsp3ChanDtcAeoParam, xsp3_dtc_all_event_off);
+      setDoubleParam(chan, xsp3ChanDtcIwgParam, xsp3_dtc_in_window_grad);
+      setDoubleParam(chan, xsp3ChanDtcIwoParam, xsp3_dtc_in_window_off);
+    }
+    
+    callParamCallbacks(chan);
+  }
+
+  return status;
+}
+
+
 
 /**
  * Disconnect from the xspress3 system. 
