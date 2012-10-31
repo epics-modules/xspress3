@@ -163,6 +163,7 @@ class Xspress3 : public asynNDArrayDriver {
   asynStatus checkSaveDir(const char *dirName);
   asynStatus readSCAParams(void);
   asynStatus readDTCParams(void); 
+  asynStatus checkHistBusy(int checkTimes);
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;

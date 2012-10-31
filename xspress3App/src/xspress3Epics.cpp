@@ -680,7 +680,6 @@ asynStatus Xspress3::setWindow(int channel, int sca, int llm, int hlm)
 asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
 {
   asynStatus status = asynSuccess;
-  int xsp3_status = 0;
   int maxSpectra = 0;
   const char *functionName = "Xspress3::checkRoi";
 
@@ -1189,7 +1188,6 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
                                     size_t nChars, size_t *nActual)
 {
     int function = pasynUser->reason;
-    int addr = 0;
     asynStatus status = asynSuccess;
     const char *functionName = "Xspress3::writeOctet";
 
@@ -1322,13 +1320,59 @@ void Xspress3::statusTask(void)
 
 }
 
+
+
+/**
+ * Wait until data collection has finished on all channels.
+ * This function should only be called after stopping histogramming.
+ * It is a wrapper for xsp3_histogram_is_busy, which it checks twice for all channels.
+ * @param checkTimes How many times do we check the Xspress3 is not busy?
+ * @return asynStatus - asynSuccess if we are not busy. asynError if we checked checkTimes times and we are still not busy.
+ */ 
+asynStatus Xspress3::checkHistBusy(int checkTimes) 
+{
+  asynStatus status = asynSuccess;
+  int notBusyCount = 0;
+  int notBusyChan = 0;
+  int notBusyTotalCount = 0;
+  int numChannels = 0;
+  const char* functionName = "Xspress3::checkHistBusy";
+
+  //Get the number of channels actually in use.
+  getIntegerParam(xsp3NumChannelsParam, &numChannels);
+ 
+  while (notBusyCount<2) {
+    for (int chan=0; chan<numChannels; chan++) {
+      if ((xsp3_histogram_is_busy(xsp3_handle_, chan)) == 0) {
+	++notBusyChan;
+      }
+    }
+    if (notBusyChan == numChannels) {
+      ++notBusyCount;
+    }
+    notBusyChan = 0;
+    notBusyTotalCount++;
+    /////////TODO - check this works if we force xsp3_histogram_is_busy to fail.
+    if (notBusyTotalCount==checkTimes) {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: we polled xsp3_histogram_is_busy %d times. Giving up.\n", functionName, checkTimes);
+      setStringParam(xsp3StatusParam, "ERROR: Xspress3 Did Not Stop. Giving Up.");
+      setIntegerParam(xsp3StatParam, statError_);
+      status = asynError;
+      break;
+    }
+  }
+
+  return status;
+}
+
+
+
 /**
  * Data readout task.
  * Calculate statistics and post waveforms.
  */
 void Xspress3::dataTask(void)
 {
-  //asynStatus status = asynSuccess;
   epicsEventWaitStatus eventStatus;
   epicsFloat64 timeout = 0.01;
   int numChannels = 0;
@@ -1338,30 +1382,34 @@ void Xspress3::dataTask(void)
   int status = 0;
   int xsp3_num_cards = 0;
   int frame_count = 0;
-  int notBusyCount = 0;
-  int notBusyChan = 0;
-  int notBusyTotalCount = 0;
   int frameCounter = 0;
   int maxNumFrames = 0;
   int maxSpectra = 0;
   int dataTimeout = 0;
   int scaArrayTimeout = 0;
+  int mcaArrayTimeout = 0;
   epicsTimeStamp startTimeData;
-  epicsTimeStamp startTimeArray;
+  epicsTimeStamp startTimeSca;
+  epicsTimeStamp startTimeMca;
   epicsTimeStamp diffTime;
   int scalerUpdate = 0;
   int scalerArrayUpdate = 0;
+  int mcaUpdate = 0;
+  int mcaArrayUpdate = 0;
   double startTimeDataVal = 0.0;
-  double startTimeDataArrayVal = 0.0;
+  double startTimeScaVal = 0.0;
+  double startTimeMcaVal = 0.0;
   double diffTimeDataVal = 0.0;
-  double diffTimeDataArrayVal = 0.0;
+  double diffTimeScaVal = 0.0;
+  double diffTimeMcaVal = 0.0;
   XSP3_DMA_MsgCheckDesc dmaCheck;
   const char* functionName = "Xspress3::dataTask";
   epicsUInt32 *pSCA;
   epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
-  //epicsFloat64 *pMCA[numChannels_];
+  epicsUInt32 *pMCA[numChannels_];
   epicsInt32 *pMCA_ROI[numChannels_][maxNumRoi_];
-  NDArray *pMCA[numChannels_];
+  //NDArray *pMCA[numChannels_];
+  NDArray *pMCA_NDARRAY;
   
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
@@ -1380,7 +1428,7 @@ void Xspress3::dataTask(void)
   //Create data arrays for MCA spectra and ROI arrays
   for (int chan=0; chan<numChannels_; chan++) {
     //We do this for each frame below, using this->pNDArrayPool->alloc, in the acquire loop.
-    //pMCA[chan] = static_cast<epicsFloat64*>(calloc(maxSpectra, sizeof(epicsInt32)));
+    pMCA[chan] = static_cast<epicsUInt32*>(calloc(maxSpectra, sizeof(epicsInt32))); 
     for (int roi=0; roi<maxNumRoi_; roi++) {
       pMCA_ROI[chan][roi] = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsInt32)));
     }
@@ -1404,7 +1452,8 @@ void Xspress3::dataTask(void)
      
      /* Get the current time */
      epicsTimeGetCurrent(&startTimeData);
-     epicsTimeGetCurrent(&startTimeArray);
+     epicsTimeGetCurrent(&startTimeSca);
+     epicsTimeGetCurrent(&startTimeMca);
      
 
      //Get the number of channels actually in use.
@@ -1427,31 +1476,11 @@ void Xspress3::dataTask(void)
        }
        lock();
 
-       //If we have stopped, wait until we are not busy twice, on all channels.
+       //If we have stopped, wait until we are not busy on all channels.
        if (!simTest_) {
 	 if (acquire == 0) {
-	   notBusyCount = 0;
-	   notBusyChan = 0;
-	   notBusyTotalCount = 0;
-	   while (notBusyCount<2) {
-	     for (int chan=0; chan<numChannels; chan++) {
-	       if ((xsp3_histogram_is_busy(xsp3_handle_, chan)) == 0) {
-		 ++notBusyChan;
-	       }
-	     }
-	     if (notBusyChan == numChannels) {
-	       ++notBusyCount;
-	     }
-	     notBusyChan = 0;
-	     notBusyTotalCount++;
-	     /////////TODO - check this works if we force xsp3_histogram_is_busy to fail.
-	     if (notBusyTotalCount==20) {
-	       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: we polled xsp3_histogram_is_busy 20 times. Giving up.\n", functionName);
-	       setStringParam(xsp3StatusParam, "ERROR: Xspress3 Did Not Stop. Giving Up.");
-	       setIntegerParam(xsp3StatParam, statError_);
-	       status = asynError;
-	       break;
-	     }
+	   if (checkHistBusy(20) == asynError) {
+	     break;
 	   }
 	 }
        }
@@ -1469,7 +1498,7 @@ void Xspress3::dataTask(void)
 	   frame_count = xsp3_status;
 	   ///////////////////////////////////////hack, until xsp3_dma_check_desc is fixed///////////////////////////////
 	   if (acquire == 0) {
-	     frame_count = 1;
+	     frame_count = numFrames;
 	   }
 	   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	   cout << "frame_count: " << frame_count << endl;
@@ -1486,42 +1515,37 @@ void Xspress3::dataTask(void)
 
 	 getIntegerParam(xsp3FrameCountTotalParam, &frameCounter);
 	 frameCounter += frame_count;
-	 cout << "frameCounter: " << frameCounter << endl;
-	 //int remainingFrames = 0;
+	 int remainingFrames = frame_count;
+	 //Check we are not overflowing or reading too many frames.
 	 if (frameCounter >= maxNumFrames) {
-	   //remainingFrames = frameCounter - maxNumFrames;
-	   frameCounter = maxNumFrames;
+	   remainingFrames = maxNumFrames - (frameCounter - frame_count);
+	   setIntegerParam(xsp3FrameCountTotalParam, maxNumFrames);
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
 	   setStringParam(xsp3StatusParam, "Stopped. Max Frames Reached.");
 	   setIntegerParam(xsp3BusyParam, 0);
 	   acquire=0;
 	   setIntegerParam(xsp3StatParam, statAborted_);
 	 } else if (frameCounter >= numFrames) {
-	   //remainingFrames = frameCounter - numFrames;
-	   frameCounter = numFrames;
+	   remainingFrames = numFrames - (frameCounter - frame_count);
+	   setIntegerParam(xsp3FrameCountTotalParam, numFrames);
 	   setStringParam(xsp3StatusParam, "Completed Acqusition.");
 	   setIntegerParam(xsp3BusyParam, 0);
 	   setIntegerParam(xsp3StatParam, statIdle_);
 	   acquire=0;
+	 } else {
+	   setIntegerParam(xsp3FrameCountTotalParam, frameCounter);
 	 }
-	 //If we don't need to read out any more frames, immediately stop.
-	 //if (frameCounter == 0) {
-	 // acquire=0;
-	   //unlock();
-	 // break;
-	 //}
 	 
+	 cout << "frame_count: " << frame_count << endl;
+	 cout << "frameCounter: " << frameCounter << endl;
+	 cout << "remainingFrames: " << remainingFrames << endl;
 
-	 //setIntegerParam(xsp3StatParam, statReadout_);
-	 //callParamCallbacks();
-	 
-	 setIntegerParam(xsp3FrameCountTotalParam, frameCounter);
-
+	 int frameOffset = frameCounter-frame_count;
 	 epicsUInt32 *pData = NULL;
-	 //Readout here, and copy the scalar data into local arrays.
-	 //For now read out everything everytime, until I know it's working and I can make it more efficient.
+	 //Readout scaler data here into local arrays.
 	 if (!simTest_) {
-	   xsp3_status = xsp3_scaler_read(xsp3_handle_, static_cast<u_int32_t*>(pSCA), 0, 0, 0, XSP3_SW_NUM_SCALERS, numChannels, frameCounter);
+	   pData = pSCA+frameOffset;
+	   xsp3_status = xsp3_scaler_read(xsp3_handle_, pData, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
 	   
 	 } else {
 	   //Fill the array with dummy data in simTest_ mode
@@ -1535,18 +1559,53 @@ void Xspress3::dataTask(void)
 	   //  epicsThreadSleep(dataTimeout/1000.0);
 	   //}
 	 }
-	 
-	 pData = pSCA;
-	 epicsInt32 *pDataArray = NULL;
-	 //Now copy the data to the per-channel, per-SCA arrays, to make them available for channel access.
-	 for (int frame=0; frame<frameCounter; ++frame) {
-	   for (int chan=0; chan<numChannels; ++chan) {
+
+	 int dims[2] = {numChannels, maxSpectra};
+	 epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
+	 epicsInt32 *pScaDataArray = NULL;
+	 epicsUInt32 *pMcaDataArray = NULL;
+	 //NDArray to hold the each channels spectra for each frame.
+	 pMCA_NDARRAY = this->pNDArrayPool->alloc(2, dims, NDFloat64, 0, NULL);
+	 //epicsUInt32 *pMcaData = static_cast<epicsUInt32 *>(pMCA_NDARRAY->pData);
+	 //For each frame, read out the MCA and copy the MCA and SCA data into local arrays for channel access, and pack into a NDArray.
+	 for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
+	   
+	   for (int chan=0; chan<numChannels; chan++) {
+	     if (!simTest_) {
+	       xsp3_status = xsp3_histogram_read_chan(xsp3_handle_, static_cast<u_int32_t*>(pMCA[chan]), chan, 0, 0, frame, 1, 1, 1);
+	       if (xsp3_status != XSP3_OK) {
+		 checkStatus(xsp3_status, "xsp3_histogram_read_chan", functionName);
+		 status = asynError;
+	       }
+	     } else {
+	       //If in simMode_, fill the MCA array with sim data for this channel.
+	       epicsUInt32 *pMCA_DATA = pMCA[chan];
+	       for (int i=0; i<maxSpectra; ++i) {
+		 *(pMCA_DATA++) = i;
+	       }
+	     }
+	     //Copy the scaler data into pSCA_DATA for channel access.
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
-	       pDataArray = (static_cast<epicsInt32*>((pSCA_DATA[chan][sca])+frame));
-	       *pDataArray = *(pData++);
+	       pScaDataArray = (static_cast<epicsInt32*>((pSCA_DATA[chan][sca])+frame));
+	       *pScaDataArray = *(pScaData++);
 	     }
 	   }
+
+	   //Pack the MCA data into an NDArray for this frame.
+	   for (int chan=0; chan<numChannels; ++chan) {
+	     pMcaDataArray = (static_cast<epicsUInt32 *>(pMCA_NDARRAY->pData)) + (chan*maxSpectra);
+	     for (int energy=0; energy<maxSpectra; ++energy) {
+	       *pMcaDataArray = *(pMCA[chan]+energy);
+	     }
+	   }
+
+	   //Add scaler data to NDArray here
+
+	   //Do callbacks on NDArray for plugins.
+
+       
 	 }
+     
 
 	 //Debug print first 100 frames
 	 /*cout << "Debug print first two frames..." << endl;
@@ -1565,23 +1624,36 @@ void Xspress3::dataTask(void)
 	 //Control the update rate of scalers and arrays.
 	 getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 
 	 getIntegerParam(xsp3CtrlScaParam, &scalerArrayUpdate); 
+	 getIntegerParam(xsp3CtrlMcaParam, &mcaArrayUpdate); 
 	 getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
 	 getIntegerParam(xsp3CtrlScaPeriodParam, &scaArrayTimeout);
+	 getIntegerParam(xsp3CtrlMcaPeriodParam, &mcaArrayTimeout);
+
 	 epicsTimeGetCurrent(&diffTime);
+
 	 startTimeDataVal = startTimeData.secPastEpoch + startTimeData.nsec / 1.e9;
-	 startTimeDataArrayVal = startTimeArray.secPastEpoch + startTimeArray.nsec / 1.e9;
+	 startTimeScaVal = startTimeSca.secPastEpoch + startTimeSca.nsec / 1.e9;
+	 startTimeMcaVal = startTimeMca.secPastEpoch + startTimeMca.nsec / 1.e9;
 	 diffTimeDataVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeDataVal;
-	 diffTimeDataArrayVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeDataArrayVal;
+	 diffTimeScaVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeScaVal;
+	 diffTimeMcaVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeMcaVal;
+
 	 if (diffTimeDataVal < (dataTimeout/1000.0)) {
 	   scalerUpdate = 0;
 	 } else {
 	   epicsTimeGetCurrent(&startTimeData);
 	 }
-	 if (diffTimeDataArrayVal < (scaArrayTimeout/1000.0)) {
+	 if (diffTimeScaVal < (scaArrayTimeout/1000.0)) {
 	   scalerArrayUpdate = 0;
 	 } else {
-	   epicsTimeGetCurrent(&startTimeArray);
+	   epicsTimeGetCurrent(&startTimeSca);
 	 }
+	 if (diffTimeMcaVal < (mcaArrayTimeout/1000.0)) {
+	   mcaArrayUpdate = 0;
+	 } else {
+	   epicsTimeGetCurrent(&startTimeMca);
+	 }
+	 
 
 
 	 int offset = frameCounter-1;
@@ -1598,6 +1670,11 @@ void Xspress3::dataTask(void)
 	     setIntegerParam(chan, xsp3ChanSca6Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][6]))+offset));
 	     setIntegerParam(chan, xsp3ChanSca7Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][7]))+offset));
 	   }
+
+	   ///////TO-DO
+	   //Post MCA ROI data, along with the scaler data, if we are calculating ROI data.
+	   
+
 	 }
 
 	 //Post scalar array data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
@@ -1614,6 +1691,10 @@ void Xspress3::dataTask(void)
 	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][7]), offset, xsp3ChanSca7ArrayParam, chan);
 	   }
 	 }
+	 
+	 ///////TO-DO
+	 //Post the most recent MCA array data if we have enabled it and the timer has expired, or if we have stopped acquiring.
+
 
        }  //end of frame_count > 0
 
