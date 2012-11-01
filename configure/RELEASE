@@ -25,7 +25,7 @@ SUPPORT=/dls_sw/prod/R3.14.11/support
 WORK=/dls_sw/work/R3.14.11/support
 
 ASYN=		$(SUPPORT)/asyn/4-19
-AREADETECTOR=	$(SUPPORT)/areaDetector/1-8beta6-dls1
+AREADETECTOR=	$(SUPPORT)/areaDetector/1-8beta6-dls2
 #XSPRESS3_API=	/home/mp49/xspress3_api
 #XSPRESS3_API=	/scratch/xspress3_trunk/trunk/det-software
 XSPRESS3_API=	/dls_sw/work/R3.14.11/support/xspress3_api/det-software

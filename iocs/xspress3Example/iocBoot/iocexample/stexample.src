@@ -24,7 +24,7 @@ example_registerRecordDeviceDriver(pdbbase)
 xspress3Config("XSP3", 8, 1, "192.168.0.1", 16384, 4096, -1, -1, 1, 1)
 
 # NDFileHDF5Configure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr)
-NDFileHDF5Configure("XSP3.HDF5", 100, 0, "XSP3", 0)
+NDFileHDF5Configure("XSP3.HDF5", 10000, 0, "XSP3", 0)
 
 asynSetTraceMask("XSP3",0,0x11)
 asynSetTraceIOMask("XSP3",0,0x11)

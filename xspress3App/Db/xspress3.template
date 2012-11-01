@@ -53,7 +53,7 @@ record(bo,"$(P)$(R)ERASE_START") {
 # /// 
 # /// Start collecting data.
 # ///
-record(bo,"$(P)$(R)START") {
+record(busy,"$(P)$(R)START") {
     field(DTYP, "asynInt32")
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))START")
     field(ZNAM,"Done")
