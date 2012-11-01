@@ -1392,6 +1392,7 @@ void Xspress3::dataTask(void)
   epicsTimeStamp startTimeSca;
   epicsTimeStamp startTimeMca;
   epicsTimeStamp diffTime;
+  epicsTimeStamp nowTime;
   int scalerUpdate = 0;
   int scalerArrayUpdate = 0;
   int mcaUpdate = 0;
@@ -1406,12 +1407,13 @@ void Xspress3::dataTask(void)
   const char* functionName = "Xspress3::dataTask";
   epicsUInt32 *pSCA;
   epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
-  epicsUInt32 *pMCA[numChannels_];
+  epicsFloat64 *pMCA[numChannels_];
   epicsInt32 *pMCA_ROI[numChannels_][maxNumRoi_];
   //NDArray *pMCA[numChannels_];
   NDArray *pMCA_NDARRAY;
-  
-
+  int attrNameMax = 64;
+  char attrName[attrNameMax];
+ 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
 
   //Create array for scalar data (max frame * number of SCAs).
@@ -1428,7 +1430,7 @@ void Xspress3::dataTask(void)
   //Create data arrays for MCA spectra and ROI arrays
   for (int chan=0; chan<numChannels_; chan++) {
     //We do this for each frame below, using this->pNDArrayPool->alloc, in the acquire loop.
-    pMCA[chan] = static_cast<epicsUInt32*>(calloc(maxSpectra, sizeof(epicsInt32))); 
+    pMCA[chan] = static_cast<epicsFloat64*>(calloc(maxSpectra, sizeof(epicsFloat64))); 
     for (int roi=0; roi<maxNumRoi_; roi++) {
       pMCA_ROI[chan][roi] = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsInt32)));
     }
@@ -1560,49 +1562,78 @@ void Xspress3::dataTask(void)
 	   //}
 	 }
 
-	 int dims[2] = {numChannels, maxSpectra};
+	 int dims[2] = {maxSpectra, numChannels};
 	 epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
 	 epicsInt32 *pScaDataArray = NULL;
-	 epicsUInt32 *pMcaDataArray = NULL;
-	 //NDArray to hold the each channels spectra for each frame.
-	 pMCA_NDARRAY = this->pNDArrayPool->alloc(2, dims, NDFloat64, 0, NULL);
-	 //epicsUInt32 *pMcaData = static_cast<epicsUInt32 *>(pMCA_NDARRAY->pData);
+	 //epicsUInt32 *pMcaDataArray = NULL;
+	 
 	 //For each frame, read out the MCA and copy the MCA and SCA data into local arrays for channel access, and pack into a NDArray.
 	 for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
-	   
+	 
+	   //NDArray to hold the all channels spectra and attributes for each frame.
+	   pMCA_NDARRAY = this->pNDArrayPool->alloc(2, dims, NDFloat64, 0, NULL);
+  
 	   for (int chan=0; chan<numChannels; chan++) {
 	     if (!simTest_) {
-	       xsp3_status = xsp3_histogram_read_chan(xsp3_handle_, static_cast<u_int32_t*>(pMCA[chan]), chan, 0, 0, frame, 1, 1, 1);
+	       //Read out the MCA spectra for this channel.
+	       xsp3_status = xsp3_histogram_read_chan(xsp3_handle_, reinterpret_cast<u_int32_t*>(pMCA[chan]), chan, 0, 0, frame, 1, 1, 1);
 	       if (xsp3_status != XSP3_OK) {
 		 checkStatus(xsp3_status, "xsp3_histogram_read_chan", functionName);
 		 status = asynError;
 	       }
 	     } else {
 	       //If in simMode_, fill the MCA array with sim data for this channel.
-	       epicsUInt32 *pMCA_DATA = pMCA[chan];
+	       epicsFloat64 *pMCA_DATA = pMCA[chan];
 	       for (int i=0; i<maxSpectra; ++i) {
-		 *(pMCA_DATA++) = i;
+		 //Generate a sine wave, with an element of randomness in it.
+		 *(pMCA_DATA++) = sin(static_cast<epicsFloat64>(i)/90.0)*((rand()%20)+100);
 	       }
 	     }
-	     //Copy the scaler data into pSCA_DATA for channel access.
+	     //For this channel and frame, copy the scaler data into pSCA_DATA for channel access later on.
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
 	       pScaDataArray = (static_cast<epicsInt32*>((pSCA_DATA[chan][sca])+frame));
 	       *pScaDataArray = *(pScaData++);
 	     }
-	   }
-
-	   //Pack the MCA data into an NDArray for this frame.
-	   for (int chan=0; chan<numChannels; ++chan) {
-	     pMcaDataArray = (static_cast<epicsUInt32 *>(pMCA_NDARRAY->pData)) + (chan*maxSpectra);
-	     for (int energy=0; energy<maxSpectra; ++energy) {
-	       *pMcaDataArray = *(pMCA[chan]+energy);
+	     
+	     //Add scaler data to NDArray here. 
+	     //Because we limit the channel access update rate for the scaler data, I do this by hand rather than using the XML file method.
+	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
+	       snprintf(attrName, attrNameMax, "%s%d%s%d", "CHAN", chan+1, "SCA" , sca);
+	       pMCA_NDARRAY->pAttributeList->add(attrName, attrName, NDAttrInt32,(pSCA_DATA[chan][sca]+frame));
 	     }
+	     
+	     /*pMCA_NDARRAY->pAttributeList->add("SCA1", "SCA 1 Reset Ticks",  NDAttrInt32, (pSCA_DATA[chan][1]+frame));
+	     pMCA_NDARRAY->pAttributeList->add("SCA2", "SCA 2 Reset Counts", NDAttrInt32, (pSCA_DATA[chan][2]+frame));
+	     pMCA_NDARRAY->pAttributeList->add("SCA3", "SCA 3 All Event",    NDAttrInt32, (pSCA_DATA[chan][3]+frame));
+	     pMCA_NDARRAY->pAttributeList->add("SCA4", "SCA 4 All Good",     NDAttrInt32, (pSCA_DATA[chan][4]+frame));
+	     pMCA_NDARRAY->pAttributeList->add("SCA5", "SCA 5 Window 1",     NDAttrInt32, (pSCA_DATA[chan][5]+frame));
+	     pMCA_NDARRAY->pAttributeList->add("SCA6", "SCA 6 Window 2",     NDAttrInt32, (pSCA_DATA[chan][6]+frame));
+	     pMCA_NDARRAY->pAttributeList->add("SCA7", "SCA 7 Pileup",       NDAttrInt32, (pSCA_DATA[chan][7]+frame));*/
+	   
+
+	     //////TODO
+	   //Calculate MCA ROI here, if we have enabled it. Put the results into pMCA_ROI[chan][roi].
+
+  
+	   } //End of chan loop
+
+	   //Pack the MCA data into an NDArray for this frame.   [chan1 spectra][chan2 spectra][etc]
+	   for (int chan=0; chan<numChannels; ++chan) {
+	     memcpy(reinterpret_cast<epicsFloat64*>(pMCA_NDARRAY->pData)+(chan*maxSpectra), pMCA[chan], maxSpectra*sizeof(epicsFloat64));
 	   }
-
-	   //Add scaler data to NDArray here
-
+	   	  
+	   
 	   //Do callbacks on NDArray for plugins.
-
+	   epicsTimeGetCurrent(&nowTime);
+	   pMCA_NDARRAY->uniqueId = frame;
+	   pMCA_NDARRAY->timeStamp = nowTime.secPastEpoch + nowTime.nsec / 1.e9;
+           this->getAttributes(pMCA_NDARRAY->pAttributeList);
+	   unlock();
+	   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s: Calling NDArray callback\n", functionName);
+	   doCallbacksGenericPointer(pMCA_NDARRAY, NDArrayData, 0);
+	   lock();
+	   //Free the NDArray 
+	   pMCA_NDARRAY->release();
        
 	 }
      
@@ -1661,39 +1692,47 @@ void Xspress3::dataTask(void)
 	 if (scalerUpdate || !acquire) {
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting Most Recent Scaler Data On Chan %d.\n", functionName, chan);
-	     setIntegerParam(chan, xsp3ChanSca0Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][0]))+offset));
-	     setIntegerParam(chan, xsp3ChanSca1Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][1]))+offset));
-	     setIntegerParam(chan, xsp3ChanSca2Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][2]))+offset));
-	     setIntegerParam(chan, xsp3ChanSca3Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][3]))+offset));
-	     setIntegerParam(chan, xsp3ChanSca4Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][4]))+offset));
-	     setIntegerParam(chan, xsp3ChanSca5Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][5]))+offset));
-	     setIntegerParam(chan, xsp3ChanSca6Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][6]))+offset));
-	     setIntegerParam(chan, xsp3ChanSca7Param, *((static_cast<epicsInt32*>(pSCA_DATA[chan][7]))+offset));
+	     setIntegerParam(chan, xsp3ChanSca0Param, *((pSCA_DATA[chan][0])+offset));
+	     setIntegerParam(chan, xsp3ChanSca1Param, *((pSCA_DATA[chan][1])+offset));
+	     setIntegerParam(chan, xsp3ChanSca2Param, *((pSCA_DATA[chan][2])+offset));
+	     setIntegerParam(chan, xsp3ChanSca3Param, *((pSCA_DATA[chan][3])+offset));
+	     setIntegerParam(chan, xsp3ChanSca4Param, *((pSCA_DATA[chan][4])+offset));
+	     setIntegerParam(chan, xsp3ChanSca5Param, *((pSCA_DATA[chan][5])+offset));
+	     setIntegerParam(chan, xsp3ChanSca6Param, *((pSCA_DATA[chan][6])+offset));
+	     setIntegerParam(chan, xsp3ChanSca7Param, *((pSCA_DATA[chan][7])+offset));
 	   }
 
-	   ///////TO-DO
+	   ///////TODO
 	   //Post MCA ROI data, along with the scaler data, if we are calculating ROI data.
-	   
-
 	 }
 
 	 //Post scalar array data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
 	 if ((scalerArrayUpdate == 1) || !acquire) {
+	   ++offset;
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting Scaler Arrays On Chan %d.\n", functionName, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][0]), offset, xsp3ChanSca0ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][1]), offset, xsp3ChanSca1ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][2]), offset, xsp3ChanSca2ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][3]), offset, xsp3ChanSca3ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][4]), offset, xsp3ChanSca4ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][5]), offset, xsp3ChanSca5ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][6]), offset, xsp3ChanSca6ArrayParam, chan);
-	     doCallbacksInt32Array(static_cast<epicsInt32*>(pSCA_DATA[chan][7]), offset, xsp3ChanSca7ArrayParam, chan);
+	     doCallbacksInt32Array(pSCA_DATA[chan][0], offset, xsp3ChanSca0ArrayParam, chan);
+	     doCallbacksInt32Array(pSCA_DATA[chan][1], offset, xsp3ChanSca1ArrayParam, chan);
+	     doCallbacksInt32Array(pSCA_DATA[chan][2], offset, xsp3ChanSca2ArrayParam, chan);
+	     doCallbacksInt32Array(pSCA_DATA[chan][3], offset, xsp3ChanSca3ArrayParam, chan);
+	     doCallbacksInt32Array(pSCA_DATA[chan][4], offset, xsp3ChanSca4ArrayParam, chan);
+	     doCallbacksInt32Array(pSCA_DATA[chan][5], offset, xsp3ChanSca5ArrayParam, chan);
+	     doCallbacksInt32Array(pSCA_DATA[chan][6], offset, xsp3ChanSca6ArrayParam, chan);
+	     doCallbacksInt32Array(pSCA_DATA[chan][7], offset, xsp3ChanSca7ArrayParam, chan);
 	   }
 	 }
-	 
-	 ///////TO-DO
+
 	 //Post the most recent MCA array data if we have enabled it and the timer has expired, or if we have stopped acquiring.
+	 if ((mcaArrayUpdate == 1) || !acquire) {
+	   for (int chan=0; chan<numChannels; ++chan) {
+	     cout << "pMCA[" << chan << "][0]:" << pMCA[chan][0] << endl;
+	     cout << "pMCA[" << chan << "][1]:" << pMCA[chan][1] << endl;
+	     cout << "pMCA[" << chan << "][2]:" << pMCA[chan][2] << endl;
+	     cout << "pMCA[" << chan << "][3]:" << pMCA[chan][3] << endl;
+	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting MCA Arrays On Chan %d.\n", functionName, chan);
+	     doCallbacksFloat64Array(pMCA[chan], maxSpectra, xsp3ChanMcaCorrParam, chan);
+	   }
+	 }
 
 
        }  //end of frame_count > 0
