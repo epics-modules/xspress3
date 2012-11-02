@@ -18,13 +18,15 @@
 #
 #######################################################
 
+include "ADBase.template" 
+
 # /// 
 # /// Reset the device.
 # ///
 record(bo, "$(P)$(R)RESET")
 {
     field(DTYP,"asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))RESET")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_RESET")
     field(ZNAM,"Done")	
     field(ONAM,"Reset")
 }
@@ -34,86 +36,15 @@ record(bo, "$(P)$(R)RESET")
 # ///
 record(bo,"$(P)$(R)ERASE") {
     field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))ERASE")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_ERASE")
     field(ZNAM,"Done")
     field(ONAM,"Erase")
 }
 
-# /// 
-# /// Erase MCA data, then start collecting data.
-# ///
-record(bo,"$(P)$(R)ERASE_START") {
-    field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))ERASE")
-    field(ZNAM,"Done")
-    field(ONAM,"Erase")
-    field(FLNK,"$(P)START.PROC")
-}
 
-# /// 
-# /// Start collecting data.
-# ///
-record(busy,"$(P)$(R)START") {
-    field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))START")
-    field(ZNAM,"Done")
-    field(ONAM,"Start")
-}
 
-# /// 
-# /// Stop collecting data.
-# ///
-record(bo,"$(P)$(R)STOP") {
-    field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))STOP")
-    field(ZNAM,"Done")
-    field(ONAM,"Stop")
-}
-
-# /// 
-# /// Show the busy status.
-# ///
-record(bi,"$(P)$(R)BUSY") {
-    field(DTYP, "asynInt32")
-    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))BUSY")
-    field(ZNAM,"Idle")
-    field(ONAM,"Busy")
-    field(VAL, "0")
-    field(SCAN, "I/O Intr")
-}
-
-# ///
-# /// System status message (error messages, information messages, etc.)
-# ///
-record(waveform, "$(P)$(R)STATUS_RBV")
-{
-    field(DTYP, "asynOctetRead")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))STATUS")
-    field(FTVL, "UCHAR")
-    field(NELM, "256")
-    field(SCAN, "I/O Intr")
-}
-
-# ///
-# /// System state.
-# ///
-record(mbbi, "$(P)$(R)STAT_RBV")
-{
-   field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))STAT")
-   field(ZRST, "Idle")
-   field(ZRVL, "0")
-   field(ONST, "Acquire")
-   field(ONVL, "1")
-   field(TWST, "Readout")
-   field(TWVL, "2")
-   field(THST, "Aborted")
-   field(THVL, "3")
-   field(FRST, "Error")
-   field(FRVL, "4")
-   field(FVST, "Disconnected")
-   field(FVVL, "5")
-   field(SCAN, "I/O Intr")
+record(bi, "$(P)$(R)Acquire_RBV") {
+   field(OSV,  "NO_ALARM")
 }
 
 
@@ -124,7 +55,7 @@ record(longout, "$(P)$(R)NUM_CHANNELS")
 {
    field(PINI, "YES")	
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_CHANNELS")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_CHANNELS")
    field(VAL,  "1")
 }
 
@@ -136,7 +67,7 @@ record(longin, "$(P)$(R)NUM_CHANNELS_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_CHANNELS")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_CHANNELS")
    field(SCAN, "I/O Intr")
 }
 
@@ -147,17 +78,17 @@ record(longin, "$(P)$(R)MAX_NUM_CHANNELS_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_NUM_CHANNELS")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_NUM_CHANNELS")
    field(SCAN, "I/O Intr")
 }
 
 # ///
 # /// Select the trigger source (internal or external).
 # ///
-record(mbbo, "$(P)$(R)TRIGGER_MODE")
+record(mbbo, "$(P)$(R)TriggerMode")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))TRIGGER_MODE")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_TRIGGER_MODE")
    field(ZRST, "Fixed")
    field(ZRVL, "0")
    field(ONST, "Internal")
@@ -173,15 +104,16 @@ record(mbbo, "$(P)$(R)TRIGGER_MODE")
    field(SXST, "LVDS Both")
    field(SXVL, "6")
    field(VAL,  "0")
+   field(PINI, "NO")
 }
 
 # ///
 # /// Read the trigger source (internal or external).
 # ///
-record(mbbi, "$(P)$(R)TRIGGER_MODE_RBV")
+record(mbbi, "$(P)$(R)TriggerMode_RBV")
 {
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))TRIGGER_MODE")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_TRIGGER_MODE")
    field(ZRST, "Fixed")
    field(ZRVL, "0")
    field(ONST, "Internal")
@@ -206,7 +138,7 @@ record(mbbi, "$(P)$(R)TRIGGER_MODE_RBV")
 #record(longout, "$(P)$(R)FIXED_TIME")
 #{
 #   field(DTYP, "asynInt32")
-#   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
+#   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_FIXED_TIME")
 #   field(VAL,  "0")
 #}
 
@@ -218,7 +150,7 @@ record(mbbi, "$(P)$(R)TRIGGER_MODE_RBV")
 #{
 #   field(PINI, "YES")
 #   field(DTYP, "asynInt32")
-#   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FIXED_TIME")
+#   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_FIXED_TIME")
 #   field(SCAN, "I/O Intr")
 #}
 
@@ -229,7 +161,7 @@ record(longout, "$(P)$(R)NUM_FRAMES")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_FRAMES")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_FRAMES")
    field(VAL,  "0")
 }
 
@@ -240,7 +172,7 @@ record(longin, "$(P)$(R)NUM_FRAMES_RBV")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_FRAMES")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_FRAMES")
    field(SCAN, "I/O Intr")
 }
 
@@ -251,7 +183,7 @@ record(longout, "$(P)$(R)NUM_FRAMES_CONFIG")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_FRAMES_CONFIG")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_FRAMES_CONFIG")
    field(VAL,  "0")
 }
 
@@ -262,7 +194,7 @@ record(longin, "$(P)$(R)NUM_FRAMES_CONFIG_RBV")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_FRAMES_CONFIG")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_FRAMES_CONFIG")
    field(SCAN, "I/O Intr")
 }
 
@@ -276,7 +208,7 @@ record(longin, "$(P)$(R)NUM_CARDS_RBV")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))NUM_CARDS")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_CARDS")
    field(SCAN, "I/O Intr")
 }
 
@@ -288,7 +220,7 @@ record(waveform, "$(P)$(R)CONFIG_PATH")
 {
     field(PINI, "YES")
     field(DTYP, "asynOctetWrite")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONFIG_PATH")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CONFIG_PATH")
     field(FTVL, "CHAR")
     field(NELM, "256")
 }
@@ -300,7 +232,7 @@ record(waveform, "$(P)$(R)CONFIG_PATH")
 record(waveform, "$(P)$(R)CONFIG_PATH_RBV")
 {
     field(DTYP, "asynOctetRead")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONFIG_PATH")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CONFIG_PATH")
     field(FTVL, "CHAR")
     field(NELM, "256")
     field(SCAN, "I/O Intr")
@@ -314,7 +246,7 @@ record(waveform, "$(P)$(R)CONFIG_PATH_RBV")
 record(waveform, "$(P)$(R)CONFIG_SAVE_PATH")
 {
     field(DTYP, "asynOctetWrite")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONFIG_SAVE_PATH")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CONFIG_SAVE_PATH")
     field(FTVL, "CHAR")
     field(NELM, "256")
 }
@@ -326,7 +258,7 @@ record(waveform, "$(P)$(R)CONFIG_SAVE_PATH")
 record(waveform, "$(P)$(R)CONFIG_SAVE_PATH_RBV")
 {
     field(DTYP, "asynOctetRead")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONFIG_SAVE_PATH")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CONFIG_SAVE_PATH")
     field(FTVL, "CHAR")
     field(NELM, "256")
     field(SCAN, "I/O Intr")
@@ -339,7 +271,7 @@ record(waveform, "$(P)$(R)CONFIG_SAVE_PATH_RBV")
 record(bo, "$(P)$(R)CONNECT")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONNECT")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CONNECT")
    field(ZNAM,"Connect")
    field(ONAM,"Connect")	
 }
@@ -349,7 +281,7 @@ record(bo, "$(P)$(R)CONNECT")
 # ///
 record(bi,"$(P)$(R)CONNECTED") {
     field(DTYP, "asynInt32")
-    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CONNECTED")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CONNECTED")
     field(ZNAM,"Disconnected")
     field(ONAM,"Connected")
     field(VAL, "0")
@@ -364,7 +296,7 @@ record(bi,"$(P)$(R)CONNECTED") {
 record(bo, "$(P)$(R)DISCONNECT")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))DISCONNECT")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_DISCONNECT")
    field(ZNAM,"Disconnect")
    field(ONAM,"Disconnect")	
 }
@@ -377,7 +309,7 @@ record(bo, "$(P)$(R)DISCONNECT")
 record(bo, "$(P)$(R)SAVE_SETTINGS")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))SAVE_SETTINGS")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_SAVE_SETTINGS")
    field(ZNAM,"Save")
    field(ONAM,"Save")	
 }
@@ -391,7 +323,7 @@ record(bo, "$(P)$(R)SAVE_SETTINGS")
 record(bo, "$(P)$(R)RESTORE_SETTINGS")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))RESTORE_SETTINGS")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_RESTORE_SETTINGS")
    field(ZNAM,"Restore")
    field(ONAM,"Restore")	
 }
@@ -405,7 +337,7 @@ record(longout, "$(P)$(R)MAX_SPECTRA")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_SPECTRA")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_SPECTRA")
    field(VAL,  "$(MAX_SPECTRA)")
    field(DISP, "1")
    field(FLNK, "$(P)$(R)MAX_SPECTRA_RBV.PROC")
@@ -418,7 +350,7 @@ record(longout, "$(P)$(R)MAX_SPECTRA")
 record(longin, "$(P)$(R)MAX_SPECTRA_RBV")
 {
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_SPECTRA")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_SPECTRA")
    field(SCAN, "I/O Intr")
 }
 
@@ -431,7 +363,7 @@ record(longout, "$(P)$(R)MAX_FRAMES")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_FRAMES")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_FRAMES")
    field(VAL,  "$(MAX_FRAMES)")
    field(DISP, "1")
    field(FLNK, "$(P)$(R)MAX_FRAMES_RBV.PROC")
@@ -444,7 +376,7 @@ record(longout, "$(P)$(R)MAX_FRAMES")
 record(longin, "$(P)$(R)MAX_FRAMES_RBV")
 {
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))MAX_FRAMES")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_FRAMES")
    field(SCAN, "I/O Intr")
 }
 
@@ -455,18 +387,7 @@ record(longin, "$(P)$(R)MAX_FRAMES_RBV")
 record(longin, "$(P)$(R)FRAME_COUNT_RBV")
 {
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FRAME_COUNT")
-   field(SCAN, "I/O Intr")
-}
-
-# ///
-# /// Read the total number of frames acquired in an acquisition. This is
-# /// updated during an acqusition.
-# ///
-record(longin, "$(P)$(R)FRAME_COUNT_TOTAL_RBV")
-{
-   field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))FRAME_COUNT_TOTAL")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_FRAME_COUNT")
    field(SCAN, "I/O Intr")
 }
 
@@ -479,7 +400,7 @@ record(longin, "$(P)$(R)FRAME_COUNT_TOTAL_RBV")
 record(mbbo, "$(P)$(R)RUN_FLAGS")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))RUN_FLAGS")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_RUN_FLAGS")
    field(ZRST, "SCALERS & HIST")
    field(ZRVL, "0")
    field(ONST, "PLAYB, SCALERS & HIST")
@@ -495,14 +416,13 @@ record(mbbo, "$(P)$(R)RUN_FLAGS")
 record(mbbi, "$(P)$(R)RUN_FLAGS_RBV")
 {
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))RUN_FLAGS")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_RUN_FLAGS")
    field(ZRST, "SCALERS & HIST")
    field(ZRVL, "0")
    field(ONST, "PLAYB, SCALERS & HIST")
    field(ONVL, "1")
    field(SCAN, "I/O Intr")
 }
-
 
 
 include "xspress3DataUpdate.template"

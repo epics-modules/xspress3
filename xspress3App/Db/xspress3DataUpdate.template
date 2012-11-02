@@ -3,7 +3,7 @@
 # ///
 record(bo,"$(P)$(R)CTRL_MCA_UPDATE") {
     field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_MCA_UPDATE")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_UPDATE")
     field(ZNAM,"Disable")
     field(ONAM,"Enable")
     field(PINI, "YES")
@@ -16,7 +16,7 @@ record(bo,"$(P)$(R)CTRL_MCA_UPDATE") {
 record(bi, "$(P)$(R)CTRL_MCA_UPDATE_RBV")
 {
     field(DTYP,"asynInt32")
-    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_MCA_UPDATE")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_UPDATE")
     field(ZNAM,"Disabled")	
     field(ONAM,"Enabled")
     field(SCAN, "I/O Intr")	
@@ -29,7 +29,7 @@ record(longout, "$(P)$(R)CTRL_MCA_UPDATE_PERIOD")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_MCA_UPDATE_PERIOD")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_UPDATE_PERIOD")
    field(VAL,  "100")
 }
 
@@ -38,7 +38,7 @@ record(longout, "$(P)$(R)CTRL_MCA_UPDATE_PERIOD")
 # ///
 record(bo,"$(P)$(R)CTRL_SCA_UPDATE") {
     field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_SCA_UPDATE")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_SCA_UPDATE")
     field(ZNAM,"Disable")
     field(ONAM,"Enable")
     field(PINI, "YES")
@@ -51,7 +51,7 @@ record(bo,"$(P)$(R)CTRL_SCA_UPDATE") {
 record(bi, "$(P)$(R)CTRL_SCA_UPDATE_RBV")
 {
     field(DTYP,"asynInt32")
-    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_SCA_UPDATE")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_SCA_UPDATE")
     field(ZNAM,"Disabled")	
     field(ONAM,"Enabled")
     field(SCAN, "I/O Intr")
@@ -64,7 +64,7 @@ record(longout, "$(P)$(R)CTRL_SCA_UPDATE_PERIOD")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_SCA_UPDATE_PERIOD")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_SCA_UPDATE_PERIOD")
    field(VAL,  "100")
 }
 
@@ -78,7 +78,7 @@ record(longout, "$(P)$(R)CTRL_SCA_UPDATE_PERIOD")
 # ///
 record(bo,"$(P)$(R)CTRL_DATA_UPDATE") {
     field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_DATA_UPDATE")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_DATA_UPDATE")
     field(ZNAM,"Disable")
     field(ONAM,"Enable")
     field(PINI, "YES")
@@ -91,7 +91,7 @@ record(bo,"$(P)$(R)CTRL_DATA_UPDATE") {
 record(bi, "$(P)$(R)CTRL_DATA_UPDATE_RBV")
 {
     field(DTYP,"asynInt32")
-    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_DATA_UPDATE")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_DATA_UPDATE")
     field(ZNAM,"Disabled")	
     field(ONAM,"Enabled")
     field(SCAN, "I/O Intr")
@@ -104,7 +104,7 @@ record(longout, "$(P)$(R)CTRL_DATA_UPDATE_PERIOD")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_DATA_UPDATE_PERIOD")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_DATA_UPDATE_PERIOD")
    field(VAL,  "100")
 }
 
@@ -114,7 +114,7 @@ record(longout, "$(P)$(R)CTRL_DATA_UPDATE_PERIOD")
 # ///
 record(bo,"$(P)$(R)CTRL_MCA_ROI") {
     field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_MCA_ROI")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_ROI")
     field(ZNAM,"Disable")
     field(ONAM,"Enable")
     field(PINI, "YES")
@@ -127,7 +127,7 @@ record(bo,"$(P)$(R)CTRL_MCA_ROI") {
 record(bi, "$(P)$(R)CTRL_MCA_ROI_RBV")
 {
     field(DTYP,"asynInt32")
-    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))CTRL_MCA_ROI")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_ROI")
     field(ZNAM,"Disabled")	
     field(ONAM,"Enabled")
     field(SCAN, "I/O Intr")	

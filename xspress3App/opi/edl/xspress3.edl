@@ -173,7 +173,7 @@ onColor index 3
 offColor index 3
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P):START"
+controlPv "$(P):Acquire"
 pressValue "1"
 onLabel "Start"
 offLabel "Start"
@@ -221,8 +221,8 @@ onColor index 3
 offColor index 3
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P):STOP"
-pressValue "1"
+controlPv "$(P):Acquire"
+pressValue "0"
 onLabel "Stop"
 offLabel "Stop"
 3d
@@ -240,7 +240,7 @@ x 285
 y 65
 w 460
 h 35
-controlPv "$(P):STATUS_RBV"
+controlPv "$(P):StatusMessage_RBV"
 font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 16
@@ -349,7 +349,7 @@ x 620
 y 185
 w 125
 h 35
-controlPv "$(P):FRAME_COUNT_TOTAL_RBV"
+controlPv "$(P):ArrayCounter_RBV"
 font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 16
@@ -373,7 +373,7 @@ x 710
 y 225
 w 35
 h 35
-controlPv "$(P):BUSY"
+controlPv "$(P):Acquire_RBV"
 lineColor index 14
 onColor index 15
 offColor index 19
@@ -410,7 +410,7 @@ x 285
 y 225
 w 195
 h 35
-controlPv "$(P):TRIGGER_MODE_RBV"
+controlPv "$(P):TriggerMode_RBV"
 font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 16
@@ -438,8 +438,8 @@ bgColor index 3
 inconsistentColor index 14
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P):TRIGGER_MODE"
-indicatorPv "$(P):TRIGGER_MODE"
+controlPv "$(P):TriggerMode"
+indicatorPv "$(P):TriggerMode"
 font "arial-bold-r-14.0"
 endObjectProperties
 
@@ -472,7 +472,7 @@ x 285
 y 145
 w 125
 h 35
-controlPv "$(P):NUM_FRAMES_RBV"
+controlPv "$(P):NumImages_RBV"
 font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 16
@@ -495,7 +495,7 @@ x 150
 y 145
 w 125
 h 35
-controlPv "$(P):NUM_FRAMES"
+controlPv "$(P):NumImages"
 fgColor index 25
 fgAlarm
 bgColor index 3
@@ -533,7 +533,7 @@ x 620
 y 105
 w 125
 h 35
-controlPv "$(P):STAT_RBV"
+controlPv "$(P):DetectorState_RBV"
 font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 16
@@ -1135,8 +1135,8 @@ minor 2
 release 0
 x 490
 y 490
-w 251
-h 36
+w 125
+h 35
 fgColor index 43
 bgColor index 3
 topShadowColor index 1
@@ -1296,5 +1296,26 @@ symbols {
   6 "CHAN=7"
   7 "CHAN=8"
 }
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 620
+y 490
+w 120
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):ArrayCallbacks"
+indicatorPv "$(P):ArrayCallbacks_RBV"
+font "arial-bold-r-14.0"
 endObjectProperties
 

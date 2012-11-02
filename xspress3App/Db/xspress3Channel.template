@@ -5,7 +5,7 @@
 #record(waveform, "$(P)$(R)C$(CHAN)_MCA_RBV")
 #{
 #    field(DTYP, "asynInt32ArrayIn")
-#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_MCA")
+#    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_MCA")
 #    field(FTVL, "ULONG")
 #    field(NELM, "$(MAX_SPECTRA)")
 #    field(SCAN, "I/O Intr")
@@ -17,7 +17,7 @@
 record(waveform, "$(P)$(R)C$(CHAN)_MCA_CORR_RBV")
 {
     field(DTYP, "asynFloat64ArrayIn")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_MCA_CORR")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_MCA_CORR")
     field(FTVL, "DOUBLE")
     field(NELM, "$(MAX_SPECTRA)")
     field(SCAN, "I/O Intr")
@@ -88,7 +88,7 @@ include "xspress3ChannelMCAROI.template"
 record(longin, "$(P)$(R)C$(CHAN)_DTC_FLAGS_RBV")
 {
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_DTC_FLAGS")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_FLAGS")
    field(SCAN, "I/O Intr")
 }
 
@@ -98,7 +98,7 @@ record(longin, "$(P)$(R)C$(CHAN)_DTC_FLAGS_RBV")
 record(ai, "$(P)$(R)C$(CHAN)_DTC_AEG_RBV")
 {
    field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_DTC_AEG")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_AEG")
    field(SCAN, "I/O Intr")
    field(PREC, "4")
 }
@@ -109,7 +109,7 @@ record(ai, "$(P)$(R)C$(CHAN)_DTC_AEG_RBV")
 record(ai, "$(P)$(R)C$(CHAN)_DTC_AEO_RBV")
 {
    field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_DTC_AEO")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_AEO")
    field(SCAN, "I/O Intr")
    field(PREC, "4")
 }
@@ -120,7 +120,7 @@ record(ai, "$(P)$(R)C$(CHAN)_DTC_AEO_RBV")
 record(ai, "$(P)$(R)C$(CHAN)_DTC_IWG_RBV")
 {
    field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_DTC_IWG")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_IWG")
    field(SCAN, "I/O Intr")
    field(PREC, "4")
 }
@@ -131,7 +131,7 @@ record(ai, "$(P)$(R)C$(CHAN)_DTC_IWG_RBV")
 record(ai, "$(P)$(R)C$(CHAN)_DTC_IWO_RBV")
 {
    field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_DTC_IWO")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_IWO")
    field(SCAN, "I/O Intr")
    field(PREC, "4")
 }

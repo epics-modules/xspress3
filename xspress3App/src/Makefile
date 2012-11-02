@@ -6,6 +6,8 @@ include $(TOP)/configure/CONFIG
 # Build an Diamond Support Module
 # -------------------------------
 
+DATA+=xsp3.xml
+
 #Provide header file path to Xspress3 API
 USR_INCLUDES_Linux += -I$(XSPRESS3_API)/none_vme/xspress3/include/
 USR_INCLUDES_Linux += -I$(XSPRESS3_API)/none_vme/xspress3/xspress3FemApi/include/

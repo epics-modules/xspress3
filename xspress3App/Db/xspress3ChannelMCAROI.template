@@ -5,7 +5,7 @@ record(ai, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_ROI$(ROI)")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_ROI$(ROI)")
    field(SCAN, "I/O Intr")
    field(PREC, "2")
 }
@@ -16,7 +16,7 @@ record(ai, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_RBV")
 record(waveform, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_ARRAY_RBV")
 {
     field(DTYP, "asynFloat64ArrayIn")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_ROI$(ROI)_ARRAY")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_ROI$(ROI)_ARRAY")
     field(FTVL, "DOUBLE")
     field(NELM, "$(MAX_FRAMES)")
     field(SCAN, "I/O Intr")
@@ -28,7 +28,7 @@ record(waveform, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_ARRAY_RBV")
 record(longout, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_HLM")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_ROI$(ROI)_HLM")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_ROI$(ROI)_HLM")
    field(VAL,  "0")
 }
 
@@ -39,7 +39,7 @@ record(longin, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_HLM_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_ROI$(ROI)_HLM")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_ROI$(ROI)_HLM")
    field(SCAN, "I/O Intr")
 }
 
@@ -49,7 +49,7 @@ record(longin, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_HLM_RBV")
 record(longout, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_LLM")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_ROI$(ROI)_LLM")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_ROI$(ROI)_LLM")
    field(VAL,  "0")
 }
 
@@ -60,7 +60,7 @@ record(longin, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_LLM_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_ROI$(ROI)_LLM")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_ROI$(ROI)_LLM")
    field(SCAN, "I/O Intr")
 }
 

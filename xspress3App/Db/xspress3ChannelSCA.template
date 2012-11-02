@@ -5,7 +5,7 @@ record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)")
    field(SCAN, "I/O Intr")
 }
 
@@ -16,7 +16,7 @@ record(ai, "$(P)$(R)C$(CHAN)_SCA$(SCA)_CORR_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_CORR")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_CORR")
    field(SCAN, "I/O Intr")
    field(PREC, "2")
 }
@@ -27,7 +27,7 @@ record(ai, "$(P)$(R)C$(CHAN)_SCA$(SCA)_CORR_RBV")
 record(waveform, "$(P)$(R)C$(CHAN)_SCA$(SCA)_ARRAY_RBV")
 {
     field(DTYP, "asynInt32ArrayIn")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_ARRAY")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_ARRAY")
     field(FTVL, "ULONG")
     field(NELM, "$(MAX_FRAMES)")
     field(SCAN, "I/O Intr")
@@ -39,7 +39,7 @@ record(waveform, "$(P)$(R)C$(CHAN)_SCA$(SCA)_ARRAY_RBV")
 record(waveform, "$(P)$(R)C$(CHAN)_SCA$(SCA)_CORR_ARRAY_RBV")
 {
     field(DTYP, "asynInt32ArrayIn")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_CORR_ARRAY")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_CORR_ARRAY")
     field(FTVL, "ULONG")
     field(NELM, "$(MAX_FRAMES)")
     field(SCAN, "I/O Intr")
@@ -52,7 +52,7 @@ record(waveform, "$(P)$(R)C$(CHAN)_SCA$(SCA)_CORR_ARRAY_RBV")
 record(longout, "$(P)$(R)C$(CHAN)_SCA$(SCA)_HLM")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_HLM")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_HLM")
    field(VAL,  "0")
 }
 
@@ -63,7 +63,7 @@ record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_HLM_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_HLM")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_HLM")
    field(SCAN, "I/O Intr")
 }
 
@@ -73,7 +73,7 @@ record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_HLM_RBV")
 record(longout, "$(P)$(R)C$(CHAN)_SCA$(SCA)_LLM")
 {
    field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_LLM")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_LLM")
    field(VAL,  "0")
 }
 
@@ -84,7 +84,7 @@ record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_LLM_RBV")
 {
    field(PINI, "1")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))CHAN_SCA$(SCA)_LLM")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_LLM")
    field(SCAN, "I/O Intr")
 }
 

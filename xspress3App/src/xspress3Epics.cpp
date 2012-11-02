@@ -28,12 +28,6 @@ const epicsInt32  Xspress3::ctrlDisable_ = 0;
 const epicsInt32  Xspress3::ctrlEnable_ = 1;
 const epicsInt32 Xspress3::runFlag_MCA_SPECTRA_ = 0;
 const epicsInt32 Xspress3::runFlag_PLAYB_MCA_SPECTRA_ = 1;
-const epicsInt32 Xspress3::statIdle_ = 0;
-const epicsInt32 Xspress3::statAcquire_ = 1;
-const epicsInt32 Xspress3::statReadout_ = 2;
-const epicsInt32 Xspress3::statAborted_ = 3;
-const epicsInt32 Xspress3::statError_ = 4;
-const epicsInt32 Xspress3::statDisconnected_ = 5;
 const epicsInt32 Xspress3::maxNumRoi_ = 4;
 
 //C Function prototypes to tie in with EPICS
@@ -48,7 +42,7 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param maxChannels The number of channels to use (eg. 8)
  */
 Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
-  : asynNDArrayDriver(portName,
+  : ADDriver(portName,
 		      numChannels, /* maxAddr - channels use different param lists*/ 
 		      NUM_DRIVER_PARAMS,
 		      maxBuffers,
@@ -89,20 +83,13 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   //createParam adds the parameters to all param lists automatically (using maxAddr).
   createParam(xsp3ResetParamString,         asynParamInt32,       &xsp3ResetParam);
   createParam(xsp3EraseParamString,         asynParamInt32,       &xsp3EraseParam);
-  createParam(xsp3StartParamString,         asynParamInt32,       &xsp3StartParam);
-  createParam(xsp3StopParamString,          asynParamInt32,       &xsp3StopParam);
-  createParam(xsp3BusyParamString,          asynParamInt32,       &xsp3BusyParam);
-  createParam(xsp3StatusParamString,        asynParamOctet,       &xsp3StatusParam);
-  createParam(xsp3StatParamString,        asynParamInt32,       &xsp3StatParam);
   createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
   createParam(xsp3MaxNumChannelsParamString,asynParamInt32,       &xsp3MaxNumChannelsParam);
   createParam(xsp3MaxSpectraParamString,asynParamInt32,       &xsp3MaxSpectraParam);
   createParam(xsp3MaxFramesParamString,asynParamInt32,       &xsp3MaxFramesParam);
   createParam(xsp3FrameCountParamString,asynParamInt32,       &xsp3FrameCountParam);
-  createParam(xsp3FrameCountTotalParamString,asynParamInt32,       &xsp3FrameCountTotalParam);
   createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
   createParam(xsp3FixedTimeParamString,   asynParamInt32,       &xsp3FixedTimeParam);
-  createParam(xsp3NumFramesParamString,     asynParamInt32,       &xsp3NumFramesParam);
   createParam(xsp3NumFramesConfigParamString,     asynParamInt32,       &xsp3NumFramesConfigParam);
   createParam(xsp3NumCardsParamString,      asynParamInt32,       &xsp3NumCardsParam);
   createParam(xsp3ConfigPathParamString,    asynParamOctet,       &xsp3ConfigPathParam);
@@ -206,14 +193,15 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   status |= setIntegerParam(xsp3MaxNumChannelsParam, numChannels_);
   status |= setIntegerParam(xsp3TriggerModeParam, 0);
   status |= setIntegerParam(xsp3FixedTimeParam, 0);
-  status |= setIntegerParam(xsp3NumFramesParam, 0);
+  status |= setIntegerParam(ADNumImages, 0);
   status |= setIntegerParam(xsp3NumFramesConfigParam, maxFrames);
   status |= setIntegerParam(xsp3MaxSpectraParam, maxSpectra);
   status |= setIntegerParam(xsp3MaxFramesParam, maxFrames);
   status |= setIntegerParam(xsp3NumCardsParam, numCards);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
-  status |= setIntegerParam(xsp3BusyParam, 0);
-  status |= setIntegerParam(xsp3StatParam, statDisconnected_);
+  status |= setIntegerParam(ADStatus, ADStatusDisconnected);
+  status =  setStringParam (ADManufacturer, "Quantum Detectors");
+  status |= setStringParam (ADModel, "Xspress3");
   for (int chan=0; chan<numChannels_; chan++) {
     status |= setIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, 0);
     status |= setIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, 0);
@@ -237,17 +225,10 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   status |= eraseSCAMCAROI();
 
   if (simTest_) {
-    status |= setStringParam(xsp3StatusParam, "Init. Simulation Mode.");
+    status |= setStringParam(ADStatusMessage, "Init. Simulation Mode.");
   } else {
-    status |= setStringParam(xsp3StatusParam, "Init. System Disconnected.");
+    status |= setStringParam(ADStatusMessage, "Init. System Disconnected.");
   }
-  //Init asynNDArray params
-  //NDArraySizeX
-  //NDArraySizeY
-  //NDArraySize
-    
-  //Do we need to do a status read now? - no because we don't connect at startup.
-  //statusRead();
   
   callParamCallbacks();
 
@@ -348,13 +329,13 @@ asynStatus Xspress3::connect(void)
     //Set connected status
     if (status == asynSuccess) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Finished setting up Xspress3.\n", functionName);
-      setStringParam(xsp3StatusParam, "System Connected");
-      setIntegerParam(xsp3StatParam, statIdle_);
+      setStringParam(ADStatusMessage, "System Connected");
+      setIntegerParam(ADStatus, ADStatusIdle);
       setIntegerParam(xsp3ConnectedParam, 1);
     } else {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR setting up Xspress3.\n", functionName);
-      setStringParam(xsp3StatusParam, "ERROR: failed to connect");
-      setIntegerParam(xsp3StatParam, statDisconnected_);
+      setStringParam(ADStatusMessage, "ERROR: failed to connect");
+      setIntegerParam(ADStatus, ADStatusDisconnected);
       setIntegerParam(xsp3ConnectedParam, 0);
     }
 
@@ -491,8 +472,8 @@ asynStatus Xspress3::disconnect(void)
       checkStatus(xsp3_status, "xsp3_close", functionName);
       status = asynError;
     }
-    setStringParam(xsp3StatusParam, "System disconnected.");
-    setIntegerParam(xsp3StatParam, statDisconnected_);
+    setStringParam(ADStatusMessage, "System disconnected.");
+    setIntegerParam(ADStatus, ADStatusDisconnected);
     setIntegerParam(xsp3ConnectedParam, 0);
   }
   
@@ -513,7 +494,7 @@ asynStatus Xspress3::checkConnected(void)
   getIntegerParam(xsp3ConnectedParam, &xsp3_connected);
   if (xsp3_connected != 1) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: We are not connected.\n", functionName);
-    setStringParam(xsp3StatusParam, "ERROR: Not Connected");
+    setStringParam(ADStatusMessage, "ERROR: Not Connected");
     return asynError;
   }
 
@@ -540,17 +521,17 @@ asynStatus Xspress3::saveSettings(void)
 
   if ((configSavePath == NULL) || (connected != 1)) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: No config save path set, or not connected.\n", functionName);
-    setIntegerParam(xsp3StatParam, statError_);
+    setIntegerParam(ADStatus, ADStatusError);
     status = asynError;
   } else {
     xsp3_status = xsp3_save_settings(xsp3_handle_, configSavePath);
     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_save_settings", functionName);
-      setStringParam(xsp3StatusParam, "Error Saving Configuration.");
-      setIntegerParam(xsp3StatParam, statError_);
+      setStringParam(ADStatusMessage, "Error Saving Configuration.");
+      setIntegerParam(ADStatus, ADStatusError);
       status = asynError;
     } else {
-      setStringParam(xsp3StatusParam, "Saved Configuration.");
+      setStringParam(ADStatusMessage, "Saved Configuration.");
     }
   }
 
@@ -578,17 +559,17 @@ asynStatus Xspress3::restoreSettings(void)
 
   if ((configPath == NULL) || (connected != 1)) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: No config path set, or not connected.\n", functionName);
-    setIntegerParam(xsp3StatParam, statError_);
+    setIntegerParam(ADStatus, ADStatusError);
     status = asynError;
   } else {
     xsp3_status = xsp3_restore_settings(xsp3_handle_, configPath, 0);
     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_restore_settings", functionName);
-      setStringParam(xsp3StatusParam, "Error Restoring Configuration.");
-      setIntegerParam(xsp3StatParam, statError_);
+      setStringParam(ADStatusMessage, "Error Restoring Configuration.");
+      setIntegerParam(ADStatus, ADStatusError);
       status = asynError;
     } else {
-      setStringParam(xsp3StatusParam, "Restored Configuration.");
+      setStringParam(ADStatusMessage, "Restored Configuration.");
     }
   }
   
@@ -650,18 +631,18 @@ asynStatus Xspress3::setWindow(int channel, int sca, int llm, int hlm)
   if ((status = checkConnected()) == asynSuccess) {
     if (llm > hlm) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: SCA low limit is higher than high limit.\n", functionName);
-      setStringParam(xsp3StatusParam, "ERROR: SCA low limit is higher than high limit.");
-      setIntegerParam(xsp3StatParam, statError_);
+      setStringParam(ADStatusMessage, "ERROR: SCA low limit is higher than high limit.");
+      setIntegerParam(ADStatus, ADStatusError);
       status = asynError;
     } else {
       xsp3_status = xsp3_set_window(xsp3_handle_, channel, sca, llm, hlm); 
       if (xsp3_status != XSP3_OK) {
 	checkStatus(xsp3_status, "xsp3_set_window", functionName);
-	setStringParam(xsp3StatusParam, "Error Setting SCA Window.");
-	setIntegerParam(xsp3StatParam, statError_);
+	setStringParam(ADStatusMessage, "Error Setting SCA Window.");
+	setIntegerParam(ADStatus, ADStatusError);
 	status = asynError;
       } else {
-	setStringParam(xsp3StatusParam, "Set SCA Window.");
+	setStringParam(ADStatusMessage, "Set SCA Window.");
       }
     }
   }
@@ -687,15 +668,15 @@ asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
 
   if ((llm < 0) || (hlm < 0)) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Negative ROI limits not allowed.\n", functionName);
-    setStringParam(xsp3StatusParam, "ERROR: Negative ROI limits not allowed.");
-    setIntegerParam(xsp3StatParam, statError_);
+    setStringParam(ADStatusMessage, "ERROR: Negative ROI limits not allowed.");
+    setIntegerParam(ADStatus, ADStatusError);
     status = asynError;
   }
 
   if ((llm >= maxSpectra) || (hlm > maxSpectra)) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: ROI limits set too high.\n", functionName);
-    setStringParam(xsp3StatusParam, "ERROR: Negative ROI limits not allowed.");
-    setIntegerParam(xsp3StatParam, statError_);
+    setStringParam(ADStatusMessage, "ERROR: Negative ROI limits not allowed.");
+    setIntegerParam(ADStatus, ADStatusError);
     status = asynError;
   }
 
@@ -703,14 +684,14 @@ asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, 
 	      "%s ERROR: ROI %d low limit is higher than high limit on channel %d.\n", 
 	      functionName, roi, channel);
-    setStringParam(xsp3StatusParam, "ERROR: ROI low limit is higher than high limit.");
-    setIntegerParam(xsp3StatParam, statError_);
+    setStringParam(ADStatusMessage, "ERROR: ROI low limit is higher than high limit.");
+    setIntegerParam(ADStatus, ADStatusError);
     status = asynError;
   }
 
   if (status != asynError) {
-    setStringParam(xsp3StatusParam, "Set ROI Limit.");
-    setIntegerParam(xsp3StatParam, statIdle_);
+    setStringParam(ADStatusMessage, "Set ROI Limit.");
+    setIntegerParam(ADStatus, ADStatusIdle);
   }
   
   return status;
@@ -734,20 +715,20 @@ asynStatus Xspress3::erase(void)
 
     status = eraseSCAMCAROI();
 
-    getIntegerParam(xsp3NumFramesParam, &xsp3_time_frames);
+    getIntegerParam(xsp3NumFramesConfigParam, &xsp3_time_frames);
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
 
     xsp3_status = xsp3_histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_histogram_clear", functionName);
-      setIntegerParam(xsp3StatParam, statError_);
+      setIntegerParam(ADStatus, ADStatusError);
       status = asynError;
     } else {
       if (status == asynSuccess) {
-	setStringParam(xsp3StatusParam, "Erased Data");
+	setStringParam(ADStatusMessage, "Erased Data");
       } else {
-	setStringParam(xsp3StatusParam, "Problem Erasing Data");
-	setIntegerParam(xsp3StatParam, statError_);
+	setStringParam(ADStatusMessage, "Problem Erasing Data");
+	setIntegerParam(ADStatus, ADStatusError);
       }
     }
   }
@@ -778,7 +759,7 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     return asynError;
   }
 
-  status |= setIntegerParam(xsp3FrameCountTotalParam, 0);
+  status |= setIntegerParam(NDArrayCounter, 0);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
 
   for (int chan=0; chan<xsp3_num_channels; chan++) {
@@ -861,7 +842,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int xsp3_sca_lim = 0;
   int xsp3_roi_lim = 0;
   int xsp3_time_frames = 0;
-  int busy = 0;
+  int adStatus = 0;
   asynStatus status = asynSuccess;
   int xsp3_num_channels = 0;
   const char *functionName = "Xspress3::writeInt32";
@@ -876,7 +857,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d, value: %d, addr: %d\n", functionName, function, value, addr);
 
-  getIntegerParam(xsp3BusyParam, &busy);
+  getIntegerParam(ADStatus, &adStatus);
 
   if (function == xsp3ResetParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s System Reset.\n", functionName);
@@ -885,60 +866,61 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   } 
   else if (function == xsp3EraseParam) {
-    if (!busy) {
+    if (adStatus != ADStatusAcquire) {
       //If we are in sim mode, simply clear the params. Otherwise, use the API erase function too.
       if (simTest_) {
 	status = eraseSCAMCAROI();
-	setStringParam(xsp3StatusParam, "Erased Data");
+	setStringParam(ADStatusMessage, "Erased Data");
       } else {
 	status = erase();
       }
     }
   } 
-  else if (function == xsp3StartParam) {
-    if (!busy) {
-      if (simTest_) {
-	epicsEventSignal(this->startEvent_);
-      } else {
-	if ((status = checkConnected()) == asynSuccess) {
-	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection.\n", functionName);
-	  getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-	  for (int card=0; card<xsp3_num_cards; card++) {
-	    xsp3_status = xsp3_histogram_start(xsp3_handle_, card);
-	    if (xsp3_status != XSP3_OK) {
-	      checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
-	      status = asynError;
+  else if (function == ADAcquire) {
+    if (value) {
+      if (adStatus != ADStatusAcquire) {
+	if (simTest_) {
+	  epicsEventSignal(this->startEvent_);
+	} else {
+	  if ((status = checkConnected()) == asynSuccess) {
+	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection.\n", functionName);
+	    getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+	    for (int card=0; card<xsp3_num_cards; card++) {
+	      xsp3_status = xsp3_histogram_start(xsp3_handle_, card);
+	      if (xsp3_status != XSP3_OK) {
+		checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
+		status = asynError;
+	      }
+	    }
+	    if (status == asynSuccess) {
+	      epicsEventSignal(this->startEvent_);
 	    }
 	  }
-	  if (status == asynSuccess) {
-	    epicsEventSignal(this->startEvent_);
+	}
+      }
+    } else {
+      if (adStatus == ADStatusAcquire) {
+	if (simTest_) {
+	  epicsEventSignal(this->stopEvent_);
+	} else {
+	  if ((status = checkConnected()) == asynSuccess) {
+	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Stop Data Collection.\n", functionName);
+	    getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+	    for (int card=0; card<xsp3_num_cards; card++) {
+	      xsp3_status = xsp3_histogram_stop(xsp3_handle_, card);
+	      if (xsp3_status != XSP3_OK) {
+		checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+		status = asynError;
+	      }
+	    }
+	    if (status == asynSuccess) {
+	      epicsEventSignal(this->stopEvent_);
+	    }
 	  }
 	}
       }
     }
   } 
-  else if (function == xsp3StopParam) {
-    if (busy) {
-      if (simTest_) {
-	epicsEventSignal(this->stopEvent_);
-      } else {
-	if ((status = checkConnected()) == asynSuccess) {
-	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Stop Data Collection.\n", functionName);
-	  getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-	  for (int card=0; card<xsp3_num_cards; card++) {
-	    xsp3_status = xsp3_histogram_stop(xsp3_handle_, card);
-	    if (xsp3_status != XSP3_OK) {
-	      checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
-	      status = asynError;
-	    }
-	  }
-	  if (status == asynSuccess) {
-	    epicsEventSignal(this->stopEvent_);
-	  }
-	}
-      }
-    }
-  }
   else if (function == xsp3NumChannelsParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Channels.\n", functionName);
     getIntegerParam(xsp3MaxNumChannelsParam, &xsp3_num_channels);
@@ -974,7 +956,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       }
     }
   } 
-  else if (function == xsp3NumFramesParam) {
+  else if (function == ADNumImages) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames To Read Out.\n", functionName);
     getIntegerParam(xsp3NumFramesConfigParam, &xsp3_time_frames);
     if (value > xsp3_time_frames) {
@@ -997,7 +979,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     status = disconnect();
   }
   else if (function == xsp3SaveSettingsParam) {
-    if ((!busy) && (!simTest_)) {
+    if ((adStatus != ADStatusAcquire) && (!simTest_)) {
       status = saveSettings();
       //Do I need to change the files to be read only? Or can the API do that?
       if (status == asynSuccess) {
@@ -1010,7 +992,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   }
   else if (function == xsp3RestoreSettingsParam) {
-    if ((!busy) && (!simTest_)) {
+    if ((adStatus != ADStatusAcquire) && (!simTest_)) {
       status = restoreSettings();
     } else {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Restoring Not Allowed In This Mode.\n", functionName);
@@ -1243,16 +1225,16 @@ asynStatus Xspress3::checkSaveDir(const char *dirName)
     //Directory doesn't exist.
     perror(functionName);
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Cannot Open Save Dir.\n", functionName);
-    setStringParam(xsp3StatusParam, "Error Opening Save Directory.");
-    setIntegerParam(xsp3StatParam, statError_);
+    setStringParam(ADStatusMessage, "Error Opening Save Directory.");
+    setIntegerParam(ADStatus, ADStatusError);
     status = asynError;
   }
   if (status != asynError) {
     while ((d = readdir(dir)) != NULL) {
       if (++countFiles > 2) {
 	asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Files Already Exist In This Directory.\n", functionName);
-	setStringParam(xsp3StatusParam, "Files Already Exist In This Directory.");
-	setIntegerParam(xsp3StatParam, statError_);
+	setStringParam(ADStatusMessage, "Files Already Exist In This Directory.");
+	setIntegerParam(ADStatus, ADStatusError);
 	status = asynError;
 	break;
       }
@@ -1261,8 +1243,8 @@ asynStatus Xspress3::checkSaveDir(const char *dirName)
   closedir(dir);
 
   if (status != asynError) {
-    setStringParam(xsp3StatusParam, "Set Save Directory.");
-    setIntegerParam(xsp3StatParam, statIdle_);
+    setStringParam(ADStatusMessage, "Set Save Directory.");
+    setIntegerParam(ADStatus, ADStatusIdle);
   }
 
   return status;
@@ -1313,7 +1295,7 @@ void Xspress3::statusTask(void)
     this->lock();
     
     /* Call the callbacks to update any changes */
-    callParamCallbacks();
+    //    callParamCallbacks();
     this->unlock();
     
   }
@@ -1357,8 +1339,8 @@ asynStatus Xspress3::checkHistBusy(int checkTimes)
     /////////TODO - check this works if we force xsp3_histogram_is_busy to fail.
     if (notBusyTotalCount==checkTimes) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: we polled xsp3_histogram_is_busy %d times. Giving up.\n", functionName, checkTimes);
-      setStringParam(xsp3StatusParam, "ERROR: Xspress3 Did Not Stop. Giving Up.");
-      setIntegerParam(xsp3StatParam, statError_);
+      setStringParam(ADStatusMessage, "ERROR: Xspress3 Did Not Stop. Giving Up.");
+      setIntegerParam(ADStatus, ADStatusError);
       status = asynError;
       break;
     }
@@ -1451,10 +1433,9 @@ void Xspress3::dataTask(void)
        frameCounter = 0;
        lock();
        setIntegerParam(xsp3FrameCountParam, 0);
-       setIntegerParam(xsp3FrameCountTotalParam, 0);
-       setIntegerParam(xsp3BusyParam, 1);
-       setIntegerParam(xsp3StatParam, statAcquire_);
-       setStringParam(xsp3StatusParam, "Acquiring Data");
+       setIntegerParam(NDArrayCounter, 0);
+       setIntegerParam(ADStatus, ADStatusAcquire);
+       setStringParam(ADStatusMessage, "Acquiring Data");
        callParamCallbacks();
      }
      
@@ -1467,20 +1448,19 @@ void Xspress3::dataTask(void)
      //Get the number of channels actually in use.
      getIntegerParam(xsp3NumChannelsParam, &numChannels);
      //Read how many frames we want to read out before stopping.
-     getIntegerParam(xsp3NumFramesParam, &numFrames);
+     getIntegerParam(ADNumImages, &numFrames);
 
      while (acquire) {
-       setIntegerParam(xsp3StatParam, statAcquire_);
+       setIntegerParam(ADStatus, ADStatusAcquire);
        unlock();
 
        //Wait for a stop event, with a short timeout.
        eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
        if (eventStatus == epicsEventWaitOK) {
 	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Stop Event.\n", functionName);
-	 setIntegerParam(xsp3BusyParam, 0);
-	 setIntegerParam(xsp3StatParam, statAborted_);
-	 setIntegerParam(xsp3StartParam, 0);
-	 setStringParam(xsp3StatusParam, "Stopped Acquiring");
+	 setIntegerParam(ADAcquire, 0);
+	 setIntegerParam(ADStatus, ADStatusAborted);
+	 setStringParam(ADStatusMessage, "Stopped Acquiring");
 	 acquire = 0;
        }
        lock();
@@ -1521,29 +1501,25 @@ void Xspress3::dataTask(void)
        
        if (frame_count > 0) {
 
-	 getIntegerParam(xsp3FrameCountTotalParam, &frameCounter);
+	 getIntegerParam(NDArrayCounter, &frameCounter);
 	 frameCounter += frame_count;
 	 int remainingFrames = frame_count;
 	 //Check we are not overflowing or reading too many frames.
 	 if (frameCounter >= maxNumFrames) {
 	   remainingFrames = maxNumFrames - (frameCounter - frame_count);
-	   setIntegerParam(xsp3FrameCountTotalParam, maxNumFrames);
+	   //setIntegerParam(NDArrayCounter, maxNumFrames);
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
-	   setStringParam(xsp3StatusParam, "Stopped. Max Frames Reached.");
-	   setIntegerParam(xsp3BusyParam, 0);
-	   setIntegerParam(xsp3StartParam, 0);
+	   setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
+	   setIntegerParam(ADAcquire, 0);
 	   acquire=0;
-	   setIntegerParam(xsp3StatParam, statAborted_);
+	   setIntegerParam(ADStatus, ADStatusAborted);
 	 } else if (frameCounter >= numFrames) {
 	   remainingFrames = numFrames - (frameCounter - frame_count);
-	   setIntegerParam(xsp3FrameCountTotalParam, numFrames);
-	   setStringParam(xsp3StatusParam, "Completed Acqusition.");
-	   setIntegerParam(xsp3BusyParam, 0);
-	   setIntegerParam(xsp3StartParam, 0);
-	   setIntegerParam(xsp3StatParam, statIdle_);
+	   //setIntegerParam(NDArrayCounter, numFrames);
+	   setStringParam(ADStatusMessage, "Completed Acqusition.");
+	   setIntegerParam(ADAcquire, 0);
+	   setIntegerParam(ADStatus, ADStatusIdle);
 	   acquire=0;
-	 } else {
-	   setIntegerParam(xsp3FrameCountTotalParam, frameCounter);
 	 }
 	 
 	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
@@ -1580,7 +1556,9 @@ void Xspress3::dataTask(void)
 	 
 	 //For each frame, read out the MCA and copy the MCA and SCA data into local arrays for channel access, and pack into a NDArray.
 	 for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
-	 
+
+	   setIntegerParam(NDArrayCounter, frame+1);
+
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Frame: %d.\n", functionName, frame);
 
 	   //NDArray to hold the all channels spectra and attributes for each frame.
@@ -1605,6 +1583,7 @@ void Xspress3::dataTask(void)
 	     //For this channel and frame, copy the scaler data into pSCA_DATA for channel access later on.
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
 	       pScaDataArray = (static_cast<epicsInt32*>((pSCA_DATA[chan][sca])+frame));
+
 	       *pScaDataArray = *(pScaData++);
 	     }
 	     
@@ -1640,10 +1619,12 @@ void Xspress3::dataTask(void)
 	       for (int roi=0; roi<maxNumRoi_; ++roi) {
 		 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Chan %d Roi %d: %f.\n", functionName, chan, roi, roiSum[roi]);
 		 *(pMCA_ROI[chan][roi]+frame) = roiSum[roi];
-		 //Add ROI data to NDArray here.
-		 snprintf(attrName, attrNameMax, "%s%d%s%d", "CHAN", chan+1, "ROI" , roi);
-		 pMCA_NDARRAY->pAttributeList->add(attrName, attrName, NDAttrFloat64,(pMCA_ROI[chan][roi]+frame));
 	       }
+	     }
+	     //Always add the ROI calculations to the NDArray even if they are disabled.
+	     for (int roi=0; roi<maxNumRoi_; ++roi) {
+	       snprintf(attrName, attrNameMax, "%s%d%s%d", "CHAN", chan+1, "ROI" , roi);
+	       pMCA_NDARRAY->pAttributeList->add(attrName, attrName, NDAttrFloat64,(pMCA_ROI[chan][roi]+frame));
 	     }
 
 	    
@@ -1654,20 +1635,23 @@ void Xspress3::dataTask(void)
 	     memcpy(reinterpret_cast<epicsFloat64*>(pMCA_NDARRAY->pData)+(chan*maxSpectra), pMCA[chan], maxSpectra*sizeof(epicsFloat64));
 	   }
 	   	  
-	   
+	   int arrayCallbacks = 0;
+	   getIntegerParam(NDArrayCallbacks, &arrayCallbacks);
 	   //Do callbacks on NDArray for plugins.
 	   epicsTimeGetCurrent(&nowTime);
 	   pMCA_NDARRAY->uniqueId = frame;
 	   pMCA_NDARRAY->timeStamp = nowTime.secPastEpoch + nowTime.nsec / 1.e9;
            this->getAttributes(pMCA_NDARRAY->pAttributeList);
-	   unlock();
-	   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s: Calling NDArray callback\n", functionName);
-	   doCallbacksGenericPointer(pMCA_NDARRAY, NDArrayData, 0);
-	   lock();
+	   if (arrayCallbacks) {
+	     unlock();
+	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s: Calling NDArray callback\n", functionName);
+	     doCallbacksGenericPointer(pMCA_NDARRAY, NDArrayData, 0);
+	     lock();
+	   }
 	   //Free the NDArray 
 	   pMCA_NDARRAY->release();
        
-	 }
+	 } //end of frame loop
 	 
 	 //Control the update rate of scalers and arrays over channel access.
 	 getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 
@@ -1759,15 +1743,17 @@ void Xspress3::dataTask(void)
 	   }
 	 }
 
+	 //If we are updating scaler data, or have stopped acquiring, do channel access.
+	 if (scalerUpdate || !acquire) {
+	   //Need to call callParamCallbacks for each list (ie. channel, indexed by Asyn address).
+	   for (int addr=0; addr<maxAddr; addr++) {
+	     callParamCallbacks(addr);
+	   }
+	 }
 
-       }  //end of frame_count > 0
+       }  //end of if (frame_count > 0)
 
        frame_count = 0;
-
-       //Need to call callParamCallbacks for each list (ie. channel, indexed by Asyn address).
-       for (int addr=0; addr<maxAddr; addr++) {
-	 callParamCallbacks(addr);
-       }
 
      } //end of while(acquire)
 
