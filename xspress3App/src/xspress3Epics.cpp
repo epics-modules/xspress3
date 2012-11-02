@@ -1543,10 +1543,10 @@ void Xspress3::dataTask(void)
 	     *(pData++) = i;
 	   }
 	   //This simulates longer readout time. Used to throttle the simTest_ frame rate, using the xsp3CtrlDataPeriod param.
-	   if (acquire) {
-	     getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
-	     epicsThreadSleep(dataTimeout/1000.0);
-	   }
+	   //if (acquire) {
+	   //  getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
+	   //  epicsThreadSleep(dataTimeout/1000.0);
+	   //}
 	 }
 
 	 int dims[2] = {maxSpectra, numChannels};

@@ -154,27 +154,6 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
 #   field(SCAN, "I/O Intr")
 #}
 
-# ///
-# /// Set the numer of frames to collect before stopping automatically.
-# ///
-record(longout, "$(P)$(R)NUM_FRAMES")
-{
-   field(PINI, "YES")
-   field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_FRAMES")
-   field(VAL,  "0")
-}
-
-# ///
-# /// Get the numer of frames to collect before stopping automatically.
-# ///
-record(longin, "$(P)$(R)NUM_FRAMES_RBV")
-{
-   field(PINI, "YES")
-   field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_FRAMES")
-   field(SCAN, "I/O Intr")
-}
 
 # ///
 # /// Set the numer of frames to configure the system with.
