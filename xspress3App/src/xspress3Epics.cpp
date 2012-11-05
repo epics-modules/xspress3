@@ -1583,31 +1583,30 @@ void Xspress3::dataTask(void)
 	     //For this channel and frame, copy the scaler data into pSCA_DATA for channel access later on.
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
 	       pScaDataArray = (static_cast<epicsInt32*>((pSCA_DATA[chan][sca])+frame));
-
 	       *pScaDataArray = *(pScaData++);
 	     }
 	     
-	     //Add scaler data to NDArray here. 
-	     //Because we limit the channel access update rate for the scaler data, I do this by hand rather than 
-	     //using the XML file method. I don't want to put these in the parameter library for every frame, 
-	     //otherwise I would update the SCA data too often when I call callParamCallbacks below.
-	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
-	       snprintf(attrName, attrNameMax, "%s%d%s%d", "CHAN", chan+1, "SCA" , sca);
-	       pMCA_NDARRAY->pAttributeList->add(attrName, attrName, NDAttrInt32,(pSCA_DATA[chan][sca]+frame));
-	     }
+	     setIntegerParam(chan, xsp3ChanSca0Param, *((pSCA_DATA[chan][0])+frame));
+	     setIntegerParam(chan, xsp3ChanSca1Param, *((pSCA_DATA[chan][1])+frame));
+	     setIntegerParam(chan, xsp3ChanSca2Param, *((pSCA_DATA[chan][2])+frame));
+	     setIntegerParam(chan, xsp3ChanSca3Param, *((pSCA_DATA[chan][3])+frame));
+	     setIntegerParam(chan, xsp3ChanSca4Param, *((pSCA_DATA[chan][4])+frame));
+	     setIntegerParam(chan, xsp3ChanSca5Param, *((pSCA_DATA[chan][5])+frame));
+	     setIntegerParam(chan, xsp3ChanSca6Param, *((pSCA_DATA[chan][6])+frame));
+	     setIntegerParam(chan, xsp3ChanSca7Param, *((pSCA_DATA[chan][7])+frame));
 	     
 	     //Calculate MCA ROI here, if we have enabled it. Put the results into pMCA_ROI[chan][roi].
+	     getIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, &roiMin[0]);
+	     getIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, &roiMax[0]);
+	     getIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, &roiMin[1]);
+	     getIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, &roiMax[1]);
+	     getIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, &roiMin[2]);
+	     getIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, &roiMax[2]);
+	     getIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, &roiMin[3]);
+	     getIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, &roiMax[3]);
 	     getIntegerParam(xsp3RoiEnableParam, &roiEnabled);
 	     if (roiEnabled) {
 	       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calculating ROI Data.\n", functionName);
-	       getIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, &roiMin[0]);
-	       getIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, &roiMax[0]);
-	       getIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, &roiMin[1]);
-	       getIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, &roiMax[1]);
-	       getIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, &roiMin[2]);
-	       getIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, &roiMax[2]);
-	       getIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, &roiMin[3]);
-	       getIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, &roiMax[3]);
 	       memset(&roiSum, 0, sizeof(epicsFloat64)*maxNumRoi_);
 	       for (int energy=0; energy<maxSpectra; ++energy) {
 		 for (int roi=0; roi<maxNumRoi_; ++roi) {
@@ -1621,12 +1620,10 @@ void Xspress3::dataTask(void)
 		 *(pMCA_ROI[chan][roi]+frame) = roiSum[roi];
 	       }
 	     }
-	     //Always add the ROI calculations to the NDArray even if they are disabled.
-	     for (int roi=0; roi<maxNumRoi_; ++roi) {
-	       snprintf(attrName, attrNameMax, "%s%d%s%d", "CHAN", chan+1, "ROI" , roi);
-	       pMCA_NDARRAY->pAttributeList->add(attrName, attrName, NDAttrFloat64,(pMCA_ROI[chan][roi]+frame));
-	     }
-
+	     setDoubleParam(chan, xsp3ChanMcaRoi1Param, *((pMCA_ROI[chan][0])+frame));
+	     setDoubleParam(chan, xsp3ChanMcaRoi2Param, *((pMCA_ROI[chan][1])+frame));
+	     setDoubleParam(chan, xsp3ChanMcaRoi3Param, *((pMCA_ROI[chan][2])+frame));
+	     setDoubleParam(chan, xsp3ChanMcaRoi4Param, *((pMCA_ROI[chan][3])+frame));
 	    
 	   } //End of chan loop
 
@@ -1641,6 +1638,7 @@ void Xspress3::dataTask(void)
 	   epicsTimeGetCurrent(&nowTime);
 	   pMCA_NDARRAY->uniqueId = frame;
 	   pMCA_NDARRAY->timeStamp = nowTime.secPastEpoch + nowTime.nsec / 1.e9;
+	   pMCA_NDARRAY->pAttributeList->add("TIMESTAMP", "Host Timestamp", NDAttrFloat64, &(pMCA_NDARRAY->timeStamp));
            this->getAttributes(pMCA_NDARRAY->pAttributeList);
 	   if (arrayCallbacks) {
 	     unlock();
@@ -1686,35 +1684,9 @@ void Xspress3::dataTask(void)
 	   epicsTimeGetCurrent(&startTimeMca);
 	 }
 	 
-
-
-	 int offset = frameCounter-1;
-	 //Post scalar data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
-	 if (scalerUpdate || !acquire) {
-	   for (int chan=0; chan<numChannels; ++chan) {
-	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting Most Recent Scaler Data On Chan %d.\n", functionName, chan);
-	     setIntegerParam(chan, xsp3ChanSca0Param, *((pSCA_DATA[chan][0])+offset));
-	     setIntegerParam(chan, xsp3ChanSca1Param, *((pSCA_DATA[chan][1])+offset));
-	     setIntegerParam(chan, xsp3ChanSca2Param, *((pSCA_DATA[chan][2])+offset));
-	     setIntegerParam(chan, xsp3ChanSca3Param, *((pSCA_DATA[chan][3])+offset));
-	     setIntegerParam(chan, xsp3ChanSca4Param, *((pSCA_DATA[chan][4])+offset));
-	     setIntegerParam(chan, xsp3ChanSca5Param, *((pSCA_DATA[chan][5])+offset));
-	     setIntegerParam(chan, xsp3ChanSca6Param, *((pSCA_DATA[chan][6])+offset));
-	     setIntegerParam(chan, xsp3ChanSca7Param, *((pSCA_DATA[chan][7])+offset));
-	     if (roiEnabled) {
-	       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting Most Recent ROI Data On Chan %d.\n", functionName, chan);
-	       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Chan %d Roi %d Offset: %d Val: %f\n", functionName, chan, 0, offset, *((pMCA_ROI[chan][0])+offset));
-	       setDoubleParam(chan, xsp3ChanMcaRoi1Param, *((pMCA_ROI[chan][0])+offset));
-	       setDoubleParam(chan, xsp3ChanMcaRoi2Param, *((pMCA_ROI[chan][1])+offset));
-	       setDoubleParam(chan, xsp3ChanMcaRoi3Param, *((pMCA_ROI[chan][2])+offset));
-	       setDoubleParam(chan, xsp3ChanMcaRoi4Param, *((pMCA_ROI[chan][3])+offset));
-	     }
-	   }
-	 }
-
+	 int offset = frameCounter;
 	 //Post scalar array data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
 	 if ((scalerArrayUpdate == 1) || !acquire) {
-	   ++offset;
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting Scaler Arrays On Chan %d.\n", functionName, chan);
 	     doCallbacksInt32Array(pSCA_DATA[chan][0], offset, xsp3ChanSca0ArrayParam, chan);
@@ -1747,6 +1719,7 @@ void Xspress3::dataTask(void)
 	 if (scalerUpdate || !acquire) {
 	   //Need to call callParamCallbacks for each list (ie. channel, indexed by Asyn address).
 	   for (int addr=0; addr<maxAddr; addr++) {
+	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling callParamCallbacks for addr %d.\n", functionName, addr);
 	     callParamCallbacks(addr);
 	   }
 	 }
