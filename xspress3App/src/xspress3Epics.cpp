@@ -149,7 +149,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3CtrlScaPeriodParamString,         asynParamInt32,       &xsp3CtrlScaPeriodParam);
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
   
-  //Initialize non static data members
+  //Initialize non static, non const, data members
   acquiring_ = 0;
   running_ = 0;
   xsp3_handle_ = 0;
@@ -166,7 +166,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     return;
   }
 
-  //Set any paramLib parameters that need passing up to device support
+  //Initialise any paramLib parameters that need passing up to device support
   status = setIntegerParam(xsp3NumChannelsParam, numChannels_);
   status |= setIntegerParam(xsp3MaxNumChannelsParam, numChannels_);
   status |= setIntegerParam(xsp3TriggerModeParam, 0);
@@ -211,16 +211,16 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   callParamCallbacks();
 
   if (status) {
-    printf("%s:%s Unable to set driver parameters in constructor.\n", driverName, functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
   }
 
-  cout << "End of constructor " << functionName << endl;
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s End Of Constructor.\n", functionName);
 
 }
 
 Xspress3::~Xspress3() 
 {
-  cout << "Destructor called." << endl;
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "Xspress3::~Xspress3 Called.\n");
 }
 
 
@@ -288,7 +288,6 @@ asynStatus Xspress3::connect(void)
       }
     }
 
-    //Will need to enable playback here, as an option. XSP3_RUN_FLAGS_PLAYBACK
     //Read run flags parameter
     getIntegerParam(xsp3RunFlagsParam, &xsp3_run_flags);
     if (xsp3_run_flags == runFlag_MCA_SPECTRA_) {
@@ -513,8 +512,6 @@ asynStatus Xspress3::saveSettings(void)
     }
   }
 
-  
-  
   return status;
 }
 
@@ -653,7 +650,7 @@ asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
 
   if ((llm >= maxSpectra) || (hlm > maxSpectra)) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: ROI limits set too high.\n", functionName);
-    setStringParam(ADStatusMessage, "ERROR: Negative ROI limits not allowed.");
+    setStringParam(ADStatusMessage, "ERROR: ROI limits set too high.");
     setIntegerParam(ADStatus, ADStatusError);
     status = asynError;
   }
@@ -668,7 +665,7 @@ asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
   }
 
   if (status != asynError) {
-    setStringParam(ADStatusMessage, "Set ROI Limit.");
+    setStringParam(ADStatusMessage, "Successfully set ROI limit.");
     setIntegerParam(ADStatus, ADStatusIdle);
   }
   
@@ -732,11 +729,17 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   getIntegerParam(xsp3MaxFramesParam, &maxNumFrames);
 
   pSCA = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsUInt32)));
-  pROI = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
   if (pSCA == NULL) {
+    perror(functionName);
     return asynError;
   }
-
+  pROI = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
+  if (pROI == NULL) {
+    perror(functionName);
+    free(pSCA);
+    return asynError;
+  }
+  
   status |= setIntegerParam(NDArrayCounter, 0);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
 
@@ -778,6 +781,9 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR erasing data.\n", functionName);
   }
 
+  free(pSCA);
+  free(pROI);
+
   return static_cast<asynStatus>(status);
 }
 
@@ -809,7 +815,7 @@ void Xspress3::report(FILE *fp, int details)
 
 
 /**
- * Reimplementing this function from asynNDArrayDriver to deal with integer values.
+ * Reimplementing this function from ADDriver to deal with integer values.
  */ 
 asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 {
@@ -827,7 +833,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeInt32.\n", functionName);
 
-  //Read address (channel number).
+  //Read address (ie. channel number).
   status = getAddress(pasynUser, &addr); 
   if (status!=asynSuccess) {
     return(status);
@@ -959,7 +965,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3SaveSettingsParam) {
     if ((adStatus != ADStatusAcquire) && (!simTest_)) {
       status = saveSettings();
-      //Do I need to change the files to be read only? Or can the API do that?
       if (status == asynSuccess) {
 	//Clear the save path so the user is forced to use a new path next time.
 	setStringParam(xsp3ConfigSavePathParam, " ");
@@ -1115,7 +1120,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 }
 
 /**
- * Reimplementing this function from asynNDArrayDriver to deal with floating point values.
+ * Reimplementing this function from ADDriver to deal with floating point values.
  */ 
 asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 {
@@ -1125,7 +1130,7 @@ asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   const char *functionName = "Xspress3::writeFloat64";
   
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeFloat64.\n", functionName);
-  //Read address (channel number).
+  //Read address (ie. channel number).
   status = getAddress(pasynUser, &addr); 
   if (status!=asynSuccess) {
     return(status);
@@ -1195,7 +1200,7 @@ asynStatus Xspress3::checkSaveDir(const char *dirName)
 {
   asynStatus status = asynSuccess;
   int countFiles = 0;
-  struct dirent *d;
+  struct dirent *d = NULL;
   const char *functionName = "Xspress3::checkSaveDir";
 
   DIR *dir = opendir(dirName);
@@ -1203,15 +1208,15 @@ asynStatus Xspress3::checkSaveDir(const char *dirName)
     //Directory doesn't exist.
     perror(functionName);
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Cannot Open Save Dir.\n", functionName);
-    setStringParam(ADStatusMessage, "Error Opening Save Directory.");
+    setStringParam(ADStatusMessage, "ERROR Opening Save Directory.");
     setIntegerParam(ADStatus, ADStatusError);
     status = asynError;
   }
   if (status != asynError) {
     while ((d = readdir(dir)) != NULL) {
       if (++countFiles > 2) {
-	asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Files Already Exist In This Directory.\n", functionName);
-	setStringParam(ADStatusMessage, "Files Already Exist In This Directory.");
+	asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Files Already Exist In This Directory.\n", functionName);
+	setStringParam(ADStatusMessage, "ERROR Files Already Exist In This Directory.");
 	setIntegerParam(ADStatus, ADStatusError);
 	status = asynError;
 	break;
@@ -1309,7 +1314,6 @@ void Xspress3::dataTask(void)
   double diffTimeDataVal = 0.0;
   double diffTimeScaVal = 0.0;
   double diffTimeMcaVal = 0.0;
-  //XSP3_DMA_MsgCheckDesc dmaCheck;
   const char* functionName = "Xspress3::dataTask";
   epicsUInt32 *pSCA;
   epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
@@ -1377,12 +1381,15 @@ void Xspress3::dataTask(void)
        eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
        if (eventStatus == epicsEventWaitOK) {
 	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Stop Event.\n", functionName);
-	 setIntegerParam(ADAcquire, 0);
-	 setIntegerParam(ADStatus, ADStatusAborted);
-	 setStringParam(ADStatusMessage, "Stopped Acquiring");
 	 acquire = 0;
        }
        lock();
+       
+       if (acquire==0) {
+	 setIntegerParam(ADAcquire, 0);
+	 setIntegerParam(ADStatus, ADStatusAborted);
+	 setStringParam(ADStatusMessage, "Stopped Acquiring");
+       }
 
        //If we have stopped, wait until we are not busy on all channels.
        if (!simTest_) {
@@ -1395,10 +1402,8 @@ void Xspress3::dataTask(void)
 
        //Read how many data frames have been transferred.
        if (!simTest_) {
-	 //memset(&dmaCheck, 0, sizeof(dmaCheck));
 	 getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
 	 for (int card=0; card<xsp3_num_cards; card++) {
-	   //xsp3_status = xsp3_dma_check_desc(xsp3_handle_, card, XSP3_DMA_STREAM_BNUM_SCALERS, &dmaCheck);
            xsp3_status = xsp3_scaler_check_desc(xsp3_handle_, card);
 	   if (xsp3_status < XSP3_OK) {
 	     checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
@@ -1428,7 +1433,6 @@ void Xspress3::dataTask(void)
 	 //Check we are not overflowing or reading too many frames.
 	 if (frameCounter >= maxNumFrames) {
 	   remainingFrames = maxNumFrames - (frameCounter - frame_count);
-	   //setIntegerParam(NDArrayCounter, maxNumFrames);
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
 	   setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
 	   setIntegerParam(ADAcquire, 0);
@@ -1436,7 +1440,6 @@ void Xspress3::dataTask(void)
 	   setIntegerParam(ADStatus, ADStatusAborted);
 	 } else if (frameCounter >= numFrames) {
 	   remainingFrames = numFrames - (frameCounter - frame_count);
-	   //setIntegerParam(NDArrayCounter, numFrames);
 	   setStringParam(ADStatusMessage, "Completed Acqusition.");
 	   setIntegerParam(ADAcquire, 0);
 	   setIntegerParam(ADStatus, ADStatusIdle);
@@ -1456,24 +1459,17 @@ void Xspress3::dataTask(void)
 	 if (!simTest_) {
 	   pData = pSCA+frameOffset;
 	   xsp3_status = xsp3_scaler_read(xsp3_handle_, pData, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
-	   
 	 } else {
 	   //Fill the array with dummy data in simTest_ mode
 	   pData = pSCA;
 	   for (int i=0; i<(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels); ++i) {
 	     *(pData++) = i;
 	   }
-	   //This simulates longer readout time. Used to throttle the simTest_ frame rate, using the xsp3CtrlDataPeriod param.
-	   //if (acquire) {
-	   //  getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
-	   //  epicsThreadSleep(dataTimeout/1000.0);
-	   //}
 	 }
 
 	 int dims[2] = {maxSpectra, numChannels};
 	 epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
 	 epicsInt32 *pScaDataArray = NULL;
-	 //epicsUInt32 *pMcaDataArray = NULL;
 	 
 	 //For each frame, read out the MCA and copy the MCA and SCA data into local arrays for channel access, and pack into a NDArray.
 	 for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
@@ -1517,16 +1513,18 @@ void Xspress3::dataTask(void)
 	     setIntegerParam(chan, xsp3ChanSca7Param, *((pSCA_DATA[chan][7])+frame));
 	     
 	     //Calculate MCA ROI here, if we have enabled it. Put the results into pMCA_ROI[chan][roi].
-	     getIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, &roiMin[0]);
-	     getIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, &roiMax[0]);
-	     getIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, &roiMin[1]);
-	     getIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, &roiMax[1]);
-	     getIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, &roiMin[2]);
-	     getIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, &roiMax[2]);
-	     getIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, &roiMin[3]);
-	     getIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, &roiMax[3]);
 	     getIntegerParam(xsp3RoiEnableParam, &roiEnabled);
 	     if (roiEnabled) {
+
+	       getIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, &roiMin[0]);
+	       getIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, &roiMax[0]);
+	       getIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, &roiMin[1]);
+	       getIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, &roiMax[1]);
+	       getIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, &roiMin[2]);
+	       getIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, &roiMax[2]);
+	       getIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, &roiMin[3]);
+	       getIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, &roiMax[3]);
+
 	       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calculating ROI Data.\n", functionName);
 	       memset(&roiSum, 0, sizeof(epicsFloat64)*maxNumRoi_);
 	       for (int energy=0; energy<maxSpectra; ++energy) {
@@ -1541,6 +1539,7 @@ void Xspress3::dataTask(void)
 		 *(pMCA_ROI[chan][roi]+frame) = roiSum[roi];
 	       }
 	     }
+
 	     setDoubleParam(chan, xsp3ChanMcaRoi1Param, *((pMCA_ROI[chan][0])+frame));
 	     setDoubleParam(chan, xsp3ChanMcaRoi2Param, *((pMCA_ROI[chan][1])+frame));
 	     setDoubleParam(chan, xsp3ChanMcaRoi3Param, *((pMCA_ROI[chan][2])+frame));
@@ -1653,7 +1652,9 @@ void Xspress3::dataTask(void)
 
      unlock();
 
-   }
+  } //end of while(1)
+
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: Exiting dataTask main loop.\n", functionName);
 
 }
 
@@ -1733,3 +1734,4 @@ extern "C" {
 
 
 /****************************************************************************************/
+
