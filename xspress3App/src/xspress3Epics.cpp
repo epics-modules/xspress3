@@ -12,11 +12,8 @@
 #include <drvSup.h>
 #include <registryFunction.h>
 
-
 //Xspress3 API header
-//extern "C" {
 #include "xspress3.h"
-//}
 
 #include "xspress3Epics.h"
 
@@ -24,14 +21,13 @@ using std::cout;
 using std::endl;
 
 //Definitions of static class data members
-const epicsInt32  Xspress3::ctrlDisable_ = 0;
-const epicsInt32  Xspress3::ctrlEnable_ = 1;
+const epicsInt32 Xspress3::ctrlDisable_ = 0;
+const epicsInt32 Xspress3::ctrlEnable_ = 1;
 const epicsInt32 Xspress3::runFlag_MCA_SPECTRA_ = 0;
 const epicsInt32 Xspress3::runFlag_PLAYB_MCA_SPECTRA_ = 1;
 const epicsInt32 Xspress3::maxNumRoi_ = 4;
 
 //C Function prototypes to tie in with EPICS
-static void xsp3StatusTaskC(void *drvPvt);
 static void xsp3DataTaskC(void *drvPvt);
 
 
@@ -43,16 +39,16 @@ static void xsp3DataTaskC(void *drvPvt);
  */
 Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
   : ADDriver(portName,
-		      numChannels, /* maxAddr - channels use different param lists*/ 
-		      NUM_DRIVER_PARAMS,
-		      maxBuffers,
-		      maxMemory,
-		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask | asynGenericPointerMask, /* Interface mask */
-		      asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask | asynGenericPointerMask,  /* Interrupt mask */
-		      ASYN_CANBLOCK | ASYN_MULTIDEVICE, /* asynFlags.*/
-		      1, /* Autoconnect */
-		      0, /* Default priority */
-		      0), /* Default stack size*/
+	     numChannels, /* maxAddr - channels use different param lists*/ 
+	     NUM_DRIVER_PARAMS,
+	     maxBuffers,
+	     maxMemory,
+	     asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask | asynGenericPointerMask, /* Interface mask */
+	     asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask | asynGenericPointerMask,  /* Interrupt mask */
+	     ASYN_CANBLOCK | ASYN_MULTIDEVICE, /* asynFlags.*/
+	     1, /* Autoconnect */
+	     0, /* Default priority */
+	     0), /* Default stack size*/
     debug_(debug), numChannels_(numChannels), simTest_(simTest)
 {
   int status = asynSuccess;
@@ -63,11 +59,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 
   //Create the epicsEvent for signaling to the status task when parameters should have changed.
   //This will cause it to do a poll immediately, rather than wait for the poll time period.
-  statusEvent_ = epicsEventMustCreate(epicsEventEmpty);
-  if (!statusEvent_) {
-    printf("%s:%s epicsEventCreate failure for status event\n", driverName, functionName);
-    return;
-  }
   startEvent_ = epicsEventMustCreate(epicsEventEmpty);
   if (!startEvent_) {
     printf("%s:%s epicsEventCreate failure for start event\n", driverName, functionName);
@@ -158,25 +149,12 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3CtrlScaPeriodParamString,         asynParamInt32,       &xsp3CtrlScaPeriodParam);
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
   
- //Initialize non static data members
+  //Initialize non static data members
   acquiring_ = 0;
-
-  pollingPeriod_ = 0.5; //seconds
-  fastPollingPeriod_ = 0.1; //seconds
-
-  /* Create the thread that updates the Xspress3 status */
-  status = (epicsThreadCreate("Xsp3StatusTask",
-                              epicsThreadPriorityMedium,
-                              epicsThreadGetStackSize(epicsThreadStackMedium),
-                              (EPICSTHREADFUNC)xsp3StatusTaskC,
-                              this) == NULL);
-  if (status) {
-    printf("%s:%s epicsThreadCreate failure for status task\n",driverName, functionName);    
-    return;
-  }
-
-
-    /* Create the thread that readouts the data */
+  running_ = 0;
+  xsp3_handle_ = 0;
+  
+  //Create the thread that readouts the data 
   status = (epicsThreadCreate("GeDataTask",
                               epicsThreadPriorityMedium,
                               epicsThreadGetStackSize(epicsThreadStackMedium),
@@ -1251,61 +1229,6 @@ asynStatus Xspress3::checkSaveDir(const char *dirName)
 }
 
 
-
-/**
- * Status poling task  //////////Do I need this? Can I just poll in data thread between readouts?
- */
-void Xspress3::statusTask(void)
-{
-  //asynStatus status = asynSuccess;
-  epicsEventWaitStatus eventStatus;
-  epicsFloat32 timeout = 0;
-  epicsUInt32 forcedFastPolls = 0;
-
-  const char* functionName = "Xspress3::statusTask";
-
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Status Thread.\n", functionName);
-
-  
-  while(1) {
-
-    //Read timeout for polling freq.
-    this->lock();
-    if (forcedFastPolls > 0) {
-      timeout = fastPollingPeriod_;
-      forcedFastPolls--;
-    } else {
-      timeout = pollingPeriod_;
-    }
-    this->unlock();
-
-    if (timeout != 0.0) {
-      eventStatus = epicsEventWaitWithTimeout(statusEvent_, timeout);
-    } else {
-      eventStatus = epicsEventWait(statusEvent_);
-    }              
-    if (eventStatus == (epicsEventWaitOK || epicsEventWaitTimeout)) {
-      //We got an event, rather than a timeout.  This is because other software
-      //knows that data has arrived, or device should have changed state (parameters changed, etc.).
-      //Force a minimum number of fast polls, because the device status
-      //might not have changed in the first few polls
-      forcedFastPolls = 5;
-    }
-
-    this->lock();
-    
-    /* Call the callbacks to update any changes */
-    //    callParamCallbacks();
-    this->unlock();
-    
-  }
-     
- 
-
-}
-
-
-
 /**
  * Wait until data collection has finished on all channels.
  * This function should only be called after stopping histogramming.
@@ -1379,7 +1302,6 @@ void Xspress3::dataTask(void)
   epicsTimeStamp nowTime;
   int scalerUpdate = 0;
   int scalerArrayUpdate = 0;
-  int mcaUpdate = 0;
   int mcaArrayUpdate = 0;
   double startTimeDataVal = 0.0;
   double startTimeScaVal = 0.0;
@@ -1387,16 +1309,13 @@ void Xspress3::dataTask(void)
   double diffTimeDataVal = 0.0;
   double diffTimeScaVal = 0.0;
   double diffTimeMcaVal = 0.0;
-  XSP3_DMA_MsgCheckDesc dmaCheck;
+  //XSP3_DMA_MsgCheckDesc dmaCheck;
   const char* functionName = "Xspress3::dataTask";
   epicsUInt32 *pSCA;
   epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
   epicsFloat64 *pMCA[numChannels_];
   epicsFloat64 *pMCA_ROI[numChannels_][maxNumRoi_];
-  //NDArray *pMCA[numChannels_];
   NDArray *pMCA_NDARRAY;
-  int attrNameMax = 64;
-  char attrName[attrNameMax];
   int roiEnabled = 0;
   epicsInt32 roiMin[maxNumRoi_];
   epicsInt32 roiMax[maxNumRoi_];
@@ -1476,15 +1395,17 @@ void Xspress3::dataTask(void)
 
        //Read how many data frames have been transferred.
        if (!simTest_) {
-	 memset(&dmaCheck, 0, sizeof(dmaCheck));
+	 //memset(&dmaCheck, 0, sizeof(dmaCheck));
 	 getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
 	 for (int card=0; card<xsp3_num_cards; card++) {
-	   xsp3_status = xsp3_dma_check_desc(xsp3_handle_, card, XSP3_DMA_STREAM_BNUM_SCALERS, &dmaCheck);
+	   //xsp3_status = xsp3_dma_check_desc(xsp3_handle_, card, XSP3_DMA_STREAM_BNUM_SCALERS, &dmaCheck);
+           xsp3_status = xsp3_scaler_check_desc(xsp3_handle_, card);
 	   if (xsp3_status < XSP3_OK) {
 	     checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
 	     status = asynError;
 	   }
 	   frame_count = xsp3_status;
+	   cout << "frame_count: " << frame_count << endl;
 	   ///////////////////////////////////////hack, until xsp3_dma_check_desc is fixed///////////////////////////////
 	   if (acquire == 0) {
 	     frame_count = numFrames;
@@ -1738,15 +1659,6 @@ void Xspress3::dataTask(void)
 
 
 //Global C utility functions to tie in with EPICS
-
-static void xsp3StatusTaskC(void *drvPvt)
-{
-  Xspress3 *pPvt = (Xspress3 *)drvPvt;
-
-  pPvt->statusTask();
-}
-
-
 static void xsp3DataTaskC(void *drvPvt)
 {
   Xspress3 *pPvt = (Xspress3 *)drvPvt;

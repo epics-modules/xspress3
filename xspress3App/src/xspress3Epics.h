@@ -138,7 +138,6 @@ class Xspress3 : public ADDriver {
   virtual void report(FILE *fp, int details);
 
   void dataTask(void);
-  void statusTask(void);
 
  private:
 
@@ -166,20 +165,19 @@ class Xspress3 : public ADDriver {
   static const epicsInt32 maxNumRoi_;
   
   //Put private dynamic here
-  epicsUInt32 acquiring_; //Data acquisition in progress
-  epicsUInt32 running_; //driver is in good state and we can read data from device
-  epicsUInt32 debug_;
-  int xsp3_handle_;
+  epicsUInt32 acquiring_; 
+  epicsUInt32 running_; 
+  int xsp3_handle_; 
 
-  const epicsInt32 numChannels_; //The number of channels (this is a constructor param).
-  epicsUInt32 simTest_;
+  //Constructor parameters.
+  const epicsUInt32 debug_; //debug parameter for API
+  const epicsInt32 numChannels_; //The number of channels
+  const epicsUInt32 simTest_; //Run in sim mode
   char baseIP_[24]; //Constructor param - IP address of host system
 
   epicsEventId statusEvent_;
   epicsEventId startEvent_;
   epicsEventId stopEvent_;
-  float pollingPeriod_;
-  float fastPollingPeriod_;
 
   //Values used for pasynUser->reason, and indexes into the parameter library.
   int xsp3ResetParam;
