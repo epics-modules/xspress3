@@ -1324,6 +1324,7 @@ void Xspress3::dataTask(void)
   epicsInt32 roiMin[maxNumRoi_];
   epicsInt32 roiMax[maxNumRoi_];
   epicsFloat64 roiSum[maxNumRoi_];
+  int allocError = 0;
  
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
 
@@ -1474,14 +1475,22 @@ void Xspress3::dataTask(void)
 	 //For each frame, read out the MCA and copy the MCA and SCA data into local arrays for channel access, and pack into a NDArray.
 	 for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
 
+	   allocError == 0;
 	   setIntegerParam(NDArrayCounter, frame+1);
 
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Frame: %d.\n", functionName, frame);
 
 	   //NDArray to hold the all channels spectra and attributes for each frame.
-	   pMCA_NDARRAY = this->pNDArrayPool->alloc(2, dims, NDFloat64, 0, NULL);
+	   if ((pMCA_NDARRAY = this->pNDArrayPool->alloc(2, dims, NDFloat64, 0, NULL)) == NULL) {
+	     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: pNDArrayPool->alloc failed.\n", functionName);
+	     setStringParam(ADStatusMessage, "Memory Error. Check IOC Log.");
+	     setIntegerParam(ADStatus, ADStatusError);
+	     setIntegerParam(ADAcquire, 0);
+	     acquire = 0;
+	     allocError = 1;
+	   } else {
   
-	   for (int chan=0; chan<numChannels; chan++) {
+	   for (int chan=0; chan<numChannels; ++chan) {
 	     if (!simTest_) {
 	       //Read out the MCA spectra for this channel.
 	       xsp3_status = xsp3_histogram_read_chan(xsp3_handle_, reinterpret_cast<u_int32_t*>(pMCA[chan]), chan, 0, 0, frame, 1, 1, 1);
@@ -1547,28 +1556,32 @@ void Xspress3::dataTask(void)
 	    
 	   } //End of chan loop
 
+	   }
+
 	   //Pack the MCA data into an NDArray for this frame.   Format is: [chan1 spectra][chan2 spectra][etc]
-	   for (int chan=0; chan<numChannels; ++chan) {
-	     memcpy(reinterpret_cast<epicsFloat64*>(pMCA_NDARRAY->pData)+(chan*maxSpectra), pMCA[chan], maxSpectra*sizeof(epicsFloat64));
+	   if (allocError == 0) {
+	     for (int chan=0; chan<numChannels; ++chan) {
+	       memcpy(reinterpret_cast<epicsFloat64*>(pMCA_NDARRAY->pData)+(chan*maxSpectra), pMCA[chan], maxSpectra*sizeof(epicsFloat64));
+	     }
+	     
+	     int arrayCallbacks = 0;
+	     getIntegerParam(NDArrayCallbacks, &arrayCallbacks);
+	     //Do callbacks on NDArray for plugins.
+	     epicsTimeGetCurrent(&nowTime);
+	     pMCA_NDARRAY->uniqueId = frame;
+	     pMCA_NDARRAY->timeStamp = nowTime.secPastEpoch + nowTime.nsec / 1.e9;
+	     pMCA_NDARRAY->pAttributeList->add("TIMESTAMP", "Host Timestamp", NDAttrFloat64, &(pMCA_NDARRAY->timeStamp));
+	     this->getAttributes(pMCA_NDARRAY->pAttributeList);
+	     if (arrayCallbacks) {
+	       unlock();
+	       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s: Calling NDArray callback\n", functionName);
+	       doCallbacksGenericPointer(pMCA_NDARRAY, NDArrayData, 0);
+	       lock();
+	     }
+	     //Free the NDArray 
+	     pMCA_NDARRAY->release();
 	   }
-	   	  
-	   int arrayCallbacks = 0;
-	   getIntegerParam(NDArrayCallbacks, &arrayCallbacks);
-	   //Do callbacks on NDArray for plugins.
-	   epicsTimeGetCurrent(&nowTime);
-	   pMCA_NDARRAY->uniqueId = frame;
-	   pMCA_NDARRAY->timeStamp = nowTime.secPastEpoch + nowTime.nsec / 1.e9;
-	   pMCA_NDARRAY->pAttributeList->add("TIMESTAMP", "Host Timestamp", NDAttrFloat64, &(pMCA_NDARRAY->timeStamp));
-           this->getAttributes(pMCA_NDARRAY->pAttributeList);
-	   if (arrayCallbacks) {
-	     unlock();
-	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s: Calling NDArray callback\n", functionName);
-	     doCallbacksGenericPointer(pMCA_NDARRAY, NDArrayData, 0);
-	     lock();
-	   }
-	   //Free the NDArray 
-	   pMCA_NDARRAY->release();
-       
+	   
 	 } //end of frame loop
 	 
 	 //Control the update rate of scalers and arrays over channel access.
@@ -1655,6 +1668,18 @@ void Xspress3::dataTask(void)
   } //end of while(1)
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: Exiting dataTask main loop.\n", functionName);
+  free(pSCA);
+  for (int chan=0; chan<numChannels_; chan++) {
+    for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+      free(pSCA_DATA[chan][sca]);
+    }
+  }
+  for (int chan=0; chan<numChannels_; chan++) {
+    free(pMCA[chan]); 
+    for (int roi=0; roi<maxNumRoi_; roi++) {
+      free(pMCA_ROI[chan][roi]);
+    }
+  }
 
 }
 
