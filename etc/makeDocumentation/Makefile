@@ -11,7 +11,7 @@ DOCDIR := $(TOP)/documentation/doxygen
 install: $(DOCDIR)
 
 # rule for creating the doxygen documentation
-$(DOCDIR): config.src manual.src $(DOCDIR)/build_instructions_example
+$(DOCDIR): config.src manual.src 
 	mkdir -p $(DOCDIR)
 	dls-make-doxygen-documentation.py -o $(DOCDIR) config.src manual.src
 
