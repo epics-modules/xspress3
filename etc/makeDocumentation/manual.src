@@ -1,19 +1,113 @@
 /**
 \mainpage xspress3 EPICS Support Module
 \section intro_sec Introduction
-I'm going to describe the module here, possibly with a <a href="http://www.google.co.uk">web link to the manufacturers webpage</a>. \n
-You can also link to \ref thing.vdb "internally generated documentation" with alternate text, or by just by mentioning its name, e.g. thing.vdb
 
-\section bugs_sec Known Bugs
-- I'm going to describe any known bugs here
+This EPICS module provides <a href="http://cars9.uchicago.edu/software/epics/areaDetector.html">areaDetector</a> based control of the <a href="http://www.quantumdetectors.com/products/xspress-3">Xspress3 Readout System</a>. It uses an API provided by Quantum Detectors to control the hardware and readout data.
+
+This documentation will provide intructions on how to use the EPICS software interface to Xspress3. More detailed user instructions can be found <a href="http://cars9.uchicago.edu/software/epics/areaDetector.html">here.</a>
 
 \section user_sec User Manual
-This section contains instructions for the end user
+
+\subsection iocConnection Connecting to the Xspress3
+
+Once the EPICS IOC is running it is necessary to connect to the Xspress system. This can be done by setting the following PVs. The {P} is the base part of the PV name, which is system dependent. PVs with an <code>_RBV</code> on the end are readback PVs that can be used to confirm that a parameter has been changed successfully.
+
+<table border="1">
+<tr>
+<td>{P}:NUM_CHANNELS</td>
+<td>The number of channels this system is configured for. Must be less than or equal to {P}:MAX_NUM_CHANNELS_RBV, which is the value passed into <code>xspress3Config</code>.</td>
+</tr>
+<tr>
+<td>{P}:NUM_FRAMES_CONFIG</td>
+<td>The number of frames to configure the system with. This must be less than or equal to {P}:MAX_FRAMES_RBV, which is the value passed into <code>xspress3Config</code>. Normally this should be set equal to {P}:MAX_FRAMES_RBV.</td>
+</tr>
+<tr>
+<td>{P}:CONFIG_PATH</td>
+<td>This is the path to the Xspress configuration files. These files should have been provided with the system.</td>
+</tr>
+</table> 
+
+Once the above three PVs are set, connection can take place by writing 1 to {P}:CONNECT.
+
+If connection was successful then {P}:CONNECTED will be set to 1.
+
+\subsection iocConnection Data acqusition
+
+The following PVs are involved in data acqusition or monitoring:
+
+<table border="1">
+<tr>
+<td>{P}:Acquire</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:Acquire_RBV<td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:ERASE</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:RESET</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:NumImages\n{P}:NumImages_RBV</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:CTRL_MCA_ROI\n{P}:CTRL_MCA_ROI_RBV</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:TriggerMode\n{P}:TriggerMode_RBV</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:StatusMessage_RBV</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:DetectorState_RBV</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:FRAME_COUNT_RBV</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:ArrayCounter_RBV</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:CTRL_DATA_UPDATE</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:CTRL_DATA_UPDATE_PERIOD</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:CTRL_MCA_UPDATE</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:CTRL_MCA_UPDATE_PERIOD</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:CTRL_SCA_UPDATE</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:CTRL_SCA_UPDATE_PERIOD</td>
+<td></td>
+</tr>
+</table>
 
 \section build_sec Build Instructions 
-- \subpage build_instructions_example
 
-IOCs build using these build instructions are available in iocs/
 **/
 
-/* Build instructions page will be generated from the xml file given to dls-xml-iocbuilder.py --doc */
+

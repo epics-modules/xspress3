@@ -17,6 +17,7 @@ example_registerRecordDeviceDriver(pdbbase)
 # Max Num Channels (also used in xsp3_config)
 # Num Cards (used in xsp3_config)
 # Max Frames (used to limit how big driver arrays are). Needs to match database MAX_FRAMES_RBV.
+# Max size of spectra
 # Asyn max buffers (0=default)
 # Asyn max memory (0=default)
 # Debug (0=off, 1=on)

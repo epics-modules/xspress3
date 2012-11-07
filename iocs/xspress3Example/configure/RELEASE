@@ -30,10 +30,10 @@ BUSY=           $(SUPPORT)/busy/1-4
 CALC=		$(SUPPORT)/calc/2-8dls4
 AUTOSAVE=       $(SUPPORT)/autosave/4-6dls5
 DEVIOCSTATS=    $(SUPPORT)/devIocStats/3-1-5dls4
-XSPRESS3=	/home/mp49/epics/support/xspress3
+XSPRESS3=	$(WORK)/xspress3
 #XSPRESS3_API=   /home/mp49/xspress3_api/
 #XSPRESS3_API=	/scratch/xspress3_trunk/trunk/det-software
-XSPRESS3_API=	/dls_sw/work/R3.14.11/support/xspress3_api/det-software
+XSPRESS3_API=	$(WORK)/xspress3_api/det-software
 BOOST=		/dls_sw/work/common/boost/1.49.0
 
 
