@@ -156,6 +156,7 @@ class Xspress3 : public ADDriver {
   asynStatus readSCAParams(void);
   asynStatus readDTCParams(void); 
   asynStatus checkHistBusy(int checkTimes);
+  asynStatus mapTriggerMode(int mode, int *apiMode);
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;

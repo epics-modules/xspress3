@@ -26,8 +26,10 @@ xspress3Config("XSP3", 8, 1, "192.168.0.1", 16384, 4096, -1, -1, 1, 0)
 # NDFileHDF5Configure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr)
 NDFileHDF5Configure("XSP3.HDF5", 10000, 0, "XSP3", 0)
 
-#asynSetTraceMask("XSP3",0,0x11)
-#asynSetTraceIOMask("XSP3",0,0x11)
+asynSetTraceMask("XSP3",0,0x11)
+asynSetTraceIOMask("XSP3",0,0x11)
+#asynSetTraceMask("XSP3",0,0xF)
+#asynSetTraceIOMask("XSP3",0,0xF)
 #asynSetTraceMask("XSP3.HDF5",0,0xFF)
 #asynSetTraceIOMask("XSP3.HDF5",0,0xFF)
 
@@ -76,3 +78,6 @@ iocInit()
 
 # Save settings every 10 seconds
 create_monitor_set("example.req", 10)
+
+#Disable this polling for Asyn trace flow debugging
+#dbpf("mp49:xsp3:PoolUsedMem.SCAN", "Passive")

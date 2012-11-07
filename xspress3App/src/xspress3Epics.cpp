@@ -815,6 +815,56 @@ void Xspress3::report(FILE *fp, int details)
 
 
 /**
+ * Function to map the database trigger mode 
+ * value to the macros defined by the API.
+ * @param mode The database value
+ * @param apiMode This returns the correct value for the API
+ * @return asynStatus
+ */
+asynStatus Xspress3::mapTriggerMode(int mode, int *apiMode)
+{
+  asynStatus status = asynSuccess;
+  const char *functionName = "Xspress3::mapTriggerMode";
+
+  if (mode == 0) {
+    *apiMode = XSP3_GTIMA_SRC_FIXED;
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_FIXED, value: %d\n", 
+	      functionName, XSP3_GTIMA_SRC_FIXED);
+  } else if (mode == 1) {
+    *apiMode = XSP3_GTIMA_SRC_INTERNAL;
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_INTERNAL, value: %d\n", 
+	      functionName, XSP3_GTIMA_SRC_INTERNAL);
+  } else if (mode == 2) {
+    *apiMode = XSP3_GTIMA_SRC_IDC;
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_IDC, value: %d\n", 
+	      functionName, XSP3_GTIMA_SRC_IDC);
+  } else if (mode == 3) {
+    *apiMode = XSP3_GTIMA_SRC_TTL_VETO_ONLY;
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_TTL_VETO_ONLY, value: %d\n", 
+	      functionName, XSP3_GTIMA_SRC_TTL_VETO_ONLY);
+  } else if (mode == 4) {
+    *apiMode = XSP3_GTIMA_SRC_TTL_BOTH;
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_TTL_BOTH, value: %d\n", 
+	      functionName, XSP3_GTIMA_SRC_TTL_BOTH);
+  } else if (mode == 5) {
+    *apiMode = XSP3_GTIMA_SRC_LVDS_VETO_ONLY;
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_LVDS_VETO_ONLY, value: %d\n", 
+	      functionName, XSP3_GTIMA_SRC_LVDS_VETO_ONLY);
+  } else if (mode == 6) {
+    *apiMode = XSP3_GTIMA_SRC_LVDS_BOTH;
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_LVDS_BOTH, value: %d\n", 
+	      functionName, XSP3_GTIMA_SRC_LVDS_BOTH);
+  } else {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Mapping an unknown trigger mode. mode: %d\n", functionName, mode);
+    setStringParam(ADStatusMessage, "ERROR Unknown Trigger Mode");
+    setIntegerParam(ADStatus, ADStatusError);
+    status = asynError;
+  }
+
+  return status;
+}
+
+/**
  * Reimplementing this function from ADDriver to deal with integer values.
  */ 
 asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
@@ -826,6 +876,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int xsp3_sca_lim = 0;
   int xsp3_roi_lim = 0;
   int xsp3_time_frames = 0;
+  int xsp3_trigger_mode = 0;
   int adStatus = 0;
   asynStatus status = asynSuccess;
   int xsp3_num_channels = 0;
@@ -909,7 +960,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Channels.\n", functionName);
     getIntegerParam(xsp3MaxNumChannelsParam, &xsp3_num_channels);
     if ((value > xsp3_num_channels) || (value < 1)) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s ERROR: Num Channels Out Of Range.\n", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Num Channels Out Of Range.\n", functionName);
       status = asynError;
     }
   }
@@ -918,13 +969,13 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Trigger Mode.\n", functionName);
       getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
       for (int card=0; card<xsp3_num_cards; card++) {
-	//	xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, card, value);
-	cout << "Setting trigger mode to value: " << value << endl;
-	cout << "XSP3_GTIMA_SRC_TTL_VETO_ONLY: " << XSP3_GTIMA_SRC_TTL_VETO_ONLY << endl;
-	xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, card, XSP3_GTIMA_SRC_TTL_VETO_ONLY);
-	if (xsp3_status != XSP3_OK) {
-	  checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
-	  status = asynError;
+	status = mapTriggerMode(value, &xsp3_trigger_mode);
+	if (status != asynError) {
+	  xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, card, XSP3_GLOB_TIMA_TF_SRC(xsp3_trigger_mode));
+	  if (xsp3_status != XSP3_OK) {
+	    checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
+	    status = asynError;
+	  }
 	}
       }
     }

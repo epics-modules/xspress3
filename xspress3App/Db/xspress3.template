@@ -94,15 +94,15 @@ record(mbbo, "$(P)$(R)TriggerMode")
    field(ONST, "Internal")
    field(ONVL, "1")
    field(TWST, "IDC")
-   field(TWVL, "3")
+   field(TWVL, "2")
    field(THST, "TTL Veto Only")
-   field(THVL, "4")
+   field(THVL, "3")
    field(FRST, "TTL Both")
-   field(FRVL, "5")
+   field(FRVL, "4")
    field(FVST, "LVDS Veto Only")
-   field(FVVL, "6")
+   field(FVVL, "5")
    field(SXST, "LVDS Both")
-   field(SXVL, "7")
+   field(SXVL, "6")
    field(VAL,  "0")
    field(PINI, "NO")
 }
@@ -119,15 +119,15 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
    field(ONST, "Internal")
    field(ONVL, "1")
    field(TWST, "IDC")
-   field(TWVL, "3")
+   field(TWVL, "2")
    field(THST, "TTL Veto Only")
-   field(THVL, "4")
+   field(THVL, "3")
    field(FRST, "TTL Both")
-   field(FRVL, "5")
+   field(FRVL, "4")
    field(FVST, "LVDS Veto Only")
-   field(FVVL, "6")
+   field(FVVL, "5")
    field(SXST, "LVDS Both")
-   field(SXVL, "7")
+   field(SXVL, "6")
    field(SCAN, "I/O Intr")
 }
 
@@ -401,6 +401,15 @@ record(mbbi, "$(P)$(R)RUN_FLAGS_RBV")
    field(ONST, "PLAYB, SCALERS & HIST")
    field(ONVL, "1")
    field(SCAN, "I/O Intr")
+}
+
+
+# ///
+# /// Disable this ADBase record scanning.
+# ///
+record(ai, "mp49:xsp3:PoolUsedMem")
+{
+   field(SCAN, "Passive")
 }
 
 
