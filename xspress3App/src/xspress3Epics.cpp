@@ -918,7 +918,10 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Trigger Mode.\n", functionName);
       getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
       for (int card=0; card<xsp3_num_cards; card++) {
-	xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, card, value);
+	//	xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, card, value);
+	cout << "Setting trigger mode to value: " << value << endl;
+	cout << "XSP3_GTIMA_SRC_TTL_VETO_ONLY: " << XSP3_GTIMA_SRC_TTL_VETO_ONLY << endl;
+	xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, card, XSP3_GTIMA_SRC_TTL_VETO_ONLY);
 	if (xsp3_status != XSP3_OK) {
 	  checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
 	  status = asynError;
