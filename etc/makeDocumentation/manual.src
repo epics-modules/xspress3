@@ -2,15 +2,15 @@
 \mainpage xspress3 EPICS Support Module
 \section intro_sec Introduction
 
-This EPICS module provides <a href="http://cars9.uchicago.edu/software/epics/areaDetector.html">areaDetector</a> based control of the <a href="http://www.quantumdetectors.com/products/xspress-3">Xspress3 Readout System</a>. It uses an API provided by Quantum Detectors to control the hardware and readout data.
+This EPICS module provides <a href="http://cars9.uchicago.edu/software/epics/areaDetector.html">areaDetector</a> based control of the <a href="http://www.quantumdetectors.com/products/xspress-3">Xspress3 Readout System</a>. It uses an API provided by Quantum Detectors and STFC to control the hardware and readout data.
 
-This documentation will provide intructions on how to use the EPICS software interface to Xspress3. More detailed user instructions can be found <a href="http://cars9.uchicago.edu/software/epics/areaDetector.html">here.</a>
+This documentation will provide intructions on how to use the EPICS software interface to Xspress 3. More detailed user instructions are provided by Quantum Detectors.
 
 \section user_sec User Manual
 
-\subsection iocConnection Connecting to the Xspress3
+\subsection iocConnection Connecting To The Xspress 3
 
-Once the EPICS IOC is running it is necessary to connect to the Xspress system. This can be done by setting the following PVs. The {P} is the base part of the PV name, which is system dependent. PVs with an <code>_RBV</code> on the end are readback PVs that can be used to confirm that a parameter has been changed successfully.
+Once the EPICS IOC is running it is necessary to connect to the Xspress 3 system. This can be done by setting the following PVs. The {P} is the base part of the PV name, which is system dependent. PVs with an <code>_RBV</code> on the end are readback PVs that can be used to confirm that a parameter has been changed successfully.
 
 <table border="1">
 <tr>
@@ -31,80 +31,164 @@ Once the above three PVs are set, connection can take place by writing 1 to {P}:
 
 If connection was successful then {P}:CONNECTED will be set to 1.
 
-\subsection iocConnection Data acqusition
+When connection occurs the following API functions are called by the EPICS driver:
+<ol>
+<li><b>xsp3_config</b></li>
+<li><b>xsp3_clocks_setup</b></li>
+<li><b>xsp3_restore_settings</b></li>
+<li><b>xsp3_format_run</b></li>
+<li><b>xsp3_set_run_flags</b></li>
+</ol>
+In additon, if connection was successful, several parameters are read from the system so the EPICS driver can update RBV type PVs (eg. scaler window limits).
 
-The following PVs are involved in data acqusition or monitoring:
+\subsection iocData Data Acquisition
+
+The following PVs are involved in data acqusition or monitoring. Any PV in lower case is part of the standard areaDetector interface. Upper case PVs are specific to the Xspress 3 system and could not be mapped onto areaDetector PVs. Some of the PVs map directly onto Xspress 3 API functions, and this will be noted below.
 
 <table border="1">
 <tr>
-<td>{P}:Acquire</td>
-<td></td>
-</tr>
-<tr>
-<td>{P}:Acquire_RBV<td>
-<td></td>
+<td>{P}:Acquire\n{P}:Acquire_RBV</td>
+<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition, or write a 0 to stop.</td>
 </tr>
 <tr>
 <td>{P}:ERASE</td>
-<td></td>
+<td>This will call the Xspress 3 API ?????? function. It will also clear any data held by EPICS PVs, including the array PVs.</td>
 </tr>
 <tr>
 <td>{P}:RESET</td>
-<td></td>
+<td>????????????????????????????</td>
 </tr>
 <tr>
 <td>{P}:NumImages\n{P}:NumImages_RBV</td>
-<td></td>
+<td>Set and read the number of images to acquire. This number must be less than {P}:NUM_FRAMES_CONFIG. Acquisition will automatically stop when the number of frames acquired equals NumImages.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_MCA_ROI\n{P}:CTRL_MCA_ROI_RBV</td>
-<td></td>
+<td>This is used to enable and disable ROI calculations. To enable ROI calculations set this to 1 and set the ROI limits on any channel. To turn ROI calculations off set this to 0. This can save CPU time if operating at high frame rates.</td>
 </tr>
 <tr>
 <td>{P}:TriggerMode\n{P}:TriggerMode_RBV</td>
-<td></td>
+<td>Set and read the triggering mode. This PV maps directly on to the API function <b>xsp3_set_glob_timeA</b>. In simulation mode any mode can be selected. Options are:
+<ul>
+<li>Fixed - Corresponds to API option XSP3_GTIMA_SRC_FIXED</li>
+<li>Internal - Corresponds to API option XSP3_GTIMA_SRC_INTERNAL</li>
+<li>IDC -  Corresponds to API option XSP3_GTIMA_SRC_IDC</li>
+<li>TTL Veto Only - Use this for external triggering using a gate signal. Corresponds to API option XSP3_GTIMA_SRC_TTL_VETO_ONLY</li>
+<li>TTL Both - Corresponds to API option XSP3_GTIMA_SRC_TTL_BOTH</li>
+<li>LVDS Veto Only - Corresponds to API option XSP3_GTIMA_SRC_LVDS_VETO_ONLY</li>
+<li>LVDS Both - Corresponds to API option XSP3_GTIMA_SRC_LVDS_BOTH</li>
+</ul>
+</td>
 </tr>
 <tr>
 <td>{P}:StatusMessage_RBV</td>
-<td></td>
+<td>This contains a string to describe the current state of the EPICS driver. Any error should result in a meaningful message in this PV.</td>
 </tr>
 <tr>
 <td>{P}:DetectorState_RBV</td>
-<td></td>
+<td>This PV contains the current state of the EPICS driver. See the areaDetector documentation for a list of the possible states. Most of the time the state will be either <b>Idle</b> or <b>Acquire</b>. In the event of an error it will be <b>Error</b>.</td>
 </tr>
 <tr>
 <td>{P}:FRAME_COUNT_RBV</td>
-<td></td>
+<td>This contains the number of frames read out of the Xspress 3 each time the driver checks for new data. The driver checks for new data every 0.01s. This PV can indicate the frame rate we are operating at.</td>
 </tr>
 <tr>
 <td>{P}:ArrayCounter_RBV</td>
-<td></td>
+<td>Contains the total number of frames acquired during the current or last acqusition. It is reset to zero at the beginning of the next acqusition. The rate of change of this PV also indicates the frame rate we are operating at.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_DATA_UPDATE</td>
-<td></td>
+<td>This enables or disables live scaler and ROI data update during an acqusition. If this is disabled then no data will be send over channel access until the end of acqusition. At high frame rates the user may wish to disable this, but it can usually be enabled and the update rate can be thrrottled by the {P}:CTRL_DATA_UPDATE_PERIOD PV. This also affects the update rate for {P}:FRAME_COUNT_RBV and {P}:ArrayCounter_RBV.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_DATA_UPDATE_PERIOD</td>
-<td></td>
+<td>If {P}:CTRL_DATA_UPDATE is enabled then this PV defines the time period between updates over channel access.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_MCA_UPDATE</td>
-<td></td>
+<td>This enables or disables live MCA spectra data update during an acqusition. If this is disabled then no data will be send over channel access until the end of acqusition. At high frame rates the user may wish to disable this, but it can usually be enabled and the update rate can be thrrottled by the {P}:CTRL_MCA_UPDATE_PERIOD PV.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_MCA_UPDATE_PERIOD</td>
-<td></td>
+<td>If {P}:CTRL_MCA_UPDATE is enabled then this PV defines the time period between updates over channel access.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_SCA_UPDATE</td>
-<td></td>
+<td>This enables or disables live scaler and ROI <i>array</i> data update during an acqusition. These arrays contain the cummulative scaler and ROI data during an acquisition. If this is disabled then no data will be send over channel access until the end of acqusition. At high frame rates the user may wish to disable this, but it can usually be enabled and the update rate can be thrrottled by the {P}:CTRL_SCA_UPDATE_PERIOD PV.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_SCA_UPDATE_PERIOD</td>
-<td></td>
+<td>If {P}:CTRL_SCA_UPDATE is enabled then this PV defines the time period between updates over channel access.</td>
 </tr>
 </table>
+
+\subsection iocSca Scaler Data and Window Settings
+
+The following PVs provide access to the scalers, and allow the user to set scaler related parameters. The 'C1' part of the PV name indicates channel 1. The lists is duplicated for each channel: 'C2', 'C3' etc. 
+
+The first table shows the single value PVs that show the latest scaler value during an acqusition. The channel access updates for these PVs are controlled by {P}:CTRL_DATA_UPDATE and {P}:CTRL_DATA_UPDATE_PERIOD.
+
+<table border="1">
+<tr>
+<td>{P}:C1_SCA0_RBV</td>
+<td>The <b>Time</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA1_RBV</td>
+<td>The <b>Reset Ticks</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA2_RBV</td>
+<td>The <b>Reset Count</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA3_RBV</td>
+<td>The <b>All Event</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA4_RBV</td>
+<td>The <b>All Good</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA5_RBV</td>
+<td>The <b>Scaler 1</b> scaler. The lower and upper window limits for this are set using {P}:C1_SCA5_LLM and {P}:C1_SCA5_HLM. The window limits are set using API function <b>xsp3_set_window</b></td>
+</tr>
+<tr>
+<td>{P}:C1_SCA6_RBV</td>
+<td>The <b>Scaler 2</b> scaler. The lower and upper window limits for this are set using {P}:C1_SCA6_LLM and {P}:C1_SCA6_HLM. The window limits are set using API function <b>xsp3_set_window</b></td>
+</tr>
+<tr>
+<td>{P}:C1_SCA7_RBV</td>
+<td>The <b>Pileup</b> scaler.</td>
+</tr>
+</table>
+
+The following table shows the set and read parameters for the <b>All Good</b>, <b>Scaler 1</b> and <b>Scaler 2</b> scalers.
+
+<table border="1">
+<tr>
+<td>{P}:C1_SCA4_THRESHOLD\n{P}:C1_SCA4_THRESHOLD_RBV</td>
+<td>Set and read the <b>All Good</b> scaler window threshold. This is set using the API function <b>xsp3_set_good_thres</b> The readback value is also read at connection time.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA5_LLM\n{P}:C1_SCA5_LLM_RBV</td>
+<td>Set and read the <b>Scaler 1</b> scaler window lower limit. This is set using the API function <b>xsp3_set_window</b>. The readback value is also read at connection time.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA5_HLM\n{P}:C1_SCA5_HLM_RBV</td>
+<td>Set and read the <b>Scaler 1</b> scaler window upper limit. This is set using the API function <b>xsp3_set_window</b> The readback value is also read at connection time.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA6_HLM\n{P}:C1_SCA6_HLM_RBV</td>
+<td>Set and read the <b>Scaler 2</b> scaler window upper limit. This is set using the API function <b>xsp3_set_window</b> The readback value is also read at connection time.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA6_HLM\n{P}:C1_SCA6_HLM_RBV</td>
+<td>Set and read the <b>Scaler 2</b> scaler window upper limit. This is set using the API function <b>xsp3_set_window</b> The readback value is also read at connection time.</td>
+</tr>
+</table>
+
+The following table shows the scaler data array PVs. These arrays accumulate the scaler data during an acqusition to provide live feedback if needed. At the end of the acqusition the arrays are updated with the final scaler data.  
 
 \section build_sec Build Instructions 
 
