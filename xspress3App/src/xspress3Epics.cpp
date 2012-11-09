@@ -1387,6 +1387,9 @@ void Xspress3::dataTask(void)
   epicsInt32 roiMax[maxNumRoi_];
   epicsFloat64 roiSum[maxNumRoi_];
   int allocError = 0;
+  int dumpOffset = 0;
+  int lastFrameCount = 0;
+  int framesToReadOut = 0;
  
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
 
@@ -1418,6 +1421,10 @@ void Xspress3::dataTask(void)
        acquire = 1;
        frameCounter = 0;
        lock();
+
+       //ToDO
+       //Need to clear local arrays here, and possibly not zero the frame counters to cater for step scanning.
+
        setIntegerParam(xsp3FrameCountParam, 0);
        setIntegerParam(NDArrayCounter, 0);
        setIntegerParam(ADStatus, ADStatusAcquire);
@@ -1425,6 +1432,10 @@ void Xspress3::dataTask(void)
        callParamCallbacks();
      }
      
+     dumpOffset = 0;
+     lastFrameCount = 0;
+     framesToReadOut = 0;
+
      /* Get the current time */
      epicsTimeGetCurrent(&startTimeData);
      epicsTimeGetCurrent(&startTimeSca);
@@ -1475,9 +1486,9 @@ void Xspress3::dataTask(void)
 	   frame_count = xsp3_status;
 	   cout << "frame_count: " << frame_count << endl;
 	   ///////////////////////////////////////hack, until xsp3_dma_check_desc is fixed///////////////////////////////
-	   if (acquire == 0) {
-	     frame_count = numFrames;
-	   }
+	   //if (acquire == 0) {
+	   //  frame_count = numFrames;
+	   //}
 	   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 }
        } else {
@@ -1488,21 +1499,23 @@ void Xspress3::dataTask(void)
        //Take the value from the last card for now
        setIntegerParam(xsp3FrameCountParam, frame_count);
        
-       if (frame_count > 0) {
+       if (frame_count > lastFrameCount) {
+	 framesToReadOut = frame_count - lastFrameCount;
+	 lastFrameCount = frame_count;
 
 	 getIntegerParam(NDArrayCounter, &frameCounter);
-	 frameCounter += frame_count;
-	 int remainingFrames = frame_count;
+	 frameCounter += framesToReadOut;
+	 int remainingFrames = framesToReadOut;
 	 //Check we are not overflowing or reading too many frames.
 	 if (frameCounter >= maxNumFrames) {
-	   remainingFrames = maxNumFrames - (frameCounter - frame_count);
+	   remainingFrames = maxNumFrames - (frameCounter - framesToReadOut);
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
 	   setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
 	   setIntegerParam(ADAcquire, 0);
 	   acquire=0;
 	   setIntegerParam(ADStatus, ADStatusAborted);
 	 } else if (frameCounter >= numFrames) {
-	   remainingFrames = numFrames - (frameCounter - frame_count);
+	   remainingFrames = numFrames - (frameCounter - framesToReadOut);
 	   setStringParam(ADStatusMessage, "Completed Acqusition.");
 	   setIntegerParam(ADAcquire, 0);
 	   setIntegerParam(ADStatus, ADStatusIdle);
@@ -1510,23 +1523,40 @@ void Xspress3::dataTask(void)
 	 }
 	 
 	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
+	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s framesToReadOut: %d.\n", functionName, framesToReadOut);
 	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameCounter: %d.\n", functionName, frameCounter);
 	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s remainingFrames: %d.\n", functionName, remainingFrames);
 
-	 int frameOffset = frameCounter-frame_count;
+	 int frameOffset = frameCounter-framesToReadOut;
 	 if (acquire==0) {
 	   frameCounter = frameOffset+remainingFrames;
 	 }
+	 //epicsThreadSleep(0.05);
 	 epicsUInt32 *pData = NULL;
 	 //Readout multiple frames of scaler data here into local array.
 	 if (!simTest_) {
-	   pData = pSCA+frameOffset;
+	   pData = pSCA+(frameOffset*(XSP3_SW_NUM_SCALERS * numChannels));
 	   xsp3_status = xsp3_scaler_read(xsp3_handle_, pData, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
+	   if (xsp3_status < XSP3_OK) {
+	     checkStatus(xsp3_status, "xsp3_scaler_read", functionName);
+	     //What to do here?
+	   }
 	 } else {
 	   //Fill the array with dummy data in simTest_ mode
 	   pData = pSCA;
 	   for (int i=0; i<(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels); ++i) {
 	     *(pData++) = i;
+	   }
+	 }
+
+	 //Dump data for testing
+	 epicsUInt32 *pDumpData = pSCA;
+	 for (int frame=frameOffset; frame<frameCounter; frame++) {
+	   for (int chan=0; chan<numChannels; ++chan) {
+	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+	       cout << " frame:" << frame << " chan:" << chan << " sca:" << sca << " data[" << dumpOffset << "]:" << *(pDumpData+dumpOffset) << endl;
+	       ++dumpOffset;
+	     }
 	   }
 	 }
 
@@ -1719,9 +1749,10 @@ void Xspress3::dataTask(void)
 	   }
 	 }
 
-       }  //end of if (frame_count > 0)
+       }  //end of if (frame_count > lastFrameCount)
 
        frame_count = 0;
+       framesToReadOut = 0;
 
      } //end of while(acquire)
 
