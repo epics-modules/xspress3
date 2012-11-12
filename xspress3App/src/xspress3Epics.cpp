@@ -1665,9 +1665,8 @@ void Xspress3::dataTask(void)
 		 setDoubleParam(chan, xsp3ChanMcaRoi3Param, *((pMCA_ROI[chan][2])+frame));
 		 setDoubleParam(chan, xsp3ChanMcaRoi4Param, *((pMCA_ROI[chan][3])+frame));
 		 
-	       } //End of chan loop
-	       
-	     }
+	       } //End of channel loop
+	     } //end of else, if the alloc worked.
 	   
 	     //Pack the MCA data into an NDArray for this frame.   Format is: [chan1 spectra][chan2 spectra][etc]
 	     if (allocError == 0) {
@@ -1691,10 +1690,10 @@ void Xspress3::dataTask(void)
 	       }
 	       //Free the NDArray 
 	       pMCA_NDARRAY->release();
-	     }
+	     } //end of if (allocError == 0)
 	     
 	   } //end of frame loop
-	 }
+	 } //end of if (!stillBusy)
 	   
 	 //Control the update rate of scalers and arrays over channel access.
 	 getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 
