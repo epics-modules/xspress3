@@ -188,7 +188,42 @@ The following table shows the set and read parameters for the <b>All Good</b>, <
 </tr>
 </table>
 
-The following table shows the scaler data array PVs. These arrays accumulate the scaler data during an acqusition to provide live feedback if needed. At the end of the acqusition the arrays are updated with the final scaler data.  
+The following table shows the scaler data array PVs. These arrays accumulate the scaler data during an acqusition to provide live feedback if needed. At the end of the acqusition the arrays are updated with the final scaler data. 
+
+ <table border="1">
+<tr>
+<td>{P}:C1_SCA0_RBV</td>
+<td>The <b>Time</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA1_RBV</td>
+<td>The <b>Reset Ticks</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA2_RBV</td>
+<td>The <b>Reset Count</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA3_RBV</td>
+<td>The <b>All Event</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA4_RBV</td>
+<td>The <b>All Good</b> scaler.</td>
+</tr>
+<tr>
+<td>{P}:C1_SCA5_RBV</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:C1_SCA6_RBV</td>
+<td></td>
+</tr>
+<tr>
+<td>{P}:C1_SCA7_RBV</td>
+<td>The <b>Pileup</b> scaler.</td>
+</tr>
+</table>
 
 \section build_sec Build Instructions 
 

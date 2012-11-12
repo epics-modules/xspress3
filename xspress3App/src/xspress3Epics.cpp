@@ -1569,15 +1569,15 @@ void Xspress3::dataTask(void)
 	 }
 
 	 //Dump data for testing
-	 epicsUInt32 *pDumpData = pSCA;
-	 for (int frame=frameOffset; frame<frameCounter; frame++) {
-	   for (int chan=0; chan<numChannels; ++chan) {
-	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-	       cout << " frame:" << frame << " chan:" << chan << " sca:" << sca << " data[" << dumpOffset << "]:" << *(pDumpData+dumpOffset) << endl;
-	       ++dumpOffset;
-	     }
-	   }
-	 }
+	 //epicsUInt32 *pDumpData = pSCA;
+	 //for (int frame=frameOffset; frame<frameCounter; frame++) {
+	 //  for (int chan=0; chan<numChannels; ++chan) {
+	 //    for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+	 //      cout << " frame:" << frame << " chan:" << chan << " sca:" << sca << " data[" << dumpOffset << "]:" << *(pDumpData+dumpOffset) << endl;
+	 //      ++dumpOffset;
+	 //    }
+	 //  }
+	 //}
 
 	 int dims[2] = {maxSpectra, numChannels};
 	 epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
