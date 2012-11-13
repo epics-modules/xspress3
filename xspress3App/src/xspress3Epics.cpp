@@ -1495,7 +1495,7 @@ void Xspress3::dataTask(void)
 	     status = asynError;
 	   }
 	   frame_count = xsp3_status;
-	   cout << "frame_count: " << frame_count << endl;
+	   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
 	   ///////////////////////////////////////hack, until xsp3_dma_check_desc is fixed///////////////////////////////
 	   //if (acquire == 0) {
 	   //  frame_count = numFrames;
@@ -1538,16 +1538,18 @@ void Xspress3::dataTask(void)
 	   setIntegerParam(ADStatus, ADStatusIdle);
 	   acquire=0;
 	 }
-	 
-	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
-	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s framesToReadOut: %d.\n", functionName, framesToReadOut);
-	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameCounter: %d.\n", functionName, frameCounter);
-	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s remainingFrames: %d.\n", functionName, remainingFrames);
 
 	 int frameOffset = frameCounter-framesToReadOut;
 	 if (acquire==0) {
 	   frameCounter = frameOffset+remainingFrames;
 	 }
+
+	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
+	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s framesToReadOut: %d.\n", functionName, framesToReadOut);
+	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameCounter: %d.\n", functionName, frameCounter);
+	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s remainingFrames: %d.\n", functionName, remainingFrames);
+	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameOffset: %d.\n", functionName, frameOffset);
+
 	 //epicsThreadSleep(0.05);
 	 epicsUInt32 *pData = NULL;
 	 //Readout multiple frames of scaler data here into local array.
@@ -1569,15 +1571,15 @@ void Xspress3::dataTask(void)
 	 }
 
 	 //Dump data for testing
-	 //epicsUInt32 *pDumpData = pSCA;
-	 //for (int frame=frameOffset; frame<frameCounter; frame++) {
-	 //  for (int chan=0; chan<numChannels; ++chan) {
-	 //    for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-	 //      cout << " frame:" << frame << " chan:" << chan << " sca:" << sca << " data[" << dumpOffset << "]:" << *(pDumpData+dumpOffset) << endl;
-	 //      ++dumpOffset;
-	 //    }
-	 //  }
-	 //}
+	 epicsUInt32 *pDumpData = pSCA;
+	 for (int frame=frameOffset; frame<frameCounter; frame++) {
+	   for (int chan=0; chan<numChannels; ++chan) {
+	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+	       cout << " frame:" << frame << " chan:" << chan << " sca:" << sca << " data[" << dumpOffset << "]:" << *(pDumpData+dumpOffset) << endl;
+	       ++dumpOffset;
+	     }
+	   }
+	 }
 
 	 int dims[2] = {maxSpectra, numChannels};
 	 epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);

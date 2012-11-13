@@ -192,38 +192,98 @@ The following table shows the scaler data array PVs. These arrays accumulate the
 
  <table border="1">
 <tr>
-<td>{P}:C1_SCA0_RBV</td>
-<td>The <b>Time</b> scaler.</td>
+<td>{P}:C1_SCA0_ARRAY_RBV</td>
+<td>The <b>Time</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA1_RBV</td>
-<td>The <b>Reset Ticks</b> scaler.</td>
+<td>{P}:C1_SCA1_ARRAY_RBV</td>
+<td>The <b>Reset Ticks</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA2_RBV</td>
-<td>The <b>Reset Count</b> scaler.</td>
+<td>{P}:C1_SCA2_ARRAY_RBV</td>
+<td>The <b>Reset Count</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA3_RBV</td>
-<td>The <b>All Event</b> scaler.</td>
+<td>{P}:C1_SCA3_ARRAY_RBV</td>
+<td>The <b>All Event</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA4_RBV</td>
-<td>The <b>All Good</b> scaler.</td>
+<td>{P}:C1_SCA4_ARRAY_RBV</td>
+<td>The <b>All Good</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA5_RBV</td>
-<td></td>
+<td>{P}:C1_SCA5_ARRAY_RBV</td>
+<td>The <b>Scaler 1</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA6_RBV</td>
-<td></td>
+<td>{P}:C1_SCA6_ARRAY_RBV</td>
+<td>The <b>Scaler 2</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA7_RBV</td>
+<td>{P}:C1_SCA7_ARRAY_RBV</td>
 <td>The <b>Pileup</b> scaler.</td>
 </tr>
 </table>
+
+The above parameters are saved in the HDF file. The HDF parameter names will match the PV names.
+
+\subsection iocMca MCA Spectra and ROI Data
+
+The following table lists the array PVs for the MCA Spectra, as well as the ROI window settings and readback values. The channel access updates for these PVs are controlled by {P}:CTRL_MCA_UPDATE and {P}:CTRL_MCA_UPDATE_PERIOD. There are 4 regions of interest per channel, so only the PVs for the first one is listed in the below table. The first ROI PVs have 'ROI1' in the name, so simply substute this for 'ROI2', 'ROI3' or 'ROI4' for the other regions of interest.
+
+ <table border="1">
+<tr>
+<td>{P}:C1_MCA_CORR_RBV.VAL</td>
+<td>The dead time corrected MCA spectra data. At the end of the scan this will hold the last frame of data, or can be updated on the fly during an acquistion at some throttled rate.
+</tr>
+<tr>
+<td>{P}:C1_MCA_ROI1_LLM</td>
+<td>The lower limit for the first ROI.</td>
+</tr>
+<tr>
+<td>{P}:C1_MCA_ROI1_HLM</td>
+<td>The upper limit for the first ROI.</td>
+</tr>
+<tr>
+<td>{P}:C1_MCA_ROI1_RBV</td>
+<td>The ROI readback value for each frame. This can be updated during acqusition if desired.</td>
+</tr>
+<tr>
+<td>{P}:C1_MCA_ROI1_ARRAY_RBV.VAL</td>
+<td>The ROI reacback array that holds the ROI for every frame from an acqusition. This can be updated during acqusition if desired.</td>
+</tr>
+</table>
+
+The above parameters are saved in the HDF file. The HDF parameter names will match the PV names. All the MCA spectra arrays are also saved.
+
+\subsection iocDtc The Dead Time Correction Parameters
+
+When the Epics IOC starts up it reads the dead time correction (DTC) parameters for each channel. These are set by the system configuration files supplied with the readout system.
+
+ <table border="1">
+<tr>
+<td>{P}:C1_DTC_FLAGS_RBV</td>
+<td>The DTC Flags parameter.</td>
+</tr>
+<tr>
+<td>{P}:C1_DTC_AEG_RBV</td>
+<td>The DTC All Good Event Gradient parameter.</td>
+</tr>
+<tr>
+<td>{P}:C1_DTC_AEO_RBV</td>
+<td>The DTC All Good Event Offset parameter.</td>
+</tr>
+<tr>
+<td>{P}:C1_DTC_IWG_RBV</td>
+<td>The DTC In Window Gradient parameter.</td>
+</tr>
+<tr>
+<td>{P}:C1_DTC_IWO_RBV</td>
+<td>The DTC In Window Offset parameter.</td>
+</tr>
+</table>
+
+The above parameters are saved in the HDF file. The HDF parameter names will match the PV names.
 
 \section build_sec Build Instructions 
 
