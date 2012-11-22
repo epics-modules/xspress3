@@ -729,7 +729,7 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   int maxNumFrames = 0;
   epicsInt32 *pSCA = NULL;
   epicsFloat64 *pROI = NULL;
-  const char *functionName = "Xspress3::eraseSCA";
+  const char *functionName = "Xspress3::eraseSCAMCAROI";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
 
@@ -751,7 +751,7 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   status |= setIntegerParam(NDArrayCounter, 0);
   status |= setIntegerParam(xsp3FrameCountParam, 0);
 
-  for (int chan=0; chan<xsp3_num_channels; chan++) {
+  for (int chan=0; chan<xsp3_num_channels; ++chan) {
     status |= setIntegerParam(chan, xsp3ChanSca0Param, 0);
     status |= setIntegerParam(chan, xsp3ChanSca1Param, 0);
     status |= setIntegerParam(chan, xsp3ChanSca2Param, 0);
@@ -1571,7 +1571,7 @@ void Xspress3::dataTask(void)
 	 }
 
 	 //Dump data for testing
-	 epicsUInt32 *pDumpData = pSCA;
+	 /*epicsUInt32 *pDumpData = pSCA;
 	 for (int frame=frameOffset; frame<frameCounter; frame++) {
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
@@ -1579,7 +1579,7 @@ void Xspress3::dataTask(void)
 	       ++dumpOffset;
 	     }
 	   }
-	 }
+	   }*/
 
 	 int dims[2] = {maxSpectra, numChannels};
 	 epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
@@ -1589,7 +1589,7 @@ void Xspress3::dataTask(void)
 	 if (!stillBusy) {
 	   for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
 	     
-	     allocError == 0;
+	     allocError = 0;
 	     setIntegerParam(NDArrayCounter, frame+1);
 	     
 	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Frame: %d.\n", functionName, frame);
