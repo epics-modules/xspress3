@@ -69,12 +69,12 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   //This will cause it to do a poll immediately, rather than wait for the poll time period.
   startEvent_ = epicsEventMustCreate(epicsEventEmpty);
   if (!startEvent_) {
-    printf("%s:%s epicsEventCreate failure for start event\n", driverName, functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsEventCreate failure for start event.\n", functionName);
     return;
   }
   stopEvent_ = epicsEventMustCreate(epicsEventEmpty);
   if (!stopEvent_) {
-    printf("%s:%s epicsEventCreate failure for stop event\n", driverName, functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsEventCreate failure for start event.\n", functionName);
     return;
   }
 
@@ -169,8 +169,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
                               (EPICSTHREADFUNC)xsp3DataTaskC,
                               this) == NULL);
   if (status) {
-    printf("%s:%s epicsThreadCreate failure for data task\n",
-           driverName, functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsThreadCreate failure for data task.\n", functionName);
     return;
   }
 
