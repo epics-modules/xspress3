@@ -26,6 +26,7 @@ const epicsInt32 Xspress3::ctrlEnable_ = 1;
 const epicsInt32 Xspress3::runFlag_MCA_SPECTRA_ = 0;
 const epicsInt32 Xspress3::runFlag_PLAYB_MCA_SPECTRA_ = 1;
 const epicsInt32 Xspress3::maxNumRoi_ = 4;
+const epicsInt32 Xspress3::maxStringSize_ = 256;
 
 //C Function prototypes to tie in with EPICS
 static void xsp3DataTaskC(void *drvPvt);
@@ -243,15 +244,15 @@ asynStatus Xspress3::connect(void)
   int xsp3_status = 0;
   int xsp3_run_flags = 0;
   int xsp3_num_channels = 0;
-  char configPath[256] = {0};
-  char configSavePath[256] = {0};
+  char configPath[maxStringSize_] = {0};
+  char configSavePath[maxStringSize_] = {0};
   const char *functionName = "Xspress3::connect";
 
   getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
   getIntegerParam(xsp3NumFramesConfigParam, &xsp3_num_tf);
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
-  getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
-  getStringParam(xsp3ConfigSavePathParam, static_cast<int>(sizeof(configSavePath)), configSavePath);
+  getStringParam(xsp3ConfigPathParam, maxStringSize_, configPath);
+  getStringParam(xsp3ConfigSavePathParam, maxStringSize_, configSavePath);
 
   //Set up the xspress3 system
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling xsp3_config.\n", functionName);
@@ -494,14 +495,14 @@ asynStatus Xspress3::saveSettings(void)
 {
   asynStatus status = asynSuccess;
   int xsp3_status = 0;
-  char configSavePath[256] = {0};
+  char configSavePath[maxStringSize_] = {0};
   int connected = 0;
   const char *functionName = "Xspress3::saveSettings";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Saving Xspress3 settings. This calls xsp3_save_settings().\n", functionName);
 
   getIntegerParam(xsp3ConnectedParam, &connected);
-  getStringParam(xsp3ConfigSavePathParam, static_cast<int>(sizeof(configSavePath)), configSavePath);
+  getStringParam(xsp3ConfigSavePathParam, maxStringSize_, configSavePath);
 
   if ((configSavePath == NULL) || (connected != 1)) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: No config save path set, or not connected.\n", functionName);
@@ -530,14 +531,14 @@ asynStatus Xspress3::restoreSettings(void)
 {
   asynStatus status = asynSuccess;
   int xsp3_status = 0;
-  char configPath[256] = {0};
+  char configPath[maxStringSize_] = {0};
   int connected = 0;
   const char *functionName = "Xspress3::restoreSettings";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Restoring Xspress3 settings. This calls xsp3_restore_settings().\n", functionName);
 
   getIntegerParam(xsp3ConnectedParam, &connected);
-  getStringParam(xsp3ConfigPathParam, static_cast<int>(sizeof(configPath)), configPath);
+  getStringParam(xsp3ConfigPathParam, maxStringSize_, configPath);
 
   if ((configPath == NULL) || (connected != 1)) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: No config path set, or not connected.\n", functionName);
