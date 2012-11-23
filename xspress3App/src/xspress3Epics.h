@@ -181,8 +181,9 @@ class Xspress3 : public ADDriver {
   epicsEventId stopEvent_;
 
   //Values used for pasynUser->reason, and indexes into the parameter library.
+  int xsp3FirstDriverParam;
+  #define FIRST_DRIVER_COMMAND xsp3FirstDriverParam
   int xsp3ResetParam;
-  #define FIRST_DRIVER_COMMAND xsp3ResetParam
   int xsp3EraseParam;
   int xsp3NumChannelsParam;
   int xsp3MaxNumChannelsParam;
@@ -256,7 +257,8 @@ class Xspress3 : public ADDriver {
   int xsp3CtrlMcaPeriodParam;
   int xsp3CtrlScaPeriodParam;
   int xsp3RoiEnableParam;
-  #define LAST_DRIVER_COMMAND xsp3RoiEnableParam
+  int xsp3LastDriverParam;
+  #define LAST_DRIVER_COMMAND xsp3LastDriverParam
 
 };
 
