@@ -57,13 +57,13 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 	     1, /* Autoconnect */
 	     0, /* Default priority */
 	     0), /* Default stack size*/
-    debug_(debug), numChannels_(numChannels), simTest_(simTest)
+    debug_(debug), numChannels_(numChannels), simTest_(simTest), baseIP_(baseIP)
 {
   int status = asynSuccess;
   const char *functionName = "Xspress3::Xspress3";
 
-  strncpy(baseIP_, baseIP, 16);
-  baseIP_[16] = '\0';
+  //strncpy(baseIP_, baseIP, 16);
+  //baseIP_[16] = '\0';
 
   //Create the epicsEvent for signaling to the status task when parameters should have changed.
   //This will cause it to do a poll immediately, rather than wait for the poll time period.
@@ -256,14 +256,14 @@ asynStatus Xspress3::connect(void)
 
   //Set up the xspress3 system
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling xsp3_config.\n", functionName);
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Base IP address is: %s\n", functionName, baseIP_);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Base IP address is: %s\n", functionName, baseIP_.c_str());
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of cards is: %d\n", functionName, xsp3_num_cards);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of frames is: %d\n", functionName, xsp3_num_tf);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of channels is: %d\n", functionName, numChannels_);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Config path is: %d\n", functionName, configPath);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Config save path is: %d\n", functionName, configSavePath);
 
-  xsp3_handle_ = xsp3_config(xsp3_num_cards, xsp3_num_tf, const_cast<char *>(baseIP_), -1, NULL, xsp3_num_channels, 1, NULL, debug_, 0);
+  xsp3_handle_ = xsp3_config(xsp3_num_cards, xsp3_num_tf, const_cast<char *>(baseIP_.c_str()), -1, NULL, xsp3_num_channels, 1, NULL, debug_, 0);
   if (xsp3_handle_ < 0) {
     checkStatus(xsp3_handle_, "xsp3_config", functionName);
     status = asynError;
@@ -1495,6 +1495,7 @@ void Xspress3::dataTask(void)
 	     status = asynError;
 	   }
 	   frame_count = xsp3_status;
+	   setIntegerParam(xsp3FrameCountParam, frame_count);
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
 	   ///////////////////////////////////////hack, until xsp3_dma_check_desc is fixed///////////////////////////////
 	   //if (acquire == 0) {
@@ -1505,6 +1506,7 @@ void Xspress3::dataTask(void)
        } else {
 	 //In sim mode we transfer 10 frame each time
 	 frame_count = lastFrameCount+10;
+	 setIntegerParam(xsp3FrameCountParam, 10);
        }
        
        if ((!acquire) && (stillBusy == 1)) {
@@ -1512,9 +1514,6 @@ void Xspress3::dataTask(void)
 	 framesToReadOut = 0;
 	 callParamCallbacks();
        }
-
-       //Take the value from the last card for now
-       setIntegerParam(xsp3FrameCountParam, frame_count);
        
        if (frame_count > lastFrameCount) {
 	 framesToReadOut = frame_count - lastFrameCount;

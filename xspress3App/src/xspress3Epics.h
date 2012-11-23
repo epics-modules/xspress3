@@ -174,7 +174,7 @@ class Xspress3 : public ADDriver {
   const epicsUInt32 debug_; //debug parameter for API
   const epicsInt32 numChannels_; //The number of channels
   const epicsUInt32 simTest_; //Run in sim mode
-  char baseIP_[24]; //Constructor param - IP address of host system
+  const std::string baseIP_; //Constructor param - IP address of host system
 
   epicsEventId statusEvent_;
   epicsEventId startEvent_;
