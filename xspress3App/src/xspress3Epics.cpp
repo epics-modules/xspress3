@@ -271,7 +271,7 @@ asynStatus Xspress3::connect(void)
 
     //Set up clocks on each card
     for (int i=0; i<xsp3_num_cards; i++) {
-      xsp3_status = xsp3_clocks_setup(xsp3_handle_, i, XSP3_CLK_SRC_INT, XSP3_CLK_FLAGS_MASTER, 0);
+      xsp3_status = xsp3_clocks_setup(xsp3_handle_, i, XSP3_CLK_SRC_XTAL, XSP3_CLK_FLAGS_MASTER, 0);
       if (xsp3_status != XSP3_OK) {
 	checkStatus(xsp3_status, "xsp3_clocks_setup", functionName);
 	status = asynError;
@@ -1422,6 +1422,7 @@ void Xspress3::dataTask(void)
        acquire = 1;
        frameCounter = 0;
        lock();
+       setIntegerParam(NDArrayCounter, 0);
        //Need to clear local arrays here for each new acqusition.
        memset(pSCA, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsUInt32));
        for (int chan=0; chan<numChannels_; chan++) {
@@ -1495,7 +1496,7 @@ void Xspress3::dataTask(void)
 	     status = asynError;
 	   }
 	   frame_count = xsp3_status;
-	   setIntegerParam(xsp3FrameCountParam, frame_count);
+	   setIntegerParam(xsp3FrameCountParam, frame_count-lastFrameCount);
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
 	   ///////////////////////////////////////hack, until xsp3_dma_check_desc is fixed///////////////////////////////
 	   //if (acquire == 0) {
@@ -1570,7 +1571,7 @@ void Xspress3::dataTask(void)
 	 }
 
 	 //Dump data for testing
-	 /*epicsUInt32 *pDumpData = pSCA;
+	 epicsUInt32 *pDumpData = pSCA;
 	 for (int frame=frameOffset; frame<frameCounter; frame++) {
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
@@ -1578,7 +1579,7 @@ void Xspress3::dataTask(void)
 	       ++dumpOffset;
 	     }
 	   }
-	   }*/
+	   }
 
 	 int dims[2] = {maxSpectra, numChannels};
 	 epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);

@@ -1,84 +1,130 @@
-#include <iostream>
+/**
+ * Program to demonstrate how to setup and readout scaler data for Xspress3.
+ *
+ * Matthew Pearson, Nov 2012.
+ */
 
-//Xspress3 API header
+#include "stdio.h"
+
 #include "xspress3.h"
+
+#define XSP3_IPADDR "192.168.0.1"
+#define XSP3_MAXFRAMES 16384
+#define XSP3_NUMCHANNELS 4
+#define XSP3_CONFIGPATH "/home/mp49/xspress3_settings/"
+#define MAX_CHECKDESC_POLLS 100
 
 int main(char *argv[], int argc)
 {
-  int xsp3_handle_ = 0;
-  int xsp3_status = 0;
-  int xsp3_num_channels = 4;
-  int xsp3_max_polls = 100;
-  int xsp3_num_frames = 0;
+  unsigned int poll = 0;
+  unsigned int chan = 0;
+  unsigned int sca = 0;
+  unsigned int frame = 0;
+  unsigned int xsp3_handle = 0;
+  unsigned int xsp3_status = 0;
+  unsigned int num_frames = 0;
+  unsigned int num_frames_to_read = 0;
+  unsigned int last_num_frames = 0;
+  unsigned int *pSCA = NULL;
+  unsigned int *pSCA_OFFSET = NULL;
+  unsigned int *pSCA_DUMP = NULL;
+  unsigned int dump_offset = 0;
 
-  printf("Testing calling xsp3_scaler_check_desc...\n");
+  pSCA = (unsigned int*)(calloc(XSP3_SW_NUM_SCALERS*XSP3_MAXFRAMES*XSP3_NUMCHANNELS, sizeof(unsigned int)));
 
-  printf("Calling xsp3_config...\n");
-  xsp3_handle_ = xsp3_config(1, 16384, "192.168.0.1", -1, NULL, xsp3_num_channels, 1, NULL, 1, 0);
-  if (xsp3_handle_ < 0) {
-    printf("ERROR: xsp3_handle_: %d\n", xsp3_handle_);
+  printf("Connect to the Xspress3...\n");
+  xsp3_handle = xsp3_config(1, XSP3_MAXFRAMES, XSP3_IPADDR, -1, NULL, XSP3_NUMCHANNELS, 1, NULL, 1, 0);
+  if (xsp3_handle < 0) {
+    printf("ERROR calling xsp3_config. Return code: %d\n", xsp3_handle);
     return EXIT_FAILURE;
   }
 
-  printf("Calling xsp3_clocks_setup...\n");
-  xsp3_status = xsp3_clocks_setup(xsp3_handle_, 0, XSP3_CLK_SRC_INT, XSP3_CLK_FLAGS_MASTER, 0);
+  printf("Set up clocks register to use ADC clock...\n");
+  xsp3_status = xsp3_clocks_setup(xsp3_handle, 0, XSP3_CLK_SRC_XTAL, XSP3_CLK_FLAGS_MASTER, 0);
   if (xsp3_status != XSP3_OK) {
-    printf("ERROR calling xsp3_clocks_setup.\n", xsp3_handle_);
+    printf("ERROR calling xsp3_clocks_setup. Return code: %d\n", xsp3_status);
     return EXIT_FAILURE;
   }
-  
-  printf("Calling xsp3_restore_settings...\n");
-  xsp3_status = xsp3_restore_settings(xsp3_handle_, "/home/mp49/xspress3_settings/", 0);
+
+  printf("Restoring the settings from the configuration files...\n");
+  xsp3_status = xsp3_restore_settings(xsp3_handle, XSP3_CONFIGPATH, 0);
   if (xsp3_status != XSP3_OK) {
-    printf("ERROR calling xsp3_restore_settings.\n", xsp3_handle_);
+    printf("ERROR calling xsp3_restore_settings. Return code: %d\n", xsp3_status);
     return EXIT_FAILURE;
   }
 
   printf("Calling xsp3_format_run...\n");
-  for (int chan=0; chan<xsp3_num_channels; ++chan) {
-    xsp3_status = xsp3_format_run(xsp3_handle_, chan, 0, 0, 0, 0, 0, 12);
+  for (chan=0; chan<XSP3_NUMCHANNELS; ++chan) {
+    xsp3_status = xsp3_format_run(xsp3_handle, chan, 0, 0, 0, 0, 0, 12);
     if (xsp3_status < XSP3_OK) {
-      printf("ERROR calling xsp3_restore_settings.\n", xsp3_handle_);
-    return EXIT_FAILURE;
+      printf("ERROR calling xsp3_restore_settings. channel: %d, Return code: %d\n", chan, xsp3_status);
+      return EXIT_FAILURE;
     } else {
       printf("  Channel: %d, Number of time frames configured: %d\n", chan, xsp3_status);
     }
   }
 
-  printf("Calling xsp3_set_run_flags...\n");
-  xsp3_status = xsp3_set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+  printf("Set up playback data output...\n");
+  xsp3_status = xsp3_set_run_flags(xsp3_handle, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
   if (xsp3_status < XSP3_OK) {
-    printf("ERROR calling xsp3_set_run_flags.\n", xsp3_handle_);
+    printf("ERROR calling xsp3_set_run_flags. Return code: %d\n", xsp3_status);
     return EXIT_FAILURE;
   }
 
-  printf("Calling xsp3_set_glob_timeA...\n");
-  xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, 0, XSP3_GLOB_TIMA_TF_SRC(XSP3_GTIMA_SRC_TTL_VETO_ONLY));
+  printf("Set up trigger source to use external veto input...\n");
+  xsp3_status = xsp3_set_glob_timeA(xsp3_handle, 0, XSP3_GLOB_TIMA_TF_SRC(XSP3_GTIMA_SRC_TTL_VETO_ONLY));
   if (xsp3_status != XSP3_OK) {
-    printf("ERROR calling xsp3_set_glob_timeA.\n", xsp3_handle_);
+    printf("ERROR calling xsp3_set_glob_timeA. Return code: %d\n", xsp3_status);
     return EXIT_FAILURE;
   }
 
-  printf("Calling xsp3_histogram_start...\n");
-  xsp3_status = xsp3_histogram_start(xsp3_handle_, 0);
+  printf("Starting histogramming...\n");
+  xsp3_status = xsp3_histogram_start(xsp3_handle, 0);
   if (xsp3_status != XSP3_OK) {
-    printf("ERROR calling xsp3_histogram_start.\n", xsp3_handle_);
+    printf("ERROR calling xsp3_histogram_start. Return code: %d\n", xsp3_status);
     return EXIT_FAILURE;
   }
 
-  printf("Now starting to poll xsp3_scaler_check_desc...\n");
+  printf("Now polling xsp3_scaler_check_desc and printing out any scaler data...\n");
 
-  for (int poll=0; poll<xsp3_max_polls; ++poll) {
-    xsp3_status = xsp3_scaler_check_desc(xsp3_handle_, 0);
+  for (poll=0; poll<MAX_CHECKDESC_POLLS; ++poll) {
+
+    xsp3_status = xsp3_scaler_check_desc(xsp3_handle, 0);
     if (xsp3_status < XSP3_OK) {
-      printf("ERROR calling xsp3_scaler_check_desc.\n", xsp3_handle_);
-      printf("  poll: %d\n", poll);
+      printf("ERROR calling xsp3_scaler_check_desc. poll number: %d, Return code: %d\n", poll, xsp3_status);
       return EXIT_FAILURE;
-    } else {
-      xsp3_num_frames = xsp3_status;
-      printf("  poll: %d, xsp3_num_frames: %d\n", poll, xsp3_num_frames);
     }
-  }
+
+    printf("  Check_desc poll: %d, Number of frames: %d\n", poll, xsp3_status);
+
+    if (xsp3_status > last_num_frames) {
+     
+      num_frames = xsp3_status;
+      num_frames_to_read = num_frames - last_num_frames;
+      printf("  Reading out %d frames of scaler data...\n", num_frames_to_read);
+      pSCA_OFFSET = pSCA+(last_num_frames*(XSP3_SW_NUM_SCALERS * XSP3_NUMCHANNELS));
+      xsp3_status = xsp3_scaler_read(xsp3_handle, pSCA_OFFSET, 0, 0, last_num_frames, XSP3_SW_NUM_SCALERS, XSP3_NUMCHANNELS, num_frames_to_read);
+      if (xsp3_status < XSP3_OK) {
+	printf("ERROR calling xsp3_scaler_read. Return code: %d\n", xsp3_status);
+	return EXIT_FAILURE;
+      }
+      
+      printf("  Printing %d frames of scaler data...\n", num_frames_to_read);
+      pSCA_DUMP = pSCA;
+      for (frame=last_num_frames; frame<(num_frames_to_read+last_num_frames); frame++) {
+	for (chan=0; chan<XSP3_NUMCHANNELS; chan++) {
+	  for (sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+	    printf("  frame: %d, chan: %d, sca: %d, data[%d]: %d\n",
+		   frame, chan, sca, dump_offset, *(pSCA_DUMP+dump_offset));
+	    dump_offset++;
+	  }
+	}
+      }
+      
+      last_num_frames = num_frames;
+    }
+    
+  } /*end of poll loop*/
 
   printf("\nDone.\n");
   
