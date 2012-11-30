@@ -175,52 +175,53 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     return;
   }
 
+  bool paramStatus = true;
   //Initialise any paramLib parameters that need passing up to device support
-  status = setIntegerParam(xsp3NumChannelsParam, numChannels_);
-  status |= setIntegerParam(xsp3MaxNumChannelsParam, numChannels_);
-  status |= setIntegerParam(xsp3TriggerModeParam, 0);
-  status |= setIntegerParam(xsp3FixedTimeParam, 0);
-  status |= setIntegerParam(ADNumImages, 0);
-  status |= setIntegerParam(xsp3NumFramesConfigParam, maxFrames);
-  status |= setIntegerParam(xsp3NumFramesDriverParam, maxDriverFrames);
-  status |= setIntegerParam(xsp3MaxSpectraParam, maxSpectra);
-  status |= setIntegerParam(xsp3MaxFramesParam, maxFrames);
-  status |= setIntegerParam(xsp3NumCardsParam, numCards);
-  status |= setIntegerParam(xsp3FrameCountParam, 0);
-  status |= setIntegerParam(ADStatus, ADStatusDisconnected);
-  status =  setStringParam (ADManufacturer, "Quantum Detectors");
-  status |= setStringParam (ADModel, "Xspress3");
+  paramStatus = ((setIntegerParam(xsp3NumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3MaxNumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3TriggerModeParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3FixedTimeParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(ADNumImages, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, maxFrames) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, maxDriverFrames) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3MaxSpectraParam, maxSpectra) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3MaxFramesParam, maxFrames) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3NumCardsParam, numCards) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3FrameCountParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(ADStatus, ADStatusDisconnected) == asynSuccess) && paramStatus);
+  paramStatus = ((setStringParam (ADManufacturer, "Quantum Detectors") == asynSuccess) && paramStatus);
+  paramStatus = ((setStringParam (ADModel, "Xspress3") == asynSuccess) && paramStatus);
   for (int chan=0; chan<numChannels_; chan++) {
-    status |= setIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca5HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca6HlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca5LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca6LlmParam, 0);
-    status |= setIntegerParam(chan, xsp3ChanDtcFlagsParam, 0);
-    status |= setDoubleParam(chan, xsp3ChanDtcAegParam, 0);
-    status |= setDoubleParam(chan, xsp3ChanDtcAeoParam, 0);
-    status |= setDoubleParam(chan, xsp3ChanDtcIwgParam, 0);
-    status |= setDoubleParam(chan, xsp3ChanDtcIwoParam, 0);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca5HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca6HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca5LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca6LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanDtcFlagsParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAegParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAeoParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwgParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwoParam, 0) == asynSuccess) && paramStatus);
   }
-  status |= eraseSCAMCAROI();
+  paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
 
   if (simTest_) {
-    status |= setStringParam(ADStatusMessage, "Init. Simulation Mode.");
+    paramStatus = ((setStringParam(ADStatusMessage, "Init. Simulation Mode.") == asynSuccess) && paramStatus);
   } else {
-    status |= setStringParam(ADStatusMessage, "Init. System Disconnected.");
+    paramStatus = ((setStringParam(ADStatusMessage, "Init. System Disconnected.") == asynSuccess) && paramStatus);
   }
   
   callParamCallbacks();
 
-  if (status) {
+  if (!paramStatus) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
   }
 
@@ -750,25 +751,26 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     return asynError;
   }
   
-  status |= setIntegerParam(NDArrayCounter, 0);
-  status |= setIntegerParam(xsp3FrameCountParam, 0);
+  bool paramStatus = true;
+  paramStatus = ((setIntegerParam(NDArrayCounter, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3FrameCountParam, 0) == asynSuccess) && paramStatus);
 
   for (int chan=0; chan<xsp3_num_channels; ++chan) {
-    status |= setIntegerParam(chan, xsp3ChanSca0Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca1Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca2Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca3Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca4Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca5Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca6Param, 0);
-    status |= setIntegerParam(chan, xsp3ChanSca7Param, 0);
-    status |= setDoubleParam(chan,  xsp3ChanSca5CorrParam, 0);
-    status |= setDoubleParam(chan,  xsp3ChanSca6CorrParam, 0);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca0Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca1Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca2Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca3Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca4Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca5Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca6Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca7Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan,  xsp3ChanSca5CorrParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan,  xsp3ChanSca6CorrParam, 0) == asynSuccess) && paramStatus);
 
-    status |= setDoubleParam(chan, xsp3ChanMcaRoi1Param, 0);
-    status |= setDoubleParam(chan, xsp3ChanMcaRoi2Param, 0);
-    status |= setDoubleParam(chan, xsp3ChanMcaRoi3Param, 0);
-    status |= setDoubleParam(chan, xsp3ChanMcaRoi4Param, 0);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi1Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi2Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi3Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi4Param, 0) == asynSuccess) && paramStatus);
     
     doCallbacksFloat64Array(pROI, maxNumFrames, xsp3ChanMcaRoi1ArrayParam, chan);
     doCallbacksFloat64Array(pROI, maxNumFrames, xsp3ChanMcaRoi2ArrayParam, chan);
@@ -785,6 +787,10 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     doCallbacksInt32Array(pSCA, maxNumFrames, xsp3ChanSca7ArrayParam, chan);
 
     callParamCallbacks(chan);
+  }
+
+  if (!paramStatus) {
+    status = asynError;
   }
 
   if (status != asynSuccess) {
@@ -1513,7 +1519,8 @@ void Xspress3::dataTask(void)
 	 callParamCallbacks();
        }
        
-       if (frame_count > lastFrameCount) {
+       if ((frame_count > lastFrameCount) || ((!acquire) && (!stillBusy))) {
+
 	 framesToReadOut = frame_count - lastFrameCount;
 	 lastFrameCount = frame_count;
 
@@ -1550,7 +1557,7 @@ void Xspress3::dataTask(void)
 	 //epicsThreadSleep(0.05);
 	 epicsUInt32 *pData = NULL;
 	 //Readout multiple frames of scaler data here into local array.
-	 if (!stillBusy) {
+	 if ((!stillBusy) && (remainingFrames != 0)) {
 	   if (!simTest_) {
 	     pData = pSCA+(frameOffset*(XSP3_SW_NUM_SCALERS * numChannels));
 	     xsp3_status = xsp3_scaler_read(xsp3_handle_, pData, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
