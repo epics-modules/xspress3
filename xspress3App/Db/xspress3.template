@@ -14,8 +14,7 @@
 #   ADDR - Asyn address (set to zero)
 #   TIMEOUT - Asyn timeout
 #   MAX_SPECTRA - The max number of elements in a spectra.
-#   MAX_FRAMES - The max number of spectra to configure trhe Xspress3 with. 
-#   MAX_FRAMES_DRIVER - The max number of spectra to acquire in a scan.
+#   MAX_FRAMES - The max number of spectra to acquire in a scan.
 #
 #######################################################
 
@@ -311,7 +310,7 @@ record(bo, "$(P)$(R)RESTORE_SETTINGS")
 
 # ///
 # /// Set the max number of elements in a spectra. This is a database parameter, so the
-# /// record has DISP=1 so it can't be changed at runtime (do we need runtime control of this?)
+# /// record has DISP=1 so it can't be changed at runtime.
 # ///
 record(longout, "$(P)$(R)MAX_SPECTRA")
 {
@@ -336,28 +335,15 @@ record(longin, "$(P)$(R)MAX_SPECTRA_RBV")
 
 
 # ///
-# /// Set the max number of frames to use for the Xspress API config function.
-# /// This limits how big $(P)$(R)NUM_FRAMES_CONFIG can be.
-# ///
-record(longout, "$(P)$(R)MAX_FRAMES")
-{
-   field(PINI, "YES")
-   field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_FRAMES")
-   field(VAL,  "$(MAX_FRAMES)")
-   field(DISP, "1")
-   field(FLNK, "$(P)$(R)MAX_FRAMES_RBV.PROC")
-}
-
-# ///
-# /// Read the max number of frames from the driver. This was set at startup
-# /// by $(P)$(R)MAX_FRAMES.
+# /// Read the max number of frames from the driver. This is the max allowed number
+# /// for the $(P)$(R)NUM_FRAMES_CONFIG record. This was set at startup in the driver config.
 # ///
 record(longin, "$(P)$(R)MAX_FRAMES_RBV")
 {
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_FRAMES")
    field(SCAN, "I/O Intr")
+   field(PINI, "YES")
 }
 
 # ///
@@ -369,7 +355,7 @@ record(longout, "$(P)$(R)MAX_FRAMES_DRIVER_RBV")
 {
    field(PINI, "YES")
    field(DTYP, "Soft Channel")
-   field(VAL,  "$(MAX_FRAMES_DRIVER)")
+   field(VAL,  "$(MAX_FRAMES)")
    field(DISP, "1")
 }
 
