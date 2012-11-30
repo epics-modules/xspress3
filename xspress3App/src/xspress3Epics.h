@@ -50,6 +50,7 @@
 #define xsp3TriggerModeParamString        "XSP3_TRIGGER_MODE"
 #define xsp3FixedTimeParamString        "XSP3_FIXED_TIME"
 #define xsp3NumFramesConfigParamString          "XSP3_NUM_FRAMES_CONFIG"
+#define xsp3NumFramesDriverParamString          "XSP3_NUM_FRAMES_DRIVER"
 #define xsp3NumCardsParamString           "XSP3_NUM_CARDS"
 #define xsp3ConfigPathParamString           "XSP3_CONFIG_PATH"
 #define xsp3ConfigSavePathParamString           "XSP3_CONFIG_SAVE_PATH"
@@ -120,14 +121,14 @@
 
 
 extern "C" {
-  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
+  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
 }
 
 
 class Xspress3 : public ADDriver {
 
  public:
-  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
+  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
   virtual ~Xspress3();
 
   /* These are the methods that we override from asynPortDriver */
@@ -194,6 +195,7 @@ class Xspress3 : public ADDriver {
   int xsp3TriggerModeParam;
   int xsp3FixedTimeParam;
   int xsp3NumFramesConfigParam;
+  int xsp3NumFramesDriverParam;
   int xsp3NumCardsParam;
   int xsp3ConfigPathParam;
   int xsp3ConfigSavePathParam;
@@ -265,7 +267,7 @@ class Xspress3 : public ADDriver {
 
 #define NUM_DRIVER_PARAMS (&LAST_DRIVER_COMMAND - &FIRST_DRIVER_COMMAND + 1)
 
-static const char *driverName = "Xspress3";
+//static const char *driverName = "Xspress3";
 
 
 #endif //ISC110BL_H

@@ -14,7 +14,8 @@
 #   ADDR - Asyn address (set to zero)
 #   TIMEOUT - Asyn timeout
 #   MAX_SPECTRA - The max number of elements in a spectra.
-#   MAX_FRAMES - The max number of spectra to collect in a scan. 
+#   MAX_FRAMES - The max number of spectra to configure trhe Xspress3 with. 
+#   MAX_FRAMES_DRIVER - The max number of spectra to acquire in a scan.
 #
 #######################################################
 
@@ -335,8 +336,8 @@ record(longin, "$(P)$(R)MAX_SPECTRA_RBV")
 
 
 # ///
-# /// Set the max number of frames to acquire. This is a database parameter, so the
-# /// record has DISP=1 so it can't be changed at runtime (do we need runtime control of this?)
+# /// Set the max number of frames to use for the Xspress API config function.
+# /// This limits how big $(P)$(R)NUM_FRAMES_CONFIG can be.
 # ///
 record(longout, "$(P)$(R)MAX_FRAMES")
 {
@@ -358,6 +359,20 @@ record(longin, "$(P)$(R)MAX_FRAMES_RBV")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_FRAMES")
    field(SCAN, "I/O Intr")
 }
+
+# ///
+# /// This is the maximum number of frames allowed for a single acqusition. This is set in the 
+# /// database when building the IOC, and also set in the driver IOC config function. This determins
+# /// how big the driver and waveform arrays are.
+# ///
+record(longout, "$(P)$(R)MAX_FRAMES_DRIVER_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "Soft Channel")
+   field(VAL,  "$(MAX_FRAMES_DRIVER)")
+   field(DISP, "1")
+}
+
 
 # ///
 # /// Read the number of frames acquired in an acquisition. This is

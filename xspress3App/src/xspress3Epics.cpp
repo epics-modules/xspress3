@@ -46,7 +46,7 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
  */
-Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
+Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
   : ADDriver(portName,
 	     numChannels, /* maxAddr - channels use different param lists*/ 
 	     NUM_DRIVER_PARAMS,
@@ -91,6 +91,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
   createParam(xsp3FixedTimeParamString,   asynParamInt32,       &xsp3FixedTimeParam);
   createParam(xsp3NumFramesConfigParamString,     asynParamInt32,       &xsp3NumFramesConfigParam);
+  createParam(xsp3NumFramesDriverParamString,     asynParamInt32,       &xsp3NumFramesDriverParam);
   createParam(xsp3NumCardsParamString,      asynParamInt32,       &xsp3NumCardsParam);
   createParam(xsp3ConfigPathParamString,    asynParamOctet,       &xsp3ConfigPathParam);
   createParam(xsp3ConfigSavePathParamString,    asynParamOctet,       &xsp3ConfigSavePathParam);
@@ -181,6 +182,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   status |= setIntegerParam(xsp3FixedTimeParam, 0);
   status |= setIntegerParam(ADNumImages, 0);
   status |= setIntegerParam(xsp3NumFramesConfigParam, maxFrames);
+  status |= setIntegerParam(xsp3NumFramesDriverParam, maxDriverFrames);
   status |= setIntegerParam(xsp3MaxSpectraParam, maxSpectra);
   status |= setIntegerParam(xsp3MaxFramesParam, maxFrames);
   status |= setIntegerParam(xsp3NumCardsParam, numCards);
@@ -698,7 +700,7 @@ asynStatus Xspress3::erase(void)
 
     status = eraseSCAMCAROI();
 
-    getIntegerParam(xsp3NumFramesConfigParam, &xsp3_time_frames);
+    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
 
     xsp3_status = xsp3_histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
@@ -734,7 +736,7 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
 
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
-  getIntegerParam(xsp3MaxFramesParam, &maxNumFrames);
+  getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
 
   pSCA = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsUInt32)));
   if (pSCA == NULL) {
@@ -1004,14 +1006,14 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   } 
   else if (function == ADNumImages) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames To Read Out.\n", functionName);
-    getIntegerParam(xsp3NumFramesConfigParam, &xsp3_time_frames);
+    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
     if (value > xsp3_time_frames) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Num Frames Higher Than Number Configured..\n", functionName);
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Num Frames Higher Than Number Configured.\n", functionName);
       status = asynError;
     }
   }
   else if (function == xsp3NumFramesConfigParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames For Intial Configuration.\n", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames For Intial API Configuration.\n", functionName);
     getIntegerParam(xsp3MaxFramesParam, &xsp3_time_frames);
     if (value > xsp3_time_frames) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Num Frames For Config Too High.\n", functionName);
@@ -1395,7 +1397,7 @@ void Xspress3::dataTask(void)
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
 
   //Create array for scalar data (max frame * number of SCAs).
-  getIntegerParam(xsp3MaxFramesParam, &maxNumFrames);
+  getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
   getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
   pSCA = static_cast<epicsUInt32*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsUInt32)));
   //Create array to hold SCA data for the duration of the scan, one per SCA, per channel.
@@ -1571,7 +1573,7 @@ void Xspress3::dataTask(void)
 	 }
 
 	 //Dump data for testing
-	 epicsUInt32 *pDumpData = pSCA;
+	 /*epicsUInt32 *pDumpData = pSCA;
 	 for (int frame=frameOffset; frame<frameCounter; frame++) {
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
@@ -1579,7 +1581,7 @@ void Xspress3::dataTask(void)
 	       ++dumpOffset;
 	     }
 	   }
-	   }
+	   }*/
 
 	 int dims[2] = {maxSpectra, numChannels};
 	 epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
@@ -1826,13 +1828,13 @@ static void xsp3DataTaskC(void *drvPvt)
 extern "C" {
 
 
-  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
+  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
   {
     asynStatus status = asynSuccess;
     
     /*Instantiate class.*/
     try {
-      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest);
+      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxDriverFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest);
     } catch (...) {
       cout << "Unknown exception caught when trying to construct Xspress3." << endl;
       status = asynError;
@@ -1849,11 +1851,12 @@ extern "C" {
   static const iocshArg xspress3ConfigArg2 = {"Num Cards", iocshArgInt};
   static const iocshArg xspress3ConfigArg3 = {"Base IP Address", iocshArgString};
   static const iocshArg xspress3ConfigArg4 = {"Max Frames", iocshArgInt};
-  static const iocshArg xspress3ConfigArg5 = {"Max Spectra", iocshArgInt};
-  static const iocshArg xspress3ConfigArg6 = {"Max Buffers", iocshArgInt};
-  static const iocshArg xspress3ConfigArg7 = {"Max Memory", iocshArgInt};
-  static const iocshArg xspress3ConfigArg8 = {"Debug", iocshArgInt};
-  static const iocshArg xspress3ConfigArg9 = {"Sim Test", iocshArgInt};
+  static const iocshArg xspress3ConfigArg5 = {"Max driver Frames", iocshArgInt};
+  static const iocshArg xspress3ConfigArg6 = {"Max Spectra", iocshArgInt};
+  static const iocshArg xspress3ConfigArg7 = {"Max Buffers", iocshArgInt};
+  static const iocshArg xspress3ConfigArg8 = {"Max Memory", iocshArgInt};
+  static const iocshArg xspress3ConfigArg9 = {"Debug", iocshArgInt};
+  static const iocshArg xspress3ConfigArg10 = {"Sim Test", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
 							 &xspress3ConfigArg1,
 							 &xspress3ConfigArg2,
@@ -1863,12 +1866,14 @@ extern "C" {
 							 &xspress3ConfigArg6,
 							 &xspress3ConfigArg7,
 							 &xspress3ConfigArg8,
-							 &xspress3ConfigArg9};
+							 &xspress3ConfigArg9,
+							 &xspress3ConfigArg10};
+  
   
   static const iocshFuncDef configXspress3 = {"xspress3Config", 10, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
-    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival, args[10].ival);
   }
   
   static void xspress3Register(void)

@@ -60,7 +60,7 @@ The following PVs are involved in data acqusition or monitoring. Any PV in lower
 </tr>
 <tr>
 <td>{P}:NumImages\n{P}:NumImages_RBV</td>
-<td>Set and read the number of images to acquire. This number must be less than {P}:NUM_FRAMES_CONFIG. Acquisition will automatically stop when the number of frames acquired equals NumImages.</td>
+<td>Set and read the number of frames to acquire. This number must be less than {P}:NUM_FRAMES_DRIVER_RBV, which was set when the IOC was configured. Acquisition will automatically stop when the number of frames acquired equals NumImages.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_MCA_ROI\n{P}:CTRL_MCA_ROI_RBV</td>

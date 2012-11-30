@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 694
-y 74
+x 25
+y 164
 w 630
-h 540
+h 580
 font "arial-medium-r-14.0"
 ctlFont "arial-bold-r-14.0"
 btnFont "arial-bold-r-14.0"
@@ -19,7 +19,7 @@ ctlBgColor1 index 3
 ctlBgColor2 index 14
 topShadowColor index 1
 botShadowColor index 11
-title "Xspress3 Save & Restore"
+title "Xspress3 Configuration"
 showGrid
 snapToGrid
 gridSize 5
@@ -126,7 +126,7 @@ major 4
 minor 1
 release 0
 x 515
-y 495
+y 535
 w 100
 h 35
 fgColor index 46
@@ -147,7 +147,7 @@ release 0
 x 10
 y 45
 w 605
-h 190
+h 230
 lineColor index 14
 fill
 fillColor index 5
@@ -456,7 +456,7 @@ major 4
 minor 5
 release 0
 x 275
-y 190
+y 225
 w 240
 h 30
 controlPv "$(P):RUN_FLAGS_RBV"
@@ -479,7 +479,7 @@ major 4
 minor 0
 release 0
 x 30
-y 190
+y 225
 w 240
 h 30
 fgColor index 14
@@ -492,6 +492,19 @@ indicatorPv "$(P):RUN_FLAGS_RBV"
 font "arial-bold-r-14.0"
 endObjectProperties
 
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 285
+w 605
+h 240
+
+beginGroup
+
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -499,7 +512,7 @@ major 4
 minor 0
 release 0
 x 10
-y 255
+y 295
 w 605
 h 140
 lineColor index 14
@@ -514,7 +527,7 @@ major 4
 minor 1
 release 0
 x 10
-y 245
+y 285
 w 315
 h 20
 font "arial-bold-r-14.0"
@@ -534,7 +547,7 @@ major 4
 minor 1
 release 0
 x 25
-y 285
+y 325
 w 105
 h 35
 font "arial-bold-r-14.0"
@@ -554,7 +567,7 @@ major 4
 minor 0
 release 0
 x 10
-y 415
+y 455
 w 285
 h 70
 lineColor index 14
@@ -569,7 +582,7 @@ major 4
 minor 1
 release 0
 x 10
-y 405
+y 445
 w 260
 h 20
 font "arial-bold-r-14.0"
@@ -589,7 +602,7 @@ major 4
 minor 0
 release 0
 x 35
-y 435
+y 475
 w 95
 h 35
 fgColor index 25
@@ -613,7 +626,7 @@ major 4
 minor 0
 release 0
 x 140
-y 435
+y 475
 w 95
 h 35
 fgColor index 25
@@ -637,7 +650,7 @@ major 4
 minor 1
 release 0
 x 55
-y 340
+y 380
 w 65
 h 30
 font "arial-bold-r-14.0"
@@ -657,7 +670,7 @@ major 4
 minor 5
 release 0
 x 130
-y 335
+y 375
 w 465
 h 20
 controlPv "$(P):CONFIG_SAVE_PATH"
@@ -683,7 +696,7 @@ major 10
 minor 0
 release 0
 x 130
-y 360
+y 400
 w 465
 h 20
 controlPv "$(P):CONFIG_SAVE_PATH_RBV"
@@ -701,7 +714,7 @@ major 4
 minor 5
 release 0
 x 130
-y 280
+y 320
 w 465
 h 20
 controlPv "$(P):CONFIG_PATH"
@@ -727,7 +740,7 @@ major 10
 minor 0
 release 0
 x 130
-y 305
+y 345
 w 465
 h 20
 controlPv "$(P):CONFIG_PATH_RBV"
@@ -745,7 +758,7 @@ major 4
 minor 0
 release 0
 x 310
-y 415
+y 455
 w 305
 h 70
 lineColor index 14
@@ -760,7 +773,7 @@ major 4
 minor 1
 release 0
 x 310
-y 405
+y 445
 w 205
 h 20
 font "arial-bold-r-14.0"
@@ -780,7 +793,7 @@ major 4
 minor 0
 release 0
 x 325
-y 435
+y 475
 w 95
 h 35
 fgColor index 25
@@ -804,7 +817,7 @@ major 4
 minor 0
 release 0
 x 430
-y 435
+y 475
 w 95
 h 35
 fgColor index 25
@@ -828,7 +841,7 @@ major 4
 minor 0
 release 0
 x 245
-y 435
+y 475
 w 35
 h 35
 controlPv "$(P):CONNECTED"
@@ -837,5 +850,52 @@ onColor index 15
 offColor index 19
 lineWidth 2
 numBits 1
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 140
+y 195
+w 125
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Max Num Frames"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 275
+y 190
+w 70
+h 25
+controlPv "$(P):MAX_FRAMES_DRIVER_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+showUnits
+newPos
+objType "monitors"
 endObjectProperties
 

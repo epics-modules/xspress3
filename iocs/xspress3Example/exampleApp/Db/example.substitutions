@@ -1,7 +1,7 @@
 
 file xspress3.template {
-	pattern {P,     R,     PORT, ADDR, TIMEOUT, MAX_SPECTRA, MAX_FRAMES}
-                {mp49:, xsp3:, XSP3, 0,    5,       4096,        16384}
+	pattern {P,     R,     PORT, ADDR, TIMEOUT, MAX_SPECTRA, MAX_FRAMES,  MAX_FRAMES_DRIVER}
+                {mp49:, xsp3:, XSP3, 0,    5,       4096,        16384, 4096}
 }
 
 file NDPluginBase.template {
