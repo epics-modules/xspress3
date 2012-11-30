@@ -166,6 +166,14 @@ class Xspress3 : public ADDriver {
   static const epicsInt32 runFlag_PLAYB_MCA_SPECTRA_;
   static const epicsInt32 maxNumRoi_;
   static const epicsInt32 maxStringSize_;
+  static const epicsInt32 maxCheckHistPolls_;
+  static const epicsInt32 mbboTriggerFIXED_;
+  static const epicsInt32 mbboTriggerINTERNAL_;
+  static const epicsInt32 mbboTriggerIDC_;
+  static const epicsInt32 mbboTriggerTTLVETO_;
+  static const epicsInt32 mbboTriggerTTLBOTH_;
+  static const epicsInt32 mbboTriggerLVDSVETO_;
+  static const epicsInt32 mbboTriggerLVDSBOTH_;
   
   //Put private dynamic here
   epicsUInt32 acquiring_; 

@@ -27,6 +27,14 @@ const epicsInt32 Xspress3::runFlag_MCA_SPECTRA_ = 0;
 const epicsInt32 Xspress3::runFlag_PLAYB_MCA_SPECTRA_ = 1;
 const epicsInt32 Xspress3::maxNumRoi_ = 4;
 const epicsInt32 Xspress3::maxStringSize_ = 256;
+const epicsInt32 Xspress3::maxCheckHistPolls_ = 20;
+const epicsInt32 Xspress3::mbboTriggerFIXED_ = 0;
+const epicsInt32 Xspress3::mbboTriggerINTERNAL_ = 1;
+const epicsInt32 Xspress3::mbboTriggerIDC_ = 2;
+const epicsInt32 Xspress3::mbboTriggerTTLVETO_ = 3;
+const epicsInt32 Xspress3::mbboTriggerTTLBOTH_ = 4;
+const epicsInt32 Xspress3::mbboTriggerLVDSVETO_ = 5;
+const epicsInt32 Xspress3::mbboTriggerLVDSBOTH_ = 6;
 
 //C Function prototypes to tie in with EPICS
 static void xsp3DataTaskC(void *drvPvt);
@@ -842,31 +850,31 @@ asynStatus Xspress3::mapTriggerMode(int mode, int *apiMode)
   asynStatus status = asynSuccess;
   const char *functionName = "Xspress3::mapTriggerMode";
 
-  if (mode == 0) {
+  if (mode == mbboTriggerFIXED_) {
     *apiMode = XSP3_GTIMA_SRC_FIXED;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_FIXED, value: %d\n", 
 	      functionName, XSP3_GTIMA_SRC_FIXED);
-  } else if (mode == 1) {
+  } else if (mode == mbboTriggerINTERNAL_) {
     *apiMode = XSP3_GTIMA_SRC_INTERNAL;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_INTERNAL, value: %d\n", 
 	      functionName, XSP3_GTIMA_SRC_INTERNAL);
-  } else if (mode == 2) {
+  } else if (mode == mbboTriggerIDC_) {
     *apiMode = XSP3_GTIMA_SRC_IDC;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_IDC, value: %d\n", 
 	      functionName, XSP3_GTIMA_SRC_IDC);
-  } else if (mode == 3) {
+  } else if (mode == mbboTriggerTTLVETO_) {
     *apiMode = XSP3_GTIMA_SRC_TTL_VETO_ONLY;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_TTL_VETO_ONLY, value: %d\n", 
 	      functionName, XSP3_GTIMA_SRC_TTL_VETO_ONLY);
-  } else if (mode == 4) {
+  } else if (mode == mbboTriggerTTLBOTH_) {
     *apiMode = XSP3_GTIMA_SRC_TTL_BOTH;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_TTL_BOTH, value: %d\n", 
 	      functionName, XSP3_GTIMA_SRC_TTL_BOTH);
-  } else if (mode == 5) {
+  } else if (mode == mbboTriggerLVDSVETO_) {
     *apiMode = XSP3_GTIMA_SRC_LVDS_VETO_ONLY;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_LVDS_VETO_ONLY, value: %d\n", 
 	      functionName, XSP3_GTIMA_SRC_LVDS_VETO_ONLY);
-  } else if (mode == 6) {
+  } else if (mode == mbboTriggerLVDSBOTH_) {
     *apiMode = XSP3_GTIMA_SRC_LVDS_BOTH;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_LVDS_BOTH, value: %d\n", 
 	      functionName, XSP3_GTIMA_SRC_LVDS_BOTH);
@@ -1488,7 +1496,7 @@ void Xspress3::dataTask(void)
        stillBusy = 0;
        if (!simTest_) {
 	 if (acquire == 0) {
-	   if (checkHistBusy(20) == asynError) {
+	   if (checkHistBusy(maxCheckHistPolls_) == asynError) {
 	     stillBusy = 1;
 	   }
 	 }
