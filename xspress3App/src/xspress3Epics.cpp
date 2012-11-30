@@ -1500,11 +1500,6 @@ void Xspress3::dataTask(void)
 	   frame_count = xsp3_status;
 	   setIntegerParam(xsp3FrameCountParam, frame_count-lastFrameCount);
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
-	   ///////////////////////////////////////hack, until xsp3_dma_check_desc is fixed///////////////////////////////
-	   //if (acquire == 0) {
-	   //  frame_count = numFrames;
-	   //}
-	   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	 }
        } else {
 	 //In sim mode we transfer 10 frame each time
@@ -1526,7 +1521,7 @@ void Xspress3::dataTask(void)
 	 frameCounter += framesToReadOut;
 	 int remainingFrames = framesToReadOut;
 	 //Check we are not overflowing or reading too many frames.
-	 if (frameCounter >= maxNumFrames) {
+	 if (frameCounter > maxNumFrames) {
 	   remainingFrames = maxNumFrames - (frameCounter - framesToReadOut);
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
 	   setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
