@@ -62,7 +62,6 @@
 #define xsp3RunFlagsParamString           "XSP3_RUN_FLAGS"
 //Settings for a channel
 #define xsp3ChanMcaParamString            "XSP3_CHAN_MCA"
-#define xsp3ChanMcaCorrParamString        "XSP3_CHAN_MCA_CORR"
 #define xsp3ChanMcaRoi1LlmParamString     "XSP3_CHAN_ROI1_LLM"
 #define xsp3ChanMcaRoi2LlmParamString     "XSP3_CHAN_ROI2_LLM"
 #define xsp3ChanMcaRoi3LlmParamString     "XSP3_CHAN_ROI3_LLM"
@@ -87,8 +86,6 @@
 #define xsp3ChanSca5ParamString           "XSP3_CHAN_SCA5"
 #define xsp3ChanSca6ParamString           "XSP3_CHAN_SCA6"
 #define xsp3ChanSca7ParamString           "XSP3_CHAN_SCA7"
-#define xsp3ChanSca5CorrParamString       "XSP3_CHAN_SCA5_CORR"
-#define xsp3ChanSca6CorrParamString       "XSP3_CHAN_SCA6_CORR"
 #define xsp3ChanSca0ArrayParamString           "XSP3_CHAN_SCA0_ARRAY"
 #define xsp3ChanSca1ArrayParamString           "XSP3_CHAN_SCA1_ARRAY"
 #define xsp3ChanSca2ArrayParamString           "XSP3_CHAN_SCA2_ARRAY"
@@ -97,8 +94,6 @@
 #define xsp3ChanSca5ArrayParamString           "XSP3_CHAN_SCA5_ARRAY"
 #define xsp3ChanSca6ArrayParamString           "XSP3_CHAN_SCA6_ARRAY"
 #define xsp3ChanSca7ArrayParamString           "XSP3_CHAN_SCA7_ARRAY"
-#define xsp3ChanSca5CorrArrayParamString       "XSP3_CHAN_SCA5_CORR_ARRAY"
-#define xsp3ChanSca6CorrArrayParamString       "XSP3_CHAN_SCA6_CORR_ARRAY"
 #define xsp3ChanSca4ThresholdParamString        "XSP3_CHAN_SCA4_THRESHOLD"
 #define xsp3ChanSca5HlmParamString        "XSP3_CHAN_SCA5_HLM"
 #define xsp3ChanSca6HlmParamString        "XSP3_CHAN_SCA6_HLM"
@@ -214,7 +209,6 @@ class Xspress3 : public ADDriver {
   int xsp3RestoreSettingsParam;
   int xsp3RunFlagsParam;
   int xsp3ChanMcaParam;             
-  int xsp3ChanMcaCorrParam; 
   int xsp3ChanMcaRoi1LlmParam;  
   int xsp3ChanMcaRoi2LlmParam;   
   int xsp3ChanMcaRoi3LlmParam;   
@@ -239,8 +233,6 @@ class Xspress3 : public ADDriver {
   int xsp3ChanSca5Param;
   int xsp3ChanSca6Param;
   int xsp3ChanSca7Param;             
-  int xsp3ChanSca5CorrParam;         
-  int xsp3ChanSca6CorrParam; 
   int xsp3ChanSca0ArrayParam;        
   int xsp3ChanSca1ArrayParam;
   int xsp3ChanSca2ArrayParam;
@@ -249,8 +241,6 @@ class Xspress3 : public ADDriver {
   int xsp3ChanSca5ArrayParam;
   int xsp3ChanSca6ArrayParam;
   int xsp3ChanSca7ArrayParam;
-  int xsp3ChanSca5CorrArrayParam;
-  int xsp3ChanSca6CorrArrayParam;
   int xsp3ChanSca4ThresholdParam;          
   int xsp3ChanSca5HlmParam;          
   int xsp3ChanSca6HlmParam;          

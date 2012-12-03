@@ -171,7 +171,7 @@ y2Max 1
 # Trace Properties
 numTraces 1
 yPv {
-  0 "$(P):C$(CHAN)_MCA_CORR_RBV.VAL"
+  0 "$(P):C$(CHAN)_MCA_RBV.VAL"
 }
 plotColor {
   0 index 15

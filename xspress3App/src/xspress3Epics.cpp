@@ -110,8 +110,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3RestoreSettingsParamString,      asynParamInt32,       &xsp3RestoreSettingsParam);
   createParam(xsp3RunFlagsParamString,      asynParamInt32,       &xsp3RunFlagsParam);
   //These params will use different param lists based on asyn address
-  createParam(xsp3ChanMcaParamString,       asynParamInt32Array,  &xsp3ChanMcaParam);
-  createParam(xsp3ChanMcaCorrParamString,   asynParamFloat64Array,&xsp3ChanMcaCorrParam);
+  createParam(xsp3ChanMcaParamString,       asynParamFloat64Array,  &xsp3ChanMcaParam);
   createParam(xsp3ChanMcaRoi1LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi1LlmParam);
   createParam(xsp3ChanMcaRoi2LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi2LlmParam);
   createParam(xsp3ChanMcaRoi3LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi3LlmParam);
@@ -128,26 +127,22 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3ChanMcaRoi2ArrayParamString, asynParamFloat64Array, &xsp3ChanMcaRoi2ArrayParam);
   createParam(xsp3ChanMcaRoi3ArrayParamString, asynParamFloat64Array, &xsp3ChanMcaRoi3ArrayParam);
   createParam(xsp3ChanMcaRoi4ArrayParamString, asynParamFloat64Array, &xsp3ChanMcaRoi4ArrayParam);
-  createParam(xsp3ChanSca0ParamString,      asynParamInt32,       &xsp3ChanSca0Param);
-  createParam(xsp3ChanSca1ParamString,      asynParamInt32,       &xsp3ChanSca1Param);
-  createParam(xsp3ChanSca2ParamString,      asynParamInt32,       &xsp3ChanSca2Param);
-  createParam(xsp3ChanSca3ParamString,      asynParamInt32,       &xsp3ChanSca3Param);
-  createParam(xsp3ChanSca4ParamString,      asynParamInt32,       &xsp3ChanSca4Param);
-  createParam(xsp3ChanSca5ParamString,      asynParamInt32,       &xsp3ChanSca5Param);
-  createParam(xsp3ChanSca6ParamString,      asynParamInt32,       &xsp3ChanSca6Param);
-  createParam(xsp3ChanSca7ParamString,      asynParamInt32,       &xsp3ChanSca7Param);
-  createParam(xsp3ChanSca5CorrParamString,  asynParamFloat64,     &xsp3ChanSca5CorrParam);
-  createParam(xsp3ChanSca6CorrParamString,  asynParamFloat64,     &xsp3ChanSca6CorrParam);
-  createParam(xsp3ChanSca0ArrayParamString,asynParamInt32Array,  &xsp3ChanSca0ArrayParam);
-  createParam(xsp3ChanSca1ArrayParamString,asynParamInt32Array,  &xsp3ChanSca1ArrayParam);
-  createParam(xsp3ChanSca2ArrayParamString,asynParamInt32Array,  &xsp3ChanSca2ArrayParam);
-  createParam(xsp3ChanSca3ArrayParamString,asynParamInt32Array,  &xsp3ChanSca3ArrayParam);
-  createParam(xsp3ChanSca4ArrayParamString,asynParamInt32Array,  &xsp3ChanSca4ArrayParam);
-  createParam(xsp3ChanSca5ArrayParamString,asynParamInt32Array,  &xsp3ChanSca5ArrayParam);
-  createParam(xsp3ChanSca6ArrayParamString,asynParamInt32Array,  &xsp3ChanSca6ArrayParam);
-  createParam(xsp3ChanSca7ArrayParamString,asynParamInt32Array,  &xsp3ChanSca7ArrayParam);
-  createParam(xsp3ChanSca5CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca5CorrArrayParam);
-  createParam(xsp3ChanSca6CorrArrayParamString,asynParamFloat64Array,  &xsp3ChanSca6CorrArrayParam);
+  createParam(xsp3ChanSca0ParamString,      asynParamFloat64,       &xsp3ChanSca0Param);
+  createParam(xsp3ChanSca1ParamString,      asynParamFloat64,       &xsp3ChanSca1Param);
+  createParam(xsp3ChanSca2ParamString,      asynParamFloat64,       &xsp3ChanSca2Param);
+  createParam(xsp3ChanSca3ParamString,      asynParamFloat64,       &xsp3ChanSca3Param);
+  createParam(xsp3ChanSca4ParamString,      asynParamFloat64,       &xsp3ChanSca4Param);
+  createParam(xsp3ChanSca5ParamString,      asynParamFloat64,       &xsp3ChanSca5Param);
+  createParam(xsp3ChanSca6ParamString,      asynParamFloat64,       &xsp3ChanSca6Param);
+  createParam(xsp3ChanSca7ParamString,      asynParamFloat64,       &xsp3ChanSca7Param);
+  createParam(xsp3ChanSca0ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca0ArrayParam);
+  createParam(xsp3ChanSca1ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca1ArrayParam);
+  createParam(xsp3ChanSca2ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca2ArrayParam);
+  createParam(xsp3ChanSca3ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca3ArrayParam);
+  createParam(xsp3ChanSca4ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca4ArrayParam);
+  createParam(xsp3ChanSca5ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca5ArrayParam);
+  createParam(xsp3ChanSca6ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca6ArrayParam);
+  createParam(xsp3ChanSca7ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca7ArrayParam);
   createParam(xsp3ChanSca4ThresholdParamString,   asynParamInt32,       &xsp3ChanSca4ThresholdParam);
   createParam(xsp3ChanSca5HlmParamString,   asynParamInt32,       &xsp3ChanSca5HlmParam);
   createParam(xsp3ChanSca6HlmParamString,   asynParamInt32,       &xsp3ChanSca6HlmParam);
@@ -731,15 +726,14 @@ asynStatus Xspress3::erase(void)
 }
 
 /**
- * Function to clear the SCA data.
+ * Function to clear the data.
  */
 asynStatus Xspress3::eraseSCAMCAROI(void)
 {
   int status = asynSuccess;
   int xsp3_num_channels = 0;
   int maxNumFrames = 0;
-  epicsInt32 *pSCA = NULL;
-  epicsFloat64 *pROI = NULL;
+  epicsFloat64 *pZERO = NULL;
   const char *functionName = "Xspress3::eraseSCAMCAROI";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
@@ -747,15 +741,9 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
   getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
 
-  pSCA = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsUInt32)));
-  if (pSCA == NULL) {
+  pZERO = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
+  if (pZERO == NULL) {
     perror(functionName);
-    return asynError;
-  }
-  pROI = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
-  if (pROI == NULL) {
-    perror(functionName);
-    free(pSCA);
     return asynError;
   }
   
@@ -764,35 +752,33 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   paramStatus = ((setIntegerParam(xsp3FrameCountParam, 0) == asynSuccess) && paramStatus);
 
   for (int chan=0; chan<xsp3_num_channels; ++chan) {
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca0Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca1Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca2Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca3Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca4Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca5Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca6Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca7Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan,  xsp3ChanSca5CorrParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan,  xsp3ChanSca6CorrParam, 0) == asynSuccess) && paramStatus);
-
+    paramStatus = ((setDoubleParam(chan, xsp3ChanSca0Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanSca1Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanSca2Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanSca3Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanSca4Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanSca5Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanSca6Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanSca7Param, 0) == asynSuccess) && paramStatus);
+ 
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi1Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi2Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi3Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi4Param, 0) == asynSuccess) && paramStatus);
     
-    doCallbacksFloat64Array(pROI, maxNumFrames, xsp3ChanMcaRoi1ArrayParam, chan);
-    doCallbacksFloat64Array(pROI, maxNumFrames, xsp3ChanMcaRoi2ArrayParam, chan);
-    doCallbacksFloat64Array(pROI, maxNumFrames, xsp3ChanMcaRoi3ArrayParam, chan);
-    doCallbacksFloat64Array(pROI, maxNumFrames, xsp3ChanMcaRoi4ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaRoi1ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaRoi2ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaRoi3ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaRoi4ArrayParam, chan);
 
-    doCallbacksInt32Array(pSCA, maxNumFrames, xsp3ChanSca0ArrayParam, chan);
-    doCallbacksInt32Array(pSCA, maxNumFrames, xsp3ChanSca1ArrayParam, chan);
-    doCallbacksInt32Array(pSCA, maxNumFrames, xsp3ChanSca2ArrayParam, chan);
-    doCallbacksInt32Array(pSCA, maxNumFrames, xsp3ChanSca3ArrayParam, chan);
-    doCallbacksInt32Array(pSCA, maxNumFrames, xsp3ChanSca4ArrayParam, chan);
-    doCallbacksInt32Array(pSCA, maxNumFrames, xsp3ChanSca5ArrayParam, chan);
-    doCallbacksInt32Array(pSCA, maxNumFrames, xsp3ChanSca6ArrayParam, chan);
-    doCallbacksInt32Array(pSCA, maxNumFrames, xsp3ChanSca7ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca0ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca1ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca2ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca3ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca4ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca5ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca6ArrayParam, chan);
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca7ArrayParam, chan);
 
     callParamCallbacks(chan);
   }
@@ -805,8 +791,7 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR erasing data.\n", functionName);
   }
 
-  free(pSCA);
-  free(pROI);
+  free(pZERO);
 
   return static_cast<asynStatus>(status);
 }
@@ -1393,8 +1378,10 @@ void Xspress3::dataTask(void)
   double diffTimeScaVal = 0.0;
   double diffTimeMcaVal = 0.0;
   const char* functionName = "Xspress3::dataTask";
-  epicsUInt32 *pSCA;
-  epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
+  //epicsUInt32 *pSCA;
+  epicsFloat64 *pSCA;
+  //epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
+  epicsFloat64 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
   epicsFloat64 *pMCA[numChannels_];
   epicsFloat64 *pMCA_ROI[numChannels_][maxNumRoi_];
   NDArray *pMCA_NDARRAY;
@@ -1413,11 +1400,13 @@ void Xspress3::dataTask(void)
   //Create array for scalar data (max frame * number of SCAs).
   getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
   getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
-  pSCA = static_cast<epicsUInt32*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsUInt32)));
+  //pSCA = static_cast<epicsUInt32*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsUInt32)));
+  pSCA = static_cast<epicsFloat64*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsFloat64)));
   //Create array to hold SCA data for the duration of the scan, one per SCA, per channel.
   for (int chan=0; chan<numChannels_; chan++) {
     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-      pSCA_DATA[chan][sca] = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsInt32)));
+      //pSCA_DATA[chan][sca] = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsInt32)));
+      pSCA_DATA[chan][sca] = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
     }
   }
 
@@ -1563,12 +1552,12 @@ void Xspress3::dataTask(void)
 	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameOffset: %d.\n", functionName, frameOffset);
 
 	 //epicsThreadSleep(0.05);
-	 epicsUInt32 *pData = NULL;
+	 epicsFloat64 *pData = NULL;
 	 //Readout multiple frames of scaler data here into local array.
 	 if ((!stillBusy) && (remainingFrames != 0)) {
 	   if (!simTest_) {
 	     pData = pSCA+(frameOffset*(XSP3_SW_NUM_SCALERS * numChannels));
-	     xsp3_status = xsp3_scaler_read(xsp3_handle_, pData, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
+	     xsp3_status = xsp3_scaler_dtc_read(xsp3_handle_, pData, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
 	     if (xsp3_status < XSP3_OK) {
 	       checkStatus(xsp3_status, "xsp3_scaler_read", functionName);
 	       //What to do here?
@@ -1583,7 +1572,8 @@ void Xspress3::dataTask(void)
 	 }
 
 	 //Dump data for testing
-	 /*epicsUInt32 *pDumpData = pSCA;
+	 //epicsUInt32 *pDumpData = pSCA;
+	 epicsFloat64 *pDumpData = pSCA;
 	 for (int frame=frameOffset; frame<frameCounter; frame++) {
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
@@ -1591,11 +1581,13 @@ void Xspress3::dataTask(void)
 	       ++dumpOffset;
 	     }
 	   }
-	   }*/
+	   }
 
 	 int dims[2] = {maxSpectra, numChannels};
-	 epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
-	 epicsInt32 *pScaDataArray = NULL;
+	 //epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
+	 epicsFloat64 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
+	 //	 epicsInt32 *pScaDataArray = NULL;
+	 epicsFloat64 *pScaDataArray = NULL;
 	 
 	 //For each frame, read out the MCA and copy the MCA and SCA data into local arrays for channel access, and pack into a NDArray.
 	 if (!stillBusy) {
@@ -1633,18 +1625,19 @@ void Xspress3::dataTask(void)
 		 }
 		 //For this channel and frame, copy the scaler data into pSCA_DATA for channel access later on.
 		 for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
-		   pScaDataArray = (static_cast<epicsInt32*>((pSCA_DATA[chan][sca])+frame));
+		   //pScaDataArray = (static_cast<epicsInt32*>((pSCA_DATA[chan][sca])+frame));
+		   pScaDataArray = (static_cast<epicsFloat64*>((pSCA_DATA[chan][sca])+frame));
 		   *pScaDataArray = *(pScaData++);
 		 }
 		 
-		 setIntegerParam(chan, xsp3ChanSca0Param, *((pSCA_DATA[chan][0])+frame));
-		 setIntegerParam(chan, xsp3ChanSca1Param, *((pSCA_DATA[chan][1])+frame));
-		 setIntegerParam(chan, xsp3ChanSca2Param, *((pSCA_DATA[chan][2])+frame));
-		 setIntegerParam(chan, xsp3ChanSca3Param, *((pSCA_DATA[chan][3])+frame));
-		 setIntegerParam(chan, xsp3ChanSca4Param, *((pSCA_DATA[chan][4])+frame));
-		 setIntegerParam(chan, xsp3ChanSca5Param, *((pSCA_DATA[chan][5])+frame));
-		 setIntegerParam(chan, xsp3ChanSca6Param, *((pSCA_DATA[chan][6])+frame));
-		 setIntegerParam(chan, xsp3ChanSca7Param, *((pSCA_DATA[chan][7])+frame));
+		 setDoubleParam(chan, xsp3ChanSca0Param, *((pSCA_DATA[chan][0])+frame));
+		 setDoubleParam(chan, xsp3ChanSca1Param, *((pSCA_DATA[chan][1])+frame));
+		 setDoubleParam(chan, xsp3ChanSca2Param, *((pSCA_DATA[chan][2])+frame));
+		 setDoubleParam(chan, xsp3ChanSca3Param, *((pSCA_DATA[chan][3])+frame));
+		 setDoubleParam(chan, xsp3ChanSca4Param, *((pSCA_DATA[chan][4])+frame));
+		 setDoubleParam(chan, xsp3ChanSca5Param, *((pSCA_DATA[chan][5])+frame));
+		 setDoubleParam(chan, xsp3ChanSca6Param, *((pSCA_DATA[chan][6])+frame));
+		 setDoubleParam(chan, xsp3ChanSca7Param, *((pSCA_DATA[chan][7])+frame));
 		 
 		 //Calculate MCA ROI here, if we have enabled it. Put the results into pMCA_ROI[chan][roi].
 		 getIntegerParam(xsp3RoiEnableParam, &roiEnabled);
@@ -1747,14 +1740,14 @@ void Xspress3::dataTask(void)
 	 if ((scalerArrayUpdate == 1) || !acquire) {
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting Scaler Arrays On Chan %d.\n", functionName, chan);
-	     doCallbacksInt32Array(pSCA_DATA[chan][0], offset, xsp3ChanSca0ArrayParam, chan);
-	     doCallbacksInt32Array(pSCA_DATA[chan][1], offset, xsp3ChanSca1ArrayParam, chan);
-	     doCallbacksInt32Array(pSCA_DATA[chan][2], offset, xsp3ChanSca2ArrayParam, chan);
-	     doCallbacksInt32Array(pSCA_DATA[chan][3], offset, xsp3ChanSca3ArrayParam, chan);
-	     doCallbacksInt32Array(pSCA_DATA[chan][4], offset, xsp3ChanSca4ArrayParam, chan);
-	     doCallbacksInt32Array(pSCA_DATA[chan][5], offset, xsp3ChanSca5ArrayParam, chan);
-	     doCallbacksInt32Array(pSCA_DATA[chan][6], offset, xsp3ChanSca6ArrayParam, chan);
-	     doCallbacksInt32Array(pSCA_DATA[chan][7], offset, xsp3ChanSca7ArrayParam, chan);
+	     doCallbacksFloat64Array(pSCA_DATA[chan][0], offset, xsp3ChanSca0ArrayParam, chan);
+	     doCallbacksFloat64Array(pSCA_DATA[chan][1], offset, xsp3ChanSca1ArrayParam, chan);
+	     doCallbacksFloat64Array(pSCA_DATA[chan][2], offset, xsp3ChanSca2ArrayParam, chan);
+	     doCallbacksFloat64Array(pSCA_DATA[chan][3], offset, xsp3ChanSca3ArrayParam, chan);
+	     doCallbacksFloat64Array(pSCA_DATA[chan][4], offset, xsp3ChanSca4ArrayParam, chan);
+	     doCallbacksFloat64Array(pSCA_DATA[chan][5], offset, xsp3ChanSca5ArrayParam, chan);
+	     doCallbacksFloat64Array(pSCA_DATA[chan][6], offset, xsp3ChanSca6ArrayParam, chan);
+	     doCallbacksFloat64Array(pSCA_DATA[chan][7], offset, xsp3ChanSca7ArrayParam, chan);
 	     if (roiEnabled) {
 	       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting ROI Arrays On Chan %d.\n", functionName, chan);
 	       doCallbacksFloat64Array(pMCA_ROI[chan][0], offset, xsp3ChanMcaRoi1ArrayParam, chan);
@@ -1769,7 +1762,7 @@ void Xspress3::dataTask(void)
 	 if ((mcaArrayUpdate == 1) || !acquire) {
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting MCA Arrays On Chan %d.\n", functionName, chan);
-	     doCallbacksFloat64Array(pMCA[chan], maxSpectra, xsp3ChanMcaCorrParam, chan);
+	     doCallbacksFloat64Array(pMCA[chan], maxSpectra, xsp3ChanMcaParam, chan);
 	   }
 	 }
 
@@ -1880,7 +1873,7 @@ extern "C" {
 							 &xspress3ConfigArg10};
   
   
-  static const iocshFuncDef configXspress3 = {"xspress3Config", 10, xspress3ConfigArgs};
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 11, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
     xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival, args[10].ival);

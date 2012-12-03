@@ -1,10 +1,10 @@
 # ///
 # /// Read SCA $(SCA) on channel $(CHAN)
 # ///
-record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_RBV")
+record(ai, "$(P)$(R)C$(CHAN)_SCA$(SCA)_RBV")
 {
    field(PINI, "1")
-   field(DTYP, "asynInt32")
+   field(DTYP, "asynFloat64")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)")
    field(SCAN, "I/O Intr")
 }
@@ -14,9 +14,9 @@ record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_RBV")
 # ///
 record(waveform, "$(P)$(R)C$(CHAN)_SCA$(SCA)_ARRAY_RBV")
 {
-    field(DTYP, "asynInt32ArrayIn")
+    field(DTYP, "asynFloat64ArrayIn")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_ARRAY")
-    field(FTVL, "ULONG")
+    field(FTVL, "DOUBLE")
     field(NELM, "$(MAX_FRAMES)")
     field(SCAN, "I/O Intr")
 }
