@@ -1378,9 +1378,7 @@ void Xspress3::dataTask(void)
   double diffTimeScaVal = 0.0;
   double diffTimeMcaVal = 0.0;
   const char* functionName = "Xspress3::dataTask";
-  //epicsUInt32 *pSCA;
   epicsFloat64 *pSCA;
-  //epicsInt32 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
   epicsFloat64 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
   epicsFloat64 *pMCA[numChannels_];
   epicsFloat64 *pMCA_ROI[numChannels_][maxNumRoi_];
@@ -1400,12 +1398,10 @@ void Xspress3::dataTask(void)
   //Create array for scalar data (max frame * number of SCAs).
   getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
   getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
-  //pSCA = static_cast<epicsUInt32*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsUInt32)));
   pSCA = static_cast<epicsFloat64*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsFloat64)));
   //Create array to hold SCA data for the duration of the scan, one per SCA, per channel.
   for (int chan=0; chan<numChannels_; chan++) {
     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-      //pSCA_DATA[chan][sca] = static_cast<epicsInt32*>(calloc(maxNumFrames, sizeof(epicsInt32)));
       pSCA_DATA[chan][sca] = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
     }
   }
@@ -1572,7 +1568,6 @@ void Xspress3::dataTask(void)
 	 }
 
 	 //Dump data for testing
-	 //epicsUInt32 *pDumpData = pSCA;
 	 epicsFloat64 *pDumpData = pSCA;
 	 for (int frame=frameOffset; frame<frameCounter; frame++) {
 	   for (int chan=0; chan<numChannels; ++chan) {
@@ -1584,9 +1579,7 @@ void Xspress3::dataTask(void)
 	   }
 
 	 int dims[2] = {maxSpectra, numChannels};
-	 //epicsUInt32 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
 	 epicsFloat64 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
-	 //	 epicsInt32 *pScaDataArray = NULL;
 	 epicsFloat64 *pScaDataArray = NULL;
 	 
 	 //For each frame, read out the MCA and copy the MCA and SCA data into local arrays for channel access, and pack into a NDArray.
@@ -1625,7 +1618,6 @@ void Xspress3::dataTask(void)
 		 }
 		 //For this channel and frame, copy the scaler data into pSCA_DATA for channel access later on.
 		 for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
-		   //pScaDataArray = (static_cast<epicsInt32*>((pSCA_DATA[chan][sca])+frame));
 		   pScaDataArray = (static_cast<epicsFloat64*>((pSCA_DATA[chan][sca])+frame));
 		   *pScaDataArray = *(pScaData++);
 		 }
