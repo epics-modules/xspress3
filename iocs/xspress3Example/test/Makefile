@@ -3,13 +3,13 @@ BIN = test_check_desc
 SOURCE = test_check_desc.c
 
 XSPRESS3_API += /dls_sw/work/R3.14.11/support/xspress3_api/det-software
-BOOST += /dls_sw/work/common/boost/1.49.0
+BOOST += /dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0
 
 USR_INCLUDES += -I$(XSPRESS3_API)/none_vme/xspress3/include/
 USR_INCLUDES += -I$(XSPRESS3_API)/none_vme/xspress3/xspress3FemApi/include/
 USR_INCLUDES += -I$(XSPRESS3_API)/libs/include/
 
-USR_LDFLAGS += -L$(BOOST)/stage/lib/
+USR_LDFLAGS += -L$(BOOST)/prefix/lib/
 USR_LDFLAGS += -L$(XSPRESS3_API)/libs/libs.linux.x86_64/lib/
 
 LIBS += -lxspress3

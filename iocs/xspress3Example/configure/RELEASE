@@ -34,7 +34,7 @@ XSPRESS3=	$(WORK)/xspress3
 #XSPRESS3_API=   /home/mp49/xspress3_api/
 #XSPRESS3_API=	/scratch/xspress3_trunk/trunk/det-software
 XSPRESS3_API=	$(WORK)/xspress3_api/det-software
-BOOST=		/dls_sw/work/common/boost/1.49.0
+BOOST=          /dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0
 
 
 # EPICS_BASE usually appears last so other apps can override stuff:
