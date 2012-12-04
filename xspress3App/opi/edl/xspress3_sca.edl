@@ -3,7 +3,7 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 474
+x 406
 y 47
 w 790
 h 405
@@ -161,14 +161,14 @@ minor 1
 release 0
 x 10
 y 40
-w 210
-h 20
+w 245
+h 16
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 7
 value {
-  "Channel $(CHAN) SCA "
+  "Channel $(CHAN) Scaler Data   "
 }
 border
 endObjectProperties

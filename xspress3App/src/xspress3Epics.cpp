@@ -1351,7 +1351,7 @@ asynStatus Xspress3::checkHistBusy(int checkTimes)
 void Xspress3::dataTask(void)
 {
   epicsEventWaitStatus eventStatus;
-  epicsFloat64 timeout = 0.01;
+  epicsFloat64 timeout = 0.001;
   int numChannels = 0;
   int numFrames = 0;
   int acquire = 0;
@@ -1528,12 +1528,20 @@ void Xspress3::dataTask(void)
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
 	   setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
 	   setIntegerParam(ADAcquire, 0);
+	   xsp3_status = xsp3_histogram_stop(xsp3_handle_, 0);
+	   if (xsp3_status != XSP3_OK) {
+	     checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+	   }
 	   acquire=0;
 	   setIntegerParam(ADStatus, ADStatusAborted);
 	 } else if (frameCounter >= numFrames) {
 	   remainingFrames = numFrames - (frameCounter - framesToReadOut);
 	   setStringParam(ADStatusMessage, "Completed Acqusition.");
 	   setIntegerParam(ADAcquire, 0);
+	   xsp3_status = xsp3_histogram_stop(xsp3_handle_, 0);
+	   if (xsp3_status != XSP3_OK) {
+	     checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+	   }
 	   setIntegerParam(ADStatus, ADStatusIdle);
 	   acquire=0;
 	 }
@@ -1557,8 +1565,13 @@ void Xspress3::dataTask(void)
 	     pData = pSCA+(frameOffset*(XSP3_SW_NUM_SCALERS * numChannels));
 	     xsp3_status = xsp3_scaler_dtc_read(xsp3_handle_, pData, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
 	     if (xsp3_status < XSP3_OK) {
-	       checkStatus(xsp3_status, "xsp3_scaler_read", functionName);
-	       //What to do here?
+	       checkStatus(xsp3_status, "xsp3_scaler_dtc_read", functionName);
+	       //Abort in this case
+	       setStringParam(ADStatusMessage, "Error reading scalers. See IOC log.");
+	       setIntegerParam(ADStatus, ADStatusError);
+	       setIntegerParam(ADAcquire, 0);
+	       acquire = 0;
+	       remainingFrames = 0;
 	     }
 	   } else {
 	     //Fill the array with dummy data in simTest_ mode
