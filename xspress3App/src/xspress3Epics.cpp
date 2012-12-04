@@ -780,6 +780,8 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca6ArrayParam, chan);
     doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca7ArrayParam, chan);
 
+    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaParam, chan);
+
     callParamCallbacks(chan);
   }
 
@@ -1568,7 +1570,7 @@ void Xspress3::dataTask(void)
 	 }
 
 	 //Dump data for testing
-	 epicsFloat64 *pDumpData = pSCA;
+	 /*epicsFloat64 *pDumpData = pSCA;
 	 for (int frame=frameOffset; frame<frameCounter; frame++) {
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
@@ -1576,7 +1578,7 @@ void Xspress3::dataTask(void)
 	       ++dumpOffset;
 	     }
 	   }
-	   }
+	   }*/
 
 	 int dims[2] = {maxSpectra, numChannels};
 	 epicsFloat64 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
@@ -1603,7 +1605,7 @@ void Xspress3::dataTask(void)
 	       for (int chan=0; chan<numChannels; ++chan) {
 		 if (!simTest_) {
 		   //Read out the MCA spectra for this channel.
-		   xsp3_status = xsp3_histogram_read_chan(xsp3_handle_, reinterpret_cast<u_int32_t*>(pMCA[chan]), chan, 0, 0, frame, 1, 1, 1);
+		   xsp3_status = xsp3_hist_dtc_read4d(xsp3_handle_, reinterpret_cast<double*>(pMCA[chan]), NULL, 0, 0, chan, frame, maxSpectra, 1, 1, 1);
 		   if (xsp3_status != XSP3_OK) {
 		     checkStatus(xsp3_status, "xsp3_histogram_read_chan", functionName);
 		     status = asynError;
@@ -1616,6 +1618,15 @@ void Xspress3::dataTask(void)
 		     *(pMCA_DATA++) = sin(static_cast<epicsFloat64>(i)/90.0)*((rand()%20)+100);
 		   }
 		 }
+
+		 /*double *pDUMP = pMCA[chan];
+		 int dump_offset_mca = 0;
+		 printf("  Printing elements of spectra data from channel %d...\n", chan);
+		 for (int energy=0; energy<10; energy++) {
+		   printf("  energy[%d]: %f\n", energy, *(pDUMP+dump_offset_mca));
+		   dump_offset_mca++;
+		   }*/
+
 		 //For this channel and frame, copy the scaler data into pSCA_DATA for channel access later on.
 		 for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
 		   pScaDataArray = (static_cast<epicsFloat64*>((pSCA_DATA[chan][sca])+frame));
