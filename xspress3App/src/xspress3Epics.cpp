@@ -1427,11 +1427,11 @@ void Xspress3::dataTask(void)
        lock();
        setIntegerParam(NDArrayCounter, 0);
        //Need to clear local arrays here for each new acqusition.
-       memset(pSCA, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsUInt32));
+       memset(pSCA, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsFloat64));
        for (int chan=0; chan<numChannels_; chan++) {
 	 memset(pMCA[chan], 0, maxSpectra*sizeof(epicsFloat64));
 	 for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-	   memset(pSCA_DATA[chan][sca], 0, maxNumFrames*sizeof(epicsInt32));
+	   memset(pSCA_DATA[chan][sca], 0, maxNumFrames*sizeof(epicsFloat64));
 	 }
 	 for (int roi=0; roi<maxNumRoi_; roi++) {
 	   memset(pMCA_ROI[chan][roi], 0, maxNumFrames*sizeof(epicsFloat64));
@@ -1657,11 +1657,9 @@ void Xspress3::dataTask(void)
 		   
 		   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calculating ROI Data.\n", functionName);
 		   memset(&roiSum, 0, sizeof(epicsFloat64)*maxNumRoi_);
-		   for (int energy=0; energy<maxSpectra; ++energy) {
-		     for (int roi=0; roi<maxNumRoi_; ++roi) {
-		       if ((energy>=roiMin[roi]) && (energy<roiMax[roi])) {
-			 roiSum[roi] += *(pMCA[chan]+energy);
-		       }
+		   for (int roi=0; roi<maxNumRoi_; ++roi) {
+		     for (int energy=roiMin[roi]; energy<roiMax[roi]; ++energy) {
+		       roiSum[roi] += *(pMCA[chan]+energy);
 		     }
 		   }
 		   for (int roi=0; roi<maxNumRoi_; ++roi) {
