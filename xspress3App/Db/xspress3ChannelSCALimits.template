@@ -1,0 +1,45 @@
+
+include "xspress3ChannelSCA.template"
+
+# ///
+# /// Set the SCA $(SCA) high level window limit on channel $(CHAN)
+# ///
+record(longout, "$(P)$(R)C$(CHAN)_SCA$(SCA)_HLM")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_HLM")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Get the SCA $(SCA) high level window limit on channel $(CHAN)
+# ///
+record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_HLM_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_HLM")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Set the SCA $(SCA) low level window limit on channel $(CHAN)
+# ///
+record(longout, "$(P)$(R)C$(CHAN)_SCA$(SCA)_LLM")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_LLM")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Get the SCA $(SCA) low level window limit on channel $(CHAN)
+# ///
+record(longin, "$(P)$(R)C$(CHAN)_SCA$(SCA)_LLM_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_LLM")
+   field(SCAN, "I/O Intr")
+}
+

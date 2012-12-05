@@ -17,19 +17,19 @@ record(waveform, "$(P)$(R)C$(CHAN)_MCA_RBV")
 
 #Time SCA
 substitute "SCA=0"
-include "xspress3ChannelSCANoLimits.template"
+include "xspress3ChannelSCA.template"
 
 #Reset ticks SCA
 substitute "SCA=1"
-include "xspress3ChannelSCANoLimits.template"
+include "xspress3ChannelSCA.template"
 
 #Reset counts SCA
 substitute "SCA=2"
-include "xspress3ChannelSCANoLimits.template"
+include "xspress3ChannelSCA.template"
 
 #All event SCA
 substitute "SCA=3"
-include "xspress3ChannelSCANoLimits.template"
+include "xspress3ChannelSCA.template"
 
 #All good SCA
 substitute "SCA=4"
@@ -37,15 +37,15 @@ include "xspress3ChannelSCAThreshold.template"
 
 #Window 1 SCA
 substitute "SCA=5"
-include "xspress3ChannelSCA.template"
+include "xspress3ChannelSCALimits.template"
 
 #Window 2 SCA
 substitute "SCA=6"
-include "xspress3ChannelSCA.template"
+include "xspress3ChannelSCALimits.template"
 
 #Pileup SCA
 substitute "SCA=7"
-include "xspress3ChannelSCANoLimits.template"
+include "xspress3ChannelSCA.template"
 
 
 ##########################################################################
