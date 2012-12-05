@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 29
-y 381
+x 394
+y 151
 w 1000
-h 640
+h 910
 font "arial-medium-r-12.0"
 fontAlign "center"
 ctlFont "arial-medium-r-12.0"
@@ -123,6 +123,38 @@ endGroup
 
 endObjectProperties
 
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 895
+y 870
+w 95
+h 30
+fgColor index 46
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+label "EXIT"
+font "arial-bold-r-18.0"
+3d
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 740
+w 560
+h 155
+
+beginGroup
+
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -130,9 +162,485 @@ major 4
 minor 0
 release 0
 x 10
-y 50
+y 750
+w 560
+h 145
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 740
+w 177
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Region Of Interest 1 to 4"
+}
+autoSize
+border
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 50
+y 800
+w 100
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "ROI High Bin"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 50
+y 770
+w 100
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "ROI Low Bin"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 830
+w 120
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "ROI Total Count"
+}
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 155
+y 765
+w 90
+h 115
+
+beginGroup
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 155
+y 855
+w 90
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Array"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_mca_roi_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "ROI=1"
+}
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 155
+y 765
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI1_LLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 155
+y 795
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI1_HLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 155
+y 825
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI1_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 255
+y 855
+w 90
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Array"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_mca_roi_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "ROI=2"
+}
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 255
+y 765
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI2_LLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 255
+y 795
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI2_HLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 255
+y 825
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI2_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 355
+y 855
+w 90
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Array"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_mca_roi_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "ROI=3"
+}
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 355
+y 765
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI3_LLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 355
+y 795
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI3_HLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 355
+y 825
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI3_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 455
+y 855
+w 90
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Array"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_mca_roi_array.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "ROI=4"
+}
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 455
+y 765
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI4_LLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 455
+y 795
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI4_HLM"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 455
+y 825
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_MCA_ROI4_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 45
 w 975
-h 405
+h 335
 lineColor index 14
 fill
 fillColor index 5
@@ -148,7 +656,82 @@ release 0
 x 20
 y 65
 w 955
-h 380
+h 305
+# Appearance
+border
+fgColor index 12
+bgColor index 14
+gridColor index 6
+font "arial-medium-r-12.0"
+# Operating Modes
+nPts 2
+# X axis properties
+showXAxis
+xAxisSrc "AutoScale"
+xMax 1
+# Y axis properties
+showYAxis
+yAxisSrc "AutoScale"
+yMax 1
+# Y2 axis properties
+y2AxisSrc "AutoScale"
+y2Max 1
+# Trace Properties
+numTraces 1
+yPv {
+  0 "$(P):C$(CHAN)_MCA_SUM_RBV.AVAL"
+}
+plotColor {
+  0 index 15
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 40
+w 341
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Channel $(CHAN) MCA Summed Spectra Data  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 395
+w 975
+h 335
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (X-Y Graph)
+object xyGraphClass
+beginObjectProperties
+major 4
+minor 6
+release 0
+# Geometry
+x 20
+y 415
+w 955
+h 305
 # Appearance
 border
 fgColor index 12
@@ -185,507 +768,16 @@ major 4
 minor 1
 release 0
 x 10
-y 40
-w 281
+y 390
+w 359
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 7
 value {
-  "  Channel $(CHAN) MCA Spectra Data    "
+  "  Channel $(CHAN) MCA Per Frame Spectra Data    "
 }
 autoSize
 border
-endObjectProperties
-
-# (Exit Button)
-object activeExitButtonClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 890
-y 600
-w 95
-h 30
-fgColor index 46
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-label "EXIT"
-font "arial-bold-r-18.0"
-3d
-endObjectProperties
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 475
-w 560
-h 145
-lineColor index 14
-fill
-fillColor index 5
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 10
-y 465
-w 190
-h 15
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 7
-value {
-  "  Region Of Interest 1 to 4"
-}
-autoSize
-border
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 50
-y 525
-w 100
-h 20
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 14
-bgColor index 3
-useDisplayBg
-value {
-  "ROI High Bin"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 50
-y 495
-w 100
-h 20
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 14
-bgColor index 3
-useDisplayBg
-value {
-  "ROI Low Bin"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 30
-y 555
-w 120
-h 20
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 14
-bgColor index 3
-useDisplayBg
-value {
-  "ROI Total Count"
-}
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 155
-y 490
-w 90
-h 115
-
-beginGroup
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 155
-y 580
-w 90
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_mca_roi_array.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "ROI=1"
-}
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 155
-y 490
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI1_LLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 155
-y 520
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI1_HLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 155
-y 550
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI1_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 255
-y 580
-w 90
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_mca_roi_array.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "ROI=2"
-}
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 255
-y 490
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI2_LLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 255
-y 520
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI2_HLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 255
-y 550
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI2_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 355
-y 580
-w 90
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_mca_roi_array.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "ROI=3"
-}
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 355
-y 490
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI3_LLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 355
-y 520
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI3_HLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 355
-y 550
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI3_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 455
-y 580
-w 90
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_mca_roi_array.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "ROI=4"
-}
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 455
-y 490
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI4_LLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 455
-y 520
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI4_HLM"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 455
-y 550
-w 90
-h 25
-controlPv "$(P):C$(CHAN)_MCA_ROI4_RBV"
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
 endObjectProperties
 

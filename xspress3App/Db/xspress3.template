@@ -39,6 +39,14 @@ record(bo,"$(P)$(R)ERASE") {
     field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_ERASE")
     field(ZNAM,"Done")
     field(ONAM,"Erase")
+    field(FLNK,"$(P)$(R)ERASE_ACALC.PROC")
+}
+
+# /// 
+# /// Erase MCA aCalc summed data (this is defined in the channel template)
+# ///
+record(seq,"$(P)$(R)ERASE_ACALC") {
+    
 }
 
 

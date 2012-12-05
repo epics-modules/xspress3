@@ -10,6 +10,47 @@ record(waveform, "$(P)$(R)C$(CHAN)_MCA_RBV")
     field(SCAN, "I/O Intr")
 }
 
+# ///
+# /// aCalcout record to sum up the MCA spectra for visualization only
+# ///
+record(acalcout, "$(P)$(R)C$(CHAN)_MCA_SUM_RBV")
+{
+    field(DTYP, "Soft Channel")
+    field(INAA, "$(P)$(R)C$(CHAN)_MCA_RBV.VAL CP")
+    field(INBB, "$(P)$(R)C$(CHAN)_MCA_SUM_RBV.AVAL")
+    field(NELM, "$(MAX_SPECTRA)")
+    field(CALC, "AA+BB")
+}
+
+# /// 
+# /// Erase MCA aCalc summed data
+# ///
+record(seq,"$(P)$(R)C$(CHAN)_ERASE_ACALC") {
+    field(DOL1, "0")
+    field(LNK1, "$(P)$(R)C$(CHAN)_MCA_SUM_RBV.CALC PP")
+    field(DLY1, "0.1")
+    field(DOL2, "1")
+    field(LNK2, "$(P)$(R)C$(CHAN)_MCA_SUM_RBV_CALC.PROC PP")
+    field(DLY2, "0.1")
+}
+
+# /// 
+# /// Record to hold the calc string for the $(P)$(R)C$(CHAN)_MCA_SUM_RBV record.
+# ///
+record(stringout, "$(P)$(R)C$(CHAN)_MCA_SUM_RBV_CALC")
+{
+    field(VAL, "AA+BB")
+    field(OUT, "$(P)$(R)C$(CHAN)_MCA_SUM_RBV.CALC")
+}
+
+# /// 
+# /// Erase MCA aCalc summed data (one record for all channels)
+# ///
+record(seq,"$(P)$(R)ERASE_ACALC") {
+    field(DOL$(CHAN), "1")
+    field(LNK$(CHAN), "$(P)$(R)C$(CHAN)_ERASE_ACALC.PROC PP")
+}
+
 
 ##########################################################################
 # Add in SCA records.

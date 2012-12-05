@@ -22,6 +22,7 @@ DBD += xspress3Support.dbd
 xspress3_DBD += base.dbd
 xspress3_DBD += asyn.dbd
 xspress3_DBD += ADSupport.dbd
+xspress3_DBD += aCalcoutRecord.dbd
 
 # The following are compiled and added to the support library
 xspress3Epics_SRCS += xspress3Epics.cpp
