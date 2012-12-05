@@ -35,6 +35,8 @@ const epicsInt32 Xspress3::mbboTriggerTTLVETO_ = 3;
 const epicsInt32 Xspress3::mbboTriggerTTLBOTH_ = 4;
 const epicsInt32 Xspress3::mbboTriggerLVDSVETO_ = 5;
 const epicsInt32 Xspress3::mbboTriggerLVDSBOTH_ = 6;
+const epicsInt32 Xspress3::ADAcquireFalse_ = 0;
+const epicsInt32 Xspress3::ADAcquireTrue_ = 1;
 
 //C Function prototypes to tie in with EPICS
 static void xsp3DataTaskC(void *drvPvt);
@@ -1473,7 +1475,7 @@ void Xspress3::dataTask(void)
        lock();
        
        if (acquire==0) {
-	 setIntegerParam(ADAcquire, 0);
+	 setIntegerParam(ADAcquire, ADAcquireFalse_);
 	 setIntegerParam(ADStatus, ADStatusAborted);
 	 setStringParam(ADStatusMessage, "Stopped Acquiring");
 	 callParamCallbacks();
@@ -1527,7 +1529,7 @@ void Xspress3::dataTask(void)
 	   remainingFrames = maxNumFrames - (frameCounter - framesToReadOut);
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
 	   setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
-	   setIntegerParam(ADAcquire, 0);
+	   setIntegerParam(ADAcquire, ADAcquireFalse_);
 	   xsp3_status = xsp3_histogram_stop(xsp3_handle_, 0);
 	   if (xsp3_status != XSP3_OK) {
 	     checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
@@ -1537,7 +1539,7 @@ void Xspress3::dataTask(void)
 	 } else if (frameCounter >= numFrames) {
 	   remainingFrames = numFrames - (frameCounter - framesToReadOut);
 	   setStringParam(ADStatusMessage, "Completed Acqusition.");
-	   setIntegerParam(ADAcquire, 0);
+	   setIntegerParam(ADAcquire, ADAcquireFalse_);
 	   xsp3_status = xsp3_histogram_stop(xsp3_handle_, 0);
 	   if (xsp3_status != XSP3_OK) {
 	     checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
@@ -1569,7 +1571,7 @@ void Xspress3::dataTask(void)
 	       //Abort in this case
 	       setStringParam(ADStatusMessage, "Error reading scalers. See IOC log.");
 	       setIntegerParam(ADStatus, ADStatusError);
-	       setIntegerParam(ADAcquire, 0);
+	       setIntegerParam(ADAcquire, ADAcquireFalse_);
 	       acquire = 0;
 	       remainingFrames = 0;
 	     }
@@ -1611,7 +1613,7 @@ void Xspress3::dataTask(void)
 	       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: pNDArrayPool->alloc failed.\n", functionName);
 	       setStringParam(ADStatusMessage, "Memory Error. Check IOC Log.");
 	       setIntegerParam(ADStatus, ADStatusError);
-	       setIntegerParam(ADAcquire, 0);
+	       setIntegerParam(ADAcquire, ADAcquireFalse_);
 	       acquire = 0;
 	       allocError = 1;
 	     } else {
