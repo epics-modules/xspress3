@@ -1778,7 +1778,7 @@ void Xspress3::dataTask(void)
 	 if ((mcaArrayUpdate == 1) || !acquire) {
 	   for (int chan=0; chan<numChannels; ++chan) {
 	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting MCA Arrays On Chan %d.\n", functionName, chan);
-	     doCallbacksFloat64Array(pMCA[chan], maxSpectra, xsp3ChanMcaParam, chan);
+	     doCallbacksFloat64Array(pMCA[chan], maxSpectra-1, xsp3ChanMcaParam, chan);
 	   }
 	 }
 
