@@ -1172,6 +1172,13 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return asynError;
   }
 
+  //The data readout thread will set ADAcquire back to false.
+  if (function == ADAcquire) {
+    if (!value) {
+      return status;
+    }
+  }
+
   status = (asynStatus) setIntegerParam(addr, function, value);
   if (status!=asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, 
@@ -1420,7 +1427,16 @@ void Xspress3::dataTask(void)
   }
   
   while (1) {
+
+    //Wait for a stop event, with a short timeout, to catch any that were done during last readout.
+    eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
+    if (eventStatus == epicsEventWaitOK) {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Stop Event Before Start Event.\n", functionName);
+    }
     
+    setIntegerParam(ADAcquire, 0);
+    callParamCallbacks();
+
      eventStatus = epicsEventWait(startEvent_);          
      if (eventStatus == epicsEventWaitOK) {
        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Start Event.\n", functionName);
@@ -1714,7 +1730,7 @@ void Xspress3::dataTask(void)
 	       //Free the NDArray 
 	       pMCA_NDARRAY->release();
 	     } //end of if (allocError == 0)
-	     
+
 	   } //end of frame loop
 	 } //end of if (!stillBusy)
 	   

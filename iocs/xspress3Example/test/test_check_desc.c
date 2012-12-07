@@ -13,7 +13,7 @@
 #define XSP3_NUMCHANNELS 4
 #define XSP3_MAXSPECTRA 4096
 #define XSP3_CONFIGPATH "/home/mp49/xspress3_settings/"
-#define MAX_CHECKDESC_POLLS 100
+#define MAX_CHECKDESC_POLLS 1000
 
 int main(char *argv[], int argc)
 {
@@ -107,17 +107,19 @@ int main(char *argv[], int argc)
      
       num_frames = xsp3_status;
       num_frames_to_read = num_frames - last_num_frames;
+      printf("  last_num_frames: %d\n", last_num_frames);
       printf("  Reading out %d frames of scaler data...\n", num_frames_to_read);
       pSCA_OFFSET = pSCA+(last_num_frames*(XSP3_SW_NUM_SCALERS * XSP3_NUMCHANNELS));
       //xsp3_status = xsp3_scaler_read(xsp3_handle, pSCA_OFFSET, 0, 0, last_num_frames, XSP3_SW_NUM_SCALERS, XSP3_NUMCHANNELS, num_frames_to_read);
       //xsp3_status = xsp3_scaler_dtc_read(xsp3_handle, pSCA_OFFSET, 0, 0, last_num_frames, XSP3_SW_NUM_SCALERS, XSP3_NUMCHANNELS, num_frames_to_read);
       xsp3_status = xsp3_hist_dtc_read4d(xsp3_handle, pMCA, NULL, 0, 0, 0, last_num_frames, XSP3_MAXSPECTRA, 1, XSP3_NUMCHANNELS, num_frames_to_read);
+      printf("Read out ok.\n");
       if (xsp3_status < XSP3_OK) {
 	printf("ERROR calling xsp3_scaler_read. Return code: %d\n", xsp3_status);
 	return EXIT_FAILURE;
       }
       
-      printf("  Printing %d frames of scaler data...\n", num_frames_to_read);
+      /*printf("  Printing %d frames of scaler data...\n", num_frames_to_read);
       pDUMP = pSCA;
       for (frame=last_num_frames; frame<(num_frames_to_read+last_num_frames); frame++) {
 	for (chan=0; chan<XSP3_NUMCHANNELS; chan++) {
@@ -129,14 +131,14 @@ int main(char *argv[], int argc)
 	    dump_offset++;
 	  }
 	}
-      }
+	}*/
 
-      pDUMP = pMCA;
+      /*pDUMP = pMCA;
       printf("  Printing elements of spectra data...\n");
       for (energy=0; energy<XSP3_MAXSPECTRA; energy++) {
 	printf("  energy[%d]: %f\n", energy, *(pDUMP+dump_offset_mca));
 	dump_offset_mca++;
-      }
+	}*/
       
       last_num_frames = num_frames;
     }
