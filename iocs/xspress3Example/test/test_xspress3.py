@@ -15,14 +15,13 @@ hdf_pv = "mp49:xsp3:hdf5"
 timeout_ = 100
 
 num_channels = 4
-config_path = "/home/mp49/xspress3_settings/"
+config_path = "/dls_sw/work/R3.14.11/support/xspress3/xspress3_settings/"
 trigger_mode = 3
-nd_attributes_file = "/home/mp49/xsp3.xml"
+nd_attributes_file = "//dls_sw/work/R3.14.11/support/xspress3/data/xsp3.xml"
 run_flags = 1 #0=normal, 1=playback
 file_path = "/tmp/"
 file_name = "xsp"
 file_template = "%s%s%d.hdf5"
-file_write_mode = 2
 
 num_frames = 10
 
@@ -52,7 +51,11 @@ def acquire():
    print "Acquire..."
    #Acquire, but don't wait (this only returns when acqusition is complete).
    caput(base_pv + ":Acquire", 1, wait=False)
-   cothread.Sleep(1.0)
+   #Wait until Acquire_RBV is set
+   acquire_rbv = 0
+   while (not acquire_rbv):
+      acquire_rbv = caget(base_pv + ":Acquire_RBV")
+      cothread.Sleep(0.1)
    #Now generate the triggers
    cothread.Sleep(1.0) #Or, wait on an event from a different thread
 
@@ -98,6 +101,9 @@ def main():
       setNumFrames(1)
       acquire()
 
+   #Erase data
+   caput(base_pv + ":ERASE", 1, wait=True)
+
    #Now do the real data collection
    setNumFrames(num_frames)
    acquireAndCapture()
@@ -107,8 +113,8 @@ def main():
    #Wait on event here, or poll the Acquire_RBV PV
    acquire_rbv = 1
    while(acquire_rbv):
-      print "acquire " + str(acquire_rbv)
       acquire_rbv = caget(base_pv + ":Acquire_RBV")
+      print "acquire " + str(acquire_rbv)
       cothread.Sleep(0.1)
 
    #Acqusition is finished, although file saving might still be progressing in the file saving plugin.
@@ -129,8 +135,8 @@ def main():
    #Wait for file saving to end
    saving = 1
    while (saving):
-      print "saving " + str(saving)
       saving = caget(hdf_pv + ":Capture_RBV")
+      print "saving " + str(saving)
       cothread.Sleep(0.1)
    #Check status
    num_captured = caget(hdf_pv + ":NumCaptured_RBV")
