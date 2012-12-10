@@ -30,10 +30,10 @@ NDFileHDF5Configure("XSP3.HDF5", 10000, 0, "XSP3", 0)
 
 #asynSetTraceMask("XSP3",0,0x11)
 #asynSetTraceIOMask("XSP3",0,0x11)
-###asynSetTraceMask("XSP3",0,0xF)
-###asynSetTraceIOMask("XSP3",0,0xF)
-###asynSetTraceMask("XSP3.HDF5",0,0xFF)
-###asynSetTraceIOMask("XSP3.HDF5",0,0xFF)
+#asynSetTraceMask("XSP3",0,0xFF)
+#asynSetTraceIOMask("XSP3",0,0xFF)
+#asynSetTraceMask("XSP3.HDF5",0,0xFF)
+#asynSetTraceIOMask("XSP3.HDF5",0,0xFF)
 
 
 ##################################################

@@ -48,15 +48,15 @@ The following PVs are involved in data acqusition or monitoring. Any PV in lower
 <table border="1">
 <tr>
 <td>{P}:Acquire\n{P}:Acquire_RBV</td>
-<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition, or write a 0 to stop.</td>
+<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition. Normally the data collection will finish automatically once NumImages is reached. However, to manually stop a data collection write a 0 to this PV. If the driver is in the process of reading a large number of frames, for example at high frame rates, it will finish this before the stop completes.</td>
 </tr>
 <tr>
 <td>{P}:ERASE</td>
-<td>This will call the Xspress 3 API ?????? function. It will also clear any data held by EPICS PVs, including the array PVs.</td>
+<td>This will call the Xspress 3 API xsp3_histogram_clear function. It will also clear any data held by EPICS PVs, including the array PVs. Do this before starting a new data collection.</td>
 </tr>
 <tr>
 <td>{P}:RESET</td>
-<td>????????????????????????????</td>
+<td>This does nothing at the moment.</td>
 </tr>
 <tr>
 <td>{P}:NumImages\n{P}:NumImages_RBV</td>
@@ -90,11 +90,15 @@ The following PVs are involved in data acqusition or monitoring. Any PV in lower
 </tr>
 <tr>
 <td>{P}:FRAME_COUNT_RBV</td>
-<td>This contains the number of frames read out of the Xspress 3 each time the driver checks for new data. The driver checks for new data every 0.01s. This PV can indicate the frame rate we are operating at.</td>
+<td>This contains the number of frames read out of the Xspress 3 each time the driver checks for new data.</td>
 </tr>
 <tr>
 <td>{P}:ArrayCounter_RBV</td>
 <td>Contains the total number of frames acquired during the current or last acqusition. It is reset to zero at the beginning of the next acqusition. The rate of change of this PV also indicates the frame rate we are operating at.</td>
+</tr>
+<tr>
+<td>{P}:ArrayRate_RBV</td>
+<td>This is a rough indication of the frame rate we are operating at. It is calculated every second, and uses the rate of change of the ArrayCounter_RBV PV.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_DATA_UPDATE</td>
@@ -285,7 +289,7 @@ When the Epics IOC starts up it reads the dead time correction (DTC) parameters 
 
 The above parameters are saved in the HDF file. The HDF parameter names will match the PV names.
 
-\section build_sec Build Instructions 
+ 
 
 **/
 

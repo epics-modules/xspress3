@@ -10,8 +10,8 @@ require('cothread==2.8')
 import cothread
 from cothread.catools import *
 
-base_pv = "mp49:xsp3"
-hdf_pv = "mp49:xsp3:hdf5"
+base_pv = "mp49:XSP3"
+hdf_pv = "mp49:XSP3:HDF5"
 timeout_ = 100
 
 num_channels = 4
@@ -51,11 +51,8 @@ def acquire():
    print "Acquire..."
    #Acquire, but don't wait (this only returns when acqusition is complete).
    caput(base_pv + ":Acquire", 1, wait=False)
-   #Wait until Acquire_RBV is set
-   acquire_rbv = 0
-   while (not acquire_rbv):
-      acquire_rbv = caget(base_pv + ":Acquire_RBV")
-      cothread.Sleep(0.1)
+   #Wait until Acquire_RBV is set (or, in this case, just wait a sec).
+   cothread.Sleep(1.0)
    #Now generate the triggers
    cothread.Sleep(1.0) #Or, wait on an event from a different thread
 

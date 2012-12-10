@@ -7,7 +7,7 @@ export ASYN=/dls_sw/prod/R3.14.11/support/asyn/4-19
 export EPICS_CA_SERVER_PORT=5064
 export EPICS_CA_REPEATER_PORT=5065
 
-pv=mp49:xsp3
+pv=mp49:XSP3
 
 export EDMDATAFILES=${EDMDATAFILES}:${XSP3}/data/
 export EDMDATAFILES=${EDMDATAFILES}:${AREADETECTOR}/data/
