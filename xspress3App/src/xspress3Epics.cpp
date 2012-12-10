@@ -91,6 +91,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 
   //Add the params to the paramLib 
   //createParam adds the parameters to all param lists automatically (using maxAddr).
+  createParam(xsp3FirstParamString,         asynParamInt32,       &xsp3FirstParam);
   createParam(xsp3ResetParamString,         asynParamInt32,       &xsp3ResetParam);
   createParam(xsp3EraseParamString,         asynParamInt32,       &xsp3EraseParam);
   createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
@@ -163,6 +164,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3CtrlMcaPeriodParamString,         asynParamInt32,       &xsp3CtrlMcaPeriodParam);
   createParam(xsp3CtrlScaPeriodParamString,         asynParamInt32,       &xsp3CtrlScaPeriodParam);
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
+  createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
   
   //Initialize non static, non const, data members
   acquiring_ = 0;
@@ -1241,11 +1243,11 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
       status = checkSaveDir(value);
     } else {
         /* If this parameter belongs to a base class call its method */
-      if (function < FIRST_DRIVER_COMMAND) {
+      if (function < XSP3_FIRST_DRIVER_COMMAND) {
 	status = asynNDArrayDriver::writeOctet(pasynUser, value, nChars, nActual);
       }
     }
-    
+
     if (status != asynSuccess) {
       callParamCallbacks();
       return asynError;

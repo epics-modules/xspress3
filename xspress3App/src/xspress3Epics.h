@@ -40,6 +40,8 @@
 /* These are the drvInfo strings that are used to identify the parameters.
  * They are used by asyn clients, including standard asyn device support */
 //System wide settings
+#define xsp3FirstParamString              "XSP3_FIRST"
+#define xsp3LastParamString              "XSP3_LAST"
 #define xsp3ResetParamString              "XSP3_RESET"
 #define xsp3EraseParamString              "XSP3_ERASE"
 #define xsp3NumChannelsParamString        "XSP3_NUM_CHANNELS"
@@ -188,8 +190,8 @@ class Xspress3 : public ADDriver {
   epicsEventId stopEvent_;
 
   //Values used for pasynUser->reason, and indexes into the parameter library.
-  int xsp3FirstDriverParam;
-  #define FIRST_DRIVER_COMMAND xsp3FirstDriverParam
+  int xsp3FirstParam;
+  #define XSP3_FIRST_DRIVER_COMMAND xsp3FirstParam
   int xsp3ResetParam;
   int xsp3EraseParam;
   int xsp3NumChannelsParam;
@@ -260,12 +262,12 @@ class Xspress3 : public ADDriver {
   int xsp3CtrlMcaPeriodParam;
   int xsp3CtrlScaPeriodParam;
   int xsp3RoiEnableParam;
-  int xsp3LastDriverParam;
-  #define LAST_DRIVER_COMMAND xsp3LastDriverParam
+  int xsp3LastParam;
+  #define XSP3_LAST_DRIVER_COMMAND xsp3LastParam
 
 };
 
-#define NUM_DRIVER_PARAMS (&LAST_DRIVER_COMMAND - &FIRST_DRIVER_COMMAND + 1)
+#define NUM_DRIVER_PARAMS (&XSP3_LAST_DRIVER_COMMAND - &XSP3_FIRST_DRIVER_COMMAND + 1)
 
 //static const char *driverName = "Xspress3";
 
