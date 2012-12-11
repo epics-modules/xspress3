@@ -1,0 +1,17 @@
+
+#Add a FLNK to the NumImages record, to automatically set the HDF plugin NumCapture
+
+record(longout, "$(P)$(R):NumImages")
+{
+   field(FLNK, "$(HDF):NumCapture_CALC.PROC")
+}
+
+record(calcout, "$(HDF):NumCapture_CALC")
+{
+   field(INPA, "$(P)$(R):NumImages.VAL")
+   field(OUT, "$(HDF):NumCapture.VAL")
+   field(CALC, "A")
+   field(OOPT, "Every Time")
+   field(DOPT, "Use CALC")
+   field(FLNK, "$(HDF):NumCapture.PROC")
+}

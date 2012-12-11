@@ -14,6 +14,7 @@ DB += xspress3ChannelSCALimits.template
 DB += xspress3ChannelSCAThreshold.template
 DB += xspress3ChannelMCAROI.template
 DB += xspress3DataUpdate.template
+DB += xspress3_highlevel.template
 
 include $(TOP)/configure/RULES
 #----------------------------------------

@@ -21,6 +21,11 @@ file NDFileHDF5.template {
 		{mp49:, XSP3:HDF5:, XSP3.HDF5}
 }
 
+file xspress3_highlevel.template {
+	pattern {P, R, HDF}
+		{mp49:, XSP3, mp49:XSP3:HDF5}
+}
+
 
 
 file ioc.db

@@ -23,7 +23,7 @@ file_path = "/tmp/"
 file_name = "xsp"
 file_template = "%s%s%d.hdf5"
 
-num_frames = 10
+num_frames = 1000
 
 
 def connect():

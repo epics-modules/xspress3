@@ -81,3 +81,8 @@ iocInit()
 # Save settings every 10 seconds
 create_monitor_set("example.req", 10)
 
+
+#Set up some of the more complicated HDF PVs
+dbpf("mp49:XSP3:HDF5:FileTemplate", "%s%s%d.hdf5")
+dbpf("mp49:XSP3:HDF5:FileWriteMode", "Stream")
+dbpf("mp49:XSP3:HDF5:EnableCallbacks", "Enable")
