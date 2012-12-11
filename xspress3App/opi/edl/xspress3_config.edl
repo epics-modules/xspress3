@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 25
-y 164
+x 30
+y 186
 w 630
-h 580
+h 665
 font "arial-medium-r-14.0"
 ctlFont "arial-bold-r-14.0"
 btnFont "arial-bold-r-14.0"
@@ -126,7 +126,7 @@ major 4
 minor 1
 release 0
 x 515
-y 535
+y 620
 w 100
 h 35
 fgColor index 46
@@ -590,89 +590,6 @@ value {
 }
 endObjectProperties
 
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 455
-w 285
-h 70
-lineColor index 14
-fill
-fillColor index 5
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 10
-y 445
-w 260
-h 20
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 14
-bgColor index 7
-value {
-  "Connection Control To Xspress3  "
-}
-border
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 35
-y 475
-w 95
-h 35
-fgColor index 25
-onColor index 3
-offColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):CONNECT"
-pressValue "1"
-onLabel "Connect"
-offLabel "Connect"
-3d
-useEnumNumeric
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 140
-y 475
-w 95
-h 35
-fgColor index 25
-onColor index 3
-offColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):DISCONNECT"
-pressValue "1"
-onLabel "Disconnect"
-offLabel "Disconnect"
-3d
-useEnumNumeric
-font "arial-bold-r-14.0"
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -781,6 +698,102 @@ fill
 font "arial-bold-r-12.0"
 endObjectProperties
 
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 525
+w 605
+h 80
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 535
+w 285
+h 70
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 525
+w 260
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 7
+value {
+  "Connection Control To Xspress3  "
+}
+border
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 35
+y 555
+w 95
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):CONNECT"
+pressValue "1"
+onLabel "Connect"
+offLabel "Connect"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 140
+y 555
+w 95
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):DISCONNECT"
+pressValue "1"
+onLabel "Disconnect"
+offLabel "Disconnect"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -788,7 +801,7 @@ major 4
 minor 0
 release 0
 x 310
-y 455
+y 535
 w 305
 h 70
 lineColor index 14
@@ -803,7 +816,7 @@ major 4
 minor 1
 release 0
 x 310
-y 445
+y 525
 w 205
 h 20
 font "arial-bold-r-14.0"
@@ -823,7 +836,7 @@ major 4
 minor 0
 release 0
 x 325
-y 475
+y 555
 w 95
 h 35
 fgColor index 25
@@ -847,7 +860,7 @@ major 4
 minor 0
 release 0
 x 430
-y 475
+y 555
 w 95
 h 35
 fgColor index 25
@@ -871,7 +884,7 @@ major 4
 minor 0
 release 0
 x 245
-y 475
+y 555
 w 35
 h 35
 controlPv "$(P):CONNECTED"
@@ -880,5 +893,89 @@ onColor index 15
 offColor index 19
 lineWidth 2
 numBits 1
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 455
+w 605
+h 50
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 445
+w 315
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 7
+value {
+  "NDAttributes XML File For HDF File Saving   "
+}
+border
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 130
+y 475
+w 465
+h 20
+controlPv "$(P):NDAttributesFile"
+font "helvetica-bold-r-12.0"
+fgColor index 25
+bgColor index 3
+editable
+motifWidget
+limitsFromDb
+nullColor index 0
+useKp
+file
+useHexPrefix
+newPos
+inputFocusUpdates
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 60
+y 470
+w 65
+h 35
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Path/File"
+}
 endObjectProperties
 

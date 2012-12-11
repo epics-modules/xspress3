@@ -458,7 +458,6 @@ substitute "ADDR=7"
 include "xspress3Channel.template"
 
 
-
 #Set DISA for PVs in ADBase that do not apply to Xspress3
 
 record(mbbo, "$(P)$(R)DataType")

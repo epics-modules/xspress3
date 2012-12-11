@@ -15,3 +15,11 @@ record(calcout, "$(HDF):NumCapture_CALC")
    field(DOPT, "Use CALC")
    field(FLNK, "$(HDF):NumCapture.PROC")
 }
+
+
+#Turn off the default alarm state of the HDF plugin Capture_RBV PV
+record(bi, $(HDF):Capture_RBV)
+{
+   field(OSV, "NO_ALARM")
+}
+
