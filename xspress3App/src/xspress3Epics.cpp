@@ -1411,7 +1411,7 @@ void Xspress3::dataTask(void)
   int dumpOffset = 0;
   int lastFrameCount = 0;
   int framesToReadOut = 0;
-  int stillBusy = 0;
+  bool stillBusy = false;
  
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
 
@@ -1474,7 +1474,7 @@ void Xspress3::dataTask(void)
      dumpOffset = 0;
      lastFrameCount = 0;
      framesToReadOut = 0;
-     stillBusy = 0;
+     stillBusy = false;
 
      /* Get the current time */
      epicsTimeGetCurrent(&startTimeData);
@@ -1507,11 +1507,11 @@ void Xspress3::dataTask(void)
        }
 
        //If we have stopped, wait until we are not busy on all channels.
-       stillBusy = 0;
+       stillBusy = false;
        if (!simTest_) {
 	 if (acquire == 0) {
 	   if (checkHistBusy(maxCheckHistPolls_) == asynError) {
-	     stillBusy = 1;
+	     stillBusy = true;
 	   }
 	 }
        }
@@ -1535,7 +1535,7 @@ void Xspress3::dataTask(void)
 	 setIntegerParam(xsp3FrameCountParam, 10);
        }
        
-       if ((!acquire) && (stillBusy == 1)) {
+       if ((!acquire) && (stillBusy)) {
 	 frame_count = 0;
 	 framesToReadOut = 0;
 	 callParamCallbacks();
@@ -1555,9 +1555,11 @@ void Xspress3::dataTask(void)
 	   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
 	   setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
 	   setIntegerParam(ADAcquire, ADAcquireFalse_);
-	   xsp3_status = xsp3_histogram_stop(xsp3_handle_, 0);
-	   if (xsp3_status != XSP3_OK) {
-	     checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+	   if (!simTest_) {
+	     xsp3_status = xsp3_histogram_stop(xsp3_handle_, 0);
+	     if (xsp3_status != XSP3_OK) {
+	       checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+	     }
 	   }
 	   acquire=0;
 	   setIntegerParam(ADStatus, ADStatusAborted);
@@ -1565,9 +1567,11 @@ void Xspress3::dataTask(void)
 	   remainingFrames = numFrames - (frameCounter - framesToReadOut);
 	   setStringParam(ADStatusMessage, "Completed Acqusition.");
 	   setIntegerParam(ADAcquire, ADAcquireFalse_);
-	   xsp3_status = xsp3_histogram_stop(xsp3_handle_, 0);
-	   if (xsp3_status != XSP3_OK) {
-	     checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+	   if (!simTest_) {
+	     xsp3_status = xsp3_histogram_stop(xsp3_handle_, 0);
+	     if (xsp3_status != XSP3_OK) {
+	       checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+	     }
 	   }
 	   setIntegerParam(ADStatus, ADStatusIdle);
 	   acquire=0;
@@ -1627,7 +1631,7 @@ void Xspress3::dataTask(void)
 	 //For each frame, read out the MCA and copy the MCA and SCA data into local arrays for channel access, and pack into a NDArray.
 	 if (!stillBusy) {
 	   for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
-	     
+
 	     allocError = 0;
 	     setIntegerParam(NDArrayCounter, frame+1);
 	     
@@ -1742,6 +1746,9 @@ void Xspress3::dataTask(void)
 
 	   } //end of frame loop
 	 } //end of if (!stillBusy)
+
+	 //This simulates channel access delays due to reading out large numbers of frames at high frame rates.
+	 //epicsThreadSleep(2.0);
 	   
 	 //Control the update rate of scalers and arrays over channel access.
 	 getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 

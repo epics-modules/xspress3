@@ -640,8 +640,8 @@ x 20
 y 270
 w 125
 h 45
-fgColor index 19
-onColor index 4
+fgColor index 25
+onColor index 3
 offColor index 3
 topShadowColor index 1
 botShadowColor index 11
@@ -664,8 +664,8 @@ x 150
 y 270
 w 125
 h 45
-fgColor index 21
-onColor index 4
+fgColor index 25
+onColor index 3
 offColor index 3
 topShadowColor index 1
 botShadowColor index 11
