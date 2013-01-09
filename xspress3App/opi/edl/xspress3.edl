@@ -839,264 +839,6 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 475
-y 345
-w 285
-h 280
-
-beginGroup
-
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 475
-y 355
-w 285
-h 270
-lineColor index 14
-fill
-fillColor index 5
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 490
-y 420
-w 251
-h 36
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "SCA Data & Window Settings"
-numPvs 4
-numDsps 8
-displayFileName {
-  0 "xspress3_sca"
-  1 "xspress3_sca"
-  2 "xspress3_sca"
-  3 "xspress3_sca"
-  4 "xspress3_sca"
-  5 "xspress3_sca"
-  6 "xspress3_sca"
-  7 "xspress3_sca"
-}
-menuLabel {
-  0 "Channel 1"
-  1 "Channel 2"
-  2 "Channel 3"
-  3 "Channel 4"
-  4 "Channel 5"
-  5 "Channel 6"
-  6 "Channel 7"
-  7 "Channel 8"
-}
-setPosition {
-  0 "parentWindow"
-  1 "parentWindow"
-  2 "parentWindow"
-  3 "parentWindow"
-  4 "parentWindow"
-  5 "parentWindow"
-  6 "parentWindow"
-  7 "parentWindow"
-}
-symbols {
-  0 "CHAN=1"
-  1 "CHAN=2"
-  2 "CHAN=3"
-  3 "CHAN=4"
-  4 "CHAN=5"
-  5 "CHAN=6"
-  6 "CHAN=7"
-  7 "CHAN=8"
-}
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 475
-y 345
-w 270
-h 16
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 7
-value {
-  "  Data Displays and Detailed Screens  "
-}
-autoSize
-border
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 490
-y 375
-w 251
-h 36
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "MCA Data and ROI Settings"
-numPvs 4
-numDsps 8
-displayFileName {
-  0 "xspress3_mca"
-  1 "xspress3_mca"
-  2 "xspress3_mca"
-  3 "xspress3_mca"
-  4 "xspress3_mca"
-  5 "xspress3_mca"
-  6 "xspress3_mca"
-  7 "xspress3_mca"
-}
-menuLabel {
-  0 "Channel 1"
-  1 "Channel 2"
-  2 "Channel 3"
-  3 "Channel 4"
-  4 "Channel 5"
-  5 "Channel 6"
-  6 "Channel 7"
-  7 "Channel 8"
-}
-setPosition {
-  0 "parentWindow"
-  1 "parentWindow"
-  2 "parentWindow"
-  3 "parentWindow"
-  4 "parentWindow"
-  5 "parentWindow"
-  6 "parentWindow"
-  7 "parentWindow"
-}
-symbols {
-  0 "CHAN=1"
-  1 "CHAN=2"
-  2 "CHAN=3"
-  3 "CHAN=4"
-  4 "CHAN=5"
-  5 "CHAN=6"
-  6 "CHAN=7"
-  7 "CHAN=8"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 490
-y 465
-w 251
-h 36
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Dead Time Correction Params"
-numPvs 4
-numDsps 8
-displayFileName {
-  0 "xspress3_dtc"
-  1 "xspress3_dtc"
-  2 "xspress3_dtc"
-  3 "xspress3_dtc"
-  4 "xspress3_dtc"
-  5 "xspress3_dtc"
-  6 "xspress3_dtc"
-  7 "xspress3_dtc"
-}
-menuLabel {
-  0 "Channel 1"
-  1 "Channel 2"
-  2 "Channel 3"
-  3 "Channel 4"
-  4 "Channel 5"
-  5 "Channel 6"
-  6 "Channel 7"
-  7 "Channel 8"
-}
-setPosition {
-  0 "parentWindow"
-  1 "parentWindow"
-  2 "parentWindow"
-  3 "parentWindow"
-  4 "parentWindow"
-  5 "parentWindow"
-  6 "parentWindow"
-  7 "parentWindow"
-}
-symbols {
-  0 "CHAN=1"
-  1 "CHAN=2"
-  2 "CHAN=3"
-  3 "CHAN=4"
-  4 "CHAN=5"
-  5 "CHAN=6"
-  6 "CHAN=7"
-  7 "CHAN=8"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 490
-y 510
-w 250
-h 35
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Area Detector Screens"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_ad.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
 x 10
 y 345
 w 450
@@ -1790,5 +1532,276 @@ endObjectProperties
 
 endGroup
 
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 475
+y 355
+w 285
+h 270
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 490
+y 420
+w 251
+h 36
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "SCA Data & Window Settings"
+numPvs 4
+numDsps 8
+displayFileName {
+  0 "xspress3_sca"
+  1 "xspress3_sca"
+  2 "xspress3_sca"
+  3 "xspress3_sca"
+  4 "xspress3_sca"
+  5 "xspress3_sca"
+  6 "xspress3_sca"
+  7 "xspress3_sca"
+}
+menuLabel {
+  0 "Channel 1"
+  1 "Channel 2"
+  2 "Channel 3"
+  3 "Channel 4"
+  4 "Channel 5"
+  5 "Channel 6"
+  6 "Channel 7"
+  7 "Channel 8"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+  2 "parentWindow"
+  3 "parentWindow"
+  4 "parentWindow"
+  5 "parentWindow"
+  6 "parentWindow"
+  7 "parentWindow"
+}
+symbols {
+  0 "CHAN=1"
+  1 "CHAN=2"
+  2 "CHAN=3"
+  3 "CHAN=4"
+  4 "CHAN=5"
+  5 "CHAN=6"
+  6 "CHAN=7"
+  7 "CHAN=8"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 475
+y 345
+w 270
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Data Displays and Detailed Screens  "
+}
+autoSize
+border
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 490
+y 375
+w 251
+h 36
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "MCA Data and ROI Settings"
+numPvs 4
+numDsps 8
+displayFileName {
+  0 "xspress3_mca"
+  1 "xspress3_mca"
+  2 "xspress3_mca"
+  3 "xspress3_mca"
+  4 "xspress3_mca"
+  5 "xspress3_mca"
+  6 "xspress3_mca"
+  7 "xspress3_mca"
+}
+menuLabel {
+  0 "Channel 1"
+  1 "Channel 2"
+  2 "Channel 3"
+  3 "Channel 4"
+  4 "Channel 5"
+  5 "Channel 6"
+  6 "Channel 7"
+  7 "Channel 8"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+  2 "parentWindow"
+  3 "parentWindow"
+  4 "parentWindow"
+  5 "parentWindow"
+  6 "parentWindow"
+  7 "parentWindow"
+}
+symbols {
+  0 "CHAN=1"
+  1 "CHAN=2"
+  2 "CHAN=3"
+  3 "CHAN=4"
+  4 "CHAN=5"
+  5 "CHAN=6"
+  6 "CHAN=7"
+  7 "CHAN=8"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 490
+y 465
+w 251
+h 36
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Dead Time Correction Params"
+numPvs 4
+numDsps 8
+displayFileName {
+  0 "xspress3_dtc"
+  1 "xspress3_dtc"
+  2 "xspress3_dtc"
+  3 "xspress3_dtc"
+  4 "xspress3_dtc"
+  5 "xspress3_dtc"
+  6 "xspress3_dtc"
+  7 "xspress3_dtc"
+}
+menuLabel {
+  0 "Channel 1"
+  1 "Channel 2"
+  2 "Channel 3"
+  3 "Channel 4"
+  4 "Channel 5"
+  5 "Channel 6"
+  6 "Channel 7"
+  7 "Channel 8"
+}
+setPosition {
+  0 "parentWindow"
+  1 "parentWindow"
+  2 "parentWindow"
+  3 "parentWindow"
+  4 "parentWindow"
+  5 "parentWindow"
+  6 "parentWindow"
+  7 "parentWindow"
+}
+symbols {
+  0 "CHAN=1"
+  1 "CHAN=2"
+  2 "CHAN=3"
+  3 "CHAN=4"
+  4 "CHAN=5"
+  5 "CHAN=6"
+  6 "CHAN=7"
+  7 "CHAN=8"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 490
+y 510
+w 250
+h 35
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Area Detector Screens"
+numPvs 4
+numDsps 10
+displayFileName {
+  0 "xspress3_ad.edl"
+  1 "xspress3_ad_chan.edl"
+  2 "xspress3_ad_chan.edl"
+  3 "xspress3_ad_chan.edl"
+  4 "xspress3_ad_chan.edl"
+  5 "xspress3_ad_chan.edl"
+  6 "xspress3_ad_chan.edl"
+  7 "xspress3_ad_chan.edl"
+  8 "xspress3_ad_chan.edl"
+  9 "xspress3_ad.edl"
+}
+menuLabel {
+  1 "Channel 1 Spectra"
+  2 "Channel 2 Spectra"
+  3 "Channel 3 Spectra"
+  4 "Channel 4 Spectra"
+  5 "Channel 5 Spectra"
+  6 "Channel 6 Spectra"
+  7 "Channel 7 Spectra"
+  8 "Channel 8 Spectra"
+  9 "Detector, File Saving & Summing"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  1 "chan=1"
+  2 "chan=2"
+  3 "chan=3"
+  4 "chan=4"
+  5 "chan=5"
+  6 "chan=6"
+  7 "chan=7"
+  8 "chan=8"
+}
 endObjectProperties
 

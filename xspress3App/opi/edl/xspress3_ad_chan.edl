@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 570
-y 199
+x 476
+y 164
 w 412
 h 927
 font "arial-medium-r-14.0"
@@ -147,7 +147,7 @@ selectColor index 4
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "LOC\\$(!W)tab=e:0,DET,HDF,PROC"
+controlPv "LOC\\$(!W)tab=e:0,ROI,ARR"
 font "arial-bold-r-12.0"
 orientation "horizontal"
 endObjectProperties
@@ -221,8 +221,8 @@ filePv "LOC\\$(!W)tab"
 sizeOfs 5
 numDsps 8
 displayFileName {
-  0 "xspress3_ad_det.edl"
-  1 "NDFileHDF5.edl"
+  0 "NDROI.edl"
+  1 "NDStdArrays.edl"
   2 "NDProcess.edl"
   3 "NDROI.edl"
   4 "NDStats.edl"
@@ -231,9 +231,8 @@ displayFileName {
   7 "ffmpegStream.edl"
 }
 symbols {
-  0 "R=:,label=DET"
-  1 "R=:HDF5:,label=HDF5"
-  2 "R=:PROC:,label=PROC"
+  0 "R=:ROI$(chan):,label=ROI$(chan)"
+  1 "R=:ARR$(chan):,label=ARR$(chan)"
 }
 noScroll
 endObjectProperties

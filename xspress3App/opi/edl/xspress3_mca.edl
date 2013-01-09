@@ -679,7 +679,7 @@ y2Max 1
 # Trace Properties
 numTraces 1
 yPv {
-  0 "$(P):C$(CHAN)_MCA_SUM_RBV.AVAL"
+  0 "$(P):ARRSUM$(CHAN):ArrayData"
 }
 plotColor {
   0 index 15
@@ -754,7 +754,7 @@ y2Max 1
 # Trace Properties
 numTraces 1
 yPv {
-  0 "$(P):C$(CHAN)_MCA_RBV.VAL"
+  0 "$(P):ARR$(CHAN):ArrayData"
 }
 plotColor {
   0 index 15

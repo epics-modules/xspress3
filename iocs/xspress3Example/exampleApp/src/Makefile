@@ -19,6 +19,8 @@ example_DBD += devIocStats.dbd
 example_DBD += calcSupport.dbd
 example_DBD += busyRecord.dbd
 example_DBD += busySupport.dbd
+example_DBD += ADSupport.dbd
+example_DBD += NDPluginSupport.dbd
 
 #Needed for HDF5 plugin
 example_DBD += NDFileHDF5.dbd
@@ -67,6 +69,8 @@ SYS_PROD_LIBS += png12
 
 # We need to link this IOC Application against the EPICS Base libraries
 example_LIBS += $(EPICS_BASE_IOC_LIBS)
+
+include $(AREADETECTOR)/ADApp/commonDriverMakefile
 
 DATA += exampleGUI
 
