@@ -23,3 +23,26 @@ record(bi, $(HDF):Capture_RBV)
    field(OSV, "NO_ALARM")
 }
 
+
+#Trigger an erase of the PROC plugin data
+record(bo,"$(P)$(R):ERASE") 
+{
+   field(FLNK, "$(P)$(R):ERASE_PROC_ResetFilter.PROC")
+}
+record(bo, "$(P)$(R):ERASE_PROC_ResetFilter")
+{
+   field(VAL, "1")
+   field(OUT, "$(PROC):ResetFilter.PROC")
+   field(FLNK, "$(P)$(R):ERASE_ArrayCounters") 
+}
+
+record(dfanout, "$(P)$(R):ERASE_ArrayCounters")
+{
+   field(VAL, "0")
+   field(OUTA, "$(PROC):ArrayCounter PP")
+}
+
+
+
+
+

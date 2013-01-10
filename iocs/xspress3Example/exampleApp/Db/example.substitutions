@@ -55,8 +55,8 @@ file NDFileHDF5.template {
 }
 
 file xspress3_highlevel.template {
-	pattern {P, R, HDF}
-		{mp49:, XSP3, mp49:XSP3:HDF5}
+	pattern {P, R, HDF, PROC}
+		{mp49:, XSP3, mp49:XSP3:HDF5, mp49:XSP3:PROC}
 }
 
 file NDProcess.template

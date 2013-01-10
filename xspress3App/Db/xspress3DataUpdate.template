@@ -1,39 +1,4 @@
 # ///
-# /// Disable or enable MCA Array data live update.
-# ///
-record(bo,"$(P)$(R)CTRL_MCA_UPDATE") {
-    field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_UPDATE")
-    field(ZNAM,"Disable")
-    field(ONAM,"Enable")
-    field(PINI, "YES")
-    field(VAL, "0")
-}
-
-# /// 
-# /// Readback disable or enable MCA Array data live update.
-# ///
-record(bi, "$(P)$(R)CTRL_MCA_UPDATE_RBV")
-{
-    field(DTYP,"asynInt32")
-    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_UPDATE")
-    field(ZNAM,"Disabled")	
-    field(ONAM,"Enabled")
-    field(SCAN, "I/O Intr")	
-}
-
-# ///
-# /// Set the update period of MCA array data.
-# ///
-record(longout, "$(P)$(R)CTRL_MCA_UPDATE_PERIOD")
-{
-   field(PINI, "YES")
-   field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_UPDATE_PERIOD")
-   field(VAL,  "100")
-}
-
-# ///
 # /// Disable or enable SCA Array data live update.
 # ///
 record(bo,"$(P)$(R)CTRL_SCA_UPDATE") {
@@ -42,7 +7,7 @@ record(bo,"$(P)$(R)CTRL_SCA_UPDATE") {
     field(ZNAM,"Disable")
     field(ONAM,"Enable")
     field(PINI, "YES")
-    field(VAL, "0")
+    field(VAL, "1")
 }
 
 # /// 
@@ -82,7 +47,7 @@ record(bo,"$(P)$(R)CTRL_DATA_UPDATE") {
     field(ZNAM,"Disable")
     field(ONAM,"Enable")
     field(PINI, "YES")
-    field(VAL, "0")
+    field(VAL, "1")
 }
 
 # /// 
@@ -118,7 +83,7 @@ record(bo,"$(P)$(R)CTRL_MCA_ROI") {
     field(ZNAM,"Disable")
     field(ONAM,"Enable")
     field(PINI, "YES")
-    field(VAL, "0")
+    field(VAL, "1")
 }
 
 # /// 

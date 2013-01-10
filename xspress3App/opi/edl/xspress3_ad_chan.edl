@@ -147,7 +147,7 @@ selectColor index 4
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "LOC\\$(!W)tab=e:0,ROI,ARR"
+controlPv "LOC\\$(!W)tab=e:0,ROI,ARR,ROISUM,ARRSUM"
 font "arial-bold-r-12.0"
 orientation "horizontal"
 endObjectProperties
@@ -223,8 +223,8 @@ numDsps 8
 displayFileName {
   0 "NDROI.edl"
   1 "NDStdArrays.edl"
-  2 "NDProcess.edl"
-  3 "NDROI.edl"
+  2 "NDROI.edl"
+  3 "NDStdArrays.edl"
   4 "NDStats.edl"
   5 "NDStats.edl"
   6 "NDFileHDF5.edl"
@@ -233,6 +233,8 @@ displayFileName {
 symbols {
   0 "R=:ROI$(chan):,label=ROI$(chan)"
   1 "R=:ARR$(chan):,label=ARR$(chan)"
+  2 "R=:ROISUM$(chan):,label=ROISUM$(chan)"
+  3 "R=:ARRSUM$(chan):,label=ARRSUM$(chan)"
 }
 noScroll
 endObjectProperties

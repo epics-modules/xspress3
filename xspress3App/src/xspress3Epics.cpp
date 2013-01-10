@@ -113,7 +113,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3RestoreSettingsParamString,      asynParamInt32,       &xsp3RestoreSettingsParam);
   createParam(xsp3RunFlagsParamString,      asynParamInt32,       &xsp3RunFlagsParam);
   //These params will use different param lists based on asyn address
-  createParam(xsp3ChanMcaParamString,       asynParamFloat64Array,  &xsp3ChanMcaParam);
   createParam(xsp3ChanMcaRoi1LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi1LlmParam);
   createParam(xsp3ChanMcaRoi2LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi2LlmParam);
   createParam(xsp3ChanMcaRoi3LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi3LlmParam);
@@ -158,10 +157,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3ChanDtcIwoParamString,   asynParamFloat64,       &xsp3ChanDtcIwoParam);
   //These control data update rates and ROI calculations
   createParam(xsp3CtrlDataParamString,         asynParamInt32,       &xsp3CtrlDataParam);
-  createParam(xsp3CtrlMcaParamString,         asynParamInt32,       &xsp3CtrlMcaParam);
   createParam(xsp3CtrlScaParamString,         asynParamInt32,       &xsp3CtrlScaParam);
   createParam(xsp3CtrlDataPeriodParamString,         asynParamInt32,       &xsp3CtrlDataPeriodParam);
-  createParam(xsp3CtrlMcaPeriodParamString,         asynParamInt32,       &xsp3CtrlMcaPeriodParam);
   createParam(xsp3CtrlScaPeriodParamString,         asynParamInt32,       &xsp3CtrlScaPeriodParam);
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
   createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
@@ -791,8 +788,6 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca6ArrayParam, chan);
     doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca7ArrayParam, chan);
 
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaParam, chan);
-
     callParamCallbacks(chan);
   }
 
@@ -1138,18 +1133,9 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3CtrlDataParam) {
     if (value == ctrlDisable_) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling All Live Data Update.\n", functionName);
-      setIntegerParam(xsp3CtrlMcaParam, 0);
       setIntegerParam(xsp3CtrlScaParam, 0);
     } else if (value == ctrlEnable_) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling All Live Data Update.\n", functionName);
-    }
-  } 
-  else if (function == xsp3CtrlMcaParam) {
-    if (value == ctrlDisable_) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling MCA Array Live Data Update.\n", functionName);
-    } else if (value == ctrlEnable_) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling MCA Array Live Data Update.\n", functionName);
-      setIntegerParam(xsp3CtrlDataParam, 1);
     }
   } 
   else if (function == xsp3CtrlScaParam) {
@@ -1162,9 +1148,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   } 
   else if (function == xsp3CtrlDataPeriodParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set SCA And ROI Data Update Rate.\n", functionName);
-  }
-  else if (function == xsp3CtrlMcaPeriodParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set MCA Array Data Update Rate.\n", functionName);
   }
   else if (function == xsp3CtrlScaPeriodParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set SCA Array Data Update Rate.\n", functionName);
@@ -1382,21 +1365,16 @@ void Xspress3::dataTask(void)
   int maxSpectra = 0;
   int dataTimeout = 0;
   int scaArrayTimeout = 0;
-  int mcaArrayTimeout = 0;
   epicsTimeStamp startTimeData;
   epicsTimeStamp startTimeSca;
-  epicsTimeStamp startTimeMca;
   epicsTimeStamp diffTime;
   epicsTimeStamp nowTime;
   int scalerUpdate = 0;
   int scalerArrayUpdate = 0;
-  int mcaArrayUpdate = 0;
   double startTimeDataVal = 0.0;
   double startTimeScaVal = 0.0;
-  double startTimeMcaVal = 0.0;
   double diffTimeDataVal = 0.0;
   double diffTimeScaVal = 0.0;
-  double diffTimeMcaVal = 0.0;
   const char* functionName = "Xspress3::dataTask";
   epicsFloat64 *pSCA;
   epicsFloat64 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
@@ -1479,8 +1457,6 @@ void Xspress3::dataTask(void)
      /* Get the current time */
      epicsTimeGetCurrent(&startTimeData);
      epicsTimeGetCurrent(&startTimeSca);
-     epicsTimeGetCurrent(&startTimeMca);
-     
 
      //Get the number of channels actually in use.
      getIntegerParam(xsp3NumChannelsParam, &numChannels);
@@ -1753,19 +1729,15 @@ void Xspress3::dataTask(void)
 	 //Control the update rate of scalers and arrays over channel access.
 	 getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 
 	 getIntegerParam(xsp3CtrlScaParam, &scalerArrayUpdate); 
-	 getIntegerParam(xsp3CtrlMcaParam, &mcaArrayUpdate); 
 	 getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
 	 getIntegerParam(xsp3CtrlScaPeriodParam, &scaArrayTimeout);
-	 getIntegerParam(xsp3CtrlMcaPeriodParam, &mcaArrayTimeout);
 
 	 epicsTimeGetCurrent(&diffTime);
 
 	 startTimeDataVal = startTimeData.secPastEpoch + startTimeData.nsec / 1.e9;
 	 startTimeScaVal = startTimeSca.secPastEpoch + startTimeSca.nsec / 1.e9;
-	 startTimeMcaVal = startTimeMca.secPastEpoch + startTimeMca.nsec / 1.e9;
 	 diffTimeDataVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeDataVal;
 	 diffTimeScaVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeScaVal;
-	 diffTimeMcaVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeMcaVal;
 
 	 if (diffTimeDataVal < (dataTimeout/1000.0)) {
 	   scalerUpdate = 0;
@@ -1776,11 +1748,6 @@ void Xspress3::dataTask(void)
 	   scalerArrayUpdate = 0;
 	 } else {
 	   epicsTimeGetCurrent(&startTimeSca);
-	 }
-	 if (diffTimeMcaVal < (mcaArrayTimeout/1000.0)) {
-	   mcaArrayUpdate = 0;
-	 } else {
-	   epicsTimeGetCurrent(&startTimeMca);
 	 }
 	 
 	 int offset = frameCounter;
@@ -1803,14 +1770,6 @@ void Xspress3::dataTask(void)
 	       doCallbacksFloat64Array(pMCA_ROI[chan][2], offset, xsp3ChanMcaRoi3ArrayParam, chan);
 	       doCallbacksFloat64Array(pMCA_ROI[chan][3], offset, xsp3ChanMcaRoi4ArrayParam, chan);
 	     }
-	   }
-	 }
-
-	 //Post the most recent MCA array data if we have enabled it and the timer has expired, or if we have stopped acquiring.
-	 if ((mcaArrayUpdate == 1) || !acquire) {
-	   for (int chan=0; chan<numChannels; ++chan) {
-	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting MCA Arrays On Chan %d.\n", functionName, chan);
-	     doCallbacksFloat64Array(pMCA[chan], maxSpectra-1, xsp3ChanMcaParam, chan);
 	   }
 	 }
 

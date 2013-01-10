@@ -63,7 +63,6 @@
 #define xsp3RestoreSettingsParamString           "XSP3_RESTORE_SETTINGS"
 #define xsp3RunFlagsParamString           "XSP3_RUN_FLAGS"
 //Settings for a channel
-#define xsp3ChanMcaParamString            "XSP3_CHAN_MCA"
 #define xsp3ChanMcaRoi1LlmParamString     "XSP3_CHAN_ROI1_LLM"
 #define xsp3ChanMcaRoi2LlmParamString     "XSP3_CHAN_ROI2_LLM"
 #define xsp3ChanMcaRoi3LlmParamString     "XSP3_CHAN_ROI3_LLM"
@@ -108,10 +107,8 @@
 #define xsp3ChanDtcIwoParamString            "XSP3_CHAN_DTC_IWO"
 //Parameters to control single value and array update rates.
 #define xsp3CtrlDataParamString              "XSP3_CTRL_DATA_UPDATE"
-#define xsp3CtrlMcaParamString              "XSP3_CTRL_MCA_UPDATE"
 #define xsp3CtrlScaParamString              "XSP3_CTRL_SCA_UPDATE"
 #define xsp3CtrlDataPeriodParamString              "XSP3_CTRL_DATA_UPDATE_PERIOD"
-#define xsp3CtrlMcaPeriodParamString              "XSP3_CTRL_MCA_UPDATE_PERIOD"
 #define xsp3CtrlScaPeriodParamString              "XSP3_CTRL_SCA_UPDATE_PERIOD"
 #define xsp3RoiEnableParamString        "XSP3_CTRL_MCA_ROI"
 
@@ -211,8 +208,7 @@ class Xspress3 : public ADDriver {
   int xsp3DisconnectParam;
   int xsp3SaveSettingsParam;
   int xsp3RestoreSettingsParam;
-  int xsp3RunFlagsParam;
-  int xsp3ChanMcaParam;             
+  int xsp3RunFlagsParam;             
   int xsp3ChanMcaRoi1LlmParam;  
   int xsp3ChanMcaRoi2LlmParam;   
   int xsp3ChanMcaRoi3LlmParam;   
@@ -256,10 +252,8 @@ class Xspress3 : public ADDriver {
   int xsp3ChanDtcIwgParam;  
   int xsp3ChanDtcIwoParam;  
   int xsp3CtrlDataParam;
-  int xsp3CtrlMcaParam;
   int xsp3CtrlScaParam;
   int xsp3CtrlDataPeriodParam;
-  int xsp3CtrlMcaPeriodParam;
   int xsp3CtrlScaPeriodParam;
   int xsp3RoiEnableParam;
   int xsp3LastParam;
