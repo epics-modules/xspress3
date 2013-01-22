@@ -21,6 +21,7 @@ example_DBD += busyRecord.dbd
 example_DBD += busySupport.dbd
 example_DBD += ADSupport.dbd
 example_DBD += NDPluginSupport.dbd
+example_DBD += NDPluginAttribute.dbd
 
 #Needed for HDF5 plugin
 example_DBD += NDFileHDF5.dbd
@@ -59,6 +60,7 @@ example_LIBS += calc
 example_LIBS += autosave
 example_LIBS += devIocStats
 example_LIBS += busy
+example_LIBS += spectraPlugins
 
 #Needed for HDF5 plugin
 example_LIBS += NeXus

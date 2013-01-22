@@ -1346,7 +1346,7 @@ botShadowColor index 11
 font "arial-bold-r-14.0"
 buttonLabel "Area Detector Screens"
 numPvs 4
-numDsps 10
+numDsps 18
 displayFileName {
   0 "xspress3_ad.edl"
   1 "xspress3_ad_chan.edl"
@@ -1358,6 +1358,14 @@ displayFileName {
   7 "xspress3_ad_chan.edl"
   8 "xspress3_ad_chan.edl"
   9 "xspress3_ad.edl"
+  10 "xspress3_ad_attr.edl"
+  11 "xspress3_ad_attr.edl"
+  12 "xspress3_ad_attr.edl"
+  13 "xspress3_ad_attr.edl"
+  14 "xspress3_ad_attr.edl"
+  15 "xspress3_ad_attr.edl"
+  16 "xspress3_ad_attr.edl"
+  17 "xspress3_ad_attr.edl"
 }
 menuLabel {
   1 "Channel 1 Spectra"
@@ -1369,6 +1377,14 @@ menuLabel {
   7 "Channel 7 Spectra"
   8 "Channel 8 Spectra"
   9 "Detector, File Saving & Summing"
+  10 "Channel 1 Attributes"
+  11 "Channel 2 Attributes"
+  12 "Channel 3 Attributes"
+  13 "Channel 4 Attributes"
+  14 "Channel 5 Attributes"
+  15 "Channel 6 Attributes"
+  16 "Channel 7 Attributes"
+  17 "Channel 8 Attributes"
 }
 setPosition {
   0 "parentWindow"
@@ -1382,6 +1398,14 @@ symbols {
   6 "chan=6"
   7 "chan=7"
   8 "chan=8"
+  10 "chan=1"
+  11 "chan=2"
+  12 "chan=3"
+  13 "chan=4"
+  14 "chan=5"
+  15 "chan=6"
+  16 "chan=7"
+  17 "chan=8"
 }
 endObjectProperties
 
