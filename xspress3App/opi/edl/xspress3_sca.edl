@@ -212,42 +212,13 @@ buttonLabel "Arrays"
 numPvs 4
 numDsps 1
 displayFileName {
-  0 "xspress3_sca_array_single.edl"
+  0 "NDAttributePlot.edl"
 }
 setPosition {
   0 "parentWindow"
 }
 symbols {
-  0 "SCA=5"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 280
-y 125
-w 65
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Arrays"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_sca_array_single.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "SCA=6"
+  0 "R=:C$(CHAN)_SCA5:,ATTR=SCA5"
 }
 endObjectProperties
 
@@ -691,7 +662,7 @@ x 170
 y 165
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA0_RBV"
+controlPv "$(P):C$(CHAN)_SCA0:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -714,7 +685,7 @@ x 170
 y 195
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA1_RBV"
+controlPv "$(P):C$(CHAN)_SCA1:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -737,7 +708,7 @@ x 170
 y 225
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA2_RBV"
+controlPv "$(P):C$(CHAN)_SCA2:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -760,7 +731,7 @@ x 170
 y 255
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA3_RBV"
+controlPv "$(P):C$(CHAN)_SCA3:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -783,7 +754,7 @@ x 170
 y 285
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA4_RBV"
+controlPv "$(P):C$(CHAN)_SCA4:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -806,7 +777,7 @@ x 170
 y 315
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA7_RBV"
+controlPv "$(P):C$(CHAN)_SCA7:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -939,180 +910,6 @@ value {
 }
 endObjectProperties
 
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 280
-y 165
-w 65
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_sca_array_single.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "SCA=0"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 280
-y 195
-w 65
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_sca_array_single.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "SCA=1"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 280
-y 225
-w 65
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_sca_array_single.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "SCA=2"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 280
-y 255
-w 65
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_sca_array_single.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "SCA=3"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 280
-y 285
-w 65
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_sca_array_single.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "SCA=4"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 280
-y 315
-w 65
-h 25
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Array"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_sca_array_single.edl"
-}
-setPosition {
-  0 "parentWindow"
-}
-symbols {
-  0 "SCA=7"
-}
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -1143,7 +940,7 @@ x 170
 y 125
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA6_RBV"
+controlPv "$(P):C$(CHAN)_SCA6:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -1166,7 +963,7 @@ x 170
 y 95
 w 105
 h 25
-controlPv "$(P):C$(CHAN)_SCA5_RBV"
+controlPv "$(P):C$(CHAN)_SCA5:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -1216,6 +1013,209 @@ bgColor index 3
 useDisplayBg
 value {
   "Window 2"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 125
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "NDAttributePlot.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "R=:C$(CHAN)_SCA6:,ATTR=SCA6"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 165
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "NDAttributePlot.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "R=:C$(CHAN)_SCA0:,ATTR=SCA0"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 195
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "NDAttributePlot.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "R=:C$(CHAN)_SCA1:,ATTR=SCA1"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 225
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "NDAttributePlot.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "R=:C$(CHAN)_SCA2:,ATTR=SCA2"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 255
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "NDAttributePlot.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "R=:C$(CHAN)_SCA3:,ATTR=SCA3"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 285
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "NDAttributePlot.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "R=:C$(CHAN)_SCA4:,ATTR=SCA4"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 280
+y 315
+w 65
+h 25
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Arrays"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "NDAttributePlot.edl"
+}
+setPosition {
+  0 "parentWindow"
+}
+symbols {
+  0 "R=:C$(CHAN)_SCA7:,ATTR=SCA7"
 }
 endObjectProperties
 

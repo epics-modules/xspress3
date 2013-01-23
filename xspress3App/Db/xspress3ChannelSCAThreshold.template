@@ -1,7 +1,4 @@
 
-include "xspress3ChannelSCA.template"
-
-
 # ///
 # /// Set the SCA $(SCA) threshold on channel $(CHAN)
 # ///

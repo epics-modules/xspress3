@@ -75,10 +75,6 @@
 #define xsp3ChanMcaRoi2ParamString        "XSP3_CHAN_ROI2"
 #define xsp3ChanMcaRoi3ParamString        "XSP3_CHAN_ROI3"
 #define xsp3ChanMcaRoi4ParamString        "XSP3_CHAN_ROI4"
-#define xsp3ChanMcaRoi1ArrayParamString        "XSP3_CHAN_ROI1_ARRAY"
-#define xsp3ChanMcaRoi2ArrayParamString        "XSP3_CHAN_ROI2_ARRAY"
-#define xsp3ChanMcaRoi3ArrayParamString        "XSP3_CHAN_ROI3_ARRAY"
-#define xsp3ChanMcaRoi4ArrayParamString        "XSP3_CHAN_ROI4_ARRAY"
 #define xsp3ChanSca0ParamString           "XSP3_CHAN_SCA0"
 #define xsp3ChanSca1ParamString           "XSP3_CHAN_SCA1"
 #define xsp3ChanSca2ParamString           "XSP3_CHAN_SCA2"
@@ -87,14 +83,6 @@
 #define xsp3ChanSca5ParamString           "XSP3_CHAN_SCA5"
 #define xsp3ChanSca6ParamString           "XSP3_CHAN_SCA6"
 #define xsp3ChanSca7ParamString           "XSP3_CHAN_SCA7"
-#define xsp3ChanSca0ArrayParamString           "XSP3_CHAN_SCA0_ARRAY"
-#define xsp3ChanSca1ArrayParamString           "XSP3_CHAN_SCA1_ARRAY"
-#define xsp3ChanSca2ArrayParamString           "XSP3_CHAN_SCA2_ARRAY"
-#define xsp3ChanSca3ArrayParamString           "XSP3_CHAN_SCA3_ARRAY"
-#define xsp3ChanSca4ArrayParamString           "XSP3_CHAN_SCA4_ARRAY"
-#define xsp3ChanSca5ArrayParamString           "XSP3_CHAN_SCA5_ARRAY"
-#define xsp3ChanSca6ArrayParamString           "XSP3_CHAN_SCA6_ARRAY"
-#define xsp3ChanSca7ArrayParamString           "XSP3_CHAN_SCA7_ARRAY"
 #define xsp3ChanSca4ThresholdParamString        "XSP3_CHAN_SCA4_THRESHOLD"
 #define xsp3ChanSca5HlmParamString        "XSP3_CHAN_SCA5_HLM"
 #define xsp3ChanSca6HlmParamString        "XSP3_CHAN_SCA6_HLM"
@@ -106,10 +94,6 @@
 #define xsp3ChanDtcIwgParamString            "XSP3_CHAN_DTC_IWG"
 #define xsp3ChanDtcIwoParamString            "XSP3_CHAN_DTC_IWO"
 //Parameters to control single value and array update rates.
-#define xsp3CtrlDataParamString              "XSP3_CTRL_DATA_UPDATE"
-#define xsp3CtrlScaParamString              "XSP3_CTRL_SCA_UPDATE"
-#define xsp3CtrlDataPeriodParamString              "XSP3_CTRL_DATA_UPDATE_PERIOD"
-#define xsp3CtrlScaPeriodParamString              "XSP3_CTRL_SCA_UPDATE_PERIOD"
 #define xsp3RoiEnableParamString        "XSP3_CTRL_MCA_ROI"
 
 
@@ -221,10 +205,6 @@ class Xspress3 : public ADDriver {
   int xsp3ChanMcaRoi2Param;      
   int xsp3ChanMcaRoi3Param;      
   int xsp3ChanMcaRoi4Param;      
-  int xsp3ChanMcaRoi1ArrayParam; 
-  int xsp3ChanMcaRoi2ArrayParam; 
-  int xsp3ChanMcaRoi3ArrayParam; 
-  int xsp3ChanMcaRoi4ArrayParam; 
   int xsp3ChanSca0Param;
   int xsp3ChanSca1Param;             
   int xsp3ChanSca2Param;
@@ -233,14 +213,6 @@ class Xspress3 : public ADDriver {
   int xsp3ChanSca5Param;
   int xsp3ChanSca6Param;
   int xsp3ChanSca7Param;             
-  int xsp3ChanSca0ArrayParam;        
-  int xsp3ChanSca1ArrayParam;
-  int xsp3ChanSca2ArrayParam;
-  int xsp3ChanSca3ArrayParam;
-  int xsp3ChanSca4ArrayParam;
-  int xsp3ChanSca5ArrayParam;
-  int xsp3ChanSca6ArrayParam;
-  int xsp3ChanSca7ArrayParam;
   int xsp3ChanSca4ThresholdParam;          
   int xsp3ChanSca5HlmParam;          
   int xsp3ChanSca6HlmParam;          
@@ -251,10 +223,6 @@ class Xspress3 : public ADDriver {
   int xsp3ChanDtcAeoParam;  
   int xsp3ChanDtcIwgParam;  
   int xsp3ChanDtcIwoParam;  
-  int xsp3CtrlDataParam;
-  int xsp3CtrlScaParam;
-  int xsp3CtrlDataPeriodParam;
-  int xsp3CtrlScaPeriodParam;
   int xsp3RoiEnableParam;
   int xsp3LastParam;
   #define XSP3_LAST_DRIVER_COMMAND xsp3LastParam

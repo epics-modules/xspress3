@@ -125,10 +125,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3ChanMcaRoi2ParamString,     asynParamFloat64,&xsp3ChanMcaRoi2Param);
   createParam(xsp3ChanMcaRoi3ParamString,     asynParamFloat64,&xsp3ChanMcaRoi3Param);
   createParam(xsp3ChanMcaRoi4ParamString,     asynParamFloat64,&xsp3ChanMcaRoi4Param);
-  createParam(xsp3ChanMcaRoi1ArrayParamString, asynParamFloat64Array, &xsp3ChanMcaRoi1ArrayParam);
-  createParam(xsp3ChanMcaRoi2ArrayParamString, asynParamFloat64Array, &xsp3ChanMcaRoi2ArrayParam);
-  createParam(xsp3ChanMcaRoi3ArrayParamString, asynParamFloat64Array, &xsp3ChanMcaRoi3ArrayParam);
-  createParam(xsp3ChanMcaRoi4ArrayParamString, asynParamFloat64Array, &xsp3ChanMcaRoi4ArrayParam);
   createParam(xsp3ChanSca0ParamString,      asynParamFloat64,       &xsp3ChanSca0Param);
   createParam(xsp3ChanSca1ParamString,      asynParamFloat64,       &xsp3ChanSca1Param);
   createParam(xsp3ChanSca2ParamString,      asynParamFloat64,       &xsp3ChanSca2Param);
@@ -137,14 +133,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3ChanSca5ParamString,      asynParamFloat64,       &xsp3ChanSca5Param);
   createParam(xsp3ChanSca6ParamString,      asynParamFloat64,       &xsp3ChanSca6Param);
   createParam(xsp3ChanSca7ParamString,      asynParamFloat64,       &xsp3ChanSca7Param);
-  createParam(xsp3ChanSca0ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca0ArrayParam);
-  createParam(xsp3ChanSca1ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca1ArrayParam);
-  createParam(xsp3ChanSca2ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca2ArrayParam);
-  createParam(xsp3ChanSca3ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca3ArrayParam);
-  createParam(xsp3ChanSca4ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca4ArrayParam);
-  createParam(xsp3ChanSca5ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca5ArrayParam);
-  createParam(xsp3ChanSca6ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca6ArrayParam);
-  createParam(xsp3ChanSca7ArrayParamString,asynParamFloat64Array,  &xsp3ChanSca7ArrayParam);
   createParam(xsp3ChanSca4ThresholdParamString,   asynParamInt32,       &xsp3ChanSca4ThresholdParam);
   createParam(xsp3ChanSca5HlmParamString,   asynParamInt32,       &xsp3ChanSca5HlmParam);
   createParam(xsp3ChanSca6HlmParamString,   asynParamInt32,       &xsp3ChanSca6HlmParam);
@@ -155,11 +143,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3ChanDtcAeoParamString,   asynParamFloat64,       &xsp3ChanDtcAeoParam);
   createParam(xsp3ChanDtcIwgParamString,   asynParamFloat64,       &xsp3ChanDtcIwgParam);
   createParam(xsp3ChanDtcIwoParamString,   asynParamFloat64,       &xsp3ChanDtcIwoParam);
-  //These control data update rates and ROI calculations
-  createParam(xsp3CtrlDataParamString,         asynParamInt32,       &xsp3CtrlDataParam);
-  createParam(xsp3CtrlScaParamString,         asynParamInt32,       &xsp3CtrlScaParam);
-  createParam(xsp3CtrlDataPeriodParamString,         asynParamInt32,       &xsp3CtrlDataPeriodParam);
-  createParam(xsp3CtrlScaPeriodParamString,         asynParamInt32,       &xsp3CtrlScaPeriodParam);
+  //This controls ROI calculations
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
   createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
   
@@ -741,7 +725,6 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   int status = asynSuccess;
   int xsp3_num_channels = 0;
   int maxNumFrames = 0;
-  epicsFloat64 *pZERO = NULL;
   const char *functionName = "Xspress3::eraseSCAMCAROI";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
@@ -749,12 +732,6 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
   getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
 
-  pZERO = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
-  if (pZERO == NULL) {
-    perror(functionName);
-    return asynError;
-  }
-  
   bool paramStatus = true;
   paramStatus = ((setIntegerParam(NDArrayCounter, 0) == asynSuccess) && paramStatus);
   paramStatus = ((setIntegerParam(xsp3FrameCountParam, 0) == asynSuccess) && paramStatus);
@@ -774,20 +751,6 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi3Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi4Param, 0) == asynSuccess) && paramStatus);
     
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaRoi1ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaRoi2ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaRoi3ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanMcaRoi4ArrayParam, chan);
-
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca0ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca1ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca2ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca3ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca4ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca5ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca6ArrayParam, chan);
-    doCallbacksFloat64Array(pZERO, maxNumFrames, xsp3ChanSca7ArrayParam, chan);
-
     callParamCallbacks(chan);
   }
 
@@ -798,8 +761,6 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   if (status != asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR erasing data.\n", functionName);
   }
-
-  free(pZERO);
 
   return static_cast<asynStatus>(status);
 }
@@ -1130,28 +1091,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling ROI Calculations.\n", functionName);
     }
   } 
-  else if (function == xsp3CtrlDataParam) {
-    if (value == ctrlDisable_) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling All Live Data Update.\n", functionName);
-      setIntegerParam(xsp3CtrlScaParam, 0);
-    } else if (value == ctrlEnable_) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling All Live Data Update.\n", functionName);
-    }
-  } 
-  else if (function == xsp3CtrlScaParam) {
-    if (value == ctrlDisable_) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling SCA Array Live Data Update.\n", functionName);
-    } else if (value == ctrlEnable_) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling SCA Array Live Data Update.\n", functionName);
-      setIntegerParam(xsp3CtrlDataParam, 1);
-    }
-  } 
-  else if (function == xsp3CtrlDataPeriodParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set SCA And ROI Data Update Rate.\n", functionName);
-  }
-  else if (function == xsp3CtrlScaPeriodParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set SCA Array Data Update Rate.\n", functionName);
-  }
   else if (function == xsp3RunFlagsParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The Run Flags.\n", functionName);
   }
@@ -1363,23 +1302,12 @@ void Xspress3::dataTask(void)
   int frameCounter = 0;
   int maxNumFrames = 0;
   int maxSpectra = 0;
-  int dataTimeout = 0;
-  int scaArrayTimeout = 0;
-  epicsTimeStamp startTimeData;
-  epicsTimeStamp startTimeSca;
-  epicsTimeStamp diffTime;
   epicsTimeStamp nowTime;
-  int scalerUpdate = 0;
-  int scalerArrayUpdate = 0;
-  double startTimeDataVal = 0.0;
-  double startTimeScaVal = 0.0;
-  double diffTimeDataVal = 0.0;
-  double diffTimeScaVal = 0.0;
   const char* functionName = "Xspress3::dataTask";
   epicsFloat64 *pSCA;
-  epicsFloat64 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
+  //  epicsFloat64 *pSCA_DATA[numChannels_][XSP3_SW_NUM_SCALERS];
   epicsFloat64 *pMCA[numChannels_];
-  epicsFloat64 *pMCA_ROI[numChannels_][maxNumRoi_];
+  //  epicsFloat64 *pMCA_ROI[numChannels_][maxNumRoi_];
   NDArray *pMCA_NDARRAY;
   int roiEnabled = 0;
   epicsInt32 roiMin[maxNumRoi_];
@@ -1398,19 +1326,19 @@ void Xspress3::dataTask(void)
   getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
   pSCA = static_cast<epicsFloat64*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsFloat64)));
   //Create array to hold SCA data for the duration of the scan, one per SCA, per channel.
-  for (int chan=0; chan<numChannels_; chan++) {
-    for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-      pSCA_DATA[chan][sca] = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
-    }
-  }
+  //for (int chan=0; chan<numChannels_; chan++) {
+  //  for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+  //    pSCA_DATA[chan][sca] = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
+  //  }
+  //}
 
   //Create data arrays for MCA spectra and ROI arrays
   for (int chan=0; chan<numChannels_; chan++) {
     //We do this for each frame below, using this->pNDArrayPool->alloc, in the acquire loop.
     pMCA[chan] = static_cast<epicsFloat64*>(calloc(maxSpectra, sizeof(epicsFloat64))); 
-    for (int roi=0; roi<maxNumRoi_; roi++) {
-      pMCA_ROI[chan][roi] = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
-    }
+    //for (int roi=0; roi<maxNumRoi_; roi++) {
+    //  pMCA_ROI[chan][roi] = static_cast<epicsFloat64*>(calloc(maxNumFrames, sizeof(epicsFloat64)));
+    //}
   }
   
   while (1) {
@@ -1435,12 +1363,12 @@ void Xspress3::dataTask(void)
        memset(pSCA, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsFloat64));
        for (int chan=0; chan<numChannels_; chan++) {
 	 memset(pMCA[chan], 0, maxSpectra*sizeof(epicsFloat64));
-	 for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-	   memset(pSCA_DATA[chan][sca], 0, maxNumFrames*sizeof(epicsFloat64));
-	 }
-	 for (int roi=0; roi<maxNumRoi_; roi++) {
-	   memset(pMCA_ROI[chan][roi], 0, maxNumFrames*sizeof(epicsFloat64));
-	 }
+	 //for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+	 //  memset(pSCA_DATA[chan][sca], 0, maxNumFrames*sizeof(epicsFloat64));
+	 //}
+	 //for (int roi=0; roi<maxNumRoi_; roi++) {
+	 //  memset(pMCA_ROI[chan][roi], 0, maxNumFrames*sizeof(epicsFloat64));
+	 //}
        }
        setIntegerParam(xsp3FrameCountParam, 0);
        setIntegerParam(NDArrayCounter, 0);
@@ -1453,10 +1381,6 @@ void Xspress3::dataTask(void)
      lastFrameCount = 0;
      framesToReadOut = 0;
      stillBusy = false;
-
-     /* Get the current time */
-     epicsTimeGetCurrent(&startTimeData);
-     epicsTimeGetCurrent(&startTimeSca);
 
      //Get the number of channels actually in use.
      getIntegerParam(xsp3NumChannelsParam, &numChannels);
@@ -1648,7 +1572,7 @@ void Xspress3::dataTask(void)
 		   }*/
 
 		 //For this channel and frame, copy the scaler data into pSCA_DATA for channel access later on.
-		 for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
+		 /*for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
 		   pScaDataArray = (static_cast<epicsFloat64*>((pSCA_DATA[chan][sca])+frame));
 		   *pScaDataArray = *(pScaData++);
 		 }
@@ -1660,10 +1584,21 @@ void Xspress3::dataTask(void)
 		 setDoubleParam(chan, xsp3ChanSca4Param, *((pSCA_DATA[chan][4])+frame));
 		 setDoubleParam(chan, xsp3ChanSca5Param, *((pSCA_DATA[chan][5])+frame));
 		 setDoubleParam(chan, xsp3ChanSca6Param, *((pSCA_DATA[chan][6])+frame));
-		 setDoubleParam(chan, xsp3ChanSca7Param, *((pSCA_DATA[chan][7])+frame));
+		 setDoubleParam(chan, xsp3ChanSca7Param, *((pSCA_DATA[chan][7])+frame));*/
+
+		 setDoubleParam(chan, xsp3ChanSca0Param, *(pScaData++));
+		 setDoubleParam(chan, xsp3ChanSca1Param, *(pScaData++));
+		 setDoubleParam(chan, xsp3ChanSca2Param, *(pScaData++));
+		 setDoubleParam(chan, xsp3ChanSca3Param, *(pScaData++));
+		 setDoubleParam(chan, xsp3ChanSca4Param, *(pScaData++));
+		 setDoubleParam(chan, xsp3ChanSca5Param, *(pScaData++));
+		 setDoubleParam(chan, xsp3ChanSca6Param, *(pScaData++));
+		 setDoubleParam(chan, xsp3ChanSca7Param, *(pScaData++));
+		 
 		 
 		 //Calculate MCA ROI here, if we have enabled it. Put the results into pMCA_ROI[chan][roi].
 		 getIntegerParam(xsp3RoiEnableParam, &roiEnabled);
+		 memset(&roiSum, 0, sizeof(epicsFloat64)*maxNumRoi_);
 		 if (roiEnabled) {
 		   
 		   getIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, &roiMin[0]);
@@ -1676,22 +1611,28 @@ void Xspress3::dataTask(void)
 		   getIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, &roiMax[3]);
 		   
 		   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calculating ROI Data.\n", functionName);
-		   memset(&roiSum, 0, sizeof(epicsFloat64)*maxNumRoi_);
 		   for (int roi=0; roi<maxNumRoi_; ++roi) {
 		     for (int energy=roiMin[roi]; energy<roiMax[roi]; ++energy) {
 		       roiSum[roi] += *(pMCA[chan]+energy);
 		     }
 		   }
-		   for (int roi=0; roi<maxNumRoi_; ++roi) {
-		     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Chan %d Roi %d: %f.\n", functionName, chan, roi, roiSum[roi]);
-		     *(pMCA_ROI[chan][roi]+frame) = roiSum[roi];
-		   }
+
+		   //for (int roi=0; roi<maxNumRoi_; ++roi) {
+		   // asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Chan %d Roi %d: %f.\n", functionName, chan, roi, roiSum[roi]);
+		   //  *(pMCA_ROI[chan][roi]+frame) = roiSum[roi];
+		   //}
 		 }
+
+		 setDoubleParam(chan, xsp3ChanMcaRoi1Param, roiSum[0]);
+		 setDoubleParam(chan, xsp3ChanMcaRoi2Param, roiSum[1]);
+		 setDoubleParam(chan, xsp3ChanMcaRoi3Param, roiSum[2]);
+		 setDoubleParam(chan, xsp3ChanMcaRoi4Param, roiSum[3]);
 		 
-		 setDoubleParam(chan, xsp3ChanMcaRoi1Param, *((pMCA_ROI[chan][0])+frame));
-		 setDoubleParam(chan, xsp3ChanMcaRoi2Param, *((pMCA_ROI[chan][1])+frame));
-		 setDoubleParam(chan, xsp3ChanMcaRoi3Param, *((pMCA_ROI[chan][2])+frame));
-		 setDoubleParam(chan, xsp3ChanMcaRoi4Param, *((pMCA_ROI[chan][3])+frame));
+		 
+		 //setDoubleParam(chan, xsp3ChanMcaRoi1Param, *((pMCA_ROI[chan][0])+frame));
+		 //setDoubleParam(chan, xsp3ChanMcaRoi2Param, *((pMCA_ROI[chan][1])+frame));
+		 //setDoubleParam(chan, xsp3ChanMcaRoi3Param, *((pMCA_ROI[chan][2])+frame));
+		 //setDoubleParam(chan, xsp3ChanMcaRoi4Param, *((pMCA_ROI[chan][3])+frame));
 		 
 	       } //End of channel loop
 	     } //end of else, if the alloc worked.
@@ -1720,6 +1661,13 @@ void Xspress3::dataTask(void)
 	       pMCA_NDARRAY->release();
 	     } //end of if (allocError == 0)
 
+	     //Need to call callParamCallbacks for each list (ie. channel, indexed by Asyn address).
+	     for (int addr=0; addr<maxAddr; addr++) {
+	       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling callParamCallbacks for addr %d.\n", functionName, addr);
+	       callParamCallbacks(addr);
+	     }
+
+
 	   } //end of frame loop
 	 } //end of if (!stillBusy)
 
@@ -1727,60 +1675,30 @@ void Xspress3::dataTask(void)
 	 //epicsThreadSleep(2.0);
 	   
 	 //Control the update rate of scalers and arrays over channel access.
-	 getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 
-	 getIntegerParam(xsp3CtrlScaParam, &scalerArrayUpdate); 
-	 getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
-	 getIntegerParam(xsp3CtrlScaPeriodParam, &scaArrayTimeout);
+	 //getIntegerParam(xsp3CtrlDataParam, &scalerUpdate); 
+	 //getIntegerParam(xsp3CtrlDataPeriodParam, &dataTimeout);
 
-	 epicsTimeGetCurrent(&diffTime);
+	 //epicsTimeGetCurrent(&diffTime);
 
-	 startTimeDataVal = startTimeData.secPastEpoch + startTimeData.nsec / 1.e9;
-	 startTimeScaVal = startTimeSca.secPastEpoch + startTimeSca.nsec / 1.e9;
-	 diffTimeDataVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeDataVal;
-	 diffTimeScaVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeScaVal;
+	 //startTimeDataVal = startTimeData.secPastEpoch + startTimeData.nsec / 1.e9;
+	 //diffTimeDataVal = (diffTime.secPastEpoch + diffTime.nsec / 1.e9) - startTimeDataVal;
 
-	 if (diffTimeDataVal < (dataTimeout/1000.0)) {
-	   scalerUpdate = 0;
-	 } else {
-	   epicsTimeGetCurrent(&startTimeData);
-	 }
-	 if (diffTimeScaVal < (scaArrayTimeout/1000.0)) {
-	   scalerArrayUpdate = 0;
-	 } else {
-	   epicsTimeGetCurrent(&startTimeSca);
-	 }
+	 //if (diffTimeDataVal < (dataTimeout/1000.0)) {
+	 // scalerUpdate = 0;
+	 //} else {
+	 //  epicsTimeGetCurrent(&startTimeData);
+	 //}
 	 
-	 int offset = frameCounter;
-	 //Post scalar array data if we have enabled it and the timer has expired, or if we have stopped acquiring. 
-	 if ((scalerArrayUpdate == 1) || !acquire) {
-	   for (int chan=0; chan<numChannels; ++chan) {
-	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting Scaler Arrays On Chan %d.\n", functionName, chan);
-	     doCallbacksFloat64Array(pSCA_DATA[chan][0], offset, xsp3ChanSca0ArrayParam, chan);
-	     doCallbacksFloat64Array(pSCA_DATA[chan][1], offset, xsp3ChanSca1ArrayParam, chan);
-	     doCallbacksFloat64Array(pSCA_DATA[chan][2], offset, xsp3ChanSca2ArrayParam, chan);
-	     doCallbacksFloat64Array(pSCA_DATA[chan][3], offset, xsp3ChanSca3ArrayParam, chan);
-	     doCallbacksFloat64Array(pSCA_DATA[chan][4], offset, xsp3ChanSca4ArrayParam, chan);
-	     doCallbacksFloat64Array(pSCA_DATA[chan][5], offset, xsp3ChanSca5ArrayParam, chan);
-	     doCallbacksFloat64Array(pSCA_DATA[chan][6], offset, xsp3ChanSca6ArrayParam, chan);
-	     doCallbacksFloat64Array(pSCA_DATA[chan][7], offset, xsp3ChanSca7ArrayParam, chan);
-	     if (roiEnabled) {
-	       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Posting ROI Arrays On Chan %d.\n", functionName, chan);
-	       doCallbacksFloat64Array(pMCA_ROI[chan][0], offset, xsp3ChanMcaRoi1ArrayParam, chan);
-	       doCallbacksFloat64Array(pMCA_ROI[chan][1], offset, xsp3ChanMcaRoi2ArrayParam, chan);
-	       doCallbacksFloat64Array(pMCA_ROI[chan][2], offset, xsp3ChanMcaRoi3ArrayParam, chan);
-	       doCallbacksFloat64Array(pMCA_ROI[chan][3], offset, xsp3ChanMcaRoi4ArrayParam, chan);
-	     }
-	   }
-	 }
+	 //int offset = frameCounter;
 
 	 //If we are updating scaler data, or have stopped acquiring, do channel access.
-	 if (scalerUpdate || !acquire) {
+	 //if (scalerUpdate || !acquire) {
 	   //Need to call callParamCallbacks for each list (ie. channel, indexed by Asyn address).
-	   for (int addr=0; addr<maxAddr; addr++) {
-	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling callParamCallbacks for addr %d.\n", functionName, addr);
-	     callParamCallbacks(addr);
-	   }
-	 }
+	   //for (int addr=0; addr<maxAddr; addr++) {
+	   //  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling callParamCallbacks for addr %d.\n", functionName, addr);
+	   //  callParamCallbacks(addr);
+	   //}
+	 //}
 
        }  //end of if (frame_count > lastFrameCount)
 
@@ -1795,16 +1713,16 @@ void Xspress3::dataTask(void)
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: Exiting dataTask main loop.\n", functionName);
   free(pSCA);
-  for (int chan=0; chan<numChannels_; chan++) {
-    for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
-      free(pSCA_DATA[chan][sca]);
-    }
-  }
+  //for (int chan=0; chan<numChannels_; chan++) {
+    //for (int sca=0; sca<XSP3_SW_NUM_SCALERS; sca++) {
+    //  free(pSCA_DATA[chan][sca]);
+    //}
+  //}
   for (int chan=0; chan<numChannels_; chan++) {
     free(pMCA[chan]); 
-    for (int roi=0; roi<maxNumRoi_; roi++) {
-      free(pMCA_ROI[chan][roi]);
-    }
+    //for (int roi=0; roi<maxNumRoi_; roi++) {
+    //  free(pMCA_ROI[chan][roi]);
+    //}
   }
 
 }

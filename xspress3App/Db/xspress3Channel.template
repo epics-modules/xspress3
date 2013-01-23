@@ -1,23 +1,9 @@
 
 ##########################################################################
-# Add in SCA records.
+# Add in records to set SCA related parameters.
+# Note: the actual SCA data is displayed to the user using 
+# the NDAttribute plugin.
 ##########################################################################
-
-#Time SCA
-substitute "SCA=0"
-include "xspress3ChannelSCA.template"
-
-#Reset ticks SCA
-substitute "SCA=1"
-include "xspress3ChannelSCA.template"
-
-#Reset counts SCA
-substitute "SCA=2"
-include "xspress3ChannelSCA.template"
-
-#All event SCA
-substitute "SCA=3"
-include "xspress3ChannelSCA.template"
 
 #All good SCA
 substitute "SCA=4"
@@ -31,13 +17,10 @@ include "xspress3ChannelSCALimits.template"
 substitute "SCA=6"
 include "xspress3ChannelSCALimits.template"
 
-#Pileup SCA
-substitute "SCA=7"
-include "xspress3ChannelSCA.template"
-
-
 ##########################################################################
 # Add in MCA ROI records.
+# Note: the actual ROI data is displayed to the user using 
+# the NDAttribute plugin.
 ##########################################################################
 
 substitute "ROI=1"

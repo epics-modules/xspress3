@@ -1,26 +1,3 @@
-# ///
-# /// Read MCA ROI $(ROI) on channel $(CHAN)
-# ///
-record(ai, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_RBV")
-{
-   field(PINI, "1")
-   field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_ROI$(ROI)")
-   field(SCAN, "I/O Intr")
-   field(PREC, "2")
-}
-
-# ///
-# /// The MCA ROI $(ROI) waveform for channel $(CHAN) 
-# ///
-record(waveform, "$(P)$(R)C$(CHAN)_MCA_ROI$(ROI)_ARRAY_RBV")
-{
-    field(DTYP, "asynFloat64ArrayIn")
-    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_ROI$(ROI)_ARRAY")
-    field(FTVL, "DOUBLE")
-    field(NELM, "$(MAX_FRAMES)")
-    field(SCAN, "I/O Intr")
-}
 
 # ///
 # /// Set the MCA ROI$(ROI) high level limit on channel $(CHAN)

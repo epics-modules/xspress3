@@ -1,6 +1,4 @@
 
-include "xspress3ChannelSCA.template"
-
 # ///
 # /// Set the SCA $(SCA) high level window limit on channel $(CHAN)
 # ///
