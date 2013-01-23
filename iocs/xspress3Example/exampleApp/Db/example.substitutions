@@ -5,6 +5,7 @@ file xspress3.template {
                 {mp49:, XSP3:, XSP3, 0,    5,       4095,        4096}
 }
 
+#NOTE: by default plugins for channels 1-4 are enabled, 5-8 are disabled.
 file NDPluginBase.template {
 	pattern {P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT, NDARRAY_ADDR, Enabled}
 		{mp49:, XSP3:HDF5:, XSP3.HDF5, 1, 0, XSP3, 0, 1}

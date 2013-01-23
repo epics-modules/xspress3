@@ -1,0 +1,46 @@
+####################################################################
+#
+# Records to enable and disable all the plugins for specific channels.
+# Doing ROI and channel access for each channel can be CPU intensive.
+# So it is best to disable channels not in use.
+#
+#####################################################################
+
+
+record(bo, "$(P)$(R):C$(CHAN)_PluginControlVal")
+{
+   field(VAL, "0")
+   field(ONAM, "Enabled")
+   field(ZNAM, "Disabled")
+   field(FLNK, "$(P)$(R):C$(CHAN)_PluginControl.PROC")
+}
+
+record(dfanout, "$(P)$(R):C$(CHAN)_PluginControl")
+{
+   field(DOL, "$(P)$(R):C$(CHAN)_PluginControlVal.VAL")
+   field(OMSL, "closed_loop")
+   field(OUTA, "$(P)$(R):ROI$(CHAN):EnableCallbacks PP")
+   field(OUTB, "$(P)$(R):ARR$(CHAN):EnableCallbacks PP")
+   field(OUTC, "$(P)$(R):ROISUM$(CHAN):EnableCallbacks PP")
+   field(OUTD, "$(P)$(R):ARRSUM$(CHAN):EnableCallbacks PP")
+   field(OUTE, "$(P)$(R):C$(CHAN)_$(SCA0):EnableCallbacks PP")
+   field(OUTF, "$(P)$(R):C$(CHAN)_$(SCA1):EnableCallbacks PP")
+   field(OUTG, "$(P)$(R):C$(CHAN)_$(SCA2):EnableCallbacks PP")
+   field(OUTH, "$(P)$(R):C$(CHAN)_$(SCA3):EnableCallbacks PP")
+   field(FLNK, "$(P)$(R):C$(CHAN)_PluginControl_2.PROC")
+}
+
+record(dfanout, "$(P)$(R):C$(CHAN)_PluginControl_2")
+{
+   field(DOL, "$(P)$(R):C$(CHAN)_PluginControlVal.VAL")
+   field(OMSL, "closed_loop")
+   field(OUTA, "$(P)$(R):C$(CHAN)_$(SCA4):EnableCallbacks PP")
+   field(OUTB, "$(P)$(R):C$(CHAN)_$(SCA5):EnableCallbacks PP")
+   field(OUTC, "$(P)$(R):C$(CHAN)_$(SCA6):EnableCallbacks PP")
+   field(OUTD, "$(P)$(R):C$(CHAN)_$(SCA7):EnableCallbacks PP")
+   field(OUTE, "$(P)$(R):C$(CHAN)_$(ROI1):EnableCallbacks PP")
+   field(OUTF, "$(P)$(R):C$(CHAN)_$(ROI2):EnableCallbacks PP")
+   field(OUTG, "$(P)$(R):C$(CHAN)_$(ROI3):EnableCallbacks PP")
+   field(OUTH, "$(P)$(R):C$(CHAN)_$(ROI4):EnableCallbacks PP")
+}
+

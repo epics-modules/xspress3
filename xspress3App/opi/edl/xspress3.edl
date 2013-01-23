@@ -774,7 +774,7 @@ release 0
 x 475
 y 300
 w 285
-h 220
+h 245
 lineColor index 14
 fill
 fillColor index 5
@@ -1021,22 +1021,22 @@ setPosition {
   0 "parentWindow"
 }
 symbols {
-  1 "chan=1"
-  2 "chan=2"
-  3 "chan=3"
-  4 "chan=4"
-  5 "chan=5"
-  6 "chan=6"
-  7 "chan=7"
-  8 "chan=8"
-  10 "chan=1"
-  11 "chan=2"
-  12 "chan=3"
-  13 "chan=4"
-  14 "chan=5"
-  15 "chan=6"
-  16 "chan=7"
-  17 "chan=8"
+  1 "CHAN=1"
+  2 "CHAN=2"
+  3 "CHAN=3"
+  4 "CHAN=4"
+  5 "CHAN=5"
+  6 "CHAN=6"
+  7 "CHAN=7"
+  8 "CHAN=8"
+  10 "CHAN=1"
+  11 "CHAN=2"
+  12 "CHAN=3"
+  13 "CHAN=4"
+  14 "CHAN=5"
+  15 "CHAN=6"
+  16 "CHAN=7"
+  17 "CHAN=8"
 }
 endObjectProperties
 
@@ -1488,5 +1488,34 @@ offLabel "Stop File Saving"
 3d
 useEnumNumeric
 font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 490
+y 495
+w 251
+h 36
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Enable/Disable AD Plugins"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_ad_pluginControl.edl"
+}
+menuLabel {
+  0 "Enable/Disable AD Plugins"
+}
+setPosition {
+  0 "parentWindow"
+}
 endObjectProperties
 

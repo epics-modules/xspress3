@@ -231,10 +231,10 @@ displayFileName {
   7 "ffmpegStream.edl"
 }
 symbols {
-  0 "R=:ROI$(chan):,label=ROI$(chan)"
-  1 "R=:ARR$(chan):,label=ARR$(chan)"
-  2 "R=:ROISUM$(chan):,label=ROISUM$(chan)"
-  3 "R=:ARRSUM$(chan):,label=ARRSUM$(chan)"
+  0 "R=:ROI$(CHAN):,label=ROI$(CHAN)"
+  1 "R=:ARR$(CHAN):,label=ARR$(CHAN)"
+  2 "R=:ROISUM$(CHAN):,label=ROISUM$(CHAN)"
+  3 "R=:ARRSUM$(CHAN):,label=ARRSUM$(CHAN)"
 }
 noScroll
 endObjectProperties

@@ -1,0 +1,499 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 359
+y 47
+w 495
+h 490
+font "arial-medium-r-12.0"
+fontAlign "center"
+ctlFont "arial-medium-r-12.0"
+ctlFontAlign "center"
+btnFont "arial-medium-r-12.0"
+btnFontAlign "center"
+fgColor index 14
+bgColor index 3
+textColor index 14
+ctlFgColor1 index 25
+ctlFgColor2 index 30
+ctlBgColor1 index 10
+ctlBgColor2 index 14
+topShadowColor index 1
+botShadowColor index 11
+title "Xspress3 Control"
+showGrid
+snapToGrid
+gridSize 5
+disableScroll
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 40
+w 465
+h 385
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 490
+h 25
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 2
+w 489
+h 25
+lineColor index 1
+fillColor index 0
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 1
+y 3
+w 489
+h 25
+lineColor index 11
+fillColor index 0
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 1
+y 3
+w 489
+h 24
+fgColor index 14
+bgColor index 3
+topShadowColor index 0
+botShadowColor index 0
+font "arial-bold-r-14.0"
+xPosOffset 5
+yPosOffset 5
+button3Popup
+invisible
+buttonLabel "tooltip"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "generic-tooltip"
+}
+setPosition {
+  0 "button"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 1
+y 3
+w 489
+h 25
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 51
+value {
+  "Xspress3 Control - $(P)"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 35
+w 444
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Enable and Disable Area Detector Channel Specific Plugins    "
+}
+autoSize
+border
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 60
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C1_PluginControlVal"
+indicatorPv "$(P):C1_PluginControlVal"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 35
+y 70
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 1"
+}
+endObjectProperties
+
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 380
+y 435
+w 100
+h 35
+fgColor index 46
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+label "EXIT"
+font "arial-bold-r-18.0"
+3d
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 105
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C2_PluginControlVal"
+indicatorPv "$(P):C2_PluginControlVal"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 150
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C3_PluginControlVal"
+indicatorPv "$(P):C3_PluginControlVal"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 195
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C4_PluginControlVal"
+indicatorPv "$(P):C4_PluginControlVal"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 240
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C5_PluginControlVal"
+indicatorPv "$(P):C5_PluginControlVal"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 285
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C6_PluginControlVal"
+indicatorPv "$(P):C6_PluginControlVal"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 330
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C7_PluginControlVal"
+indicatorPv "$(P):C7_PluginControlVal"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 115
+y 375
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C8_PluginControlVal"
+indicatorPv "$(P):C8_PluginControlVal"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 35
+y 115
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 2"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 35
+y 160
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 3"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 35
+y 205
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 4"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 35
+y 250
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 5"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 35
+y 295
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 6"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 35
+y 340
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 7"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 35
+y 385
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 8"
+}
+endObjectProperties
+

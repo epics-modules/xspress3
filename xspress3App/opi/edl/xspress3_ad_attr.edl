@@ -249,18 +249,18 @@ menuLabel {
   11 "ROI4"
 }
 symbols {
-  0 "R=:C$(chan)-SCA0:,attr=SCA0"
-  1 "R=:C$(chan)-SCA1:,attr=SCA1"
-  2 "R=:C$(chan)-SCA2:,attr=SCA2"
-  3 "R=:C$(chan)-SCA3:,attr=SCA3"
-  4 "R=:C$(chan)-SCA4:,attr=SCA4"
-  5 "R=:C$(chan)-SCA5:,attr=SCA5"
-  6 "R=:C$(chan)-SCA6:,attr=SCA6"
-  7 "R=:C$(chan)-SCA7:,attr=SCA7"
-  8 "R=:C$(chan)-ROI1:,attr=ROI1"
-  9 "R=:C$(chan)-ROI2:,attr=ROI2"
-  10 "R=:C$(chan)-ROI3:,attr=ROI3"
-  11 "R=:C$(chan)-ROI4:,attr=ROI4"
+  0 "R=:C$(CHAN)_SCA0:,ATTR=SCA0"
+  1 "R=:C$(CHAN)_SCA1:,ATTR=SCA1"
+  2 "R=:C$(CHAN)_SCA2:,ATTR=SCA2"
+  3 "R=:C$(CHAN)_SCA3:,ATTR=SCA3"
+  4 "R=:C$(CHAN)_SCA4:,ATTR=SCA4"
+  5 "R=:C$(CHAN)_SCA5:,ATTR=SCA5"
+  6 "R=:C$(CHAN)_SCA6:,ATTR=SCA6"
+  7 "R=:C$(CHAN)_SCA7:,ATTR=SCA7"
+  8 "R=:C$(CHAN)_ROI1:,ATTR=ROI1"
+  9 "R=:C$(CHAN)_ROI2:,ATTR=ROI2"
+  10 "R=:C$(CHAN)_ROI3:,ATTR=ROI3"
+  11 "R=:C$(CHAN)_ROI4:,ATTR=ROI4"
 }
 noScroll
 endObjectProperties
