@@ -147,7 +147,7 @@ selectColor index 4
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "LOC\\$(!W)tab=e:0,DET,HDF,PROC,ATTR"
+controlPv "LOC\\$(!W)tab=e:0,DET,HDF,PROC"
 font "arial-bold-r-12.0"
 orientation "horizontal"
 endObjectProperties
@@ -219,22 +219,16 @@ botShadowColor index 0
 displaySource "menu"
 filePv "LOC\\$(!W)tab"
 sizeOfs 5
-numDsps 8
+numDsps 3
 displayFileName {
   0 "xspress3_ad_det.edl"
   1 "NDFileHDF5.edl"
   2 "NDProcess.edl"
-  3 "NDAttribute.edl"
-  4 "NDStats.edl"
-  5 "NDStats.edl"
-  6 "NDFileHDF5.edl"
-  7 "ffmpegStream.edl"
 }
 symbols {
   0 "R=:,label=DET"
   1 "R=:HDF5:,label=HDF5"
   2 "R=:PROC:,label=PROC"
-  3 "R=:ATTR:,label=ATTR"
 }
 noScroll
 endObjectProperties

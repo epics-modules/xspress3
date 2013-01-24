@@ -3,27 +3,32 @@
 # Records to do a reset on all the NDAttribute plugins for a channel.
 # This will reset the ArrayCounter and clear the plugin data.
 #
+# This is set to process at startup so the time series waveforms will
+# start collecting data as soon as we start, without doing a high
+# level ERASE.
+#
 #####################################################################
 
-record(dfanout, "$(P)$(R):C$(CHAN)_AttrReset")
+record(dfanout, "$(P)$(R)C$(CHAN)_AttrReset")
 {
+   field(PINI, "YES")
    field(VAL, "1")
-   field(OUTA, "$(P)$(R):C$(CHAN)_$(SCA0):Reset PP")
-   field(OUTB, "$(P)$(R):C$(CHAN)_$(SCA1):Reset PP")
-   field(OUTC, "$(P)$(R):C$(CHAN)_$(SCA2):Reset PP")
-   field(OUTD, "$(P)$(R):C$(CHAN)_$(SCA3):Reset PP")
-   field(OUTE, "$(P)$(R):C$(CHAN)_$(SCA4):Reset PP")
-   field(OUTF, "$(P)$(R):C$(CHAN)_$(SCA5):Reset PP")
-   field(OUTG, "$(P)$(R):C$(CHAN)_$(SCA6):Reset PP")
-   field(OUTH, "$(P)$(R):C$(CHAN)_$(SCA7):Reset PP")
-   field(FLNK, "$(P)$(R):C$(CHAN)_AttrReset_2")
+   field(OUTA, "$(P)$(R)C$(CHAN)_$(SCA0):Reset PP")
+   field(OUTB, "$(P)$(R)C$(CHAN)_$(SCA1):Reset PP")
+   field(OUTC, "$(P)$(R)C$(CHAN)_$(SCA2):Reset PP")
+   field(OUTD, "$(P)$(R)C$(CHAN)_$(SCA3):Reset PP")
+   field(OUTE, "$(P)$(R)C$(CHAN)_$(SCA4):Reset PP")
+   field(OUTF, "$(P)$(R)C$(CHAN)_$(SCA5):Reset PP")
+   field(OUTG, "$(P)$(R)C$(CHAN)_$(SCA6):Reset PP")
+   field(OUTH, "$(P)$(R)C$(CHAN)_$(SCA7):Reset PP")
+   field(FLNK, "$(P)$(R)C$(CHAN)_AttrReset_2")
 }
 
-record(dfanout, "$(P)$(R):C$(CHAN)_AttrReset_2")
+record(dfanout, "$(P)$(R)C$(CHAN)_AttrReset_2")
 {
    field(VAL, "1")
-   field(OUTA, "$(P)$(R):C$(CHAN)_$(ROI1):Reset PP")
-   field(OUTB, "$(P)$(R):C$(CHAN)_$(ROI2):Reset PP")
-   field(OUTC, "$(P)$(R):C$(CHAN)_$(ROI3):Reset PP")
-   field(OUTD, "$(P)$(R):C$(CHAN)_$(ROI4):Reset PP")
+   field(OUTA, "$(P)$(R)C$(CHAN)_$(ROI1):Reset PP")
+   field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI2):Reset PP")
+   field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI3):Reset PP")
+   field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI4):Reset PP")
 }

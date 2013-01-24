@@ -403,6 +403,29 @@ record(mbbi, "$(P)$(R)RUN_FLAGS_RBV")
    field(SCAN, "I/O Intr")
 }
 
+# ///
+# /// Disable or enable MCA ROI calculations.
+# ///
+record(bo,"$(P)$(R)CTRL_MCA_ROI") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_ROI")
+    field(ZNAM,"Disable")
+    field(ONAM,"Enable")
+    field(PINI, "YES")
+    field(VAL, "1")
+}
+
+# /// 
+# /// Readback disable or enable MCA ROI calculations.
+# ///
+record(bi, "$(P)$(R)CTRL_MCA_ROI_RBV")
+{
+    field(DTYP,"asynInt32")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_ROI")
+    field(ZNAM,"Disabled")	
+    field(ONAM,"Enabled")
+    field(SCAN, "I/O Intr")	
+}
 
 # ///
 # /// Disable this ADBase record scanning.
@@ -412,8 +435,14 @@ record(ai, "$(P)$(R)PoolUsedMem")
    field(SCAN, "Passive")
 }
 
-
-include "xspress3DataUpdate.template"
+# ///
+# /// Name of this detector
+# ///
+record(stringout, "$(P)$(R)NAME")
+{
+   field(VAL, "Xspress3")
+   field(DESC, "Xspress3 EPICS Control")
+}
 
 
 substitute "CHAN=1"
