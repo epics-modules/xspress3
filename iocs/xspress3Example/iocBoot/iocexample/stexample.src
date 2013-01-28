@@ -31,6 +31,7 @@ NDFileHDF5Configure("XSP3.HDF5", 10000, 0, "XSP3", 0)
 NDProcessConfigure("XSP3.PROC", 10, 0, "XSP3", 0, -1, -1)
 
 #ROI plugin for each channel, to extract the 1-D spectra for visualisation
+NDROIConfigure("XSP3.ROIDATA", 10, 0, "XSP3", 0, -1, -1)
 NDROIConfigure("XSP3.ROI1", 2, 0, "XSP3", 0, -1, -1)
 NDROIConfigure("XSP3.ROI2", 2, 0, "XSP3", 0, -1, -1)
 NDROIConfigure("XSP3.ROI3", 2, 0, "XSP3", 0, -1, -1)
@@ -247,6 +248,8 @@ dbpf("mp49:XSP3:PROC:EnableFilter", "Enable")
 dbpf("mp49:XSP3:PROC:FilterType", "Sum")
 
 #Set up the ROI parameters
+dbpf("mp49:XSP3:ROIDATA:EnableX", "Yes")
+dbpf("mp49:XSP3:ROIDATA:EnableY", "Yes")
 dbpf("mp49:XSP3:ROI1:EnableX", "Yes")
 dbpf("mp49:XSP3:ROI2:EnableX", "Yes")
 dbpf("mp49:XSP3:ROI3:EnableX", "Yes")

@@ -8,6 +8,7 @@ file xspress3.template {
 #NOTE: by default plugins for channels 1-4 are enabled, 5-8 are disabled.
 file NDPluginBase.template {
 	pattern {P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT, NDARRAY_ADDR, Enabled}
+		{mp49:, XSP3:ROIDATA:, XSP3.ROIDATA, 1, 0, XSP3, 0, 1}
 		{mp49:, XSP3:HDF5:, XSP3.HDF5, 1, 0, XSP3, 0, 1}
 		{mp49:, XSP3:PROC:, XSP3.PROC, 1, 0, XSP3, 0, 1}
 		{mp49:, XSP3:ROI1:, XSP3.ROI1, 1, 0, XSP3, 0, 1}
@@ -165,6 +166,7 @@ file NDProcess.template
 file NDROI.template
 {
 	pattern {P, R, PORT, ADDR, TIMEOUT}
+		{mp49:,XSP3:ROIDATA:, XSP3.ROIDATA, 0, 1}
 		{mp49:,XSP3:ROI1:, XSP3.ROI1, 0, 1}
 		{mp49:,XSP3:ROI2:, XSP3.ROI2, 0, 1}
 		{mp49:,XSP3:ROI3:, XSP3.ROI3, 0, 1}
