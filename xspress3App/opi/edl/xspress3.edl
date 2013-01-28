@@ -1496,42 +1496,6 @@ beginObjectProperties
 major 4
 minor 2
 release 0
-x 490
-y 450
-w 251
-h 36
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "Enable/Disable Visualization"
-numPvs 4
-numDsps 8
-displayFileName {
-  0 "xspress3_ad_pluginControl.edl"
-  1 "xspress3_dtc"
-  2 "xspress3_dtc"
-  3 "xspress3_dtc"
-  4 "xspress3_dtc"
-  5 "xspress3_dtc"
-  6 "xspress3_dtc"
-  7 "xspress3_dtc"
-}
-menuLabel {
-  0 "Enable/Disable Visualization"
-}
-setPosition {
-  0 "parentWindow"
-}
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
 x 325
 y 565
 w 130
@@ -1546,6 +1510,32 @@ numPvs 4
 numDsps 1
 displayFileName {
   0 "xspress3_file_roi"
+}
+setPosition {
+  0 "parentWindow"
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 490
+y 450
+w 250
+h 35
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "Enable/Disable Visualization"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_ad_pluginControl"
 }
 setPosition {
   0 "parentWindow"
