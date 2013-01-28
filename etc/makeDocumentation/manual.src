@@ -43,16 +43,16 @@ In additon, if connection was successful, several parameters are read from the s
 
 \subsection iocData Data Acquisition
 
-The following PVs are involved in data acqusition or monitoring. Any PV in lower case is part of the standard areaDetector interface. Upper case PVs are specific to the Xspress 3 system and could not be mapped onto areaDetector PVs. Some of the PVs map directly onto Xspress 3 API functions, and this will be noted below.
+The following PVs are involved in data acqusition or monitoring. Some of the PVs map directly onto Xspress 3 API functions, and this will be noted below.
 
 <table border="1">
 <tr>
 <td>{P}:Acquire\n{P}:Acquire_RBV</td>
-<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition. Normally the data collection will finish automatically once NumImages is reached. However, to manually stop a data collection write a 0 to this PV. If the driver is in the process of reading a large number of frames, for example at high frame rates, it will finish this before the stop completes.</td>
+<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition. Normally the data collection will finish automatically once NumImages is reached. However, to manually stop a data collection write a 0 to this PV. If the driver is in the process of reading a large number of frames, for example at high frame rates, it will finish this before the stop completes. This PV maps directly to <b>xsp3_histogram_start</b> and <b>xsp3_histogram_stop</b></td>
 </tr>
 <tr>
 <td>{P}:ERASE</td>
-<td>This will call the Xspress 3 API xsp3_histogram_clear function. It will also clear any data held by EPICS PVs, including the array PVs. Do this before starting a new data collection.</td>
+<td>This will call the Xspress 3 API <b>xsp3_histogram_clear</b> function. It will also clear any data held by EPICS PVs, including the array PVs. Do this before starting a new data collection.</td>
 </tr>
 <tr>
 <td>{P}:RESET</td>
@@ -100,69 +100,45 @@ The following PVs are involved in data acqusition or monitoring. Any PV in lower
 <td>{P}:ArrayRate_RBV</td>
 <td>This is a rough indication of the frame rate we are operating at. It is calculated every second, and uses the rate of change of the ArrayCounter_RBV PV.</td>
 </tr>
-<tr>
-<td>{P}:CTRL_DATA_UPDATE</td>
-<td>This enables or disables live scaler and ROI data update during an acqusition. If this is disabled then no data will be send over channel access until the end of acqusition. At high frame rates the user may wish to disable this, but it can usually be enabled and the update rate can be thrrottled by the {P}:CTRL_DATA_UPDATE_PERIOD PV. This also affects the update rate for {P}:FRAME_COUNT_RBV and {P}:ArrayCounter_RBV.</td>
-</tr>
-<tr>
-<td>{P}:CTRL_DATA_UPDATE_PERIOD</td>
-<td>If {P}:CTRL_DATA_UPDATE is enabled then this PV defines the time period between updates over channel access.</td>
-</tr>
-<tr>
-<td>{P}:CTRL_MCA_UPDATE</td>
-<td>This enables or disables live MCA spectra data update during an acqusition. If this is disabled then no data will be send over channel access until the end of acqusition. At high frame rates the user may wish to disable this, but it can usually be enabled and the update rate can be thrrottled by the {P}:CTRL_MCA_UPDATE_PERIOD PV.</td>
-</tr>
-<tr>
-<td>{P}:CTRL_MCA_UPDATE_PERIOD</td>
-<td>If {P}:CTRL_MCA_UPDATE is enabled then this PV defines the time period between updates over channel access.</td>
-</tr>
-<tr>
-<td>{P}:CTRL_SCA_UPDATE</td>
-<td>This enables or disables live scaler and ROI <i>array</i> data update during an acqusition. These arrays contain the cummulative scaler and ROI data during an acquisition. If this is disabled then no data will be send over channel access until the end of acqusition. At high frame rates the user may wish to disable this, but it can usually be enabled and the update rate can be thrrottled by the {P}:CTRL_SCA_UPDATE_PERIOD PV.</td>
-</tr>
-<tr>
-<td>{P}:CTRL_SCA_UPDATE_PERIOD</td>
-<td>If {P}:CTRL_SCA_UPDATE is enabled then this PV defines the time period between updates over channel access.</td>
-</tr>
 </table>
 
 \subsection iocSca Scaler Data and Window Settings
 
 The following PVs provide access to the scalers, and allow the user to set scaler related parameters. The 'C1' part of the PV name indicates channel 1. The lists is duplicated for each channel: 'C2', 'C3' etc. 
 
-The first table shows the single value PVs that show the latest scaler value during an acqusition. The channel access updates for these PVs are controlled by {P}:CTRL_DATA_UPDATE and {P}:CTRL_DATA_UPDATE_PERIOD.
+The first table shows the single value PVs that show the latest scaler value during an acqusition.
 
 <table border="1">
 <tr>
-<td>{P}:C1_SCA0_RBV</td>
+<td>{P}:C1_SCA0:Value_RBV</td>
 <td>The <b>Time</b> scaler.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA1_RBV</td>
+<td>{P}:C1_SCA1:Value_RBV</td>
 <td>The <b>Reset Ticks</b> scaler.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA2_RBV</td>
+<td>{P}:C1_SCA2:Value_RBV</td>
 <td>The <b>Reset Count</b> scaler.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA3_RBV</td>
+<td>{P}:C1_SCA3:Value_RBV</td>
 <td>The <b>All Event</b> scaler.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA4_RBV</td>
+<td>{P}:C1_SCA4:Value_RBV</td>
 <td>The <b>All Good</b> scaler.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA5_RBV</td>
+<td>{P}:C1_SCA5:Value_RBV</td>
 <td>The <b>Scaler 1</b> scaler. The lower and upper window limits for this are set using {P}:C1_SCA5_LLM and {P}:C1_SCA5_HLM. The window limits are set using API function <b>xsp3_set_window</b></td>
 </tr>
 <tr>
-<td>{P}:C1_SCA6_RBV</td>
+<td>{P}:C1_SCA6:Value_RBV</td>
 <td>The <b>Scaler 2</b> scaler. The lower and upper window limits for this are set using {P}:C1_SCA6_LLM and {P}:C1_SCA6_HLM. The window limits are set using API function <b>xsp3_set_window</b></td>
 </tr>
 <tr>
-<td>{P}:C1_SCA7_RBV</td>
+<td>{P}:C1_SCA7:Value_RBV</td>
 <td>The <b>Pileup</b> scaler.</td>
 </tr>
 </table>
@@ -196,35 +172,35 @@ The following table shows the scaler data array PVs. These arrays accumulate the
 
  <table border="1">
 <tr>
-<td>{P}:C1_SCA0_ARRAY_RBV</td>
+<td>{P}:C1_SCA0:ArrayData_RBV</td>
 <td>The <b>Time</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA1_ARRAY_RBV</td>
+<td>{P}:C1_SCA1:ArrayData_RBV</td>
 <td>The <b>Reset Ticks</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA2_ARRAY_RBV</td>
+<td>{P}:C1_SCA2:ArrayData_RBV</td>
 <td>The <b>Reset Count</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA3_ARRAY_RBV</td>
+<td>{P}:C1_SCA3:ArrayData_RBV</td>
 <td>The <b>All Event</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA4_ARRAY_RBV</td>
+<td>{P}:C1_SCA4:ArrayData_RBV</td>
 <td>The <b>All Good</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA5_ARRAY_RBV</td>
+<td>{P}:C1_SCA5:ArrayData_RBV</td>
 <td>The <b>Scaler 1</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA6_ARRAY_RBV</td>
+<td>{P}:C1_SCA6:ArrayData_RBV</td>
 <td>The <b>Scaler 2</b> scaler array.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA7_ARRAY_RBV</td>
+<td>{P}:C1_SCA7:ArrayData_RBV</td>
 <td>The <b>Pileup</b> scaler.</td>
 </tr>
 </table>
@@ -233,12 +209,16 @@ The above parameters are saved in the HDF file. The HDF parameter names will mat
 
 \subsection iocMca MCA Spectra and ROI Data
 
-The following table lists the array PVs for the MCA Spectra, as well as the ROI window settings and readback values. The channel access updates for these PVs are controlled by {P}:CTRL_MCA_UPDATE and {P}:CTRL_MCA_UPDATE_PERIOD. There are 4 regions of interest per channel, so only the PVs for the first one is listed in the below table. The first ROI PVs have 'ROI1' in the name, so simply substute this for 'ROI2', 'ROI3' or 'ROI4' for the other regions of interest.
+The following table lists the array PVs for the MCA Spectra, as well as the ROI window settings and readback values. There are 4 regions of interest per channel, so only the PVs for the first one is listed in the below table. The first ROI PVs have 'ROI1' in the name, so simply substute this for 'ROI2', 'ROI3' or 'ROI4' for the other regions of interest.
 
  <table border="1">
 <tr>
-<td>{P}:C1_MCA_CORR_RBV.VAL</td>
-<td>The dead time corrected MCA spectra data. At the end of the scan this will hold the last frame of data, or can be updated on the fly during an acquistion at some throttled rate.
+<td>{P}:ARR1:ArrayData</td>
+<td>The dead time corrected MCA spectra data. This is updated during a scan when a new frame is read out.
+</tr>
+<tr>
+<td>{P}:ARRSUM1:ArrayData</td>
+<td>The cummulative dead time corrected MCA spectra data. This is updated during a scan when a new frame is read out. This is the sum of all the spectra data from {P}:ARR1:ArrayData.
 </tr>
 <tr>
 <td>{P}:C1_MCA_ROI1_LLM</td>
@@ -249,16 +229,16 @@ The following table lists the array PVs for the MCA Spectra, as well as the ROI 
 <td>The upper limit for the first ROI.</td>
 </tr>
 <tr>
-<td>{P}:C1_MCA_ROI1_RBV</td>
-<td>The ROI readback value for each frame. This can be updated during acqusition if desired.</td>
+<td>{P}:C1_ROI1:Value_RBV</td>
+<td>The ROI readback value for each frame. This is updated during acqusition.</td>
 </tr>
 <tr>
-<td>{P}:C1_MCA_ROI1_ARRAY_RBV.VAL</td>
-<td>The ROI reacback array that holds the ROI for every frame from an acqusition. This can be updated during acqusition if desired.</td>
+<td>{P}:C1_ROI1:ArrayData_RBV</td>
+<td>The ROI reacback array that holds the ROI for every frame from an acqusition. This is updated during acqusition.</td>
 </tr>
 </table>
 
-The above parameters are saved in the HDF file. The HDF parameter names will match the PV names. All the MCA spectra arrays are also saved.
+The above parameters are saved in the HDF file. All the MCA spectra arrays are also saved.
 
 \subsection iocDtc The Dead Time Correction Parameters
 
@@ -287,7 +267,7 @@ When the Epics IOC starts up it reads the dead time correction (DTC) parameters 
 </tr>
 </table>
 
-The above parameters are saved in the HDF file. The HDF parameter names will match the PV names.
+The above parameters are saved in the HDF file.
 
  
 
