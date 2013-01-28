@@ -321,3 +321,8 @@ dbpf("mp49:XSP3:C5_PluginControlVal", "0")
 dbpf("mp49:XSP3:C6_PluginControlVal", "0")
 dbpf("mp49:XSP3:C7_PluginControlVal", "0")
 dbpf("mp49:XSP3:C8_PluginControlVal", "0")
+
+#Set the default energy and channel range for the ROIDATA plugin.
+dbpf("mp49:XSP3:ROIDATA:SizeX", "4096")
+dbpf("mp49:XSP3:ROIDATA:SizeY", "8")
+
