@@ -31,11 +31,13 @@ CALC=		$(SUPPORT)/calc/2-8dls4
 SSCAN=		$(SUPPORT)/sscan/2-6-6dls2
 AUTOSAVE=       $(SUPPORT)/autosave/4-6dls5
 DEVIOCSTATS=    $(SUPPORT)/devIocStats/3-1-5dls4
+#SPECTRAPLUGINS=	$(SUPPORT)/spectraPlugins/1-0
 SPECTRAPLUGINS=	$(WORK)/spectraPlugins
 XSPRESS3=	$(WORK)/xspress3
 #XSPRESS3_API=   /home/mp49/xspress3_api/
 #XSPRESS3_API=	/scratch/xspress3_trunk/trunk/det-software
-XSPRESS3_API=	$(WORK)/xspress3_api/det-software
+#XSPRESS3_API=	$(WORK)/xspress3_api/det-software
+XSPRESS3_API=	$(SUPPORT)/xspress3_api/1-0/det-software
 BOOST=          /dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0
 
 

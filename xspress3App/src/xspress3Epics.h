@@ -93,8 +93,9 @@
 #define xsp3ChanDtcAeoParamString            "XSP3_CHAN_DTC_AEO"
 #define xsp3ChanDtcIwgParamString            "XSP3_CHAN_DTC_IWG"
 #define xsp3ChanDtcIwoParamString            "XSP3_CHAN_DTC_IWO"
-//Parameters to control single value and array update rates.
+//Params to enable or disable calculations
 #define xsp3RoiEnableParamString        "XSP3_CTRL_MCA_ROI"
+#define xsp3DtcEnableParamString        "XSP3_CTRL_DTC"
 
 
 
@@ -224,6 +225,7 @@ class Xspress3 : public ADDriver {
   int xsp3ChanDtcIwgParam;  
   int xsp3ChanDtcIwoParam;  
   int xsp3RoiEnableParam;
+  int xsp3DtcEnableParam;
   int xsp3LastParam;
   #define XSP3_LAST_DRIVER_COMMAND xsp3LastParam
 

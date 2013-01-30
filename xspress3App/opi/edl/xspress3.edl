@@ -6,7 +6,7 @@ release 1
 x 132
 y 91
 w 775
-h 690
+h 720
 font "arial-medium-r-12.0"
 fontAlign "center"
 ctlFont "arial-medium-r-12.0"
@@ -38,7 +38,7 @@ release 0
 x 10
 y 45
 w 750
-h 230
+h 265
 lineColor index 14
 fill
 fillColor index 5
@@ -346,7 +346,7 @@ major 4
 minor 1
 release 0
 x 20
-y 230
+y 270
 w 60
 h 20
 font "arial-bold-r-14.0"
@@ -365,7 +365,7 @@ major 4
 minor 5
 release 0
 x 285
-y 225
+y 265
 w 195
 h 35
 controlPv "$(P):TriggerMode_RBV"
@@ -388,7 +388,7 @@ major 4
 minor 0
 release 0
 x 80
-y 225
+y 265
 w 195
 h 35
 fgColor index 14
@@ -575,7 +575,7 @@ major 4
 minor 1
 release 0
 x 660
-y 645
+y 675
 w 100
 h 35
 fgColor index 46
@@ -667,6 +667,19 @@ value {
 }
 endObjectProperties
 
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 325
+w 450
+h 385
+
+beginGroup
+
 # (Rectangle)
 object activeRectangleClass
 beginObjectProperties
@@ -674,7 +687,7 @@ major 4
 minor 0
 release 0
 x 10
-y 300
+y 335
 w 450
 h 65
 lineColor index 14
@@ -689,7 +702,7 @@ major 4
 minor 1
 release 0
 x 10
-y 290
+y 325
 w 285
 h 16
 font "arial-bold-r-14.0"
@@ -709,7 +722,7 @@ major 4
 minor 2
 release 0
 x 40
-y 320
+y 355
 w 260
 h 35
 fgColor index 43
@@ -735,7 +748,7 @@ major 4
 minor 0
 release 0
 x 395
-y 320
+y 355
 w 35
 h 35
 controlPv "$(P):CONNECTED"
@@ -753,7 +766,7 @@ major 4
 minor 1
 release 0
 x 310
-y 325
+y 360
 w 80
 h 20
 font "arial-bold-r-14.0"
@@ -771,8 +784,481 @@ beginObjectProperties
 major 4
 minor 0
 release 0
+x 10
+y 425
+w 450
+h 285
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 415
+w 98
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  File Saving   "
+}
+autoSize
+border
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 60
+y 440
+w 320
+h 20
+controlPv "$(P):HDF5:FilePath"
+font "helvetica-bold-r-14.0"
+fgColor index 25
+bgColor index 3
+editable
+motifWidget
+limitsFromDb
+nullColor index 0
+useKp
+file
+useHexPrefix
+newPos
+inputFocusUpdates
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 25
+y 440
+w 65
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Path"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 60
+y 465
+w 320
+h 20
+controlPv "$(P):HDF5:FilePath_RBV"
+font "helvetica-bold-r-14.0"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 0
+smartRefresh
+useHexPrefix
+newPos
+objType "controls"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 385
+y 445
+w 35
+h 35
+controlPv "$(P):HDF5:FilePathExists_RBV"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 15
+y 490
+w 55
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Name"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 60
+y 490
+w 185
+h 20
+controlPv "$(P):HDF5:FileName"
+font "helvetica-bold-r-14.0"
+fgColor index 25
+bgColor index 3
+editable
+motifWidget
+limitsFromDb
+nullColor index 0
+useKp
+file
+useHexPrefix
+newPos
+inputFocusUpdates
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 60
+y 515
+w 185
+h 20
+controlPv "$(P):HDF5:FileName_RBV"
+font "helvetica-bold-r-14.0"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 0
+smartRefresh
+useHexPrefix
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 250
+y 490
+w 65
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "File Num"
+}
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 320
+y 490
+w 60
+h 20
+controlPv "$(P):HDF5:FileNumber"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Textupdate)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 320
+y 515
+w 60
+h 20
+controlPv "$(P):HDF5:FileNumber"
+fgColor index 16
+fgAlarm
+bgColor index 10
+fill
+font "arial-bold-r-14.0"
+fontAlign "center"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 60
+y 545
+w 125
+h 90
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):ArrayCallbacks"
+indicatorPv "$(P):ArrayCallbacks_RBV"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Textupdate)
+object TextupdateClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 385
+y 650
+w 65
+h 35
+controlPv "$(P):HDF5:NumCaptured_RBV"
+fgColor index 16
+fgAlarm
+bgColor index 10
+fill
+font "arial-bold-r-16.0"
+fontAlign "center"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 325
+y 650
+w 60
+h 35
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Frames "
+  "Saved"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 125
+y 650
+w 195
+h 35
+controlPv "$(P):HDF5:WriteMessage"
+font "helvetica-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 0
+smartRefresh
+useHexPrefix
+newPos
+objType "controls"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 80
+y 650
+w 35
+h 35
+controlPv "$(P):HDF5:WriteStatus"
+lineColor index 14
+onColor index 20
+offColor index 24
+lineWidth 2
+numBits 1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 30
+y 650
+w 55
+h 35
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  " File "
+  "Status"
+}
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 325
+y 550
+w 35
+h 35
+controlPv "$(P):HDF5:Capture_RBV"
+lineColor index 14
+onColor index 15
+offColor index 19
+lineWidth 2
+numBits 1
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 195
+y 545
+w 125
+h 45
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):HDF5:Capture"
+pressValue "1"
+onLabel "Start File Saving"
+offLabel "Start File Saving"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 195
+y 595
+w 125
+h 45
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):HDF5:Capture"
+pressValue "0"
+onLabel "Stop File Saving"
+offLabel "Stop File Saving"
+3d
+useEnumNumeric
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 2
+release 0
+x 325
+y 600
+w 130
+h 35
+fgColor index 43
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+font "arial-bold-r-14.0"
+buttonLabel "File Saving ROI"
+numPvs 4
+numDsps 1
+displayFileName {
+  0 "xspress3_file_roi"
+}
+setPosition {
+  0 "parentWindow"
+}
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
 x 475
-y 300
+y 325
+w 285
+h 255
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 475
+y 335
 w 285
 h 245
 lineColor index 14
@@ -787,7 +1273,7 @@ major 4
 minor 2
 release 0
 x 490
-y 315
+y 350
 w 251
 h 36
 fgColor index 43
@@ -847,7 +1333,7 @@ major 4
 minor 2
 release 0
 x 490
-y 360
+y 395
 w 251
 h 36
 fgColor index 43
@@ -907,7 +1393,7 @@ major 4
 minor 2
 release 0
 x 490
-y 405
+y 440
 w 251
 h 36
 fgColor index 43
@@ -967,7 +1453,7 @@ major 4
 minor 2
 release 0
 x 490
-y 495
+y 530
 w 250
 h 35
 fgColor index 43
@@ -1047,7 +1533,7 @@ major 4
 minor 1
 release 0
 x 475
-y 290
+y 325
 w 270
 h 16
 font "arial-bold-r-14.0"
@@ -1060,462 +1546,6 @@ autoSize
 border
 endObjectProperties
 
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 390
-w 450
-h 285
-lineColor index 14
-fill
-fillColor index 5
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 10
-y 380
-w 98
-h 16
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 7
-value {
-  "  File Saving   "
-}
-autoSize
-border
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 60
-y 405
-w 320
-h 20
-controlPv "$(P):HDF5:FilePath"
-font "helvetica-bold-r-14.0"
-fgColor index 25
-bgColor index 3
-editable
-motifWidget
-limitsFromDb
-nullColor index 0
-useKp
-file
-useHexPrefix
-newPos
-inputFocusUpdates
-objType "controls"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 25
-y 405
-w 65
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Path"
-}
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 60
-y 430
-w 320
-h 20
-controlPv "$(P):HDF5:FilePath_RBV"
-font "helvetica-bold-r-14.0"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 0
-smartRefresh
-useHexPrefix
-newPos
-objType "controls"
-endObjectProperties
-
-# (Byte)
-object ByteClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 385
-y 410
-w 35
-h 35
-controlPv "$(P):HDF5:FilePathExists_RBV"
-lineColor index 14
-onColor index 15
-offColor index 19
-lineWidth 2
-numBits 1
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 15
-y 455
-w 55
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Name"
-}
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 60
-y 455
-w 185
-h 20
-controlPv "$(P):HDF5:FileName"
-font "helvetica-bold-r-14.0"
-fgColor index 25
-bgColor index 3
-editable
-motifWidget
-limitsFromDb
-nullColor index 0
-useKp
-file
-useHexPrefix
-newPos
-inputFocusUpdates
-objType "controls"
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 60
-y 480
-w 185
-h 20
-controlPv "$(P):HDF5:FileName_RBV"
-font "helvetica-bold-r-14.0"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 0
-smartRefresh
-useHexPrefix
-newPos
-objType "controls"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 250
-y 455
-w 65
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "File Num"
-}
-endObjectProperties
-
-# (Textentry)
-object TextentryClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 320
-y 455
-w 60
-h 20
-controlPv "$(P):HDF5:FileNumber"
-fgColor index 25
-fgAlarm
-bgColor index 3
-fill
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Textupdate)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 320
-y 480
-w 60
-h 20
-controlPv "$(P):HDF5:FileNumber"
-fgColor index 16
-fgAlarm
-bgColor index 10
-fill
-font "arial-bold-r-14.0"
-fontAlign "center"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 60
-y 510
-w 125
-h 90
-fgColor index 14
-bgColor index 3
-selectColor index 3
-inconsistentColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):ArrayCallbacks"
-indicatorPv "$(P):ArrayCallbacks_RBV"
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Textupdate)
-object TextupdateClass
-beginObjectProperties
-major 10
-minor 0
-release 0
-x 385
-y 615
-w 65
-h 35
-controlPv "$(P):HDF5:NumCaptured_RBV"
-fgColor index 16
-fgAlarm
-bgColor index 10
-fill
-font "arial-bold-r-16.0"
-fontAlign "center"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 325
-y 615
-w 60
-h 35
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Frames "
-  "Saved"
-}
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 125
-y 615
-w 195
-h 35
-controlPv "$(P):HDF5:WriteMessage"
-font "helvetica-bold-r-14.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 0
-smartRefresh
-useHexPrefix
-newPos
-objType "controls"
-endObjectProperties
-
-# (Byte)
-object ByteClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 80
-y 615
-w 35
-h 35
-controlPv "$(P):HDF5:WriteStatus"
-lineColor index 14
-onColor index 20
-offColor index 24
-lineWidth 2
-numBits 1
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 30
-y 615
-w 55
-h 35
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  " File "
-  "Status"
-}
-endObjectProperties
-
-# (Byte)
-object ByteClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 325
-y 515
-w 35
-h 35
-controlPv "$(P):HDF5:Capture_RBV"
-lineColor index 14
-onColor index 15
-offColor index 19
-lineWidth 2
-numBits 1
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 195
-y 510
-w 125
-h 45
-fgColor index 25
-onColor index 3
-offColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):HDF5:Capture"
-pressValue "1"
-onLabel "Start File Saving"
-offLabel "Start File Saving"
-3d
-useEnumNumeric
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Message Button)
-object activeMessageButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 195
-y 560
-w 125
-h 45
-fgColor index 25
-onColor index 3
-offColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):HDF5:Capture"
-pressValue "0"
-onLabel "Stop File Saving"
-offLabel "Stop File Saving"
-3d
-useEnumNumeric
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 325
-y 565
-w 130
-h 35
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-14.0"
-buttonLabel "File Saving ROI"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_file_roi"
-}
-setPosition {
-  0 "parentWindow"
-}
-endObjectProperties
-
 # (Related Display)
 object relatedDisplayClass
 beginObjectProperties
@@ -1523,7 +1553,7 @@ major 4
 minor 2
 release 0
 x 490
-y 450
+y 485
 w 250
 h 35
 fgColor index 43
@@ -1540,5 +1570,72 @@ displayFileName {
 setPosition {
   0 "parentWindow"
 }
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 225
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):CTRL_DTC"
+indicatorPv "$(P):CTRL_DTC_RBV"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 25
+y 230
+w 125
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Dead Time Corr"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 285
+y 225
+w 125
+h 35
+controlPv "$(P):CTRL_DTC_RBV"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
 endObjectProperties
 

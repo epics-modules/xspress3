@@ -143,8 +143,9 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3ChanDtcAeoParamString,   asynParamFloat64,       &xsp3ChanDtcAeoParam);
   createParam(xsp3ChanDtcIwgParamString,   asynParamFloat64,       &xsp3ChanDtcIwgParam);
   createParam(xsp3ChanDtcIwoParamString,   asynParamFloat64,       &xsp3ChanDtcIwoParam);
-  //This controls ROI calculations
+  //These controls calculations
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
+  createParam(xsp3DtcEnableParamString,         asynParamInt32,       &xsp3DtcEnableParam);
   createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
   
   //Initialize non static, non const, data members
@@ -1306,6 +1307,7 @@ void Xspress3::dataTask(void)
   const char* functionName = "Xspress3::dataTask";
   epicsFloat64 *pSCA;
   epicsFloat64 *pMCA[numChannels_];
+  epicsInt32 *pMCA_INT[numChannels_];
   NDArray *pMCA_NDARRAY;
   int roiEnabled = 0;
   epicsInt32 roiMin[maxNumRoi_];
@@ -1316,6 +1318,7 @@ void Xspress3::dataTask(void)
   int lastFrameCount = 0;
   int framesToReadOut = 0;
   bool stillBusy = false;
+  int dtcEnable = 0;
  
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
 
@@ -1327,7 +1330,8 @@ void Xspress3::dataTask(void)
   //Create data arrays for MCA spectra
   for (int chan=0; chan<numChannels_; chan++) {
     //We do this for each frame below, using this->pNDArrayPool->alloc, in the acquire loop.
-    pMCA[chan] = static_cast<epicsFloat64*>(calloc(maxSpectra, sizeof(epicsFloat64))); 
+    pMCA[chan] = static_cast<epicsFloat64*>(calloc(maxSpectra, sizeof(epicsFloat64)));
+    pMCA_INT[chan] = static_cast<epicsInt32*>(calloc(maxSpectra, sizeof(epicsInt32)));
   }
   
   while (1) {
@@ -1352,6 +1356,7 @@ void Xspress3::dataTask(void)
        memset(pSCA, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsFloat64));
        for (int chan=0; chan<numChannels_; chan++) {
 	 memset(pMCA[chan], 0, maxSpectra*sizeof(epicsFloat64));
+	 memset(pMCA_INT[chan], 0, maxSpectra*sizeof(epicsInt32));
        }
        setIntegerParam(xsp3FrameCountParam, 0);
        setIntegerParam(NDArrayCounter, 0);
@@ -1369,6 +1374,8 @@ void Xspress3::dataTask(void)
      getIntegerParam(xsp3NumChannelsParam, &numChannels);
      //Read how many frames we want to read out before stopping.
      getIntegerParam(ADNumImages, &numFrames);
+     //Do we want corrected or uncorrected data?
+     getIntegerParam(xsp3DtcEnableParam, &dtcEnable);
 
      while (acquire) {
        setIntegerParam(ADStatus, ADStatusAcquire);
@@ -1400,32 +1407,29 @@ void Xspress3::dataTask(void)
        }
 
        //Read how many data frames have been transferred.
-       if (!simTest_) {
-	 getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-	 for (int card=0; card<xsp3_num_cards; card++) {
-           xsp3_status = xsp3_scaler_check_desc(xsp3_handle_, card);
-	   if (xsp3_status < XSP3_OK) {
-	     checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
-	     status = asynError;
+       if (acquire) {
+	 if (!simTest_) {
+	   getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
+	   for (int card=0; card<xsp3_num_cards; card++) {
+	     xsp3_status = xsp3_scaler_check_desc(xsp3_handle_, card);
+	     if (xsp3_status < XSP3_OK) {
+	       checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
+	       status = asynError;
+	     }
+	     frame_count = xsp3_status;
+	     setIntegerParam(xsp3FrameCountParam, frame_count-lastFrameCount);
+	     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
 	   }
-	   frame_count = xsp3_status;
-	   setIntegerParam(xsp3FrameCountParam, frame_count-lastFrameCount);
-	   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
+	 } else {
+	   //In sim mode we transfer 10 frame each time
+	   frame_count = lastFrameCount+10;
+	   setIntegerParam(xsp3FrameCountParam, 10);
 	 }
        } else {
-	 //In sim mode we transfer 10 frame each time
-	 frame_count = lastFrameCount+10;
-	 setIntegerParam(xsp3FrameCountParam, 10);
-       }
-       
-       if ((!acquire) && (stillBusy)) {
 	 frame_count = 0;
-	 framesToReadOut = 0;
-	 callParamCallbacks();
        }
-       
-       if ((frame_count > lastFrameCount) || ((!acquire) && (!stillBusy))) {
 
+       if (frame_count > lastFrameCount) {
 	 framesToReadOut = frame_count - lastFrameCount;
 	 lastFrameCount = frame_count;
 
@@ -1530,10 +1534,22 @@ void Xspress3::dataTask(void)
 	       for (int chan=0; chan<numChannels; ++chan) {
 		 if (!simTest_) {
 		   //Read out the MCA spectra for this channel.
-		   xsp3_status = xsp3_hist_dtc_read4d(xsp3_handle_, reinterpret_cast<double*>(pMCA[chan]), NULL, 0, 0, chan, frame, maxSpectra, 1, 1, 1);
+		   if (dtcEnable == 1) {
+		     xsp3_status = xsp3_hist_dtc_read4d(xsp3_handle_, reinterpret_cast<double*>(pMCA[chan]), NULL, 0, 0, chan, frame, maxSpectra, 1, 1, 1);
+		   } else {
+		     xsp3_status = xsp3_histogram_read4d(xsp3_handle_, reinterpret_cast<u_int32_t*>(pMCA_INT[chan]), 0, 0, chan, frame, maxSpectra, 1, 1, 1);
+		   }
 		   if (xsp3_status != XSP3_OK) {
 		     checkStatus(xsp3_status, "xsp3_histogram_read_chan", functionName);
 		     status = asynError;
+		   }
+		   //If reading un-corrected data, need to convert to doubles for the rest of the IOC code.
+		   if (dtcEnable == 0) {
+		     epicsFloat64 *pDATA = pMCA[chan];
+		     epicsInt32 *pDATA_INT = pMCA_INT[chan];
+		     for (int bin=0; bin<maxSpectra; ++bin) {
+		       *(pDATA++) = static_cast<epicsFloat64>(*(pDATA_INT++));
+		     }
 		   }
 		 } else {
 		   //If in simMode_, fill the MCA array with sim data for this channel.

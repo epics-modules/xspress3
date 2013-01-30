@@ -428,6 +428,34 @@ record(bi, "$(P)$(R)CTRL_MCA_ROI_RBV")
 }
 
 # ///
+# /// Disable or enable DTC calculations.
+# /// These corrections are done by the Xspress3 API in the detector 
+# /// thread. So they slow down acqusition.
+# ///
+record(bo,"$(P)$(R)CTRL_DTC") {
+    field(DTYP, "asynInt32")
+    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_DTC")
+    field(ZNAM,"Disable")
+    field(ONAM,"Enable")
+    field(PINI, "YES")
+    field(VAL, "1")
+}
+
+# /// 
+# /// Readback disable or enable DTC calculations.
+# /// These corrections are done by the Xspress3 API in the detector 
+# /// thread. So they slow down acqusition.
+# ///
+record(bi, "$(P)$(R)CTRL_DTC_RBV")
+{
+    field(DTYP,"asynInt32")
+    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_DTC")
+    field(ZNAM,"Disabled")	
+    field(ONAM,"Enabled")
+    field(SCAN, "I/O Intr")	
+}
+
+# ///
 # /// Disable this ADBase record scanning.
 # ///
 record(ai, "$(P)$(R)PoolUsedMem")
