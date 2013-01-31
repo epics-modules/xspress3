@@ -253,49 +253,6 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 620
-y 145
-w 125
-h 35
-controlPv "$(P):FRAME_COUNT_RBV"
-font "arial-bold-r-16.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-showUnits
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 445
-y 155
-w 170
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "Num Frames / Readout"
-}
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
@@ -303,7 +260,7 @@ major 4
 minor 1
 release 0
 x 450
-y 195
+y 155
 w 165
 h 20
 font "arial-bold-r-14.0"
@@ -322,7 +279,7 @@ major 4
 minor 5
 release 0
 x 620
-y 185
+y 145
 w 125
 h 35
 controlPv "$(P):ArrayCounter_RBV"
@@ -594,7 +551,7 @@ major 4
 minor 5
 release 0
 x 620
-y 225
+y 185
 w 125
 h 35
 controlPv "$(P):ArrayRate_RBV"
@@ -617,8 +574,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 510
-y 235
+x 505
+y 195
 w 110
 h 20
 font "arial-bold-r-14.0"
@@ -1637,5 +1594,29 @@ fastUpdate
 useHexPrefix
 newPos
 objType "monitors"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 105
+w 125
+h 35
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):UPDATE"
+pressValue "1"
+onLabel "Update Arrays"
+offLabel "Update Arrays"
+3d
+useEnumNumeric
+font "arial-bold-r-16.0"
 endObjectProperties
 

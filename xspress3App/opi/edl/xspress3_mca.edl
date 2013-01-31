@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 250
-y 196
+x 490
+y 47
 w 1000
-h 910
+h 935
 font "arial-medium-r-12.0"
 fontAlign "center"
 ctlFont "arial-medium-r-12.0"
@@ -301,7 +301,7 @@ release 0
 x 10
 y 750
 w 560
-h 145
+h 175
 lineColor index 14
 fill
 fillColor index 5
@@ -577,7 +577,7 @@ major 4
 minor 2
 release 0
 x 155
-y 855
+y 885
 w 90
 h 25
 fgColor index 43
@@ -667,7 +667,7 @@ major 4
 minor 2
 release 0
 x 255
-y 855
+y 885
 w 90
 h 25
 fgColor index 43
@@ -696,7 +696,7 @@ major 4
 minor 2
 release 0
 x 355
-y 855
+y 885
 w 90
 h 25
 fgColor index 43
@@ -725,7 +725,7 @@ major 4
 minor 2
 release 0
 x 455
-y 855
+y 885
 w 90
 h 25
 fgColor index 43
@@ -745,5 +745,117 @@ setPosition {
 symbols {
   0 "R=:C$(CHAN)_ROI4:,ATTR=ROI4"
 }
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 35
+y 860
+w 120
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "ROI Integrated"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 155
+y 855
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_ROI1:ValueSum_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 255
+y 855
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_ROI2:ValueSum_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 355
+y 855
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_ROI3:ValueSum_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 455
+y 855
+w 90
+h 25
+controlPv "$(P):C$(CHAN)_ROI4:ValueSum_RBV"
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
 endObjectProperties
 

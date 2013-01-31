@@ -14,6 +14,7 @@ DB += xspress3ChannelSCAThreshold.template
 DB += xspress3ChannelMCAROI.template
 DB += xspress3_highlevel.template
 DB += xspress3_AttrReset.template
+DB += xspress3_AttrUpdate.template
 DB += xspress3_pluginControl.template
 
 include $(TOP)/configure/RULES

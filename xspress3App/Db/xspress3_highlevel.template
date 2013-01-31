@@ -66,6 +66,7 @@ record(dfanout, "$(P)$(R)ERASE_AttrReset")
    field(OUTH, "$(P)$(R)C8_AttrReset.PROC PP")
 }
 
+
 #########################################################################
 # Set the channel specific attribute names.
 # These are used in the templates below that deal with the channel
@@ -129,3 +130,47 @@ substitute "CHAN=7"
 include "xspress3_AttrReset.template"
 substitute "CHAN=8"
 include "xspress3_AttrReset.template"
+
+#########################################################################
+# Records to update the arrays in the NDAttribute plugins.
+# This is needed for high data rate collections at the end of a scan
+# due to the fact that the NDAttribute pugins only update the arrays
+# at a slow rate and may miss some points at the end of a scan.
+#########################################################################
+
+#Trigger an update of the NDAttribute arrays
+record(bo,"$(P)$(R)UPDATE") 
+{
+   field(FLNK, "$(P)$(R)UPDATE_AttrUpdate.PROC")
+}
+
+#On an erase, do a reset on the NDAttribute plugins.
+record(dfanout, "$(P)$(R)UPDATE_AttrUpdate")
+{
+   field(VAL, "1")
+   field(OUTA, "$(P)$(R)C1_AttrUpdate.PROC PP")
+   field(OUTB, "$(P)$(R)C2_AttrUpdate.PROC PP")
+   field(OUTC, "$(P)$(R)C3_AttrUpdate.PROC PP")
+   field(OUTD, "$(P)$(R)C4_AttrUpdate.PROC PP")
+   field(OUTE, "$(P)$(R)C5_AttrUpdate.PROC PP")
+   field(OUTF, "$(P)$(R)C6_AttrUpdate.PROC PP")
+   field(OUTG, "$(P)$(R)C7_AttrUpdate.PROC PP")
+   field(OUTH, "$(P)$(R)C8_AttrUpdate.PROC PP")
+}
+
+substitute "CHAN=1"
+include "xspress3_AttrUpdate.template"
+substitute "CHAN=2"
+include "xspress3_AttrUpdate.template"
+substitute "CHAN=3"
+include "xspress3_AttrUpdate.template"
+substitute "CHAN=4"
+include "xspress3_AttrUpdate.template"
+substitute "CHAN=5"
+include "xspress3_AttrUpdate.template"
+substitute "CHAN=6"
+include "xspress3_AttrUpdate.template"
+substitute "CHAN=7"
+include "xspress3_AttrUpdate.template"
+substitute "CHAN=8"
+include "xspress3_AttrUpdate.template"

@@ -604,3 +604,27 @@ newPos
 objType "monitors"
 endObjectProperties
 
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 15
+y 520
+w 105
+h 20
+fgColor index 25
+onColor index 3
+offColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):UPDATE"
+pressValue "1"
+onLabel "Update Arrays"
+offLabel "Update Arrays"
+3d
+useEnumNumeric
+font "arial-bold-r-12.0"
+endObjectProperties
+

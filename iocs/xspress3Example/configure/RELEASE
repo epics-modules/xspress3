@@ -25,14 +25,15 @@ SUPPORT=/dls_sw/prod/R3.14.11/support
 WORK=/dls_sw/work/R3.14.11/support
 
 ASYN=           $(SUPPORT)/asyn/4-19
+#ASYN=           $(WORK)/asyn_trunk
 AREADETECTOR=   $(SUPPORT)/areaDetector/1-8beta6-dls2
 BUSY=           $(SUPPORT)/busy/1-4
 CALC=		$(SUPPORT)/calc/2-8dls4
 SSCAN=		$(SUPPORT)/sscan/2-6-6dls2
 AUTOSAVE=       $(SUPPORT)/autosave/4-6dls5
 DEVIOCSTATS=    $(SUPPORT)/devIocStats/3-1-5dls4
-#SPECTRAPLUGINS=	$(SUPPORT)/spectraPlugins/1-0
-SPECTRAPLUGINS=	$(WORK)/spectraPlugins
+SPECTRAPLUGINS=	$(SUPPORT)/spectraPlugins/1-1
+#SPECTRAPLUGINS=	$(WORK)/spectraPlugins
 XSPRESS3=	$(WORK)/xspress3
 #XSPRESS3_API=   /home/mp49/xspress3_api/
 #XSPRESS3_API=	/scratch/xspress3_trunk/trunk/det-software
