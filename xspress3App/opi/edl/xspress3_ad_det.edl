@@ -315,6 +315,19 @@ value {
 }
 endObjectProperties
 
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 180
+y 650
+w 190
+h 115
+
+beginGroup
+
 # (Related Display)
 object relatedDisplayClass
 beginObjectProperties
@@ -322,7 +335,7 @@ major 4
 minor 2
 release 0
 x 180
-y 615
+y 650
 w 190
 h 25
 fgColor index 43
@@ -382,7 +395,7 @@ major 4
 minor 2
 release 0
 x 180
-y 645
+y 680
 w 190
 h 25
 fgColor index 43
@@ -442,7 +455,7 @@ major 4
 minor 2
 release 0
 x 270
-y 705
+y 740
 w 100
 h 25
 fgColor index 43
@@ -502,7 +515,7 @@ major 4
 minor 2
 release 0
 x 180
-y 675
+y 710
 w 190
 h 25
 fgColor index 43
@@ -522,5 +535,72 @@ menuLabel {
 setPosition {
   0 "parentWindow"
 }
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 55
+y 610
+w 105
+h 20
+font "arial-bold-r-12.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Dead Time Corr"
+}
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 170
+y 610
+w 100
+h 25
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):CTRL_DTC"
+indicatorPv "$(P):CTRL_DTC_RBV"
+font "arial-bold-r-12.0"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 275
+y 610
+w 100
+h 25
+controlPv "$(P):CTRL_DTC_RBV"
+font "arial-bold-r-12.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
 endObjectProperties
 

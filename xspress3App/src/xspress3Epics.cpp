@@ -1319,6 +1319,8 @@ void Xspress3::dataTask(void)
   int framesToReadOut = 0;
   bool stillBusy = false;
   int dtcEnable = 0;
+  bool aborted = false;
+  bool completed = false;
  
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
 
@@ -1350,6 +1352,8 @@ void Xspress3::dataTask(void)
        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Start Event.\n", functionName);
        acquire = 1;
        frameCounter = 0;
+       aborted = false;
+       completed = false;
        lock();
        setIntegerParam(NDArrayCounter, 0);
        //Need to clear local arrays here for each new acqusition.
@@ -1386,15 +1390,9 @@ void Xspress3::dataTask(void)
        if (eventStatus == epicsEventWaitOK) {
 	 asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Stop Event.\n", functionName);
 	 acquire = 0;
+	 aborted = true;
        }
        lock();
-       
-       if (acquire==0) {
-	 setIntegerParam(ADAcquire, ADAcquireFalse_);
-	 setIntegerParam(ADStatus, ADStatusAborted);
-	 setStringParam(ADStatusMessage, "Stopped Acquiring");
-	 callParamCallbacks();
-       }
 
        //If we have stopped, wait until we are not busy on all channels.
        stillBusy = false;
@@ -1451,16 +1449,14 @@ void Xspress3::dataTask(void)
 	   acquire=0;
 	   setIntegerParam(ADStatus, ADStatusAborted);
 	 } else if (frameCounter >= numFrames) {
+	   completed = true;
 	   remainingFrames = numFrames - (frameCounter - framesToReadOut);
-	   setStringParam(ADStatusMessage, "Completed Acqusition.");
-	   setIntegerParam(ADAcquire, ADAcquireFalse_);
 	   if (!simTest_) {
 	     xsp3_status = xsp3_histogram_stop(xsp3_handle_, 0);
 	     if (xsp3_status != XSP3_OK) {
 	       checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
 	     }
 	   }
-	   setIntegerParam(ADStatus, ADStatusIdle);
 	   acquire=0;
 	 }
 
@@ -1643,6 +1639,19 @@ void Xspress3::dataTask(void)
 	 } //end of if (!stillBusy)
 
        }  //end of if (frame_count > lastFrameCount)
+
+       if (aborted) {
+	 setIntegerParam(ADAcquire, ADAcquireFalse_);
+	 setIntegerParam(ADStatus, ADStatusAborted);
+	 setStringParam(ADStatusMessage, "Stopped Acquiring");
+	 callParamCallbacks();
+       }
+
+       if (completed) {
+	 setStringParam(ADStatusMessage, "Completed Acqusition.");
+	 setIntegerParam(ADAcquire, ADAcquireFalse_);
+	 setIntegerParam(ADStatus, ADStatusIdle);
+       }
 
        frame_count = 0;
        framesToReadOut = 0;
