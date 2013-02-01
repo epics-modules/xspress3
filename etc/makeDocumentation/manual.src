@@ -55,8 +55,8 @@ The following PVs are involved in data acqusition or monitoring. Some of the PVs
 <td>This will call the Xspress 3 API <b>xsp3_histogram_clear</b> function. It will also clear any data held by EPICS PVs, including the array PVs. Do this before starting a new data collection.</td>
 </tr>
 <tr>
-<td>{P}:RESET</td>
-<td>This does nothing at the moment.</td>
+<td>{P}:UPDATE</td>
+<td>This does a manual update on all the scaler and ROI arrays, to ensure that they contain the latest data. It is necessary to write a 1 to this at the end of an acqusition.</td>
 </tr>
 <tr>
 <td>{P}:NumImages\n{P}:NumImages_RBV</td>
@@ -100,6 +100,22 @@ The following PVs are involved in data acqusition or monitoring. Some of the PVs
 <td>{P}:ArrayRate_RBV</td>
 <td>This is a rough indication of the frame rate we are operating at. It is calculated every second, and uses the rate of change of the ArrayCounter_RBV PV.</td>
 </tr>
+</table>
+
+\subsection iocFile HDF File Saving
+
+This software makes use of the areaDetector HDF file writing plugin. Full documentation for this is provided <a href="http://cars9.uchicago.edu/software/epics/NDPluginFile.html">here</a>. Some of the most relevant PVs are exposed on the main GUI, and these are detailed below:
+
+<table border="1">
+<tr>
+<td>{P}:HDF5:Capture\n{P}:HDF5:Capture_RBV</td>
+<td>Write a 1 to this PV before starting an acqusition. This will trigger the HDF software to start capturing data to write a file, and set {P}:HDF5:Capture_RBV to 1. At the end of the acquisition it is necessary to write a 0 to this PV.</td>
+</tr>
+<tr>
+<td>{P}:ArrayCallbacks</td>
+<td>This should normally be left enabled, as disabling this will disable visualisation and of the data. It can safely be left enabled, even when not saving data using {P}:HDF5:Capture.</td>
+</tr>
+
 </table>
 
 \subsection iocSca Scaler Data and Window Settings

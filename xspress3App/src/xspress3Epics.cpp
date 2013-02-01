@@ -66,7 +66,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 	     asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask | asynGenericPointerMask,  /* Interrupt mask */
 	     ASYN_CANBLOCK | ASYN_MULTIDEVICE, /* asynFlags.*/
 	     1, /* Autoconnect */
-	     0, /* Default priority */
+	     0, /* default priority */
 	     0), /* Default stack size*/
     debug_(debug), numChannels_(numChannels), simTest_(simTest), baseIP_(baseIP)
 {
@@ -155,7 +155,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   
   //Create the thread that readouts the data 
   status = (epicsThreadCreate("GeDataTask",
-                              epicsThreadPriorityMedium,
+                              epicsThreadPriorityHigh,
                               epicsThreadGetStackSize(epicsThreadStackMedium),
                               (EPICSTHREADFUNC)xsp3DataTaskC,
                               this) == NULL);

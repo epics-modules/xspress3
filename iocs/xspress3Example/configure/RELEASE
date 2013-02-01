@@ -25,7 +25,6 @@ SUPPORT=/dls_sw/prod/R3.14.11/support
 WORK=/dls_sw/work/R3.14.11/support
 
 ASYN=           $(SUPPORT)/asyn/4-19
-#ASYN=           $(WORK)/asyn_trunk
 AREADETECTOR=   $(SUPPORT)/areaDetector/1-8beta6-dls2
 BUSY=           $(SUPPORT)/busy/1-4
 CALC=		$(SUPPORT)/calc/2-8dls4
@@ -35,8 +34,6 @@ DEVIOCSTATS=    $(SUPPORT)/devIocStats/3-1-5dls4
 SPECTRAPLUGINS=	$(SUPPORT)/spectraPlugins/1-1
 #SPECTRAPLUGINS=	$(WORK)/spectraPlugins
 XSPRESS3=	$(WORK)/xspress3
-#XSPRESS3_API=   /home/mp49/xspress3_api/
-#XSPRESS3_API=	/scratch/xspress3_trunk/trunk/det-software
 #XSPRESS3_API=	$(WORK)/xspress3_api/det-software
 XSPRESS3_API=	$(SUPPORT)/xspress3_api/1-0/det-software
 BOOST=          /dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0
