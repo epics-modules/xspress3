@@ -35,6 +35,45 @@ include "xspress3ChannelMCAROI.template"
 substitute "ROI=4"
 include "xspress3ChannelMCAROI.template"
 
+substitute "ROI=5"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=6"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=7"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=8"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=9"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=10"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=11"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=12"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=12"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=13"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=14"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=15"
+include "xspress3ChannelMCAROI.template"
+
+substitute "ROI=16"
+include "xspress3ChannelMCAROI.template"
+
 
 ##########################################################################
 # Dead Time Correction Parameters Read At Connection Time

@@ -30,4 +30,22 @@ record(dfanout, "$(P)$(R)C$(CHAN)_AttrUpdate_2")
    field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI2):Update PP")
    field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI3):Update PP")
    field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI4):Update PP")
+   field(OUTE, "$(P)$(R)C$(CHAN)_$(ROI5):Update PP")
+   field(OUTF, "$(P)$(R)C$(CHAN)_$(ROI6):Update PP")
+   field(OUTG, "$(P)$(R)C$(CHAN)_$(ROI7):Update PP")
+   field(OUTH, "$(P)$(R)C$(CHAN)_$(ROI8):Update PP")
+   field(FLNK, "$(P)$(R)C$(CHAN)_AttrUpdate_3")
+}
+
+record(dfanout, "$(P)$(R)C$(CHAN)_AttrUpdate_3")
+{
+   field(VAL, "1")
+   field(OUTA, "$(P)$(R)C$(CHAN)_$(ROI9):Update PP")
+   field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI10):Update PP")
+   field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI11):Update PP")
+   field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI12):Update PP")
+   field(OUTE, "$(P)$(R)C$(CHAN)_$(ROI13):Update PP")
+   field(OUTF, "$(P)$(R)C$(CHAN)_$(ROI14):Update PP")
+   field(OUTG, "$(P)$(R)C$(CHAN)_$(ROI15):Update PP")
+   field(OUTH, "$(P)$(R)C$(CHAN)_$(ROI16):Update PP")
 }

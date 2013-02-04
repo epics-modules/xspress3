@@ -3,9 +3,9 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 359
-y 47
-w 495
+x 364
+y 69
+w 855
 h 530
 font "arial-medium-r-12.0"
 fontAlign "center"
@@ -29,21 +29,6 @@ gridSize 5
 disableScroll
 endScreenProperties
 
-# (Rectangle)
-object activeRectangleClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 10
-y 40
-w 465
-h 385
-lineColor index 14
-fill
-fillColor index 5
-endObjectProperties
-
 # (Group)
 object activeGroupClass
 beginObjectProperties
@@ -52,7 +37,7 @@ minor 0
 release 0
 x 0
 y 0
-w 490
+w 850
 h 25
 
 beginGroup
@@ -65,7 +50,7 @@ minor 0
 release 0
 x 0
 y 2
-w 489
+w 848
 h 25
 lineColor index 1
 fillColor index 0
@@ -77,9 +62,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 1
+x 2
 y 3
-w 489
+w 848
 h 25
 lineColor index 11
 fillColor index 0
@@ -91,9 +76,9 @@ beginObjectProperties
 major 4
 minor 2
 release 0
-x 1
+x 2
 y 3
-w 489
+w 848
 h 24
 fgColor index 14
 bgColor index 3
@@ -121,21 +106,78 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 1
+x 2
 y 3
-w 489
+w 848
 h 25
 font "arial-bold-r-16.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 51
 value {
-  "Xspress3 Control - $(P)"
+  "Xspress3 Data Visualization Control - $(P)"
 }
 endObjectProperties
 
 endGroup
 
+endObjectProperties
+
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 735
+y 480
+w 100
+h 35
+fgColor index 46
+bgColor index 3
+topShadowColor index 1
+botShadowColor index 11
+label "EXIT"
+font "arial-bold-r-18.0"
+3d
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 10
+y 435
+w 360
+h 80
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Disable a channel if it is not being used, or"
+  "does not need to be visualized by the user."
+  "This will disable all the areaDetector plugins"
+  "responsible for data visualization, and does"
+  "not affect channel specifc data being saved to file."
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 10
+y 40
+w 445
+h 385
+lineColor index 14
+fill
+fillColor index 5
 endObjectProperties
 
 # (Static Text)
@@ -146,13 +188,13 @@ minor 1
 release 0
 x 10
 y 35
-w 444
+w 435
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 7
 value {
-  "  Enable and Disable Area Detector Channel Specific Plugins    "
+  "  Enable/Disable Channel Visualization (also affects ROI 1-4)  "
 }
 autoSize
 border
@@ -196,25 +238,6 @@ useDisplayBg
 value {
   "Channel 1"
 }
-endObjectProperties
-
-# (Exit Button)
-object activeExitButtonClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 380
-y 480
-w 100
-h 35
-fgColor index 46
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-label "EXIT"
-font "arial-bold-r-18.0"
-3d
 endObjectProperties
 
 # (Choice Button)
@@ -681,26 +704,561 @@ newPos
 objType "monitors"
 endObjectProperties
 
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 460
+y 40
+w 380
+h 385
+lineColor index 14
+fill
+fillColor index 5
+endObjectProperties
+
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
 release 0
-x 10
-y 435
-w 360
-h 80
+x 460
+y 35
+w 246
+h 16
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 7
+value {
+  "  Enable/Disable Extra ROIs 5 to 16"
+}
+autoSize
+border
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 60
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C1_PluginControlValExtraROI"
+indicatorPv "$(P):C1_PluginControlValExtraROI"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 485
+y 70
+w 80
+h 20
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
 value {
-  "Disable a channel if it is not being used, or"
-  "does not need to be visualized by the user."
-  "This will disable all the areaDetector plugins"
-  "responsible for data visualization, and does"
-  "not affect channel specifc data being saved to file."
+  "Channel 1"
+}
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 105
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C2_PluginControlValExtraROI"
+indicatorPv "$(P):C2_PluginControlValExtraROI"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 150
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C3_PluginControlValExtraROI"
+indicatorPv "$(P):C3_PluginControlValExtraROI"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 195
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C4_PluginControlValExtraROI"
+indicatorPv "$(P):C4_PluginControlValExtraROI"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 240
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C5_PluginControlValExtraROI"
+indicatorPv "$(P):C5_PluginControlValExtraROI"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 285
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C6_PluginControlValExtraROI"
+indicatorPv "$(P):C6_PluginControlValExtraROI"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 330
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C7_PluginControlValExtraROI"
+indicatorPv "$(P):C7_PluginControlValExtraROI"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 565
+y 375
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C8_PluginControlValExtraROI"
+indicatorPv "$(P):C8_PluginControlValExtraROI"
+font "arial-bold-r-14.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 485
+y 115
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 2"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 485
+y 160
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 3"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 485
+y 205
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 4"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 485
+y 250
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 5"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 485
+y 295
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 6"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 485
+y 340
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 7"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 485
+y 385
+w 80
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Channel 8"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 700
+y 60
+w 125
+h 35
+controlPv "$(P):C1_PluginControlValExtraROI"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 700
+y 105
+w 125
+h 35
+controlPv "$(P):C2_PluginControlValExtraROI"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 700
+y 150
+w 125
+h 35
+controlPv "$(P):C3_PluginControlValExtraROI"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 700
+y 195
+w 125
+h 35
+controlPv "$(P):C4_PluginControlValExtraROI"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 700
+y 240
+w 125
+h 35
+controlPv "$(P):C5_PluginControlValExtraROI"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 700
+y 285
+w 125
+h 35
+controlPv "$(P):C6_PluginControlValExtraROI"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 700
+y 330
+w 125
+h 35
+controlPv "$(P):C7_PluginControlValExtraROI"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 5
+release 0
+x 700
+y 375
+w 125
+h 35
+controlPv "$(P):C8_PluginControlValExtraROI"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 0
+x 460
+y 425
+w 375
+h 35
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Only enable ROIs 5-16 if they need to be visualized. "
 }
 endObjectProperties
 

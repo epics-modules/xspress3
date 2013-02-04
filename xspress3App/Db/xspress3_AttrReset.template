@@ -31,4 +31,22 @@ record(dfanout, "$(P)$(R)C$(CHAN)_AttrReset_2")
    field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI2):Reset PP")
    field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI3):Reset PP")
    field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI4):Reset PP")
+   field(OUTE, "$(P)$(R)C$(CHAN)_$(ROI5):Reset PP")
+   field(OUTF, "$(P)$(R)C$(CHAN)_$(ROI6):Reset PP")
+   field(OUTG, "$(P)$(R)C$(CHAN)_$(ROI7):Reset PP")
+   field(OUTH, "$(P)$(R)C$(CHAN)_$(ROI8):Reset PP")
+   field(FLNK, "$(P)$(R)C$(CHAN)_AttrReset_3")
+}
+
+record(dfanout, "$(P)$(R)C$(CHAN)_AttrReset_3")
+{
+   field(VAL, "1")
+   field(OUTA, "$(P)$(R)C$(CHAN)_$(ROI9):Reset PP")
+   field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI10):Reset PP")
+   field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI11):Reset PP")
+   field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI12):Reset PP")
+   field(OUTE, "$(P)$(R)C$(CHAN)_$(ROI13):Reset PP")
+   field(OUTF, "$(P)$(R)C$(CHAN)_$(ROI14):Reset PP")
+   field(OUTG, "$(P)$(R)C$(CHAN)_$(ROI15):Reset PP")
+   field(OUTH, "$(P)$(R)C$(CHAN)_$(ROI16):Reset PP")
 }

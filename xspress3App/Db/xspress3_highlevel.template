@@ -84,7 +84,18 @@ substitute "ROI1=ROI1"
 substitute "ROI2=ROI2"
 substitute "ROI3=ROI3"
 substitute "ROI4=ROI4"
-
+substitute "ROI5=ROI5"
+substitute "ROI6=ROI6"
+substitute "ROI7=ROI7"
+substitute "ROI8=ROI8"
+substitute "ROI9=ROI9"
+substitute "ROI10=ROI10"
+substitute "ROI11=ROI11"
+substitute "ROI12=ROI12"
+substitute "ROI13=ROI13"
+substitute "ROI14=ROI14"
+substitute "ROI15=ROI15"
+substitute "ROI16=ROI16"
 
 ##########################################################################
 # Add in the records that enable and disable all the
