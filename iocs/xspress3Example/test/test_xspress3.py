@@ -5,8 +5,6 @@ from pkg_resources import require
 import sys
 require('cothread==2.8')
 
-#print sys.path
-
 import cothread
 from cothread.catools import *
 
@@ -21,7 +19,6 @@ nd_attributes_file = "//dls_sw/work/R3.14.11/support/xspress3/data/xsp3.xml"
 run_flags = 1 #0=normal, 1=playback
 file_path = "/tmp/"
 file_name = "xsp"
-file_template = "%s%s%d.hdf5"
 
 num_frames = 10
 
@@ -33,6 +30,7 @@ def connect():
       caput(base_pv + ":NUM_CHANNELS", num_channels, wait=True)
       caput(base_pv + ":CONFIG_PATH", config_path, wait=True, datatype=cothread.catools.DBR_CHAR_STR)
       caput(base_pv + ":RUN_FLAGS", run_flags, wait=True)
+      caput(base_pv + ":NDAttributesFile", nd_attributes_file, wait=True, datatype=cothread.catools.DBR_CHAR_STR)
       caput(base_pv + ":CONNECT", 1, wait=True, timeout=timeout_)
 
 def file_setup():
@@ -43,9 +41,7 @@ def file_setup():
       print "ERROR: file path doesn't exist"
       sys.exit(1)
    caput(hdf_pv + ":FileName", file_name, wait=True, datatype=cothread.catools.DBR_CHAR_STR)
-   caput(hdf_pv + ":FileTemplate", file_template, wait=True, datatype=cothread.catools.DBR_CHAR_STR)
-   caput(hdf_pv + ":FileWriteMode", "Stream", wait=True)
-   caput(base_pv + ":NDAttributesFile", nd_attributes_file, wait=True, datatype=cothread.catools.DBR_CHAR_STR)
+   
 
 def acquire():
    print "Acquire..."
@@ -71,7 +67,6 @@ def setNumFrames(num_frames):
    print "Set number of frames to " + str(num_frames)
    #Set the number of frames to collect
    caput(base_pv + ":NumImages", num_frames, wait=True)
-   caput(hdf_pv + ":NumCapture", num_frames, wait=True)
 
 
 def main():
@@ -80,13 +75,8 @@ def main():
    #Connect to the Xspress3 (if the IOC has been restarted)  
    connect()
 
-   print "Set up trigger mode..."
+   #Set up trigger mode
    caput(base_pv + ":TriggerMode", trigger_mode, wait=True)
-
-   #Enable array callbacks to the areaDetector plugins
-   caput(base_pv + ":ArrayCallbacks", 1, wait=True)
-   #Enable HDF plugin
-   caput(hdf_pv + ":EnableCallbacks", 1, wait=True)
 
    #Set up file saving plugin
    file_setup()
@@ -111,7 +101,6 @@ def main():
    acquire_rbv = 1
    while(acquire_rbv):
       acquire_rbv = caget(base_pv + ":Acquire_RBV")
-      print "acquire " + str(acquire_rbv)
       cothread.Sleep(0.1)
 
    #Acqusition is finished, although file saving might still be progressing in the file saving plugin.
@@ -124,16 +113,17 @@ def main():
       print ad_string
       sys.exit(1)
 
+   #Do final update on all visualization arrays
+   caput(base_pv + ":UPDATE", 1, wait=True)
+
    #Check number of frames read out
    num_frames_readout = caget(base_pv + ":ArrayCounter_RBV")
-   print "Num frames read out: " + str(num_frames_readout)
-
-   #Check file saving here
-   #Wait for file saving to end
+   print "Num frames read out: " + str(num_frames_readout
+                                       
+   #Wait for file saving to end and check status
    saving = 1
    while (saving):
       saving = caget(hdf_pv + ":Capture_RBV")
-      print "saving " + str(saving)
       cothread.Sleep(0.1)
    #Check status
    num_captured = caget(hdf_pv + ":NumCaptured_RBV")

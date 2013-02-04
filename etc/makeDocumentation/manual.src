@@ -15,7 +15,7 @@ Once the EPICS IOC is running it is necessary to connect to the Xspress 3 system
 <table border="1">
 <tr>
 <td>{P}:NUM_CHANNELS</td>
-<td>The number of channels this system is configured for. Must be less than or equal to {P}:MAX_NUM_CHANNELS_RBV, which is the value passed into <code>xspress3Config</code>.</td>
+<td>The number of channels this system is configured for. Must be less than or equal to {P}:MAX_NUM_CHANNELS_RBV, which is the value passed into <code>xspress3Config</code> (a function used at IOC initilization by the IOC developer).</td>
 </tr>
 <tr>
 <td>{P}:NUM_FRAMES_CONFIG</td>
@@ -25,9 +25,13 @@ Once the EPICS IOC is running it is necessary to connect to the Xspress 3 system
 <td>{P}:CONFIG_PATH</td>
 <td>This is the path to the Xspress configuration files. These files should have been provided with the system.</td>
 </tr>
+<tr>
+<td>{P}:NDAttributesFile</td>
+<td>This is the path to the Xspress XML file saving configuration files. This file should have been provided with the IOC software. It defines what parameters are saved in the HDF file and what can be visualized when running the system. An example that can be used is packaged in the IOC data directory.</td>
+</tr>
 </table> 
 
-Once the above three PVs are set, connection can take place by writing 1 to {P}:CONNECT.
+Once the above PVs are set, connection can take place by writing 1 to {P}:CONNECT.
 
 If connection was successful then {P}:CONNECTED will be set to 1.
 
@@ -44,6 +48,33 @@ In additon, if connection was successful, several parameters are read from the s
 \subsection iocData Data Acquisition
 
 The following PVs are involved in data acqusition or monitoring. Some of the PVs map directly onto Xspress 3 API functions, and this will be noted below.
+
+The basic flow of control, after connection, will be:
+<ol>
+<li>Set trigger mode (TTL Veto Only).</li>
+<li>Set up file related PVs - FilePath, FileName. Check FilePath exists.</li>
+<li>Set file number, if needed. This is the index used in the filename. This is auto incrementing each time a new file is saved, but is reset if the IOC is restarted.</li>
+<li>If the IOC has just been restarted it will be neccessary to take a single frame to configure the file writing areaDetector plugin:</li>
+<ol>
+<li>Set number of frames to 1.</li>
+<li>Start acqusition and generate a single external trigger.</li>
+<li>Wait until acqusition has finished.</li>
+</ol>
+</ol>
+
+Then for each acqusition:
+
+<ol>
+<li>Erase the data.</li>
+<li>Set the number of frames for the real data collection.</li>
+<li>Start file saving.</li>
+<li>Start acqusition.</li>
+<li>Wait until acqusition has finished, then check status and number of frames processed.</li>
+<li>Update the visualization arrays before reading the array data (also do this during acqusition before reading arrays).</li>
+<li>Wait until file saving has finished, then check status and number of frames saved to disk.</li>
+</ol>
+
+The user may also wish to set up regions of interest (ROIs) too (see section below).
 
 <table border="1">
 <tr>
@@ -112,11 +143,61 @@ This software makes use of the areaDetector HDF file writing plugin. Full docume
 <td>Write a 1 to this PV before starting an acqusition. This will trigger the HDF software to start capturing data to write a file, and set {P}:HDF5:Capture_RBV to 1. At the end of the acquisition it is necessary to write a 0 to this PV.</td>
 </tr>
 <tr>
-<td>{P}:ArrayCallbacks</td>
-<td>This should normally be left enabled, as disabling this will disable visualisation and of the data. It can safely be left enabled, even when not saving data using {P}:HDF5:Capture.</td>
+<td>{P}:HDF5:FilePath\n{P}:HDF5:FilePath_RBV</td>
+<td>The file system path to use for file saving. If the path exists then {P}:HDF5:FilePathExists_RBV will go to 1.</td>
 </tr>
-
+<tr>
+<td>{P}:HDF5:FilePathExists_RBV</td>
+<td>A flag indicating if the set file path is valid.</td>
+</tr>
+<tr>
+<td>{P}:HDF5:FileName\n{P}:HDF5:FileName_RBV</td>
+<td>The file name to use.</td>
+</tr>
+<tr>
+<td>{P}:HDF5:FileNumber\n{P}:HDF5:FileNumber_RBV</td>
+<td>This is the index of the next file that will be saved. If using EPICS autosave this will be reset to the last value when the IOC is rebooted.</td>
+</tr>
+<tr>
+<td>{P}:HDF5:WriteStatus</td>
+<td>The status of the file writing. 1=Error. This should be checked at the end of each acqusition.</td>
+</tr>
+<tr>
+<td>{P}:HDF5:WriteMessage</td>
+<td>The error message if {P}:HDF5:WriteStatus is 1.</td>
+</tr>
+<tr>
+<td>{P}:HDF5:NumCaptured_RBV</td>
+<td>This is the number of files saved to disk by the areaDetector HDF plugin. At the end of this acqusition this should equal the number of frames in {P}:ArrayCounter_RBV.</td>
+</tr>
 </table>
+
+\subsection iocFileRoi Saving a region of interest (ROI) to disk
+
+In order to save a ROI of data to disk the data is sent through an Epics areaDetector ROI plugin. Full documentation is <a href="http://cars9.uchicago.edu/software/epics/NDPluginROI.html">here</a>. However, the average user need only use the following PVs. The data is arranged in an X*Y array. X is energy and Y is channel number. The user can set the start and end point in terms of energy, and which channels to save. It is only possible to save a contiguous range of energy or channels.
+
+These PVs have to set before the beginning of an acqusition. 
+
+<table border="1">
+<tr>
+<td>{P}:ROIDATA:MinX\n{P}:ROIDATA:MinX_RBV</td>
+<td>The start point in units of energy bin (0 based)</td>
+</tr>
+<tr>
+<td>{P}:ROIDATA:SizeX\n{P}:ROIDATA:SizeX_RBV/td>
+<td>The size of the energy ROI to save.</td>
+</tr>
+<tr>
+<td>{P}:ROIDATA:MinY\n{P}:ROIDATA:MinY_RBV</td>
+<td>The start point in channel number (0 based, so channel 1 is 0, and channel 8 is 7).</td>
+</tr>
+<tr>
+<td>{P}:ROIDATA:SizeY\n{P}:ROIDATA:SizeY_RBV</td>
+<td>The number of channels to save.</td>
+</tr>
+</table>
+
+By restricting the energy range that is saved to disk, and the number of channels, the file size can be significantly reduced.
 
 \subsection iocSca Scaler Data and Window Settings
 
@@ -225,7 +306,9 @@ The above parameters are saved in the HDF file. The HDF parameter names will mat
 
 \subsection iocMca MCA Spectra and ROI Data
 
-The following table lists the array PVs for the MCA Spectra, as well as the ROI window settings and readback values. There are 4 regions of interest per channel, so only the PVs for the first one is listed in the below table. The first ROI PVs have 'ROI1' in the name, so simply substute this for 'ROI2', 'ROI3' or 'ROI4' for the other regions of interest.
+The following table lists the array PVs for the MCA Spectra, as well as the ROI window settings and readback values. There are 16 regions of interest per channel, so only the PVs for the first one is listed in the below table. The first ROI PVs have 'ROI1' in the name, so simply substute this for 'ROI2', 'ROI3', etc, for the other regions of interest.
+
+The ROI limits PVs have to set before the beginning of an acqusition. 
 
  <table border="1">
 <tr>
@@ -249,8 +332,16 @@ The following table lists the array PVs for the MCA Spectra, as well as the ROI 
 <td>The ROI readback value for each frame. This is updated during acqusition.</td>
 </tr>
 <tr>
+<td>{P}:C1_ROI1:ValueSum_RBV</td>
+<td>The integrated ROI readback value for the current acqusition. This is updated during acqusition.</td>
+</tr>
+<tr>
 <td>{P}:C1_ROI1:ArrayData_RBV</td>
 <td>The ROI reacback array that holds the ROI for every frame from an acqusition. This is updated during acqusition.</td>
+</tr>
+<tr>
+<td>{P}:C1_ROI1:EnableCallbacks</td>
+<td>This can be used to enable or disable visualization of the ROI data during acqusition. Other PVs are provided that allow the user to globally disable all ROIs per channel, so this is only available for fine control if needed. By default only ROIs 1-4 are enabled by the high level plugin control PVs.</td>
 </tr>
 </table>
 
@@ -260,7 +351,7 @@ The above parameters are saved in the HDF file. All the MCA spectra arrays are a
 
 When the Epics IOC starts up it reads the dead time correction (DTC) parameters for each channel. These are set by the system configuration files supplied with the readout system.
 
- <table border="1">
+<table border="1">
 <tr>
 <td>{P}:C1_DTC_FLAGS_RBV</td>
 <td>The DTC Flags parameter.</td>
@@ -284,6 +375,178 @@ When the Epics IOC starts up it reads the dead time correction (DTC) parameters 
 </table>
 
 The above parameters are saved in the HDF file.
+
+\subsection iocVisualization PVs used to enable and disable data visualization during acqusition
+
+There are several PVs provided that allow the user to enable and disable data visualization. This does not affect file saving or ROI calculation, only the online display of the data during an acqusition. This is provided to allow the user to only enable what is needed, as it can be CPU intensive. It has been found that by having too many channels enabled for visualization, or too many ROIs, the data readout rate can drop. For full speed acqusition, turn off all data visualization, or only enable a single channel.
+
+The following PVs are available for each channel. Substitute the number in 'C1' for the other channel numbers.
+
+These PVs have to set before the beginning of an acqusition. 
+
+<table border="1">
+<tr>
+<td>{P}:C1_PluginControlVal</td>
+<td>This controls the areaDetector plugins responsible for data visualization for channel 1. This includes the spectra, scaler and ROIs 1-4 only. ROIs 5-16 are not affected by this PV. To control ROIs 5-16 use {P}:C1_PluginControlValExtraROI instead.</td>
+</tr>
+<tr>
+<td>{P}:C1_PluginControlValExtraROI</td>
+<td>This controls the areaDetector plugins responsible for data visualization for the ROIs 5-16. These are not always used, which is why they are separated from the PV {P}:C1_PluginControlVal. It would not normally be desirable to automatically enable ROIs 5-16 when a channel is enabled.</td>
+</tr>
+</table>
+
+
+Python script to demonstrate basic useage. This uses the DLS Python cothread library to do channel access. It is available <a href="http://controls.diamond.ac.uk/downloads/python/cothread/">here</a>.
+
+\code
+
+#!/bin/env dls-python2.6
+
+# Library version specification required for dls libraris
+from pkg_resources import require
+import sys
+require('cothread==2.8')
+
+import cothread
+from cothread.catools import *
+
+base_pv = "mp49:XSP3"
+hdf_pv = "mp49:XSP3:HDF5"
+timeout_ = 100
+
+num_channels = 4
+config_path = "/dls_sw/work/R3.14.11/support/xspress3/xspress3_settings/"
+trigger_mode = 3
+nd_attributes_file = "//dls_sw/work/R3.14.11/support/xspress3/data/xsp3.xml"
+run_flags = 1 #0=normal, 1=playback
+file_path = "/tmp/"
+file_name = "xsp"
+
+num_frames = 10
+
+
+def connect():
+   print "Connecting..."
+   connected = caget(base_pv + ":CONNECTED")
+   if (not connected): 
+      caput(base_pv + ":NUM_CHANNELS", num_channels, wait=True)
+      caput(base_pv + ":CONFIG_PATH", config_path, wait=True, datatype=cothread.catools.DBR_CHAR_STR)
+      caput(base_pv + ":RUN_FLAGS", run_flags, wait=True)
+      caput(base_pv + ":NDAttributesFile", nd_attributes_file, wait=True, datatype=cothread.catools.DBR_CHAR_STR)
+      caput(base_pv + ":CONNECT", 1, wait=True, timeout=timeout_)
+
+def file_setup():
+   print "Setting up file parameters..."
+   caput(hdf_pv + ":FilePath", file_path, wait=True, datatype=cothread.catools.DBR_CHAR_STR)
+   path_exists = caget(hdf_pv + ":FilePathExists_RBV")
+   if (not path_exists):
+      print "ERROR: file path doesn't exist"
+      sys.exit(1)
+   caput(hdf_pv + ":FileName", file_name, wait=True, datatype=cothread.catools.DBR_CHAR_STR)
+   
+
+def acquire():
+   print "Acquire..."
+   #Acquire, but don't wait (this only returns when acqusition is complete).
+   caput(base_pv + ":Acquire", 1, wait=False)
+   #Wait until Acquire_RBV is set (or, in this case, just wait a sec).
+   cothread.Sleep(1.0)
+   #Now generate the triggers
+   cothread.Sleep(1.0) #Or, wait on an event from a different thread
+
+def acquireAndCapture():
+   print "Acquire and capture..."
+   caput(hdf_pv + ":Capture", 1, wait=False) #Don't wait, this blocks until capture finished.
+   #Wait until Capture_RBV is set
+   capture_rbv = 0
+   while (not capture_rbv):
+      capture_rbv = caget(hdf_pv + ":Capture_RBV")
+      cothread.Sleep(0.1)
+   acquire()
+   
+
+def setNumFrames(num_frames):
+   print "Set number of frames to " + str(num_frames)
+   #Set the number of frames to collect
+   caput(base_pv + ":NumImages", num_frames, wait=True)
+
+
+def main():
+   print "Testing Xspress3..."
+
+   #Connect to the Xspress3 (if the IOC has been restarted)  
+   connect()
+
+   #Set up trigger mode
+   caput(base_pv + ":TriggerMode", trigger_mode, wait=True)
+
+   #Set up file saving plugin
+   file_setup()
+
+   #Do we need to set up the plugins by taking a single frame?
+   hdf_dims = caget(hdf_pv + ":NDimensions_RBV")
+   if (hdf_dims == 0):
+      #Take a single frame to set up the plugins
+      setNumFrames(1)
+      acquire()
+
+   #Erase data
+   caput(base_pv + ":ERASE", 1, wait=True)
+
+   #Now do the real data collection
+   setNumFrames(num_frames)
+   acquireAndCapture()
+
+   #Generate num_frames triggers now
+
+   #Wait on event here, or poll the Acquire_RBV PV
+   acquire_rbv = 1
+   while(acquire_rbv):
+      acquire_rbv = caget(base_pv + ":Acquire_RBV")
+      cothread.Sleep(0.1)
+
+   #Acqusition is finished, although file saving might still be progressing in the file saving plugin.
+
+   #Check detector status here
+   ad_status = caget(base_pv + ":DetectorState_RBV")
+   if (ad_status != 0):
+      print "ERROR: data collected failed"
+      ad_string = caget(base_pv + ":StatusMessage_RBV")
+      print ad_string
+      sys.exit(1)
+
+   #Do final update on all visualization arrays
+   caput(base_pv + ":UPDATE", 1, wait=True)
+
+   #Check number of frames read out
+   num_frames_readout = caget(base_pv + ":ArrayCounter_RBV")
+   print "Num frames read out: " + str(num_frames_readout
+                                       
+   #Wait for file saving to end and check status
+   saving = 1
+   while (saving):
+      saving = caget(hdf_pv + ":Capture_RBV")
+      cothread.Sleep(0.1)
+   #Check status
+   num_captured = caget(hdf_pv + ":NumCaptured_RBV")
+   if (num_captured != num_frames):
+      print "ERROR: we did not collect all the frames."
+      print "num_captured: " + str(num_captured)
+   write_status = caget(hdf_pv + ":WriteStatus")
+   if (write_status):
+      print "ERROR: problem writing file."
+      hdf_string = caget(hdf_pv + ":WriteMessage")
+      print hdf_string
+      sys.exit(1)
+
+   print "Finshed"
+   print "Saved " + str(num_captured) + " frames."
+
+if __name__ == "__main__":
+        main()
+
+\endcode
+
 
  
 
