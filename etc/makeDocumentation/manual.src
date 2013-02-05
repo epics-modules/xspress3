@@ -10,7 +10,7 @@ This documentation will provide intructions on how to use the EPICS software int
 
 \subsection iocConnection Connecting To The Xspress 3
 
-Once the EPICS IOC is running it is necessary to connect to the Xspress 3 system. This can be done by setting the following PVs. The {P} is the base part of the PV name, which is system dependent. PVs with an <code>_RBV</code> on the end are readback PVs that can be used to confirm that a parameter has been changed successfully.
+Once the EPICS IOC is running it is necessary to connect to the Xspress 3 system. This can be done by setting the following PVs. The {P} is the base part of the PV name, which is system dependent. PVs with an <code>_RBV</code> on the end are readback PVs that can be used to confirm that a parameter has successfully been changed. 
 
 <table border="1">
 <tr>
@@ -23,17 +23,15 @@ Once the EPICS IOC is running it is necessary to connect to the Xspress 3 system
 </tr>
 <tr>
 <td>{P}:CONFIG_PATH</td>
-<td>This is the path to the Xspress configuration files. These files should have been provided with the system.</td>
+<td>This is the path to the Xspress 3 configuration files. These files should have been provided with the system.</td>
 </tr>
 <tr>
 <td>{P}:NDAttributesFile</td>
-<td>This is the path to the Xspress XML file saving configuration files. This file should have been provided with the IOC software. It defines what parameters are saved in the HDF file and what can be visualized when running the system. An example that can be used is packaged in the IOC data directory.</td>
+<td>This is the path to the Xspress 3 XML file saving configuration files. This file should have been provided with the IOC software. It defines what parameters are saved in the HDF file and what can be visualized when running the system. An example that can be used is packaged in the IOC data directory.</td>
 </tr>
 </table> 
 
-Once the above PVs are set, connection can take place by writing 1 to {P}:CONNECT.
-
-If connection was successful then {P}:CONNECTED will be set to 1.
+Once the above PVs are set, connection can take place by writing 1 to {P}:CONNECT. If connection was successful then {P}:CONNECTED will be set to 1. EPICS ca_put_callback is supported by the {P}:CONNECT PV.
 
 When connection occurs the following API functions are called by the EPICS driver:
 <ol>
@@ -51,7 +49,7 @@ The following PVs are involved in data acqusition or monitoring. Some of the PVs
 
 The basic flow of control, after connection, will be:
 <ol>
-<li>Set trigger mode (TTL Veto Only).</li>
+<li>Set trigger mode (Select 'TTL Veto Only' for external triggering, where a LVTTL high signal will enable counting and the rising and falling edge will define the frame start and end points).</li>
 <li>Set up file related PVs - FilePath, FileName. Check FilePath exists.</li>
 <li>Set file number, if needed. This is the index used in the filename. This is auto incrementing each time a new file is saved, but is reset if the IOC is restarted.</li>
 <li>If the IOC has just been restarted it will be neccessary to take a single frame to configure the file writing areaDetector plugin:</li>
@@ -70,16 +68,16 @@ Then for each acqusition:
 <li>Start file saving.</li>
 <li>Start acqusition.</li>
 <li>Wait until acqusition has finished, then check status and number of frames processed.</li>
-<li>Update the visualization arrays before reading the array data (also do this during acqusition before reading arrays).</li>
+<li>Update the visualization arrays before reading the array data over channel access (also do this during acqusition before reading arrays).</li>
 <li>Wait until file saving has finished, then check status and number of frames saved to disk.</li>
 </ol>
 
-The user may also wish to set up regions of interest (ROIs) too (see section below).
+The user may also wish to set up regions of interest (ROIs) (see section below), which must be done before starting an acqusition.
 
 <table border="1">
 <tr>
 <td>{P}:Acquire\n{P}:Acquire_RBV</td>
-<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition. Normally the data collection will finish automatically once NumImages is reached. However, to manually stop a data collection write a 0 to this PV. If the driver is in the process of reading a large number of frames, for example at high frame rates, it will finish this before the stop completes. This PV maps directly to <b>xsp3_histogram_start</b> and <b>xsp3_histogram_stop</b></td>
+<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition. Normally the data collection will finish automatically once NumImages is reached. However, to manually stop a data collection write a 0 to this PV. If the driver is in the process of reading a large number of frames, for example at high frame rates, it will finish this before the stop completes. This PV maps directly to <b>xsp3_histogram_start</b> and <b>xsp3_histogram_stop</b>. When writing a 1 to {P}:Acquire, ca_put_callback is supported.</td>
 </tr>
 <tr>
 <td>{P}:ERASE</td>
@@ -87,15 +85,19 @@ The user may also wish to set up regions of interest (ROIs) too (see section bel
 </tr>
 <tr>
 <td>{P}:UPDATE</td>
-<td>This does a manual update on all the scaler and ROI arrays, to ensure that they contain the latest data. It is necessary to write a 1 to this at the end of an acqusition.</td>
+<td>This does a manual update on all the scaler and ROI arrays, to ensure that they contain the latest data. It is necessary to write a 1 to this at the end of an acqusition, or during acquisition, if reading the data over channel access.</td>
 </tr>
 <tr>
 <td>{P}:NumImages\n{P}:NumImages_RBV</td>
-<td>Set and read the number of frames to acquire. This number must be less than {P}:NUM_FRAMES_DRIVER_RBV, which was set when the IOC was configured. Acquisition will automatically stop when the number of frames acquired equals NumImages.</td>
+<td>Set and read the number of frames to acquire. This number must be less than {P}:NUM_FRAMES_DRIVER_RBV, which was set when the IOC was configured by the developer. Acquisition will automatically stop when the number of frames acquired equals NumImages_RBV.</td>
 </tr>
 <tr>
 <td>{P}:CTRL_MCA_ROI\n{P}:CTRL_MCA_ROI_RBV</td>
-<td>This is used to enable and disable ROI calculations. To enable ROI calculations set this to 1 and set the ROI limits on any channel. To turn ROI calculations off set this to 0. This can save CPU time if operating at high frame rates.</td>
+<td>This is used to enable and disable ROI calculations. To enable ROI calculations set this to 1 and set the ROI limits. To turn ROI calculations off set this to 0, which can save CPU time if operating at high frame rates and ROIs are not needed.</td>
+</tr>
+<tr>
+<td>{P}:CTRL_DTC\n{P}:CTRL_DTC_RBV</td>
+<td>This is used to determine if dead time corrected data is read out. If this PV is enabled then the MCA spectra will be dead time corrected, using the API function <b>xsp3_hist_dtc_read4d</b>. If this PV is disabled then un-corrected MCA spectra data is read out using <b>xsp3_histogram_read4d</b>. This option does not affect scaler data, which is always dead time corrected. The dead time corrected parameters are saved in the HDF file (see below).</td>
 </tr>
 <tr>
 <td>{P}:TriggerMode\n{P}:TriggerMode_RBV</td>
@@ -121,7 +123,7 @@ The user may also wish to set up regions of interest (ROIs) too (see section bel
 </tr>
 <tr>
 <td>{P}:FRAME_COUNT_RBV</td>
-<td>This contains the number of frames read out of the Xspress 3 each time the driver checks for new data.</td>
+<td>This contains the number of frames read out of the Xspress 3 each time the driver checks for new data. Only really useful for debugging.</td>
 </tr>
 <tr>
 <td>{P}:ArrayCounter_RBV</td>
@@ -140,7 +142,7 @@ This software makes use of the areaDetector HDF file writing plugin. Full docume
 <table border="1">
 <tr>
 <td>{P}:HDF5:Capture\n{P}:HDF5:Capture_RBV</td>
-<td>Write a 1 to this PV before starting an acqusition. This will trigger the HDF software to start capturing data to write a file, and set {P}:HDF5:Capture_RBV to 1. At the end of the acquisition it is necessary to write a 0 to this PV.</td>
+<td>Write a 1 to this PV before starting an acqusition. This will trigger the HDF software to start capturing data to write a file, and set {P}:HDF5:Capture_RBV to 1. At the end of the acquisition it is necessary to write a 0 to this PV, unless {P}:HDF5:Capture_RBV has already been set to zero because the required number of frames have been saved.</td>
 </tr>
 <tr>
 <td>{P}:HDF5:FilePath\n{P}:HDF5:FilePath_RBV</td>
@@ -160,7 +162,7 @@ This software makes use of the areaDetector HDF file writing plugin. Full docume
 </tr>
 <tr>
 <td>{P}:HDF5:WriteStatus</td>
-<td>The status of the file writing. 1=Error. This should be checked at the end of each acqusition.</td>
+<td>The status of the file writing. 1=Error. This should be checked at the end of each acqusition, once file saving has completed.</td>
 </tr>
 <tr>
 <td>{P}:HDF5:WriteMessage</td>
@@ -168,15 +170,15 @@ This software makes use of the areaDetector HDF file writing plugin. Full docume
 </tr>
 <tr>
 <td>{P}:HDF5:NumCaptured_RBV</td>
-<td>This is the number of files saved to disk by the areaDetector HDF plugin. At the end of this acqusition this should equal the number of frames in {P}:ArrayCounter_RBV.</td>
+<td>This is the number of files saved to disk by the areaDetector HDF plugin. At the end of file saving this should equal the number of frames in {P}:ArrayCounter_RBV.</td>
 </tr>
 </table>
 
 \subsection iocFileRoi Saving a region of interest (ROI) to disk
 
-In order to save a ROI of data to disk the data is sent through an Epics areaDetector ROI plugin. Full documentation is <a href="http://cars9.uchicago.edu/software/epics/NDPluginROI.html">here</a>. However, the average user need only use the following PVs. The data is arranged in an X*Y array. X is energy and Y is channel number. The user can set the start and end point in terms of energy, and which channels to save. It is only possible to save a contiguous range of energy or channels.
+In order to save a ROI of data to disk the data is sent through an Epics areaDetector ROI plugin. Full documentation is <a href="http://cars9.uchicago.edu/software/epics/NDPluginROI.html">here</a>. However, the average user need only use the following PVs. For each frame, the data is arranged in an X*Y array. X is energy and Y is channel number. The user can set the start and end point in terms of energy, and which channels to save. It is only possible to save a contiguous range of energy or channels.
 
-These PVs have to set before the beginning of an acqusition. 
+These PVs have to be set before the beginning of an acqusition. 
 
 <table border="1">
 <tr>
@@ -201,7 +203,7 @@ By restricting the energy range that is saved to disk, and the number of channel
 
 \subsection iocSca Scaler Data and Window Settings
 
-The following PVs provide access to the scalers, and allow the user to set scaler related parameters. The 'C1' part of the PV name indicates channel 1. The lists is duplicated for each channel: 'C2', 'C3' etc. 
+The following PVs provide access to the scalers over channel access, and allow the user to set scaler related parameters. The 'C1' part of the PV name indicates channel 1. The lists is duplicated for each channel: 'C2', 'C3' etc. 
 
 The first table shows the single value PVs that show the latest scaler value during an acqusition.
 
@@ -256,8 +258,8 @@ The following table shows the set and read parameters for the <b>All Good</b>, <
 <td>Set and read the <b>Scaler 1</b> scaler window upper limit. This is set using the API function <b>xsp3_set_window</b> The readback value is also read at connection time.</td>
 </tr>
 <tr>
-<td>{P}:C1_SCA6_HLM\n{P}:C1_SCA6_HLM_RBV</td>
-<td>Set and read the <b>Scaler 2</b> scaler window upper limit. This is set using the API function <b>xsp3_set_window</b> The readback value is also read at connection time.</td>
+<td>{P}:C1_SCA6_HLM\n{P}:C1_SCA6_LLM_RBV</td>
+<td>Set and read the <b>Scaler 2</b> scaler window lower limit. This is set using the API function <b>xsp3_set_window</b> The readback value is also read at connection time.</td>
 </tr>
 <tr>
 <td>{P}:C1_SCA6_HLM\n{P}:C1_SCA6_HLM_RBV</td>
@@ -265,7 +267,7 @@ The following table shows the set and read parameters for the <b>All Good</b>, <
 </tr>
 </table>
 
-The following table shows the scaler data array PVs. These arrays accumulate the scaler data during an acqusition to provide live feedback if needed. At the end of the acqusition the arrays are updated with the final scaler data. 
+The following table shows the scaler data array PVs. These arrays accumulate the scaler data during an acqusition to provide live feedback if needed. At the end of the acqusition the arrays are updated with the final scaler data, providing {P}:UPDATE has been triggered.
 
  <table border="1">
 <tr>
@@ -302,22 +304,22 @@ The following table shows the scaler data array PVs. These arrays accumulate the
 </tr>
 </table>
 
-The above parameters are saved in the HDF file. The HDF parameter names will match the PV names.
+The above parameters are saved in the HDF file.
 
 \subsection iocMca MCA Spectra and ROI Data
 
-The following table lists the array PVs for the MCA Spectra, as well as the ROI window settings and readback values. There are 16 regions of interest per channel, so only the PVs for the first one is listed in the below table. The first ROI PVs have 'ROI1' in the name, so simply substute this for 'ROI2', 'ROI3', etc, for the other regions of interest.
+The following table lists the array PVs for the MCA spectra, as well as the ROI window settings and readback values. There are 16 regions of interest per channel, so only the PVs for the first one are listed in the table below. The ROI PVs below have 'ROI1' in the name, so simply substute this for 'ROI2', 'ROI3', etc, for the other regions of interest.
 
-The ROI limits PVs have to set before the beginning of an acqusition. 
+The ROI limit PVs have to set before the beginning of an acqusition. 
 
  <table border="1">
 <tr>
 <td>{P}:ARR1:ArrayData</td>
-<td>The dead time corrected MCA spectra data. This is updated during a scan when a new frame is read out.
+<td>The MCA spectra data (dead time corrected, or un-corrected, depending on {P}:CTRL_DTC. This is updated during a scan when a new frame is read out.
 </tr>
 <tr>
 <td>{P}:ARRSUM1:ArrayData</td>
-<td>The cummulative dead time corrected MCA spectra data. This is updated during a scan when a new frame is read out. This is the sum of all the spectra data from {P}:ARR1:ArrayData.
+<td>The cummulative MCA spectra data. This is updated during a scan when a new frame is read out. This is the sum of all the spectra data from {P}:ARR1:ArrayData.
 </tr>
 <tr>
 <td>{P}:C1_MCA_ROI1_LLM</td>
@@ -333,11 +335,11 @@ The ROI limits PVs have to set before the beginning of an acqusition.
 </tr>
 <tr>
 <td>{P}:C1_ROI1:ValueSum_RBV</td>
-<td>The integrated ROI readback value for the current acqusition. This is updated during acqusition.</td>
+<td>The integrated ROI readback value. This is updated during acqusition.</td>
 </tr>
 <tr>
 <td>{P}:C1_ROI1:ArrayData_RBV</td>
-<td>The ROI reacback array that holds the ROI for every frame from an acqusition. This is updated during acqusition.</td>
+<td>The ROI reacback array that holds the ROI for every frame from an acqusition. This is updated during acqusition. The PV {P}:C1_ROI1:ValueSum_RBV will hold the integral of the array.</td>
 </tr>
 <tr>
 <td>{P}:C1_ROI1:EnableCallbacks</td>
@@ -378,7 +380,7 @@ The above parameters are saved in the HDF file.
 
 \subsection iocVisualization PVs used to enable and disable data visualization during acqusition
 
-There are several PVs provided that allow the user to enable and disable data visualization. This does not affect file saving or ROI calculation, only the online display of the data during an acqusition. This is provided to allow the user to only enable what is needed, as it can be CPU intensive. It has been found that by having too many channels enabled for visualization, or too many ROIs, the data readout rate can drop. For full speed acqusition, turn off all data visualization, or only enable a single channel.
+There are several PVs provided that allow the user to enable and disable data visualization. This does not affect file saving or ROI calculation, only the online display of the data during an acqusition. This is provided to allow the user to only enable what is needed, as it can be CPU intensive to visualize the data at high frame rates. It has been found that by having too many channels enabled for visualization, or too many ROIs, the data readout rate can drop. For full speed acqusition, turn off all data visualization, or only enable a single channel.
 
 The following PVs are available for each channel. Substitute the number in 'C1' for the other channel numbers.
 
@@ -396,7 +398,7 @@ These PVs have to set before the beginning of an acqusition.
 </table>
 
 
-Python script to demonstrate basic useage. This uses the DLS Python cothread library to do channel access. It is available <a href="http://controls.diamond.ac.uk/downloads/python/cothread/">here</a>.
+Python script to demonstrate basic usage. This uses the DLS Python cothread library to do channel access, which is available <a href="http://controls.diamond.ac.uk/downloads/python/cothread/">here</a>.
 
 \code
 
