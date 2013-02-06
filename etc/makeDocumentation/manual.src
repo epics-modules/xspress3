@@ -77,7 +77,7 @@ The user may also wish to set up regions of interest (ROIs) (see section below),
 <table border="1">
 <tr>
 <td>{P}:Acquire\n{P}:Acquire_RBV</td>
-<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition. Normally the data collection will finish automatically once NumImages is reached. However, to manually stop a data collection write a 0 to this PV. If the driver is in the process of reading a large number of frames, for example at high frame rates, it will finish this before the stop completes. This PV maps directly to <b>xsp3_histogram_start</b> and <b>xsp3_histogram_stop</b>. When writing a 1 to {P}:Acquire, ca_put_callback is supported.</td>
+<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition. Normally the data collection will finish automatically once NumImages is reached. However, to manually stop a data collection write a 0 to this PV. If the driver is in the process of reading a large number of frames, for example at high frame rates, it will finish this before the stop completes. This PV maps directly to <b>xsp3_histogram_start</b> and <b>xsp3_histogram_stop</b>. When writing a 1 to {P}:Acquire, ca_put_callback is supported. NOTE: it can take about 2s after starting acqusition before the system is ready to accept triggers.</td>
 </tr>
 <tr>
 <td>{P}:ERASE</td>
