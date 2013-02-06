@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1044
-y 250
+x 333
+y 213
 w 412
 h 927
 font "arial-medium-r-14.0"
@@ -147,7 +147,7 @@ selectColor index 4
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "LOC\\$(!W)tab=e:0,SCA0,SCA1,SCA2,SCA3,SCA4,SCA5,SCA6,SCA7,ROI1,ROI2,ROI3,ROI4"
+controlPv "LOC\\$(!W)tab=e:0,ROI5,ROI6,ROI7,ROI8,ROI9,ROI10,ROI11,ROI12,ROI13,ROI14,ROI15,ROI16,"
 font "arial-bold-r-12.0"
 orientation "horizontal"
 endObjectProperties
@@ -235,32 +235,32 @@ displayFileName {
   11 "NDAttribute.edl"
 }
 menuLabel {
-  0 "SCA0"
-  1 "SCA1"
-  2 "SCA2"
-  3 "SCA3"
-  4 "SCA4"
-  5 "SCA5"
-  6 "SCA6"
-  7 "SCA7"
-  8 "ROI1"
-  9 "ROI2"
-  10 "ROI3"
-  11 "ROI4"
+  0 "ROI5"
+  1 "ROI6"
+  2 "ROI7"
+  3 "ROI8"
+  4 "ROI9"
+  5 "ROI10"
+  6 "ROI11"
+  7 "ROI12"
+  8 "ROI13"
+  9 "ROI14"
+  10 "ROI15"
+  11 "ROI16"
 }
 symbols {
-  0 "R=:C$(CHAN)_SCA0:,ATTR=SCA0"
-  1 "R=:C$(CHAN)_SCA1:,ATTR=SCA1"
-  2 "R=:C$(CHAN)_SCA2:,ATTR=SCA2"
-  3 "R=:C$(CHAN)_SCA3:,ATTR=SCA3"
-  4 "R=:C$(CHAN)_SCA4:,ATTR=SCA4"
-  5 "R=:C$(CHAN)_SCA5:,ATTR=SCA5"
-  6 "R=:C$(CHAN)_SCA6:,ATTR=SCA6"
-  7 "R=:C$(CHAN)_SCA7:,ATTR=SCA7"
-  8 "R=:C$(CHAN)_ROI1:,ATTR=ROI1"
-  9 "R=:C$(CHAN)_ROI2:,ATTR=ROI2"
-  10 "R=:C$(CHAN)_ROI3:,ATTR=ROI3"
-  11 "R=:C$(CHAN)_ROI4:,ATTR=ROI4"
+  0 "R=:C$(CHAN)_ROI5:,ATTR=ROI5"
+  1 "R=:C$(CHAN)_ROI6:,ATTR=ROI6"
+  2 "R=:C$(CHAN)_ROI7:,ATTR=ROI7"
+  3 "R=:C$(CHAN)_ROI8:,ATTR=ROI8"
+  4 "R=:C$(CHAN)_ROI9:,ATTR=ROI9"
+  5 "R=:C$(CHAN)_ROI10:,ATTR=ROI10"
+  6 "R=:C$(CHAN)_ROI11:,ATTR=ROI11"
+  7 "R=:C$(CHAN)_ROI12:,ATTR=ROI12"
+  8 "R=:C$(CHAN)_ROI13:,ATTR=ROI13"
+  9 "R=:C$(CHAN)_ROI14:,ATTR=ROI14"
+  10 "R=:C$(CHAN)_ROI15:,ATTR=ROI15"
+  11 "R=:C$(CHAN)_ROI16:,ATTR=ROI16"
 }
 noScroll
 endObjectProperties
@@ -385,28 +385,5 @@ botShadowColor index 11
 label "EXIT"
 font "arial-medium-r-16.0"
 3d
-endObjectProperties
-
-# (Related Display)
-object relatedDisplayClass
-beginObjectProperties
-major 4
-minor 2
-release 0
-x 10
-y 900
-w 130
-h 20
-fgColor index 43
-bgColor index 3
-topShadowColor index 1
-botShadowColor index 11
-font "arial-bold-r-12.0"
-buttonLabel "ROIs 5 to 16"
-numPvs 4
-numDsps 1
-displayFileName {
-  0 "xspress3_ad_attr_extra.edl"
-}
 endObjectProperties
 

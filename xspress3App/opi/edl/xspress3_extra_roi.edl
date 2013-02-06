@@ -165,13 +165,13 @@ minor 1
 release 0
 x 10
 y 40
-w 177
+w 194
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 7
 value {
-  "  Region Of Interest 1 to 4"
+  "  Region Of Interest 5 to 16  "
 }
 autoSize
 border
