@@ -1,3 +1,29 @@
+/**
+ * Author: Diamond Light Source, Copyright 2013
+ *
+ * License: This file is part of 'xspress3'
+ * 
+ * 'xspress3' is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ * 
+ * 'xspress3' is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with 'xspress3'.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @brief Asyn port driver for the Xspress3 system.
+ *
+ * @author Matthew Pearson
+ * @date Sept 2012
+ */
+
 #include <iostream>
 #include <string>
 #include <stdexcept>
@@ -1547,6 +1573,23 @@ void Xspress3::dataTask(void)
     }
     }*/
 
+
+  //Code to set SCHED_FIFO for this thread. Not tested yet.
+  /*struct sched_param param;
+  int priority = 10;
+  int policy = -999;
+
+  pthread_getschedparam(pthread_self(),&policy,&param);
+  printf("Thread policy before %d \n" ,policy);
+ 
+  param.sched_priority = priority;
+  policy = SCHED_FIFO;
+  // scheduling parameters of target thread
+  pthread_setschedparam(pthread_self(), policy, &param);
+  pthread_getschedparam(pthread_self(),&policy,&param);
+  printf("Thread policy after %d \n", policy);
+*/
+
   while (1) {
 
     //Wait for a stop event, with a short timeout, to catch any that were done during last readout.
@@ -1931,6 +1974,9 @@ static void xsp3DataTaskC(void *drvPvt)
 /** The following functions have C linkage, and can be called directly or from iocsh */
 
 
+
+extern "C" {
+
 /**
  * Config function for IOC shell. It instantiates an instance of the driver.
  * @param portName The Asyn port name to use
@@ -1944,9 +1990,6 @@ static void xsp3DataTaskC(void *drvPvt)
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
  */
-extern "C" {
-
-
   int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
   {
     asynStatus status = asynSuccess;

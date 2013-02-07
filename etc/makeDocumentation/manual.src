@@ -6,6 +6,8 @@ This EPICS module provides <a href="http://cars9.uchicago.edu/software/epics/are
 
 This documentation will provide intructions on how to use the EPICS software interface to Xspress 3. More detailed user instructions are provided by Quantum Detectors.
 
+This software is licensed under the <a href="http://www.gnu.org/licenses/">GNU Lesser General Public License</a>
+
 \section user_sec User Manual
 
 \subsection iocConnection Connecting To The Xspress 3
