@@ -26,9 +26,9 @@ example_registerRecordDeviceDriver(pdbbase)
 xspress3Config("XSP3", 8, 1, "192.168.0.1", 16384, 4096, 4096, -1, -1, 0, 0)
 
 #ROI plugin to enable saving a subset of data
-NDROIConfigure("XSP3.ROIDATA", 10000, 0, "XSP3", 0, -1, -1, 90, 0)
+NDROIConfigure("XSP3.ROIDATA", 10000, 0, "XSP3", 0, -1, -1, 0, 0)
 #HDF plugin for saving data
-NDFileHDF5Configure("XSP3.HDF5", 10000, 0, "XSP3.ROIDATA", 90, 0)
+NDFileHDF5Configure("XSP3.HDF5", 10000, 0, "XSP3.ROIDATA", 0, 0)
 
 NDProcessConfigure("XSP3.PROC", 10, 0, "XSP3", 0, -1, -1, 0, 0)
 
