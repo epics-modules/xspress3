@@ -27,8 +27,7 @@ WORK=/dls_sw/work/R3.14.11/support
 ASYN=		$(SUPPORT)/asyn/4-19
 AREADETECTOR=	$(SUPPORT)/areaDetector/1-8beta6-dls2
 CALC=		$(SUPPORT)/calc/2-8dls4
-#XSPRESS3_API=	/dls_sw/work/R3.14.11/support/xspress3_api/det-software
-XSPRESS3_API=	/dls_sw/prod/R3.14.11/support/xspress3_api/1-0/det-software
+XSPRESS3_API=	/dls_sw/prod/R3.14.11/support/xspress3_api/1-1/det-software
 
 #Dependencies for any builder example IOC
 BUSY=		$(SUPPORT)/busy/1-4

@@ -33,7 +33,8 @@ AUTOSAVE=       $(SUPPORT)/autosave/4-6dls5
 DEVIOCSTATS=    $(SUPPORT)/devIocStats/3-1-5dls4
 SPECTRAPLUGINS=	$(SUPPORT)/spectraPlugins/1-2
 XSPRESS3=	$(WORK)/xspress3
-XSPRESS3_API=	$(SUPPORT)/xspress3_api/1-0/det-software
+#XSPRESS3_API=	$(SUPPORT)/xspress3_api/1-0/det-software
+XSPRESS3_API=	$(WORK)/xspress3_api/det-software
 BOOST=          /dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0
 
 
