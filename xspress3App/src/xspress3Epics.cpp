@@ -28,6 +28,8 @@
 #include <string>
 #include <stdexcept>
 #include "dirent.h"
+#include <sys/types.h>
+#include <syscall.h> 
 
 //Epics headers
 #include <epicsTime.h>
@@ -1571,6 +1573,9 @@ void Xspress3::dataTask(void)
     }*/
 
 
+  cout << "Data readout thread PID: " << getpid() << endl;
+  cout << "Data readout thread TID syscall(SYS_gettid): " << syscall(SYS_gettid) << endl;
+
   //Code to set SCHED_FIFO for this thread. Not tested yet.
   /*struct sched_param param;
   int priority = 10;
@@ -1585,7 +1590,8 @@ void Xspress3::dataTask(void)
   pthread_setschedparam(pthread_self(), policy, &param);
   pthread_getschedparam(pthread_self(),&policy,&param);
   printf("Thread policy after %d \n", policy);
-*/
+  */
+
 
   while (1) {
 
@@ -1719,7 +1725,12 @@ void Xspress3::dataTask(void)
 	asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameCounter: %d.\n", functionName, frameCounter);
 	asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s remainingFrames: %d.\n", functionName, remainingFrames);
 	asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameOffset: %d.\n", functionName, frameOffset);
-	
+
+	if (acquire) {
+	  setIntegerParam(ADStatus, ADStatusReadout);
+	  callParamCallbacks();
+	}
+
 	epicsFloat64 *pData = NULL;
 	//Readout multiple frames of data here into local arrays.
 	if ((!stillBusy) && (remainingFrames != 0)) {
@@ -1752,7 +1763,7 @@ void Xspress3::dataTask(void)
 	      xsp3_status = xsp3_histogram_read4d(xsp3_handle_, reinterpret_cast<u_int32_t*>(pMCA_INT), 0, 0, 0, frameOffset, maxSpectra, 1, numChannels, remainingFrames);
 	    }
 	    if (xsp3_status != XSP3_OK) {
-	      checkStatus(xsp3_status, "xsp3_histogram_read_chan", functionName);
+	      checkStatus(xsp3_status, "xsp3_hist_dtc_read4d", functionName);
 	      status = asynError;
 	    }
 	    //If reading un-corrected data, need to convert to doubles for the rest of the IOC code.
@@ -1780,6 +1791,10 @@ void Xspress3::dataTask(void)
 	    }
 	  }
 	  
+	}
+	
+	if (acquire) {
+	  setIntegerParam(ADStatus, ADStatusAcquire);
 	}
 	
 	int dims[2] = {maxSpectra, numChannels};
