@@ -1,0 +1,89 @@
+INSTRUCTIONS FOR BUILDING XSPRESS3 SOFTWARE FROM SCRATCH.
+
+Note - I have put expicit versions for all downloaded software modules in this
+text so I can have explicit paths to downloadable files. Naturally, these will
+gradually go out of date, but you may choose later versions if you like.
+
+1. Decide your directory structure
+ - I suggest having everything under a well-known root. Potentially /opt/xspress3/epics, or /usr/local/epics. Then, for example the three main software areas will be:
+   - Base:       /opt/xspress3/epics/R3.14.12.3/base/
+   - Extensions: /opt/xspress3/epics/R3.14.12.3/extensions/
+   - Modules:    /opt/xspress3/epics/R3.14.12.3/support/<module>
+
+2. EPICS Base:
+Download:
+ - http://www.aps.anl.gov/epics/download/base/baseR3.14.12.3.tar.gz
+
+Build Base:
+ - Untar base into the base directory above.
+ - Follow the EPICS base build instructions
+   - edit configure/CONFIG_SITE etc
+   - declare DLS_HOST_ARCH environment variable.
+   - Run make
+
+3. EPICS Extensions
+Download:
+ - Extensions Top:
+   - http://www.aps.anl.gov/epics/download/extensions/extensionsTop_20120904.tar.gz
+ - MSI 1.6
+   - http://www.aps.anl.gov/epics/download/extensions/msi1-6.tar.gz
+ - medm 3.1.7
+   - http://www.aps.anl.gov/epics/download/extensions/medm3_1_7.tar.gz
+ - edm 1.12.86
+   - http://ics-web.sns.ornl.gov/edm/info/getAttachment.php?attachId=446&name=edm-1-12-86.tgz
+
+Build extensions:
+ - Untar extensionsTop into the extensions directory above.
+ - Untar the other extensions applications into the extensions/src directory
+ - Edit the extesnions/src/Makefile so
+    - the MSI and MEDM declarations point to the right directory
+    - There is an EDM declaration and there is also a DIRS += $(EDM) line.
+ - Run make.
+
+4. EPICS modules
+Download:
+ - asyn 4-21
+   - http://www.aps.anl.gov/epics/download/modules/asyn4-21.tar.gz
+ - autosave 5-1
+   - http://www.aps.anl.gov/bcda/synApps/tar/autosave_R5-1.tar.gz
+ - busy 1-6
+   - http://www.aps.anl.gov/bcda/synApps/tar/busy_R1-6.tar.gz
+ - sscan 2-9
+   - http://www.aps.anl.gov/bcda/synApps/tar/sscan_R2-9.tar.gz
+ - calc 3-2
+   - http://www.aps.anl.gov/bcda/synApps/tar/calc_R3-2.tar.gz
+ - areaDetector 1-8
+   - http://cars.uchicago.edu/software/pub/areaDetectorR1-8.tgz
+ - devIocStats 3-1-11
+   - http://sourceforge.net/projects/epics/files/devIocStats/devIocStats-3.1.11.tar.gz/download
+ - spectraPlugins 1-4
+   - http://controls.diamond.ac.uk/downloads/support/spectraPlugins/1-4/spectraPlugins-1-4.tgz
+ - xspress3 1-4
+   - http://controls.diamond.ac.uk/downloads/support/xspress3/1-4/xspress3-1-4.tgz
+
+Build modules:
+ - Edit the configure/RELEASE file in each module so definitions for the following are consistent:
+SUPPORT
+EPICS_BASE
+ASYN
+AUTOSAVE
+BUSY
+SSCAN
+CALC
+AREA_DETECTOR
+DEVIOCSTATS
+XSPRESS3_API (path to William's code).
+
+ - Comment out configure/RELEASE definitions of SNCSEQ (in asyn and sscan) and IPAC (in asyn).
+ - Edit RELEASE_SITE in devIocStats to set epics locations
+ - Edit asApp/Db/Makefile adding the following line in the DB definitions: DB += save_restoreStatus.db
+ - Ensure the base/bin/$(EPICS_HOST_ARCH) and extensions/bin/$(EPICS_HOST_ARCH) are on your PATH
+ - Build the modules in the above order
+
+5. Xspress3 example IOC.
+There is an Xspress3 example IOC in the xspress3 module. To build it:
+ - cd <xspress3 module>/iocs/xspress3Example
+ - Edit configure/RELEASE to ensure it is consistent. You need a path to a Boost installation.
+ - Run make
+ - Start the IOC by running bin/${EPICS_HOST_ARCH}/stexample.sh
+ - There will be some errors, but I will fix them in a later release.
