@@ -4,13 +4,20 @@ Note - I have put expicit versions for all downloaded software modules in this
 text so I can have explicit paths to downloadable files. Naturally, these will
 gradually go out of date, but you may choose later versions if you like.
 
+I assume the pre-requisites of a reasonably modern Linux systems that
+is supported by EPICS, with a number of not-necessarily default Linux
+packages are installed (openmotif, for example). In addition, Boost
+libraries and the Xspress3 API libraries are required.
+
+Once you have got this sorted, go through the following steps:
+
 1. Decide your directory structure
- - I suggest having everything under a well-known root. Potentially /opt/xspress3/epics, or /usr/local/epics. Then, for example the three main software areas will be:
+ - I suggest having everything under a well-known root. Potentially /opt/xspress3/epics, or /usr/local/epics. Then, for example the three main EPICS software areas could be:
    - Base:       /opt/xspress3/epics/R3.14.12.3/base/
    - Extensions: /opt/xspress3/epics/R3.14.12.3/extensions/
    - Modules:    /opt/xspress3/epics/R3.14.12.3/support/<module>
 
-2. EPICS Base:
+2. Install EPICS Base:
 Download:
  - http://www.aps.anl.gov/epics/download/base/baseR3.14.12.3.tar.gz
 
@@ -21,7 +28,7 @@ Build Base:
    - declare DLS_HOST_ARCH environment variable.
    - Run make
 
-3. EPICS Extensions
+3. Install EPICS Extensions
 Download:
  - Extensions Top:
    - http://www.aps.anl.gov/epics/download/extensions/extensionsTop_20120904.tar.gz
@@ -40,7 +47,7 @@ Build extensions:
     - There is an EDM declaration and there is also a DIRS += $(EDM) line.
  - Run make.
 
-4. EPICS modules
+4. Install EPICS modules
 Download:
  - asyn 4-21
    - http://www.aps.anl.gov/epics/download/modules/asyn4-21.tar.gz
@@ -80,7 +87,7 @@ XSPRESS3_API (path to William's code).
  - Ensure the base/bin/$(EPICS_HOST_ARCH) and extensions/bin/$(EPICS_HOST_ARCH) are on your PATH
  - Build the modules in the above order
 
-5. Xspress3 example IOC.
+5. Create Xspress3 example IOC.
 There is an Xspress3 example IOC in the xspress3 module. To build it:
  - cd <xspress3 module>/iocs/xspress3Example
  - Edit configure/RELEASE to ensure it is consistent. You need a path to a Boost installation.
