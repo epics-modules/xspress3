@@ -32,13 +32,8 @@ example_SRCS += example_registerRecordDeviceDriver.cpp
 
 # These two lines are needed for non-vxWorks builds, such as Linux
 example_SRCS_DEFAULT += exampleMain.cpp
-example_SRCS_vxWorks += -nil-
-
-# The following adds object code from base/src/vxWorks
-example_OBJS_vxWorks += $(EPICS_BASE_BIN)/vxComLibrary
 
 USR_LDFLAGS += -L$(BOOST)/prefix/lib/
-USR_LDFLAGS += -L$(XSPRESS3_API)/libs/libs.linux.x86_64/lib/
 
 # This line says that this IOC Application depends on the
 # xxx Support Module
@@ -49,7 +44,6 @@ SYS_PROD_LIBS += Xspress3FemApi
 SYS_PROD_LIBS += FemClient
 SYS_PROD_LIBS += boost_thread
 SYS_PROD_LIBS += boost_system
-SYS_PROD_LIBS += tutils
 SYS_PROD_LIBS += img_mod
 SYS_PROD_LIBS += rt
 
