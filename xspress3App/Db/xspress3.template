@@ -9,12 +9,13 @@
 # Records to control live data update are in xspress3DataUpdate.template
 #
 # Macros:
-#   P,R - PV name
-#   PORT - Asyn port name
-#   ADDR - Asyn address (set to zero)
-#   TIMEOUT - Asyn timeout
-#   MAX_SPECTRA - The max number of elements in a spectra.
-#   MAX_FRAMES - The max number of spectra to acquire in a scan.
+# % macro,  P,           Device prefix
+# % macro,  R,           Device suffix
+# % macro,  PORT,        Asyn port name
+# % macro,  ADDR,        Asyn address (set to zero)
+# % macro,  TIMEOUT,     Asyn timeout
+# % macro,  MAX_SPECTRA, The maximum number of frames that can be acquired in one acquisition (eg. 16384)
+# % macro,  MAX_FRAMES,  The maximum size of each spectra (eg. 4096) in a scan.
 #
 #######################################################
 

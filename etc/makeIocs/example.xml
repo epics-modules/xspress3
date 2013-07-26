@@ -1,3 +1,7 @@
 <?xml version="1.0" ?>
-<components arch="linux-x86">
+<components arch="linux-x86_64">
+	<xspress3.xspress3 ADDR="0" MAX_FRAMES="4096" MAX_SPECTRA="4095" P="mp49:" PORT="XSP3" R="XSP3:" TIMEOUT="5"/>
+	<EPICS_BASE.StartupCommand at_end="False" command="callbackSetQueueSize(4000)" name="CallbackQueue" post_init="True"/>
+	<spectraPlugins.NDPluginAttribute ADDR="0" ATTR_NAME="CHAN1SCA0" BUFFERS="-1" Enabled="1" MEMORY="-1" NDARRAY_ADDR="0" NDARRAY_PORT="XSP3" NELEMENTS="4096" P="mp49:" PORT="XSP3.C1_SCA0" PRIORITY="0" QUEUE="4096" R="XSP3:C1_SCA0" TIMEOUT="1"/>
+	<areaDetector.NDFileHDF5 ADDR="0" NDARRAY_ADDR="0" NDARRAY_PORT="XSP3" P="mp49:" PORT="XSP3.HDF5" R="XSP3:HDF5:" TIMEOUT="1"/>
 </components>
