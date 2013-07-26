@@ -347,8 +347,8 @@ asynStatus Xspress3::connect(void)
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of cards is: %d\n", functionName, xsp3_num_cards);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of frames is: %d\n", functionName, xsp3_num_tf);
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Number of channels is: %d\n", functionName, numChannels_);
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Config path is: %d\n", functionName, configPath);
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Config save path is: %d\n", functionName, configSavePath);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Config path is: %s\n", functionName, configPath);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Config save path is: %s\n", functionName, configSavePath);
 
   xsp3_handle_ = xsp3_config(xsp3_num_cards, xsp3_num_tf, const_cast<char *>(baseIP_.c_str()), -1, NULL, xsp3_num_channels, 1, NULL, debug_, 0);
   if (xsp3_handle_ < 0) {
@@ -969,7 +969,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     return(status);
   }
 
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d, value: %d, addr: %d\n", functionName, function, value, addr);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: %d, value: %d, addr: %d\n", functionName, function, value, addr);
 
   getIntegerParam(ADStatus, &adStatus);
 
@@ -1337,7 +1337,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   status = (asynStatus) setIntegerParam(addr, function, value);
   if (status!=asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, 
-	      "%s Error Setting Parameter. Asyn addr: &d, asynUser->reason: &d, value: %d\n", 
+	      "%s Error Setting Parameter. Asyn addr: %d, asynUser->reason: %d, value: %d\n", 
 	      functionName, addr, function, value);
     return(status);
   }
@@ -1365,7 +1365,7 @@ asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   if (status!=asynSuccess) {
     return(status);
   }
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: &d, value: %d, addr: %d\n", functionName, function, value, addr);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: %d, value: %f, addr: %d\n", functionName, function, value, addr);
 
   //Set in param lib so the user sees a readback straight away. We might overwrite this in the 
   //status task, depending on the parameter.
@@ -1414,7 +1414,7 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
     
     if (status) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, 
-	      "%s Error Setting Parameter. asynUser->reason: &d\n", 
+	      "%s Error Setting Parameter. asynUser->reason: %d\n", 
 	      functionName, function);
     }
 
@@ -1797,7 +1797,7 @@ void Xspress3::dataTask(void)
 	  setIntegerParam(ADStatus, ADStatusAcquire);
 	}
 	
-	int dims[2] = {maxSpectra, numChannels};
+	size_t dims[2] = {maxSpectra, numChannels};
 	epicsFloat64 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
 	
 	//For each frame, do the ROI and pack into an NDArray object
