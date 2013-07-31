@@ -25,7 +25,7 @@ SUPPORT=/dls_sw/prod/R3.14.12.3/support
 WORK=/dls_sw/work/R3.14.12.3/support
 
 ASYN=		$(SUPPORT)/asyn/4-21
-AREADETECTOR=	$(SUPPORT)/areaDetector/1-9dls4
+AREA_DETECTOR=	$(SUPPORT)/areaDetector/1-9dls4
 CALC=		$(SUPPORT)/calc/3-1
 
 #Dependencies for any builder example IOC
