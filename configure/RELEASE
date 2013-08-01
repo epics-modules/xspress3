@@ -21,8 +21,8 @@
 
 TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
-SUPPORT=/dls_sw/prod/R3.14.12.3/support
-WORK=/dls_sw/work/R3.14.12.3/support
+SUPPORT=/dls_sw/prod/R3.14.11/support
+WORK=/dls_sw/work/R3.14.11/support
 
 ASYN=		$(SUPPORT)/asyn/4-21
 AREADETECTOR=	$(SUPPORT)/areaDetector/1-9dls4
@@ -32,7 +32,7 @@ CALC=		$(SUPPORT)/calc/3-1
 BUSY=		$(SUPPORT)/busy/1-4dls1
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
+EPICS_BASE=/dls_sw/epics/R3.14.11/base
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:
