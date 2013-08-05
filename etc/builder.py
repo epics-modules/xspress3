@@ -2,18 +2,24 @@ from iocbuilder import Device, AutoSubstitution, ModuleVersion
 from iocbuilder.arginfo import *
 
 from iocbuilder.modules.areaDetector import AreaDetector,_ADBase
+from iocbuilder.modules.calc import Calc
+
+class highlevel(AutoSubstitution):
+     """Template containing the records for an NDPluginAttribute"""
+     TemplateFile = 'xspress3_highlevel.template'
+   
 
 class _xspress3(AutoSubstitution):
-    """Template containing the records for an NDPluginAttribute"""
+    """Template containing the records for an xspress3"""
     TemplateFile = 'xspress3.template'
 
 class xspress3(_ADBase):
-    '''Library dependencies for xspress4'''
-    Dependencies = (AreaDetector,)
+    """Library dependencies for xspress3"""
+    Dependencies = (AreaDetector,Calc)
     # Device attributes
     MakefileStringList = ['BOOST=/dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0/prefix',
                           'USR_LDFLAGS += -L$(BOOST)/lib/']
-    LibFileList = ['xspress3','Xspress3FemApi','FemClient', 'img_mod']
+    LibFileList = ['img_mod', 'FemClient','Xspress3FemApi','xspress3','xspress3Epics', ]
     SysLibFileList = ['boost_thread', 'boost_system','rt']
     DbdFileList = ['xspress3','xspress3Support']
     _SpecificTemplate=_xspress3
@@ -48,7 +54,7 @@ class xspress3(_ADBase):
 # simTest 0 or 1. Set to 1 to run up this driver in simulation mode. """
 
         print \
-            'xspress3Config("%(PORT)s", %(CHANNELS)d, %(CARDS)d, "%(BASE_IP)s",' \
+            'xspress3Config("%(PORT)s", %(CHANNELS)d, %(CARDS)d, "%(BASE_IP)s", ' \
             '%(MAX_FRAMES)s, %(MAX_SPECTRA)s, %(BUFFERS)d, %(MEMORY)d, %(DEBUG)d, %(SIM)d )' % self.__dict__
 
     ArgInfo = (_xspress3.ArgInfo +
