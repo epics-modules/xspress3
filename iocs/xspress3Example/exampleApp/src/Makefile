@@ -73,4 +73,5 @@ SCRIPTS += exampleGUI
 include $(TOP)/configure/RULES
 
 exampleGUI: ../exampleGUI
-	$(MSI) $(SYS_BOOT_FLAGS) $< > $@
+	$(MSI) $(SYS_BOOT_FLAGS) $< | sed 's/\\\$$/$$/g' > $@
+
