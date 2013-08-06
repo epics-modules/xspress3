@@ -68,6 +68,9 @@ example_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 include $(AREADETECTOR)/ADApp/commonDriverMakefile
 
-DATA += exampleGUI
+SCRIPTS += exampleGUI
 
 include $(TOP)/configure/RULES
+
+exampleGUI: ../exampleGUI
+	$(MSI) $(SYS_BOOT_FLAGS) $< > $@
