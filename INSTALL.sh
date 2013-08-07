@@ -17,12 +17,12 @@ sources[BOOST]=http://sourceforge.net/projects/boost/files/boost/1.48.0/boost_1_
 sources[ASYN]=http://www.aps.anl.gov/epics/download/modules/asyn4-21.tar.gz
 sources[AUTOSAVE]=http://www.aps.anl.gov/bcda/synApps/tar/autosave_R5-1.tar.gz
 sources[BUSY]=http://www.aps.anl.gov/bcda/synApps/tar/busy_R1-6.tar.gz
-sources[cd comfSSCAN]=http://www.aps.anl.gov/bcda/synApps/tar/sscan_R2-9.tar.gz
+sources[SSCAN]=http://www.aps.anl.gov/bcda/synApps/tar/sscan_R2-9.tar.gz
 sources[CALC]=http://www.aps.anl.gov/bcda/synApps/tar/calc_R3-2.tar.gz
 sources[AREADETECTOR]=http://cars.uchicago.edu/software/pub/areaDetectorR1-9-1.tgz
 sources[DEVIOCSTATS]=http://sourceforge.net/projects/epics/files/devIocStats/devIocStats-3.1.11.tar.gz
 sources[SPECTRAPLUGINS]=http://controls.diamond.ac.uk/downloads/support/spectraPlugins/1-4-2/spectraPlugins-1-4-2.tgz
-sources[XSPRESS3]=http://controls.diamond.ac.uk/downloads/support/xspress3/1-5/xspress3-1-5.tgz
+sources[XSPRESS3]=http://controls.diamond.ac.uk/downloads/support/xspress3/1-5/xspress3-1-6alpha.tgz
 
 function download() {
     local module=$1
@@ -37,10 +37,11 @@ function download() {
         directories[$module]=${directories[SUPPORT]}/$(tar tvzf $tar_files/$file | head -1 | awk '{print $6}' | sed 's,/,,g')
     fi
 
+    echo Copying $module into ${directories[$module]}
     if [ ! -d  ${directories[$module]} ] ; then
         mkdir -p ${directories[$module]}
         pushd ${directories[$module]}
-        tar --strip-components 1 -xvzf $tar_files/$file
+        tar --strip-components 1 -xzf $tar_files/$file
         popd
     fi
 }
@@ -61,15 +62,22 @@ function build() {
          # Fix the SUPPORT edit to not replace its own definition
          sed_edit[SUPPORT]="-e  s,^\s*SUPPORT\s*=.*$,SUPPORT=${directories[SUPPORT]},"
 
-         sed -r ${sed_edit[@]} \
+         sed -r  \
              -e 's/AREA_DETECTOR/AREADETECTOR/' \
              -e 's/^SNCSEQ\s*=/#SNCSEQ=/' \
              -e 's/^WORK\s*=/#WORK=/' \
-             -e 's/^IPAC\s*=/#IPAC=/' configure/RELEASE.orig >  configure/RELEASE
+             -e 's/^IPAC\s*=/#IPAC=/' \
+             ${sed_edit[@]} configure/RELEASE.orig >  configure/RELEASE
      fi
 
      echo Building $directory
-     make
+     {
+         {
+             make
+             echo $? >build.sta
+         } 4>&1 1>&3 2>&4 |
+         tee build.err
+     } >build.log 3>&1
      popd
 }
 
@@ -78,14 +86,19 @@ modules=(ASYN AUTOSAVE BUSY SSCAN CALC AREADETECTOR DEVIOCSTATS SPECTRAPLUGINS X
 [ "$1"x == "-f"x ] && rm -rf ${directories[SUPPORT]}
 
 download EPICS_BASE
-build EPICS_BASE
+build ${directories[EPICS_BASE]}
 
 for module in ${modules[@]}; do
     download $module
 done
+
+find ${directories[AREADETECTOR]} -type f -print0 | xargs -0 sed -i.orig 's/\$(AREA_DETECTOR)/$(AREADETECTOR)/g'
+sed -i.orig '/^#DB +=/a\
+DB += save_restoreStatus.db' ${directories[AUTOSAVE]}/asApp/Db/Makefile
 
 for module in ${modules[@]}; do
     build ${directories[$module]}
 done
 
 build ${directories[XSPRESS3]}/iocs/xspress3Example
+
