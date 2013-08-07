@@ -38,3 +38,5 @@ XSPRESS3_CONFIG=/dls/i24/epics/xspress3/settings
 XSPRESS3_SAVE=$(shell cd $(TOP); pwd)/save
 XSPRESS3_DATA=/dls/i24/data/2013/cm5951-1/tmp
 XSPRESS3_AUTOSAVE=
+XSPRESS3_NUM_CHANNELS=4
+
