@@ -68,7 +68,7 @@ function build() {
          sed_edit[SUPPORT]="-e  s,^\s*SUPPORT\s*=.*$,SUPPORT=${directories[SUPPORT]},"
 
          sed -r  \
-             -e 's/AREA_DETECTOR/AREADETECTOR/' \
+             -e 's/AREADETECTOR/AREA_DETECTOR/' \
              -e 's/^SNCSEQ\s*=/#SNCSEQ=/' \
              -e 's/^WORK\s*=/#WORK=/' \
              -e 's/^IPAC\s*=/#IPAC=/' \
@@ -102,7 +102,6 @@ function Usage {
     exit 1
 }
 
-modules=(ASYN AUTOSAVE BUSY SSCAN CALC AREA_DETECTOR DEVIOCSTATS SPECTRAPLUGINS XSPRESS3)
 force=false
 while getopts 'hfm:e:b:s:t:' option; do
     case $option in
@@ -112,11 +111,13 @@ while getopts 'hfm:e:b:s:t:' option; do
     esac
 done
 
+modules=(ASYN AUTOSAVE BUSY SSCAN CALC AREA_DETECTOR DEVIOCSTATS SPECTRAPLUGINS XSPRESS3)
+build_modules=${build_modules:-${modules[@]}}
+
 download EPICS_BASE
 if [ "${build_modules:-undefined}" == "undefined" ] ; then 
     build ${directories[EPICS_BASE]} $force
 fi
-
 
 for module in ${modules[@]}; do
     download $module
@@ -126,7 +127,7 @@ done
 [ -f ${directories[AUTOSAVE]}/asApp/Db/Makefile.orig ] || sed -i.orig '/^#DB +=/a\
 DB += save_restoreStatus.db' ${directories[AUTOSAVE]}/asApp/Db/Makefile
 
-echo Building the following support modules: ${build_modules:=$modules}
+echo Building the following support modules: ${build_modules[@]}
 for module in ${build_modules[@]}; do
     if [ "${directories[$module]}x" == "x" ] ; then
         echo "Don't know anything about module $module"
@@ -136,4 +137,3 @@ for module in ${build_modules[@]}; do
 done
 
 build ${directories[XSPRESS3]}/iocs/xspress3Example $force
-

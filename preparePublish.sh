@@ -11,4 +11,5 @@ for dir in configure iocs/xspress3Example/configure ; do
     sed -i 's/AREADETECTOR/AREA_DETECTOR/g' $dir/RELEASE
 done
 
+sed -i 's/AREADETECTOR/AREA_DETECTOR/g' iocs/xspress3Example/exampleApp/src/Makefile
 sed -i '/^dbpf/s/"Yes")/"Enabled")/' iocs/xspress3Example/iocBoot/iocexample/stexample.src
