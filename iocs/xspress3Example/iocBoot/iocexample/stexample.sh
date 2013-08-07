@@ -5,4 +5,4 @@
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$(BOOST)/prefix/lib
 echo $LD_LIBRARY_PATH
 
-exec $(INSTALL)/bin/linux-x86_64/example bin/linux-x86_64/stexample.boot
+exec $(INSTALL)/bin/linux-x86_64/example $(INSTALL)/bin/linux-x86_64/stexample.boot
