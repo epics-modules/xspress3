@@ -1,15 +1,16 @@
-#!/bin/env dls-python2.6
+#!/bin/env dls-python
 
 # Library version specification required for dls libraris
 from pkg_resources import require
 import sys
 require('cothread==2.8')
+require('numpy')
 
 import cothread
 from cothread.catools import *
 
-base_pv = "mp49:XSP3"
-hdf_pv = "mp49:XSP3:HDF5"
+base_pv = "XSPRESS3-EXAMPLE"
+hdf_pv = base_pv+":HDF5"
 timeout_ = 100
 
 num_channels = 4
@@ -118,7 +119,7 @@ def main():
 
    #Check number of frames read out
    num_frames_readout = caget(base_pv + ":ArrayCounter_RBV")
-   print "Num frames read out: " + str(num_frames_readout
+   print "Num frames read out: " + str(num_frames_readout)
                                        
    #Wait for file saving to end and check status
    saving = 1

@@ -70,6 +70,8 @@ include $(AREADETECTOR)/ADApp/commonDriverMakefile
 
 SCRIPTS += exampleGUI
 
+SYS_BOOT_FLAGS+=-MXSPRESS3_PREFIX=$(XSPRESS3_PREFIX)
+
 include $(TOP)/configure/RULES
 
 exampleGUI: ../exampleGUI
