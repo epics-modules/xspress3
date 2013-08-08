@@ -871,7 +871,7 @@ botShadowColor index 11
 controlPv "$(P):RESTORE_SETTINGS"
 pressValue "1"
 onLabel "Restore"
-offLabel "Restore"
+offLabel "Restore"
 3d
 useEnumNumeric
 font "arial-bold-r-14.0"

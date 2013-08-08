@@ -1,6 +1,6 @@
 
 file {
-	name="xspress3_config.adl"
+	name="/home/npr78/diamond/support/xspress3/xspress3App/opi/adl/xspress3_config.adl"
 	version=030107
 }
 display {
@@ -551,6 +551,7 @@ menu {
 		clr=54
 		bclr=3
 	}
+	format="string"
 	limits {
 	}
 }
@@ -566,6 +567,7 @@ menu {
 		clr=54
 		bclr=3
 	}
+	format="string"
 	limits {
 	}
 }
@@ -607,6 +609,7 @@ text {
 		clr=54
 		bclr=3
 	}
+	format="string"
 	limits {
 	}
 }
@@ -636,7 +639,7 @@ text {
 		bclr=4
 	}
 	label="Connect"
-	release_msg="Connect"
+	press_msg="1"
 }
 "message button" {
 	object {
@@ -651,7 +654,7 @@ text {
 		bclr=4
 	}
 	label="Disconnect"
-	release_msg="Disconnect"
+	press_msg="1"
 }
 "message button" {
 	object {
@@ -666,7 +669,7 @@ text {
 		bclr=4
 	}
 	label="Save"
-	release_msg="Save"
+	press_msg="1"
 }
 "message button" {
 	object {
@@ -681,7 +684,7 @@ text {
 		bclr=4
 	}
 	label="Restore"
-	release_msg="Restore"
+	press_msg="1"
 }
 byte {
 	object {
@@ -709,6 +712,7 @@ byte {
 		clr=60
 		bclr=13
 	}
+	format="string"
 	limits {
 	}
 }
@@ -724,6 +728,7 @@ byte {
 		clr=60
 		bclr=13
 	}
+	format="string"
 	limits {
 	}
 }

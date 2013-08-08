@@ -1,12 +1,12 @@
 
 file {
-	name="xspress3.adl"
+	name="/home/npr78/diamond/support/xspress3/xspress3App/opi/adl/xspress3.adl"
 	version=030107
 }
 display {
 	object {
-		x=268
-		y=155
+		x=244
+		y=119
 		width=900
 		height=720
 	}
@@ -135,7 +135,7 @@ text {
 		bclr=4
 	}
 	label="Start"
-	release_msg="Start"
+	press_msg="Acquire"
 }
 "message button" {
 	object {
@@ -150,7 +150,7 @@ text {
 		bclr=4
 	}
 	label="Erase"
-	release_msg="Erase"
+	press_msg="Erase"
 }
 "message button" {
 	object {
@@ -165,7 +165,7 @@ text {
 		bclr=4
 	}
 	label="Stop"
-	release_msg="Stop"
+	press_msg="Done"
 }
 "message button" {
 	object {
@@ -180,7 +180,7 @@ text {
 		bclr=4
 	}
 	label="Update Arrays"
-	release_msg="Update Arrays"
+	press_msg="1"
 }
 text {
 	object {
@@ -232,6 +232,7 @@ text {
 		bclr=11
 	}
 	align="horiz. centered"
+	format="string"
 	limits {
 	}
 }
@@ -523,6 +524,7 @@ text {
 		clr=14
 		bclr=3
 	}
+	format="string"
 	limits {
 	}
 }
@@ -538,6 +540,7 @@ text {
 		clr=60
 		bclr=13
 	}
+	format="string"
 	limits {
 	}
 }
@@ -579,6 +582,7 @@ text {
 		clr=54
 		bclr=3
 	}
+	format="string"
 	limits {
 	}
 }
@@ -594,6 +598,7 @@ text {
 		clr=60
 		bclr=13
 	}
+	format="string"
 	limits {
 	}
 }
@@ -667,7 +672,7 @@ byte {
 		bclr=3
 	}
 	label="Start File Saving"
-	release_msg="Start File Saving"
+	press_msg="Capture"
 }
 "message button" {
 	object {
@@ -682,7 +687,7 @@ byte {
 		bclr=3
 	}
 	label="Stop File Saving"
-	release_msg="Stop File Saving"
+	press_msg="Done"
 }
 text {
 	object {
@@ -708,6 +713,7 @@ text {
 		clr=60
 		bclr=13
 	}
+	format="string"
 	limits {
 	}
 }
