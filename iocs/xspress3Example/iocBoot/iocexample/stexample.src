@@ -345,6 +345,7 @@ dbpf("$(XSPRESS3_PREFIX):HDF5:EnableCallbacks", "Enable")
 #Set up the PROC plugin spectra summing
 dbpf("$(XSPRESS3_PREFIX):PROC:EnableFilter", "Enable")
 dbpf("$(XSPRESS3_PREFIX):PROC:FilterType", "Sum")
+dbpf("$(XSPRESS3_PREFIX):PROC:EnableCallbacks", "Enable")
 
 #Set up the ROI parameters
 dbpf("$(XSPRESS3_PREFIX):ROIDATA:EnableX", "Yes")

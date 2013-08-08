@@ -112,7 +112,6 @@ while getopts 'hfm:e:b:s:t:' option; do
 done
 
 modules=(ASYN AUTOSAVE BUSY SSCAN CALC AREA_DETECTOR DEVIOCSTATS SPECTRAPLUGINS XSPRESS3)
-build_modules=${build_modules:-${modules[@]}}
 
 download EPICS_BASE
 if [ "${build_modules:-undefined}" == "undefined" ] ; then 
@@ -127,6 +126,7 @@ done
 [ -f ${directories[AUTOSAVE]}/asApp/Db/Makefile.orig ] || sed -i.orig '/^#DB +=/a\
 DB += save_restoreStatus.db' ${directories[AUTOSAVE]}/asApp/Db/Makefile
 
+build_modules=${build_modules:-${modules[@]}}
 echo Building the following support modules: ${build_modules[@]}
 for module in ${build_modules[@]}; do
     if [ "${directories[$module]}x" == "x" ] ; then
