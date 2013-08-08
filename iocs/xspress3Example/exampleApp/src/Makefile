@@ -68,12 +68,12 @@ example_LIBS += $(EPICS_BASE_IOC_LIBS)
 
 include $(AREADETECTOR)/ADApp/commonDriverMakefile
 
-SCRIPTS += exampleGUI
+SCRIPTS += xspress3-medm.sh xspress3-edm.sh
 
 SYS_BOOT_FLAGS+=-MXSPRESS3_PREFIX=$(XSPRESS3_PREFIX)
 
 include $(TOP)/configure/RULES
 
-exampleGUI: ../exampleGUI
+%.sh: ../%.sh
 	$(MSI) $(SYS_BOOT_FLAGS) $< | sed 's/\\\$$/$$/g' > $@
 
