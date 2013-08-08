@@ -1,0 +1,681 @@
+
+file {
+	name="xspress3_ad_attr_extra.adl"
+	version=030107
+}
+display {
+	object {
+		x=560
+		y=49
+		width=693
+		height=933
+	}
+	clr=14
+	bclr=4
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+rectangle {
+	object {
+		x=10
+		y=10
+		width=600
+		height=30
+	}
+	"basic attribute" {
+		clr=50
+	}
+}
+text {
+	object {
+		x=10
+		y=10
+		width=590
+		height=30
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$(P):NAME.DESC Channel $(CHAN)"
+	align="horiz. centered"
+}
+"related display" {
+	object {
+		x=8
+		y=55
+		width=600
+		height=40
+	}
+	display[0] {
+		label="ROI5"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI5:, ATTR=5, P=$(P), CHAN=1"
+	}
+	display[1] {
+		label="ROI6"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI6:, ATTR=6, P=$(P), CHAN=1"
+	}
+	display[2] {
+		label="ROI7"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI7:, ATTR=7, P=$(P), CHAN=1"
+	}
+	display[3] {
+		label="ROI8"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI8:, ATTR=8, P=$(P), CHAN=1"
+	}
+	display[4] {
+		label="ROI9"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI9:, ATTR=9, P=$(P), CHAN=1"
+	}
+	display[5] {
+		label="ROI10"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI10:, ATTR=10, P=$(P), CHAN=1"
+	}
+	display[6] {
+		label="ROI11"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI11:, ATTR=11, P=$(P), CHAN=1"
+	}
+	display[7] {
+		label="ROI12"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI12:, ATTR=12, P=$(P), CHAN=1"
+	}
+	display[8] {
+		label="ROI13"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI13:, ATTR=13, P=$(P), CHAN=1"
+	}
+	display[9] {
+		label="ROI14"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI14:, ATTR=14, P=$(P), CHAN=1"
+	}
+	display[10] {
+		label="ROI15"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI15:, ATTR=15, P=$(P), CHAN=1"
+	}
+	display[11] {
+		label="ROI16"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_16:, ATTR=16, P=$(P), CHAN=1"
+	}
+	clr=47
+	bclr=4
+	label="Attribute menu - ROI 5 to 16 - Channel 1"
+}
+"related display" {
+	object {
+		x=8
+		y=100
+		width=600
+		height=40
+	}
+	display[0] {
+		label="ROI5"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI5:, ATTR=5, P=$(P)"
+	}
+	display[1] {
+		label="ROI6"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI6:, ATTR=6, P=$(P)"
+	}
+	display[2] {
+		label="ROI7"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI7:, ATTR=7, P=$(P)"
+	}
+	display[3] {
+		label="ROI8"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI8:, ATTR=8, P=$(P)"
+	}
+	display[4] {
+		label="ROI9"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI9:, ATTR=9, P=$(P)"
+	}
+	display[5] {
+		label="ROI10"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI10:, ATTR=10, P=$(P)"
+	}
+	display[6] {
+		label="ROI11"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI11:, ATTR=11, P=$(P)"
+	}
+	display[7] {
+		label="ROI12"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI12:, ATTR=12, P=$(P)"
+	}
+	display[8] {
+		label="ROI13"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI13:, ATTR=13, P=$(P)"
+	}
+	display[9] {
+		label="ROI14"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI14:, ATTR=14, P=$(P)"
+	}
+	display[10] {
+		label="ROI15"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI15:, ATTR=15, P=$(P)"
+	}
+	display[11] {
+		label="ROI16"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_16:, ATTR=16, P=$(P)"
+	}
+	clr=47
+	bclr=4
+	label="Attribute menu - ROI 5 to 16"
+}
+"related display" {
+	object {
+		x=8
+		y=145
+		width=600
+		height=40
+	}
+	display[0] {
+		label="ROI5"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI5:, ATTR=5, P=$(P)"
+	}
+	display[1] {
+		label="ROI6"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI6:, ATTR=6, P=$(P)"
+	}
+	display[2] {
+		label="ROI7"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI7:, ATTR=7, P=$(P)"
+	}
+	display[3] {
+		label="ROI8"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI8:, ATTR=8, P=$(P)"
+	}
+	display[4] {
+		label="ROI9"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI9:, ATTR=9, P=$(P)"
+	}
+	display[5] {
+		label="ROI10"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI10:, ATTR=10, P=$(P)"
+	}
+	display[6] {
+		label="ROI11"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI11:, ATTR=11, P=$(P)"
+	}
+	display[7] {
+		label="ROI12"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI12:, ATTR=12, P=$(P)"
+	}
+	display[8] {
+		label="ROI13"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI13:, ATTR=13, P=$(P)"
+	}
+	display[9] {
+		label="ROI14"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI14:, ATTR=14, P=$(P)"
+	}
+	display[10] {
+		label="ROI15"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI15:, ATTR=15, P=$(P)"
+	}
+	display[11] {
+		label="ROI16"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_16:, ATTR=16, P=$(P)"
+	}
+	clr=47
+	bclr=4
+	label="Attribute menu - ROI 5 to 16"
+}
+"related display" {
+	object {
+		x=8
+		y=190
+		width=600
+		height=40
+	}
+	display[0] {
+		label="ROI5"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI5:, ATTR=5, P=$(P)"
+	}
+	display[1] {
+		label="ROI6"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI6:, ATTR=6, P=$(P)"
+	}
+	display[2] {
+		label="ROI7"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI7:, ATTR=7, P=$(P)"
+	}
+	display[3] {
+		label="ROI8"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI8:, ATTR=8, P=$(P)"
+	}
+	display[4] {
+		label="ROI9"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI9:, ATTR=9, P=$(P)"
+	}
+	display[5] {
+		label="ROI10"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI10:, ATTR=10, P=$(P)"
+	}
+	display[6] {
+		label="ROI11"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI11:, ATTR=11, P=$(P)"
+	}
+	display[7] {
+		label="ROI12"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI12:, ATTR=12, P=$(P)"
+	}
+	display[8] {
+		label="ROI13"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI13:, ATTR=13, P=$(P)"
+	}
+	display[9] {
+		label="ROI14"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI14:, ATTR=14, P=$(P)"
+	}
+	display[10] {
+		label="ROI15"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI15:, ATTR=15, P=$(P)"
+	}
+	display[11] {
+		label="ROI16"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_16:, ATTR=16, P=$(P)"
+	}
+	clr=47
+	bclr=4
+	label="Attribute menu - ROI 5 to 16"
+}
+"related display" {
+	object {
+		x=8
+		y=235
+		width=600
+		height=40
+	}
+	display[0] {
+		label="ROI5"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI5:, ATTR=5, P=$(P)"
+	}
+	display[1] {
+		label="ROI6"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI6:, ATTR=6, P=$(P)"
+	}
+	display[2] {
+		label="ROI7"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI7:, ATTR=7, P=$(P)"
+	}
+	display[3] {
+		label="ROI8"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI8:, ATTR=8, P=$(P)"
+	}
+	display[4] {
+		label="ROI9"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI9:, ATTR=9, P=$(P)"
+	}
+	display[5] {
+		label="ROI10"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI10:, ATTR=10, P=$(P)"
+	}
+	display[6] {
+		label="ROI11"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI11:, ATTR=11, P=$(P)"
+	}
+	display[7] {
+		label="ROI12"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI12:, ATTR=12, P=$(P)"
+	}
+	display[8] {
+		label="ROI13"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI13:, ATTR=13, P=$(P)"
+	}
+	display[9] {
+		label="ROI14"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI14:, ATTR=14, P=$(P)"
+	}
+	display[10] {
+		label="ROI15"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI15:, ATTR=15, P=$(P)"
+	}
+	display[11] {
+		label="ROI16"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_16:, ATTR=16, P=$(P)"
+	}
+	clr=47
+	bclr=4
+	label="Attribute menu - ROI 5 to 16"
+}
+"related display" {
+	object {
+		x=8
+		y=280
+		width=600
+		height=40
+	}
+	display[0] {
+		label="ROI5"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI5:, ATTR=5, P=$(P)"
+	}
+	display[1] {
+		label="ROI6"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI6:, ATTR=6, P=$(P)"
+	}
+	display[2] {
+		label="ROI7"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI7:, ATTR=7, P=$(P)"
+	}
+	display[3] {
+		label="ROI8"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI8:, ATTR=8, P=$(P)"
+	}
+	display[4] {
+		label="ROI9"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI9:, ATTR=9, P=$(P)"
+	}
+	display[5] {
+		label="ROI10"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI10:, ATTR=10, P=$(P)"
+	}
+	display[6] {
+		label="ROI11"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI11:, ATTR=11, P=$(P)"
+	}
+	display[7] {
+		label="ROI12"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI12:, ATTR=12, P=$(P)"
+	}
+	display[8] {
+		label="ROI13"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI13:, ATTR=13, P=$(P)"
+	}
+	display[9] {
+		label="ROI14"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI14:, ATTR=14, P=$(P)"
+	}
+	display[10] {
+		label="ROI15"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI15:, ATTR=15, P=$(P)"
+	}
+	display[11] {
+		label="ROI16"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_16:, ATTR=16, P=$(P)"
+	}
+	clr=47
+	bclr=4
+	label="Attribute menu - ROI 5 to 16"
+}
+"related display" {
+	object {
+		x=8
+		y=325
+		width=600
+		height=40
+	}
+	display[0] {
+		label="ROI5"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI5:, ATTR=5, P=$(P)"
+	}
+	display[1] {
+		label="ROI6"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI6:, ATTR=6, P=$(P)"
+	}
+	display[2] {
+		label="ROI7"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI7:, ATTR=7, P=$(P)"
+	}
+	display[3] {
+		label="ROI8"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI8:, ATTR=8, P=$(P)"
+	}
+	display[4] {
+		label="ROI9"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI9:, ATTR=9, P=$(P)"
+	}
+	display[5] {
+		label="ROI10"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI10:, ATTR=10, P=$(P)"
+	}
+	display[6] {
+		label="ROI11"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI11:, ATTR=11, P=$(P)"
+	}
+	display[7] {
+		label="ROI12"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI12:, ATTR=12, P=$(P)"
+	}
+	display[8] {
+		label="ROI13"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI13:, ATTR=13, P=$(P)"
+	}
+	display[9] {
+		label="ROI14"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI14:, ATTR=14, P=$(P)"
+	}
+	display[10] {
+		label="ROI15"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI15:, ATTR=15, P=$(P)"
+	}
+	display[11] {
+		label="ROI16"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_16:, ATTR=16, P=$(P)"
+	}
+	clr=47
+	bclr=4
+	label="Attribute menu - ROI 5 to 16"
+}
+"related display" {
+	object {
+		x=8
+		y=370
+		width=600
+		height=40
+	}
+	display[0] {
+		label="ROI5"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI5:, ATTR=5, P=$(P)"
+	}
+	display[1] {
+		label="ROI6"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI6:, ATTR=6, P=$(P)"
+	}
+	display[2] {
+		label="ROI7"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI7:, ATTR=7, P=$(P)"
+	}
+	display[3] {
+		label="ROI8"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI8:, ATTR=8, P=$(P)"
+	}
+	display[4] {
+		label="ROI9"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI9:, ATTR=9, P=$(P)"
+	}
+	display[5] {
+		label="ROI10"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI10:, ATTR=10, P=$(P)"
+	}
+	display[6] {
+		label="ROI11"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI11:, ATTR=11, P=$(P)"
+	}
+	display[7] {
+		label="ROI12"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI12:, ATTR=12, P=$(P)"
+	}
+	display[8] {
+		label="ROI13"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI13:, ATTR=13, P=$(P)"
+	}
+	display[9] {
+		label="ROI14"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI14:, ATTR=14, P=$(P)"
+	}
+	display[10] {
+		label="ROI15"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_ROI15:, ATTR=15, P=$(P)"
+	}
+	display[11] {
+		label="ROI16"
+		name="NDAttribute.adl"
+		args="R=:C$(CHAN)_16:, ATTR=16, P=$(P)"
+	}
+	clr=47
+	bclr=4
+	label="Attribute menu - ROI 5 to 16"
+}

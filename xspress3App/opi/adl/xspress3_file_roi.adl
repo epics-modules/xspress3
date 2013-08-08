@@ -1,0 +1,420 @@
+
+file {
+	name="xspress3_file_roi.adl"
+	version=030104
+}
+display {
+	object {
+		x=2
+		y=51
+		width=721
+		height=392
+	}
+	clr=14
+	bclr=3
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+rectangle {
+	object {
+		x=10
+		y=10
+		width=700
+		height=30
+	}
+	"basic attribute" {
+		clr=60
+	}
+}
+text {
+	object {
+		x=10
+		y=10
+		width=690
+		height=30
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="$(P) Xspress3 File Saving Region Of Interest"
+	align="horiz. centered"
+}
+rectangle {
+	object {
+		x=10
+		y=60
+		width=700
+		height=240
+	}
+	"basic attribute" {
+		clr=6
+	}
+}
+rectangle {
+	object {
+		x=10
+		y=50
+		width=250
+		height=20
+	}
+	"basic attribute" {
+		clr=10
+	}
+}
+text {
+	object {
+		x=10
+		y=50
+		width=250
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Region Of Interest Settings"
+	align="horiz. centered"
+}
+text {
+	object {
+		x=10
+		y=310
+		width=280
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Note: for this screen channel and energy start from zero"
+}
+text {
+	object {
+		x=40
+		y=100
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Energy Bin Start"
+	align="horiz. right"
+}
+text {
+	object {
+		x=40
+		y=130
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Number of Energy Bins"
+	align="horiz. right"
+}
+text {
+	object {
+		x=40
+		y=160
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Start from Channels"
+	align="horiz. right"
+}
+text {
+	object {
+		x=40
+		y=190
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Number Of Channels"
+	align="horiz. right"
+}
+"text entry" {
+	object {
+		x=170
+		y=100
+		width=110
+		height=20
+	}
+	control {
+		chan="$(P):ROIDATA:MinX"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=170
+		y=130
+		width=110
+		height=20
+	}
+	control {
+		chan="$(P):ROIDATA:SizeX"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=170
+		y=160
+		width=110
+		height=20
+	}
+	control {
+		chan="$(P):ROIDATA:MinY"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+"text entry" {
+	object {
+		x=170
+		y=190
+		width=110
+		height=20
+	}
+	control {
+		chan="$(P):ROIDATA:SizeY"
+		clr=54
+		bclr=3
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=300
+		y=100
+		width=110
+		height=20
+	}
+	monitor {
+		chan="$(P):ROIDATA:MinX_RBV"
+		clr=60
+		bclr=13
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=300
+		y=130
+		width=110
+		height=20
+	}
+	monitor {
+		chan="$(P):ROIDATA:SizeX_RBV"
+		clr=60
+		bclr=13
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=300
+		y=190
+		width=110
+		height=20
+	}
+	monitor {
+		chan="$(P):ROIDATA:SizeY_RBV"
+		clr=60
+		bclr=13
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=300
+		y=160
+		width=110
+		height=20
+	}
+	monitor {
+		chan="$(P):ROIDATA:MinY_RBV"
+		clr=60
+		bclr=13
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+text {
+	object {
+		x=430
+		y=100
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Use this screen to select a"
+}
+text {
+	object {
+		x=430
+		y=112
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="region of interest to save"
+}
+text {
+	object {
+		x=430
+		y=124
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="to file. The energy start/size"
+}
+text {
+	object {
+		x=430
+		y=136
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="will apply to all channels"
+}
+text {
+	object {
+		x=430
+		y=148
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="that are saved. It is only"
+}
+text {
+	object {
+		x=430
+		y=160
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="possible to select a contiguous"
+}
+text {
+	object {
+		x=430
+		y=174
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="energy and channel range."
+}

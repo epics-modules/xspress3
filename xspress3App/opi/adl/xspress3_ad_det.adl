@@ -1,0 +1,500 @@
+
+file {
+	name="xspress3_ad_det.adl"
+	version=030107
+}
+display {
+	object {
+		x=1150
+		y=169
+		width=461
+		height=816
+	}
+	clr=14
+	bclr=2
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=0
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+rectangle {
+	object {
+		x=10
+		y=470
+		width=420
+		height=320
+	}
+	"basic attribute" {
+		clr=5
+	}
+}
+rectangle {
+	object {
+		x=10
+		y=460
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=8
+	}
+}
+text {
+	object {
+		x=10
+		y=460
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Xspress3 Driver"
+}
+"message button" {
+	object {
+		x=20
+		y=495
+		width=60
+		height=20
+	}
+	control {
+		chan="$(P):ERASE"
+		clr=54
+		bclr=5
+	}
+	label="Erase"
+	press_msg="Erase"
+	release_msg="ERASE"
+}
+"related display" {
+	object {
+		x=90
+		y=495
+		width=140
+		height=20
+	}
+	display[0] {
+		name="xspress3_config.adl"
+		args="P=$(P)"
+	}
+	clr=47
+	bclr=5
+	label="System Configuration"
+}
+"message button" {
+	object {
+		x=20
+		y=525
+		width=105
+		height=20
+	}
+	control {
+		chan="$(P):ERASE"
+		clr=54
+		bclr=5
+	}
+	label="Update arrays"
+	press_msg="Update arrays"
+	release_msg="Update Arrays"
+}
+text {
+	object {
+		x=140
+		y=525
+		width=86
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Num Frames/Readout"
+}
+text {
+	object {
+		x=280
+		y=495
+		width=60
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Connected"
+}
+"text update" {
+	object {
+		x=280
+		y=525
+		width=120
+		height=20
+	}
+	monitor {
+		chan="$(P):FRAME_COUNT_RBV"
+		clr=60
+		bclr=13
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=280
+		y=555
+		width=120
+		height=20
+	}
+	monitor {
+		chan="$(P):CTRL_MCA_ROI_RBV"
+		clr=60
+		bclr=13
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=280
+		y=605
+		width=125
+		height=20
+	}
+	monitor {
+		chan="$(P):CTRL_DTC_RBV"
+		clr=60
+		bclr=13
+	}
+	limits {
+	}
+}
+"choice button" {
+	object {
+		x=160
+		y=555
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P):CTRL_MCA_ROI"
+		clr=14
+		bclr=2
+	}
+}
+menu {
+	object {
+		x=280
+		y=580
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P)$(R)ArrayCallbacks"
+		clr=5
+		bclr=2
+	}
+}
+text {
+	object {
+		x=45
+		y=555
+		width=105
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="ROI Calculations"
+	align="horiz. right"
+}
+text {
+	object {
+		x=120
+		y=580
+		width=140
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Driver NDArray Callbacks"
+	align="horiz. right"
+}
+"choice button" {
+	object {
+		x=160
+		y=605
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P):CTRL_DTC"
+		clr=14
+		bclr=2
+	}
+}
+text {
+	object {
+		x=40
+		y=605
+		width=110
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Dead Time Corr"
+	align="horiz. right"
+}
+"related display" {
+	object {
+		x=220
+		y=650
+		width=190
+		height=20
+	}
+	display[0] {
+		label="Channel1"
+		name="xspress3_mca.adl"
+		args="CHAN=1, P=$(P)"
+	}
+	display[1] {
+		label="Channel2"
+		name="xspress3_mca.adl"
+		args="CHAN=2, P=$(P)"
+	}
+	display[2] {
+		label="Channel3"
+		name="xspress3_mca.adl"
+		args="CHAN=3, P=$(P)"
+	}
+	display[3] {
+		label="Channel4"
+		name="xspress3_mca.adl"
+		args="CHAN=4, P=$(P)"
+	}
+	display[4] {
+		label="Channel5"
+		name="xspress3_mca.adl"
+		args="CHAN=5, P=$(P)"
+	}
+	display[5] {
+		label="Channel6"
+		name="xspress3_mca.adl"
+		args="CHAN=6, P=$(P)"
+	}
+	display[6] {
+		label="Channel7"
+		name="xspress3_mca.adlspress3_mca.adl"
+		args="CHAN=7, P=$(P)"
+	}
+	display[7] {
+		label="Channel8"
+		name="xspress3_mca.adl"
+		args="CHAN=8, P=$(P)"
+	}
+	clr=47
+	bclr=2
+	label="MCA Data and ROI Settings"
+}
+"related display" {
+	object {
+		x=220
+		y=680
+		width=190
+		height=20
+	}
+	display[0] {
+		label="Channel1"
+		name="xspress3_sca.adl"
+		args="CHAN=1, P=$(P)"
+	}
+	display[1] {
+		label="Channel2"
+		name="xspress3_sca.adl"
+		args="CHAN=2, P=$(P)"
+	}
+	display[2] {
+		label="Channel3"
+		name="xspress3_sca.adl"
+		args="CHAN=3, P=$(P)"
+	}
+	display[3] {
+		label="Channel4"
+		name="xspress3_sca.adl"
+		args="CHAN=4, P=$(P)"
+	}
+	display[4] {
+		label="Channel5"
+		name="xspress3_sca.adl"
+		args="CHAN=5, P=$(P)"
+	}
+	display[5] {
+		label="Channel6"
+		name="xspress3_sca.adl"
+		args="CHAN=6, P=$(P)"
+	}
+	display[6] {
+		label="Channel7"
+		name="xspress3_sca.adl"
+		args="CHAN=7, P=$(P)"
+	}
+	display[7] {
+		label="Channel8"
+		name="xspress3_sca.adl"
+		args="CHAN=8, P=$(P)"
+	}
+	clr=47
+	bclr=2
+	label="SCA Data & Window Settings"
+}
+"related display" {
+	object {
+		x=325
+		y=740
+		width=85
+		height=20
+	}
+	display[0] {
+		label="Channel1"
+		name="xspress3_dtc.adl"
+		args="CHAN=1, P=$(P)"
+	}
+	display[1] {
+		label="Channel2"
+		name="xspress3_dtc.adl"
+		args="CHAN=2, P=$(P)"
+	}
+	display[2] {
+		label="Channel3"
+		name="xspress3_dtc.adl"
+		args="CHAN=3, P=$(P)"
+	}
+	display[3] {
+		label="Channel4"
+		name="xspress3_dtc.adl"
+		args="CHAN=4, P=$(P)"
+	}
+	display[4] {
+		label="Channel5"
+		name="xspress3_dtc.adl"
+		args="CHAN=5, P=$(P)"
+	}
+	display[5] {
+		label="Channel6"
+		name="xspress3_dtc.adl"
+		args="CHAN=6, P=$(P)"
+	}
+	display[6] {
+		label="Channel7"
+		name="xspress3_dtc.adl"
+		args="CHAN=7, P=$(P)"
+	}
+	display[7] {
+		label="Channel8"
+		name="xspress3_dtc.adl"
+		args="CHAN=8, P=$(P)"
+	}
+	clr=47
+	bclr=2
+	label="DTC Params"
+}
+"related display" {
+	object {
+		x=220
+		y=710
+		width=190
+		height=20
+	}
+	display[0] {
+		name="xspress3_ad_plugincontrol.adl"
+		args="P=$(P)"
+	}
+	clr=47
+	bclr=2
+	label="Enable/Disable AD Plugins"
+}
+"related display" {
+	object {
+		x=55
+		y=78
+		width=316
+		height=200
+	}
+	display[0] {
+		name="ADBase.adl"
+		args="P+$(P)"
+	}
+	clr=47
+	bclr=4
+	label="ADBase"
+}
