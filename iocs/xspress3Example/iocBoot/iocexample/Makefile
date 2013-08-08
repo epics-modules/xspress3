@@ -2,7 +2,7 @@ TOP = ../..
 include $(TOP)/configure/CONFIG
 
 SCRIPTS+=stexample.boot
-SCRIPTS+=stexample.sh
+SCRIPTS+=xspress3-ioc.sh
 
 USR_BOOT_FLAGS+=-MXSPRESS3_PREFIX=$(XSPRESS3_PREFIX)
 USR_BOOT_FLAGS+=-MXSPRESS3_CONFIG=$(XSPRESS3_CONFIG)
@@ -13,5 +13,5 @@ USR_BOOT_FLAGS+=-MXSPRESS3_NUM_CHANNELS=$(XSPRESS3_NUM_CHANNELS)
 
 include $(TOP)/configure/RULES
 
-stexample.sh: ../stexample.sh
+xspress3-ioc.sh: ../xspress3-ioc.sh
 	$(MSI) $(SYS_BOOT_FLAGS) $< > $@
