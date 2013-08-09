@@ -1,6 +1,6 @@
 
 file {
-	name="xspress3_ad_det.adl"
+	name="/home/npr78/diamond/support/xspress3/xspress3App/opi/adl/xspress3_ad_det.adl"
 	version=030107
 }
 display {
@@ -492,7 +492,7 @@ text {
 	}
 	display[0] {
 		name="ADBase.adl"
-		args="P+$(P)"
+		args="P=$(P),R=$(R)"
 	}
 	clr=47
 	bclr=4

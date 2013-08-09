@@ -3,13 +3,24 @@
 # Script to build Xspress3 from original sources
 #
 
+# If you need a http proxy, please edit the following:
 export http_proxy="http://wwwcache.rl.ac.uk:8080"
+
+# Edit to set the location to store tar files
 tar_files=/home/$USER/Downloads
 
+# Edite the following declarations to locations where BOOST is installed, and where you want the downloaded software installed
 declare -A directories
-directories[EPICS_BASE]=/home/$USER/temp/epics/R3.14.12.3/base
 directories[BOOST]=/dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0
-directories[SUPPORT]=/home/$USER/temp/epics/R3.14.12.3/support
+directories[EPICS_BASE]=/home/$USER/software/epics/R3.14.12.3/base
+directories[SUPPORT]=/home/$USER/software/epics/R3.14.12.3/support
+directories[EXTENSIONS_TOP]=/home/$USER/software/epics/R3.14.12.3/extensions
+
+#########################################################################################################
+#
+#     Do not edit code below this line
+#
+#########################################################################################################
 
 declare -A sources
 sources[EPICS_BASE]=http://www.aps.anl.gov/epics/download/base/baseR3.14.12.3.tar.gz
@@ -28,14 +39,18 @@ sources[DEVIOCSTATS]=http://sourceforge.net/projects/epics/files/devIocStats/dev
 sources[SPECTRAPLUGINS]=http://controls.diamond.ac.uk/downloads/support/spectraPlugins/1-6/spectraPlugins-1-6.tgz
 sources[XSPRESS3]=http://controls.diamond.ac.uk/downloads/support/xspress3/1-6/xspress3-1-6.tgz
 
+directories[MSI]=${directories[EXTENSIONS_TOP]}/src/msi
+directories[MEDM]=${directories[EXTENSIONS_TOP]}/src/medm
+directories[EDM]=${directories[EXTENSIONS_TOP]}/src/edm
+
 function download() {
     local module=$1
     local source=${sources[$module]}
 
-    local file=$(basename $source)
+    local file=$(basename ${source/*=/})
     echo Checking to download $file
     [ -d $tar_files ] || mkdir -p  $tar_files
-    [ -f $tar_files/$file ] || wget  -P $tar_files $source
+    [ -f $tar_files/$file ] || wget  -O $tar_files/$file $source
 
     if [ "${directories[$module]:-undefined}" == "undefined" ] ; then
         directories[$module]=${directories[SUPPORT]}/$(tar tvzf $tar_files/$file | head -1 | awk '{print $6}' | sed 's,/,,g')
@@ -111,7 +126,7 @@ while getopts 'hfm:e:b:s:t:' option; do
     esac
 done
 
-modules=(ASYN AUTOSAVE BUSY SSCAN CALC AREA_DETECTOR DEVIOCSTATS SPECTRAPLUGINS XSPRESS3)
+modules=(EXTENSIONS_TOP MSI EDM MEDM ASYN AUTOSAVE BUSY SSCAN CALC AREA_DETECTOR DEVIOCSTATS SPECTRAPLUGINS XSPRESS3)
 
 download EPICS_BASE
 if [ "${build_modules:-undefined}" == "undefined" ] ; then 
@@ -137,3 +152,30 @@ for module in ${build_modules[@]}; do
 done
 
 build ${directories[XSPRESS3]}/iocs/xspress3Example $force
+
+
+echo "
+Build complete. Please edit the following file to create Xspress 3 defaults for your site:
+
+${directories[XSPRESS3]}/iocs/xspress3Example/configure/CONFIG_SITE
+
+then do the following:
+
+cd ${directories[XSPRESS3]}/iocs/xspress3Example
+make clean
+make
+
+Please also add the following lines to your ~/.bash_profile:
+
+PATH=${directories[EPICS_BASE]}/bin/${EPICS_HOST_ARCH}:$PATH
+PATH=${directories[EXTENSIONS_TOP]}/bin/${EPICS_HOST_ARCH}:$PATH
+PATH=${directories[XSPRESS3]}/bin/${EPICS_HOST_ARCH}:$PATH
+PATH=${directories[XSPRESS3]}/iocs/xspress3Example/bin/${EPICS_HOST_ARCH}:$PATH
+
+The following commands are then available:
+xspress3-ioc.sh  : runs the xspress3 ioc
+xspress3-edm.sh  : runs the edm screens (beware fonts issues)
+xspress3-medm.sh : runs the medm screens (beware fonts issues)
+xspress3.server  : runs xspress3 command line interface
+imgd             : runs xspress3 spectra viewer
+"

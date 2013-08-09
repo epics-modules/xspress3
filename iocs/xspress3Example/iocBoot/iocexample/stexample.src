@@ -347,6 +347,9 @@ dbpf("$(XSPRESS3_PREFIX):PROC:EnableFilter", "Enable")
 dbpf("$(XSPRESS3_PREFIX):PROC:FilterType", "Sum")
 dbpf("$(XSPRESS3_PREFIX):PROC:EnableCallbacks", "Enable")
 
+# Enable spectra for channel 1
+dbpf("$(XSPRESS3_PREFIX):C1_PluginControlVal", "Enabled")
+
 #Set up the ROI parameters
 dbpf("$(XSPRESS3_PREFIX):ROIDATA:EnableX", "Yes")
 dbpf("$(XSPRESS3_PREFIX):ROIDATA:EnableY", "Yes")
@@ -450,6 +453,7 @@ dbpf("$(XSPRESS3_PREFIX):NumImages", "100")
 dbpf("$(XSPRESS3_PREFIX):HDF5:FilePath","$(XSPRESS3_DATA)")
 dbpf("$(XSPRESS3_PREFIX):HDF5:FileName","test")
 dbpf("$(XSPRESS3_PREFIX):ArrayCallbacks","Enable")
+dbpf("$(XSPRESS3_PREFIX):ROIDATA:EnableCallbacks","Enable")
 
 # connect to Xspress3
 dbpf("$(XSPRESS3_PREFIX):CONNECT","1")

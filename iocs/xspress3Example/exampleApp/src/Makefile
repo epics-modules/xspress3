@@ -70,6 +70,7 @@ include $(AREADETECTOR)/ADApp/commonDriverMakefile
 
 SCRIPTS += xspress3-medm.sh xspress3-edm.sh
 
+SYS_BOOT_FLAGS+=-MXSPRESS3=$(abspath $(XSPRESS3))
 SYS_BOOT_FLAGS+=-MXSPRESS3_PREFIX=$(XSPRESS3_PREFIX)
 
 include $(TOP)/configure/RULES

@@ -34,8 +34,8 @@ CHECK_RELEASE = YES
 
 # XSPRESS3 configuration parameters
 XSPRESS3_PREFIX=XSPRESS3-EXAMPLE
-XSPRESS3_CONFIG=$(shell cd $(XSPRESS3); pwd)/xspress3_settings
-XSPRESS3_SAVE=$(shell cd $(TOP); pwd)/save
+XSPRESS3_CONFIG:=$(abspath $(XSPRESS3))/xspress3_settings
+XSPRESS3_SAVE:=$(abspath $(TOP))/save
 XSPRESS3_DATA=/dls/i24/data/2013/cm5951-1/tmp
 XSPRESS3_AUTOSAVE=
 XSPRESS3_NUM_CHANNELS=4
