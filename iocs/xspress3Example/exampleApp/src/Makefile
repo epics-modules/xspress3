@@ -33,7 +33,7 @@ example_SRCS += example_registerRecordDeviceDriver.cpp
 # These two lines are needed for non-vxWorks builds, such as Linux
 example_SRCS_DEFAULT += exampleMain.cpp
 
-USR_LDFLAGS += -L$(BOOST)/prefix/lib/
+USR_LDFLAGS += -L$(BOOST)/lib/ -Wl,-rpath,$(BOOST)/lib
 
 # This line says that this IOC Application depends on the
 # xxx Support Module
