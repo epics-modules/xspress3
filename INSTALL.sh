@@ -3,24 +3,25 @@
 # Script to build Xspress3 from original sources
 #
 
-# If you need a http proxy, please edit the following:
+# If you need a http proxy, please edit the following, otherwise comment it out:
 export http_proxy="http://wwwcache.rl.ac.uk:8080"
 
 # Edit to set the location to store tar files
 tar_files=/home/$USER/Downloads
 
-# Edite the following declarations to locations where BOOST is installed, and where you want the downloaded software installed
+# Edit the following declarations to locations where BOOST is installed, and
+# where you want the downloaded software installed
 declare -A directories
-directories[BOOST]=/dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0
+directories[BOOST]=/dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0/prefix
 directories[EPICS_BASE]=/home/$USER/software/epics/R3.14.12.3/base
 directories[SUPPORT]=/home/$USER/software/epics/R3.14.12.3/support
 directories[EXTENSIONS_TOP]=/home/$USER/software/epics/R3.14.12.3/extensions
 
-#########################################################################################################
+###############################################################################
 #
-#     Do not edit code below this line
+#     Normall, you wont have to edit code below this line
 #
-#########################################################################################################
+###############################################################################
 
 declare -A sources
 sources[EPICS_BASE]=http://www.aps.anl.gov/epics/download/base/baseR3.14.12.3.tar.gz
@@ -94,7 +95,7 @@ function build() {
      {
          {
              $force && make clean uninstall
-             make
+             make $DEBUG_OPTS $PROFILE_OPTS
              echo $? >build.sta
          } 4>&1 1>&3 2>&4 |
          tee build.err
@@ -109,20 +110,34 @@ function Usage {
     echo
     echo " h : print this help message"
     echo " f : force rebuild by running make clean first"
-    echo " m : Specify a specific module (or modules) to rebuild (use with caution because of dependencies)"
-    echo " e : Path to location where EPICS base is to be built (default ${directories[EPICS_BASE]})."
-    echo " b : Path to location where BOOST is installed (default ${directories[BOOST]})."
-    echo " s : Path to location where EPICS support modules are to be built (default ${directories[SUPPORT]})."
-    echo " t : Path to where downloaded tar files are to be stored (default $tar_files)."
+    echo " m : Specify a specific module (or modules) to rebuild 
+               (use with caution because of dependencies)"
+    echo " e : Path to location where EPICS base is to be built
+               (default ${directories[EPICS_BASE]})."
+    echo " b : Path to location where BOOST is installed
+               (default ${directories[BOOST]})."
+    echo " s : Path to location where EPICS support modules are to be built
+               (default ${directories[SUPPORT]})."
+    echo " t : Path to where downloaded tar files are to be stored
+               (default $tar_files)."
+    echo " d : Include debug symbols in compilation"
+    echo " p : Include profiling code in compilation"
     exit 1
 }
 
 force=false
-while getopts 'hfm:e:b:s:t:' option; do
+while getopts 'pdhfm:e:b:s:t:' option; do
     case $option in
         h) Usage;;
         f) force=true;;
         m) build_modules=($build_modules $OPTARG);;
+        e) directories[EPICS_BASE]=$OPTARG;;
+        b) directories[BOOST]=$OPTARG;;
+        s) directories[SUPPORT]=$OPTARG;;
+        t) tar_files=$OPTARG;;
+        d) DEBUG_OPTS="OPT_CXXFLAGS_YES+=-g OPT_CFLAGS_YES+=-g" ;;
+        p) PROFILE_OPTS="OPT_CXXFLAGS_YES+=-pg OPT_CFLAGS_YES+=-pg DEBUG_LDFLAGS+=-pg" ;;
+        *) Usage;;  
     esac
 done
 
@@ -140,6 +155,10 @@ done
 # Patch Autosave to install databases
 [ -f ${directories[AUTOSAVE]}/asApp/Db/Makefile.orig ] || sed -i.orig '/^#DB +=/a\
 DB += save_restoreStatus.db' ${directories[AUTOSAVE]}/asApp/Db/Makefile
+
+# Patch NDAttributeList to be case sensitive for speed
+[ -f ${directories[AREA_DETECTOR]}/ADApp/ADSrc/NDArray.cpp.orig ] ||
+    sed -i.orig '/done/s/epicsStrCaseCmp/strcmp/' ${directories[AREA_DETECTOR]}/ADApp/ADSrc/NDArray.cpp
 
 build_modules=${build_modules:-${modules[@]}}
 echo Building the following support modules: ${build_modules[@]}
@@ -167,15 +186,15 @@ make
 
 Please also add the following lines to your ~/.bash_profile:
 
-PATH=${directories[EPICS_BASE]}/bin/${EPICS_HOST_ARCH}:$PATH
-PATH=${directories[EXTENSIONS_TOP]}/bin/${EPICS_HOST_ARCH}:$PATH
-PATH=${directories[XSPRESS3]}/bin/${EPICS_HOST_ARCH}:$PATH
-PATH=${directories[XSPRESS3]}/iocs/xspress3Example/bin/${EPICS_HOST_ARCH}:$PATH
+PATH=${directories[EPICS_BASE]}/bin/${EPICS_HOST_ARCH}:\$PATH
+PATH=${directories[EXTENSIONS_TOP]}/bin/${EPICS_HOST_ARCH}:\$PATH
+PATH=${directories[XSPRESS3]}/bin/${EPICS_HOST_ARCH}:\$PATH
+PATH=${directories[XSPRESS3]}/iocs/xspress3Example/bin/${EPICS_HOST_ARCH}:\$PATH
 
 The following commands are then available:
 xspress3-ioc.sh  : runs the xspress3 ioc
 xspress3-edm.sh  : runs the edm screens (beware fonts issues)
-xspress3-medm.sh : runs the medm screens (beware fonts issues)
+xspress3-medm.sh : runs the medm screens
 xspress3.server  : runs xspress3 command line interface
 imgd             : runs xspress3 spectra viewer
 "
