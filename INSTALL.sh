@@ -38,7 +38,7 @@ sources[CALC]=http://www.aps.anl.gov/bcda/synApps/tar/calc_R3-2.tar.gz
 sources[AREA_DETECTOR]=http://cars.uchicago.edu/software/pub/areaDetectorR1-9-1.tgz
 sources[DEVIOCSTATS]=http://sourceforge.net/projects/epics/files/devIocStats/devIocStats-3.1.11.tar.gz
 sources[SPECTRAPLUGINS]=http://controls.diamond.ac.uk/downloads/support/spectraPlugins/1-6/spectraPlugins-1-6.tgz
-sources[XSPRESS3]=http://controls.diamond.ac.uk/downloads/support/xspress3/1-6/xspress3-1-6.tgz
+sources[XSPRESS3]=http://controls.diamond.ac.uk/downloads/support/xspress3/1-7/xspress3-1-7.tgz
 
 directories[MSI]=${directories[EXTENSIONS_TOP]}/src/msi
 directories[MEDM]=${directories[EXTENSIONS_TOP]}/src/medm
