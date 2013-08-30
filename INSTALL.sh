@@ -19,7 +19,7 @@ directories[EXTENSIONS_TOP]=/home/$USER/software/epics/R3.14.12.3/extensions
 
 ###############################################################################
 #
-#     Normall, you wont have to edit code below this line
+#     Normally, you wont have to edit code below this line
 #
 ###############################################################################
 
