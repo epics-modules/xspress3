@@ -12,7 +12,7 @@ tar_files=/home/$USER/Downloads
 # Edit the following declarations to locations where BOOST is installed, and
 # where you want the downloaded software installed
 declare -A directories
-directories[BOOST]=/dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0/prefix
+directories[BOOST]=/home/$USER/software/boost
 directories[EPICS_BASE]=/home/$USER/software/epics/R3.14.12.3/base
 directories[SUPPORT]=/home/$USER/software/epics/R3.14.12.3/support
 directories[EXTENSIONS_TOP]=/home/$USER/software/epics/R3.14.12.3/extensions
@@ -22,6 +22,8 @@ directories[EXTENSIONS_TOP]=/home/$USER/software/epics/R3.14.12.3/extensions
 #     Normally, you wont have to edit code below this line
 #
 ###############################################################################
+
+export EPICS_HOST_ARCH=linux-x86_64
 
 declare -A sources
 sources[EPICS_BASE]=http://www.aps.anl.gov/epics/download/base/baseR3.14.12.3.tar.gz
@@ -105,6 +107,29 @@ function build() {
      popd > /dev/null
 }
 
+function build_boost() {
+     local directory=${directories[BOOST]}
+     pushd $directory > /dev/null
+
+     echo -n "Building $directory......"
+     {
+         {
+             ./bootstrap.sh --prefix=$PWD \
+                 --with-libraries=serialization,test,exception,iostreams,program_options,thread,timer
+             echo $? >build.sta
+
+             if (( $(cat build.sta) == 0 )) ; then
+                 ./b2 install
+                 echo $? >build.sta
+             fi
+         } 4>&1 1>&3 2>&4 |
+         tee build.err
+     } >build.log 3>&1
+
+     (( $(cat build.sta) != 0 )) && echo "[ERROR]" || echo "[OK]"
+     popd > /dev/null
+}
+
 function Usage {
     echo "Usage: $0 [-hf] [-m module] [-e epics_path] [-b boost_path] [-s support_path] [-t tar_path]"
     echo
@@ -143,6 +168,10 @@ done
 
 modules=(EXTENSIONS_TOP MSI EDM MEDM ASYN AUTOSAVE BUSY SSCAN CALC AREA_DETECTOR DEVIOCSTATS SPECTRAPLUGINS XSPRESS3)
 
+# Download and build BOOST
+download BOOST
+build_boost
+
 download EPICS_BASE
 if [ "${build_modules:-undefined}" == "undefined" ] ; then 
     build ${directories[EPICS_BASE]} $force
@@ -159,6 +188,9 @@ DB += save_restoreStatus.db' ${directories[AUTOSAVE]}/asApp/Db/Makefile
 # Patch NDAttributeList to be case sensitive for speed
 [ -f ${directories[AREA_DETECTOR]}/ADApp/ADSrc/NDArray.cpp.orig ] ||
     sed -i.orig '/done/s/epicsStrCaseCmp/strcmp/' ${directories[AREA_DETECTOR]}/ADApp/ADSrc/NDArray.cpp
+
+# devIocStats needs the Extensions bin directory to be on the path since it needs msi.
+export PATH=$PATH:${directories[EXTENSIONS_TOP]}/bin/$EPICS_HOST_ARCH
 
 build_modules=${build_modules:-${modules[@]}}
 echo Building the following support modules: ${build_modules[@]}
