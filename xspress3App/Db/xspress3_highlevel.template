@@ -2,6 +2,13 @@
 # This template contains some high level records that tie
 # together the various areaDetector plugins needed for the
 # xspress3. 
+#
+# Macros:
+# % macro,  P,           Device prefix
+# % macro,  R,           Device suffix
+# % macro,  HDF,         HDF plugin record prefix
+# % macro,  PROC,        Processing plugin record prefix
+#
 ###########################################################
 
 
