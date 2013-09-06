@@ -105,13 +105,13 @@ The user may also wish to set up regions of interest (ROIs) (see section below),
 <td>{P}:TriggerMode\n{P}:TriggerMode_RBV</td>
 <td>Set and read the triggering mode. This PV maps directly on to the API function <b>xsp3_set_glob_timeA</b>. In simulation mode any mode can be selected. Options are:
 <ul>
-<li>Fixed - Corresponds to API option XSP3_GTIMA_SRC_FIXED</li>
-<li>Internal - Corresponds to API option XSP3_GTIMA_SRC_INTERNAL</li>
-<li>IDC -  Corresponds to API option XSP3_GTIMA_SRC_IDC</li>
-<li>TTL Veto Only - Use this for external triggering using a gate signal. Corresponds to API option XSP3_GTIMA_SRC_TTL_VETO_ONLY</li>
-<li>TTL Both - Corresponds to API option XSP3_GTIMA_SRC_TTL_BOTH</li>
-<li>LVDS Veto Only - Corresponds to API option XSP3_GTIMA_SRC_LVDS_VETO_ONLY</li>
-<li>LVDS Both - Corresponds to API option XSP3_GTIMA_SRC_LVDS_BOTH</li>
+<li>Fixed - Corresponds to API option XSP3_GTIMA_SRC_FIXED. Timing controlled by software, incrementing on each subsequent continue.</li>
+<li>Internal - Corresponds to API option XSP3_GTIMA_SRC_INTERNAL. Time frame from internal timing generator (for future expansion).</li>
+<li>IDC -  Corresponds to API option XSP3_GTIMA_SRC_IDC. Time frame incremented and rest by signals from IDC expansion connector.</li>
+<li>TTL Veto Only - Use this for external triggering using a gate signal. Corresponds to API option XSP3_GTIMA_SRC_TTL_VETO_ONLY. Use TTL input 1 as Veto. Signal is active low and will to count if high and veto if low.</li>
+<li>TTL Both - Corresponds to API option XSP3_GTIMA_SRC_TTL_BOTH. Use TTL inputs 0 and 1 as Frame Zero and Veto respectively.</li>
+<li>LVDS Veto Only - Corresponds to API option XSP3_GTIMA_SRC_LVDS_VETO_ONLY. Use 4 Pin LEMO00 LVDS input for veto only.</li>
+<li>LVDS Both - Corresponds to API option XSP3_GTIMA_SRC_LVDS_BOTH. Use 4 Pin LEMO00 LVDS input for Veto and Frame 0.</li>
 </ul>
 </td>
 </tr>
@@ -212,23 +212,24 @@ The first table shows the single value PVs that show the latest scaler value dur
 <table border="1">
 <tr>
 <td>{P}:C1_SCA0:Value_RBV</td>
-<td>The <b>Time</b> scaler.</td>
+<td>The <b>Live Time</b> scaler. Duration of acquisition time of frame in 80 MHz cycles. Copied to all channels</td>
 </tr>
 <tr>
 <td>{P}:C1_SCA1:Value_RBV</td>
-<td>The <b>Reset Ticks</b> scaler.</td>
+<td>The <b>Reset Ticks</b> scaler. Time in 80 MHz cycles that the internal detector reset signal is high, including  time in reset padding if enabled.
+</td>
 </tr>
 <tr>
 <td>{P}:C1_SCA2:Value_RBV</td>
-<td>The <b>Reset Count</b> scaler.</td>
+<td>The <b>Reset Count</b> scaler. Number of detector resets</td>
 </tr>
 <tr>
 <td>{P}:C1_SCA3:Value_RBV</td>
-<td>The <b>All Event</b> scaler.</td>
+<td>The <b>All Event</b> scaler. This count every time the system triggers on an event.</td>
 </tr>
 <tr>
 <td>{P}:C1_SCA4:Value_RBV</td>
-<td>The <b>All Good</b> scaler.</td>
+<td>The <b>All Good</b> scaler. This counts on all triggers which give an apparent energy above a “good event” threshold.</td>
 </tr>
 <tr>
 <td>{P}:C1_SCA5:Value_RBV</td>
@@ -240,7 +241,7 @@ The first table shows the single value PVs that show the latest scaler value dur
 </tr>
 <tr>
 <td>{P}:C1_SCA7:Value_RBV</td>
-<td>The <b>Pileup</b> scaler.</td>
+<td>The <b>Pileup</b> scaler. Counts number of pileup events detected either in the event detector or from the event width.</td>
 </tr>
 </table>
 
@@ -274,7 +275,7 @@ The following table shows the scaler data array PVs. These arrays accumulate the
  <table border="1">
 <tr>
 <td>{P}:C1_SCA0:ArrayData_RBV</td>
-<td>The <b>Time</b> scaler array.</td>
+<td>The <b>Live Time</b> scaler array.</td>
 </tr>
 <tr>
 <td>{P}:C1_SCA1:ArrayData_RBV</td>
