@@ -77,6 +77,10 @@
 #define xsp3SaveSettingsParamString           "XSP3_SAVE_SETTINGS"
 #define xsp3RestoreSettingsParamString           "XSP3_RESTORE_SETTINGS"
 #define xsp3RunFlagsParamString           "XSP3_RUN_FLAGS"
+#define xsp3TriggerParamString           "XSP3_TRIGGER"
+#define xsp3InvertF0ParamString           "XSP3_INVERT_F0"
+#define xsp3InvertVetoParamString           "XSP3_INVERT_VETO"
+#define xsp3DebounceParamString           "XSP3_DEBOUNCE"
 //Settings for a channel
 #define xsp3ChanMcaRoi1LlmParamString     "XSP3_CHAN_ROI1_LLM"
 #define xsp3ChanMcaRoi2LlmParamString     "XSP3_CHAN_ROI2_LLM"
@@ -187,7 +191,7 @@ class Xspress3 : public ADDriver {
   asynStatus readSCAParams(void);
   asynStatus readDTCParams(void); 
   asynStatus checkHistBusy(int checkTimes);
-  asynStatus mapTriggerMode(int mode, int *apiMode);
+  asynStatus mapTriggerMode(int mode, int invert_f0, int invert_veto, int debounce, int *apiMode);
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;
@@ -245,6 +249,10 @@ class Xspress3 : public ADDriver {
   int xsp3SaveSettingsParam;
   int xsp3RestoreSettingsParam;
   int xsp3RunFlagsParam;             
+  int xsp3TriggerParam;             
+  int xsp3InvertF0Param;             
+  int xsp3InvertVetoParam;             
+  int xsp3DebounceParam;             
   int xsp3ChanMcaRoi1LlmParam;  
   int xsp3ChanMcaRoi2LlmParam;   
   int xsp3ChanMcaRoi3LlmParam;   

@@ -87,7 +87,7 @@ record(mbbo, "$(P)$(R)TriggerMode")
 {
    field(DTYP, "asynInt32")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_TRIGGER_MODE")
-   field(ZRST, "Fixed")
+   field(ZRST, "Software")
    field(ZRVL, "0")
    field(ONST, "Internal")
    field(ONVL, "1")
@@ -112,7 +112,7 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
 {
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_TRIGGER_MODE")
-   field(ZRST, "Fixed")
+   field(ZRST, "Software")
    field(ZRVL, "0")
    field(ONST, "Internal")
    field(ONVL, "1")
@@ -130,7 +130,86 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
 }
 
 # ///
-# /// Set the fixed time register, in FIXED trigger mode.
+# /// Set whether the sense of F0 is inverted
+# /// (only used in LVDS_BOTH and TTL_BOTH modes)
+# ///
+record(bo, "$(P)$(R)TRIGGER")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_TRIGGER")
+   field(ZNAM,"Do Nothing")	
+   field(ONAM,"Trigger")
+}
+
+# ///
+# /// Set whether the sense of F0 is inverted
+# /// (only used in LVDS_BOTH and TTL_BOTH modes)
+# ///
+record(longout, "$(P)$(R)INVERT_F0")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_INVERT_F0")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Set whether the sense of F0 is inverted
+# /// (only used in LVDS_BOTH and TTL_BOTH modes)
+# ///
+record(longin, "$(P)$(R)INVERT_F0_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_INVERT_F0")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Set whether the sense of VETO is inverted
+# /// (only used in LVDS, LVDS_BOTH, TTL and TTL_BOTH modes)
+# ///
+record(longout, "$(P)$(R)INVERT_VETO")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_INVERT_VETO")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Set whether the sense of VETO is inverted
+# /// (only used in LVDS, LVDS_BOTH, TTL and TTL_BOTH modes)
+# ///
+record(longin, "$(P)$(R)INVERT_VETO_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_INVERT_VETO")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Sets the trigger debounce time in 80 MHz cycles
+# ///
+record(longout, "$(P)$(R)DEBOUNCE")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_DEBOUNCE")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Sets the trigger debounce time in 80 MHz cycles
+# ///
+record(longin, "$(P)$(R)DEBOUNCE_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_DEBOUNCE")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Set the fixed time register, in Software trigger mode.
 # /// This sets the number of the first time frame (not normally used).
 # ///
 #record(longout, "$(P)$(R)FIXED_TIME")
@@ -141,7 +220,7 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
 #}
 
 # ///
-# /// Get the fixed time register, used for FIXED trigger mode.
+# /// Get the fixed time register, used for Software trigger mode.
 # /// This sets the number of the first time frame (not normally used).
 # ///
 #record(longin, "$(P)$(R)FIXED_TIME_RBV")
