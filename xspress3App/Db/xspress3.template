@@ -471,40 +471,6 @@ record(stringout, "$(P)$(R)NAME")
    field(DESC, "Xspress3 EPICS Control")
 }
 
-
-substitute "CHAN=1"
-substitute "ADDR=0"
-include "xspress3Channel.template"
-
-substitute "CHAN=2"
-substitute "ADDR=1"
-include "xspress3Channel.template"
-
-substitute "CHAN=3"
-substitute "ADDR=2"
-include "xspress3Channel.template"
-
-substitute "CHAN=4"
-substitute "ADDR=3"
-include "xspress3Channel.template"
-
-substitute "CHAN=5"
-substitute "ADDR=4"
-include "xspress3Channel.template"
-
-substitute "CHAN=6"
-substitute "ADDR=5"
-include "xspress3Channel.template"
-
-substitute "CHAN=7"
-substitute "ADDR=6"
-include "xspress3Channel.template"
-
-substitute "CHAN=8"
-substitute "ADDR=7"
-include "xspress3Channel.template"
-
-
 #Set DISA for PVs in ADBase that do not apply to Xspress3
 
 record(mbbo, "$(P)$(R)DataType")
