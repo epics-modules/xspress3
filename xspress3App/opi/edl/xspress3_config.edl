@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 30
-y 186
+x 249
+y 74
 w 630
 h 665
 font "arial-medium-r-14.0"
@@ -70,7 +70,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1
 y 3
@@ -101,7 +101,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 1
 y 3
 w 624
@@ -147,7 +147,7 @@ release 0
 x 10
 y 45
 w 605
-h 230
+h 240
 lineColor index 14
 fill
 fillColor index 5
@@ -158,7 +158,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 35
 w 175
@@ -173,7 +173,7 @@ value {
 border
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -182,7 +182,7 @@ release 0
 x 200
 y 70
 w 70
-h 25
+h 35
 controlPv "$(P):NUM_CHANNELS"
 fgColor index 25
 fgAlarm
@@ -196,12 +196,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 275
 y 70
 w 70
-h 25
+h 35
 controlPv "$(P):NUM_CHANNELS_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -221,11 +221,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 90
 y 70
 w 105
-h 20
+h 30
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 10
@@ -240,11 +240,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 30
-y 100
+y 110
 w 170
-h 30
+h 50
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 10
@@ -255,16 +255,16 @@ value {
 }
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 200
-y 100
+y 110
 w 70
-h 25
+h 35
 controlPv "$(P):NUM_FRAMES_CONFIG"
 fgColor index 25
 fgAlarm
@@ -278,12 +278,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 275
-y 100
+y 110
 w 70
-h 25
+h 35
 controlPv "$(P):NUM_FRAMES_CONFIG_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -301,10 +301,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 275
-y 130
+y 150
 w 70
 h 25
 controlPv "$(P):NUM_CARDS_RBV"
@@ -325,9 +325,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 185
-y 135
+y 155
 w 90
 h 20
 font "arial-bold-r-14.0"
@@ -344,7 +344,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 365
 y 50
 w 35
@@ -362,12 +362,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 350
 y 70
 w 70
-h 25
+h 35
 controlPv "$(P):MAX_NUM_CHANNELS_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -387,9 +387,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 130
-y 165
+y 185
 w 140
 h 20
 font "arial-bold-r-14.0"
@@ -405,10 +405,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 275
-y 160
+y 180
 w 70
 h 25
 controlPv "$(P):MAX_SPECTRA_RBV"
@@ -429,12 +429,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 350
-y 100
+y 110
 w 70
-h 25
+h 35
 controlPv "$(P):MAX_FRAMES_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -453,10 +453,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 275
-y 225
+y 240
 w 240
 h 30
 controlPv "$(P):RUN_FLAGS_RBV"
@@ -479,7 +479,7 @@ major 4
 minor 0
 release 0
 x 30
-y 225
+y 240
 w 240
 h 30
 fgColor index 14
@@ -497,9 +497,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 140
-y 195
+y 215
 w 125
 h 20
 font "arial-bold-r-14.0"
@@ -515,10 +515,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 275
-y 190
+y 210
 w 70
 h 25
 controlPv "$(P):MAX_FRAMES_DRIVER_RBV"
@@ -542,7 +542,7 @@ major 4
 minor 0
 release 0
 x 10
-y 295
+y 305
 w 605
 h 140
 lineColor index 14
@@ -555,9 +555,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
-y 285
+y 295
 w 315
 h 20
 font "arial-bold-r-14.0"
@@ -575,9 +575,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 25
-y 325
+y 335
 w 105
 h 35
 font "arial-bold-r-14.0"
@@ -595,9 +595,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 55
-y 380
+y 390
 w 65
 h 30
 font "arial-bold-r-14.0"
@@ -614,10 +614,10 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 130
-y 375
+y 385
 w 465
 h 20
 controlPv "$(P):CONFIG_SAVE_PATH"
@@ -636,14 +636,14 @@ inputFocusUpdates
 objType "controls"
 endObjectProperties
 
-# (Textupdate)
+# (Text Update)
 object TextupdateClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 130
-y 400
+y 410
 w 465
 h 20
 controlPv "$(P):CONFIG_SAVE_PATH_RBV"
@@ -658,10 +658,10 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 130
-y 320
+y 330
 w 465
 h 20
 controlPv "$(P):CONFIG_PATH"
@@ -680,14 +680,14 @@ inputFocusUpdates
 objType "controls"
 endObjectProperties
 
-# (Textupdate)
+# (Text Update)
 object TextupdateClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 130
-y 345
+y 355
 w 465
 h 20
 controlPv "$(P):CONFIG_PATH_RBV"
@@ -731,7 +731,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 525
 w 260
@@ -750,7 +750,7 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 35
 y 555
@@ -774,7 +774,7 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 140
 y 555
@@ -814,7 +814,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 310
 y 525
 w 205
@@ -833,7 +833,7 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 325
 y 555
@@ -857,7 +857,7 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 430
 y 555
@@ -906,7 +906,7 @@ major 4
 minor 0
 release 0
 x 10
-y 455
+y 465
 w 605
 h 50
 lineColor index 14
@@ -919,9 +919,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
-y 445
+y 455
 w 315
 h 20
 font "arial-bold-r-14.0"
@@ -938,10 +938,10 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 130
-y 475
+y 485
 w 465
 h 20
 controlPv "$(P):NDAttributesFile"
@@ -965,9 +965,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 60
-y 470
+y 480
 w 65
 h 35
 font "arial-bold-r-14.0"

@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 406
-y 47
+x 232
+y 77
 w 790
-h 405
+h 420
 font "arial-medium-r-14.0"
 ctlFont "arial-bold-r-14.0"
 btnFont "arial-bold-r-14.0"
@@ -34,7 +34,7 @@ release 0
 x 10
 y 50
 w 770
-h 300
+h 320
 lineColor index 14
 fill
 fillColor index 5
@@ -85,7 +85,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1
 y 3
@@ -116,7 +116,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 1
 y 3
 w 764
@@ -140,8 +140,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 675
-y 360
+x 680
+y 380
 w 100
 h 35
 fgColor index 46
@@ -158,7 +158,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 40
 w 245
@@ -178,7 +178,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 15
 y 70
 w 35
@@ -197,12 +197,12 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 280
 y 95
 w 65
-h 25
+h 35
 fgColor index 43
 bgColor index 3
 topShadowColor index 1
@@ -227,9 +227,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 400
-y 260
+y 270
 w 80
 h 20
 font "arial-bold-r-14.0"
@@ -242,16 +242,16 @@ value {
 }
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 355
-y 285
+y 295
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA4_THRESHOLD"
 fgColor index 25
 fgAlarm
@@ -266,11 +266,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
 y 100
 w 25
-h 20
+h 30
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -286,11 +286,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 130
+y 140
 w 25
-h 20
+h 30
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -306,9 +306,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 170
+y 180
 w 25
 h 20
 font "arial-bold-r-14.0"
@@ -326,9 +326,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 200
+y 210
 w 25
 h 20
 font "arial-bold-r-14.0"
@@ -346,9 +346,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 230
+y 240
 w 25
 h 20
 font "arial-bold-r-14.0"
@@ -366,9 +366,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 260
+y 270
 w 25
 h 20
 font "arial-bold-r-14.0"
@@ -386,11 +386,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 290
+y 305
 w 25
-h 20
+h 25
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -406,9 +406,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 320
+y 340
 w 25
 h 20
 font "arial-bold-r-14.0"
@@ -426,7 +426,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 550
 y 70
 w 170
@@ -446,7 +446,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 355
 y 70
 w 170
@@ -465,12 +465,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 450
-y 125
+y 135
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA6_LLM_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -484,16 +484,16 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 355
-y 125
+y 135
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA6_LLM"
 fgColor index 25
 fgAlarm
@@ -507,12 +507,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 645
-y 125
+y 135
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA6_HLM_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -526,16 +526,16 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 550
-y 125
+y 135
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA6_HLM"
 fgColor index 25
 fgAlarm
@@ -549,12 +549,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 450
 y 95
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA5_LLM_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -568,7 +568,7 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -577,7 +577,7 @@ release 0
 x 355
 y 95
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA5_LLM"
 fgColor index 25
 fgAlarm
@@ -591,12 +591,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 645
 y 95
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA5_HLM_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -610,7 +610,7 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -619,7 +619,7 @@ release 0
 x 550
 y 95
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA5_HLM"
 fgColor index 25
 fgAlarm
@@ -633,12 +633,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 450
-y 285
+y 295
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA4_THRESHOLD_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -656,10 +656,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 170
-y 165
+y 175
 w 105
 h 25
 controlPv "$(P):C$(CHAN)_SCA0:Value_RBV"
@@ -679,10 +679,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 170
-y 195
+y 205
 w 105
 h 25
 controlPv "$(P):C$(CHAN)_SCA1:Value_RBV"
@@ -702,10 +702,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 170
-y 225
+y 235
 w 105
 h 25
 controlPv "$(P):C$(CHAN)_SCA2:Value_RBV"
@@ -725,10 +725,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 170
-y 255
+y 265
 w 105
 h 25
 controlPv "$(P):C$(CHAN)_SCA3:Value_RBV"
@@ -748,12 +748,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 170
-y 285
+y 295
 w 105
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA4:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -771,10 +771,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 170
-y 315
+y 335
 w 105
 h 25
 controlPv "$(P):C$(CHAN)_SCA7:Value_RBV"
@@ -795,9 +795,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 100
-y 170
+y 180
 w 80
 h 20
 font "arial-bold-r-14.0"
@@ -815,9 +815,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 80
-y 200
+y 210
 w 80
 h 20
 font "arial-bold-r-14.0"
@@ -835,9 +835,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 75
-y 230
+y 240
 w 85
 h 20
 font "arial-bold-r-14.0"
@@ -855,9 +855,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 90
-y 260
+y 270
 w 80
 h 20
 font "arial-bold-r-14.0"
@@ -875,11 +875,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 90
-y 290
+y 305
 w 80
-h 20
+h 25
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -895,9 +895,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 100
-y 320
+y 340
 w 80
 h 20
 font "arial-bold-r-14.0"
@@ -915,7 +915,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 180
 y 70
 w 80
@@ -934,12 +934,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 170
-y 125
+y 135
 w 105
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA6:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -957,12 +957,12 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 170
 y 95
 w 105
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_SCA5:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
@@ -981,11 +981,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 85
 y 100
 w 80
-h 20
+h 30
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -1001,11 +1001,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 85
-y 130
+y 140
 w 80
-h 20
+h 30
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -1020,12 +1020,12 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 280
-y 125
+y 135
 w 65
-h 25
+h 35
 fgColor index 43
 bgColor index 3
 topShadowColor index 1
@@ -1049,10 +1049,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 280
-y 165
+y 175
 w 65
 h 25
 fgColor index 43
@@ -1078,10 +1078,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 280
-y 195
+y 205
 w 65
 h 25
 fgColor index 43
@@ -1107,10 +1107,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 280
-y 225
+y 235
 w 65
 h 25
 fgColor index 43
@@ -1136,10 +1136,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 280
-y 255
+y 265
 w 65
 h 25
 fgColor index 43
@@ -1165,12 +1165,12 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 280
-y 285
+y 295
 w 65
-h 25
+h 35
 fgColor index 43
 bgColor index 3
 topShadowColor index 1
@@ -1194,10 +1194,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 280
-y 315
+y 335
 w 65
 h 25
 fgColor index 43

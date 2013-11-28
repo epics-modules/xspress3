@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 137
-y 113
+x 247
+y 51
 w 775
-h 650
+h 660
 font "arial-medium-r-12.0"
 fontAlign "center"
 ctlFont "arial-medium-r-12.0"
@@ -89,7 +89,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1
 y 3
@@ -120,7 +120,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 1
 y 3
 w 774
@@ -143,10 +143,10 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 35
-w 237
+w 238
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -162,7 +162,7 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 20
 y 65
@@ -186,7 +186,7 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 150
 y 65
@@ -210,7 +210,7 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 20
 y 105
@@ -234,7 +234,7 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 285
 y 65
@@ -258,7 +258,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 450
 y 155
 w 165
@@ -276,7 +276,7 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 620
 y 145
@@ -301,7 +301,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
 y 270
 w 60
@@ -319,7 +319,7 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 285
 y 265
@@ -363,7 +363,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 45
 y 155
 w 95
@@ -381,7 +381,7 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 285
 y 145
@@ -400,7 +400,7 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -424,7 +424,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 565
 y 115
 w 55
@@ -442,7 +442,7 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 620
 y 105
@@ -457,7 +457,6 @@ limitsFromDb
 nullColor index 30
 fastUpdate
 useHexPrefix
-showUnits
 newPos
 objType "monitors"
 endObjectProperties
@@ -487,7 +486,7 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 285
 y 185
@@ -511,7 +510,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
 y 190
 w 125
@@ -548,7 +547,7 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 620
 y 185
@@ -573,7 +572,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 505
 y 195
 w 110
@@ -610,7 +609,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 325
 y 110
 w 45
@@ -650,7 +649,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 25
 y 230
 w 125
@@ -668,7 +667,7 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 285
 y 225
@@ -691,7 +690,7 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 150
 y 105
@@ -734,7 +733,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 620
 y 235
 w 80
@@ -767,7 +766,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 490
 y 390
@@ -827,7 +826,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 490
 y 430
@@ -887,7 +886,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 490
 y 470
@@ -947,7 +946,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 490
 y 550
@@ -1028,10 +1027,10 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 475
 y 325
-w 270
+w 271
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -1047,7 +1046,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 490
 y 510
@@ -1073,7 +1072,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 490
 y 350
@@ -1101,10 +1100,10 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 10
+x 5
 y 335
 w 450
-h 260
+h 305
 lineColor index 14
 fill
 fillColor index 5
@@ -1115,7 +1114,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 325
 w 98
@@ -1134,10 +1133,10 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 60
-y 350
+y 345
 w 320
 h 20
 controlPv "$(P):HDF5:FilePath"
@@ -1161,9 +1160,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 25
-y 350
+y 345
 w 65
 h 20
 font "arial-bold-r-14.0"
@@ -1179,10 +1178,10 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 60
-y 375
+y 370
 w 320
 h 20
 controlPv "$(P):HDF5:FilePath_RBV"
@@ -1204,7 +1203,7 @@ major 4
 minor 0
 release 0
 x 390
-y 355
+y 350
 w 35
 h 35
 controlPv "$(P):HDF5:FilePathExists_RBV"
@@ -1220,11 +1219,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 15
 y 400
 w 55
-h 20
+h 40
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 10
@@ -1238,12 +1237,12 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 60
 y 400
 w 185
-h 20
+h 40
 controlPv "$(P):HDF5:FileName"
 font "helvetica-bold-r-14.0"
 fgColor index 25
@@ -1264,12 +1263,12 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 60
-y 425
+y 450
 w 185
-h 20
+h 40
 controlPv "$(P):HDF5:FileName_RBV"
 font "helvetica-bold-r-14.0"
 fgColor index 16
@@ -1287,11 +1286,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 250
 y 400
 w 65
-h 20
+h 40
 font "arial-bold-r-14.0"
 fgColor index 14
 bgColor index 10
@@ -1301,7 +1300,7 @@ value {
 }
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -1310,7 +1309,7 @@ release 0
 x 320
 y 400
 w 60
-h 20
+h 40
 controlPv "$(P):HDF5:FileNumber"
 fgColor index 25
 fgAlarm
@@ -1319,16 +1318,16 @@ fill
 font "arial-bold-r-14.0"
 endObjectProperties
 
-# (Textupdate)
+# (Text Update)
 object TextupdateClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 320
-y 425
+y 450
 w 60
-h 20
+h 40
 controlPv "$(P):HDF5:FileNumber"
 fgColor index 16
 fgAlarm
@@ -1345,7 +1344,7 @@ major 4
 minor 0
 release 0
 x 390
-y 455
+y 500
 w 35
 h 35
 controlPv "$(P):HDF5:Capture_RBV"
@@ -1360,10 +1359,10 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 60
-y 455
+y 500
 w 155
 h 35
 fgColor index 25
@@ -1384,10 +1383,10 @@ endObjectProperties
 object activeMessageButtonClass
 beginObjectProperties
 major 4
-minor 0
+minor 1
 release 0
 x 225
-y 455
+y 500
 w 155
 h 35
 fgColor index 25
@@ -1408,10 +1407,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 225
-y 545
+y 590
 w 200
 h 35
 fgColor index 43
@@ -1430,14 +1429,14 @@ setPosition {
 }
 endObjectProperties
 
-# (Textupdate)
+# (Text Update)
 object TextupdateClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 155
-y 545
+y 590
 w 65
 h 35
 controlPv "$(P):HDF5:NumCaptured_RBV"
@@ -1454,9 +1453,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 40
-y 545
+y 590
 w 105
 h 35
 font "arial-bold-r-14.0"
@@ -1472,10 +1471,10 @@ endObjectProperties
 object activeXTextDspClass
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 155
-y 500
+y 545
 w 225
 h 35
 controlPv "$(P):HDF5:WriteMessage"
@@ -1498,7 +1497,7 @@ major 4
 minor 0
 release 0
 x 390
-y 500
+y 545
 w 35
 h 35
 controlPv "$(P):HDF5:WriteStatus"
@@ -1514,9 +1513,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 500
+y 545
 w 130
 h 35
 font "arial-bold-r-14.0"

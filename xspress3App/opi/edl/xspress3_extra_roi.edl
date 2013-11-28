@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 225
-y 59
+x 278
+y 44
 w 1350
-h 315
+h 330
 font "arial-medium-r-12.0"
 fontAlign "center"
 ctlFont "arial-medium-r-12.0"
@@ -74,7 +74,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1
 y 3
@@ -105,7 +105,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 1
 y 3
 w 1339
@@ -130,7 +130,7 @@ major 4
 minor 1
 release 0
 x 1235
-y 265
+y 280
 w 95
 h 30
 fgColor index 46
@@ -151,7 +151,7 @@ release 0
 x 10
 y 50
 w 1320
-h 205
+h 220
 lineColor index 14
 fill
 fillColor index 5
@@ -162,7 +162,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
 y 40
 w 194
@@ -182,11 +182,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 50
-y 100
+y 110
 w 100
-h 20
+h 30
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -202,11 +202,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 50
 y 70
 w 100
-h 20
+h 30
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -222,9 +222,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 30
-y 130
+y 150
 w 120
 h 20
 font "arial-bold-r-14.0"
@@ -237,7 +237,7 @@ value {
 }
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -246,7 +246,7 @@ release 0
 x 255
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI6_LLM"
 fgColor index 25
 fgAlarm
@@ -256,16 +256,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 255
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI6_HLM"
 fgColor index 25
 fgAlarm
@@ -279,10 +279,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 255
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI6:Value_RBV"
@@ -298,7 +298,7 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -307,7 +307,7 @@ release 0
 x 355
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI7_LLM"
 fgColor index 25
 fgAlarm
@@ -317,16 +317,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 355
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI7_HLM"
 fgColor index 25
 fgAlarm
@@ -340,10 +340,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 355
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI7:Value_RBV"
@@ -363,10 +363,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 155
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -388,7 +388,7 @@ symbols {
 }
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -397,7 +397,7 @@ release 0
 x 155
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI5_LLM"
 fgColor index 25
 fgAlarm
@@ -407,16 +407,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 155
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI5_HLM"
 fgColor index 25
 fgAlarm
@@ -430,10 +430,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 155
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI5:Value_RBV"
@@ -453,10 +453,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 255
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -482,10 +482,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 355
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -512,9 +512,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 35
-y 160
+y 180
 w 120
 h 20
 font "arial-bold-r-14.0"
@@ -531,10 +531,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 155
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI5:ValueSum_RBV"
@@ -554,10 +554,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 255
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI6:ValueSum_RBV"
@@ -577,10 +577,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 355
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI7:ValueSum_RBV"
@@ -603,7 +603,7 @@ major 4
 minor 0
 release 0
 x 155
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -622,7 +622,7 @@ major 4
 minor 0
 release 0
 x 255
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -641,7 +641,7 @@ major 4
 minor 0
 release 0
 x 355
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -658,9 +658,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 220
+y 240
 w 130
 h 20
 font "arial-bold-r-14.0"
@@ -673,20 +673,71 @@ value {
 }
 endObjectProperties
 
-# (Group)
-object activeGroupClass
+# (Choice Button)
+object activeChoiceButtonClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 455
-y 65
-w 90
-h 175
+x 155
+y 280
+w 125
+h 35
+fgColor index 14
+bgColor index 3
+selectColor index 3
+inconsistentColor index 3
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C$(CHAN)_PluginControlValExtraROI"
+indicatorPv "$(P):C$(CHAN)_PluginControlValExtraROI"
+font "arial-bold-r-14.0"
+endObjectProperties
 
-beginGroup
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 290
+y 280
+w 125
+h 35
+controlPv "$(P):C$(CHAN)_PluginControlValExtraROI"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
 
-# (Textentry)
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 285
+w 150
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Enable/Disable All"
+}
+endObjectProperties
+
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -695,7 +746,7 @@ release 0
 x 455
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI8_LLM"
 fgColor index 25
 fgAlarm
@@ -705,16 +756,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 455
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI8_HLM"
 fgColor index 25
 fgAlarm
@@ -728,10 +779,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 455
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI8:Value_RBV"
@@ -751,10 +802,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 455
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -780,10 +831,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 455
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI8:ValueSum_RBV"
@@ -806,7 +857,7 @@ major 4
 minor 0
 release 0
 x 455
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -818,24 +869,7 @@ controlPv "$(P):C$(CHAN)_ROI8:EnableCallbacks"
 font "arial-bold-r-12.0"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 550
-y 65
-w 90
-h 175
-
-beginGroup
-
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -844,7 +878,7 @@ release 0
 x 550
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI9_LLM"
 fgColor index 25
 fgAlarm
@@ -854,16 +888,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 550
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI9_HLM"
 fgColor index 25
 fgAlarm
@@ -877,10 +911,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 550
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI9:Value_RBV"
@@ -900,10 +934,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 550
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -929,10 +963,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 550
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI9:ValueSum_RBV"
@@ -955,7 +989,7 @@ major 4
 minor 0
 release 0
 x 550
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -967,24 +1001,7 @@ controlPv "$(P):C$(CHAN)_ROI9:EnableCallbacks"
 font "arial-bold-r-12.0"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 645
-y 65
-w 90
-h 175
-
-beginGroup
-
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -993,7 +1010,7 @@ release 0
 x 645
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI10_LLM"
 fgColor index 25
 fgAlarm
@@ -1003,16 +1020,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 645
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI10_HLM"
 fgColor index 25
 fgAlarm
@@ -1026,10 +1043,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 645
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI10:Value_RBV"
@@ -1049,10 +1066,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 645
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -1078,10 +1095,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 645
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI10:ValueSum_RBV"
@@ -1104,7 +1121,7 @@ major 4
 minor 0
 release 0
 x 645
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -1116,24 +1133,7 @@ controlPv "$(P):C$(CHAN)_ROI10:EnableCallbacks"
 font "arial-bold-r-12.0"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 740
-y 65
-w 90
-h 175
-
-beginGroup
-
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -1142,7 +1142,7 @@ release 0
 x 740
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI11_LLM"
 fgColor index 25
 fgAlarm
@@ -1152,16 +1152,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 740
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI11_HLM"
 fgColor index 25
 fgAlarm
@@ -1175,10 +1175,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 740
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI11:Value_RBV"
@@ -1198,10 +1198,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 740
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -1227,10 +1227,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 740
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI11:ValueSum_RBV"
@@ -1253,7 +1253,7 @@ major 4
 minor 0
 release 0
 x 740
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -1265,24 +1265,7 @@ controlPv "$(P):C$(CHAN)_ROI11:EnableCallbacks"
 font "arial-bold-r-12.0"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 835
-y 65
-w 90
-h 175
-
-beginGroup
-
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -1291,7 +1274,7 @@ release 0
 x 835
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI12_LLM"
 fgColor index 25
 fgAlarm
@@ -1301,16 +1284,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 835
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI12_HLM"
 fgColor index 25
 fgAlarm
@@ -1324,10 +1307,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 835
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI12:Value_RBV"
@@ -1347,10 +1330,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 835
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -1376,10 +1359,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 835
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI12:ValueSum_RBV"
@@ -1402,7 +1385,7 @@ major 4
 minor 0
 release 0
 x 835
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -1414,24 +1397,7 @@ controlPv "$(P):C$(CHAN)_ROI12:EnableCallbacks"
 font "arial-bold-r-12.0"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 930
-y 65
-w 90
-h 175
-
-beginGroup
-
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -1440,7 +1406,7 @@ release 0
 x 930
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI13_LLM"
 fgColor index 25
 fgAlarm
@@ -1450,16 +1416,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 930
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI13_HLM"
 fgColor index 25
 fgAlarm
@@ -1473,10 +1439,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 930
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI13:Value_RBV"
@@ -1496,10 +1462,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 930
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -1525,10 +1491,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 930
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI13:ValueSum_RBV"
@@ -1551,7 +1517,7 @@ major 4
 minor 0
 release 0
 x 930
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -1563,24 +1529,7 @@ controlPv "$(P):C$(CHAN)_ROI13:EnableCallbacks"
 font "arial-bold-r-12.0"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 1025
-y 65
-w 90
-h 175
-
-beginGroup
-
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -1589,7 +1538,7 @@ release 0
 x 1025
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI14_LLM"
 fgColor index 25
 fgAlarm
@@ -1599,16 +1548,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 1025
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI14_HLM"
 fgColor index 25
 fgAlarm
@@ -1622,10 +1571,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 1025
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI14:Value_RBV"
@@ -1645,10 +1594,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1025
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -1674,10 +1623,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 1025
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI14:ValueSum_RBV"
@@ -1700,7 +1649,7 @@ major 4
 minor 0
 release 0
 x 1025
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -1712,24 +1661,7 @@ controlPv "$(P):C$(CHAN)_ROI14:EnableCallbacks"
 font "arial-bold-r-12.0"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 1120
-y 65
-w 90
-h 175
-
-beginGroup
-
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -1738,7 +1670,7 @@ release 0
 x 1120
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI15_LLM"
 fgColor index 25
 fgAlarm
@@ -1748,16 +1680,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 1120
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI15_HLM"
 fgColor index 25
 fgAlarm
@@ -1771,10 +1703,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 1120
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI15:Value_RBV"
@@ -1794,10 +1726,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1120
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -1823,10 +1755,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 1120
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI15:ValueSum_RBV"
@@ -1849,7 +1781,7 @@ major 4
 minor 0
 release 0
 x 1120
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -1861,24 +1793,7 @@ controlPv "$(P):C$(CHAN)_ROI15:EnableCallbacks"
 font "arial-bold-r-12.0"
 endObjectProperties
 
-endGroup
-
-endObjectProperties
-
-# (Group)
-object activeGroupClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 1215
-y 65
-w 90
-h 175
-
-beginGroup
-
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -1887,7 +1802,7 @@ release 0
 x 1215
 y 65
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI16_LLM"
 fgColor index 25
 fgAlarm
@@ -1897,16 +1812,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 1215
-y 95
+y 105
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI16_HLM"
 fgColor index 25
 fgAlarm
@@ -1920,10 +1835,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 1215
-y 125
+y 145
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI16:Value_RBV"
@@ -1943,10 +1858,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1215
-y 185
+y 205
 w 90
 h 25
 fgColor index 43
@@ -1972,10 +1887,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 1215
-y 155
+y 175
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI16:ValueSum_RBV"
@@ -1998,7 +1913,7 @@ major 4
 minor 0
 release 0
 x 1215
-y 215
+y 235
 w 90
 h 25
 fgColor index 14
@@ -2008,73 +1923,5 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):C$(CHAN)_ROI16:EnableCallbacks"
 font "arial-bold-r-12.0"
-endObjectProperties
-
-endGroup
-
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 155
-y 265
-w 125
-h 35
-fgColor index 14
-bgColor index 3
-selectColor index 3
-inconsistentColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):C$(CHAN)_PluginControlValExtraROI"
-indicatorPv "$(P):C$(CHAN)_PluginControlValExtraROI"
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 5
-release 0
-x 290
-y 265
-w 125
-h 35
-controlPv "$(P):C$(CHAN)_PluginControlValExtraROI"
-font "arial-bold-r-16.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 0
-x 10
-y 270
-w 150
-h 20
-font "arial-bold-r-14.0"
-fontAlign "center"
-fgColor index 14
-bgColor index 3
-useDisplayBg
-value {
-  "Enable/Disable All"
-}
 endObjectProperties
 

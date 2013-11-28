@@ -93,7 +93,7 @@ record(ai, "$(P)$(R)C$(CHAN)_DTC_IWO_RBV")
 # Note: the actual ROI data is displayed to the user using 
 # the NDAttribute plugin.
 ##########################################################################
-
+substitute "NELEMENTS=$(NELEMENTS)"
 substitute "ROI=1"
 include "xspress3ChannelMCAROI.template"
 

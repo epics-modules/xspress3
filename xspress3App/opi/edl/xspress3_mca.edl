@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 495
-y 69
+x 3
+y 44
 w 1000
 h 965
 font "arial-medium-r-12.0"
@@ -74,7 +74,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1
 y 3
@@ -105,7 +105,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 1
 y 3
 w 994
@@ -149,7 +149,7 @@ major 4
 minor 0
 release 0
 x 10
-y 45
+y 35
 w 975
 h 335
 lineColor index 14
@@ -161,11 +161,11 @@ endObjectProperties
 object xyGraphClass
 beginObjectProperties
 major 4
-minor 6
+minor 8
 release 0
 # Geometry
 x 20
-y 65
+y 55
 w 955
 h 305
 # Appearance
@@ -202,10 +202,10 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
-y 40
-w 341
+y 30
+w 339
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -224,7 +224,7 @@ major 4
 minor 0
 release 0
 x 10
-y 395
+y 385
 w 975
 h 335
 lineColor index 14
@@ -236,11 +236,11 @@ endObjectProperties
 object xyGraphClass
 beginObjectProperties
 major 4
-minor 6
+minor 8
 release 0
 # Geometry
 x 20
-y 415
+y 405
 w 955
 h 305
 # Appearance
@@ -277,10 +277,10 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
-y 390
-w 359
+y 380
+w 357
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -299,9 +299,9 @@ major 4
 minor 0
 release 0
 x 10
-y 750
+y 740
 w 560
-h 205
+h 215
 lineColor index 14
 fill
 fillColor index 5
@@ -312,10 +312,10 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 10
-y 740
-w 177
+y 730
+w 178
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -332,11 +332,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 50
-y 800
+y 795
 w 100
-h 20
+h 30
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -352,11 +352,11 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 50
-y 770
+y 755
 w 100
-h 20
+h 30
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
@@ -372,9 +372,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 30
-y 830
+y 835
 w 120
 h 20
 font "arial-bold-r-14.0"
@@ -387,16 +387,16 @@ value {
 }
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 255
-y 765
+y 750
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI2_LLM"
 fgColor index 25
 fgAlarm
@@ -406,16 +406,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 255
-y 795
+y 790
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI2_HLM"
 fgColor index 25
 fgAlarm
@@ -429,10 +429,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 255
-y 825
+y 830
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI2:Value_RBV"
@@ -448,16 +448,16 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 355
-y 765
+y 750
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI3_LLM"
 fgColor index 25
 fgAlarm
@@ -467,16 +467,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 355
-y 795
+y 790
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI3_HLM"
 fgColor index 25
 fgAlarm
@@ -490,10 +490,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 355
-y 825
+y 830
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI3:Value_RBV"
@@ -509,16 +509,16 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 455
-y 765
+y 750
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI4_LLM"
 fgColor index 25
 fgAlarm
@@ -528,16 +528,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 455
-y 795
+y 790
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI4_HLM"
 fgColor index 25
 fgAlarm
@@ -551,10 +551,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 455
-y 825
+y 830
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI4:Value_RBV"
@@ -574,10 +574,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 155
-y 885
+y 890
 w 90
 h 25
 fgColor index 43
@@ -599,16 +599,16 @@ symbols {
 }
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 155
-y 765
+y 750
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI1_LLM"
 fgColor index 25
 fgAlarm
@@ -618,16 +618,16 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Textentry)
+# (Text Entry)
 object TextentryClass
 beginObjectProperties
 major 10
 minor 0
 release 0
 x 155
-y 795
+y 790
 w 90
-h 25
+h 35
 controlPv "$(P):C$(CHAN)_MCA_ROI1_HLM"
 fgColor index 25
 fgAlarm
@@ -641,10 +641,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 155
-y 825
+y 830
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI1:Value_RBV"
@@ -664,10 +664,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 255
-y 885
+y 890
 w 90
 h 25
 fgColor index 43
@@ -693,10 +693,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 355
-y 885
+y 890
 w 90
 h 25
 fgColor index 43
@@ -722,10 +722,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 455
-y 885
+y 890
 w 90
 h 25
 fgColor index 43
@@ -752,9 +752,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 35
-y 860
+y 865
 w 120
 h 20
 font "arial-bold-r-14.0"
@@ -771,10 +771,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 155
-y 855
+y 860
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI1:ValueSum_RBV"
@@ -794,10 +794,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 255
-y 855
+y 860
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI2:ValueSum_RBV"
@@ -817,10 +817,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 355
-y 855
+y 860
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI3:ValueSum_RBV"
@@ -840,10 +840,10 @@ endObjectProperties
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
-minor 5
+minor 6
 release 0
 x 455
-y 855
+y 860
 w 90
 h 25
 controlPv "$(P):C$(CHAN)_ROI4:ValueSum_RBV"
@@ -866,7 +866,7 @@ major 4
 minor 0
 release 0
 x 155
-y 915
+y 920
 w 90
 h 25
 fgColor index 14
@@ -885,7 +885,7 @@ major 4
 minor 0
 release 0
 x 255
-y 915
+y 920
 w 90
 h 25
 fgColor index 14
@@ -904,7 +904,7 @@ major 4
 minor 0
 release 0
 x 355
-y 915
+y 920
 w 90
 h 25
 fgColor index 14
@@ -923,7 +923,7 @@ major 4
 minor 0
 release 0
 x 455
-y 915
+y 920
 w 90
 h 25
 fgColor index 14
@@ -940,9 +940,9 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 20
-y 920
+y 925
 w 130
 h 20
 font "arial-bold-r-14.0"
@@ -959,10 +959,10 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 580
-y 750
+y 740
 w 155
 h 35
 fgColor index 43
