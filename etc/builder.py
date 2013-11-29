@@ -1,8 +1,10 @@
 from iocbuilder import Device, AutoSubstitution, ModuleVersion
 from iocbuilder.arginfo import *
 
+from iocbuilder import ModuleBase
 from iocbuilder.modules.areaDetector import AreaDetector,_ADBase
 from iocbuilder.modules.calc import Calc
+from iocbuilder.modules.spectraPlugins import SpectraPlugins,NDPluginAttribute
 
 class highlevel(AutoSubstitution):
      """Template containing the records for an NDPluginAttribute"""
@@ -12,6 +14,60 @@ class highlevel(AutoSubstitution):
 class _xspress3(AutoSubstitution):
     """Template containing the records for an xspress3"""
     TemplateFile = 'xspress3.template'
+
+class _xspress3Channel(AutoSubstitution):
+    """Template containing the records for an xspress3Channel"""
+    TemplateFile = 'xspress3Channel.template'
+
+class xspress3Channel(ModuleBase):
+    """Library dependencies for xspress3"""
+
+    Dependencies = (SpectraPlugins,)
+#    _SpecificTemplate=_xspress3Channel
+    AutoInstantiate = True
+
+    def __init__(self, CHAN, **args):
+        # Init the superclass (_ADBase)
+        self.__super.__init__(**args)
+        # Store the args
+        self.__dict__.update(locals())
+
+        # Make a shallow copy and remove the arguments we done want
+        NDPluginArgs = args.copy()
+        del NDPluginArgs['P']
+        del NDPluginArgs['R']
+        del NDPluginArgs['PORT']
+        NDPluginArgs['QUEUE']=4096
+        NDPluginArgs['BUFFERS']=-1
+        NDPluginArgs['MEMORY']=-1
+
+        for i in range(8):
+             NDPluginAttribute( ATTR_NAME="CHAN%dSCA%d"%(CHAN, i),
+                                PORT="XSP3.C%d_SCA%d"%(CHAN, i),
+                                P=args['P']+args['R'],
+                                R="C%d_SCA%d:"%(CHAN, i),
+                                NDARRAY_ADDR=0,
+                                Enabled=1,
+                                **NDPluginArgs)
+                                
+        for i in range( 1,17 ):
+             Enabled=1 if i<5 else 0
+             NDPluginAttribute( ATTR_NAME="CHAN%dROI%d"%(CHAN, i),
+                                PORT="XSP3.C%d_ROI%d"%(CHAN, i),
+                                P=args['P']+args['R'],
+                                R="C%d_ROI%d:"%(CHAN, i),
+                                NDARRAY_ADDR=0,
+                                Enabled=Enabled,
+                                **NDPluginArgs )
+  
+#    def Initialise(self):
+
+    ArgInfo = (_xspress3Channel.ArgInfo + 
+               makeArgInfo(__init__,
+                           R    = Simple('Record Suffix', str),
+                           CHAN = Simple('The channel number', int),
+                           NELEMENTS = Simple('The number of elements', int),
+                           NDARRAY_PORT = Simple('Xspress3 Asyn port', str)))
 
 class xspress3(_ADBase):
     """Library dependencies for xspress3"""
