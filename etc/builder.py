@@ -23,23 +23,33 @@ class xspress3Channel(ModuleBase):
     """Library dependencies for xspress3"""
 
     Dependencies = (SpectraPlugins,)
-#    _SpecificTemplate=_xspress3Channel
+    _SpecificTemplate=_xspress3Channel
     AutoInstantiate = True
 
-    def __init__(self, CHAN, **args):
+    def __init__(self, **args):
         # Init the superclass (_ADBase)
         self.__super.__init__(**args)
+
         # Store the args
+        if self._SpecificTemplate:
+            self.template = self._SpecificTemplate(**filter_dict(args,
+                                                                 self._SpecificTemplate.ArgInfo.Names()))
+            self.__dict__.update(self.template.args)
+
         self.__dict__.update(locals())
 
-        # Make a shallow copy and remove the arguments we done want
+        # Make a shallow copy and remove the arguments we don't want
         NDPluginArgs = args.copy()
         del NDPluginArgs['P']
         del NDPluginArgs['R']
         del NDPluginArgs['PORT']
+        del NDPluginArgs['CHAN']
         NDPluginArgs['QUEUE']=4096
         NDPluginArgs['BUFFERS']=-1
         NDPluginArgs['MEMORY']=-1
+        NDPluginArgs['TIMEOUT']=1
+        NDPluginArgs['ADDR']=0
+        CHAN = args['CHAN']
 
         for i in range(8):
              NDPluginAttribute( ATTR_NAME="CHAN%dSCA%d"%(CHAN, i),

@@ -7,10 +7,15 @@
 # % macro,  P,           Device prefix
 # % macro,  R,           Device suffix
 # % macro,  PORT,        Asyn port name
-# % macro,  ADDR,        Asyn address (set to zero)
+# % macro,  ADDR,        Asyn address
 # % macro,  TIMEOUT,     Asyn timeout
 # % macro,  CHAN,        Channel number
 # % macro,  NELEMENTS,   Number of elements in NDAttribute waveform
+#
+# The following just forces the Diamond iocbuilder to recognise that
+# the NELEMENTS macro is needed - it is used in an included file,
+# but not this file
+# % $(NELEMENTS)
 #
 ##########################################################################
 # Add in records to set SCA related parameters.
@@ -33,7 +38,6 @@ include "xspress3ChannelSCALimits.template"
 ##########################################################################
 # Dead Time Correction Parameters Read At Connection Time
 ##########################################################################
-
 # ///
 # /// Read the Dead Time Correction Flags.
 # ///
@@ -93,7 +97,6 @@ record(ai, "$(P)$(R)C$(CHAN)_DTC_IWO_RBV")
 # Note: the actual ROI data is displayed to the user using 
 # the NDAttribute plugin.
 ##########################################################################
-substitute "NELEMENTS=$(NELEMENTS)"
 substitute "ROI=1"
 include "xspress3ChannelMCAROI.template"
 
@@ -145,7 +148,6 @@ include "xspress3ChannelMCAROI.template"
 ##########################################################################
 # Add in all the NDAttributePlugin records.
 ##########################################################################
-
 substitute "ADDR=0"
 substitute "R=:C$(CHAN)_SCA0:,PORT=XSP3.C$(CHAN)_SCA0"
 include "NDPluginAttribute.template"
