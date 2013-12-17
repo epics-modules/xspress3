@@ -1,3 +1,4 @@
+from os.path import dirname, abspath
 from iocbuilder import Device, AutoSubstitution, ModuleVersion
 from iocbuilder.arginfo import *
 
@@ -96,7 +97,7 @@ class xspress3(_ADBase):
 
     def __init__(self,
                  BUFFERS=0, MEMORY=0, CHANNELS = 8, CARDS=1, BASE_IP="192.168.0.1", 
-                 DEBUG=0, SIM=1, **args):
+                 DEBUG=0, SIM=1, SETTINGS="", DATAPATH="", **args):
         # Init the superclass (_ADBase)
         self.__super.__init__(**args)
         # Store the args
@@ -123,6 +124,139 @@ class xspress3(_ADBase):
             'xspress3Config("%(PORT)s", %(CHANNELS)d, %(CARDS)d, "%(BASE_IP)s", ' \
             '%(MAX_FRAMES)s, %(MAX_SPECTRA)s, %(BUFFERS)d, %(MEMORY)d, %(DEBUG)d, %(SIM)d )' % self.__dict__
 
+    def PostIocInitialise(self):
+        # This is really horrible, but until I can get the defaults sorted, this is the best I can do 
+        temp_dict=self.__dict__.copy()
+        temp_dict["XSP3_TOP"] = dirname(dirname(abspath(__file__)))
+        print """
+#Set up the NDAttributes file to tell areaDetector what attributes to
+#save in the NDArray objects (and to file).
+dbpf("%(P)s:NDAttributesFile", "%(XSP3_TOP)s/data/xsp3.xml")
+
+#Set up some of the more complicated HDF PVs
+dbpf("%(P)s:HDF5:FileTemplate", "%%s%%s%%d.hdf5")
+dbpf("%(P)s:HDF5:FileWriteMode", "Stream")
+dbpf("%(P)s:HDF5:EnableCallbacks", "Enable")
+
+#Set up the PROC plugin spectra summing
+dbpf("%(P)s:PROC:EnableFilter", "Enable")
+dbpf("%(P)s:PROC:FilterType", "Sum")
+dbpf("%(P)s:PROC:EnableCallbacks", "Enable")
+
+# Enable spectra for channel 1
+dbpf("%(P)s:C1_PluginControlVal", "Enabled")
+
+#Set up the ROI parameters
+dbpf("%(P)s:ROIDATA:EnableX", "Yes")
+dbpf("%(P)s:ROIDATA:EnableY", "Yes")
+dbpf("%(P)s:ROI1:EnableX", "Yes")
+dbpf("%(P)s:ROI2:EnableX", "Yes")
+dbpf("%(P)s:ROI3:EnableX", "Yes")
+dbpf("%(P)s:ROI4:EnableX", "Yes")
+dbpf("%(P)s:ROI5:EnableX", "Yes")
+dbpf("%(P)s:ROI6:EnableX", "Yes")
+dbpf("%(P)s:ROI7:EnableX", "Yes")
+dbpf("%(P)s:ROI8:EnableX", "Yes")
+dbpf("%(P)s:ROI1:EnableY", "Yes")
+dbpf("%(P)s:ROI2:EnableY", "Yes")
+dbpf("%(P)s:ROI3:EnableY", "Yes")
+dbpf("%(P)s:ROI4:EnableY", "Yes")
+dbpf("%(P)s:ROI5:EnableY", "Yes")
+dbpf("%(P)s:ROI6:EnableY", "Yes")
+dbpf("%(P)s:ROI7:EnableY", "Yes")
+dbpf("%(P)s:ROI8:EnableY", "Yes")
+dbpf("%(P)s:ROISUM1:EnableX", "Yes")
+dbpf("%(P)s:ROISUM2:EnableX", "Yes")
+dbpf("%(P)s:ROISUM3:EnableX", "Yes")
+dbpf("%(P)s:ROISUM4:EnableX", "Yes")
+dbpf("%(P)s:ROISUM5:EnableX", "Yes")
+dbpf("%(P)s:ROISUM6:EnableX", "Yes")
+dbpf("%(P)s:ROISUM7:EnableX", "Yes")
+dbpf("%(P)s:ROISUM8:EnableX", "Yes")
+dbpf("%(P)s:ROISUM1:EnableY", "Yes")
+dbpf("%(P)s:ROISUM2:EnableY", "Yes")
+dbpf("%(P)s:ROISUM3:EnableY", "Yes")
+dbpf("%(P)s:ROISUM4:EnableY", "Yes")
+dbpf("%(P)s:ROISUM5:EnableY", "Yes")
+dbpf("%(P)s:ROISUM6:EnableY", "Yes")
+dbpf("%(P)s:ROISUM7:EnableY", "Yes")
+dbpf("%(P)s:ROISUM8:EnableY", "Yes")
+dbpf("%(P)s:ROI1:MinY", "0")
+dbpf("%(P)s:ROI2:MinY", "1")
+dbpf("%(P)s:ROI3:MinY", "2")
+dbpf("%(P)s:ROI4:MinY", "3")
+dbpf("%(P)s:ROI5:MinY", "4")
+dbpf("%(P)s:ROI6:MinY", "5")
+dbpf("%(P)s:ROI7:MinY", "6")
+dbpf("%(P)s:ROI8:MinY", "7")
+dbpf("%(P)s:ROI1:SizeY", "1")
+dbpf("%(P)s:ROI2:SizeY", "1")
+dbpf("%(P)s:ROI3:SizeY", "1")
+dbpf("%(P)s:ROI4:SizeY", "1")
+dbpf("%(P)s:ROI5:SizeY", "1")
+dbpf("%(P)s:ROI6:SizeY", "1")
+dbpf("%(P)s:ROI7:SizeY", "1")
+dbpf("%(P)s:ROI8:SizeY", "1")
+dbpf("%(P)s:ROISUM1:MinY", "0")
+dbpf("%(P)s:ROISUM2:MinY", "1")
+dbpf("%(P)s:ROISUM3:MinY", "2")
+dbpf("%(P)s:ROISUM4:MinY", "3")
+dbpf("%(P)s:ROISUM5:MinY", "4")
+dbpf("%(P)s:ROISUM6:MinY", "5")
+dbpf("%(P)s:ROISUM7:MinY", "6")
+dbpf("%(P)s:ROISUM8:MinY", "7")
+dbpf("%(P)s:ROISUM1:SizeY", "1")
+dbpf("%(P)s:ROISUM2:SizeY", "1")
+dbpf("%(P)s:ROISUM3:SizeY", "1")
+dbpf("%(P)s:ROISUM4:SizeY", "1")
+dbpf("%(P)s:ROISUM5:SizeY", "1")
+dbpf("%(P)s:ROISUM6:SizeY", "1")
+dbpf("%(P)s:ROISUM7:SizeY", "1")
+dbpf("%(P)s:ROISUM8:SizeY", "1")
+
+#Disable channels 2-8 by default. These can be enabled by the
+#user if needed.
+dbpf("%(P)s:C2_PluginControlVal", "0")
+dbpf("%(P)s:C3_PluginControlVal", "0")
+dbpf("%(P)s:C4_PluginControlVal", "0")
+dbpf("%(P)s:C5_PluginControlVal", "0")
+dbpf("%(P)s:C6_PluginControlVal", "0")
+dbpf("%(P)s:C7_PluginControlVal", "0")
+dbpf("%(P)s:C8_PluginControlVal", "0")
+
+#Disable ROIs 5 to 16 on all channels be default
+dbpf("%(P)s:C1_PluginControlValExtraROI", "0")
+dbpf("%(P)s:C2_PluginControlValExtraROI", "0")
+dbpf("%(P)s:C3_PluginControlValExtraROI", "0")
+dbpf("%(P)s:C4_PluginControlValExtraROI", "0")
+dbpf("%(P)s:C5_PluginControlValExtraROI", "0")
+dbpf("%(P)s:C6_PluginControlValExtraROI", "0")
+dbpf("%(P)s:C7_PluginControlValExtraROI", "0")
+dbpf("%(P)s:C8_PluginControlValExtraROI", "0")
+
+#Set the default energy and channel range for the ROIDATA plugin.
+dbpf("%(P)s:ROIDATA:SizeX", "4096")
+dbpf("%(P)s:ROIDATA:SizeY", "8")
+
+# Xspress 3 configuration
+dbpf("%(P)s:CONFIG_PATH", "%(SETTINGS)s")
+dbpf("%(P)s:RUN_FLAGS","0")
+dbpf("%(P)s:NUM_CHANNELS","%(CHANNELS)d")
+dbpf("%(P)s:NumImages", "100")
+
+# hdf5 output
+dbpf("%(P)s:HDF5:FilePath","%(DATAPATH)s")
+dbpf("%(P)s:HDF5:FileName","test")
+dbpf("%(P)s:ArrayCallbacks","Enable")
+dbpf("%(P)s:ROIDATA:EnableCallbacks","Enable")
+
+# connect to Xspress3
+dbpf("%(P)s:CONNECT","1")
+
+# set TTL trigger
+dbpf("%(P)s:TriggerMode","TTL Veto Only")
+"""% temp_dict
+
     ArgInfo = (_xspress3.ArgInfo +
                _ADBase.ArgInfo + 
                makeArgInfo(__init__,
@@ -132,8 +266,10 @@ class xspress3(_ADBase):
                                            'for driver and all attached plugins', int),
                            CHANNELS= Simple('Input array queue size', int),
                            CARDS   = Simple('The number of Xspress3 systems (normally 1)', int),
-                           BASE_IP = Simple('Input array queue size', str),
+                           BASE_IP = Simple('Base IP address', str),
                            DEBUG   = Simple('Passed through to the Xspress3 via xsp3_config in the Xspress API', int),
-                           SIM     = Simple('Set to 1 to run driver in simulation mode', int))
+                           SIM     = Simple('Set to 1 to run driver in simulation mode', int),
+                           SETTINGS= Simple('File systems path to settings directory', str),
+                           DATAPATH= Simple('File systems path to default data directory', str))
                )
 
