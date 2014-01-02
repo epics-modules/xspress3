@@ -3,7 +3,7 @@ from iocbuilder import Device, AutoSubstitution, ModuleVersion
 from iocbuilder.arginfo import *
 
 from iocbuilder import ModuleBase
-from iocbuilder.modules.areaDetector import AreaDetector,_ADBase
+from iocbuilder.modules.areaDetector import AreaDetector,_ADBase,NDAttributes
 from iocbuilder.modules.calc import Calc
 from iocbuilder.modules.spectraPlugins import SpectraPlugins,NDPluginAttribute
 
@@ -60,7 +60,7 @@ class xspress3Channel(ModuleBase):
                                 NDARRAY_ADDR=0,
                                 Enabled=1,
                                 **NDPluginArgs)
-                                
+
         for i in range( 1,17 ):
              Enabled=1 if i<5 else 0
              NDPluginAttribute( ATTR_NAME="CHAN%dROI%d"%(CHAN, i),
@@ -85,7 +85,7 @@ class xspress3(_ADBase):
     Dependencies = (AreaDetector,Calc)
     # Device attributes
     MakefileStringList = ['BOOST=/dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0/prefix',
-                          'USR_LDFLAGS += -L$(BOOST)/lib/']
+                          'USR_LDFLAGS += -L$(BOOST)/lib/ -Wl,-rpath,$(BOOST)/lib']
     LibFileList = ['img_mod', 'FemClient','Xspress3FemApi','xspress3','xspress3Epics', ]
     SysLibFileList = ['boost_thread', 'boost_system','rt']
     DbdFileList = ['xspress3','xspress3Support']
@@ -102,6 +102,62 @@ class xspress3(_ADBase):
         self.__super.__init__(**args)
         # Store the args
         self.__dict__.update(locals())
+ 
+        fileparams = [("RingCurrent",  "EPICS_PV", "SR-DI-DCCT-01:SIGNAL", "DOUBLE", "Ring Current"), 
+                      ("ImageCounter", "PARAM",    "ARRAY_COUNTER" ,       "INT",    "Image counter"),
+                      ("Model",        "PARAM",    "MODEL",                "STRING", "Model"),
+                      ("Manufacturer", "PARAM",    "MANUFACTURER",         "STRING", "Manufacturer") ]
+                   
+        for (name, ptype, source, dtype, desc) in fileparams:
+             NDAttributes(port=self, 
+                          source=source, attrname=name, 
+                          type=ptype, datatype=dtype, 
+                          description=desc)
+
+        limitparams=[( "LLM", "Low Limit"),
+                     ( "HLM", "High Limit") ]
+        chanparams =[( "_DTC_FLAGS", "INT",    "DTC Flags" ),
+                     ( "_DTC_AEG",   "DOUBLE", "DTC All Good Event Grad" ),
+                     ( "_DTC_AEO",   "DOUBLE", "DTC All Good Event Offset" ),
+                     ( "_DTC_IWG",   "DOUBLE", "DTC In Window Grad" ),
+                     ( "_DTC_IWO",   "DOUBLE", "DTC In Window Offset" ) ]
+
+        for CHAN in range(1,CHANNELS+1):
+             for i in range(8):
+                  NDAttributes(port=self,
+                               attrname="CHAN%dSCA%d"%(CHAN, i),
+                               addr=CHAN-1,
+                               type="PARAM",
+                               source="XSP3_CHAN_SCA%d"%(i),
+                               datatype="DOUBLE",
+                               description="Chan %d SCA %d"%(CHAN, i) )
+
+             for ( abbr, dtype, text ) in chanparams:
+                  NDAttributes(port=self,
+                               attrname="CHAN%d%s"%(CHAN, abbr.replace("_","")),
+                               addr=CHAN-1,
+                               type=dtype,
+                               source="XSP3_CHAN%s"%(abbr),
+                               datatype="DOUBLE",
+                               description="Chan %d %s"%(CHAN, text) )
+                 
+
+             for i in range( 1,17 ):
+                  NDAttributes(port=self,
+                               attrname="CHAN%dROI%d"%(CHAN, i),
+                               addr=CHAN-1,
+                               type="PARAM",
+                               source="XSP3_CHAN_ROI%d"%(i),
+                               datatype="DOUBLE",
+                               description="Chan %d ROI %d"%(CHAN, i) )
+                  for ( abbr, text ) in limitparams:
+                      NDAttributes(port=self,
+                                   attrname="CHAN%dROI%d%s"%(CHAN, i,abbr),
+                                   addr=CHAN-1,
+                                   type="PARAM",
+                                   source="XSP3_CHAN_ROI%d_%s"%(i,abbr),
+                                   datatype="INT",
+                                   description="Chan %d ROI %d %s"%(CHAN, i, text) )
 
     def Initialise(self):
         print """
@@ -129,10 +185,6 @@ class xspress3(_ADBase):
         temp_dict=self.__dict__.copy()
         temp_dict["XSP3_TOP"] = dirname(dirname(abspath(__file__)))
         print """
-#Set up the NDAttributes file to tell areaDetector what attributes to
-#save in the NDArray objects (and to file).
-dbpf("%(P)s:NDAttributesFile", "%(XSP3_TOP)s/data/xsp3.xml")
-
 #Set up some of the more complicated HDF PVs
 dbpf("%(P)s:HDF5:FileTemplate", "%%s%%s%%d.hdf5")
 dbpf("%(P)s:HDF5:FileWriteMode", "Stream")
