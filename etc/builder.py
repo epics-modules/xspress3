@@ -123,6 +123,9 @@ class xspress3(_ADBase):
                      ( "_DTC_IWO",   "DOUBLE", "DTC In Window Offset" ) ]
 
         for CHAN in range(1,CHANNELS+1):
+             xspress3Channel(P=self.P, R=self.R, PORT=self.PORT, ADDR=CHAN-1, TIMEOUT=self.TIMEOUT, 
+                             CHAN=CHAN, NDARRAY_PORT=self.PORT, NELEMENTS=4096 )
+
              for i in range(8):
                   NDAttributes(port=self,
                                attrname="CHAN%dSCA%d"%(CHAN, i),

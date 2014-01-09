@@ -2,14 +2,6 @@
 <components arch="linux-x86_64">
 	<EPICS_BASE.StartupCommand at_end="False" command="callbackSetQueueSize(4000)" name="CallbackQueue" post_init="False"/>
 	<xspress3.xspress3 ADDR="0" BUFFERS="4096" DATAPATH="/dls/i24/data/2013/cm5951-1/tmp" MAX_FRAMES="16384" MAX_SPECTRA="4095" P="XSPRESS3-EXAMPLE" PORT="XSP3" R=":" SETTINGS="/dls/i24/epics/xspress3/settings" TIMEOUT="5"/>
-	<xspress3.xspress3Channel ADDR="0" CHAN="1" NDARRAY_PORT="XSP3" NELEMENTS="4096" P="XSPRESS3-EXAMPLE" PORT="XSP3" R=":" TIMEOUT="5"/>
-	<xspress3.xspress3Channel ADDR="1" CHAN="2" NDARRAY_PORT="XSP3" NELEMENTS="4096" P="XSPRESS3-EXAMPLE" PORT="XSP3" R=":" TIMEOUT="5"/>
-	<xspress3.xspress3Channel ADDR="2" CHAN="3" NDARRAY_PORT="XSP3" NELEMENTS="4096" P="XSPRESS3-EXAMPLE" PORT="XSP3" R=":" TIMEOUT="5"/>
-	<xspress3.xspress3Channel ADDR="3" CHAN="4" NDARRAY_PORT="XSP3" NELEMENTS="4096" P="XSPRESS3-EXAMPLE" PORT="XSP3" R=":" TIMEOUT="5"/>
-	<xspress3.xspress3Channel ADDR="4" CHAN="5" NDARRAY_PORT="XSP3" NELEMENTS="4096" P="XSPRESS3-EXAMPLE" PORT="XSP3" R=":" TIMEOUT="5"/>
-	<xspress3.xspress3Channel ADDR="5" CHAN="6" NDARRAY_PORT="XSP3" NELEMENTS="4096" P="XSPRESS3-EXAMPLE" PORT="XSP3" R=":" TIMEOUT="5"/>
-	<xspress3.xspress3Channel ADDR="6" CHAN="7" NDARRAY_PORT="XSP3" NELEMENTS="4096" P="XSPRESS3-EXAMPLE" PORT="XSP3" R=":" TIMEOUT="5"/>
-	<xspress3.xspress3Channel ADDR="7" CHAN="8" NDARRAY_PORT="XSP3" NELEMENTS="4096" P="XSPRESS3-EXAMPLE" PORT="XSP3" R=":" TIMEOUT="5"/>
 	<autosave.Autosave iocName="XSPRESS3-EXAMPLE" path="/dls_sw/i24/epics/autosave"/>
 	<autosave.auto_save_restoreStatus P="XSPRESS3-EXAMPLE:"/>
 	<areaDetector.NDProcess ADDR="0" Enabled="1" NDARRAY_ADDR="0" NDARRAY_PORT="XSP3" P="XSPRESS3-EXAMPLE:" PORT="XSP3.PROC" R="PROC:" TIMEOUT="1"/>
