@@ -45,6 +45,11 @@
 
 #include "xspress3Epics.h"
 
+#define XSP3IF_DEBUG 1
+#ifdef XSP3IF_DEBUG
+#include "xspress3Interface.h"
+#endif
+
 using std::cout;
 using std::endl;
 
@@ -652,6 +657,37 @@ asynStatus Xspress3::restoreSettings(void)
     }
   }
   
+  //Can we do xsp3_format_run here? For normal user operation all the arguments seem to be set to zero.
+  int xsp3_num_channels;
+  getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+  for (int chan=0; chan<xsp3_num_channels; chan++) {
+    xsp3_status = xsp3_format_run(xsp3_handle_, chan, 0, 0, 0, 0, 0, 12);
+    if (xsp3_status < XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_format_run", functionName);
+      status = asynError;
+    } else {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel: %d, Number of time frames configured: %d\n", functionName, chan, xsp3_status);
+    }
+  }
+
+  //Read run flags parameter
+  int xsp3_run_flags;
+  getIntegerParam(xsp3RunFlagsParam, &xsp3_run_flags);
+  if (xsp3_run_flags == runFlag_MCA_SPECTRA_) {
+    xsp3_status = xsp3_set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+  } else if (xsp3_run_flags == runFlag_PLAYB_MCA_SPECTRA_) {
+    xsp3_status = xsp3_set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+  } else {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Invalid run flag option when trying to set xsp3_set_run_flags.\n", functionName);
+    status = asynError;
+  }
+  if (xsp3_status < XSP3_OK) {
+    checkStatus(xsp3_status, "xsp3_set_run_flags", functionName);
+    status = asynError;
+  } 
+
+  //TODO:
+  // Call format_run, run_flags, timing_globA, scalar_windows
   return status;
 }
 
@@ -1573,6 +1609,7 @@ void Xspress3::dataTask(void)
   const char* functionName = "Xspress3::dataTask";
   epicsFloat64 *pSCA;
   epicsFloat64 *pMCA;
+  epicsInt32 *pSCA_INT;
   epicsInt32 *pMCA_INT;
   NDArray *pMCA_NDARRAY;
   int roiEnabled = 0;
@@ -1595,6 +1632,8 @@ void Xspress3::dataTask(void)
   getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
   pSCA = static_cast<epicsFloat64*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsFloat64)));
   assert( pSCA != NULL );
+  pSCA_INT = static_cast<epicsInt32*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsInt32)));
+  assert( pSCA_INT != NULL );
 
   //Create data arrays for MCA spectra
   pMCA = static_cast<epicsFloat64*>(calloc(maxSpectra*numChannels_*maxNumFrames, sizeof(epicsFloat64)));
@@ -1660,6 +1699,7 @@ void Xspress3::dataTask(void)
       setIntegerParam(NDArrayCounter, 0);
       //Need to clear local arrays here for each new acqusition.
       memset(pSCA, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsFloat64));
+      memset(pSCA_INT, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsInt32));
       memset(pMCA, 0, (maxSpectra*numChannels_*maxNumFrames)*sizeof(epicsFloat64));
       memset(pMCA_INT, 0, (maxSpectra*numChannels_*maxNumFrames)*sizeof(epicsInt32));
       setIntegerParam(xsp3FrameCountParam, 0);
@@ -1780,46 +1820,40 @@ void Xspress3::dataTask(void)
         epicsFloat64 *pData = NULL;
         //Readout multiple frames of data here into local arrays.
         if ((!stillBusy) && (remainingFrames != 0)) {
+ 
           if (!simTest_) {
-            //Read the dtc scaler data
-            pData = pSCA+(frameOffset*(XSP3_SW_NUM_SCALERS * numChannels));
-            xsp3_status = xsp3_scaler_dtc_read(xsp3_handle_, pData, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
-            if (xsp3_status < XSP3_OK) {
-              checkStatus(xsp3_status, "xsp3_scaler_dtc_read", functionName);
-              //Abort in this case
-              setStringParam(ADStatusMessage, "Error reading scalers. See IOC log.");
-              setIntegerParam(ADStatus, ADStatusError);
-              setIntegerParam(ADAcquire, ADAcquireFalse_);
-              acquire = 0;
-              remainingFrames = 0;
-            }
-          } else {
-            //Fill the array with dummy data in simTest_ mode
-            pData = pSCA;
-            for (int i=0; i<(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels); ++i) {
-              *(pData++) = i;
-            }
-          }
-
-          if (!simTest_) {
-            //Read out the MCA spectra (dtc or non-corrected)
+            //Read out the MCA spectra and scaler data (dtc or non-corrected)
             if (dtcEnable == 1) {
-              xsp3_status = xsp3_hist_dtc_read4d(xsp3_handle_, reinterpret_cast<double*>(pMCA), NULL, 0, 0, 0, frameOffset, maxSpectra, 1, numChannels, remainingFrames);
+              xsp3_status = xsp3_hist_dtc_read4d(xsp3_handle_, reinterpret_cast<double*>(pMCA), reinterpret_cast<double*>(pSCA), 0, 0, 0, frameOffset, maxSpectra, 1, numChannels, remainingFrames);
+              if (xsp3_status != XSP3_OK) {
+                checkStatus(xsp3_status, "xsp3_hist_dtc_read4d", functionName);
+                status = asynError;
+              }
             } else {
               xsp3_status = xsp3_histogram_read4d(xsp3_handle_, reinterpret_cast<u_int32_t*>(pMCA_INT), 0, 0, 0, frameOffset, maxSpectra, 1, numChannels, remainingFrames);
-            }
-            if (xsp3_status != XSP3_OK) {
-              checkStatus(xsp3_status, "xsp3_hist_dtc_read4d", functionName);
-              status = asynError;
-            }
-            //If reading un-corrected data, need to convert to doubles for the rest of the IOC code.
-            if (dtcEnable == 0) {
+              if (xsp3_status != XSP3_OK) {
+                checkStatus(xsp3_status, "xsp3_histogram_read4d", functionName);
+                status = asynError;
+              }
+              xsp3_status = xsp3_scaler_read(xsp3_handle_, reinterpret_cast<u_int32_t*>(pSCA_INT), 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
+              if (xsp3_status != XSP3_OK) {
+                checkStatus(xsp3_status, "xsp3_scaler_read", functionName);
+                status = asynError;
+              }
+
+              //If reading un-corrected data, need to convert to doubles for the rest of the IOC code.
+    
               epicsFloat64 *pDATA = pMCA;
               epicsInt32 *pDATA_INT = pMCA_INT;
+              epicsFloat64 *pSCA_DATA = pSCA;
+              epicsInt32 *pSCA_DATA_INT = pSCA_INT;
               for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
                 for (int chan=0; chan<numChannels; ++chan) {
                   for (int bin=0; bin<maxSpectra; ++bin) {
                     *(pDATA++) = static_cast<epicsFloat64>(*(pDATA_INT++));
+                  }
+                  for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
+                    *(pSCA_DATA++) = static_cast<epicsFloat64>(*(pSCA_DATA_INT++));
                   }
                 }
               }
@@ -1835,6 +1869,12 @@ void Xspress3::dataTask(void)
                 }
               }
             }
+
+            //Fill the Scaler array with dummy data in simTest_ mode
+            pData = pSCA;
+            for (int i=0; i<(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels); ++i) {
+              *(pData++) = i;
+            }
           }
 
         }
@@ -1844,7 +1884,7 @@ void Xspress3::dataTask(void)
         }
 
         size_t dims[2] = {maxSpectra, numChannels};
-        epicsFloat64 *pScaData = pSCA+(frameOffset*numChannels*XSP3_SW_NUM_SCALERS);
+        epicsFloat64 *pScaData = pSCA;
 
         //For each frame, do the ROI and pack into an NDArray object
         if (!stillBusy) {
@@ -1918,7 +1958,7 @@ void Xspress3::dataTask(void)
 
                   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calculating ROI Data.\n", functionName);
 
-                  int roiOffset = ((maxSpectra*chan) + (maxSpectra*currentFrameOffset));
+                  int roiOffset = ((maxSpectra*chan) + (maxSpectra*numChannels*currentFrameOffset));
                   epicsFloat64 *pMCA_DATA = pMCA+roiOffset;
                   for (int roi=0; roi<maxNumRoi_; ++roi) {
                     for (int energy=roiMin[roi]; energy<roiMax[roi]; ++energy) {
@@ -1950,7 +1990,7 @@ void Xspress3::dataTask(void)
 
             //Pack the MCA data into an NDArray for this frame.   Format is: [chan1 spectra][chan2 spectra][etc]
             if (allocError == 0) {
-              int frame_offset = maxSpectra*currentFrameOffset;
+              int frame_offset = maxSpectra*numChannels*currentFrameOffset;
               for (int chan=0; chan<numChannels; ++chan) {
                 int chan_offset = chan*maxSpectra;
                 epicsFloat64 *pMCA_DATA = pMCA+frame_offset;
