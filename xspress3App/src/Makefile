@@ -26,7 +26,7 @@ xspress3_DBD += aCalcoutRecord.dbd
 
 # The following are compiled and added to the support library
 xspress3Epics_SRCS += xspress3Epics.cpp
-xspress3Epics_SRCS += xspress3Interface.c
+xspress3Epics_SRCS += xspress3Interface.cpp
 
 # We need to link against the EPICS Base libraries
 xspress3Epics_LIBS += $(EPICS_BASE_IOC_LIBS)
