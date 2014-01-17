@@ -7,7 +7,7 @@ int xsp3IF_clocks_setup(int path, int card, int clk_src, int flags, int tp_type)
 int xsp3IF_close(int path);
 int xsp3IF_config(int ncards, int num_tf, char* baseIPaddress, int basePort, char* baseMACaddress, int nchan, int createmodule, char* modname, int debug, int card_index);
 int xsp3IF_config_tcp(char femHostName[][XSP3_MAX_IP_CHARS], int femPort, int card, int chan, int debug);
-int  xsp3IF_config_udp(int path, int card, char *femMACaddress, char*femIPaddress, int femPort, char* hostIPaddress, int hostPort);
+int xsp3IF_config_udp(int path, int card, char *femMACaddress, char*femIPaddress, int femPort, char* hostIPaddress, int hostPort);
 int xsp3IF_config_histogram_udp(int path, int card, char *hostIPaddress, int hostPort, char *femIPaddress, int femPort);
 int xsp3IF_config_scaler(int path);
 int xsp3IF_format_run(int path, int chan, int aux1_mode, int res_thres, int aux2_cont, int disables, int aux2_mode, int nbits_eng);
@@ -16,7 +16,7 @@ int xsp3IF_getDeadtimeCorrectionParameters(int path, int chan, int *flags, doubl
 char* 	xsp3IF_get_error_message();
 int xsp3IF_get_good_thres(int path, int chan, u_int32_t *good_thres);
 int xsp3IF_get_window(int path, int chan, int win, u_int32_t *low, u_int32_t *high);
-int xsp3_hist_dtc_read4d(int path, double *hist_buff, double *scal_buff, unsigned eng, unsigned aux, unsigned chan, unsigned tf,
+int xsp3IF_hist_dtc_read4d(int path, double *hist_buff, double *scal_buff, unsigned eng, unsigned aux, unsigned chan, unsigned tf,
                          unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf);
 int xsp3IF_histogram_clear(int path, int first_chan, int num_chan, int first_frame, int num_frames);
 int xsp3IF_histogram_continue(int path, int card);
@@ -49,7 +49,7 @@ int xsp3IF_set_window(int path, int chan, int win, int low, int high);
 #define xsp3_get_error_message xsp3IF_get_error_message
 #define xsp3_get_good_thres xsp3IF_get_good_thres
 #define xsp3_get_window xsp3IF_get_window
-#define xsp3_hist_dtc_read4d xsp3_hist_dtc_read4d
+#define xsp3_hist_dtc_read4d xsp3IF_hist_dtc_read4d
 #define xsp3_histogram_clear xsp3IF_histogram_clear
 #define xsp3_histogram_continue xsp3IF_histogram_continue
 #define xsp3_histogram_is_busy xsp3IF_histogram_is_busy
