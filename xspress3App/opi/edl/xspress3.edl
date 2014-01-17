@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 247
-y 51
+x 249
+y 73
 w 775
 h 660
 font "arial-medium-r-12.0"
@@ -146,7 +146,7 @@ minor 1
 release 1
 x 10
 y 35
-w 238
+w 233
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -400,7 +400,7 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -779,7 +779,7 @@ botShadowColor index 11
 font "arial-bold-r-14.0"
 buttonLabel "MCA Data and ROI Settings"
 numPvs 4
-numDsps 8
+numDsps 9
 displayFileName {
   0 "xspress3_mca"
   1 "xspress3_mca"
@@ -789,6 +789,7 @@ displayFileName {
   5 "xspress3_mca"
   6 "xspress3_mca"
   7 "xspress3_mca"
+  8 "xspress3_mca_4chan"
 }
 menuLabel {
   0 "Channel 1"
@@ -799,6 +800,7 @@ menuLabel {
   5 "Channel 6"
   6 "Channel 7"
   7 "Channel 8"
+  8 "Channels 1-4"
 }
 setPosition {
   0 "parentWindow"
@@ -1030,7 +1032,7 @@ minor 1
 release 1
 x 475
 y 325
-w 271
+w 264
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -1117,7 +1119,7 @@ minor 1
 release 1
 x 10
 y 325
-w 98
+w 97
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -1300,7 +1302,7 @@ value {
 }
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -1318,7 +1320,7 @@ fill
 font "arial-bold-r-14.0"
 endObjectProperties
 
-# (Text Update)
+# (Textupdate)
 object TextupdateClass
 beginObjectProperties
 major 10
@@ -1429,7 +1431,7 @@ setPosition {
 }
 endObjectProperties
 
-# (Text Update)
+# (Textupdate)
 object TextupdateClass
 beginObjectProperties
 major 10
