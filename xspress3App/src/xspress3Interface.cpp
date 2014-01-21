@@ -1,6 +1,7 @@
 #include "xspress3Interface.h"
 
-#define XSP3IF_DEBUG 1
+/* Uncomment this line to enable debugging */
+/* #define XSP3IF_DEBUG 1 */
 
 int xsp3IF_clocks_setup(int path, int card, int clk_src, int flags, int tp_type)
 {
