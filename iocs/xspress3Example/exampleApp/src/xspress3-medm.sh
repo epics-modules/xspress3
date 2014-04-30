@@ -4,7 +4,7 @@ prefix=$(XSPRESS3_PREFIX)
 
 declare -A locations
 locations[XSPRESS3]=$(XSPRESS3)
-locations[AREADETECTOR]=$(AREADETECTOR)
+locations[AREA_DETECTOR]=$(AREA_DETECTOR)
 locations[DEVIOCSTATS]=$(DEVIOCSTATS)
 locations[ASYN]=$(ASYN)
 locations[SPECTRAPLUGINS]=$(SPECTRAPLUGINS)
@@ -12,7 +12,7 @@ locations[SPECTRAPLUGINS]=$(SPECTRAPLUGINS)
 # Default edl display locations in source tree
 declare -A adls
 adls[XSPRESS3]=xspress3App/opi/adl/xspress3.adl
-adls[AREADETECTOR]=ADApp/op/adl/ADBase.adl
+adls[AREA_DETECTOR]=ADApp/op/adl/ADBase.adl
 adls[DEVIOCSTATS]=op/adl/ioc_stats_soft.adl
 adls[ASYN]=opi/medm/asynRecord.adl
 adls[SPECTRAPLUGINS]=spectraPluginsApp/opi/adl/NDAttribute.adl

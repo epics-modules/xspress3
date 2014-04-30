@@ -66,7 +66,7 @@ SYS_PROD_LIBS += png12
 # We need to link this IOC Application against the EPICS Base libraries
 example_LIBS += $(EPICS_BASE_IOC_LIBS)
 
-include $(AREADETECTOR)/ADApp/commonDriverMakefile
+include $(AREA_DETECTOR)/ADApp/commonDriverMakefile
 
 SCRIPTS += xspress3-medm.sh xspress3-edm.sh
 
