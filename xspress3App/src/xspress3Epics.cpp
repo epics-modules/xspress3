@@ -372,7 +372,7 @@ asynStatus Xspress3::connect(void)
     //Set up clocks on each card
     for (int i=0; i<xsp3_num_cards; i++) {
       xsp3_status = xsp3_clocks_setup(xsp3_handle_, i, XSP3_CLK_SRC_XTAL,
-                                      XSP3_CLK_FLAGS_MASTER | XSP3_CLK_FLAGS_DITHER, 0);
+                                      XSP3_CLK_FLAGS_MASTER | XSP3_CLK_FLAGS_NO_DITHER, 0);
       if (xsp3_status != XSP3_OK) {
 	checkStatus(xsp3_status, "xsp3_clocks_setup", functionName);
 	status = asynError;

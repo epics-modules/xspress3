@@ -60,6 +60,9 @@
  * use only `struct mod_header', and I ignore MOD_IMAGE, so if the format
  * changes again, my code should survive.
  *													R.W.M.J. Sept. 1994
+
+ * W.I.H 27/1/2014 
+ * Adding 2D module type, using top 16 bits of DISP type.
  */
 #if defined(USE_GTK) || defined(__LINUX__) || defined(linux)
 #include "os9types.h"
@@ -82,12 +85,15 @@ typedef void mh_data;
 #include <types.h>
 #endif
 
+
+#define IMG_MOD_GET_TYPE(p)  ((((p)->head.disp_type)>>16)&0xFFFF)
+#define IMG_MOD_GET_DISP(p)  ((((p)->head.disp_type)>>0)&0xFFFF)
+#define IMG_MOD_SET_DISP_TYPE(mtype,disp)   (((mtype)&0xFFFF)<<16 | (disp))
+#define IMG_MOD_2D				0
+#define IMG_MOD_3D				1
+
 typedef struct
 {
-#if 0
-	mh_com _mh;		/* Data module header  now OS9000 compatible */
-	u_int32 cocked_up;		/* See the comment above .. not for long ,the bastards have now moved the name to befroe the data... */
-#endif
 	struct mod_header
 	{
 		int32 data_type; 		/* data type long short etc see above 			*/
@@ -108,24 +114,59 @@ typedef struct
 	u_int32 data[1];
 }	MOD_IMAGE;
 
+
+typedef struct
+{
+	struct mod_header3d
+	{
+		int32 data_type; 		/* data type long short etc see above 			*/
+		int32 disp_type;		/* Prefered display technique see above			*/
+		u_int32 num_x;			/* Number of elements in x direction 			*/
+		u_int32 num_y;			/* Number of elements in y direction			*/
+		u_int32 num_t;
+		int32 version;		/* incrementing version for derived images? 	*/
+							/* Get a block of data so that it can be read 	*/
+#ifdef __i386__
+		int32 padding;		/* Padding on i386 makes aligned agree with ia64. I386 and IA64 can meet on the same machine. I386 and PPC cannot meet and byte order is different anyway */
+#endif
+		double aspect;		/* Aspect ratio of pixels X wid / Y wid (-ve = ignore)*/
+		char x_label[MOD_LABLEN+2];
+		char y_label[MOD_LABLEN+2];
+		char t_label[MOD_LABLEN+2];
+		char z_label[MOD_LABLEN+2];
+		char title[MOD_TITLEN+2];
+		int labels_num, labels_size, labels_spare;		/* For Y lables, future expansion */
+		int data_offset;
+	} head;
+	int labels_offset[1];		/* First label offset if labels_size > 0 */
+}	MOD_IMAGE3D;
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 #if defined(__LINUX__) || defined(linux)
-int _os_datmod (char *name, int size, u_int16 *attr_rev, u_int16 *type_lang, u_int32 perm, void **mod, void **mod_head);
+int _os_datmod (char *name, int off_t, u_int16 *attr_rev, u_int16 *type_lang, u_int32 perm, void **mod, void **mod_head);
 int _os_link(char **namep, void **mod_head, void **mod, u_int16 *type_lang, u_int16 *att_rev);
-MOD_IMAGE *id_mkmod ( char *name, int num_x, int num_y, char *x_lab, char *y_lab,
-			 int data_float, void **mod_head);
-int _os_datmod (char *name, int size, u_int16 *attr_rev, u_int16 *type_lang, u_int32 perm, void **mod, void **mod_head);
 int _os_link(char **namep, void **mod_head, void **mod, u_int16 *type_lang, u_int16 *att_rev);
 int munlink(void *mod_head);
 int _os_unlink(void *mod_head);
 int datamod_size(void *mod_head);
 
+MOD_IMAGE *id_mkmod ( char *name, int num_x, int num_y, char *x_lab, char *y_lab,  int data_float, void **mod_head);
+MOD_IMAGE3D *id_mkmod3d ( char *name, int num_x, int num_y, int num_t, char *x_lab, char *y_lab, char *t_lab, char ** labels, int data_float, mh_com **mod_head);
+u_int32 *id_get_ptr(void *mod, int x, int y, int t);
+
 #else
 MOD_IMAGE *id_mkmod ( char *name, int num_x, int num_y, char *x_lab, char *y_lab,
 			 int data_float, mh_com **mod_head);
+
+MOD_IMAGE3D *id_mkmod3d ( char *name, int num_x, int num_y, int num_t, char *x_lab, char *y_lab, char *t_lab, char ** labels, int data_float, mh_com **mod_head);
+
+u_int32 *id_get_ptr(void *mod, int x, int y, int t);
+
+
 #endif
 #ifdef __cplusplus
 }

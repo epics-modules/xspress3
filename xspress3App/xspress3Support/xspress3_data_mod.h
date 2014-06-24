@@ -18,7 +18,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
+#undef XSP3_MAX_MODNAME
 #define XSP3_MAX_MODNAME 100
 #define XSP3_MAX_CARDS 8
 #define XSP3_SCOPE_MODULE_MAGIC "xsp3scp"

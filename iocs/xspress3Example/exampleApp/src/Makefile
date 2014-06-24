@@ -40,10 +40,6 @@ USR_LDFLAGS += -L$(BOOST)/lib/ -Wl,-rpath,$(BOOST)/lib
 example_LIBS += xspress3Epics
 
 SYS_PROD_LIBS += xspress3
-SYS_PROD_LIBS += Xspress3FemApi
-SYS_PROD_LIBS += FemClient
-SYS_PROD_LIBS += boost_thread
-SYS_PROD_LIBS += boost_system
 SYS_PROD_LIBS += img_mod
 SYS_PROD_LIBS += rt
 

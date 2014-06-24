@@ -5,8 +5,15 @@
  *      Author: wih73
  */
 
+
+	  
 #ifndef XSPRESS3_DMA_PROTOCOL_H_
 #define XSPRESS3_DMA_PROTOCOL_H_
+
+/**
+	@defgroup XSP3_DMA   Macros to control the DMA engined in the FPGA.
+	@ingroup XSP3_MACROS
+*/
 
 //! [XSP3_DMA_COMMANDS]
 #define XSP3_DMA_CMD_RESET					1
@@ -26,32 +33,61 @@
 #define XSP3_DMA_CMD_SET_MSG_PPC2			15
 //! [XSP3_DMA_COMMANDS]
 
-//! [XSP3_DMA_STREAM_NUMBER]
-#define XSP3_DMA_STREAM_BNUM_DIRECT			0
-#define XSP3_DMA_STREAM_BNUM_PLAYBACK		1
-#define XSP3_DMA_STREAM_BNUM_SCOPE0			2
-#define XSP3_DMA_STREAM_BNUM_SCOPE1			3
-#define XSP3_DMA_STREAM_BNUM_SCALERS		4
-#define XSP3_DMA_STREAM_BNUM_HIST_TO_DRAM	5
-#define XSP3_DMA_STREAM_BNUM_DRAM_TO_10G	6
-#define XSP3_DMA_STREAM_BNUM_10G_TO_DRAM	7
-//! [XSP3_DMA_STREAM_NUMBER]
+#define XSP3_MBOX_MAGIC	0xF0123456
+#define XSP3_MBOX_MAX_MSG	10		// Hardware limit is 16 at the moment.
+#define XSP3_DMA_MAX_POLL_PPC2	100000000
+
+#define XSP3_DMA_ERROR_OK			0
+#define XSP3_DMA_ERROR_UNKNOWN		1
+#define XSP3_DMA_ERROR_BAD_COMMAND	2
+#define XSP3_DMA_ERROR_BAD_STREAM	3
+#define XSP3_DMA_ERROR_BAD_PAY_LOAD	4
+#define XSP3_DMA_ERROR_UNCONF_DESC	5
+#define XSP3_DMA_ERROR_UNCONF_BUFF	6
+#define XSP3_DMA_ERROR_NOT_TX		7
+#define XSP3_DMA_ERROR_NOT_RX		8
+#define XSP3_DMA_ERROR_DESC_RANGE	9
+#define XSP3_DMA_ERROR_DATA_RANGE	10
+#define XSP3_DMA_ERROR_MSG_LEVEL	11
+
+/*! @defgroup XSP3_DMA_STREAM_NUMBER  Number used to identify DMA streams controlled by PPC1 in the Virtex-5 FPGA.
+    @ingroup XSP3_DMA
+  @{
+*/
+#define XSP3_DMA_STREAM_BNUM_DIRECT			0		//!< No DMA stream specified, use absolute addresses.
+#define XSP3_DMA_STREAM_BNUM_PLAYBACK		1		//!< Use Playback DMA and associated descriptors and memory buffer.
+#define XSP3_DMA_STREAM_BNUM_SCOPE0			2		//!< Use Scope0 DMA (for scope streams 0:2) and associated descriptors and memory buffer.
+#define XSP3_DMA_STREAM_BNUM_SCOPE1			3		//!< Use Scope1 DMA (for scope streams 3:5) and associated descriptors and memory buffer.
+#define XSP3_DMA_STREAM_BNUM_SCALERS		4		//!< Use scalers DMA and associated descriptors and memory buffer.
+#define XSP3_DMA_STREAM_BNUM_HIST_TO_DRAM	5		//!< Use DMA for saving histogram addresses to DRAM and associated descriptors and memory buffer. Never used. Provided for debug only.
+#define XSP3_DMA_STREAM_BNUM_DRAM_TO_10G	6		//!< Use DMA Output FEM DRAM over 10 G Ethernet.
+#define XSP3_DMA_STREAM_BNUM_10G_TO_DRAM	7		//!< Use DMA filling FEM DRAM from 10 G Ethernet.
+//! @}
 #define XSP3_DMA_STREAM_NUM					(XSP3_DMA_STREAM_BNUM_10G_TO_DRAM+1)
 
-//! [XSP3_DMA_STREAM_MASK]
-#define XSP3_DMA_STREAM_MASK_DIRECT			(1<<XSP3_DMA_STREAM_BNUM_DIRECT)
-#define XSP3_DMA_STREAM_MASK_PLAYBACK		(1<<XSP3_DMA_STREAM_BNUM_PLAYBACK)
-#define XSP3_DMA_STREAM_MASK_SCOPE0			(1<<XSP3_DMA_STREAM_BNUM_SCOPE0)
-#define XSP3_DMA_STREAM_MASK_SCOPE1			(1<<XSP3_DMA_STREAM_BNUM_SCOPE1)
-#define XSP3_DMA_STREAM_MASK_SCALERS		(1<<XSP3_DMA_STREAM_BNUM_SCALERS)
-#define XSP3_DMA_STREAM_MASK_HIST_TO_DRAM	(1<<XSP3_DMA_STREAM_BNUM_HIST_TO_DRAM)
-#define XSP3_DMA_STREAM_MASK_DRAM_TO_10G	(1<<XSP3_DMA_STREAM_BNUM_DRAM_TO_10G)
-#define XSP3_DMA_STREAM_MASK_10G_TO_DRAM	(1<<XSP3_DMA_STREAM_BNUM_10G_TO_DRAM)
-//! [XSP3_DMA_STREAM_MASK]
+/*! @defgroup XSP3_DMA_STREAM_MASK  Binary Mask used to identify multiple DMA streams controlled by PPC1 in the Virtex-5 FPGA.
+    @ingroup XSP3_DMA
+    @{
+*/
+#define XSP3_DMA_STREAM_MASK_DIRECT			(1<<XSP3_DMA_STREAM_BNUM_DIRECT)		//!< No DMA stream specified, use absolute addresses.
+#define XSP3_DMA_STREAM_MASK_PLAYBACK		(1<<XSP3_DMA_STREAM_BNUM_PLAYBACK)		//!< Use Playback DMA and associated descriptors and memory buffer.
+#define XSP3_DMA_STREAM_MASK_SCOPE0			(1<<XSP3_DMA_STREAM_BNUM_SCOPE0)		//!< Use Scope0 DMA (for scope streams 0:2) and associated descriptors and memory buffer.
+#define XSP3_DMA_STREAM_MASK_SCOPE1			(1<<XSP3_DMA_STREAM_BNUM_SCOPE1)		//!< Use Scope1 DMA (for scope streams 3:5) and associated descriptors and memory buffer.
+#define XSP3_DMA_STREAM_MASK_SCALERS		(1<<XSP3_DMA_STREAM_BNUM_SCALERS)		//!< Use scalers DMA and associated descriptors and memory buffer.
+#define XSP3_DMA_STREAM_MASK_HIST_TO_DRAM	(1<<XSP3_DMA_STREAM_BNUM_HIST_TO_DRAM)  //!< Use DMA for saving histogram addresses to DRAM and associated descriptors and memory buffer. Never used. Provided for debug only.
+#define XSP3_DMA_STREAM_MASK_DRAM_TO_10G	(1<<XSP3_DMA_STREAM_BNUM_DRAM_TO_10G)   //!< Use DMA Output FEM DRAM over 10 G Ethernet.
+#define XSP3_DMA_STREAM_MASK_10G_TO_DRAM	(1<<XSP3_DMA_STREAM_BNUM_10G_TO_DRAM)   //!< Use DMA filling FEM DRAM from 10 G Ethernet.
+//! @}
 
 #define XSP3_DMA_STATE_DESC_CONF	(1<<0)
 #define XSP3_DMA_STATE_BUFFER_CONF	(1<<1)
 #define XSP3_DMA_STATE_DESC_BUILT	(1<<2)
+
+#define XSP3_DMA_DEBUG_DESC_SMALL			1
+#define XSP3_DMA_DEBUG_DESC_NEAR_PACKET		2
+#define XSP3_DMA_DEBUG_DESC_INC_FRAME		4
+
+#define XSP3_DMA_DEBUG_DESC_ALL_SMALL		0x10000
 
 //! [XSP3_DMA_DESCRIPTOR]
 typedef struct _dma_desc
@@ -104,11 +140,6 @@ typedef struct
 } XSP3_DMA_MsgBuildDebugDesc;
 //! [XSP3_DMA_MSG_BUILD_DEBUG_DESC]
 
-#define XSP3_DMA_DEBUG_DESC_SMALL			1
-#define XSP3_DMA_DEBUG_DESC_NEAR_PACKET		2
-#define XSP3_DMA_DEBUG_DESC_INC_FRAME		4
-
-#define XSP3_DMA_DEBUG_DESC_ALL_SMALL		0x10000
 
 //! [XSP3_DMA_MSG_TEST_PAT]
 typedef struct
@@ -188,21 +219,5 @@ typedef struct
 } XSP3_DMA_StatusBlock;
 
 // Magic for Mail Box is chosen to start F0 as there are no valid addresses at 0xF0000000
-#define XSP3_MBOX_MAGIC	0xF0123456
-#define XSP3_MBOX_MAX_MSG	10		// Hardware limit is 16 at the moment.
-#define XSP3_DMA_MAX_POLL_PPC2	100000000
-
-#define XSP3_DMA_ERROR_OK			0
-#define XSP3_DMA_ERROR_UNKNOWN		1
-#define XSP3_DMA_ERROR_BAD_COMMAND	2
-#define XSP3_DMA_ERROR_BAD_STREAM	3
-#define XSP3_DMA_ERROR_BAD_PAY_LOAD	4
-#define XSP3_DMA_ERROR_UNCONF_DESC	5
-#define XSP3_DMA_ERROR_UNCONF_BUFF	6
-#define XSP3_DMA_ERROR_NOT_TX		7
-#define XSP3_DMA_ERROR_NOT_RX		8
-#define XSP3_DMA_ERROR_DESC_RANGE	9
-#define XSP3_DMA_ERROR_DATA_RANGE	10
-#define XSP3_DMA_ERROR_MSG_LEVEL	11
 
 #endif /* XSPRESS3_DMA_PROTOCOL_H_ */

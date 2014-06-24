@@ -8,11 +8,6 @@ include $(TOP)/configure/CONFIG
 
 DATA+=xsp3.xml
 
-#Provide header file path to Xspress3 API
-USR_INCLUDES_Linux += -I$(XSPRESS3_API)/none_vme/xspress3/include/
-USR_INCLUDES_Linux += -I$(XSPRESS3_API)/none_vme/xspress3/xspress3FemApi/include/
-USR_INCLUDES_Linux += -I$(XSPRESS3_API)/libs/include/
-
 LIBRARY_IOC_Linux += xspress3Epics
 
 # xxxRecord.dbd will be installed into <top>/dbd
