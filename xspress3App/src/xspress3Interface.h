@@ -21,6 +21,7 @@ int xsp3IF_hist_dtc_read4d(int path, double *hist_buff, double *scal_buff, unsig
 int xsp3IF_histogram_clear(int path, int first_chan, int num_chan, int first_frame, int num_frames);
 int xsp3IF_histogram_continue(int path, int card);
 int xsp3IF_histogram_is_busy(int path, int chan);
+int xsp3IF_histogram_is_any_busy(int path);
 int xsp3IF_histogram_read4d(int path, u_int32_t *buffer, unsigned eng, unsigned aux, unsigned chan, unsigned tf, unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf);
 int xsp3IF_histogram_start(int path, int card);
 int xsp3IF_histogram_start_count_enb(int path, int card, int count_enb);
@@ -28,6 +29,7 @@ int xsp3IF_histogram_stop(int path, int card);
 int xsp3IF_restore_settings(int path, char *dir_name, int force_mismatch);
 int xsp3IF_save_settings(int path, char *dir_name);
 int xsp3IF_scaler_check_desc(int path, int card);
+int xsp3IF_scaler_check_progress(int path);
 int xsp3IF_scaler_dtc_read(int path, double *dest, unsigned scaler, unsigned chan, unsigned t, unsigned n_scalers, unsigned n_chan, unsigned dt);
 int xsp3IF_set_glob_timeA(int path, int card, u_int32_t time);
 int xsp3IF_set_glob_timeFixed(int path, int card, u_int32_t time);
@@ -53,6 +55,7 @@ int xsp3IF_set_window(int path, int chan, int win, int low, int high);
 #define xsp3_histogram_clear xsp3IF_histogram_clear
 #define xsp3_histogram_continue xsp3IF_histogram_continue
 #define xsp3_histogram_is_busy xsp3IF_histogram_is_busy
+#define xsp3_histogram_is_any_busy xsp3IF_histogram_is_any_busy
 #define xsp3_histogram_read4d xsp3IF_histogram_read4d
 #define xsp3_histogram_start xsp3IF_histogram_start
 #define xsp3_histogram_start_count_enb xsp3IF_histogram_start_count_enb
@@ -60,6 +63,7 @@ int xsp3IF_set_window(int path, int chan, int win, int low, int high);
 #define xsp3_restore_settings xsp3IF_restore_settings
 #define xsp3_save_settings xsp3IF_save_settings
 #define xsp3_scaler_check_desc xsp3IF_scaler_check_desc
+#define xsp3_scaler_check_progress xsp3IF_scaler_check_progress
 #define xsp3_scaler_dtc_read xsp3IF_scaler_dtc_read
 #define xsp3_set_glob_timeA xsp3IF_set_glob_timeA
 #define xsp3_set_glob_timeFixed xsp3IF_set_glob_timeFixed

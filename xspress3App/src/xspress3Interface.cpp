@@ -1,7 +1,7 @@
 #include "xspress3Interface.h"
 
 /* Uncomment this line to enable debugging */
-/* #define XSP3IF_DEBUG 1 */
+#define XSP3IF_DEBUG 1
 
 int xsp3IF_clocks_setup(int path, int card, int clk_src, int flags, int tp_type)
 {
@@ -239,10 +239,24 @@ int xsp3IF_histogram_continue(int path, int card)
 int xsp3IF_histogram_is_busy(int path, int chan)
 {
     int status;
-    if (XSP3IF_DEBUG) 
-        fprintf( stderr, "xsp3_histogram_is_busy( %d, %d ) = ", path, chan );
+if (XSP3IF_DEBUG) 
+fprintf( stderr, "xsp3_histogram_is_busy( %d, %d ) = ", path, chan );
 
     status = xsp3_histogram_is_busy(path, chan);
+
+    if (XSP3IF_DEBUG) 
+        fprintf( stderr, "%d\n", status );
+
+    return status;
+}
+
+int xsp3IF_histogram_is_any_busy(int path)
+{
+    int status;
+if (XSP3IF_DEBUG) 
+fprintf( stderr, "xsp3_histogram_is_any_busy( %d ) = ", path );
+
+    status = xsp3_histogram_is_any_busy(path);
 
     if (XSP3IF_DEBUG) 
         fprintf( stderr, "%d\n", status );
@@ -343,6 +357,20 @@ int xsp3IF_scaler_check_desc(int path, int card)
         fprintf( stderr, "xsp3_scaler_check_desc( %d, %d ) = ", path, card );
 
     status = xsp3_scaler_check_desc( path, card);
+
+    if (XSP3IF_DEBUG) 
+        fprintf( stderr, "%d\n", status );
+
+    return status;
+}
+
+int xsp3IF_scaler_check_progress(int path)
+{
+    int status;
+    if (XSP3IF_DEBUG) 
+        fprintf( stderr, "xsp3_scaler_check_progress( %d ) = ", path );
+
+    status = xsp3_scaler_check_progress( path );
 
     if (XSP3IF_DEBUG) 
         fprintf( stderr, "%d\n", status );

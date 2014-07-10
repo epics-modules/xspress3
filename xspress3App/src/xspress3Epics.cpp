@@ -1047,13 +1047,10 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	} else {
 	  if ((status = checkConnected()) == asynSuccess) {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Starting Data Collection.\n", functionName);
-	    getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-	    for (int card=0; card<xsp3_num_cards; card++) {
-	      xsp3_status = xsp3_histogram_start(xsp3_handle_, card);
-	      if (xsp3_status != XSP3_OK) {
+	    xsp3_status = xsp3_histogram_start(xsp3_handle_, -1 );
+	    if (xsp3_status != XSP3_OK) {
 		checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
 		status = asynError;
-	      }
 	    }
 	    if (status == asynSuccess) {
 	      epicsEventSignal(this->startEvent_);
@@ -1069,13 +1066,10 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	} else {
 	  if ((status = checkConnected()) == asynSuccess) {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Stop Data Collection.\n", functionName);
-	    getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-	    for (int card=0; card<xsp3_num_cards; card++) {
-	      xsp3_status = xsp3_histogram_stop(xsp3_handle_, card);
-	      if (xsp3_status != XSP3_OK) {
+	    xsp3_status = xsp3_histogram_stop(xsp3_handle_, -1);
+	    if (xsp3_status != XSP3_OK) {
 		checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
 		status = asynError;
-	      }
 	    }
 	    if (status == asynSuccess) {
 	      epicsEventSignal(this->stopEvent_);
@@ -1109,12 +1103,19 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       else if (function == xsp3InvertF0Param)   invert_f0=value;
       else if (function == xsp3InvertVetoParam) invert_veto=value;
       else debounce=value;
-      status = mapTriggerMode(trigger_mode, invert_f0, invert_veto, debounce, &xsp3_trigger_mode);
 
       if (status != asynError) {
           asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Trigger Mode.\n", functionName);
           getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
           for (int card=0; card<xsp3_num_cards; card++) {
+              if ( card == 0 ) { 
+                  status = mapTriggerMode(trigger_mode, invert_f0, invert_veto, debounce, &xsp3_trigger_mode);
+              }
+              else
+              {
+                  status = mapTriggerMode(mbboTriggerTTLVETO_, invert_f0, 0, debounce, &xsp3_trigger_mode);
+              }
+
               xsp3_status = xsp3_set_glob_timeA(xsp3_handle_, card, xsp3_trigger_mode);
               if (xsp3_status != XSP3_OK) {
                   checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
@@ -1127,14 +1128,11 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3FixedTimeParam) {
     if (!simTest_) {
       if ((status = checkConnected()) == asynSuccess) {
-	getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-	for (int card=0; card<xsp3_num_cards; card++) {
-	  xsp3_status = xsp3_set_glob_timeFixed(xsp3_handle_, card, value);
+	  xsp3_status = xsp3_set_glob_timeFixed(xsp3_handle_, -1, value);
 	  if (xsp3_status != XSP3_OK) {
 	    checkStatus(xsp3_status, "xsp3_set_glob_timeFixed", functionName);
 	    status = asynError;
 	  }
-	}
       }
     }
   } 
@@ -1193,13 +1191,10 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3TriggerParam) {
     if ((status = checkConnected()) == asynSuccess && adStatus == ADStatusAcquire && value) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Triggering Next Frame.\n", functionName);
-      getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-      for (int card=0; card<xsp3_num_cards; card++) {
-          xsp3_status = xsp3_histogram_continue(xsp3_handle_, card);
-          if (xsp3_status != XSP3_OK) {
-              checkStatus(xsp3_status, "xsp3_histogram_continue", functionName);
-              status = asynError;
-          }
+      xsp3_status = xsp3_histogram_continue(xsp3_handle_, -1);
+      if (xsp3_status != XSP3_OK) {
+          checkStatus(xsp3_status, "xsp3_histogram_continue", functionName);
+          status = asynError;
       }
     }
   } 
@@ -1563,7 +1558,7 @@ asynStatus Xspress3::checkHistBusy(int checkTimes)
  
   while (notBusyCount<2) {
     for (int chan=0; chan<numChannels; chan++) {
-      if ((xsp3_histogram_is_busy(xsp3_handle_, chan)) == 0) {
+      if ((xsp3_histogram_is_any_busy(xsp3_handle_)) == 0) {
 	++notBusyChan;
       }
     }
@@ -1600,7 +1595,6 @@ void Xspress3::dataTask(void)
   int acquire = 0;
   int xsp3_status = 0;
   int status = 0;
-  int xsp3_num_cards = 0;
   int frame_count = 0;
   int frameCounter = 0;
   int maxNumFrames = 0;
@@ -1748,9 +1742,7 @@ void Xspress3::dataTask(void)
       //Read how many data frames have been transferred.
       if (acquire || aborted) {
         if (!simTest_) {
-          getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
-          for (int card=0; card<xsp3_num_cards; card++) {
-            xsp3_status = xsp3_scaler_check_desc(xsp3_handle_, card);
+            xsp3_status = xsp3_scaler_check_progress(xsp3_handle_);
             if (xsp3_status < XSP3_OK) {
               checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
               status = asynError;
@@ -1758,7 +1750,6 @@ void Xspress3::dataTask(void)
             frame_count = xsp3_status;
             setIntegerParam(xsp3FrameCountParam, frame_count-lastFrameCount);
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
-          }
         } else {
           //In sim mode we transfer 10 frames each time
           frame_count = lastFrameCount+10;
