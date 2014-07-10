@@ -466,6 +466,9 @@ int 	xsp3_has_reset_det(int path, int card);
 int 	xsp3_has_glitch_det(int path, int card, int *min_thres);
 int 	xsp3_set_global_reset_gen(int path, int card, int enable, int sync_mode, int det_reset_width, int hold_off_time, int gr_active_del, int gr_active_wid, int circ_offset);
 
+int 	xsp3_get_disable_threading(int path);
+int 	xsp3_set_disable_threading(int path, int flags);
+
 #ifdef __cplusplus
 }
 #endif
