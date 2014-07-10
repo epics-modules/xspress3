@@ -7,6 +7,12 @@
 # This should be processed at the end of each acqusition.
 #
 #####################################################################
+record(bo, "$(P)$(R)C$(CHAN)_AttrUpdateFanIn") {
+  field(FLNK, "$(P)$(R)C$(CHAN)_AttrUpdate")
+  field(VAL, "1")
+  field(OMSL, "closed_loop")
+  field(DOL, "$(P)$(R)UPDATE_AttrUpdate CPP")
+}
 
 record(dfanout, "$(P)$(R)C$(CHAN)_AttrUpdate")
 {

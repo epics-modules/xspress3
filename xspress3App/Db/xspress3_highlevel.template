@@ -33,7 +33,7 @@ record(bi, $(HDF)Capture_RBV)
 {
    field(OSV, "NO_ALARM")
 }
-
+_AttrReset
 
 #############################################################
 # The following records and templates are responsible for
@@ -59,95 +59,14 @@ record(dfanout, "$(P)$(R)ERASE_ArrayCounters")
    field(FLNK, "$(P)$(R)ERASE_AttrReset")
 }
 
-#On an erase, do a reset on the NDAttribute plugins.
+#On an erase, do a reset on the NDAttribute plugins. This has MDEL of 0, so channel access updates
+#are triggered every time, and there is a bo record for every channel that monitors its value.
 record(dfanout, "$(P)$(R)ERASE_AttrReset")
 {
    field(VAL, "1")
-   field(OUTA, "$(P)$(R)C1_AttrReset.PROC PP")
-   field(OUTB, "$(P)$(R)C2_AttrReset.PROC PP")
-   field(OUTC, "$(P)$(R)C3_AttrReset.PROC PP")
-   field(OUTD, "$(P)$(R)C4_AttrReset.PROC PP")
-   field(OUTE, "$(P)$(R)C5_AttrReset.PROC PP")
-   field(OUTF, "$(P)$(R)C6_AttrReset.PROC PP")
-   field(OUTG, "$(P)$(R)C7_AttrReset.PROC PP")
-   field(OUTH, "$(P)$(R)C8_AttrReset.PROC PP")
 }
 
 
-#########################################################################
-# Set the channel specific attribute names.
-# These are used in the templates below that deal with the channel
-# specific areaDetector plugins.
-##########################################################################
-substitute "SCA0=SCA0"
-substitute "SCA1=SCA1"
-substitute "SCA2=SCA2"
-substitute "SCA3=SCA3"
-substitute "SCA4=SCA4"
-substitute "SCA5=SCA5"
-substitute "SCA6=SCA6"
-substitute "SCA7=SCA7"
-substitute "ROI1=ROI1"
-substitute "ROI2=ROI2"
-substitute "ROI3=ROI3"
-substitute "ROI4=ROI4"
-substitute "ROI5=ROI5"
-substitute "ROI6=ROI6"
-substitute "ROI7=ROI7"
-substitute "ROI8=ROI8"
-substitute "ROI9=ROI9"
-substitute "ROI10=ROI10"
-substitute "ROI11=ROI11"
-substitute "ROI12=ROI12"
-substitute "ROI13=ROI13"
-substitute "ROI14=ROI14"
-substitute "ROI15=ROI15"
-substitute "ROI16=ROI16"
-
-##########################################################################
-# Add in the records that enable and disable all the
-# areaDetector channel specific plugins.
-##########################################################################
-
-substitute "CHAN=1"
-include "xspress3_pluginControl.template"
-substitute "CHAN=2"
-include "xspress3_pluginControl.template"
-substitute "CHAN=3"
-include "xspress3_pluginControl.template"
-substitute "CHAN=4"
-include "xspress3_pluginControl.template"
-substitute "CHAN=5"
-include "xspress3_pluginControl.template"
-substitute "CHAN=6"
-include "xspress3_pluginControl.template"
-substitute "CHAN=7"
-include "xspress3_pluginControl.template"
-substitute "CHAN=8"
-include "xspress3_pluginControl.template"
-
-##########################################################################
-# Add in the records that can do resets on all the
-# areaDetector channel specific plugins. These are triggered
-# when the user does a high level 'ERASE'.
-##########################################################################
-
-substitute "CHAN=1"
-include "xspress3_AttrReset.template"
-substitute "CHAN=2"
-include "xspress3_AttrReset.template"
-substitute "CHAN=3"
-include "xspress3_AttrReset.template"
-substitute "CHAN=4"
-include "xspress3_AttrReset.template"
-substitute "CHAN=5"
-include "xspress3_AttrReset.template"
-substitute "CHAN=6"
-include "xspress3_AttrReset.template"
-substitute "CHAN=7"
-include "xspress3_AttrReset.template"
-substitute "CHAN=8"
-include "xspress3_AttrReset.template"
 
 #########################################################################
 # Records to update the arrays in the NDAttribute plugins.
@@ -162,33 +81,9 @@ record(bo,"$(P)$(R)UPDATE")
    field(FLNK, "$(P)$(R)UPDATE_AttrUpdate.PROC")
 }
 
-#On an erase, do a reset on the NDAttribute plugins.
+#On an erase, do a reset on the NDAttribute plugins. This has MDEL of 0, so channel access updates
+#are triggered every time, and there is a bo record for every channel that monitors its value.
 record(dfanout, "$(P)$(R)UPDATE_AttrUpdate")
 {
    field(VAL, "1")
-   field(OUTA, "$(P)$(R)C1_AttrUpdate.PROC PP")
-   field(OUTB, "$(P)$(R)C2_AttrUpdate.PROC PP")
-   field(OUTC, "$(P)$(R)C3_AttrUpdate.PROC PP")
-   field(OUTD, "$(P)$(R)C4_AttrUpdate.PROC PP")
-   field(OUTE, "$(P)$(R)C5_AttrUpdate.PROC PP")
-   field(OUTF, "$(P)$(R)C6_AttrUpdate.PROC PP")
-   field(OUTG, "$(P)$(R)C7_AttrUpdate.PROC PP")
-   field(OUTH, "$(P)$(R)C8_AttrUpdate.PROC PP")
 }
-
-substitute "CHAN=1"
-include "xspress3_AttrUpdate.template"
-substitute "CHAN=2"
-include "xspress3_AttrUpdate.template"
-substitute "CHAN=3"
-include "xspress3_AttrUpdate.template"
-substitute "CHAN=4"
-include "xspress3_AttrUpdate.template"
-substitute "CHAN=5"
-include "xspress3_AttrUpdate.template"
-substitute "CHAN=6"
-include "xspress3_AttrUpdate.template"
-substitute "CHAN=7"
-include "xspress3_AttrUpdate.template"
-substitute "CHAN=8"
-include "xspress3_AttrUpdate.template"
