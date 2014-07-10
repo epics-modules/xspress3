@@ -84,16 +84,11 @@ class xspress3(_ADBase):
     """Library dependencies for xspress3"""
     Dependencies = (AreaDetector,Calc)
     # Device attributes
-    MakefileStringList = ['BOOST=/dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0/prefix',
-                          'USR_LDFLAGS += -L$(BOOST)/lib/ -Wl,-rpath,$(BOOST)/lib']
-    LibFileList = ['img_mod', 'FemClient','Xspress3FemApi','xspress3','xspress3Epics', ]
-    SysLibFileList = ['boost_thread', 'boost_system','rt']
+    LibFileList = ['img_mod','xspress3','xspress3Epics', ]
+    SysLibFileList = ['rt']
     DbdFileList = ['xspress3','xspress3Support']
     _SpecificTemplate=_xspress3
     AutoInstantiate = True
-#    boost=ModuleVersion( "boost",
-#                         home="/dls_sw/prod/tools/RHEL6-x86_64/boost", 
-#                         version="1-48-0" )
 
     def __init__(self,
                  BUFFERS=0, MEMORY=0, CHANNELS = 8, CARDS=1, BASE_IP="192.168.0.1", 
