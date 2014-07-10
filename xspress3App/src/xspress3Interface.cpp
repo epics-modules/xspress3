@@ -462,3 +462,30 @@ int xsp3IF_set_window(int path, int chan, int win, int low, int high)
     return status;
 }
 
+int xsp3IF_itfg_setup(int path, int card, int num_tf, u_int32_t col_time, int trig_mode, int gap_mode)
+{
+    int status;
+    if (XSP3IF_DEBUG) 
+        fprintf( stderr, "xsp3_itfg_setup( %d, %d, %d, %u, %d, %d ) = ", path, card, num_tf, col_time, trig_mode, gap_mode);
+
+    status = xsp3_itfg_setup(path, card, num_tf, col_time, trig_mode, gap_mode);
+
+    if (XSP3IF_DEBUG) 
+        fprintf( stderr, "%d\n", status );
+
+    return status;
+}
+
+int xsp3IF_has_itfg(int path, int card )
+{
+    int status;
+    if (XSP3IF_DEBUG) 
+        fprintf( stderr, "xsp3_has_itfg( %d, %d ) = ", path, card);
+
+    status = xsp3_has_itfg(path, card);
+
+    if (XSP3IF_DEBUG) 
+        fprintf( stderr, "%d\n", status );
+
+    return status;
+}

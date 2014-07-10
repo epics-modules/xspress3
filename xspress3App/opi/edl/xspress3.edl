@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 249
-y 73
-w 775
-h 660
+x 251
+y 95
+w 770
+h 690
 font "arial-medium-r-12.0"
 fontAlign "center"
 ctlFont "arial-medium-r-12.0"
@@ -38,7 +38,7 @@ release 0
 x 10
 y 45
 w 750
-h 265
+h 305
 lineColor index 14
 fill
 fillColor index 5
@@ -303,7 +303,7 @@ major 4
 minor 1
 release 1
 x 20
-y 270
+y 310
 w 60
 h 20
 font "arial-bold-r-14.0"
@@ -322,7 +322,7 @@ major 4
 minor 6
 release 0
 x 285
-y 265
+y 305
 w 195
 h 35
 controlPv "$(P):TriggerMode_RBV"
@@ -345,7 +345,7 @@ major 4
 minor 0
 release 0
 x 80
-y 265
+y 305
 w 195
 h 35
 fgColor index 14
@@ -468,7 +468,7 @@ major 4
 minor 0
 release 0
 x 150
-y 185
+y 225
 w 125
 h 35
 fgColor index 14
@@ -489,7 +489,7 @@ major 4
 minor 6
 release 0
 x 285
-y 185
+y 225
 w 125
 h 35
 controlPv "$(P):CTRL_MCA_ROI_RBV"
@@ -512,7 +512,7 @@ major 4
 minor 1
 release 1
 x 20
-y 190
+y 230
 w 125
 h 20
 font "arial-bold-r-14.0"
@@ -531,7 +531,7 @@ major 4
 minor 1
 release 0
 x 660
-y 605
+y 645
 w 100
 h 35
 fgColor index 46
@@ -630,7 +630,7 @@ major 4
 minor 0
 release 0
 x 150
-y 225
+y 265
 w 125
 h 35
 fgColor index 14
@@ -651,7 +651,7 @@ major 4
 minor 1
 release 1
 x 25
-y 230
+y 270
 w 125
 h 20
 font "arial-bold-r-14.0"
@@ -670,7 +670,7 @@ major 4
 minor 6
 release 0
 x 285
-y 225
+y 265
 w 125
 h 35
 controlPv "$(P):CTRL_DTC_RBV"
@@ -753,9 +753,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 475
-y 335
-w 285
+x 480
+y 375
+w 280
 h 260
 lineColor index 14
 fill
@@ -768,8 +768,8 @@ beginObjectProperties
 major 4
 minor 4
 release 0
-x 490
-y 390
+x 495
+y 430
 w 251
 h 36
 fgColor index 43
@@ -830,8 +830,8 @@ beginObjectProperties
 major 4
 minor 4
 release 0
-x 490
-y 430
+x 495
+y 470
 w 251
 h 36
 fgColor index 43
@@ -890,8 +890,8 @@ beginObjectProperties
 major 4
 minor 4
 release 0
-x 490
-y 470
+x 495
+y 510
 w 251
 h 36
 fgColor index 43
@@ -950,8 +950,8 @@ beginObjectProperties
 major 4
 minor 4
 release 0
-x 490
-y 550
+x 495
+y 590
 w 250
 h 35
 fgColor index 43
@@ -1030,8 +1030,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 475
-y 325
+x 480
+y 365
 w 264
 h 16
 font "arial-bold-r-14.0"
@@ -1050,8 +1050,8 @@ beginObjectProperties
 major 4
 minor 4
 release 0
-x 490
-y 510
+x 495
+y 550
 w 250
 h 35
 fgColor index 43
@@ -1076,8 +1076,8 @@ beginObjectProperties
 major 4
 minor 4
 release 0
-x 490
-y 350
+x 495
+y 390
 w 250
 h 35
 fgColor index 43
@@ -1102,8 +1102,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 5
-y 335
+x 10
+y 375
 w 450
 h 305
 lineColor index 14
@@ -1117,8 +1117,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 10
-y 325
+x 15
+y 365
 w 97
 h 16
 font "arial-bold-r-14.0"
@@ -1137,8 +1137,8 @@ beginObjectProperties
 major 4
 minor 6
 release 0
-x 60
-y 345
+x 65
+y 385
 w 320
 h 20
 controlPv "$(P):HDF5:FilePath"
@@ -1163,8 +1163,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 25
-y 345
+x 30
+y 385
 w 65
 h 20
 font "arial-bold-r-14.0"
@@ -1182,8 +1182,8 @@ beginObjectProperties
 major 4
 minor 6
 release 0
-x 60
-y 370
+x 65
+y 410
 w 320
 h 20
 controlPv "$(P):HDF5:FilePath_RBV"
@@ -1204,8 +1204,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 390
-y 350
+x 395
+y 390
 w 35
 h 35
 controlPv "$(P):HDF5:FilePathExists_RBV"
@@ -1222,8 +1222,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 15
-y 400
+x 20
+y 440
 w 55
 h 40
 font "arial-bold-r-14.0"
@@ -1241,8 +1241,8 @@ beginObjectProperties
 major 4
 minor 6
 release 0
-x 60
-y 400
+x 65
+y 440
 w 185
 h 40
 controlPv "$(P):HDF5:FileName"
@@ -1267,8 +1267,8 @@ beginObjectProperties
 major 4
 minor 6
 release 0
-x 60
-y 450
+x 65
+y 490
 w 185
 h 40
 controlPv "$(P):HDF5:FileName_RBV"
@@ -1289,8 +1289,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 250
-y 400
+x 255
+y 440
 w 65
 h 40
 font "arial-bold-r-14.0"
@@ -1308,8 +1308,8 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 320
-y 400
+x 325
+y 440
 w 60
 h 40
 controlPv "$(P):HDF5:FileNumber"
@@ -1326,8 +1326,8 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 320
-y 450
+x 325
+y 490
 w 60
 h 40
 controlPv "$(P):HDF5:FileNumber"
@@ -1345,8 +1345,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 390
-y 500
+x 395
+y 540
 w 35
 h 35
 controlPv "$(P):HDF5:Capture_RBV"
@@ -1363,8 +1363,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 60
-y 500
+x 65
+y 540
 w 155
 h 35
 fgColor index 25
@@ -1387,8 +1387,8 @@ beginObjectProperties
 major 4
 minor 1
 release 0
-x 225
-y 500
+x 230
+y 540
 w 155
 h 35
 fgColor index 25
@@ -1411,8 +1411,8 @@ beginObjectProperties
 major 4
 minor 4
 release 0
-x 225
-y 590
+x 230
+y 630
 w 200
 h 35
 fgColor index 43
@@ -1437,8 +1437,8 @@ beginObjectProperties
 major 10
 minor 0
 release 0
-x 155
-y 590
+x 160
+y 630
 w 65
 h 35
 controlPv "$(P):HDF5:NumCaptured_RBV"
@@ -1456,8 +1456,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 40
-y 590
+x 45
+y 630
 w 105
 h 35
 font "arial-bold-r-14.0"
@@ -1475,8 +1475,8 @@ beginObjectProperties
 major 4
 minor 6
 release 0
-x 155
-y 545
+x 160
+y 585
 w 225
 h 35
 controlPv "$(P):HDF5:WriteMessage"
@@ -1498,8 +1498,8 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 390
-y 545
+x 395
+y 585
 w 35
 h 35
 controlPv "$(P):HDF5:WriteStatus"
@@ -1516,8 +1516,8 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 20
-y 545
+x 25
+y 585
 w 130
 h 35
 font "arial-bold-r-14.0"
@@ -1527,5 +1527,66 @@ useDisplayBg
 value {
   "File Saving Status"
 }
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 20
+y 195
+w 120
+h 20
+font "arial-bold-r-14.0"
+fgColor index 14
+bgColor index 10
+useDisplayBg
+value {
+  "Exp time (Int only)"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 6
+release 0
+x 285
+y 185
+w 125
+h 35
+controlPv "$(P):AcquireTime_RBV"
+font "arial-bold-r-16.0"
+fontAlign "center"
+fgColor index 16
+bgColor index 10
+limitsFromDb
+nullColor index 30
+fastUpdate
+useHexPrefix
+newPos
+objType "monitors"
+endObjectProperties
+
+# (Textentry)
+object TextentryClass
+beginObjectProperties
+major 10
+minor 0
+release 0
+x 150
+y 185
+w 125
+h 35
+controlPv "$(P):AcquireTime"
+fgColor index 25
+fgAlarm
+bgColor index 3
+fill
+font "arial-bold-r-16.0"
+fontAlign "center"
 endObjectProperties
 

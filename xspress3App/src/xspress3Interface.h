@@ -36,6 +36,8 @@ int xsp3IF_set_glob_timeFixed(int path, int card, u_int32_t time);
 int xsp3IF_set_good_thres(int path, int chan, u_int32_t good_thres);
 int xsp3IF_set_run_flags(int path, int flags);
 int xsp3IF_set_window(int path, int chan, int win, int low, int high);
+int xsp3IF_itfg_setup(int path, int card, int num_tf, u_int32_t col_time, int trig_mode, int gap_mode);
+int xsp3IF_has_itfg(int path, int card);
 
 
 #ifdef XSP3IF_DEBUG
@@ -70,6 +72,8 @@ int xsp3IF_set_window(int path, int chan, int win, int low, int high);
 #define xsp3_set_good_thres xsp3IF_set_good_thres
 #define xsp3_set_run_flags xsp3IF_set_run_flags
 #define xsp3_set_window xsp3IF_set_window
+#define xsp3_itfg_setup xsp3IF_itfg_setup
+#define xsp3_has_itfg xsp3IF_has_itfg
 #else
 #define XSP3IF_DEBUG 0
 #endif

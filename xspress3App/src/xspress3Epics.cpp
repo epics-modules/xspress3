@@ -937,6 +937,31 @@ void Xspress3::report(FILE *fp, int details)
 
 }
 
+asynStatus Xspress3::setupITFG(void)
+{
+    asynStatus status = asynSuccess;
+    const char *functionName = "Xspress3::setupITFG";
+    int num_frames, trigger_mode;
+    double exposureTime;
+    int xsp3_status;
+
+    getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
+    if (trigger_mode == XSP3_GTIMA_SRC_INTERNAL  &&
+        xsp3_has_itfg(xsp3_handle_, 0) > 0 ) {
+        getIntegerParam(ADNumImages, &num_frames);
+        getDoubleParam(ADAcquireTime, &exposureTime);
+        xsp3_status = xsp3_itfg_setup( xsp3_handle_, 0, num_frames, 
+                                       (u_int32_t) floor(exposureTime*80E6+0.5),
+                                       XSP3_ITFG_TRIG_MODE_BURST, XSP3_ITFG_GAP_MODE_1US );
+    }
+
+    if (xsp3_status != XSP3_OK) {
+        checkStatus(xsp3_status, " xsp3_itfg_setup", functionName);
+        status = asynError;
+    }
+
+    return status;
+}
 
 /**
  * Function to map the database trigger mode 
@@ -1047,6 +1072,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	} else {
 	  if ((status = checkConnected()) == asynSuccess) {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Starting Data Collection.\n", functionName);
+            setupITFG();
 	    xsp3_status = xsp3_histogram_start(xsp3_handle_, -1 );
 	    if (xsp3_status != XSP3_OK) {
 		checkStatus(xsp3_status, "xsp3_histogram_start", functionName);

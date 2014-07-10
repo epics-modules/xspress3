@@ -191,6 +191,7 @@ class Xspress3 : public ADDriver {
   asynStatus readSCAParams(void);
   asynStatus readDTCParams(void); 
   asynStatus checkHistBusy(int checkTimes);
+  asynStatus setupITFG(void); 
   asynStatus mapTriggerMode(int mode, int invert_f0, int invert_veto, int debounce, int *apiMode);
 
   //Put private static data members here

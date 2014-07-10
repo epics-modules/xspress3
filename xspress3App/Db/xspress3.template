@@ -640,14 +640,6 @@ record(longin, "$(P)$(R)NumExposures_RBV")
 {
     field(DISA, "1")
 }
-record(ao, "$(P)$(R)AcquireTime")
-{
-    field(DISA, "1")
-}
-record(ai, "$(P)$(R)AcquireTime_RBV")
-{
-    field(DISA, "1")
-}
 record(ao, "$(P)$(R)AcquirePeriod")
 {
     field(DISA, "1")
