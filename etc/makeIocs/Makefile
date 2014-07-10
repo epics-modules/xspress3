@@ -22,12 +22,14 @@ include $(TOP)/configure/RULES
 	$(RMDIR) ../O.Common/tmp $@     
 	$(XMLBUILDER) $(DEBUG) -e -o ../O.Common/tmp $<
 	$(MV) ../O.Common/tmp/$(*F) $@
+	../parameteriseExample.sh $@
 
 # General rule for building a Simulation IOC from an XML file
 ../../makeIocs/O.Common/%_sim: ../%.xml
 	$(RMDIR) ../O.Common/tmp $@
 	$(XMLBUILDER) $(DEBUG) --sim=linux-x86 -e -o ../O.Common/tmp $<
 	$(MV) ../O.Common/tmp/$(*F)_sim $@
+	../parameteriseExample.sh $@
 
 # Alternate rule for building a Standard IOC from a python file
 ../../makeIocs/O.Common/%: ../%.py
