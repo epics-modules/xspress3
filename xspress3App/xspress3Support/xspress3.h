@@ -114,6 +114,12 @@ typedef struct _xsp3_feature
 	char farm_mode, soft_scalers;
 } Xspress3_features;
 
+typedef enum
+{	Xsp3ScopeOpt_DelayStart 		= 1,		//!< Delay starting scope mode until rising edge of CountEnable signal.
+	Xsp3ScopeOpt_ForceExtraDelay 	= 2,		//!< Apply Extra pipeline delay to CountEnable signal.
+	Xsp3ScopeOpt_ExtraDelayOn0 		= 4			//!< Apply Extra pipeline delay to card 0 only in multi-card system.
+} Xsp3ScopeOptions;
+
 typedef struct _xspress3_saved_config{
 	int ncards;
 	int num_tf;
@@ -306,6 +312,7 @@ int		xsp3_set_scope(int path, int card, u_int32_t scope_chn, u_int32_t scope_src
 int 	xsp3_get_scope(int path, int card, u_int32_t *scope_chn, u_int32_t *scope_src, u_int32_t *scope_nwd, u_int32_t *scope_alt);
 int 	xsp3_scope_settings_from_mod(int path);
 int 	xsp3_scope_settings_to_mod(int path);
+int 	xsp3_set_scope_options(int path, int card, Xsp3ScopeOptions options);
 int 	xsp3_set_scope_stream(int path, int card, int stream, u_int32_t chan, u_int32_t src, u_int32_t alt);
 int 	xsp3_set_glob_timeA(int path, int card, u_int32_t time);
 int 	xsp3_set_glob_timeFixed(int path, int card, u_int32_t time);
@@ -354,6 +361,8 @@ int 	xsp3_histogram_read_chan(int path, u_int32_t *buffer, unsigned chan, unsign
 int 	xsp3_histogram_write_test_pat(int path, Xsp3TestPattern type);
 int 	xsp3_histogram_get_dropped(int path, int chan);
 int 	xsp3_histogram_is_busy(int path, int chan);
+int 	xsp3_histogram_is_any_busy(int path);
+int 	xsp3_scaler_check_progress(int path);
 int 	xsp3_scaler_get_num_tf(int path);
 int 	xsp3_scaler_check_desc(int path, int card);
 int 	xsp3_scaler_read(int path, u_int32_t *dest, unsigned scaler, unsigned chan, unsigned t, unsigned n_scalers, unsigned n_chan, unsigned dt);
@@ -453,6 +462,8 @@ int 	xsp3_build_pileup_time(int path, int chan, int num_pairs, XSP3_PileupTimes 
 int 	xsp3_itfg_setup(int path, int card, int num_tf, u_int32_t col_time, int trig_mode, int gap_mode);
 int 	xsp3_itfg_get_setup(int path, int card, int *num_tf, u_int32_t *col_time, int *trig_mode, int *gap_mode);
 int 	xsp3_has_itfg(int path, int card);
+int 	xsp3_has_reset_det(int path, int card);
+int 	xsp3_has_glitch_det(int path, int card, int *min_thres);
 int 	xsp3_set_global_reset_gen(int path, int card, int enable, int sync_mode, int det_reset_width, int hold_off_time, int gr_active_del, int gr_active_wid, int circ_offset);
 
 #ifdef __cplusplus
@@ -540,6 +551,19 @@ int 	xsp3_set_global_reset_gen(int path, int card, int enable, int sync_mode, in
 
 #define XSP3_CC_GET_GOOD_GRADE_MODE(x)		(((x)>>15)&3)
 
+/**
+@defgroup XSP3_CC_NEB_EVENT Neighbour event mode (Currently I20 64 el specific)
+@ingroup XSP3_MACROS
+@{
+*/
+#define XSP3_CC_NEB_EVENT_NONE			0	//!< Disabled
+#define XSP3_CC_NEB_EVENT_TRIGGER		1	//!< Trigger channel on neighbour keep all events
+#define XSP3_CC_NEB_EVENT_REJECT_LONE 	2	//!< Reject lone neighbour events
+#define XSP3_CC_NEB_EVENT_REJECT_ALL  	3 	//!< Reject all neighbour events
+
+/**
+@}
+*/
 
 #define XSP3_CC_SEND_RESET_WIDTHS		(1<<12)			//!< Send reset widths in event list modes 
 
@@ -604,9 +628,10 @@ int 	xsp3_set_global_reset_gen(int path, int card, int enable, int sync_mode, in
 //! [XSP3_GLITCH_A_REGISTER]
 #define XSP3_GLITCH_A_ENABLE					(1<<0)
 #define XSP3_GLITCH_A_GLITCH_TIME(x)			(((x)&0x1ff)<<1)
-#define XSP3_GLITCH_A_GLITCH_THRES(x)			(((x)&0xff)<<10)
-#define XSP3_GLITCH_A_DIFF_TIME(x)				(((x)&0x1)<<18)
-#define XSP3_GLITCH_A_PAD_MODE(x)				(((x)&0x1)<<19)  // Appears not to be supported in HW
+#define XSP3_GLITCH_A_GLITCH_THRES8(x)			(((x)&0xff)<<10)
+#define XSP3_GLITCH_A_GLITCH_THRES10(x)			(((x)&0x3ff)<<10)
+#define XSP3_GLITCH_A_DIFF_TIME(x)				(((x)&0x1)<<18)	// Not used with 10 bit threshold versions
+//#define XSP3_GLITCH_A_PAD_MODE(x)				(((x)&0x1)<<19)  // Appears not to be supported in HW
 #define XSP3_GLITCH_A_PRE_TIME(x)				(((x)&0x1f)<<20)
 #define XSP3_GLITCH_A_FROM_GLOBAL_RESET_LEVEL	(1<<25)
 #define XSP3_GLITCH_A_FROM_GLOBAL_RESET_EDGE	(1<<26)
@@ -622,6 +647,7 @@ int 	xsp3_set_global_reset_gen(int path, int card, int enable, int sync_mode, in
 #define XSP3_GLITCH_A_MAX_GLITCH_TIME 0x1FF
 /* Max glitch time was 0x3F in early releases, but discouraging such operation and not supported in newer firmware */
 #define XSP3_GLITCH_A_MAX_PRE_TIME    0x1F
+#define XSP3_GLITCH_A_MIN_THRES       -255
 
 //! [XSP3_GLITCH_B_REGISTER]
 #define XSP3_GLITCH_B_HOLDOFF(x)			((x)&0x1FF)
@@ -969,6 +995,8 @@ int 	xsp3_set_global_reset_gen(int path, int card, int enable, int sync_mode, in
 
 #define XSP3_GSCOPE_CS_ENB_SCOPE	1
 #define XSP3_GSCOPE_CS_BYTE_SWAP	(1<<1)
+#define XSP3_GSCOPE_CS_DELAY_START	(1<<2)
+#define XSP3_GSCOPE_CS_EXTRA_DELAY	(1<<3)
 
 #define XSP3_GSCOPE_CHAN_SEL(s,x)	(((x)&0xF)<<4*((s)+1))
 #define XSP3_GSCOPE_CHAN_SEL_GET(s,x) (((x)>>4*((s)+1))&0xF)
@@ -1104,7 +1132,8 @@ extern const char *xsp3_bram_name[XSP3_REGION_RAM_MAX+1];
  * @ingroup XSP3_MACROS
  * @{
 */
-#define XSP3_MT_DISABLE_SCOPE		1	//!< Disable Thread per card code in {@link xsp3_read_scope_data()}
+#define XSP3_MT_DISABLE_SCOPE			1	//!< Disable Thread per card code in {@link xsp3_read_scope_data()}
+#define XSP3_MT_DISABLE_MEASURE_TRIG	2	//!< Disable Thread per card code in measure trigger b code ?? 
 /**
  * @}
  */
@@ -1319,6 +1348,17 @@ typedef struct _fan_cont
 #define XSP3_FEATURE_TEST_SRC_B_TPGEN			1				//!< BRAM based TP generator.
 
 #define XSP3_FEATURE_RESET_CORR_FIXED1024		0				//!< Only build is fixed 1024 point table.
+/**
+@defgroup XSP_FEATURE_GDET Crosstalk Glitch detector type.
+@ingroup XSP3_FEATURES
+@{
+*/
+#define XSP3_FEATURE_GDET_NONE					0				//!< No glitch detector.
+#define XSP3_FEATURE_GDET_THRES8				1				//!< Glitch detector from gradient, original 8 bit threshold register layout.
+#define XSP3_FEATURE_GDET_THRES10				2				//!< Glitch detector from gradient, modified 10 bit threshold register layout.
+/**
+@}
+*/
 
 #define XSP3_FEATURE_SERVO_BASE_NONE			0				//!< No servo.
 #define XSP3_FEATURE_SERVO_BASE_PWL1			1				//!< Single table (512 points) PWL servo.
@@ -1419,6 +1459,8 @@ typedef struct _fan_cont
 /**
  @}
  */
+
+#define XSP3_UDP_SIG (SIGRTMAX-1)							//!< Signal used for UDP timeout on no data.
 
 #endif /* XSPRESS3_H_ */
 

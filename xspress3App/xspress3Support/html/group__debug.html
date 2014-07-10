@@ -32,8 +32,10 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get scope mode registers.  <a href="#ga15d59c78fcd7f956fe5e3eee840f5236"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga124bab5fa47b052e1a1721bce4769564">xsp3_set_scope_stream</a> (int path, int card, int stream, u_int32_t chan, u_int32_t src, u_int32_t alt)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Setup individual scope stream.  <a href="#ga124bab5fa47b052e1a1721bce4769564"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga05d200fc28caa8977b277f1d9e6b48fc">xsp3_set_scope_options</a> (int path, int card, <a class="el" href="xspress3_8h.html#af8a53e931057ee25354d7151da8d5225">Xsp3ScopeOptions</a> options)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Setup scope mode options.  <a href="#ga05d200fc28caa8977b277f1d9e6b48fc"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga87ccce946e4f45a628e1c1e7626447eb">xsp3_scope_settings_to_mod</a> (int path)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set scope settings in the data module from hardware.  <a href="#ga87ccce946e4f45a628e1c1e7626447eb"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get scope mode options.  <a href="#ga87ccce946e4f45a628e1c1e7626447eb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga24fe459622437e737b27cce77700bc9a">xsp3_scope_settings_from_mod</a> (int path)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get scope settings from data module and write into hardware.  <a href="#ga24fe459622437e737b27cce77700bc9a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#gad731475cb0a6028271faa5b4b0b0ceda">xsp3_write_dram</a> (int path, int card, int address, int size, u_int32_t *value)</td></tr>
@@ -1109,7 +1111,18 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Set scope settings in the data module from hardware. </p>
+<p>Get scope mode options. </p>
+<p>For debug purposes, the system provides the capability to stream 6 off 16 bits streams to memory per card, recording raw ADC data or data from various points through the processing. Usually the scope mode recording starts as soon as the run bit is asserted. However, to syncronise across cards, it is possible to make scope mode wait until the Veto (Count enb) signal is asseted. This can be routed from board to board using the TTL LEMOS signals or otherwise.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>card</em>&nbsp;</td><td>is the number of the card in the xspress3 system, 0 for a single card system and up to (<a class="el" href="group__toplevel.html#ga083bca593ecb81ea2d6f5d726ef64fae">xsp3_get_num_cards()</a> - 1) for a multi-card system, where this value has been passed to <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a> at xspress3 system configuration. If card is less than 0 then all cards are selected. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>options</em>&nbsp;</td><td>Scope mode options defined by </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="xspress3_8h.html#aad318e803581597725f2a5dc06f617e4">XSP3_OK</a> or a negative error code.</dd></dl>
+<p>Set scope settings in the data module from hardware.</p>
 <p>Copy the scope settings from hardware to the xspress3 scope mode shared memory module so display program can interpret and label the data. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -1269,6 +1282,51 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga05d200fc28caa8977b277f1d9e6b48fc"></a><!-- doxytag: member="xspress3.c::xsp3_set_scope_options" ref="ga05d200fc28caa8977b277f1d9e6b48fc" args="(int path, int card, Xsp3ScopeOptions options)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_set_scope_options </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>card</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="xspress3_8h.html#af8a53e931057ee25354d7151da8d5225">Xsp3ScopeOptions</a>&nbsp;</td>
+          <td class="paramname"> <em>options</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Setup scope mode options. </p>
+<p>For debug purposes, the system provides the capability to stream 6 off 16 bits streams to memory per card, recording raw ADC data or data from various points through the processing. Usually the scope mode recording starts as soon as the run bit is asserted. However, to syncronise across cards, it is possible to make scope mode wait until the Veto (Count enb) signal is asseted. This can be routed from board to board using the TTL LEMOS signals or otherwise.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>card</em>&nbsp;</td><td>is the number of the card in the xspress3 system, 0 for a single card system and up to (<a class="el" href="group__toplevel.html#ga083bca593ecb81ea2d6f5d726ef64fae">xsp3_get_num_cards()</a> - 1) for a multi-card system, where this value has been passed to <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a> at xspress3 system configuration. If card is less than 0 then all cards are selected. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>options</em>&nbsp;</td><td>Scope mode options defined by </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="xspress3_8h.html#aad318e803581597725f2a5dc06f617e4">XSP3_OK</a> or a negative error code. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ga507cdfe440fa8a799692348c22da4b53"></a><!-- doxytag: member="xspress3.c::xsp3_set_scope_search" ref="ga507cdfe440fa8a799692348c22da4b53" args="(int path, int chan, u_int32_t scope_search)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1363,7 +1421,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Setup individual scope stream. </p>
-<p>For debug purposes, the system provides the cpability to stream 6 off 16 bits streams to memory per card, recording raw ADC data or data from various points through the processing. The data source for eac hstream is setup in terms of a channel number (within the card),the data source and some alternate options. This function splices the bits for the specifeid stream into the scope control registers.</p>
+<p>For debug purposes, the system provides the capability to stream 6 off 16 bits streams to memory per card, recording raw ADC data or data from various points through the processing. The data source for eac hstream is setup in terms of a channel number (within the card),the data source and some alternate options. This function splices the bits for the specifeid stream into the scope control registers.</p>
 <p>The data source options are different for each stream. Oftern stream 0 is set to record digital bits associated with the other 5 streams. See  <a class="el" href="xspress3_8h.html">xspress3.h</a> XSP3_SCOPE_SOURCES </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
@@ -1498,7 +1556,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Jun 24 2014 11:28:26 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Jul 2 2014 14:19:36 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
