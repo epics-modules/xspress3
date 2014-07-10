@@ -22,7 +22,7 @@
 TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
 SUPPORT=/dls_sw/prod/R3.14.12.3/support
-WORK=/dls_sw/work/R3.14.12.3/support
+#WORK=/dls_sw/work/R3.14.12.3/support
 
 ASYN=           $(SUPPORT)/asyn/4-21
 AREA_DETECTOR=   $(SUPPORT)/areaDetector/1-9dls4
@@ -33,12 +33,8 @@ AUTOSAVE=       $(SUPPORT)/autosave/5-0
 DEVIOCSTATS=    $(SUPPORT)/devIocStats/3-1-5dls4
 SPECTRAPLUGINS=	$(SUPPORT)/spectraPlugins/1-6
 XSPRESS3=	$(TOP)/../..
-BOOST=          /dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0/prefix
 
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
 
-# Set RULES here if you want to take build rules from somewhere
-# other than EPICS_BASE:
-#RULES=/path/to/epics/support/module/rules/x-y
