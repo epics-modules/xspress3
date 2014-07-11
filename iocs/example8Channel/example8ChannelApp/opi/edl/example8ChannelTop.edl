@@ -141,7 +141,7 @@ font "arial-bold-r-14.0"
 numDsps 1
 numPvs 4
 symbols {
-  0 "ioc=XSPRESS3-EXAMPLE"
+  0 "ioc=$(XSPRESS3_PREFIX)"
 }
 topShadowColor index 1
 endObjectProperties
@@ -160,7 +160,7 @@ bgColor index 3
 botShadowColor index 11
 buttonLabel "Terminal"
 command {
-  0 "gnome-terminal --hide-menubar -t \"XSPRESS3-EXAMPLE\" -e \"$(which console) -g XSPRESS3-EXAMPLE\""
+  0 "gnome-terminal --hide-menubar -t \"$(XSPRESS3_PREFIX)\" -e \"$(which console) -g $(XSPRESS3_PREFIX)\""
 }
 fgColor index 43
 font "arial-bold-r-12.0"
@@ -180,7 +180,7 @@ x 110
 y 40
 bgColor index 0
 controlPvs {
-  0 "XSPRESS3-EXAMPLE:LOAD.SEVR"
+  0 "$(XSPRESS3_PREFIX):LOAD.SEVR"
 }
 fgColor index 3
 file "symbols-traffic-light-symbol.edl"
