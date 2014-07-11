@@ -33,7 +33,6 @@ record(bi, $(HDF)Capture_RBV)
 {
    field(OSV, "NO_ALARM")
 }
-_AttrReset
 
 #############################################################
 # The following records and templates are responsible for
