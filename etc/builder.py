@@ -3,7 +3,7 @@ from iocbuilder import Device, AutoSubstitution, ModuleVersion
 from iocbuilder.arginfo import *
 
 from iocbuilder import ModuleBase
-from iocbuilder.modules.areaDetector import AreaDetector,_ADBase,NDAttributes
+from iocbuilder.modules.areaDetector import AreaDetector,_ADBase,NDAttributes, NDROI, NDStdArrays
 from iocbuilder.modules.calc import Calc
 from iocbuilder.modules.spectraPlugins import SpectraPlugins,NDPluginAttribute
 
@@ -23,7 +23,7 @@ class _xspress3Channel(AutoSubstitution):
 class xspress3Channel(ModuleBase):
     """Library dependencies for xspress3"""
 
-    Dependencies = (SpectraPlugins,)
+    Dependencies = (SpectraPlugins,AreaDetector,)
     _SpecificTemplate=_xspress3Channel
     AutoInstantiate = True
 
@@ -41,7 +41,7 @@ class xspress3Channel(ModuleBase):
 
         # Make a shallow copy and remove the arguments we don't want
         NDPluginArgs = args.copy()
-        del NDPluginArgs['P']
+        NDPluginArgs['P']=args['P']+args['R']
         del NDPluginArgs['R']
         del NDPluginArgs['PORT']
         del NDPluginArgs['CHAN']
@@ -55,7 +55,6 @@ class xspress3Channel(ModuleBase):
         for i in range(8):
              NDPluginAttribute( ATTR_NAME="CHAN%dSCA%d"%(CHAN, i),
                                 PORT="XSP3.C%d_SCA%d"%(CHAN, i),
-                                P=args['P']+args['R'],
                                 R="C%d_SCA%d:"%(CHAN, i),
                                 NDARRAY_ADDR=0,
                                 Enabled=1,
@@ -65,12 +64,24 @@ class xspress3Channel(ModuleBase):
              Enabled=1 if i<5 else 0
              NDPluginAttribute( ATTR_NAME="CHAN%dROI%d"%(CHAN, i),
                                 PORT="XSP3.C%d_ROI%d"%(CHAN, i),
-                                P=args['P']+args['R'],
                                 R="C%d_ROI%d:"%(CHAN, i),
                                 NDARRAY_ADDR=0,
                                 Enabled=Enabled,
                                 **NDPluginArgs )
-  
+
+        del NDPluginArgs["NDARRAY_PORT"]
+        NDROI( PORT="%s.ROI%d"%(args["PORT"],CHAN),    R="ROI%d:"%(CHAN),    NDARRAY_PORT=args["PORT"],     NDARRAY_ADDR=0, **NDPluginArgs )
+        NDROI( PORT="%s.ROISUM%d"%(args["PORT"],CHAN), R="ROISUM%d:"%(CHAN), NDARRAY_PORT=args["PORT"]+".PROC",NDARRAY_ADDR=0, **NDPluginArgs )
+        NDStdArrays( PORT="%s.ARR%d"%(args["PORT"],CHAN),    R="ARR%d:"%(CHAN),    
+                     NDARRAY_PORT="%s.ROI%d"%(args["PORT"],CHAN), NDARRAY_ADDR=0,
+                     TYPE="Float64", FTVL="DOUBLE", 
+                     **NDPluginArgs )
+        NDStdArrays( PORT="%s.ARRSUM%d"%(args["PORT"],CHAN), R="ARRSUM%d:"%(CHAN),
+                     NDARRAY_PORT="%s.ROISUM%d"%(args["PORT"],CHAN), NDARRAY_ADDR=0,
+                     TYPE="Float64", FTVL="DOUBLE", 
+                     **NDPluginArgs )
+
+
 #    def Initialise(self):
 
     ArgInfo = (_xspress3Channel.ArgInfo + 
@@ -157,6 +168,7 @@ class xspress3(_ADBase):
                                    datatype="INT",
                                    description="Chan %d ROI %d %s"%(CHAN, i, text) )
 
+
     def Initialise(self):
         print """
 ##################################################
@@ -199,94 +211,10 @@ dbpf("%(P)s:C1_PluginControlVal", "Enabled")
 #Set up the ROI parameters
 dbpf("%(P)s:ROIDATA:EnableX", "Yes")
 dbpf("%(P)s:ROIDATA:EnableY", "Yes")
-dbpf("%(P)s:ROI1:EnableX", "Yes")
-dbpf("%(P)s:ROI2:EnableX", "Yes")
-dbpf("%(P)s:ROI3:EnableX", "Yes")
-dbpf("%(P)s:ROI4:EnableX", "Yes")
-dbpf("%(P)s:ROI5:EnableX", "Yes")
-dbpf("%(P)s:ROI6:EnableX", "Yes")
-dbpf("%(P)s:ROI7:EnableX", "Yes")
-dbpf("%(P)s:ROI8:EnableX", "Yes")
-dbpf("%(P)s:ROI1:EnableY", "Yes")
-dbpf("%(P)s:ROI2:EnableY", "Yes")
-dbpf("%(P)s:ROI3:EnableY", "Yes")
-dbpf("%(P)s:ROI4:EnableY", "Yes")
-dbpf("%(P)s:ROI5:EnableY", "Yes")
-dbpf("%(P)s:ROI6:EnableY", "Yes")
-dbpf("%(P)s:ROI7:EnableY", "Yes")
-dbpf("%(P)s:ROI8:EnableY", "Yes")
-dbpf("%(P)s:ROISUM1:EnableX", "Yes")
-dbpf("%(P)s:ROISUM2:EnableX", "Yes")
-dbpf("%(P)s:ROISUM3:EnableX", "Yes")
-dbpf("%(P)s:ROISUM4:EnableX", "Yes")
-dbpf("%(P)s:ROISUM5:EnableX", "Yes")
-dbpf("%(P)s:ROISUM6:EnableX", "Yes")
-dbpf("%(P)s:ROISUM7:EnableX", "Yes")
-dbpf("%(P)s:ROISUM8:EnableX", "Yes")
-dbpf("%(P)s:ROISUM1:EnableY", "Yes")
-dbpf("%(P)s:ROISUM2:EnableY", "Yes")
-dbpf("%(P)s:ROISUM3:EnableY", "Yes")
-dbpf("%(P)s:ROISUM4:EnableY", "Yes")
-dbpf("%(P)s:ROISUM5:EnableY", "Yes")
-dbpf("%(P)s:ROISUM6:EnableY", "Yes")
-dbpf("%(P)s:ROISUM7:EnableY", "Yes")
-dbpf("%(P)s:ROISUM8:EnableY", "Yes")
-dbpf("%(P)s:ROI1:MinY", "0")
-dbpf("%(P)s:ROI2:MinY", "1")
-dbpf("%(P)s:ROI3:MinY", "2")
-dbpf("%(P)s:ROI4:MinY", "3")
-dbpf("%(P)s:ROI5:MinY", "4")
-dbpf("%(P)s:ROI6:MinY", "5")
-dbpf("%(P)s:ROI7:MinY", "6")
-dbpf("%(P)s:ROI8:MinY", "7")
-dbpf("%(P)s:ROI1:SizeY", "1")
-dbpf("%(P)s:ROI2:SizeY", "1")
-dbpf("%(P)s:ROI3:SizeY", "1")
-dbpf("%(P)s:ROI4:SizeY", "1")
-dbpf("%(P)s:ROI5:SizeY", "1")
-dbpf("%(P)s:ROI6:SizeY", "1")
-dbpf("%(P)s:ROI7:SizeY", "1")
-dbpf("%(P)s:ROI8:SizeY", "1")
-dbpf("%(P)s:ROISUM1:MinY", "0")
-dbpf("%(P)s:ROISUM2:MinY", "1")
-dbpf("%(P)s:ROISUM3:MinY", "2")
-dbpf("%(P)s:ROISUM4:MinY", "3")
-dbpf("%(P)s:ROISUM5:MinY", "4")
-dbpf("%(P)s:ROISUM6:MinY", "5")
-dbpf("%(P)s:ROISUM7:MinY", "6")
-dbpf("%(P)s:ROISUM8:MinY", "7")
-dbpf("%(P)s:ROISUM1:SizeY", "1")
-dbpf("%(P)s:ROISUM2:SizeY", "1")
-dbpf("%(P)s:ROISUM3:SizeY", "1")
-dbpf("%(P)s:ROISUM4:SizeY", "1")
-dbpf("%(P)s:ROISUM5:SizeY", "1")
-dbpf("%(P)s:ROISUM6:SizeY", "1")
-dbpf("%(P)s:ROISUM7:SizeY", "1")
-dbpf("%(P)s:ROISUM8:SizeY", "1")
-
-#Disable channels 2-8 by default. These can be enabled by the
-#user if needed.
-dbpf("%(P)s:C2_PluginControlVal", "0")
-dbpf("%(P)s:C3_PluginControlVal", "0")
-dbpf("%(P)s:C4_PluginControlVal", "0")
-dbpf("%(P)s:C5_PluginControlVal", "0")
-dbpf("%(P)s:C6_PluginControlVal", "0")
-dbpf("%(P)s:C7_PluginControlVal", "0")
-dbpf("%(P)s:C8_PluginControlVal", "0")
-
-#Disable ROIs 5 to 16 on all channels be default
-dbpf("%(P)s:C1_PluginControlValExtraROI", "0")
-dbpf("%(P)s:C2_PluginControlValExtraROI", "0")
-dbpf("%(P)s:C3_PluginControlValExtraROI", "0")
-dbpf("%(P)s:C4_PluginControlValExtraROI", "0")
-dbpf("%(P)s:C5_PluginControlValExtraROI", "0")
-dbpf("%(P)s:C6_PluginControlValExtraROI", "0")
-dbpf("%(P)s:C7_PluginControlValExtraROI", "0")
-dbpf("%(P)s:C8_PluginControlValExtraROI", "0")
 
 #Set the default energy and channel range for the ROIDATA plugin.
 dbpf("%(P)s:ROIDATA:SizeX", "4096")
-dbpf("%(P)s:ROIDATA:SizeY", "8")
+dbpf("%(P)s:ROIDATA:SizeY", "%(CHANNELS)s")
 
 # Xspress 3 configuration
 dbpf("%(P)s:CONFIG_PATH", "%(SETTINGS)s")
@@ -306,6 +234,26 @@ dbpf("%(P)s:CONNECT","1")
 # set TTL trigger
 dbpf("%(P)s:TriggerMode","TTL Veto Only")
 """% temp_dict
+
+        for CHAN in range(1,self.CHANNELS+1):
+             temp_dict["CHAN"]=CHAN
+             temp_dict["addr"]=CHAN-1
+             print """
+dbpf("%(P)s:ROI%(CHAN)d:EnableX", "Yes")
+dbpf("%(P)s:ROI%(CHAN)d:EnableY", "Yes")
+dbpf("%(P)s:ROI%(CHAN)d:MinY", "%(addr)d")
+dbpf("%(P)s:ROI%(CHAN)d:SizeY", "1")
+dbpf("%(P)s:ROISUM%(CHAN)d:EnableX", "Yes")
+dbpf("%(P)s:ROISUM%(CHAN)d:EnableY", "Yes")
+dbpf("%(P)s:ROISUM%(CHAN)d:MinY", "%(addr)d")
+dbpf("%(P)s:ROISUM%(CHAN)d:SizeY", "1")
+dbpf("%(P)s:C%(CHAN)d_PluginControlValExtraROI", "0")
+"""% temp_dict
+
+#Disable channels >2 by default. These can be enabled by the
+#user if needed.
+             if CHAN > 1:
+                  print """dbpf("%(P)s:C%(CHAN)d_PluginControlVal", "0")"""% temp_dict
 
     ArgInfo = (_xspress3.ArgInfo +
                _ADBase.ArgInfo + 
