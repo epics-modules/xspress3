@@ -779,7 +779,7 @@ botShadowColor index 11
 font "arial-bold-r-14.0"
 buttonLabel "MCA Data and ROI Settings"
 numPvs 4
-numDsps 9
+numDsps 17
 displayFileName {
   0 "xspress3_mca"
   1 "xspress3_mca"
@@ -789,7 +789,15 @@ displayFileName {
   5 "xspress3_mca"
   6 "xspress3_mca"
   7 "xspress3_mca"
-  8 "xspress3_mca_4chan"
+  8 "xspress3_mca"
+  9 "xspress3_mca"
+ 10 "xspress3_mca"
+ 11 "xspress3_mca"
+ 12 "xspress3_mca"
+ 13 "xspress3_mca"
+ 14 "xspress3_mca"
+ 15 "xspress3_mca"
+ 16 "xspress3_mca_4chan"
 }
 menuLabel {
   0 "Channel 1"
@@ -800,7 +808,15 @@ menuLabel {
   5 "Channel 6"
   6 "Channel 7"
   7 "Channel 8"
-  8 "Channels 1-4"
+  8 "Channel 9"
+  9 "Channel 10"
+ 10 "Channel 11"
+ 11 "Channel 12"
+ 12 "Channel 13"
+ 13 "Channel 14"
+ 14 "Channel 15"
+ 15 "Channel 16"
+ 16 "Channels 1-4"
 }
 setPosition {
   0 "parentWindow"
@@ -811,6 +827,14 @@ setPosition {
   5 "parentWindow"
   6 "parentWindow"
   7 "parentWindow"
+  8 "parentWindow"
+  9 "parentWindow"
+ 10 "parentWindow"
+ 11 "parentWindow"
+ 12 "parentWindow"
+ 13 "parentWindow"
+ 14 "parentWindow"
+ 15 "parentWindow"
 }
 symbols {
   0 "CHAN=1"
@@ -821,6 +845,15 @@ symbols {
   5 "CHAN=6"
   6 "CHAN=7"
   7 "CHAN=8"
+  8 "CHAN=9"
+  9 "CHAN=10"
+ 10 "CHAN=11"
+ 11 "CHAN=12"
+ 12 "CHAN=13"
+ 13 "CHAN=14"
+ 14 "CHAN=15"
+ 15 "CHAN=16"
+ 16 "CHAN=32"
 }
 endObjectProperties
 
@@ -841,7 +874,7 @@ botShadowColor index 11
 font "arial-bold-r-14.0"
 buttonLabel "SCA Data & Window Settings"
 numPvs 4
-numDsps 8
+numDsps 16
 displayFileName {
   0 "xspress3_sca"
   1 "xspress3_sca"
@@ -851,6 +884,14 @@ displayFileName {
   5 "xspress3_sca"
   6 "xspress3_sca"
   7 "xspress3_sca"
+  8 "xspress3_sca"
+  9 "xspress3_sca"
+ 10 "xspress3_sca"
+ 11 "xspress3_sca"
+ 12 "xspress3_sca"
+ 13 "xspress3_sca"
+ 14 "xspress3_sca"
+ 15 "xspress3_sca"
 }
 menuLabel {
   0 "Channel 1"
@@ -861,6 +902,14 @@ menuLabel {
   5 "Channel 6"
   6 "Channel 7"
   7 "Channel 8"
+  8 "Channel 9"
+  9 "Channel 10"
+ 10 "Channel 11"
+ 11 "Channel 12"
+ 12 "Channel 13"
+ 13 "Channel 14"
+ 14 "Channel 15"
+ 15 "Channel 16"
 }
 setPosition {
   0 "parentWindow"
@@ -871,6 +920,14 @@ setPosition {
   5 "parentWindow"
   6 "parentWindow"
   7 "parentWindow"
+  8 "parentWindow"
+  9 "parentWindow"
+ 10 "parentWindow"
+ 11 "parentWindow"
+ 12 "parentWindow"
+ 13 "parentWindow"
+ 14 "parentWindow"
+ 15 "parentWindow"
 }
 symbols {
   0 "CHAN=1"
@@ -881,6 +938,14 @@ symbols {
   5 "CHAN=6"
   6 "CHAN=7"
   7 "CHAN=8"
+  8 "CHAN=9"
+  9 "CHAN=10"
+ 10 "CHAN=11"
+ 11 "CHAN=12"
+ 12 "CHAN=13"
+ 13 "CHAN=14"
+ 14 "CHAN=15"
+ 15 "CHAN=16"
 }
 endObjectProperties
 
@@ -911,6 +976,14 @@ displayFileName {
   5 "xspress3_dtc"
   6 "xspress3_dtc"
   7 "xspress3_dtc"
+  8 "xspress3_dtc"
+  9 "xspress3_dtc"
+ 10 "xspress3_dtc"
+ 11 "xspress3_dtc"
+ 12 "xspress3_dtc"
+ 13 "xspress3_dtc"
+ 14 "xspress3_dtc"
+ 15 "xspress3_dtc"
 }
 menuLabel {
   0 "Channel 1"
@@ -921,6 +994,14 @@ menuLabel {
   5 "Channel 6"
   6 "Channel 7"
   7 "Channel 8"
+  8 "Channel 9"
+  9 "Channel 10"
+ 10 "Channel 11"
+ 11 "Channel 12"
+ 12 "Channel 13"
+ 13 "Channel 14"
+ 14 "Channel 15"
+ 15 "Channel 16"
 }
 setPosition {
   0 "parentWindow"
@@ -931,6 +1012,14 @@ setPosition {
   5 "parentWindow"
   6 "parentWindow"
   7 "parentWindow"
+  8 "parentWindow"
+  9 "parentWindow"
+ 10 "parentWindow"
+ 11 "parentWindow"
+ 12 "parentWindow"
+ 13 "parentWindow"
+ 14 "parentWindow"
+ 15 "parentWindow"
 }
 symbols {
   0 "CHAN=1"
@@ -941,6 +1030,14 @@ symbols {
   5 "CHAN=6"
   6 "CHAN=7"
   7 "CHAN=8"
+  8 "CHAN=9"
+  9 "CHAN=10"
+ 10 "CHAN=11"
+ 11 "CHAN=12"
+ 12 "CHAN=13"
+ 13 "CHAN=14"
+ 14 "CHAN=15"
+ 15 "CHAN=16"
 }
 endObjectProperties
 

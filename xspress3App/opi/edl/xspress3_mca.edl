@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 3
-y 44
+x 5
+y 66
 w 1000
 h 965
 font "arial-medium-r-12.0"
@@ -205,7 +205,7 @@ minor 1
 release 1
 x 10
 y 30
-w 339
+w 334
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -280,7 +280,7 @@ minor 1
 release 1
 x 10
 y 380
-w 357
+w 353
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -315,7 +315,7 @@ minor 1
 release 1
 x 10
 y 730
-w 178
+w 177
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -387,7 +387,7 @@ value {
 }
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -406,7 +406,7 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -448,7 +448,7 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -467,7 +467,7 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -509,7 +509,7 @@ newPos
 objType "monitors"
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -528,7 +528,7 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -599,7 +599,7 @@ symbols {
 }
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -618,7 +618,7 @@ font "arial-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
-# (Text Entry)
+# (Textentry)
 object TextentryClass
 beginObjectProperties
 major 10
@@ -978,6 +978,45 @@ displayFileName {
 }
 setPosition {
   0 "parentWindow"
+}
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 720
+y 920
+w 90
+h 25
+fgColor index 14
+bgColor index 3
+inconsistentColor index 14
+topShadowColor index 1
+botShadowColor index 11
+controlPv "$(P):C$(CHAN)_PluginControlVal"
+font "arial-bold-r-12.0"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 585
+y 925
+w 130
+h 20
+font "arial-bold-r-14.0"
+fontAlign "center"
+fgColor index 14
+bgColor index 3
+useDisplayBg
+value {
+  "Enable/Disable all:"
 }
 endObjectProperties
 
