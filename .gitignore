@@ -1,1 +1,10 @@
 .svn
+*.o
+*.a
+*.so
+*.d
+*~
+*#
+*.hdf5
+O.linux-x86_64
+O.Common
