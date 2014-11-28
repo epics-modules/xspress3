@@ -40,7 +40,6 @@
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Data Structures</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__xsp3__feature.html">_xsp3_feature</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The 3 off 32 bit feature registers store 3 x 8 x 4 bit fields. Unpacked in struct using chars.  <a href="struct__xsp3__feature.html#_details">More...</a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__xspress3__saved__config.html">_xspress3_saved_config</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___u_d_pconnection.html">_UDPconnection</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p_r_o_i.html">_XSPROI</a></td></tr>
@@ -58,21 +57,35 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9ba03ff76402d3806a95caad712912b8">XSP3_CONF_SOFTWARE_ROI_LUT</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9c7f58e9017d842c19ed5017a203c3f8">XSP3_CONF_ACCUMULATE_RESET_TICKS</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9bf725d544370f4c2c552da0fc7dd532">XSP3_CONF_ALL_GOOD_FROM_MCA</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9ef6156c6548c44506c08b14e55723a1">XSP3_SGX_SOFTWARE</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Enable SGX processing in software (currently firmware option).  <a href="#a9ef6156c6548c44506c08b14e55723a1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aa79ae4072d54e4e1378bb5d789b27d0c">FEM_SINGLE</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aa1e42745e1d33df9666fa33f7cf8e4e2">FEM_COMPOSITE</a>&nbsp;&nbsp;&nbsp;1</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a396085b438545a20e930610ccadc75bc">XSP3_BINS_PER_MCA</a>&nbsp;&nbsp;&nbsp;4096</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#af0b7cb1f43621e482614fb45aa72f69d">XSP3_SW_NUM_SCALERS</a>&nbsp;&nbsp;&nbsp;8</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#af0b7cb1f43621e482614fb45aa72f69d">XSP3_SW_NUM_SCALERS</a>&nbsp;&nbsp;&nbsp;9</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a950cb71db682bdd91383e567fb646d90">XSP_SW_SCALER_LIVE_TICKS</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Total exposure time, may show lower than programmed time if data packets are dropped. Can beuse to scale for dropped packets.  <a href="#a950cb71db682bdd91383e567fb646d90"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a1fe636c4c4d5b7ecece78261fe98535b">XSP_SW_SCALER_RESET_TICKS</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Time in Reset or reset crostalk glitch padding.  <a href="#a1fe636c4c4d5b7ecece78261fe98535b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a43319c6201e75afa57ba4d8c87d8034c">XSP_SW_SCALER_NUM_RESETS</a>&nbsp;&nbsp;&nbsp;2</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Number of Resets.  <a href="#a43319c6201e75afa57ba4d8c87d8034c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9f16f32ec382041475a00556776e0154">XSP_SW_SCALER_ALL_EVENT</a>&nbsp;&nbsp;&nbsp;3</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Number of all event triggers.  <a href="#a9f16f32ec382041475a00556776e0154"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a2511d2383a15e1f2f892b753a17e2fc7">XSP_SW_SCALER_ALL_GOOD</a>&nbsp;&nbsp;&nbsp;4</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Number of events with positivie energy &gt; Good threshold.  <a href="#a2511d2383a15e1f2f892b753a17e2fc7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a04bce896901292fc124c9bc0e2abb1db">XSP_SW_SCALER_IN_WINDOW0</a>&nbsp;&nbsp;&nbsp;5</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Number of events in window 0.  <a href="#a04bce896901292fc124c9bc0e2abb1db"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a8315a02754fba564766bd93ea3393646">XSP_SW_SCALER_IN_WINDOW1</a>&nbsp;&nbsp;&nbsp;6</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Number of events in window 1.  <a href="#a8315a02754fba564766bd93ea3393646"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a6793bde2587f2b05af4815a91961b31b">XSP_SW_SCALER_PILEUP</a>&nbsp;&nbsp;&nbsp;7</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#abf94d79e2f1934df0cb71b9353c0e9ac">XSP3_NUM_SOFT_SCALERS</a>&nbsp;&nbsp;&nbsp;8</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Number of events detected as pileup.  <a href="#a6793bde2587f2b05af4815a91961b31b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a3f294fce92a2b35b16dd3958fa64e9be">XSP_SW_SCALER_TOTAL_TICKS</a>&nbsp;&nbsp;&nbsp;8</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Total time in 80MHz ticks of exposure, even if some packets are dropped.  <a href="#a3f294fce92a2b35b16dd3958fa64e9be"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aa95ddd7c9b05042c932ef7d7135ccfaa">XSP3_SOFT_SCALER_TOTAL_TICKS</a>&nbsp;&nbsp;&nbsp;8</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Total integration time ticks.  <a href="#aa95ddd7c9b05042c932ef7d7135ccfaa"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#abf94d79e2f1934df0cb71b9353c0e9ac">XSP3_NUM_SOFT_SCALERS</a>&nbsp;&nbsp;&nbsp;9</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a7f497ed456adfb4161aab25ca644d2ac">XSP3_SOFT_SCALER_LIVE_TICKS</a>&nbsp;&nbsp;&nbsp;0</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Total integration time ticks.  <a href="#a7f497ed456adfb4161aab25ca644d2ac"></a><br/></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Total integration time in received packets, may may less than total ticks due to dropped packets.  <a href="#a7f497ed456adfb4161aab25ca644d2ac"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a5b47e705c6832fb6e6885bb33b754e0d">XSP3_SOFT_SCALER_RESET_TICKS</a>&nbsp;&nbsp;&nbsp;1</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#af410fdd9d087007a1c6c863eae84e331">XSP3_SOFT_SCALER_NUM_RESETS</a>&nbsp;&nbsp;&nbsp;2</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a68d7c79224137de9e5557bd6c81e8073">XSP3_SOFT_SCALER_ALL_EVENT</a>&nbsp;&nbsp;&nbsp;3</td></tr>
@@ -117,6 +130,12 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aee6ba09b51a8291521c29e640b1ce54b">XSP_MAX_MAC_ADDR</a>&nbsp;&nbsp;&nbsp;18</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">[XSP3_ERROR_CODES]  <a href="#aee6ba09b51a8291521c29e640b1ce54b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a00203efc7e8a13f3e63858890ec87527">XSP_MAX_IP_ADDR</a>&nbsp;&nbsp;&nbsp;16</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a075124a23277361a5569480987e784e4">XSP3_FEATURE_ACK_EOF_NONE</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The 3 off 32 bit feature registers store 3 x 8 x 4 bit fields. Unpacked in struct using chars.  <a href="#a075124a23277361a5569480987e784e4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a8c1a7416ad96e42de61527f051613fb8">XSP3_FEATURE_ACK_EOF_YES</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Acknowledge packets with frame number only.  <a href="#a8c1a7416ad96e42de61527f051613fb8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a7cc1c018d0b864085cf7284d9163047e">XSP3_FEATURE_ACK_EOF_WITH_TIME</a>&nbsp;&nbsp;&nbsp;2</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Acknowledge packets also tell total exposure time of frame.  <a href="#a7cc1c018d0b864085cf7284d9163047e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___c_h_a_n_n_e_l___r_e_g_s___o_f_f_s_e_t_s.html#gadcdbcfde8e2cdc9683f36d7e3c2b2cee">XSP3_REVISION</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Revision Number D[31..16] = major revision, D[15..0] = minor revision.  <a href="group___x_s_p3___c_h_a_n_n_e_l___r_e_g_s___o_f_f_s_e_t_s.html#gadcdbcfde8e2cdc9683f36d7e3c2b2cee"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___c_h_a_n_n_e_l___r_e_g_s___o_f_f_s_e_t_s.html#ga2bdc70aec929b86229f50b0e98e43a9d">XSP3_REG_PRESENT</a>&nbsp;&nbsp;&nbsp;1</td></tr>
@@ -206,6 +225,8 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a53936a86c19892c3a6e7c209add5f354">XSP3_CC_GOOD_GRADE_MODE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&amp;3)&lt;&lt;15)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aed176763d0a979018d21e6e45118e2c3">XSP3_CC_NO_EXTEND_RESET_TICKS</a>&nbsp;&nbsp;&nbsp;(1&lt;&lt;17)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Do not extend the reset ticks until any event overlapping the end of reset finishes.  <a href="#aed176763d0a979018d21e6e45118e2c3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a244e6f4b41c40c24fbe3e783f3b8867b">XSP3_CC_RUN_AVE_BY_WIDTH</a>&nbsp;&nbsp;&nbsp;(1&lt;&lt;18)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Enable event lead/tail correction by OTD width.  <a href="#a244e6f4b41c40c24fbe3e783f3b8867b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9c50b57b3c4946b0bbc7b03e8bb1b321">XSP3_CC_NEB_EVENT_MODE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&amp;7)&lt;&lt;20)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ae308de5309b0eb61407ed890c7974cfc">XSP3_CC_MAX_FILT_LEN</a>(x)&nbsp;&nbsp;&nbsp;(((x)&amp;7)&lt;&lt;24)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#adf8d9fcf356837e4185aefb3ec4f0447">XSP3_CC_GET_MAX_FILT_LEN</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;24)&amp;7)</td></tr>
@@ -285,11 +306,17 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a7069474f5ca4b5ed4368fa4123db60d9">XSP3_GLITCH_A_MASK_GLITCH_EVENT</a>&nbsp;&nbsp;&nbsp;(1&lt;&lt;28)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a4e3661007d1a8ec2b2b95aaebf610c82">XSP3_GLITCH_A_COUNT_GLICTH_TIME</a>&nbsp;&nbsp;&nbsp;(1&lt;&lt;29)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a54060b924ec04b028b1706039d632156">XSP3_GLITCH_A_EVDET</a>(x)&nbsp;&nbsp;&nbsp;(((x)&amp;0x3)&lt;&lt;30)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">From XSPRESS2 trigger-A (2 gradients over threshold). No longer used for this, now in XSP3_GLITCH_A_PRE_TIME_LONG.  <a href="#a54060b924ec04b028b1706039d632156"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9ae5d0a9b8d01659a64bf44b60d94d4f">XSP3_GLITCH_A_PRE_TIME_LONG</a>(x)&nbsp;&nbsp;&nbsp;(((x)&amp;0x1f)&lt;&lt;20|((x)&amp;0x60)&lt;&lt;25)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Pusedo Log coded Pre time. 0...63 =&gt; 0..63 , 64..127 =&gt; 0, 8, 16..504.  <a href="#a9ae5d0a9b8d01659a64bf44b60d94d4f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ad6aeb50621a4aca6020395694e2f9537">XSP3_GLITCH_A_GET_GLITCH_TIME</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;1)&amp;0x1ff)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">[XSP3_GLITCH_A_REGISTER]  <a href="#ad6aeb50621a4aca6020395694e2f9537"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ac3a8dee47674da8d4cf823e5b36c914d">XSP3_GLITCH_A_GET_GLITCH_THRES</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;10)&amp;0xff)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a24cbeba5d2b5f6ddab3505f42011dde6">XSP3_GLITCH_A_MAX_GLITCH_TIME</a>&nbsp;&nbsp;&nbsp;0x1FF</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a552261c8f219717eea9c9d509cf2fa5c">XSP3_GLITCH_A_MAX_PRE_TIME</a>&nbsp;&nbsp;&nbsp;0x1F</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Maximum pre-time with normal Full Gdet build.  <a href="#a552261c8f219717eea9c9d509cf2fa5c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a77409957af61a580ed1940d21dcaed5b">XSP3_GLITCH_A_MAX_PRE_TIME_LONG</a>&nbsp;&nbsp;&nbsp;0x1FF</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Maximum pre-time with BRAM based dealy GDet, see <a class="el" href="">XSP3_FEATURE_GDET_LONG</a>.  <a href="#a77409957af61a580ed1940d21dcaed5b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#adcd418ca63c4ef3ff014868b1fae0a4d">XSP3_GLITCH_A_MIN_THRES</a>&nbsp;&nbsp;&nbsp;-255</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aa5a35340fc88be97475c09c4a4ae4b66">XSP3_GLITCH_B_HOLDOFF</a>(x)&nbsp;&nbsp;&nbsp;((x)&amp;0x1FF)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">[XSP3_GLITCH_B_REGISTER]  <a href="#aa5a35340fc88be97475c09c4a4ae4b66"></a><br/></td></tr>
@@ -413,6 +440,14 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aec51f6eb9354ea8ac92ec051c634882d">X3TRIG_C_MAX_OVERTHR_STRETCH</a>&nbsp;&nbsp;&nbsp;0x3F</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a01ffc35ad77f7b02e6f8da2deb2e88d2">X3TRIG_C_MAX_TRIM</a>&nbsp;&nbsp;&nbsp;15</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ade8c8369f4c69a60fb4e4e145e7bd446">X3TRIG_B_MAX_EVENT_TIMEL</a>&nbsp;&nbsp;&nbsp;0x7F</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___c_a_l___e_v.html#ga48a66bf1c30b5ad18271f2390e166270">XSP3_CAL_EV_ENABLE</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Enable Calibration events.  <a href="group___x_s_p3___c_a_l___e_v.html#ga48a66bf1c30b5ad18271f2390e166270"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___c_a_l___e_v.html#ga046ad3e7288722f9a12fa8dc83b2056c">XSP3_CAL_EV_PERIOD</a>(x)&nbsp;&nbsp;&nbsp;(((x)&amp;0x3FFF)&lt;&lt;1)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set period of calibration events. In 100 ns Units.  <a href="group___x_s_p3___c_a_l___e_v.html#ga046ad3e7288722f9a12fa8dc83b2056c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___c_a_l___e_v.html#ga8f6fbfac0b4432007fe4cdfe2e7c9790">XSP3_CAL_EV_AVOID</a>&nbsp;&nbsp;&nbsp;(1&lt;&lt;31)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Calibration event avoid clashing with real events.  <a href="group___x_s_p3___c_a_l___e_v.html#ga8f6fbfac0b4432007fe4cdfe2e7c9790"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___c_a_l___e_v.html#gac373b165d1c5e591f119d0e547a610e3">XSP3_CAL_EV_MAX_PERIOD</a>&nbsp;&nbsp;&nbsp;0x3FFF</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Maximum cal event period in 100 ns Units.  <a href="group___x_s_p3___c_a_l___e_v.html#gac373b165d1c5e591f119d0e547a610e3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a6d224d453a74ebd39cf39d7177000afb">X3WINDOW_LOW_START</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ae4fb06701cbaf50012ee00845d8a63fb">X3WINDOW_LOW_MASK</a>&nbsp;&nbsp;&nbsp;0x0000ffff</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a8fdf19fe3aed46061a0c5fd188ea68a1">X3WINDOW_HIGH_START</a>&nbsp;&nbsp;&nbsp;16</td></tr>
@@ -456,6 +491,12 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a095a48237c854d78a0a1fee71907fc4c">XSP3_SERVO_C_GET_DITHER_CONT</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;12)&amp;0x7)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ac3b65fcb60a16af13b942812863be572">XSP3_SERVO_C_MAX_RESET_STRETCH</a>&nbsp;&nbsp;&nbsp;0x1FF</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a7eae8895995e38e6701749075e85a0ff">XSP3_SERVO_C_MAX_DITHER_CONT</a>&nbsp;&nbsp;&nbsp;5</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#acb990fb41fa15980007fa52c64377ed2">XSP3_SERVO_C_ENB_BI_LIN_TIME</a>&nbsp;&nbsp;&nbsp;(1&lt;&lt;15)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Enable detailed control of Bi-linear timing.  <a href="#acb990fb41fa15980007fa52c64377ed2"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aac3516433b79c67f30b97b106d5211cc">XSP3_SERVO_C_BI_LIN_TIME_CODE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&amp;3)&lt;&lt;16)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Coded length for longer chunks 0=&gt; 128, 1=&gt;256, 2=&gt;512, 3=&gt;1024.  <a href="#aac3516433b79c67f30b97b106d5211cc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ab9ffc6d09567987aa043576f8822f17d">XSP3_SERVO_C_BI_LIN_TIME_START</a>(x)&nbsp;&nbsp;&nbsp;(((x)&amp;7)&lt;&lt;18)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Coded number of short chunks before jumping to longer chunks. 0=&gt;4, 1=&gt;8, 2=&gt;16, 3=&gt;32, 4=&gt;64, 5=&gt;128, 6=&gt;256, 7=&gt;256.  <a href="#ab9ffc6d09567987aa043576f8822f17d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a888fd762d9180b5cd57c94e804b0d2ea">XSP3_SERVO_MAX_ERR_LIM</a>&nbsp;&nbsp;&nbsp;0xFF</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">[XSP3_SERVO_C_REGISTER]  <a href="#a888fd762d9180b5cd57c94e804b0d2ea"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a23cb2c86f057843de2415fcf4a19d94c">XSP3_SERVO_MAX_STRETCH</a>&nbsp;&nbsp;&nbsp;0x7F</td></tr>
@@ -486,7 +527,12 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ac16d7d39f5bd60839807870a08ae0302">XSP3_AUX1_SIZE</a>&nbsp;&nbsp;&nbsp;4096</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ae8eeda34e6852faba3ce53420819e4ab">XSP3_SERVO_TAIL_SIZE</a>&nbsp;&nbsp;&nbsp;1024</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9a317a8c2ff533024acbc0b9759f2138">XSP3_EVENT_LEAD_SIZE</a>&nbsp;&nbsp;&nbsp;1024</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a13b08935cdfd76ee931abc889c9c8010">XSP3_MAX_BRAM_SIZE</a>&nbsp;&nbsp;&nbsp;4096</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a936bc59ca0e7e8e788faba835dbef95e">XSP3_EVENT_TAIL_W4_NT</a>&nbsp;&nbsp;&nbsp;512</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ae41b250cc80711fa653290484554744e">XSP3_EVENT_TAIL_W4_NW</a>&nbsp;&nbsp;&nbsp;16</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a996ab3e3aa809a39a955e26dd7149ff6">XSP3_EVENT_LEAD_W4_NT</a>&nbsp;&nbsp;&nbsp;512</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#adbe711382dd643386cc295fd712f01e1">XSP3_EVENT_LEAD_W4_NW</a>&nbsp;&nbsp;&nbsp;16</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a921382e734be74c5b2251c4531619445">XSP3_EVENT_LEAD_TAIL_MAX_NT</a>&nbsp;&nbsp;&nbsp;16</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a13b08935cdfd76ee931abc889c9c8010">XSP3_MAX_BRAM_SIZE</a>&nbsp;&nbsp;&nbsp;8192</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a537865d468bc8c05b193be021452d538">XSP3_FEV_TP_RESET</a>&nbsp;&nbsp;&nbsp;0x8000</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a5799d801b30ca92862442485b84dd68e">XSP3_PWL_SERVO_SIZE16</a>&nbsp;&nbsp;&nbsp;2048</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___g_l_o_b_a_l___r_e_g_s___o_f_f_s_e_t_s.html#ga5fcf98fba41aadfb5b03904fae0ea695">XSP3_GLOB_CLOCK_CONT</a>&nbsp;&nbsp;&nbsp;0</td></tr>
@@ -554,6 +600,8 @@ Defines</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Resets Playback FIFO as part of clean start.  <a href="#a180b8d7b1535d4c56f2a613de7d55d9a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a20880340a8bb6b27ae9f8dba4927141c">XSP3_GLOB_TIMA_COUNT_ENB</a>&nbsp;&nbsp;&nbsp;(1&lt;&lt;29)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">In software timing (XSP3_GTIMA_SRC_FIXED) mode enable counting when high. Transfers scalers on falling edge. After first frame, increments time frame on risign edge.  <a href="#a20880340a8bb6b27ae9f8dba4927141c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#abd780529215cf19cdd3efbb7c8c8a6d7">XSP3_GLOB_TIMA_ITFG_RUN</a>&nbsp;&nbsp;&nbsp;(1&lt;&lt;28)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">From versions 11/8/2014 onwards this is a separate Run signal to the internal time frame generator, which could be used to crsh stop the ITFG before stopping the rest.  <a href="#abd780529215cf19cdd3efbb7c8c8a6d7"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a6365805bc7edd82a3fff13b6b72f5549">XSP3_ALT_TTL_TIMING_VETO</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">[XSP3_GLOBAL_TIMEA_REGISTER]  <a href="#a6365805bc7edd82a3fff13b6b72f5549"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ab1b24d34510198d475ccd51db8434537">XSP3_ALT_TTL_TIMING_ALL</a>&nbsp;&nbsp;&nbsp;1</td></tr>
@@ -830,7 +878,7 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga058b5e49296fa020b0ef93e94b9e8bdb">XSP3_FEATURE_GET_GLOBAL_RESET</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;16)&amp;0xF)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga1b0dffd06c5aea0a2e0b19e13b95e5f3">XSP3_FEATURE_GET_TIMING_SOURCE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;20)&amp;0xF)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga9953a4472c5b50acf1081294ac0d6b5d">XSP3_FEATURE_GET_TIMING_GENERATOR</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;24)&amp;0xF)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gafd2f525fb3ce716e2935b390928c508d">XSP3_FEATURE_GET_SPARE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;28)&amp;0xF)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gae75fd4a2782c8e076ee95cc6e2f55b91">XSP3_FEATURE_GET_SCOPE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;28)&amp;0xF)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga63718199cd9462b58f76cfbdd119f80b">XSP3_FEATURE_GET_TEST_SRC_A</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;0)&amp;3)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Test source A from lower 2 bits.  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga63718199cd9462b58f76cfbdd119f80b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga458ee270e28ec431ee9a2d636d0e144a">XSP3_FEATURE_GET_TEST_SRC_B</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;2)&amp;3)</td></tr>
@@ -851,6 +899,16 @@ Defines</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Glitch detector from gradient, original 8 bit threshold register layout.  <a href="group___x_s_p___f_e_a_t_u_r_e___g_d_e_t.html#ga7f905b654d6e97b3c6fa405618236126"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p___f_e_a_t_u_r_e___g_d_e_t.html#ga0c6b44cec404d5d21abec5297fea6194">XSP3_FEATURE_GDET_THRES10</a>&nbsp;&nbsp;&nbsp;2</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Glitch detector from gradient, modified 10 bit threshold register layout.  <a href="group___x_s_p___f_e_a_t_u_r_e___g_d_e_t.html#ga0c6b44cec404d5d21abec5297fea6194"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p___f_e_a_t_u_r_e___g_d_e_t.html#ga047e5d201525a668c63f39b6bd507981">XSP3_FEATURE_GDET_LONG</a>&nbsp;&nbsp;&nbsp;3</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Glitch detector from gradient, modified 10 bit threshold register layout and upto 511 pre-delay..  <a href="group___x_s_p___f_e_a_t_u_r_e___g_d_e_t.html#ga047e5d201525a668c63f39b6bd507981"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p___f_e_a_t_u_r_e___l_e_a_d___t_a_i_l.html#ga5c75a81ef8947b1c374e025495efc278">XSP3_FEATURE_LEAD_TAIL_LEAD</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Include Correction for event lead in.  <a href="group___x_s_p___f_e_a_t_u_r_e___l_e_a_d___t_a_i_l.html#ga5c75a81ef8947b1c374e025495efc278"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p___f_e_a_t_u_r_e___l_e_a_d___t_a_i_l.html#ga704e6ba05aa292fb45fa386801c9406b">XSP3_FEATURE_LEAD_TAIL_GET_WIDTH</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;1)&amp;3)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get feature of event lead/tail correction based on OTD width.  <a href="group___x_s_p___f_e_a_t_u_r_e___l_e_a_d___t_a_i_l.html#ga704e6ba05aa292fb45fa386801c9406b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p___f_e_a_t_u_r_e___l_e_a_d___t_a_i_l.html#gacc8fcf85ebe8757064d70023d63c4f67">XSP3_FEATURE_LEAD_TAIL_WIDTH_NONE</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">No dependence on Width available.  <a href="group___x_s_p___f_e_a_t_u_r_e___l_e_a_d___t_a_i_l.html#gacc8fcf85ebe8757064d70023d63c4f67"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p___f_e_a_t_u_r_e___l_e_a_d___t_a_i_l.html#ga10ad360f99bbd9c425e534a7990bc6cb">XSP3_FEATURE_LEAD_TAIL_WIDTH4</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Run ave lead/tail correction depends on width(3 downto 0).  <a href="group___x_s_p___f_e_a_t_u_r_e___l_e_a_d___t_a_i_l.html#ga10ad360f99bbd9c425e534a7990bc6cb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga1f3f3eb995e1bc5da3a2694924e835ed">XSP3_FEATURE_SERVO_BASE_NONE</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gafea56463f73be1e24d17eca71500621e">XSP3_FEATURE_SERVO_BASE_PWL1</a>&nbsp;&nbsp;&nbsp;1</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Single table (512 points) PWL servo.  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gafea56463f73be1e24d17eca71500621e"></a><br/></td></tr>
@@ -876,8 +934,20 @@ Defines</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Output is list of 64 bit words including processed event height and all auxiliary info.  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gaefab2a58f3640787aad43830f98d48ce"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga3780a2d36b59edeb57a999426004b261">XSP3_FEATURE_OUTPUT_FORMAT_RAW_AVERAGES</a>&nbsp;&nbsp;&nbsp;2</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Output is Raw running avreages, needing lead and tail correction and then top-bottom subtraction.  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga3780a2d36b59edeb57a999426004b261"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga044a30598ad5a328d84aed21ddf98b8c">XSP3_FEATURE_OUTPUT_FORMAT_DIFFERENCES</a>&nbsp;&nbsp;&nbsp;8</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Output is ADC input data as a list of differences.  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga044a30598ad5a328d84aed21ddf98b8c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga29ed6a364591fafd03701962a92197da">XSP3_FEATURE_FORMAT_B_HGT64_ACK_EOF</a>&nbsp;&nbsp;&nbsp;4</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">If XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64 this bit implies there is an Acknowledge retry on the eond of frame markers.  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga29ed6a364591fafd03701962a92197da"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga92e2f266c88642bf20962e7258db732a">XSP3_FEATURE_FORMAT_B_HGT64_ACK_TIME</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">If XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64 this bit implies that the ackl and any frame data sends to previous frames total time.  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga92e2f266c88642bf20962e7258db732a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a0ae531217da6e5835880ef45b3d0f72f">XSP3_FEATURE_FORMAT_B_NO_ROI</a>&nbsp;&nbsp;&nbsp;(1&lt;&lt;3)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Output does not have Roi function.  <a href="#a0ae531217da6e5835880ef45b3d0f72f"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ae3af2df46ff148a9d4ab33887930c176">XSP3_HGT64_SOF_GET_FRAME</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;0)&amp;0xFFFFFF)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get time frmae from first (header) word.  <a href="#ae3af2df46ff148a9d4ab33887930c176"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#adab0a4835e03202a7e6a2d69d4609b62">XSP3_HGT64_SOF_GET_PREV_TIME</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;24)&amp;0xFFFFFFFF)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get total integration time from previous time frame from first (header) word.  <a href="#adab0a4835e03202a7e6a2d69d4609b62"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a247a169823d88f6b05ba3db1cf942bf8">XSP3_HGT64_SOF_GET_CHAN</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;60)&amp;0xF)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get channel number from first (header) word.  <a href="#a247a169823d88f6b05ba3db1cf942bf8"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a8768c7e75e0fb1c7339b77649fe3a757">XSP3_HGT64_GET_HEIGHT</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;0)&amp;0xFFF)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get event height.  <a href="#a8768c7e75e0fb1c7339b77649fe3a757"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a5a88abebe87307627db7d76426d9d184">XSP3_HGT64_GET_IN_RANGE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;12)&amp;1)</td></tr>
@@ -916,6 +986,32 @@ Defines</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mask for good resolution grade.  <a href="#a921c89241f213c0ef880d6488b552306"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a8258d412fb1e87c500b3224d2e9f1758">XSP3_HGT64_MASK_RESET_DUMMY</a>&nbsp;&nbsp;&nbsp;(1L&lt;&lt;45)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mask for dummy reset.  <a href="#a8258d412fb1e87c500b3224d2e9f1758"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aa5a65c4773185c4909b616cacf52617d">XSP3_DIFFS_CODE_DIFFS</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Differences mode : Differences data.  <a href="#aa5a65c4773185c4909b616cacf52617d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a12ac41857329cfb56f22a26723a7a391">XSP3_DIFFS_CODE_TIME_FRAME</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Differences mode : Time frame first or change.  <a href="#a12ac41857329cfb56f22a26723a7a391"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9a1d3fa1fc26f2956151f6820a7262f3">XSP3_DIFFS_GET_CODE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;60)&amp;0xF)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Differences mode : Get Data code bits.  <a href="#a9a1d3fa1fc26f2956151f6820a7262f3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ac2005a58e5d671e312aac98c1e07c0a7">XSP3_DIFFS_TF_FIRST_MASK</a>&nbsp;&nbsp;&nbsp;(1L&lt;&lt;59)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diffs Time frame is first word.  <a href="#ac2005a58e5d671e312aac98c1e07c0a7"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ad30f4b05abfb3b0eaacd2938b2b9c304">XSP3_DIFFS_TF_CHANGE_MASK</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diffs time frame is change of TF.  <a href="#ad30f4b05abfb3b0eaacd2938b2b9c304"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#af9e47ddba0d40e1d4cbe162345ed3799">XSP3_DIFF_FIRST_CHAN</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;55)&amp;0xF)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diff mode First word, extrac channel.  <a href="#af9e47ddba0d40e1d4cbe162345ed3799"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a6bb8ba98fa238c13240d8150757b2565">XSP3_DIFFS_TF_TIME_STAMP</a>(x)&nbsp;&nbsp;&nbsp;((x)&amp;0x3FFFFFFF)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diffs time frame change Extract time stamp.  <a href="#a6bb8ba98fa238c13240d8150757b2565"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ab9eab5b2bb2bf35cde74c8422ec86f6d">XSP3_DIFFS_TF_FRAME</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;30)&amp;0xFFFFFF)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diffs time frame change Extract time frame.  <a href="#ab9eab5b2bb2bf35cde74c8422ec86f6d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ad9107a302566ac2de8b3197fbe6dcffb">XSP3_DIFFS_TF_ENABLE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;(24+30))&amp;1)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diffs time frame change Extract Count Enable.  <a href="#ad9107a302566ac2de8b3197fbe6dcffb"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#abc0a56f3f1feb8811e04a41d1fbdba56">XSP3_DIFFS_DATA_IDLE</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diffs 10 bit data special code for idle.  <a href="#abc0a56f3f1feb8811e04a41d1fbdba56"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a28aa63ba3d53f254dceefa84c796e103">XSP3_DIFFS_DATA_START</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diffs 10 bit data special code for start.  <a href="#a28aa63ba3d53f254dceefa84c796e103"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a6f0b05b2a7a54fc749b1b4edad351d47">XSP3_DIFFS_DATA_RESET</a>&nbsp;&nbsp;&nbsp;2</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diffs 10 bit data special code for End of Reset.  <a href="#a6f0b05b2a7a54fc749b1b4edad351d47"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a564e9ab6df5d77eb1d8561b3678ba846">XSP3_DIFFS_DATA_GLOB_RST</a>&nbsp;&nbsp;&nbsp;3</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Diffs 10 bit data special code for End of Global Reset.  <a href="#a564e9ab6df5d77eb1d8561b3678ba846"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___i_t_f_g___r_e_g_s.html#ga0f64531f4c4688842458e6bdc8f372d6">XSP3_ITFG_SET_FRAMES</a>(x)&nbsp;&nbsp;&nbsp;((x)&amp;0xFFFFFF)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set number of frames for internal TFG.  <a href="group___x_s_p3___i_t_f_g___r_e_g_s.html#ga0f64531f4c4688842458e6bdc8f372d6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___i_t_f_g___r_e_g_s.html#gadccd3d0f3a17dac2b20d025dc833055b">XSP3_ITFG_SET_TRIG_MODE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&amp;7)&lt;&lt;24)</td></tr>
@@ -956,10 +1052,16 @@ Defines</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">XSP3_FEATURS_TIMING_GEN Macros describing the internal timing generator  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gadfaa0a6adab7d9f56795f1f5b57e0670"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga4da57f92a14b029b734389f3612b1130">XSP3_FEATURE_TIMING_GEN_MINIMAL_ITFG</a>&nbsp;&nbsp;&nbsp;1</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Timing Generator is minimal Internal TFG generating nframe all of same length, burst, started or all triggered.  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga4da57f92a14b029b734389f3612b1130"></a><br/></td></tr>
+<tr><td colspan="2"><div class="groupHeader"></div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p><a class="anchor" id="amgrpd41d8cd98f00b204e9800998ecf8427e"></a> </p>
+</div></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gaf8a79ac91f688fce10e19cd849ac2b97">XSP3_FEATURE_SCOPE_BIT15_GR_ONLY</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">XSP3_FEATURS_SCOPE Macros describing the scope mode features  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gaf8a79ac91f688fce10e19cd849ac2b97"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga5e3eb4d7855071bf9d1f60c0dc9167a7">XSP3_FEATURE_SCOPE_BIT15_ALT_ENB</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Bit 15 of scope mode is uses alternate bits 3..0 to allow HistEnable to be seen.  <a href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga5e3eb4d7855071bf9d1f60c0dc9167a7"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct__xsp3__feature.html">_xsp3_feature</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a47c38a95249440ae35eeaf4fea93e923">Xspress3_features</a></td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">The 3 off 32 bit feature registers store 3 x 8 x 4 bit fields. Unpacked in struct using chars.  <a href="#a47c38a95249440ae35eeaf4fea93e923"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef struct <br class="typebreak"/>
 <a class="el" href="struct__xspress3__saved__config.html">_xspress3_saved_config</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#abdafdb67dcaea3418999384fc91b6d12">Xspress3SavedConfig</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="struct___u_d_pconnection.html">_UDPconnection</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#af82d9fcce53929e840e53a4780c6138e">UDPconnection</a></td></tr>
@@ -1049,6 +1151,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the raw trigger B registers, however the preferred method is to use <a class="el" href="">xsp3_get_trigger_b</a>.  <a href="group__internal.html#ga6e3dc4ce3545bd26ddcf0910abaf46ed"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga7b90e4d4c53618c67e796644e2d363dc">xsp3_get_trigger_regs_c</a> (int path, int chan, u_int32_t *trigc_otd_servo, u_int32_t *trigc_thres)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the raw trigger C registers, however the preferred method is to use <a class="el" href="">xsp3_get_trigger_c</a>.  <a href="group__internal.html#ga7b90e4d4c53618c67e796644e2d363dc"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#gaa843b6dd1b2ab0a3251463c1fd1ffb2a">xsp3_set_cal_events</a> (int path, int chan, int enable, int period, int avoid)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Setup the Calibration event trigger generator.  <a href="group__fullcontrol.html#gaa843b6dd1b2ab0a3251463c1fd1ffb2a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga4a29946598341f8c0ca9252bf39d7819">xsp3_get_glitch</a> (int path, int chan, u_int32_t *glitchA, u_int32_t *glitchB)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get the glitch registers A &amp; B.  <a href="group__fullcontrol.html#ga4a29946598341f8c0ca9252bf39d7819"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga45afdce5a53b9c007d8c1576a1fce269">xsp3_write_reg</a> (int path, int chan, int region, int offset, int size, u_int32_t *value)</td></tr>
@@ -1127,6 +1231,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Configure all the parameters for a UDP connection to the xspress3 card.  <a href="group__internal.html#gafc352186020b336e0e086684a6874f37"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga03701193b2a894c3f58f619fce0211e4">xsp3_config_histogram_udp</a> (int path, int card, char *hostIPaddress, int hostPort, char *femIPaddress, int femPort)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Configure the upd connection between the server and the xspress3 card and subsequently initializes a thread to perform the histogramming.  <a href="group__internal.html#ga03701193b2a894c3f58f619fce0211e4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga45bb9c52cea231d503017a105ae38c0c">xsp3_config_histogram_threads</a> (int path, int card)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Start event list processing threads for 1 or all cards in farm mode.  <a href="group__internal.html#ga45bb9c52cea231d503017a105ae38c0c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga5b8052f13dd2f05036bb65ddd5d826f3">xsp3_set_udp_port</a> (int path, int card, int hostPort)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the UDP port number.  <a href="group__internal.html#ga5b8052f13dd2f05036bb65ddd5d826f3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga4cfdbc1ed13b9d4fe3a3c12e5e05def6">xsp3_set_udp_packet_size</a> (int path, int card, int size_bytes)</td></tr>
@@ -1135,8 +1241,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read scope data from 10G ethernet using UDP protocol.  <a href="group__toplevel.html#ga287351331773b121b8db78c90bdba4e9"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga74e7c97d720df8c5e9b0bce669408b18">xsp3_read_scope_data_int</a> (int path, int card, int swap)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read scope data from 10G ethernet using UDP protocol.  <a href="group__internal.html#ga74e7c97d720df8c5e9b0bce669408b18"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gab3600535941ff4f760e4db41b5dde026">xsp3_create_data_module</a> (int path, char *modname)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create the scope mode data module.  <a href="group__internal.html#gab3600535941ff4f760e4db41b5dde026"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gab0bff51978a1704e926b339f60740d25">xsp3_create_data_module</a> (int path, char *modname, int layout)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create the scope mode data module.  <a href="group__internal.html#gab0bff51978a1704e926b339f60740d25"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gaeb60c914fabc7deb6559f7491c106589">xsp3_read_rdma_reg</a> (int path, int card, int address, int size, u_int32_t *value)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read a series of values from the UPD core registers for each specified card.  <a href="group__internal.html#gaeb60c914fabc7deb6559f7491c106589"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga06821195404d52220118538ca89a9a61">xsp3_write_rdma_reg</a> (int path, int card, int address, int size, u_int32_t *value)</td></tr>
@@ -1318,6 +1424,7 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gabd552effcf1346a3aa3cfba84d4ad220">xsp3_read_soft_lut</a> (int path, int chan, int region_num, int nwords, u_int32_t *data)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read Software lookup table equivalent to BRAM.  <a href="group__internal.html#gabd552effcf1346a3aa3cfba84d4ad220"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a1569372e9e1a2fb22a68f5bed4fcd6a6">read_and_histogram_hgt64</a> (void *args)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a85f53b867e1be54b535cf569055b2e42">read_and_save_diffs</a> (void *args)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga746c4d9fd12495c14efcc14641a4a248">xsp3_soft_scaler_read</a> (int path, u_int32_t *dest, unsigned first_scaler, unsigned first_chan, unsigned first_t, unsigned n_scalers, unsigned n_chan, unsigned dt)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read a block of software scaler data.  <a href="group__internal.html#ga746c4d9fd12495c14efcc14641a4a248"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga05595151403db5ac02cbab8e4b45f4c5">xsp3_soft_scaler_clear</a> (int path, int first_chan, int first_frame, int num_chan, int num_frames)</td></tr>
@@ -1332,12 +1439,24 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Setup Internal time frame generator (TFG) for a series of equal length frames.  <a href="group__toplevel.html#ga45a3b1bdca5df51717f98d00fdd200d3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#gad7cf4112aeaf0bf80fbc9dd49956edef">xsp3_itfg_get_setup</a> (int path, int card, int *num_tf, u_int32_t *col_time, int *trig_mode, int *gap_mode)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retrieve settings of the Internal time frame generator (TFG).  <a href="group__toplevel.html#gad7cf4112aeaf0bf80fbc9dd49956edef"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#ga6a5a675b8e87125f6d3cc23a091b474d">xsp3_itfg_stop</a> (int path, int card)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stop the Internal time frame generator (TFG).  <a href="group__toplevel.html#ga6a5a675b8e87125f6d3cc23a091b474d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#ga1be2e3752414db3354a335f69febe1e4">xsp3_has_itfg</a> (int path, int card)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether firmware includes an internal TFG.  <a href="group__toplevel.html#ga1be2e3752414db3354a335f69febe1e4"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#ga673ae2d9f80b5e5fe73f94cdc9e98a0e">xsp3_has_reset_det</a> (int path, int card)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether firmware includes a Reset detector.  <a href="group__toplevel.html#ga673ae2d9f80b5e5fe73f94cdc9e98a0e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#ga36d0b281b850c64fb702ef8ca27b488b">xsp3_has_glitch_det</a> (int path, int card, int *min_thres)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether firmware includes a glitch detector.  <a href="group__toplevel.html#ga36d0b281b850c64fb702ef8ca27b488b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#gab7b8bb43907d58f18a61dbd985542c18">xsp3_has_scope_dig_alt0</a> (int path, int card)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether firmware Alternatebit 3..0 controlling scope stream 0.  <a href="group__toplevel.html#gab7b8bb43907d58f18a61dbd985542c18"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga10b73ef33a0f9d9f42864e4c318c039d">xsp3_bram_size</a> (int path, int chan, int region_num)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine if the size of the given BRAM.  <a href="group__fullcontrol.html#ga10b73ef33a0f9d9f42864e4c318c039d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga6327779a3e2a3f81223fd6921110fb50">xsp3_has_lead_tail_corr_width</a> (int path, int chan, int region_num, int *num_t, int *num_wid)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine the option code for event lead and tail correction type and and return layout.  <a href="group__fullcontrol.html#ga6327779a3e2a3f81223fd6921110fb50"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#gaaabcaca93a454c5d514b5f61ec051dc3">xsp3_has_lead_corr</a> (int path, int card)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine if the firmware has event lead-in corection configured.  <a href="group__fullcontrol.html#gaaabcaca93a454c5d514b5f61ec051dc3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga130f900342f10cb2cff66c2d5bf92c16">xsp3_has_servo_bi_linear_time</a> (int path, int chan)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine the option code for the bi-linear time version(s) of PWL servo.  <a href="group__fullcontrol.html#ga130f900342f10cb2cff66c2d5bf92c16"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga6150de7b03e7ce54479765616e9aebc1">xsp3_set_global_reset_gen</a> (int path, int card, int enable, int sync_mode, int det_reset_width, int hold_off_time, int gr_active_del, int gr_active_wid, int circ_offset)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Configure the detector global reset generator.  <a href="group__fullcontrol.html#ga6150de7b03e7ce54479765616e9aebc1"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#ga1748aa21c7f8fc35f669db6f29ae702c">xsp3_get_disable_threading</a> (int path)</td></tr>
@@ -1346,9 +1465,34 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set Disable multi threading flags.  <a href="group__toplevel.html#ga89bc586518b2e250956838081d59d8b2"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aca9050f203e8fbf010d71ee80b1af938">xsp3_bram_size</a> [XSP3_REGION_RAM_MAX+1]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a1029b5d278dc0857fdbe5dff98bff0c6">xsp3_bram_size_table</a> [XSP3_REGION_RAM_MAX+1]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a8c215db0aa8a9e201d758056998f5fac">xsp3_bram_width</a> [XSP3_REGION_RAM_MAX+1]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#abbe2104721085439907de561216169a3">xsp3_bram_name</a> [XSP3_REGION_RAM_MAX+1]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a35dacd26cd073079e3064ddc550bc519">xsp3_feature_test_data_source_a</a> [4]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ad912dc3cb2a6d6a16e5f5d73157e35a2">xsp3_feature_test_data_source_b</a> [4]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a46b3f91af26e8d90ff25abbcd525524a">xsp3_feature_real_data_source</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a463db79049a8d92e1b9854234bb253cd">xsp3_feature_data_mux</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a9f70d3f39ddf1901a8c1f5c203fdf4cd">xsp3_feature_inl_corr</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aa1d52aa8ab2b48808015545c36107d07">xsp3_feature_reset_detector</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a3f4ba5a178357be9d00fcc374439732d">xsp3_feature_reset_corr</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a73d1c3ffc67167a2dae2682acb868093">xsp3_feature_glitch_detect</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a4ca499abf65a9690609ba6295418095a">xsp3_feature_glitch_pad</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ac9aa9ce5b9a17bbf5475868678be9530">xsp3_feature_trigger_b_l</a> [4]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aaace6ba6657351c56d15d6a815e30404">xsp3_feature_trigger_b_m</a> [4]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ae5b7789b12a816665cdb3ef6430952df">xsp3_feature_trigger_c</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a1054c6fbe0524388c20b8f7656e1b9aa">xsp3_feature_trigger_extra</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a679384fc92dffc0bbb9b98e36755256b">xsp3_feature_calibrator</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a1e92e75b6d0a83a07641574a76a12bdc">xsp3_feature_neighbour_events</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a7e6060b803582f58532b9e5bafe066e3">xsp3_feature_servo_base</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a4798a936415f8c1a9fffff4b244e79c1">xsp3_feature_run_ave3</a> [2]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#ad4621e43d877939cc9a3e9d5f7b16e4b">xsp3_feature_lead_tail0</a> [2]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#acec8b78f4054948f0922fa92ee629c9c">xsp3_feature_lead_tail12</a> [4]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a3b95afd75370c32eea4d1eeb782c2771">xsp3_feature_output_format</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a00a679c586ac866c80e0b208baabb698">xsp3_feature_format_details_a01</a> [4]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a083a208900b1d6456c6f9c81ebcdefc0">xsp3_feature_format_details_a23</a> [4]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#aa19e4abe0ea7a479f470f04e2b376f85">xsp3_feature_global_reset</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a7f3b1c74e13d00ee1520d9f4ca107f08">xsp3_feature_timing_generator</a> [16]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3_8h.html#a1f463928634775fd5ae5d747cc5fae77">xsp3_feature_scope_mode</a> [16]</td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
 <a class="anchor" id="aa1e42745e1d33df9666fa33f7cf8e4e2"></a><!-- doxytag: member="xspress3.h::FEM_COMPOSITE" ref="aa1e42745e1d33df9666fa33f7cf8e4e2" args="" -->
@@ -3512,6 +3656,21 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a244e6f4b41c40c24fbe3e783f3b8867b"></a><!-- doxytag: member="xspress3.h::XSP3_CC_RUN_AVE_BY_WIDTH" ref="a244e6f4b41c40c24fbe3e783f3b8867b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_CC_RUN_AVE_BY_WIDTH&nbsp;&nbsp;&nbsp;(1&lt;&lt;18)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Enable event lead/tail correction by OTD width. </p>
+
+</div>
+</div>
 <a class="anchor" id="a4bd8aba70ea27f96759e87a6e7e78a9a"></a><!-- doxytag: member="xspress3.h::XSP3_CC_SEL_DATA" ref="a4bd8aba70ea27f96759e87a6e7e78a9a" args="(x)" -->
 <div class="memitem">
 <div class="memproto">
@@ -3920,6 +4079,226 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="af9e47ddba0d40e1d4cbe162345ed3799"></a><!-- doxytag: member="xspress3.h::XSP3_DIFF_FIRST_CHAN" ref="af9e47ddba0d40e1d4cbe162345ed3799" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFF_FIRST_CHAN</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;55)&amp;0xF)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diff mode First word, extrac channel. </p>
+
+</div>
+</div>
+<a class="anchor" id="aa5a65c4773185c4909b616cacf52617d"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_CODE_DIFFS" ref="aa5a65c4773185c4909b616cacf52617d" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_CODE_DIFFS&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Differences mode : Differences data. </p>
+
+</div>
+</div>
+<a class="anchor" id="a12ac41857329cfb56f22a26723a7a391"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_CODE_TIME_FRAME" ref="a12ac41857329cfb56f22a26723a7a391" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_CODE_TIME_FRAME&nbsp;&nbsp;&nbsp;1</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Differences mode : Time frame first or change. </p>
+
+</div>
+</div>
+<a class="anchor" id="a564e9ab6df5d77eb1d8561b3678ba846"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_DATA_GLOB_RST" ref="a564e9ab6df5d77eb1d8561b3678ba846" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_DATA_GLOB_RST&nbsp;&nbsp;&nbsp;3</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diffs 10 bit data special code for End of Global Reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="abc0a56f3f1feb8811e04a41d1fbdba56"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_DATA_IDLE" ref="abc0a56f3f1feb8811e04a41d1fbdba56" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_DATA_IDLE&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diffs 10 bit data special code for idle. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6f0b05b2a7a54fc749b1b4edad351d47"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_DATA_RESET" ref="a6f0b05b2a7a54fc749b1b4edad351d47" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_DATA_RESET&nbsp;&nbsp;&nbsp;2</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diffs 10 bit data special code for End of Reset. </p>
+
+</div>
+</div>
+<a class="anchor" id="a28aa63ba3d53f254dceefa84c796e103"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_DATA_START" ref="a28aa63ba3d53f254dceefa84c796e103" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_DATA_START&nbsp;&nbsp;&nbsp;1</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diffs 10 bit data special code for start. </p>
+
+</div>
+</div>
+<a class="anchor" id="a9a1d3fa1fc26f2956151f6820a7262f3"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_GET_CODE" ref="a9a1d3fa1fc26f2956151f6820a7262f3" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_GET_CODE</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;60)&amp;0xF)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Differences mode : Get Data code bits. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad30f4b05abfb3b0eaacd2938b2b9c304"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_TF_CHANGE_MASK" ref="ad30f4b05abfb3b0eaacd2938b2b9c304" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_TF_CHANGE_MASK&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diffs time frame is change of TF. </p>
+
+</div>
+</div>
+<a class="anchor" id="ad9107a302566ac2de8b3197fbe6dcffb"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_TF_ENABLE" ref="ad9107a302566ac2de8b3197fbe6dcffb" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_TF_ENABLE</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;(24+30))&amp;1)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diffs time frame change Extract Count Enable. </p>
+
+</div>
+</div>
+<a class="anchor" id="ac2005a58e5d671e312aac98c1e07c0a7"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_TF_FIRST_MASK" ref="ac2005a58e5d671e312aac98c1e07c0a7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_TF_FIRST_MASK&nbsp;&nbsp;&nbsp;(1L&lt;&lt;59)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diffs Time frame is first word. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab9eab5b2bb2bf35cde74c8422ec86f6d"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_TF_FRAME" ref="ab9eab5b2bb2bf35cde74c8422ec86f6d" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_TF_FRAME</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;30)&amp;0xFFFFFF)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diffs time frame change Extract time frame. </p>
+
+</div>
+</div>
+<a class="anchor" id="a6bb8ba98fa238c13240d8150757b2565"></a><!-- doxytag: member="xspress3.h::XSP3_DIFFS_TF_TIME_STAMP" ref="a6bb8ba98fa238c13240d8150757b2565" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_DIFFS_TF_TIME_STAMP</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;((x)&amp;0x3FFFFFFF)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Diffs time frame change Extract time stamp. </p>
+
+</div>
+</div>
 <a class="anchor" id="ad7178a51996993371542844c51567066"></a><!-- doxytag: member="xspress3.h::XSP3_DPC_ENB_10G_RX" ref="ad7178a51996993371542844c51567066" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -4076,12 +4455,77 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a921382e734be74c5b2251c4531619445"></a><!-- doxytag: member="xspress3.h::XSP3_EVENT_LEAD_TAIL_MAX_NT" ref="a921382e734be74c5b2251c4531619445" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_EVENT_LEAD_TAIL_MAX_NT&nbsp;&nbsp;&nbsp;16</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a996ab3e3aa809a39a955e26dd7149ff6"></a><!-- doxytag: member="xspress3.h::XSP3_EVENT_LEAD_W4_NT" ref="a996ab3e3aa809a39a955e26dd7149ff6" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_EVENT_LEAD_W4_NT&nbsp;&nbsp;&nbsp;512</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="adbe711382dd643386cc295fd712f01e1"></a><!-- doxytag: member="xspress3.h::XSP3_EVENT_LEAD_W4_NW" ref="adbe711382dd643386cc295fd712f01e1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_EVENT_LEAD_W4_NW&nbsp;&nbsp;&nbsp;16</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aa7c2b4f63c3ce7cc72898f6b943b25e4"></a><!-- doxytag: member="xspress3.h::XSP3_EVENT_TAIL_SIZE" ref="aa7c2b4f63c3ce7cc72898f6b943b25e4" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">#define XSP3_EVENT_TAIL_SIZE&nbsp;&nbsp;&nbsp;1024</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a936bc59ca0e7e8e788faba835dbef95e"></a><!-- doxytag: member="xspress3.h::XSP3_EVENT_TAIL_W4_NT" ref="a936bc59ca0e7e8e788faba835dbef95e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_EVENT_TAIL_W4_NT&nbsp;&nbsp;&nbsp;512</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae41b250cc80711fa653290484554744e"></a><!-- doxytag: member="xspress3.h::XSP3_EVENT_TAIL_W4_NW" ref="ae41b250cc80711fa653290484554744e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_EVENT_TAIL_W4_NW&nbsp;&nbsp;&nbsp;16</td>
         </tr>
       </table>
 </div>
@@ -4294,6 +4738,52 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a075124a23277361a5569480987e784e4"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_ACK_EOF_NONE" ref="a075124a23277361a5569480987e784e4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_FEATURE_ACK_EOF_NONE&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>The 3 off 32 bit feature registers store 3 x 8 x 4 bit fields. Unpacked in struct using chars. </p>
+<p>No End of Frame Acknowledge packets. </p>
+
+</div>
+</div>
+<a class="anchor" id="a7cc1c018d0b864085cf7284d9163047e"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_ACK_EOF_WITH_TIME" ref="a7cc1c018d0b864085cf7284d9163047e" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_FEATURE_ACK_EOF_WITH_TIME&nbsp;&nbsp;&nbsp;2</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Acknowledge packets also tell total exposure time of frame. </p>
+
+</div>
+</div>
+<a class="anchor" id="a8c1a7416ad96e42de61527f051613fb8"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_ACK_EOF_YES" ref="a8c1a7416ad96e42de61527f051613fb8" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_FEATURE_ACK_EOF_YES&nbsp;&nbsp;&nbsp;1</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Acknowledge packets with frame number only. </p>
 
 </div>
 </div>
@@ -4969,6 +5459,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>From XSPRESS2 trigger-A (2 gradients over threshold). No longer used for this, now in XSP3_GLITCH_A_PRE_TIME_LONG. </p>
+
 </div>
 </div>
 <a class="anchor" id="a5881bf5621593472541581dacd502607"></a><!-- doxytag: member="xspress3.h::XSP3_GLITCH_A_FROM_GLOBAL_RESET_EDGE" ref="a5881bf5621593472541581dacd502607" args="" -->
@@ -5126,6 +5618,23 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Maximum pre-time with normal Full Gdet build. </p>
+
+</div>
+</div>
+<a class="anchor" id="a77409957af61a580ed1940d21dcaed5b"></a><!-- doxytag: member="xspress3.h::XSP3_GLITCH_A_MAX_PRE_TIME_LONG" ref="a77409957af61a580ed1940d21dcaed5b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_GLITCH_A_MAX_PRE_TIME_LONG&nbsp;&nbsp;&nbsp;0x1FF</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Maximum pre-time with BRAM based dealy GDet, see <a class="el" href="">XSP3_FEATURE_GDET_LONG</a>. </p>
+
 </div>
 </div>
 <a class="anchor" id="adcd418ca63c4ef3ff014868b1fae0a4d"></a><!-- doxytag: member="xspress3.h::XSP3_GLITCH_A_MIN_THRES" ref="adcd418ca63c4ef3ff014868b1fae0a4d" args="" -->
@@ -5156,6 +5665,26 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9ae5d0a9b8d01659a64bf44b60d94d4f"></a><!-- doxytag: member="xspress3.h::XSP3_GLITCH_A_PRE_TIME_LONG" ref="a9ae5d0a9b8d01659a64bf44b60d94d4f" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_GLITCH_A_PRE_TIME_LONG</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&amp;0x1f)&lt;&lt;20|((x)&amp;0x60)&lt;&lt;25)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Pusedo Log coded Pre time. 0...63 =&gt; 0..63 , 64..127 =&gt; 0, 8, 16..504. </p>
 
 </div>
 </div>
@@ -5703,6 +6232,21 @@ Variables</h2></td></tr>
 <div class="memdoc">
 
 <p>Invert Frame Zero signal polarity to make signal active low, resets time frame when sampled low by leading edge of Veto. </p>
+
+</div>
+</div>
+<a class="anchor" id="abd780529215cf19cdd3efbb7c8c8a6d7"></a><!-- doxytag: member="xspress3.h::XSP3_GLOB_TIMA_ITFG_RUN" ref="abd780529215cf19cdd3efbb7c8c8a6d7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_GLOB_TIMA_ITFG_RUN&nbsp;&nbsp;&nbsp;(1&lt;&lt;28)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>From versions 11/8/2014 onwards this is a separate Run signal to the internal time frame generator, which could be used to crsh stop the ITFG before stopping the rest. </p>
 
 </div>
 </div>
@@ -6929,6 +7473,66 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a247a169823d88f6b05ba3db1cf942bf8"></a><!-- doxytag: member="xspress3.h::XSP3_HGT64_SOF_GET_CHAN" ref="a247a169823d88f6b05ba3db1cf942bf8" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_HGT64_SOF_GET_CHAN</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;60)&amp;0xF)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get channel number from first (header) word. </p>
+
+</div>
+</div>
+<a class="anchor" id="ae3af2df46ff148a9d4ab33887930c176"></a><!-- doxytag: member="xspress3.h::XSP3_HGT64_SOF_GET_FRAME" ref="ae3af2df46ff148a9d4ab33887930c176" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_HGT64_SOF_GET_FRAME</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;0)&amp;0xFFFFFF)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get time frmae from first (header) word. </p>
+
+</div>
+</div>
+<a class="anchor" id="adab0a4835e03202a7e6a2d69d4609b62"></a><!-- doxytag: member="xspress3.h::XSP3_HGT64_SOF_GET_PREV_TIME" ref="adab0a4835e03202a7e6a2d69d4609b62" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_HGT64_SOF_GET_PREV_TIME</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;24)&amp;0xFFFFFFFF)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get total integration time from previous time frame from first (header) word. </p>
+
+</div>
+</div>
 <a class="anchor" id="aee4e392fa579de48956548170ff1f491"></a><!-- doxytag: member="xspress3.h::XSP3_HW_DEFINED_SCALERS" ref="aee4e392fa579de48956548170ff1f491" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -7071,7 +7675,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSP3_MAX_BRAM_SIZE&nbsp;&nbsp;&nbsp;4096</td>
+          <td class="memname">#define XSP3_MAX_BRAM_SIZE&nbsp;&nbsp;&nbsp;8192</td>
         </tr>
       </table>
 </div>
@@ -7244,7 +7848,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSP3_NUM_SOFT_SCALERS&nbsp;&nbsp;&nbsp;8</td>
+          <td class="memname">#define XSP3_NUM_SOFT_SCALERS&nbsp;&nbsp;&nbsp;9</td>
         </tr>
       </table>
 </div>
@@ -8881,6 +9485,46 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aac3516433b79c67f30b97b106d5211cc"></a><!-- doxytag: member="xspress3.h::XSP3_SERVO_C_BI_LIN_TIME_CODE" ref="aac3516433b79c67f30b97b106d5211cc" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_SERVO_C_BI_LIN_TIME_CODE</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&amp;3)&lt;&lt;16)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Coded length for longer chunks 0=&gt; 128, 1=&gt;256, 2=&gt;512, 3=&gt;1024. </p>
+
+</div>
+</div>
+<a class="anchor" id="ab9ffc6d09567987aa043576f8822f17d"></a><!-- doxytag: member="xspress3.h::XSP3_SERVO_C_BI_LIN_TIME_START" ref="ab9ffc6d09567987aa043576f8822f17d" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_SERVO_C_BI_LIN_TIME_START</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&amp;7)&lt;&lt;18)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Coded number of short chunks before jumping to longer chunks. 0=&gt;4, 1=&gt;8, 2=&gt;16, 3=&gt;32, 4=&gt;64, 5=&gt;128, 6=&gt;256, 7=&gt;256. </p>
+
+</div>
+</div>
 <a class="anchor" id="a881db460b79a30224233933d07656eb8"></a><!-- doxytag: member="xspress3.h::XSP3_SERVO_C_ENABLE" ref="a881db460b79a30224233933d07656eb8" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -8891,6 +9535,21 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acb990fb41fa15980007fa52c64377ed2"></a><!-- doxytag: member="xspress3.h::XSP3_SERVO_C_ENB_BI_LIN_TIME" ref="acb990fb41fa15980007fa52c64377ed2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_SERVO_C_ENB_BI_LIN_TIME&nbsp;&nbsp;&nbsp;(1&lt;&lt;15)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Enable detailed control of Bi-linear timing. </p>
 
 </div>
 </div>
@@ -9075,6 +9734,21 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a9ef6156c6548c44506c08b14e55723a1"></a><!-- doxytag: member="xspress3.h::XSP3_SGX_SOFTWARE" ref="a9ef6156c6548c44506c08b14e55723a1" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_SGX_SOFTWARE&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Enable SGX processing in software (currently firmware option). </p>
+
+</div>
+</div>
 <a class="anchor" id="a68d7c79224137de9e5557bd6c81e8073"></a><!-- doxytag: member="xspress3.h::XSP3_SOFT_SCALER_ALL_EVENT" ref="a68d7c79224137de9e5557bd6c81e8073" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -9142,7 +9816,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Total integration time ticks. </p>
+<p>Total integration time in received packets, may may less than total ticks due to dropped packets. </p>
 
 </div>
 </div>
@@ -9195,6 +9869,21 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa95ddd7c9b05042c932ef7d7135ccfaa"></a><!-- doxytag: member="xspress3.h::XSP3_SOFT_SCALER_TOTAL_TICKS" ref="aa95ddd7c9b05042c932ef7d7135ccfaa" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_SOFT_SCALER_TOTAL_TICKS&nbsp;&nbsp;&nbsp;8</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Total integration time ticks. </p>
 
 </div>
 </div>
@@ -9540,7 +10229,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define XSP3_SW_NUM_SCALERS&nbsp;&nbsp;&nbsp;8</td>
+          <td class="memname">#define XSP3_SW_NUM_SCALERS&nbsp;&nbsp;&nbsp;9</td>
         </tr>
       </table>
 </div>
@@ -9627,6 +10316,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Number of all event triggers. </p>
+
 </div>
 </div>
 <a class="anchor" id="a2511d2383a15e1f2f892b753a17e2fc7"></a><!-- doxytag: member="xspress3.h::XSP_SW_SCALER_ALL_GOOD" ref="a2511d2383a15e1f2f892b753a17e2fc7" args="" -->
@@ -9639,6 +10330,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Number of events with positivie energy &gt; Good threshold. </p>
 
 </div>
 </div>
@@ -9653,6 +10346,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Number of events in window 0. </p>
+
 </div>
 </div>
 <a class="anchor" id="a8315a02754fba564766bd93ea3393646"></a><!-- doxytag: member="xspress3.h::XSP_SW_SCALER_IN_WINDOW1" ref="a8315a02754fba564766bd93ea3393646" args="" -->
@@ -9665,6 +10360,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Number of events in window 1. </p>
 
 </div>
 </div>
@@ -9679,6 +10376,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Total exposure time, may show lower than programmed time if data packets are dropped. Can beuse to scale for dropped packets. </p>
+
 </div>
 </div>
 <a class="anchor" id="a43319c6201e75afa57ba4d8c87d8034c"></a><!-- doxytag: member="xspress3.h::XSP_SW_SCALER_NUM_RESETS" ref="a43319c6201e75afa57ba4d8c87d8034c" args="" -->
@@ -9691,6 +10390,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Number of Resets. </p>
 
 </div>
 </div>
@@ -9705,6 +10406,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Number of events detected as pileup. </p>
+
 </div>
 </div>
 <a class="anchor" id="a1fe636c4c4d5b7ecece78261fe98535b"></a><!-- doxytag: member="xspress3.h::XSP_SW_SCALER_RESET_TICKS" ref="a1fe636c4c4d5b7ecece78261fe98535b" args="" -->
@@ -9717,6 +10420,23 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Time in Reset or reset crostalk glitch padding. </p>
+
+</div>
+</div>
+<a class="anchor" id="a3f294fce92a2b35b16dd3958fa64e9be"></a><!-- doxytag: member="xspress3.h::XSP_SW_SCALER_TOTAL_TICKS" ref="a3f294fce92a2b35b16dd3958fa64e9be" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP_SW_SCALER_TOTAL_TICKS&nbsp;&nbsp;&nbsp;8</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Total time in 80MHz ticks of exposure, even if some packets are dropped. </p>
 
 </div>
 </div>
@@ -9836,8 +10556,6 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>The 3 off 32 bit feature registers store 3 x 8 x 4 bit fields. Unpacked in struct using chars. </p>
-
 </div>
 </div>
 <a class="anchor" id="ad1c26ec2e1d8e67827c8235541e2e7ab"></a><!-- doxytag: member="xspress3.h::Xspress3_TriggerB" ref="ad1c26ec2e1d8e67827c8235541e2e7ab" args="" -->
@@ -9946,6 +10664,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a85f53b867e1be54b535cf569055b2e42"></a><!-- doxytag: member="xspress3.h::read_and_save_diffs" ref="a85f53b867e1be54b535cf569055b2e42" args="(void *args)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void* read_and_save_diffs </td>
+          <td>(</td>
+          <td class="paramtype">void *&nbsp;</td>
+          <td class="paramname"> <em>args</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="a6dbb97ee6ba363942d0066dc98f56e55"></a><!-- doxytag: member="xspress3.h::xsp3_get_num_tf" ref="a6dbb97ee6ba363942d0066dc98f56e55" args="(int path)" -->
 <div class="memitem">
 <div class="memproto">
@@ -10005,12 +10741,12 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aca9050f203e8fbf010d71ee80b1af938"></a><!-- doxytag: member="xspress3.h::xsp3_bram_size" ref="aca9050f203e8fbf010d71ee80b1af938" args="[XSP3_REGION_RAM_MAX+1]" -->
+<a class="anchor" id="a1029b5d278dc0857fdbe5dff98bff0c6"></a><!-- doxytag: member="xspress3.h::xsp3_bram_size_table" ref="a1029b5d278dc0857fdbe5dff98bff0c6" args="[XSP3_REGION_RAM_MAX+1]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int <a class="el" href="xspress3_8h.html#aca9050f203e8fbf010d71ee80b1af938">xsp3_bram_size</a>[XSP3_REGION_RAM_MAX+1]</td>
+          <td class="memname">int <a class="el" href="xspress3_8h.html#a1029b5d278dc0857fdbe5dff98bff0c6">xsp3_bram_size_table</a>[XSP3_REGION_RAM_MAX+1]</td>
         </tr>
       </table>
 </div>
@@ -10031,8 +10767,333 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a679384fc92dffc0bbb9b98e36755256b"></a><!-- doxytag: member="xspress3.h::xsp3_feature_calibrator" ref="a679384fc92dffc0bbb9b98e36755256b" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a679384fc92dffc0bbb9b98e36755256b">xsp3_feature_calibrator</a>[16]</td>
+        </tr>
+      </table>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:24 for xspress3api by&nbsp;
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a463db79049a8d92e1b9854234bb253cd"></a><!-- doxytag: member="xspress3.h::xsp3_feature_data_mux" ref="a463db79049a8d92e1b9854234bb253cd" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a463db79049a8d92e1b9854234bb253cd">xsp3_feature_data_mux</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a00a679c586ac866c80e0b208baabb698"></a><!-- doxytag: member="xspress3.h::xsp3_feature_format_details_a01" ref="a00a679c586ac866c80e0b208baabb698" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a00a679c586ac866c80e0b208baabb698">xsp3_feature_format_details_a01</a>[4]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a083a208900b1d6456c6f9c81ebcdefc0"></a><!-- doxytag: member="xspress3.h::xsp3_feature_format_details_a23" ref="a083a208900b1d6456c6f9c81ebcdefc0" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a083a208900b1d6456c6f9c81ebcdefc0">xsp3_feature_format_details_a23</a>[4]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a73d1c3ffc67167a2dae2682acb868093"></a><!-- doxytag: member="xspress3.h::xsp3_feature_glitch_detect" ref="a73d1c3ffc67167a2dae2682acb868093" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a73d1c3ffc67167a2dae2682acb868093">xsp3_feature_glitch_detect</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4ca499abf65a9690609ba6295418095a"></a><!-- doxytag: member="xspress3.h::xsp3_feature_glitch_pad" ref="a4ca499abf65a9690609ba6295418095a" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a4ca499abf65a9690609ba6295418095a">xsp3_feature_glitch_pad</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa19e4abe0ea7a479f470f04e2b376f85"></a><!-- doxytag: member="xspress3.h::xsp3_feature_global_reset" ref="aa19e4abe0ea7a479f470f04e2b376f85" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#aa19e4abe0ea7a479f470f04e2b376f85">xsp3_feature_global_reset</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a9f70d3f39ddf1901a8c1f5c203fdf4cd"></a><!-- doxytag: member="xspress3.h::xsp3_feature_inl_corr" ref="a9f70d3f39ddf1901a8c1f5c203fdf4cd" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a9f70d3f39ddf1901a8c1f5c203fdf4cd">xsp3_feature_inl_corr</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad4621e43d877939cc9a3e9d5f7b16e4b"></a><!-- doxytag: member="xspress3.h::xsp3_feature_lead_tail0" ref="ad4621e43d877939cc9a3e9d5f7b16e4b" args="[2]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#ad4621e43d877939cc9a3e9d5f7b16e4b">xsp3_feature_lead_tail0</a>[2]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="acec8b78f4054948f0922fa92ee629c9c"></a><!-- doxytag: member="xspress3.h::xsp3_feature_lead_tail12" ref="acec8b78f4054948f0922fa92ee629c9c" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#acec8b78f4054948f0922fa92ee629c9c">xsp3_feature_lead_tail12</a>[4]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1e92e75b6d0a83a07641574a76a12bdc"></a><!-- doxytag: member="xspress3.h::xsp3_feature_neighbour_events" ref="a1e92e75b6d0a83a07641574a76a12bdc" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a1e92e75b6d0a83a07641574a76a12bdc">xsp3_feature_neighbour_events</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3b95afd75370c32eea4d1eeb782c2771"></a><!-- doxytag: member="xspress3.h::xsp3_feature_output_format" ref="a3b95afd75370c32eea4d1eeb782c2771" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a3b95afd75370c32eea4d1eeb782c2771">xsp3_feature_output_format</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a46b3f91af26e8d90ff25abbcd525524a"></a><!-- doxytag: member="xspress3.h::xsp3_feature_real_data_source" ref="a46b3f91af26e8d90ff25abbcd525524a" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a46b3f91af26e8d90ff25abbcd525524a">xsp3_feature_real_data_source</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a3f4ba5a178357be9d00fcc374439732d"></a><!-- doxytag: member="xspress3.h::xsp3_feature_reset_corr" ref="a3f4ba5a178357be9d00fcc374439732d" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a3f4ba5a178357be9d00fcc374439732d">xsp3_feature_reset_corr</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aa1d52aa8ab2b48808015545c36107d07"></a><!-- doxytag: member="xspress3.h::xsp3_feature_reset_detector" ref="aa1d52aa8ab2b48808015545c36107d07" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#aa1d52aa8ab2b48808015545c36107d07">xsp3_feature_reset_detector</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4798a936415f8c1a9fffff4b244e79c1"></a><!-- doxytag: member="xspress3.h::xsp3_feature_run_ave3" ref="a4798a936415f8c1a9fffff4b244e79c1" args="[2]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a4798a936415f8c1a9fffff4b244e79c1">xsp3_feature_run_ave3</a>[2]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1f463928634775fd5ae5d747cc5fae77"></a><!-- doxytag: member="xspress3.h::xsp3_feature_scope_mode" ref="a1f463928634775fd5ae5d747cc5fae77" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a1f463928634775fd5ae5d747cc5fae77">xsp3_feature_scope_mode</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7e6060b803582f58532b9e5bafe066e3"></a><!-- doxytag: member="xspress3.h::xsp3_feature_servo_base" ref="a7e6060b803582f58532b9e5bafe066e3" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a7e6060b803582f58532b9e5bafe066e3">xsp3_feature_servo_base</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a35dacd26cd073079e3064ddc550bc519"></a><!-- doxytag: member="xspress3.h::xsp3_feature_test_data_source_a" ref="a35dacd26cd073079e3064ddc550bc519" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a35dacd26cd073079e3064ddc550bc519">xsp3_feature_test_data_source_a</a>[4]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad912dc3cb2a6d6a16e5f5d73157e35a2"></a><!-- doxytag: member="xspress3.h::xsp3_feature_test_data_source_b" ref="ad912dc3cb2a6d6a16e5f5d73157e35a2" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#ad912dc3cb2a6d6a16e5f5d73157e35a2">xsp3_feature_test_data_source_b</a>[4]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7f3b1c74e13d00ee1520d9f4ca107f08"></a><!-- doxytag: member="xspress3.h::xsp3_feature_timing_generator" ref="a7f3b1c74e13d00ee1520d9f4ca107f08" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a7f3b1c74e13d00ee1520d9f4ca107f08">xsp3_feature_timing_generator</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac9aa9ce5b9a17bbf5475868678be9530"></a><!-- doxytag: member="xspress3.h::xsp3_feature_trigger_b_l" ref="ac9aa9ce5b9a17bbf5475868678be9530" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#ac9aa9ce5b9a17bbf5475868678be9530">xsp3_feature_trigger_b_l</a>[4]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="aaace6ba6657351c56d15d6a815e30404"></a><!-- doxytag: member="xspress3.h::xsp3_feature_trigger_b_m" ref="aaace6ba6657351c56d15d6a815e30404" args="[4]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#aaace6ba6657351c56d15d6a815e30404">xsp3_feature_trigger_b_m</a>[4]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae5b7789b12a816665cdb3ef6430952df"></a><!-- doxytag: member="xspress3.h::xsp3_feature_trigger_c" ref="ae5b7789b12a816665cdb3ef6430952df" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#ae5b7789b12a816665cdb3ef6430952df">xsp3_feature_trigger_c</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1054c6fbe0524388c20b8f7656e1b9aa"></a><!-- doxytag: member="xspress3.h::xsp3_feature_trigger_extra" ref="a1054c6fbe0524388c20b8f7656e1b9aa" args="[16]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* <a class="el" href="xspress3_8h.html#a1054c6fbe0524388c20b8f7656e1b9aa">xsp3_feature_trigger_extra</a>[16]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

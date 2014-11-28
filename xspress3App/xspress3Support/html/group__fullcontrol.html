@@ -80,6 +80,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Build the Pileup time lookup table for use in firmware or in software processing.  <a href="#ga24825a5b6369c4a185a1014f3c999aee"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga6150de7b03e7ce54479765616e9aebc1">xsp3_set_global_reset_gen</a> (int path, int card, int enable, int sync_mode, int det_reset_width, int hold_off_time, int gr_active_del, int gr_active_wid, int circ_offset)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Configure the detector global reset generator.  <a href="#ga6150de7b03e7ce54479765616e9aebc1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#gaa843b6dd1b2ab0a3251463c1fd1ffb2a">xsp3_set_cal_events</a> (int path, int chan, int enable, int period, int avoid)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Setup the Calibration event trigger generator.  <a href="#gaa843b6dd1b2ab0a3251463c1fd1ffb2a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#gafa2deb6776f2cfbb44b306b2f44897a5">xsp3_clocks_setup_int</a> (int path, int card, int clk_src, int flags, int tp_type, int adc_clk_delay, int fpga_clk_delay)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set up ADC data processing clocks source with full control over delays.  <a href="#gafa2deb6776f2cfbb44b306b2f44897a5"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga0bfa5385f28e04a19ba3aa37b00c2fd8">xsp3_dma_read_status</a> (int path, int card, u_int32_t stream_mask)</td></tr>
@@ -114,6 +116,14 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether firmware requires scalers in software.  <a href="#ga0efab1f6db9e822d8d6a011bda4abe96"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#gab923f42aa068bed1d95d2569a8919790">xsp3_get_features</a> (int path, int card, <a class="el" href="struct__xsp3__feature.html">Xspress3_features</a> *features)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return structure describing the hardware features enabled in the current firmware build.  <a href="#gab923f42aa068bed1d95d2569a8919790"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga10b73ef33a0f9d9f42864e4c318c039d">xsp3_bram_size</a> (int path, int chan, int region_num)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine if the size of the given BRAM.  <a href="#ga10b73ef33a0f9d9f42864e4c318c039d"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga6327779a3e2a3f81223fd6921110fb50">xsp3_has_lead_tail_corr_width</a> (int path, int chan, int region_num, int *num_t, int *num_wid)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine the option code for event lead and tail correction type and and return layout.  <a href="#ga6327779a3e2a3f81223fd6921110fb50"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#gaaabcaca93a454c5d514b5f61ec051dc3">xsp3_has_lead_corr</a> (int path, int card)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine if the firmware has event lead-in corection configured.  <a href="#gaaabcaca93a454c5d514b5f61ec051dc3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__fullcontrol.html#ga130f900342f10cb2cff66c2d5bf92c16">xsp3_has_servo_bi_linear_time</a> (int path, int chan)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine the option code for the bi-linear time version(s) of PWL servo.  <a href="#ga130f900342f10cb2cff66c2d5bf92c16"></a><br/></td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
 <a class="anchor" id="gabc743d82fe3cbbb49562118960968d27"></a><!-- doxytag: member="xspress3.c::xsp3_bram_init" ref="gabc743d82fe3cbbb49562118960968d27" args="(int path, int chan, int region, double scaling)" -->
@@ -165,6 +175,50 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="xspress3_8h.html#aad318e803581597725f2a5dc06f617e4">XSP3_OK</a> or a negative error code. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga10b73ef33a0f9d9f42864e4c318c039d"></a><!-- doxytag: member="xspress3_hardware_conf.c::xsp3_bram_size" ref="ga10b73ef33a0f9d9f42864e4c318c039d" args="(int path, int chan, int region_num)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_bram_size </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>chan</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>region_num</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determine if the size of the given BRAM. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>chan</em>&nbsp;</td><td>channel number. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>region_num</em>&nbsp;</td><td>Region number as  <a class="el" href="xspress3_8h.html">xspress3.h</a> XSP3_REGIONS </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>0 on success or &lt;0 if error. </dd></dl>
 
 </div>
 </div>
@@ -1312,6 +1366,136 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gaaabcaca93a454c5d514b5f61ec051dc3"></a><!-- doxytag: member="xspress3_hardware_conf.c::xsp3_has_lead_corr" ref="gaaabcaca93a454c5d514b5f61ec051dc3" args="(int path, int card)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_has_lead_corr </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>card</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determine if the firmware has event lead-in corection configured. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>card</em>&nbsp;</td><td>card number. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>0 or 1 success or &lt;0 if error. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga6327779a3e2a3f81223fd6921110fb50"></a><!-- doxytag: member="xspress3_hardware_conf.c::xsp3_has_lead_tail_corr_width" ref="ga6327779a3e2a3f81223fd6921110fb50" args="(int path, int chan, int region_num, int *num_t, int *num_wid)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_has_lead_tail_corr_width </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>chan</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>region_num</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>num_t</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>num_wid</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determine the option code for event lead and tail correction type and and return layout. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>chan</em>&nbsp;</td><td>channel number. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>region_num</em>&nbsp;</td><td>Region number as  <a class="el" href="xspress3_8h.html">xspress3.h</a> XSP3_REGIONS </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>0 on success or &lt;0 if error. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga130f900342f10cb2cff66c2d5bf92c16"></a><!-- doxytag: member="xspress3_hardware_conf.c::xsp3_has_servo_bi_linear_time" ref="ga130f900342f10cb2cff66c2d5bf92c16" args="(int path, int chan)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_has_servo_bi_linear_time </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>chan</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determine the option code for the bi-linear time version(s) of PWL servo. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>chan</em>&nbsp;</td><td>channel number. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>0 or 1 on success or &lt;0 if error. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ga957225c77edb0f649d2d688fb8f3d898"></a><!-- doxytag: member="xspress3_hardware_conf.c::xsp3_has_soft_lut" ref="ga957225c77edb0f649d2d688fb8f3d898" args="(int path, int chan, int region_num)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1519,6 +1703,67 @@ Functions</h2></td></tr>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>chan</em>&nbsp;</td><td>is the number of the channel in the xspress3 system, 0 to (<a class="el" href="group__toplevel.html#ga8d0027b9ea7ab15bfe691face4bd45c5">xsp3_get_num_chan()</a> - 1) </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="xspress3_8h.html#aad318e803581597725f2a5dc06f617e4">XSP3_OK</a> or a negative error code. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gaa843b6dd1b2ab0a3251463c1fd1ffb2a"></a><!-- doxytag: member="xspress3.c::xsp3_set_cal_events" ref="gaa843b6dd1b2ab0a3251463c1fd1ffb2a" args="(int path, int chan, int enable, int period, int avoid)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_set_cal_events </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>chan</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>enable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>period</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>avoid</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Setup the Calibration event trigger generator. </p>
+<p><br/>
+<br/>
+ </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>chan</em>&nbsp;</td><td>is the number of the channel in the xspress3 system, 0 to (<a class="el" href="group__toplevel.html#ga8d0027b9ea7ab15bfe691face4bd45c5">xsp3_get_num_chan()</a> - 1) if chan is less than 0 then all channels are selected. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>enable</em>&nbsp;</td><td>Enable the calibration event generator </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>period</em>&nbsp;</td><td>Period in cycles of calibration event generator </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>avoid</em>&nbsp;</td><td>Make calibration triggers avoid real events </td></tr>
   </table>
   </dd>
 </dl>
@@ -2336,7 +2581,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:24 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

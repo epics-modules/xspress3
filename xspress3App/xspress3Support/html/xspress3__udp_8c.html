@@ -59,8 +59,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the UDP port number.  <a href="group__internal.html#ga5b8052f13dd2f05036bb65ddd5d826f3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gafc352186020b336e0e086684a6874f37">xsp3_config_udp</a> (int path, int card, char *femMACaddress, char *femIPaddress, int femPort, char *hostIPaddress, int hostPort)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Configure all the parameters for a UDP connection to the xspress3 card.  <a href="group__internal.html#gafc352186020b336e0e086684a6874f37"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gab3600535941ff4f760e4db41b5dde026">xsp3_create_data_module</a> (int path, char *modname)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create the scope mode data module.  <a href="group__internal.html#gab3600535941ff4f760e4db41b5dde026"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gab0bff51978a1704e926b339f60740d25">xsp3_create_data_module</a> (int path, char *modname, int layout)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create the scope mode data module.  <a href="group__internal.html#gab0bff51978a1704e926b339f60740d25"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga247b7b356a4a4bc9018d56ee217b329f">xsp3_scope_get_module</a> (int path)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a pointer to the scope data module.  <a href="group__debug.html#ga247b7b356a4a4bc9018d56ee217b329f"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga4cfdbc1ed13b9d4fe3a3c12e5e05def6">xsp3_set_udp_packet_size</a> (int path, int card, int size_bytes)</td></tr>
@@ -183,7 +183,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:24 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

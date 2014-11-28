@@ -48,6 +48,7 @@ Data Fields</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct___u_d_pconnection.html">UDPconnection</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#a6caaadc6f856c04a959478aedabc9a80">udpsock</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="structxsp3__scope__data__module.html">xsp3_scope_data_module</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#aab7429079f66e57432f887d6d8f9745b">scope_mod</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">pthread_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#a367d6d6ac26fdaa561676818af316279">thread</a> [XSP3_MAX_CHANS_PER_CARD]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#ae63eac8054f1c6d5adda65b5691f33c2">thread_created</a> [XSP3_MAX_CHANS_PER_CARD]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">volatile <a class="el" href="struct___histogram.html">Histogram</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#aaf4bae42f41a3e873a1a96c57a9dfd64">histogram</a> [XSP3_MAX_CHANS_PER_CARD]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct___channel_d_t_c.html">ChannelDTC</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#a27f2d04ba013ee0f6bdbafc329530404">dtc</a> [XSP3_MAX_CHANS_PER_CARD]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#aee23497f7b2a9bdc497477b532bfc8f9">deadtimeEnergy</a></td></tr>
@@ -63,6 +64,9 @@ Data Fields</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#ad6923f6d7001bb6a9e697dc13a5dce30">disable_multi_thread</a></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Disable Thread per card activity speed ups on scope mode, start etc. See <a class="el" href="group___x_s_p3___m_t___f_l_a_g_s.html">XSP3_MT_FLAGS</a>.  <a href="#ad6923f6d7001bb6a9e697dc13a5dce30"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#ac7337dc065081d1c628527d385c563f3">chan_of_system</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Used to initial chan of system in histogram (only).  <a href="#ac7337dc065081d1c628527d385c563f3"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___x_s_p3_path.html#ac4adadcf70c6abbff68cfe17fa88acf3">soft_lead_tail</a></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Enable alternate event list processing for SGX detector.  <a href="#ac4adadcf70c6abbff68cfe17fa88acf3"></a><br/></td></tr>
 </table>
 <hr/><h2>Field Documentation</h2>
 <a class="anchor" id="ac7337dc065081d1c628527d385c563f3"></a><!-- doxytag: member="_XSP3Path::chan_of_system" ref="ac7337dc065081d1c628527d385c563f3" args="" -->
@@ -75,6 +79,8 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Used to initial chan of system in histogram (only). </p>
 
 </div>
 </div>
@@ -340,6 +346,21 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac4adadcf70c6abbff68cfe17fa88acf3"></a><!-- doxytag: member="_XSP3Path::soft_lead_tail" ref="ac4adadcf70c6abbff68cfe17fa88acf3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char <a class="el" href="struct___x_s_p3_path.html#ac4adadcf70c6abbff68cfe17fa88acf3">_XSP3Path::soft_lead_tail</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Enable alternate event list processing for SGX detector. </p>
+
+</div>
+</div>
 <a class="anchor" id="ab961ca1dbde4a9d1931478346839bc9b"></a><!-- doxytag: member="_XSP3Path::startingCard" ref="ab961ca1dbde4a9d1931478346839bc9b" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -372,6 +393,19 @@ Data Fields</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">pthread_t <a class="el" href="struct___x_s_p3_path.html#a367d6d6ac26fdaa561676818af316279">_XSP3Path::thread</a>[XSP3_MAX_CHANS_PER_CARD]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae63eac8054f1c6d5adda65b5691f33c2"></a><!-- doxytag: member="_XSP3Path::thread_created" ref="ae63eac8054f1c6d5adda65b5691f33c2" args="[XSP3_MAX_CHANS_PER_CARD]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char <a class="el" href="struct___x_s_p3_path.html#ae63eac8054f1c6d5adda65b5691f33c2">_XSP3Path::thread_created</a>[XSP3_MAX_CHANS_PER_CARD]</td>
         </tr>
       </table>
 </div>
@@ -435,7 +469,7 @@ Data Fields</h2></td></tr>
 <li>/scratch/npr78/temp/xspress3_api/det-software/none_vme/xspress3/include/<a class="el" href="xspress3_8h.html">xspress3.h</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:25 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

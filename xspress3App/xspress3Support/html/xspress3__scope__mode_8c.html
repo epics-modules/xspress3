@@ -35,14 +35,22 @@
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga5242253ba531dcf29081465262c4f786">xsp3_scope_mod_create</a> (char *name, int num_cards, int lwords_per_card, mh_com **mod_head)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a shared data module in /dev/shm to store Scope mode data.  <a href="group__internal.html#ga5242253ba531dcf29081465262c4f786"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga00ddc88bca74ece586493d86198b809c">xsp3_scope_mod_create</a> (char *name, int num_cards, int lwords_per_card, mh_com **mod_head, int layout)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a shared data module in /dev/shm to store Scope mode data.  <a href="group__internal.html#ga00ddc88bca74ece586493d86198b809c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">u_int16_t *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga95d1f280b21c39bb83710d97ae4af3f1">xsp3_scope_mod_get_ptr</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get pointer to data for specifed card and stream with the data module.  <a href="group__debug.html#ga95d1f280b21c39bb83710d97ae4af3f1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga8232bf61a12624bcbe0363b6d1bf8e73">xsp3_scope_mod_get_inc</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get increment to use when stepping to next time point when accessing data in the scope mode data module.  <a href="group__debug.html#ga8232bf61a12624bcbe0363b6d1bf8e73"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#gaa48031e551885a109000dc2b4dc6e0d8">xsp3_scope_mod_get_nstreams</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get number of streams per card for current scope mode data module layout.  <a href="group__debug.html#gaa48031e551885a109000dc2b4dc6e0d8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga9c1e7c41d9051d1fa426631d8f71207a">xsp3_scope_get_str_sel</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get source select for specified stream allowing for any special interpretation of scope mode data module layout.  <a href="group__debug.html#ga9c1e7c41d9051d1fa426631d8f71207a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga759ad01c2d7c3da249fcb64191ceca4b">xsp3_scope_stream_name</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return a label to desribe the describe the data on a given scope stream.  <a href="group__debug.html#ga759ad01c2d7c3da249fcb64191ceca4b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga88099489e6cd165de22f9bbfbbd9e9d5">xsp3_scope_stream_flags</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return Flags describing how to interpret scope mode data for give stream.  <a href="group__debug.html#ga88099489e6cd165de22f9bbfbbd9e9d5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#gaa8e60baef9c106b9ea8585a4a55d1c81">xsp3_scope_chan</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return Channel number (currently within card) for specified stream.  <a href="group__debug.html#gaa8e60baef9c106b9ea8585a4a55d1c81"></a><br/></td></tr>
 <tr><td colspan="2"><h2><a name="var-members"></a>
 Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3__scope__mode_8c.html#acc17640d251abf40921ef449251e240c">error_message</a> []</td></tr>
@@ -104,7 +112,7 @@ Variables</h2></td></tr>
 { 
 {<span class="stringliteral">&quot;Overflow &amp; GlobRstActive &amp; DetResetInput &amp; DataInput&quot;</span>, <span class="stringliteral">&quot;DiffLTThres &amp; DataLTThres &amp; DetResetAfterResetDetector &amp; DataAfterResetDetector&quot;</span>, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
 {<span class="stringliteral">&quot;DetReset &amp; CFD &amp; OTD &amp; Data&quot;</span>, <span class="stringliteral">&quot;ServoOTD &amp; CFD &amp; OTD &amp; Data&quot;</span>, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
-{<span class="stringliteral">&quot;EventOrReset &amp; DetReset &amp; RealEvent&quot;</span>, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
+{<span class="stringliteral">&quot;EventOrReset &amp; DetReset &amp; RealEvent&quot;</span>, <span class="stringliteral">&quot;EventOrReset &amp; DetResetFixed &amp; RealEvent&quot;</span>, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL},
 {<span class="stringliteral">&quot;ScopeHist &amp; RunAve_hist &amp; eng_sel_in_range&quot;</span>, <span class="stringliteral">&quot;ScopeHist &amp; ScopeHistMaskedRes &amp; eng_sel_in_range&quot;</span>, <span class="stringliteral">&quot;ScopeHist &amp; HistDataValid &amp; HistFIFOFull&quot;</span>, <span class="stringliteral">&quot;HistFIFORdEn &amp; HistDataValid &amp; HistFIFOProgFull&quot;</span>, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL },
 }
 </pre></div>
@@ -221,7 +229,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:24 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>
