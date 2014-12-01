@@ -5,12 +5,15 @@ xsp3Simulator::xsp3Simulator( asynUser * user, int max_detectors, int max_spectr
     xsp3Api(user),
     num_detectors(max_detectors),
     runFlags(0),
+    frame_time(0.0),
+    num_frames(0),
     current_frame(0)
 {
     detectors.reserve(max_detectors);
     for (int i=0; i< max_detectors; i++)
         detectors.push_back(xsp3SimElement(max_spectra));
 
+    scanStart = epicsTime::getCurrent();
     this->handle=314158;
 }
 xsp3Simulator::~xsp3Simulator()
@@ -128,6 +131,7 @@ int xsp3Simulator::xsp3Api_histogram_read4d(int path, uint32_t *buffer, unsigned
 
 int xsp3Simulator::xsp3Api_histogram_start(int path, int card)
 {
+    scanStart = epicsTime::getCurrent();
     current_frame=0;
     return XSP3_OK;
 }
@@ -149,7 +153,13 @@ int xsp3Simulator::xsp3Api_save_settings(int path, char *dir_name)
 
 int xsp3Simulator::xsp3Api_scaler_check_progress(int path)
 {
-    current_frame+= ((current_frame+1)%10);
+    if ( timeRegister.trigger == xsp3TimeRegister::Internal )
+    {
+        current_frame = (epicsTime::getCurrent() - scanStart)/frame_time ;
+        if (current_frame > num_frames) current_frame = num_frames;
+    } else {
+        current_frame+= ((current_frame+1)%10);
+    }
     return current_frame;
 }
 
@@ -184,6 +194,8 @@ int xsp3Simulator::xsp3Api_set_window(int path, int chan, int win, int low, int 
 
 int xsp3Simulator::xsp3Api_itfg_setup(int path, int card, int num_tf, uint32_t col_time, int trig_mode, int gap_mode)
 {
+    frame_time = (double) col_time/80E6;
+    num_frames = num_tf;
     return XSP3_OK;
 }
 

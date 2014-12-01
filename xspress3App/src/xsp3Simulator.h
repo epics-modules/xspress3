@@ -30,7 +30,7 @@
 #include "xsp3SimElement.h"
 #include "xsp3TimeRegister.h"
 #include <vector>
-
+#include "epicsTime.h"
 
 class xsp3Simulator: public xsp3Api {
 // Construction
@@ -76,8 +76,11 @@ private:
     int handle;
     unsigned int num_detectors;
     int runFlags;
+    double frame_time;
+    int num_frames;
     xsp3TimeRegister timeRegister;
     unsigned int current_frame;
+    epicsTime scanStart;
 };
 
 #endif /* XSP3SIMULATOR_H */
