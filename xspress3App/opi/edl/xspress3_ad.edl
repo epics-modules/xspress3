@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 570
-y 199
+x 576
+y 249
 w 412
 h 927
 font "arial-medium-r-14.0"
@@ -69,7 +69,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1
 y 3
@@ -100,7 +100,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 1
 y 3
 w 411
@@ -147,7 +147,7 @@ selectColor index 4
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "LOC\\$(!W)tab=e:0,DET,ROIDATA,HDF,PROC"
+controlPv "LOC\\$(!W)tab=e:0,DET,ROIDATA,HDF,PROC,ALLEL,SUMARR,ALLELSUM,ALLELSUMARR,ALLELHDF5"
 font "arial-bold-r-12.0"
 orientation "horizontal"
 endObjectProperties
@@ -219,18 +219,28 @@ botShadowColor index 0
 displaySource "menu"
 filePv "LOC\\$(!W)tab"
 sizeOfs 5
-numDsps 4
+numDsps 9
 displayFileName {
   0 "xspress3_ad_det.edl"
   1 "NDROI.edl"
   2 "NDFileHDF5.edl"
   3 "NDProcess.edl"
+  4 "NDROI.edl"
+  5 "NDStdArrays.edl"
+  6 "NDROI.edl"
+  7 "NDStdArrays.edl"
+  8 "NDFileHDF5.edl"
 }
 symbols {
   0 "R=:,label=DET"
   1 "R=:ROIDATA:,label=HDF5"
   2 "R=:HDF5:,label=HDF5"
   3 "R=:PROC:,label=PROC"
+  4 "R=:ROI:,label='All Element Sum'"
+  5 "R=:ARR:,label='All Element Sum Array'"
+  6 "R=:ROISUM:,label='Integrated All Element Sum'"
+  7 "R=:ARRSUM:,label='Integrated All Element Sum Array'"
+  8 "R=:ALLEL:HDF5:,label='All Element Sum File\""
 }
 noScroll
 endObjectProperties
@@ -319,7 +329,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 0
 y 0
 w 50
