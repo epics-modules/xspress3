@@ -19,7 +19,7 @@ if [ "$1" = "-d" ]; then
         done
     fi
     export EDMDATAFILES="${EDMDATAFILES}${TOP}/data:"
-    export EDMDATAFILES="${EDMDATAFILES}/dls_sw/prod/R3.14.12.3/support/spectraPlugins/1-7/spectraPluginsApp/opi/edl:"
+    export EDMDATAFILES="${EDMDATAFILES}/dls_sw/prod/R3.14.12.3/support/spectraPlugins/1-7-1/spectraPluginsApp/opi/edl:"
     export EDMDATAFILES="${EDMDATAFILES}/home/npr78/diamond/support/xspress3/xspress3App/opi/edl:"
 
     OPTS="-x -eolc"
@@ -27,10 +27,10 @@ else
     OPTS="-x -eolc -noedit"
 fi
 export EDMDATAFILES="${EDMDATAFILES}${TOP}/data"
-export EDMDATAFILES="${EDMDATAFILES}:/dls_sw/prod/R3.14.12.3/support/areaDetector/1-9dls4/data"
+export EDMDATAFILES="${EDMDATAFILES}:/dls_sw/prod/R3.14.12.3/support/areaDetector/1-9dls16/data"
 export EDMDATAFILES="${EDMDATAFILES}:/dls_sw/prod/R3.14.12.3/support/asyn/4-21/data"
 export EDMDATAFILES="${EDMDATAFILES}:/dls_sw/prod/R3.14.12.3/support/devIocStats/3-1-5dls4/data"
-export EDMDATAFILES="${EDMDATAFILES}:/dls_sw/prod/R3.14.12.3/support/spectraPlugins/1-7/data"
+export EDMDATAFILES="${EDMDATAFILES}:/dls_sw/prod/R3.14.12.3/support/spectraPlugins/1-7-1/data"
 export EDMDATAFILES="${EDMDATAFILES}:/home/npr78/diamond/support/xspress3/data"
 
 
