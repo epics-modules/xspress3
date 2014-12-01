@@ -52,6 +52,9 @@
 
 #include "ADDriver.h"
 
+#include "xsp3Detector.h"
+#include "xsp3Simulator.h"
+
 /* These are the drvInfo strings that are used to identify the parameters.
  * They are used by asyn clients, including standard asyn device support */
 //System wide settings
@@ -193,6 +196,7 @@ class Xspress3 : public ADDriver {
   asynStatus checkHistBusy(int checkTimes);
   asynStatus setupITFG(void); 
   asynStatus mapTriggerMode(int mode, int invert_f0, int invert_veto, int debounce, int *apiMode);
+  asynStatus setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce );
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;
@@ -216,6 +220,8 @@ class Xspress3 : public ADDriver {
   epicsUInt32 acquiring_; 
   epicsUInt32 running_; 
   int xsp3_handle_; 
+
+  xsp3Api* xsp3;
 
   //Constructor parameters.
   const epicsUInt32 debug_; //debug parameter for API
