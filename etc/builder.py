@@ -103,7 +103,7 @@ class xspress3(_ADBase):
 
     def __init__(self,
                  BUFFERS=0, MEMORY=0, CHANNELS = 8, CARDS=1, BASE_IP="192.168.0.1", 
-                 DEBUG=0, SIM=1, SETTINGS="", DATAPATH="", **args):
+                 MAX_DRIVER_FRAMES=0, DEBUG=0, SIM=1, SETTINGS="", DATAPATH="", **args):
         # Init the superclass (_ADBase)
         self.__super.__init__(**args)
         # Store the args
@@ -179,7 +179,8 @@ class xspress3(_ADBase):
 # numChannels The max number of channels (eg. 8)
 # numCards The number of Xspress3 systems (normally 1)
 # baseIP The base address used by the Xspress3 1Gig and 10Gig interfaces (eg. "192.168.0.1")
-# maxFrames The maximum number of frames that can be acquired in one acquisition (eg. 16384) 
+# Max Frames Used for XSPRESS3 API Configuration (depends on Xspress3 firmware config).
+# Max Driver Frames Used to limit how big EPICS driver arrays are). Needs to match database MAX_FRAMES_DRIVER_RBV.
 # maxSpectra The maximum size of each spectra (eg. 4096)
 # maxBuffers Used by asynPortDriver (set to -1 for unlimited)
 # maxMemory Used by asynPortDriver (set to -1 for unlimited)
@@ -188,7 +189,7 @@ class xspress3(_ADBase):
 
         print \
             'xspress3Config("%(PORT)s", %(CHANNELS)d, %(CARDS)d, "%(BASE_IP)s", ' \
-            '%(MAX_FRAMES)s, %(MAX_SPECTRA)s, %(BUFFERS)d, %(MEMORY)d, %(DEBUG)d, %(SIM)d )' % self.__dict__
+            '%(MAX_FRAMES)s, %(MAX_DRIVER_FRAMES)s, %(MAX_SPECTRA)s, %(BUFFERS)d, %(MEMORY)d, %(DEBUG)d, %(SIM)d )' % self.__dict__
 
     def PostIocInitialise(self):
         # This is really horrible, but until I can get the defaults sorted, this is the best I can do 
@@ -262,6 +263,7 @@ dbpf("%(P)s:C%(CHAN)d_PluginControlValExtraROI", "0")
                                             'plugin callbacks', int),
                            MEMORY = Simple('Max memory to allocate, should be maxw*maxh*nbuffer '
                                            'for driver and all attached plugins', int),
+                           MAX_DRIVER_FRAMES= Simple('Maximum number of frames supported by the driver', int),
                            CHANNELS= Simple('Input array queue size', int),
                            CARDS   = Simple('The number of Xspress3 systems (normally 1)', int),
                            BASE_IP = Simple('Base IP address', str),

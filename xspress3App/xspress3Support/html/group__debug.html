@@ -80,10 +80,18 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Read data from the AEL2005 10GE PHY andincrement internal address.  <a href="#gad0dbc14e7935e915836e3876e474aacf"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">u_int16_t *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga95d1f280b21c39bb83710d97ae4af3f1">xsp3_scope_mod_get_ptr</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get pointer to data for specifed card and stream with the data module.  <a href="#ga95d1f280b21c39bb83710d97ae4af3f1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga8232bf61a12624bcbe0363b6d1bf8e73">xsp3_scope_mod_get_inc</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get increment to use when stepping to next time point when accessing data in the scope mode data module.  <a href="#ga8232bf61a12624bcbe0363b6d1bf8e73"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#gaa48031e551885a109000dc2b4dc6e0d8">xsp3_scope_mod_get_nstreams</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get number of streams per card for current scope mode data module layout.  <a href="#gaa48031e551885a109000dc2b4dc6e0d8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga9c1e7c41d9051d1fa426631d8f71207a">xsp3_scope_get_str_sel</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get source select for specified stream allowing for any special interpretation of scope mode data module layout.  <a href="#ga9c1e7c41d9051d1fa426631d8f71207a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga759ad01c2d7c3da249fcb64191ceca4b">xsp3_scope_stream_name</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return a label to desribe the describe the data on a given scope stream.  <a href="#ga759ad01c2d7c3da249fcb64191ceca4b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga88099489e6cd165de22f9bbfbbd9e9d5">xsp3_scope_stream_flags</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return Flags describing how to interpret scope mode data for give stream.  <a href="#ga88099489e6cd165de22f9bbfbbd9e9d5"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#gaa8e60baef9c106b9ea8585a4a55d1c81">xsp3_scope_chan</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return Channel number (currently within card) for specified stream.  <a href="#gaa8e60baef9c106b9ea8585a4a55d1c81"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga247b7b356a4a4bc9018d56ee217b329f">xsp3_scope_get_module</a> (int path)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get a pointer to the scope data module.  <a href="#ga247b7b356a4a4bc9018d56ee217b329f"></a><br/></td></tr>
 </table>
@@ -995,6 +1003,50 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gaa8e60baef9c106b9ea8585a4a55d1c81"></a><!-- doxytag: member="xspress3_scope_mode.c::xsp3_scope_chan" ref="gaa8e60baef9c106b9ea8585a4a55d1c81" args="(XSP3ScopeModule *mod, int card, int stream)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_scope_chan </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td>
+          <td class="paramname"> <em>mod</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>card</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>stream</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Return Channel number (currently within card) for specified stream. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>mod</em>&nbsp;</td><td>Pointer to scope mode module, usually returned by <a class="el" href="">xsp3_scope_get_module</a> or by linking to module directly. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>card</em>&nbsp;</td><td>is the number of the card in the xspress3 system, 0 for a single card system and up to (<a class="el" href="group__toplevel.html#ga083bca593ecb81ea2d6f5d726ef64fae">xsp3_get_num_cards()</a> - 1) for a multi-card system, where this value has been passed to <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a> at xspress3 system configuration. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>stream</em>&nbsp;</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Integer channel number </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ga247b7b356a4a4bc9018d56ee217b329f"></a><!-- doxytag: member="xspress3_udp.c::xsp3_scope_get_module" ref="ga247b7b356a4a4bc9018d56ee217b329f" args="(int path)" -->
 <div class="memitem">
 <div class="memproto">
@@ -1019,6 +1071,104 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>a pointer to the data module or NULL if it does not exist. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga9c1e7c41d9051d1fa426631d8f71207a"></a><!-- doxytag: member="xspress3_scope_mode.c::xsp3_scope_get_str_sel" ref="ga9c1e7c41d9051d1fa426631d8f71207a" args="(XSP3ScopeModule *mod, int card, int stream)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_scope_get_str_sel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td>
+          <td class="paramname"> <em>mod</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>card</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>stream</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get source select for specified stream allowing for any special interpretation of scope mode data module layout. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>mod</em>&nbsp;</td><td>Pointer to scope mode module, usually returned by <a class="el" href="">xsp3_scope_get_module</a> or by linking to module directly.  card Card Number (0 for signle box system)  stream Stream number 0..5 for original firmware. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Integer number of streams card, -1 for error.. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga8232bf61a12624bcbe0363b6d1bf8e73"></a><!-- doxytag: member="xspress3_scope_mode.c::xsp3_scope_mod_get_inc" ref="ga8232bf61a12624bcbe0363b6d1bf8e73" args="(XSP3ScopeModule *mod)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_scope_mod_get_inc </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td>
+          <td class="paramname"> <em>mod</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get increment to use when stepping to next time point when accessing data in the scope mode data module. </p>
+<p>For the origianl layout, to minimise processing, the data is arranged to suit the hardware limitations of the Virtex-5. Each streams data is 16 bit data intereleaved so an increment of 3 words is needed to get to the next word of the stream. This is XSP3_SCOPE_MOD_LAYOUT_2X3. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>mod</em>&nbsp;</td><td>Pointer to scope mode module, usually returned by <a class="el" href="">xsp3_scope_get_module</a> or by linking to module directly. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Integer increment, -1 for error.. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="gaa48031e551885a109000dc2b4dc6e0d8"></a><!-- doxytag: member="xspress3_scope_mode.c::xsp3_scope_mod_get_nstreams" ref="gaa48031e551885a109000dc2b4dc6e0d8" args="(XSP3ScopeModule *mod)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_scope_mod_get_nstreams </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td>
+          <td class="paramname"> <em>mod</em></td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Get number of streams per card for current scope mode data module layout. </p>
+<p>For the origianl layout, to minimise processing, the data is arranged to suit the hardware limitations of the Virtex-5. Each streams data is 16 bit data intereleaved so an increment of 3 words is needed to get to the next word of the stream. This is XSP3_SCOPE_MOD_LAYOUT_2X3. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>mod</em>&nbsp;</td><td>Pointer to scope mode module, usually returned by <a class="el" href="">xsp3_scope_get_module</a> or by linking to module directly. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Integer number of streams card, -1 for error.. </dd></dl>
 
 </div>
 </div>
@@ -1054,12 +1204,12 @@ Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Get pointer to data for specifed card and stream with the data module. </p>
-<p>To minimise processing, the data is arrange to suit the hardware limitations of the Virtex-5. Each streams data is 16 bit data intereleaved so an increment of 3 words is needed to get to the next word of the stream </p>
+<p>For the origianl layout, to minimise processing, the data is arranged to suit the hardware limitations of the Virtex-5. Each streams data is 16 bit data intereleaved so an increment of 3 words is needed to get to the next word of the stream. This is XSP3_SCOPE_MOD_LAYOUT_2X3. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>mod</em>&nbsp;</td><td>Pointer to scope mode module, usually returned by <a class="el" href="">xsp3_scope_get_module</a> or by linking to module directly. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>card</em>&nbsp;</td><td>is the number of the card in the xspress3 system, 0 for a single card system and up to (<a class="el" href="group__toplevel.html#ga083bca593ecb81ea2d6f5d726ef64fae">xsp3_get_num_cards()</a> - 1) for a multi-card system, where this value has been passed to <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a> at xspress3 system configuration. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>stream</em>&nbsp;</td><td>0...5 </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>stream</em>&nbsp;</td><td>0...5 for XSP3_SCOPE_MOD_LAYOUT_2X3, 0..9 for XSP3_SCOPE_MOD_LAYOUT_DIFFS_TEST </td></tr>
   </table>
   </dd>
 </dl>
@@ -1314,12 +1464,12 @@ Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Setup scope mode options. </p>
-<p>For debug purposes, the system provides the capability to stream 6 off 16 bits streams to memory per card, recording raw ADC data or data from various points through the processing. Usually the scope mode recording starts as soon as the run bit is asserted. However, to syncronise across cards, it is possible to make scope mode wait until the Veto (Count enb) signal is asseted. This can be routed from board to board using the TTL LEMOS signals or otherwise.</p>
+<p>For debug purposes, the system provides the capability to stream 6 off 16 bits streams to memory per card, recording raw ADC data or data from various points through the processing. Usually the scope mode recording starts as soon as the run bit is asserted. However, to syncronise across cards, it is possible to make scope mode wait until the Veto (Count enb) signal is asserted. This can be routed from board to board using the TTL LEMOS signals or otherwise.</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>card</em>&nbsp;</td><td>is the number of the card in the xspress3 system, 0 for a single card system and up to (<a class="el" href="group__toplevel.html#ga083bca593ecb81ea2d6f5d726ef64fae">xsp3_get_num_cards()</a> - 1) for a multi-card system, where this value has been passed to <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a> at xspress3 system configuration. If card is less than 0 then all cards are selected. </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>options</em>&nbsp;</td><td>Scope mode options defined by </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>options</em>&nbsp;</td><td>Scope mode options defined by Xsp3ScopeOptions </td></tr>
   </table>
   </dd>
 </dl>
@@ -1556,7 +1706,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:25 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

@@ -33,6 +33,7 @@
 <tr><td colspan="2"><h2><a name="groups"></a>
 Modules</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p___f_e_a_t_u_r_e___g_d_e_t.html">Crosstalk Glitch detector type.</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p___f_e_a_t_u_r_e___l_e_a_d___t_a_i_l.html">Running Average processing options.</a></td></tr>
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga93cd2f8ff0a781c69313b567badb3b14">XSP3_FEATURE_GET_TEST_DATA_SOURCE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;0)&amp;0xF)</td></tr>
@@ -58,7 +59,7 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga058b5e49296fa020b0ef93e94b9e8bdb">XSP3_FEATURE_GET_GLOBAL_RESET</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;16)&amp;0xF)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga1b0dffd06c5aea0a2e0b19e13b95e5f3">XSP3_FEATURE_GET_TIMING_SOURCE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;20)&amp;0xF)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga9953a4472c5b50acf1081294ac0d6b5d">XSP3_FEATURE_GET_TIMING_GENERATOR</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;24)&amp;0xF)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gafd2f525fb3ce716e2935b390928c508d">XSP3_FEATURE_GET_SPARE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;28)&amp;0xF)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gae75fd4a2782c8e076ee95cc6e2f55b91">XSP3_FEATURE_GET_SCOPE</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;28)&amp;0xF)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga63718199cd9462b58f76cfbdd119f80b">XSP3_FEATURE_GET_TEST_SRC_A</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;0)&amp;3)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Test source A from lower 2 bits.  <a href="#ga63718199cd9462b58f76cfbdd119f80b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga458ee270e28ec431ee9a2d636d0e144a">XSP3_FEATURE_GET_TEST_SRC_B</a>(x)&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;2)&amp;3)</td></tr>
@@ -98,12 +99,24 @@ Defines</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Output is list of 64 bit words including processed event height and all auxiliary info.  <a href="#gaefab2a58f3640787aad43830f98d48ce"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga3780a2d36b59edeb57a999426004b261">XSP3_FEATURE_OUTPUT_FORMAT_RAW_AVERAGES</a>&nbsp;&nbsp;&nbsp;2</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Output is Raw running avreages, needing lead and tail correction and then top-bottom subtraction.  <a href="#ga3780a2d36b59edeb57a999426004b261"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga044a30598ad5a328d84aed21ddf98b8c">XSP3_FEATURE_OUTPUT_FORMAT_DIFFERENCES</a>&nbsp;&nbsp;&nbsp;8</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Output is ADC input data as a list of differences.  <a href="#ga044a30598ad5a328d84aed21ddf98b8c"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga29ed6a364591fafd03701962a92197da">XSP3_FEATURE_FORMAT_B_HGT64_ACK_EOF</a>&nbsp;&nbsp;&nbsp;4</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">If XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64 this bit implies there is an Acknowledge retry on the eond of frame markers.  <a href="#ga29ed6a364591fafd03701962a92197da"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga92e2f266c88642bf20962e7258db732a">XSP3_FEATURE_FORMAT_B_HGT64_ACK_TIME</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">If XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64 this bit implies that the ackl and any frame data sends to previous frames total time.  <a href="#ga92e2f266c88642bf20962e7258db732a"></a><br/></td></tr>
 <tr><td colspan="2"><p><a class="anchor" id="amgrpd41d8cd98f00b204e9800998ecf8427e"></a> </p>
 <br/><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gadfaa0a6adab7d9f56795f1f5b57e0670">XSP3_FEATURE_TIMING_GEN_NONE</a>&nbsp;&nbsp;&nbsp;0</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">XSP3_FEATURS_TIMING_GEN Macros describing the internal timing generator  <a href="#gadfaa0a6adab7d9f56795f1f5b57e0670"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga4da57f92a14b029b734389f3612b1130">XSP3_FEATURE_TIMING_GEN_MINIMAL_ITFG</a>&nbsp;&nbsp;&nbsp;1</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Timing Generator is minimal Internal TFG generating nframe all of same length, burst, started or all triggered.  <a href="#ga4da57f92a14b029b734389f3612b1130"></a><br/></td></tr>
+<tr><td colspan="2"><p><a class="anchor" id="amgrpd41d8cd98f00b204e9800998ecf8427e"></a> </p>
+<br/><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#gaf8a79ac91f688fce10e19cd849ac2b97">XSP3_FEATURE_SCOPE_BIT15_GR_ONLY</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">XSP3_FEATURS_SCOPE Macros describing the scope mode features  <a href="#gaf8a79ac91f688fce10e19cd849ac2b97"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___f_e_a_t_u_r_e_s.html#ga5e3eb4d7855071bf9d1f60c0dc9167a7">XSP3_FEATURE_SCOPE_BIT15_ALT_ENB</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Bit 15 of scope mode is uses alternate bits 3..0 to allow HistEnable to be seen.  <a href="#ga5e3eb4d7855071bf9d1f60c0dc9167a7"></a><br/></td></tr>
 </table>
 <hr/><h2>Define Documentation</h2>
 <a class="anchor" id="gad693740a9c71fb21e57ee37785a0c3cd"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_AUX1_FUNC_DEBUG" ref="gad693740a9c71fb21e57ee37785a0c3cd" args="" -->
@@ -163,6 +176,36 @@ Defines</h2></td></tr>
 <div class="memdoc">
 
 <p>Thresholded Good/bad and Debug. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga29ed6a364591fafd03701962a92197da"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_FORMAT_B_HGT64_ACK_EOF" ref="ga29ed6a364591fafd03701962a92197da" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_FEATURE_FORMAT_B_HGT64_ACK_EOF&nbsp;&nbsp;&nbsp;4</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>If XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64 this bit implies there is an Acknowledge retry on the eond of frame markers. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga92e2f266c88642bf20962e7258db732a"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_FORMAT_B_HGT64_ACK_TIME" ref="ga92e2f266c88642bf20962e7258db732a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_FEATURE_FORMAT_B_HGT64_ACK_TIME&nbsp;&nbsp;&nbsp;1</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>If XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64 this bit implies that the ackl and any frame data sends to previous frames total time. </p>
 
 </div>
 </div>
@@ -476,6 +519,24 @@ Defines</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gae75fd4a2782c8e076ee95cc6e2f55b91"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_GET_SCOPE" ref="gae75fd4a2782c8e076ee95cc6e2f55b91" args="(x)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_FEATURE_GET_SCOPE</td>
+          <td>(</td>
+          <td class="paramtype">&nbsp;</td>
+          <td class="paramname">x</td>
+          <td>&nbsp;)&nbsp;</td>
+          <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;28)&amp;0xF)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="gaeb467a3340cfb1734497454d357ef74d"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_GET_SERVO_BASE" ref="gaeb467a3340cfb1734497454d357ef74d" args="(x)" -->
 <div class="memitem">
 <div class="memproto">
@@ -505,24 +566,6 @@ Defines</h2></td></tr>
           <td class="paramname">x</td>
           <td>&nbsp;)&nbsp;</td>
           <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;24)&amp;0xF)</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="gafd2f525fb3ce716e2935b390928c508d"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_GET_SPARE" ref="gafd2f525fb3ce716e2935b390928c508d" args="(x)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define XSP3_FEATURE_GET_SPARE</td>
-          <td>(</td>
-          <td class="paramtype">&nbsp;</td>
-          <td class="paramname">x</td>
-          <td>&nbsp;)&nbsp;</td>
-          <td>&nbsp;&nbsp;&nbsp;(((x)&gt;&gt;28)&amp;0xF)</td>
         </tr>
       </table>
 </div>
@@ -693,6 +736,21 @@ Defines</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga044a30598ad5a328d84aed21ddf98b8c"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_OUTPUT_FORMAT_DIFFERENCES" ref="ga044a30598ad5a328d84aed21ddf98b8c" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_FEATURE_OUTPUT_FORMAT_DIFFERENCES&nbsp;&nbsp;&nbsp;8</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Output is ADC input data as a list of differences. </p>
+
+</div>
+</div>
 <a class="anchor" id="gaefab2a58f3640787aad43830f98d48ce"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64" ref="gaefab2a58f3640787aad43830f98d48ce" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -735,6 +793,37 @@ Defines</h2></td></tr>
 <div class="memdoc">
 
 <p>Only build is fixed 1024 point table. </p>
+
+</div>
+</div>
+<a class="anchor" id="ga5e3eb4d7855071bf9d1f60c0dc9167a7"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_SCOPE_BIT15_ALT_ENB" ref="ga5e3eb4d7855071bf9d1f60c0dc9167a7" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_FEATURE_SCOPE_BIT15_ALT_ENB&nbsp;&nbsp;&nbsp;1</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Bit 15 of scope mode is uses alternate bits 3..0 to allow HistEnable to be seen. </p>
+
+</div>
+</div>
+<a class="anchor" id="gaf8a79ac91f688fce10e19cd849ac2b97"></a><!-- doxytag: member="xspress3.h::XSP3_FEATURE_SCOPE_BIT15_GR_ONLY" ref="gaf8a79ac91f688fce10e19cd849ac2b97" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_FEATURE_SCOPE_BIT15_GR_ONLY&nbsp;&nbsp;&nbsp;0</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>XSP3_FEATURS_SCOPE Macros describing the scope mode features </p>
+<p>Bit 15 of scope mode is alway Global Reset active (origianl builds) </p>
 
 </div>
 </div>
@@ -889,7 +978,7 @@ Defines</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:25 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

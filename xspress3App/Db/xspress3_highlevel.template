@@ -58,11 +58,12 @@ record(dfanout, "$(P)$(R)ERASE_ArrayCounters")
    field(FLNK, "$(P)$(R)ERASE_AttrReset")
 }
 
-#On an erase, do a reset on the NDAttribute plugins. This has MDEL of 0, so channel access updates
+#On an erase, do a reset on the NDAttribute plugins. This has MDEL of -1, so channel access updates
 #are triggered every time, and there is a bo record for every channel that monitors its value.
 record(dfanout, "$(P)$(R)ERASE_AttrReset")
 {
    field(VAL, "1")
+   field(MDEL, "-1" )
 }
 
 
@@ -85,4 +86,5 @@ record(bo,"$(P)$(R)UPDATE")
 record(dfanout, "$(P)$(R)UPDATE_AttrUpdate")
 {
    field(VAL, "1")
+   field(MDEL, "-1" )
 }

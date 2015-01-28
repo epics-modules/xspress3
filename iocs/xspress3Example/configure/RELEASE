@@ -21,47 +21,20 @@
 
 TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
-#SUPPORT=/dls_sw/prod/R3.14.12.3/support
+SUPPORT=/dls_sw/prod/R3.14.12.3/support
 #WORK=/dls_sw/work/R3.14.12.3/support
 
-#ASYN= $(SUPPORT)/asyn/4-21
-#AREA_DETECTOR= $(SUPPORT)/areaDetector/1-9dls4
-#BUSY= $(SUPPORT)/busy/1-4dls1
-#CALC= $(SUPPORT)/calc/3-1
-#SSCAN= $(SUPPORT)/sscan/2-8-1
-#AUTOSAVE= $(SUPPORT)/autosave/5-0
-#DEVIOCSTATS= $(SUPPORT)/devIocStats/3-1-5dls4
-#SPECTRAPLUGINS= $(SUPPORT)/spectraPlugins/1-6
-#XSPRESS3= $(TOP)/../..
-#BOOST= /dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0/prefix
+ASYN=           $(SUPPORT)/asyn/4-21
+AREA_DETECTOR=   $(SUPPORT)/areaDetector/1-9dls16
+BUSY=           $(SUPPORT)/busy/1-4dls1
+CALC=		$(SUPPORT)/calc/3-1
+SSCAN=		$(SUPPORT)/sscan/2-8-1
+AUTOSAVE=       $(SUPPORT)/autosave/5-0
+DEVIOCSTATS=    $(SUPPORT)/devIocStats/3-1-5dls4
+SPECTRAPLUGINS=	$(SUPPORT)/spectraPlugins/1-7-1
+XSPRESS3=	$(TOP)/../..
 
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-#EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
-
-SUPPORT=/home/xspress3/software/epics/R3.14.12.3/support
-#WORK=/dls_sw/work/R3.14.12.3/support
-
-ASYN=$(SUPPORT)/asyn4-21
-AREA_DETECTOR=$(SUPPORT)/areaDetectorR1-9-1
-BUSY=$(SUPPORT)/busy-1-6
-CALC=$(SUPPORT)/calc-3-2
-MCA=$(SUPPORT)/mcaR7-4
-STD=$(SUPPORT)/std-3-2
-SNCSEQ=$(SUPPORT)/seq-2.1.16
-
-SSCAN=$(SUPPORT)/sscan-2-9
-AUTOSAVE=$(SUPPORT)/autosave-5-1
-DEVIOCSTATS=$(SUPPORT)/devIocStats-3.1.11
-SPECTRAPLUGINS=$(SUPPORT)/spectraPlugins-1-6
-XSPRESS3=$(SUPPORT)/xspress3
-BOOST=/home/xspress3/software/boost
-
-# EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/home/xspress3/software/epics/R3.14.12.3/base
-
-# Set RULES here if you want to take build rules from somewhere
-# other than EPICS_BASE:
-#RULES=/path/to/epics/support/module/rules/x-y
-
+EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
 

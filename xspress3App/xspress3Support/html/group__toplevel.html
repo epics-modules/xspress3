@@ -96,6 +96,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether firmware includes a Reset detector.  <a href="#ga673ae2d9f80b5e5fe73f94cdc9e98a0e"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#ga36d0b281b850c64fb702ef8ca27b488b">xsp3_has_glitch_det</a> (int path, int card, int *min_thres)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether firmware includes a glitch detector.  <a href="#ga36d0b281b850c64fb702ef8ca27b488b"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#gab7b8bb43907d58f18a61dbd985542c18">xsp3_has_scope_dig_alt0</a> (int path, int card)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Determine whether firmware Alternatebit 3..0 controlling scope stream 0.  <a href="#gab7b8bb43907d58f18a61dbd985542c18"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#gaf3b1a4949881a95c76bad27b1b3f5783">xsp3_histogram_start</a> (int path, int card)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Start system and enable counting.  <a href="#gaf3b1a4949881a95c76bad27b1b3f5783"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#gade395791d70335b40677571a82584919">xsp3_histogram_arm</a> (int path, int card)</td></tr>
@@ -124,6 +126,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Setup Internal time frame generator (TFG) for a series of equal length frames.  <a href="#ga45a3b1bdca5df51717f98d00fdd200d3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#gad7cf4112aeaf0bf80fbc9dd49956edef">xsp3_itfg_get_setup</a> (int path, int card, int *num_tf, u_int32_t *col_time, int *trig_mode, int *gap_mode)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Retrieve settings of the Internal time frame generator (TFG).  <a href="#gad7cf4112aeaf0bf80fbc9dd49956edef"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#ga6a5a675b8e87125f6d3cc23a091b474d">xsp3_itfg_stop</a> (int path, int card)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Stop the Internal time frame generator (TFG).  <a href="#ga6a5a675b8e87125f6d3cc23a091b474d"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#ga5b019fbf3f7db000b8eeb08b4bdf3c63">xsp3_save_settings</a> (int path, char *dir_name)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Save all xspress3 settings into a series of files.  <a href="#ga5b019fbf3f7db000b8eeb08b4bdf3c63"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__toplevel.html#ga922527587ac747570235681e0d547e58">xsp3_restore_settings</a> (int path, char *dir_name, int force_mismatch)</td></tr>
@@ -1088,6 +1092,43 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="gab7b8bb43907d58f18a61dbd985542c18"></a><!-- doxytag: member="xspress3_hardware_conf.c::xsp3_has_scope_dig_alt0" ref="gab7b8bb43907d58f18a61dbd985542c18" args="(int path, int card)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_has_scope_dig_alt0 </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>card</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Determine whether firmware Alternatebit 3..0 controlling scope stream 0. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>card</em>&nbsp;</td><td>Card number. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>Internal TFG code as defined by <a class="el" href="">XSP3_FEATURS_TIMING_GEN</a> or &lt;0 =&gt; ERROR </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="gaed10703918be9fd1491bb583e361b27a"></a><!-- doxytag: member="xspress3_dtc.c::xsp3_hist_dtc_read4d" ref="gaed10703918be9fd1491bb583e361b27a" args="(int path, double *hist_buff, double *scal_buff, unsigned eng, unsigned aux, unsigned chan, unsigned tf, unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf)" -->
 <div class="memitem">
 <div class="memproto">
@@ -2040,6 +2081,44 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga6a5a675b8e87125f6d3cc23a091b474d"></a><!-- doxytag: member="xspress3_itfg.c::xsp3_itfg_stop" ref="ga6a5a675b8e87125f6d3cc23a091b474d" args="(int path, int card)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_itfg_stop </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>card</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Stop the Internal time frame generator (TFG). </p>
+<p>This stops the Internal TFG mid experiment. Any end of expermiment procesing is not stopped, so the histogram threads will run to completion.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>card</em>&nbsp;</td><td>Card of the system containing the ITFG. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="xspress3_8h.html#aad318e803581597725f2a5dc06f617e4">XSP3_OK</a> or a negative error code. </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ga287351331773b121b8db78c90bdba4e9"></a><!-- doxytag: member="xspress3_udp.c::xsp3_read_scope_data" ref="ga287351331773b121b8db78c90bdba4e9" args="(int path, int card)" -->
 <div class="memitem">
 <div class="memproto">
@@ -2424,6 +2503,7 @@ Functions</h2></td></tr>
  * scaler 5 - InWIn 0
  * scaler 6 - In Win 1
  * scaler 7 - PileUp
+ * scaler 8 - Total Time
  * </pre></div><dl><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
@@ -2894,7 +2974,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:24 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

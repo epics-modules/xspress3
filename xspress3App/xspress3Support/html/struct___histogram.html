@@ -65,6 +65,9 @@ Data Fields</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="struct___histogram_1_1window__limits.html">_Histogram::window_limits</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___histogram.html#a75a0f5d3faf9c52fe0d802d759bfe4e9">window</a> [XSP3_SOFT_SCALER_NUM_WINDOWS]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">u_int32_t&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___histogram.html#a7731a9c0051c071720d6a85e586f45b5">format_reg</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___histogram.html#a5efd85e8c4cf7b434c1c54d10876e897">cur_tf</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">u_int16_t *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___histogram.html#a1f2b330196d6c1eb382d87aebdd12f20">diffs_ptr</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">u_int16_t *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___histogram.html#a731397c62ec3b057c61357b281fec598">tf_ptr</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">u_int16_t *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct___histogram.html#af3475526f4721667858070c269474c6b">dig_ptr</a></td></tr>
 </table>
 <hr/><h2>Field Documentation</h2>
 <a class="anchor" id="aa4310b4671265310fbba48046fd47752"></a><!-- doxytag: member="_Histogram::aux1_mode" ref="aa4310b4671265310fbba48046fd47752" args="" -->
@@ -177,6 +180,32 @@ Data Fields</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">int <a class="el" href="struct___histogram.html#a5efd85e8c4cf7b434c1c54d10876e897">_Histogram::cur_tf</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a1f2b330196d6c1eb382d87aebdd12f20"></a><!-- doxytag: member="_Histogram::diffs_ptr" ref="a1f2b330196d6c1eb382d87aebdd12f20" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_int16_t* <a class="el" href="struct___histogram.html#a1f2b330196d6c1eb382d87aebdd12f20">_Histogram::diffs_ptr</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="af3475526f4721667858070c269474c6b"></a><!-- doxytag: member="_Histogram::dig_ptr" ref="af3475526f4721667858070c269474c6b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_int16_t* <a class="el" href="struct___histogram.html#af3475526f4721667858070c269474c6b">_Histogram::dig_ptr</a></td>
         </tr>
       </table>
 </div>
@@ -392,6 +421,19 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a731397c62ec3b057c61357b281fec598"></a><!-- doxytag: member="_Histogram::tf_ptr" ref="a731397c62ec3b057c61357b281fec598" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">u_int16_t* <a class="el" href="struct___histogram.html#a731397c62ec3b057c61357b281fec598">_Histogram::tf_ptr</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ae23ee0b8db1bb5751554d7fc3b065e6c"></a><!-- doxytag: member="_Histogram::udpsock" ref="ae23ee0b8db1bb5751554d7fc3b065e6c" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -422,7 +464,7 @@ Data Fields</h2></td></tr>
 <li>/scratch/npr78/temp/xspress3_api/det-software/none_vme/xspress3/include/<a class="el" href="xspress3_8h.html">xspress3.h</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:25 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

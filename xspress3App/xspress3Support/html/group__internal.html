@@ -112,6 +112,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Creates Data modules to store the histogram data.  <a href="#ga679113a45cac3adca7274452df588759"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga03701193b2a894c3f58f619fce0211e4">xsp3_config_histogram_udp</a> (int path, int card, char *hostIPaddress, int hostPort, char *femIPaddress, int femPort)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Configure the upd connection between the server and the xspress3 card and subsequently initializes a thread to perform the histogramming.  <a href="#ga03701193b2a894c3f58f619fce0211e4"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga45bb9c52cea231d503017a105ae38c0c">xsp3_config_histogram_threads</a> (int path, int card)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Start event list processing threads for 1 or all cards in farm mode.  <a href="#ga45bb9c52cea231d503017a105ae38c0c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga79a7ffd818893058a5f4deb42cf420fd">xsp3_histogram_start_count_enb</a> (int path, int card, int count_enb)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Start system and histogramming after resetting the UDP port and frame numbers as necessary.  <a href="#ga79a7ffd818893058a5f4deb42cf420fd"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gab4379e74d2774df62d86f22328049ed9">xsp3_histogram_is_busy</a> (int path, int chan)</td></tr>
@@ -128,8 +130,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Calculate the pointer to a given element of a 2-d or 3-d shared data module.  <a href="#ga3739a09ce0e10a6a8e105be79640c438"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gac9208d32f8ba1dc205c60ac68fa1b4f3">xsp3_config_scaler</a> (int path)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Configure the scaler arrangement using the current memory allocation within the FEM.  <a href="#gac9208d32f8ba1dc205c60ac68fa1b4f3"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga5242253ba531dcf29081465262c4f786">xsp3_scope_mod_create</a> (char *name, int num_cards, int lwords_per_card, mh_com **mod_head)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a shared data module in /dev/shm to store Scope mode data.  <a href="#ga5242253ba531dcf29081465262c4f786"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga00ddc88bca74ece586493d86198b809c">xsp3_scope_mod_create</a> (char *name, int num_cards, int lwords_per_card, mh_com **mod_head, int layout)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a shared data module in /dev/shm to store Scope mode data.  <a href="#ga00ddc88bca74ece586493d86198b809c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga4407975f0b1ee3ad41cc72f20760ffbb">xsp3_config_soft_scaler</a> (int path, char *mod_name, int num_tf)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Build a shared data module for the software scalers.  <a href="#ga4407975f0b1ee3ad41cc72f20760ffbb"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga05595151403db5ac02cbab8e4b45f4c5">xsp3_soft_scaler_clear</a> (int path, int first_chan, int first_frame, int num_chan, int num_frames)</td></tr>
@@ -140,8 +142,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the UDP port number.  <a href="#ga5b8052f13dd2f05036bb65ddd5d826f3"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gafc352186020b336e0e086684a6874f37">xsp3_config_udp</a> (int path, int card, char *femMACaddress, char *femIPaddress, int femPort, char *hostIPaddress, int hostPort)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Configure all the parameters for a UDP connection to the xspress3 card.  <a href="#gafc352186020b336e0e086684a6874f37"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gab3600535941ff4f760e4db41b5dde026">xsp3_create_data_module</a> (int path, char *modname)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create the scope mode data module.  <a href="#gab3600535941ff4f760e4db41b5dde026"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#gab0bff51978a1704e926b339f60740d25">xsp3_create_data_module</a> (int path, char *modname, int layout)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create the scope mode data module.  <a href="#gab0bff51978a1704e926b339f60740d25"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga4cfdbc1ed13b9d4fe3a3c12e5e05def6">xsp3_set_udp_packet_size</a> (int path, int card, int size_bytes)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Set the UDP packet size in bytes.  <a href="#ga4cfdbc1ed13b9d4fe3a3c12e5e05def6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga8bd9f154bca8efbeab35ea61a650c8d8">xsp3_udp_init</a> (<a class="el" href="struct___u_d_pconnection.html">UDPconnection</a> *udpsock, char *hostIPaddress, int hostPort, char *femIPaddress, int femPort)</td></tr>
@@ -384,6 +386,44 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>the mac address of the interface as a byte array or NULL if not found </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ga45bb9c52cea231d503017a105ae38c0c"></a><!-- doxytag: member="xspress3_histogram.c::xsp3_config_histogram_threads" ref="ga45bb9c52cea231d503017a105ae38c0c" args="(int path, int card)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int xsp3_config_histogram_threads </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>card</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Start event list processing threads for 1 or all cards in farm mode. </p>
+<p>Cancel existing threads if there have already been created.</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>card</em>&nbsp;</td><td>is the number of the card in the xspress3 system, 0 for a single card system and up to (<a class="el" href="group__toplevel.html#ga083bca593ecb81ea2d6f5d726ef64fae">xsp3_get_num_cards()</a> - 1) for a multi-card system, -1 will do all cards in system. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="xspress3_8h.html#aad318e803581597725f2a5dc06f617e4">XSP3_OK</a> or a negative error code. </dd></dl>
 
 </div>
 </div>
@@ -656,7 +696,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="gab3600535941ff4f760e4db41b5dde026"></a><!-- doxytag: member="xspress3_udp.c::xsp3_create_data_module" ref="gab3600535941ff4f760e4db41b5dde026" args="(int path, char *modname)" -->
+<a class="anchor" id="gab0bff51978a1704e926b339f60740d25"></a><!-- doxytag: member="xspress3_udp.c::xsp3_create_data_module" ref="gab0bff51978a1704e926b339f60740d25" args="(int path, char *modname, int layout)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -670,7 +710,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">char *&nbsp;</td>
-          <td class="paramname"> <em>modname</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>modname</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>layout</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -686,6 +732,7 @@ Functions</h2></td></tr>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>path</em>&nbsp;</td><td>a handle to the top level of the xspress3 system returned from <a class="el" href="group__toplevel.html#gabbdb522cdcc0230ab9d2e06c63c4cf03">xsp3_config()</a>. </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>modname</em>&nbsp;</td><td>the data module name </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>layout</em>&nbsp;</td><td>Module layout to suit firmware. See <a class="el" href="group___x_s_p3___s_c_o_p_e___m_o_d___l_a_y_o_u_t.html">XSP3_SCOPE_MOD_LAYOUT</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -2428,7 +2475,7 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="ga5242253ba531dcf29081465262c4f786"></a><!-- doxytag: member="xspress3_scope_mode.c::xsp3_scope_mod_create" ref="ga5242253ba531dcf29081465262c4f786" args="(char *name, int num_cards, int lwords_per_card, mh_com **mod_head)" -->
+<a class="anchor" id="ga00ddc88bca74ece586493d86198b809c"></a><!-- doxytag: member="xspress3_scope_mode.c::xsp3_scope_mod_create" ref="ga00ddc88bca74ece586493d86198b809c" args="(char *name, int num_cards, int lwords_per_card, mh_com **mod_head, int layout)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -2454,7 +2501,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">mh_com **&nbsp;</td>
-          <td class="paramname"> <em>mod_head</em></td><td>&nbsp;</td>
+          <td class="paramname"> <em>mod_head</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>layout</em></td><td>&nbsp;</td>
         </tr>
         <tr>
           <td></td>
@@ -2473,6 +2526,7 @@ Functions</h2></td></tr>
     <tr><td valign="top"></td><td valign="top"><em>num_cards</em>&nbsp;</td><td>Number of Cards (XSPRESS3 boxes) in the system </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>lwords_per_card</em>&nbsp;</td><td>Number of LWords on FEM DRAM used in each card, which must match </td></tr>
     <tr><td valign="top"></td><td valign="top"><em>mod_head</em>&nbsp;</td><td>Pointer to return Module header pointer to allow unlinking of module. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>layout</em>&nbsp;</td><td>Layout of scope mode module see <a class="el" href="group___x_s_p3___s_c_o_p_e___m_o_d___l_a_y_o_u_t.html">XSP3_SCOPE_MOD_LAYOUT</a> </td></tr>
   </table>
   </dd>
 </dl>
@@ -3843,7 +3897,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:25 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

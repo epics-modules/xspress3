@@ -38,9 +38,10 @@ sources[BUSY]=http://www.aps.anl.gov/bcda/synApps/tar/busy_R1-6.tar.gz
 sources[SSCAN]=http://www.aps.anl.gov/bcda/synApps/tar/sscan_R2-9.tar.gz
 sources[CALC]=http://www.aps.anl.gov/bcda/synApps/tar/calc_R3-2.tar.gz
 sources[AREA_DETECTOR]=http://cars.uchicago.edu/software/pub/areaDetectorR1-9-1.tgz
+#sources[ADCORE]=https://github.com/areaDetector/ADCore/archive/R2-1.tar.gz
 sources[DEVIOCSTATS]=http://sourceforge.net/projects/epics/files/devIocStats/devIocStats-3.1.11.tar.gz
 sources[SPECTRAPLUGINS]=http://controls.diamond.ac.uk/downloads/support/spectraPlugins/1-6/spectraPlugins-1-6.tgz
-sources[XSPRESS3]=http://controls.diamond.ac.uk/downloads/support/xspress3/1-10/xspress3-1-10.tgz
+sources[XSPRESS3]=http://controls.diamond.ac.uk/downloads/support/xspress3/1-11/xspress3-1-11.tgz
 
 directories[MSI]=${directories[EXTENSIONS_TOP]}/src/msi
 directories[MEDM]=${directories[EXTENSIONS_TOP]}/src/medm

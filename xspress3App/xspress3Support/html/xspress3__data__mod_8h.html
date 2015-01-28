@@ -45,6 +45,11 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3__data__mod_8h.html#a32e291cfadf668760b0e213804816064">XSP3_MAX_MODNAME</a>&nbsp;&nbsp;&nbsp;100</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3__data__mod_8h.html#ae448980f7ec689ad9e0a9ead8f722197">XSP3_MAX_CARDS</a>&nbsp;&nbsp;&nbsp;8</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3__data__mod_8h.html#a55d828da7e23892dd8380915cc14261d">XSP3_SCOPE_MODULE_MAGIC</a>&nbsp;&nbsp;&nbsp;&quot;xsp3scp&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___s_c_o_p_e___m_o_d___l_a_y_o_u_t.html#gaabf1687cafefa5d4fe4f97a45c587bf8">XSP3_SCOPE_MOD_LAYOUT_2X3</a>&nbsp;&nbsp;&nbsp;0</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Original 2 blocks of 3 streams interlaved (To suit XC5VF PowrePC DMA).  <a href="group___x_s_p3___s_c_o_p_e___m_o_d___l_a_y_o_u_t.html#gaabf1687cafefa5d4fe4f97a45c587bf8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___x_s_p3___s_c_o_p_e___m_o_d___l_a_y_o_u_t.html#ga40ca74d0aaa71b43e48331eb7f0b8d53">XSP3_SCOPE_MOD_LAYOUT_DIFFS_TEST</a>&nbsp;&nbsp;&nbsp;1</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">9 blocks each of 1 stream to suit reconstruction of differences data.  <a href="group___x_s_p3___s_c_o_p_e___m_o_d___l_a_y_o_u_t.html#ga40ca74d0aaa71b43e48331eb7f0b8d53"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3__data__mod_8h.html#ac1258fd2561ed8d81e61afdc8d05ccef">XSP3_SCOPE_POINTS_FIXED</a>&nbsp;&nbsp;&nbsp;(64*1024*1024)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3__data__mod_8h.html#addbd7e9c1834f02d6ca9cca31f692a13">XSP3_SCOPE_UDP_PACKET</a>&nbsp;&nbsp;&nbsp;8000</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3__data__mod_8h.html#ad9d20ac18f737ef893939e52b3741ec3">XSP3_SCOPE_UDP_FRAME</a>&nbsp;&nbsp;&nbsp;0x100000</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3__data__mod_8h.html#a21e9bab6741b4aae0982382e0aeaa44b">XSP3_SCOPE_NUM_SRC0</a>&nbsp;&nbsp;&nbsp;4</td></tr>
@@ -58,10 +63,18 @@ Typedefs</h2></td></tr>
 <a class="el" href="structxsp3__scope__data__module.html">xsp3_scope_data_module</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="xspress3__data__mod_8h.html#aa3ec8fb59f3e4253a82d10f4603578ab">XSP3ScopeModule</a></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga5242253ba531dcf29081465262c4f786">xsp3_scope_mod_create</a> (char *name, int num_cards, int lwords_per_card, mh_com **mod_head)</td></tr>
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a shared data module in /dev/shm to store Scope mode data.  <a href="group__internal.html#ga5242253ba531dcf29081465262c4f786"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__internal.html#ga00ddc88bca74ece586493d86198b809c">xsp3_scope_mod_create</a> (char *name, int num_cards, int lwords_per_card, mh_com **mod_head, int layout)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Create a shared data module in /dev/shm to store Scope mode data.  <a href="group__internal.html#ga00ddc88bca74ece586493d86198b809c"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">u_int16_t *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga95d1f280b21c39bb83710d97ae4af3f1">xsp3_scope_mod_get_ptr</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get pointer to data for specifed card and stream with the data module.  <a href="group__debug.html#ga95d1f280b21c39bb83710d97ae4af3f1"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga8232bf61a12624bcbe0363b6d1bf8e73">xsp3_scope_mod_get_inc</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get increment to use when stepping to next time point when accessing data in the scope mode data module.  <a href="group__debug.html#ga8232bf61a12624bcbe0363b6d1bf8e73"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#gaa48031e551885a109000dc2b4dc6e0d8">xsp3_scope_mod_get_nstreams</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get number of streams per card for current scope mode data module layout.  <a href="group__debug.html#gaa48031e551885a109000dc2b4dc6e0d8"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#gaa8e60baef9c106b9ea8585a4a55d1c81">xsp3_scope_chan</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return Channel number (currently within card) for specified stream.  <a href="group__debug.html#gaa8e60baef9c106b9ea8585a4a55d1c81"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga9c1e7c41d9051d1fa426631d8f71207a">xsp3_scope_get_str_sel</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Get source select for specified stream allowing for any special interpretation of scope mode data module layout.  <a href="group__debug.html#ga9c1e7c41d9051d1fa426631d8f71207a"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const char *&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga759ad01c2d7c3da249fcb64191ceca4b">xsp3_scope_stream_name</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return a label to desribe the describe the data on a given scope stream.  <a href="group__debug.html#ga759ad01c2d7c3da249fcb64191ceca4b"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__debug.html#ga88099489e6cd165de22f9bbfbbd9e9d5">xsp3_scope_stream_flags</a> (<a class="el" href="structxsp3__scope__data__module.html">XSP3ScopeModule</a> *mod, int card, int stream)</td></tr>
@@ -177,6 +190,20 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac1258fd2561ed8d81e61afdc8d05ccef"></a><!-- doxytag: member="xspress3_data_mod.h::XSP3_SCOPE_POINTS_FIXED" ref="ac1258fd2561ed8d81e61afdc8d05ccef" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define XSP3_SCOPE_POINTS_FIXED&nbsp;&nbsp;&nbsp;(64*1024*1024)</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Fixed sized scope mode number of points in XSP3_SCOPE_MOD_LAYOUT_DIFFS_TEST </p>
 
 </div>
 </div>
@@ -300,7 +327,7 @@ Variables</h2></td></tr>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Thu Jul 10 2014 16:32:24 for xspress3api by&nbsp;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Oct 29 2014 09:17:10 for xspress3api by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.1 </small></address>
 </body>

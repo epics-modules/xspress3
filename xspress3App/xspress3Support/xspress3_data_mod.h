@@ -27,7 +27,7 @@ typedef struct xsp3_scope_data_module
 	struct xsp3_scope_module_head
 	{
 		char magic[8];
-		int32_t version;			// Module version in case the layout is revised.
+		int32_t layout;			// Module version in case the layout is revised.
 		int32_t num_cards;			// Number of FEM cards contained within
 		int32_t hw_version;			// hardware version in case we need to change interpretation of values.
 		int total_lwords_per_card;	// Total number of LWords used per card, 1/2 this is specified to the scope DMA
@@ -40,9 +40,28 @@ typedef struct xsp3_scope_data_module
 	u_int16_t data[1];
 }	XSP3ScopeModule;
 
+/**
+	@defgroup XSP3_SCOPE_MOD_LAYOUT Layouts of Scope moed data module to suit various hardware/firmware/software.
+	@ingroup XSP£_MACROS
+	@{
+*/
+#define XSP3_SCOPE_MOD_LAYOUT_2X3	0		//!< Original 2 blocks of 3 streams interlaved (To suit XC5VF PowrePC DMA) 
+#define XSP3_SCOPE_MOD_LAYOUT_DIFFS_TEST	1		//!< 9 blocks each of 1 stream to suit reconstruction of differences data.
 
-XSP3ScopeModule *xsp3_scope_mod_create(char *name, int num_cards, int lwords_per_card, mh_com ** mod_head);
+
+/**
+@}
+*/
+#define XSP3_SCOPE_POINTS_FIXED (64*1024*1024)		//!< Fixed sized scope mode number of points in XSP3_SCOPE_MOD_LAYOUT_DIFFS_TEST
+
+
+XSP3ScopeModule *xsp3_scope_mod_create(char *name, int num_cards, int lwords_per_card, mh_com ** mod_head, int layout);
 u_int16_t * xsp3_scope_mod_get_ptr(XSP3ScopeModule *mod, int card, int stream);
+int xsp3_scope_mod_get_inc(XSP3ScopeModule *mod);
+int xsp3_scope_mod_get_nstreams(XSP3ScopeModule *mod); 
+int xsp3_scope_chan(XSP3ScopeModule *mod, int card, int stream); 
+int xsp3_scope_mod_get_nstreams(XSP3ScopeModule *mod); 
+int xsp3_scope_get_str_sel(XSP3ScopeModule *mod, int card, int stream); 
 
 #define XSP3_SCOPE_UDP_PACKET	8000
 #define XSP3_SCOPE_UDP_FRAME	0x100000

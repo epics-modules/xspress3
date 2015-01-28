@@ -29,30 +29,33 @@
 #define XSP3_CONF_SOFTWARE_ROI_LUT  0	//< Enable Region of interest in software event list processing code
 #define XSP3_CONF_ACCUMULATE_RESET_TICKS  0	//< Enable accumulation of reset ticks from each reset width, rathe than using reset ticks at end.
 #define XSP3_CONF_ALL_GOOD_FROM_MCA  0	//< Enable All Good scaler by summming MCA, but note then pileup reject will remove events from AllGood
-
+#define XSP3_SGX_SOFTWARE			0   //!< Enable SGX processing in software (currently firmware option)
 
 #define FEM_SINGLE 0
 #define FEM_COMPOSITE 1
 
 #define XSP3_BINS_PER_MCA 4096
 
-#define XSP3_SW_NUM_SCALERS 8
+#define XSP3_SW_NUM_SCALERS 9
 
-#define XSP_SW_SCALER_LIVE_TICKS	0 
-#define XSP_SW_SCALER_RESET_TICKS 	1
-#define XSP_SW_SCALER_NUM_RESETS 	2
-#define XSP_SW_SCALER_ALL_EVENT   	3
-#define XSP_SW_SCALER_ALL_GOOD   	4
-#define XSP_SW_SCALER_IN_WINDOW0   	5
-#define XSP_SW_SCALER_IN_WINDOW1   	6
-#define XSP_SW_SCALER_PILEUP   		7
+#define XSP_SW_SCALER_LIVE_TICKS	0			//!< Total exposure time, may show lower than programmed time if data packets are dropped. Can beuse to scale for dropped packets 
+#define XSP_SW_SCALER_RESET_TICKS 	1			//!< Time in Reset or reset crostalk glitch padding.
+#define XSP_SW_SCALER_NUM_RESETS 	2			//!< Number of Resets.
+#define XSP_SW_SCALER_ALL_EVENT   	3			//!< Number of all event triggers.
+#define XSP_SW_SCALER_ALL_GOOD   	4			//!< Number of events with positivie energy > Good threshold.
+#define XSP_SW_SCALER_IN_WINDOW0   	5			//!< Number of events in window 0
+#define XSP_SW_SCALER_IN_WINDOW1   	6			//!< Number of events in window 1
+#define XSP_SW_SCALER_PILEUP   		7			//!< Number of events detected as pileup.
+#define XSP_SW_SCALER_TOTAL_TICKS	8 			//!< Total time in 80MHz ticks of exposure, even if some packets are dropped.
 
 #if XSP3_CONF_ALL_GOOD_FROM_MCA
-#	define XSP3_NUM_SOFT_SCALERS 5
+#	define XSP3_SOFT_SCALER_TOTAL_TICKS		5 		//!< Total integration time ticks
+#	define XSP3_NUM_SOFT_SCALERS 6
 #else
-#	define XSP3_NUM_SOFT_SCALERS 8
+#	define XSP3_SOFT_SCALER_TOTAL_TICKS		8 		//!< Total integration time ticks
+#	define XSP3_NUM_SOFT_SCALERS 9
 #endif
-#define XSP3_SOFT_SCALER_LIVE_TICKS		0 		//!< Total integration time ticks
+#define XSP3_SOFT_SCALER_LIVE_TICKS		0 		//!< Total integration time in received packets, may may less than total ticks due to dropped packets.
 #define XSP3_SOFT_SCALER_RESET_TICKS	1
 #define XSP3_SOFT_SCALER_NUM_RESETS 	2
 #define XSP3_SOFT_SCALER_ALL_EVENT   	3
@@ -105,13 +108,16 @@
 
 
 //! The 3 off 32 bit feature registers store 3 x 8 x 4 bit fields. Unpacked in struct using chars
+#define XSP3_FEATURE_ACK_EOF_NONE 0				//!< No End of Frame Acknowledge packets.
+#define XSP3_FEATURE_ACK_EOF_YES  1				//!< Acknowledge packets with frame number only
+#define XSP3_FEATURE_ACK_EOF_WITH_TIME  2		//!< Acknowledge packets also tell total exposure time of frame.
 
 typedef struct _xsp3_feature
 {
 	char test_data_source, real_data_source, data_mux, inl_corr, reset_detector, reset_corr, glitch_detect, glitch_pad;
 	char trigger_b, trigger_c, trigger_extra, calibrator, neighbour_events, servo_base, servo_details, run_ave;
-	char lead_tail_corr, output_format, format_details_a, format_details_b, global_reset, timing_source, timing_generator, spare;
-	char farm_mode, soft_scalers;
+	char lead_tail_corr, output_format, format_details_a, format_details_b, global_reset, timing_source, timing_generator, scope_mode;
+	char farm_mode, soft_scalers, ack_eof;
 } Xspress3_features;
 
 typedef enum
@@ -194,6 +200,9 @@ typedef struct _Histogram {
 	} window[XSP3_SOFT_SCALER_NUM_WINDOWS];
 	u_int32_t format_reg;
 	int cur_tf;
+	u_int16_t *diffs_ptr;	// Used for saving differences mode data into modifed scope mode module.
+	u_int16_t *tf_ptr;		// Used for saving time frame part of differences mode data into modifed scope mode module.
+	u_int16_t *dig_ptr;		// Used for saving Digital part of differences mode data into modifed scope mode module.
 } Histogram;
 
 typedef struct _XSP3Path {
@@ -211,6 +220,7 @@ typedef struct _XSP3Path {
 	UDPconnection udpsock;
 	struct xsp3_scope_data_module *scope_mod;
 	pthread_t thread[XSP3_MAX_CHANS_PER_CARD];
+	char thread_created[XSP3_MAX_CHANS_PER_CARD];
 	volatile Histogram histogram[XSP3_MAX_CHANS_PER_CARD];
 	ChannelDTC dtc[XSP3_MAX_CHANS_PER_CARD];
 	double deadtimeEnergy; // in keV NOT eV!
@@ -225,7 +235,8 @@ typedef struct _XSP3Path {
 	MOD_IMAGE3D *scalers_mod;
 	mh_com *scalers_mod_head;
 	int disable_multi_thread;	//!< Disable Thread per card activity speed ups on scope mode, start etc. See {@link XSP3_MT_FLAGS}
-	int chan_of_system;			//! Used to initial chan of system in histogram (only)
+	int chan_of_system;			//!< Used to initial chan of system in histogram (only)
+	char soft_lead_tail;		//!< Enable alternate event list processing for SGX detector.
 } XSP3Path; 
 
 typedef struct trigger_b_setttings
@@ -295,6 +306,7 @@ int 	xsp3_get_window(int path, int chan, int win, u_int32_t *low, u_int32_t *hig
 int 	xsp3_get_good_thres(int path, int chan, u_int32_t *good_thres);
 int 	xsp3_get_trigger_regs_b(int path, int chan, u_int32_t *trigb_thres, u_int32_t *trigb_timea, u_int32_t *trigb_timeb);
 int 	xsp3_get_trigger_regs_c(int path, int chan, u_int32_t *trigc_otd_servo, u_int32_t *trigc_thres);
+int 	xsp3_set_cal_events(int path, int chan,int enable, int period, int avoid);
 int 	xsp3_get_glitch(int path, int chan, u_int32_t *glitchA, u_int32_t *glitchB);
 int 	xsp3_write_reg(int path, int chan, int region, int offset, int size, u_int32_t *value);
 int 	xsp3_read_reg(int path, int chan, int region, int offset, int size, u_int32_t *value);
@@ -334,11 +346,12 @@ int 	xsp3_dma_read_status(int path, int card, u_int32_t stream_mask);
 int 	xsp3_scope_wait(int path, int card);
 int		xsp3_config_udp(int path, int card, char *femMACaddress, char*femIPaddress, int femPort, char* hostIPaddress, int hostPort);
 int 	xsp3_config_histogram_udp(int path, int card, char *hostIPaddress, int hostPort, char *femIPaddress, int femPort);
+int 	xsp3_config_histogram_threads(int path, int card);
 int		xsp3_set_udp_port(int path, int card, int hostPort);
 int 	xsp3_set_udp_packet_size(int path, int card, int size_bytes);
 int		xsp3_read_scope_data(int path, int card);
 int		xsp3_read_scope_data_int(int path, int card, int swap);
-int		xsp3_create_data_module (int path, char* modname);
+int 	xsp3_create_data_module(int path, char* modname, int layout);
 int		xsp3_read_rdma_reg(int path, int card, int address, int size, u_int32_t *value);
 int		xsp3_write_rdma_reg(int path, int card, int address, int size, u_int32_t *value);
 int		xsp3_read_spi_reg(int path, int card, int address, int size, u_int32_t *value);
@@ -453,6 +466,8 @@ int 	xsp3_write_soft_lut(int path, int chan, int region_num, int nwords, u_int32
 int 	xsp3_read_soft_lut(int path, int chan, int region_num, int nwords, u_int32_t * data);
 
 void * 	read_and_histogram_hgt64(void* args);
+void *  read_and_save_diffs(void* args);
+
 int	 	xsp3_soft_scaler_read(int path, u_int32_t *dest, unsigned first_scaler, unsigned first_chan, unsigned first_t, unsigned n_scalers, unsigned n_chan, unsigned dt);
 int 	xsp3_soft_scaler_clear(int path, int first_chan, int first_frame, int num_chan, int num_frames);
 int 	xsp3_config_soft_scaler(int path, char * mod_name, int num_tf);
@@ -461,9 +476,16 @@ int 	xsp3_build_pileup_time(int path, int chan, int num_pairs, XSP3_PileupTimes 
 
 int 	xsp3_itfg_setup(int path, int card, int num_tf, u_int32_t col_time, int trig_mode, int gap_mode);
 int 	xsp3_itfg_get_setup(int path, int card, int *num_tf, u_int32_t *col_time, int *trig_mode, int *gap_mode);
+int 	xsp3_itfg_stop(int path, int card);
 int 	xsp3_has_itfg(int path, int card);
 int 	xsp3_has_reset_det(int path, int card);
 int 	xsp3_has_glitch_det(int path, int card, int *min_thres);
+int 	xsp3_has_scope_dig_alt0(int path, int card);
+int 	xsp3_bram_size(int path, int chan, int region_num);
+int 	xsp3_has_lead_tail_corr_width(int path, int chan, int region_num, int *num_t, int *num_wid);
+int 	xsp3_has_lead_corr(int path, int card);
+int 	xsp3_has_servo_bi_linear_time(int path, int chan);
+
 int 	xsp3_set_global_reset_gen(int path, int card, int enable, int sync_mode, int det_reset_width, int hold_off_time, int gr_active_del, int gr_active_wid, int circ_offset);
 
 int 	xsp3_get_disable_threading(int path);
@@ -546,7 +568,7 @@ int 	xsp3_set_disable_threading(int path, int flags);
 #define XSP3_CC_LIVE_TICKS_MODE(x)		(((x)&7)<<12)
 #define XSP3_CC_GOOD_GRADE_MODE(x)		(((x)&3)<<15)
 #define XSP3_CC_NO_EXTEND_RESET_TICKS	(1<<17)			//!< Do not extend the reset ticks until any event overlapping the end of reset finishes.
-
+#define XSP3_CC_RUN_AVE_BY_WIDTH		(1<<18)			//!< Enable event lead/tail correction by OTD width
 #define XSP3_CC_NEB_EVENT_MODE(x)		(((x)&7)<<20)
 #define XSP3_CC_MAX_FILT_LEN(x)			(((x)&7)<<24)
 #define XSP3_CC_GET_MAX_FILT_LEN(x)		(((x)>>24)&7)
@@ -641,7 +663,9 @@ int 	xsp3_set_disable_threading(int path, int flags);
 #define XSP3_GLITCH_A_RETRIGGER					(1<<27)
 #define XSP3_GLITCH_A_MASK_GLITCH_EVENT			(1<<28)
 #define XSP3_GLITCH_A_COUNT_GLICTH_TIME			(1<<29)
-#define XSP3_GLITCH_A_EVDET(x)					(((x)&0x3)<<30)
+#define XSP3_GLITCH_A_EVDET(x)					(((x)&0x3)<<30)		//!< From XSPRESS2 trigger-A (2 gradients over threshold). No longer used for this, now in XSP3_GLITCH_A_PRE_TIME_LONG.
+#define XSP3_GLITCH_A_PRE_TIME_LONG(x)			(((x)&0x1f)<<20|((x)&0x60)<<25)	//!< Pusedo Log coded Pre time. 0...63 => 0..63 , 64..127 => 0, 8, 16..504.
+
 //! [XSP3_GLITCH_A_REGISTER]
 
 #define XSP3_GLITCH_A_GET_GLITCH_TIME(x)  (((x)>>1)&0x1ff)
@@ -649,7 +673,9 @@ int 	xsp3_set_disable_threading(int path, int flags);
 
 #define XSP3_GLITCH_A_MAX_GLITCH_TIME 0x1FF
 /* Max glitch time was 0x3F in early releases, but discouraging such operation and not supported in newer firmware */
-#define XSP3_GLITCH_A_MAX_PRE_TIME    0x1F
+#define XSP3_GLITCH_A_MAX_PRE_TIME    		0x1F		//!< Maximum pre-time with normal Full Gdet build
+#define XSP3_GLITCH_A_MAX_PRE_TIME_LONG   	0x1FF		//!< Maximum pre-time with BRAM based dealy GDet, see {@link XSP3_FEATURE_GDET_LONG}.
+
 #define XSP3_GLITCH_A_MIN_THRES       -255
 
 //! [XSP3_GLITCH_B_REGISTER]
@@ -808,6 +834,20 @@ int 	xsp3_set_disable_threading(int path, int flags);
 
 #define X3TRIG_B_MAX_EVENT_TIMEL		0x7F
 
+/**
+@defgroup XSP3_CAL_EV	Setting for calibration event generator.
+@ingroup XSP3_MACROS
+@{
+*/
+#define XSP3_CAL_EV_ENABLE				1							//!< Enable Calibration events
+#define XSP3_CAL_EV_PERIOD(x)			(((x)&0x3FFF)<<1)			//!< Set period of calibration events. In 100 ns Units
+#define XSP3_CAL_EV_AVOID				(1<<31)						//!< Calibration event avoid clashing with real events.
+#define XSP3_CAL_EV_MAX_PERIOD 			0x3FFF						//!< Maximum cal event period in 100 ns Units.
+/**
+@}
+*/
+
+
 /* XSPRESS3 In Window registers */
 #define X3WINDOW_LOW_START 	    	 0
 #define X3WINDOW_LOW_MASK 	0x0000ffff
@@ -862,6 +902,11 @@ int 	xsp3_set_disable_threading(int path, int flags);
 #define XSP3_SERVO_C_MAX_RESET_STRETCH	0x1FF
 #define XSP3_SERVO_C_MAX_DITHER_CONT	5
 
+#define XSP3_SERVO_C_ENB_BI_LIN_TIME		(1<<15)			//!< Enable detailed control of Bi-linear timing.
+#define XSP3_SERVO_C_BI_LIN_TIME_CODE(x)	(((x)&3)<<16)	//!< Coded length for longer chunks 0=> 128, 1=>256, 2=>512, 3=>1024
+#define XSP3_SERVO_C_BI_LIN_TIME_START(x)	(((x)&7)<<18)	//!< Coded number of short chunks before jumping to longer chunks. 0=>4, 1=>8, 2=>16, 3=>32, 4=>64, 5=>128, 6=>256, 7=>256
+
+
 //! [XSP3_SERVO_C_REGISTER]
 
 #define XSP3_SERVO_MAX_ERR_LIM		0xFF
@@ -900,8 +945,15 @@ int 	xsp3_set_disable_threading(int path, int flags);
 #define XSP3_SERVO_TAIL_SIZE	1024
 #define XSP3_EVENT_LEAD_SIZE	1024
 
+#define XSP3_EVENT_TAIL_W4_NT	512
+#define XSP3_EVENT_TAIL_W4_NW	16
+#define XSP3_EVENT_LEAD_W4_NT	512
+#define XSP3_EVENT_LEAD_W4_NW	16
+
+#define XSP3_EVENT_LEAD_TAIL_MAX_NT	16
+
 /* Set to max BRAM size for use in save/restore */
-#define XSP3_MAX_BRAM_SIZE 		4096
+#define XSP3_MAX_BRAM_SIZE 		8192
 
 #define XSP3_FEV_TP_RESET		0x8000
 
@@ -980,6 +1032,7 @@ int 	xsp3_set_disable_threading(int path, int flags);
 #define XSP3_GLOB_TIMA_RUN				(1<<31)		//!< Overall Run enable signal, set after all DMA channels have been configured.
 #define XSP3_GLOB_TIMA_PB_RST			(1<<30)		//!< Resets Playback FIFO as part of clean start.
 #define XSP3_GLOB_TIMA_COUNT_ENB		(1<<29)		//!< In software timing (XSP3_GTIMA_SRC_FIXED) mode enable counting when high. Transfers scalers on falling edge. After first frame, increments time frame on risign edge.
+#define XSP3_GLOB_TIMA_ITFG_RUN			(1<<28)		//!< From versions 11/8/2014 onwards this is a separate Run signal to the internal time frame generator, which could be used to crsh stop the ITFG before stopping the rest.
 
 //! [XSP3_GLOBAL_TIMEA_REGISTER]
 
@@ -1120,9 +1173,35 @@ int 	xsp3_set_disable_threading(int path, int flags);
 @}
 */
 
-extern int xsp3_bram_size[XSP3_REGION_RAM_MAX+1];
+extern int xsp3_bram_size_table[XSP3_REGION_RAM_MAX+1];
 extern int xsp3_bram_width[XSP3_REGION_RAM_MAX+1];
 extern const char *xsp3_bram_name[XSP3_REGION_RAM_MAX+1];
+extern char *xsp3_feature_test_data_source_a[4] ;
+extern char *xsp3_feature_test_data_source_b[4] ;
+extern char *xsp3_feature_real_data_source[16] ;
+extern char *xsp3_feature_data_mux[16] ;
+
+extern char *xsp3_feature_inl_corr[16] ;
+extern char *xsp3_feature_reset_detector[16] ;
+extern char *xsp3_feature_reset_corr[16];
+extern char *xsp3_feature_glitch_detect[16] ;
+extern char *xsp3_feature_glitch_pad[16] ;
+extern char *xsp3_feature_trigger_b_l[4] ;
+extern char *xsp3_feature_trigger_b_m[4] ;
+extern char *xsp3_feature_trigger_c[16] ;
+extern char *xsp3_feature_trigger_extra[16] ;
+extern char *xsp3_feature_calibrator[16] ;
+extern char *xsp3_feature_neighbour_events[16] ;
+extern char *xsp3_feature_servo_base[16] ;
+extern char *xsp3_feature_run_ave3[2] ;
+extern char *xsp3_feature_lead_tail0[2];
+extern char *xsp3_feature_lead_tail12[4] ;
+extern char *xsp3_feature_output_format[16] ;
+extern char *xsp3_feature_format_details_a01[4] ;
+extern char *xsp3_feature_format_details_a23[4] ;
+extern char *xsp3_feature_global_reset[16] ;
+extern char *xsp3_feature_timing_generator[16] ;
+extern char *xsp3_feature_scope_mode[16] ;
 
 //! [XSP3_RUN_FLAGS]
 #define XSP3_RUN_FLAGS_PLAYBACK 1
@@ -1340,7 +1419,7 @@ typedef struct _fan_cont
 #define XSP3_FEATURE_GET_GLOBAL_RESET(x)		(((x)>>16)&0xF)
 #define XSP3_FEATURE_GET_TIMING_SOURCE(x)		(((x)>>20)&0xF)
 #define XSP3_FEATURE_GET_TIMING_GENERATOR(x)	(((x)>>24)&0xF)
-#define XSP3_FEATURE_GET_SPARE(x)				(((x)>>28)&0xF)
+#define XSP3_FEATURE_GET_SCOPE(x)				(((x)>>28)&0xF)
 
 #define XSP3_FEATURE_GET_TEST_SRC_A(x)			(((x)>>0)&3)	//!< Test source A from lower 2 bits.
 #define XSP3_FEATURE_GET_TEST_SRC_B(x)			(((x)>>2)&3)	//!< Test source A from upper 2 bits.
@@ -1359,6 +1438,19 @@ typedef struct _fan_cont
 #define XSP3_FEATURE_GDET_NONE					0				//!< No glitch detector.
 #define XSP3_FEATURE_GDET_THRES8				1				//!< Glitch detector from gradient, original 8 bit threshold register layout.
 #define XSP3_FEATURE_GDET_THRES10				2				//!< Glitch detector from gradient, modified 10 bit threshold register layout.
+#define XSP3_FEATURE_GDET_LONG					3				//!< Glitch detector from gradient, modified 10 bit threshold register layout and upto 511 pre-delay..
+/**
+@}
+*/
+/**
+@defgroup XSP_FEATURE_LEAD_TAIL Running Average processing options.
+@ingroup XSP3_FEATURES
+@{
+*/
+#define XSP3_FEATURE_LEAD_TAIL_LEAD				1				//!< Include Correction for event lead in.
+#define XSP3_FEATURE_LEAD_TAIL_GET_WIDTH(x)		(((x)>>1)&3)	//!< Get feature of event lead/tail correction based on OTD width.
+#define XSP3_FEATURE_LEAD_TAIL_WIDTH_NONE			0				//!< No dependence on Width available.
+#define XSP3_FEATURE_LEAD_TAIL_WIDTH4				1				//!< Run ave lead/tail correction depends on width(3 downto 0)
 /**
 @}
 */
@@ -1381,6 +1473,10 @@ typedef struct _fan_cont
 #define XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64	1		//!< Output is list of 64 bit words including processed event height and all auxiliary info.
 #define XSP3_FEATURE_OUTPUT_FORMAT_RAW_AVERAGES	2		//!< Output is Raw running avreages, needing lead and tail correction and then top-bottom subtraction.
 
+#define XSP3_FEATURE_OUTPUT_FORMAT_DIFFERENCES	8		//!< Output is ADC input data as a list of differences.
+
+#define XSP3_FEATURE_FORMAT_B_HGT64_ACK_EOF			4		//!< If XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64 this bit implies there is an Acknowledge retry on the eond of frame markers.
+#define XSP3_FEATURE_FORMAT_B_HGT64_ACK_TIME		1		//!< If XSP3_FEATURE_OUTPUT_FORMAT_HEIGHTS64 this bit implies that the ackl and any frame data sends to previous frames total time.
 /** 
 @}
 */
@@ -1394,7 +1490,20 @@ typedef struct _fan_cont
 #define XSP3_FEATURE_TIMING_GEN_MINIMAL_ITFG	1		//!< Timing Generator is minimal Internal TFG generating nframe all of same length, burst, started or all triggered.
 /** @} */
 
+/** 
+	@defgoup XSP3_FEATURS_SCOPE Macros describing the scope mode features
+	@ingroup XSP3_FEATURES
+	@{
+*/
+#define XSP3_FEATURE_SCOPE_BIT15_GR_ONLY		0		//!< Bit 15 of scope mode is alway Global Reset active (origianl builds)
+#define XSP3_FEATURE_SCOPE_BIT15_ALT_ENB		1		//!< Bit 15 of scope mode is uses alternate bits 3..0 to allow HistEnable to be seen.
+/** @} */
+
 #define XSP3_FEATURE_FORMAT_B_NO_ROI 			(1<<3)	//!< Output does not have Roi function.
+
+#define XSP3_HGT64_SOF_GET_FRAME(x)				(((x)>>0)&0xFFFFFF)	//!< Get time frmae from first (header) word
+#define XSP3_HGT64_SOF_GET_PREV_TIME(x)				(((x)>>24)&0xFFFFFFFF)	//!< Get total integration time from previous time frame from first (header) word
+#define XSP3_HGT64_SOF_GET_CHAN(x)				(((x)>>60)&0xF)		//!< Get channel number from first (header) word
 
 #define XSP3_HGT64_GET_HEIGHT(x)				(((x)>>0)&0xFFF)	//!< Get event height
 #define XSP3_HGT64_GET_IN_RANGE(x)				(((x)>>12)&1)		//!< Get in range signal
@@ -1417,7 +1526,21 @@ typedef struct _fan_cont
 #define XSP3_HGT64_MASK_GOOD_GRADE				(1L<<16)				//!< Mask for good resolution grade
 #define XSP3_HGT64_MASK_RESET_DUMMY				(1L<<45)				//!< Mask for dummy reset.
 
+#define XSP3_DIFFS_CODE_DIFFS					0						//!< Differences mode : Differences data
+#define XSP3_DIFFS_CODE_TIME_FRAME				1						//!< Differences mode : Time frame first or change
+#define XSP3_DIFFS_GET_CODE(x)					(((x)>>60)&0xF)			//!< Differences mode : Get Data code bits
 
+#define XSP3_DIFFS_TF_FIRST_MASK				(1L<<59)				//!< Diffs Time frame is first word 
+#define XSP3_DIFFS_TF_CHANGE_MASK				0						//!< Diffs time frame is change of TF 
+#define XSP3_DIFF_FIRST_CHAN(x)					(((x)>>55)&0xF)			//!< Diff mode First word, extrac channel
+#define XSP3_DIFFS_TF_TIME_STAMP(x)				((x)&0x3FFFFFFF)		//!< Diffs time frame change Extract time stamp
+#define XSP3_DIFFS_TF_FRAME(x)					(((x)>>30)&0xFFFFFF)	//!< Diffs time frame change Extract time frame
+#define XSP3_DIFFS_TF_ENABLE(x)					(((x)>>(24+30))&1)		//!< Diffs time frame change Extract Count Enable
+
+#define XSP3_DIFFS_DATA_IDLE					0						//!< Diffs 10 bit data special code for idle.
+#define XSP3_DIFFS_DATA_START					1						//!< Diffs 10 bit data special code for start.
+#define XSP3_DIFFS_DATA_RESET					2						//!< Diffs 10 bit data special code for End of Reset.
+#define XSP3_DIFFS_DATA_GLOB_RST				3						//!< Diffs 10 bit data special code for End of Global Reset.
 /**
 	@defgroup XSP3_ITFG_REGS   Internal Time Frame Generator Register arrangement
 	@ingroup XSP3_MACROS
