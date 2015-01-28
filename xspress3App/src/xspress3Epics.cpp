@@ -1460,31 +1460,6 @@ asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
   return status;
 }
 
-asynStatus Xspress3::writeFloat32(asynUser *pasynUser, epicsFloat32 value)
-{
-  int function = pasynUser->reason;
-  int addr = 0;
-  asynStatus status = asynSuccess;
-  const char *functionName = "Xspress3::writeFloat32";
-  
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeFloat32.\n", functionName);
-  //Read address (ie. channel number).
-  status = getAddress(pasynUser, &addr); 
-  if (status!=asynSuccess) {
-    return(status);
-  }
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: %d, value: %f, addr: %d\n", functionName, function, value, addr);
-
-  //Set in param lib so the user sees a readback straight away. We might overwrite this in the 
-  //status task, depending on the parameter.
-  status = (asynStatus) setDoubleParam(function, value);
-
-  //Do callbacks so higher layers see any changes 
-  callParamCallbacks();
-
-  return status;
-}
-
 
 /**
  * Reimplementing this function from asynNDArrayDriver to deal with strings.
@@ -1624,7 +1599,7 @@ asynStatus Xspress3::checkHistBusy(int checkTimes)
 void Xspress3::dataTask(void)
 {
   epicsEventWaitStatus eventStatus;
-  epicsFloat32 timeout = 0.001;
+  epicsFloat64 timeout = 0.001;
   int numChannels = 0;
   int numFrames = 0;
   int acquire = 0;
@@ -1636,15 +1611,15 @@ void Xspress3::dataTask(void)
   int maxSpectra = 0;
   epicsTimeStamp nowTime;
   const char* functionName = "Xspress3::dataTask";
-  epicsFloat32 *pSCA;
-  epicsFloat32 *pMCA;
+  epicsFloat64 *pSCA;
+  epicsFloat64 *pMCA;
   epicsInt32 *pSCA_INT;
   epicsInt32 *pMCA_INT;
   NDArray *pMCA_NDARRAY;
   int roiEnabled = 0;
   epicsInt32 roiMin[maxNumRoi_];
   epicsInt32 roiMax[maxNumRoi_];
-  epicsFloat32 roiSum[maxNumRoi_];
+  epicsFloat64 roiSum[maxNumRoi_];
   int allocError = 0;
   int dumpOffset = 0;
   int lastFrameCount = 0;
@@ -1659,13 +1634,13 @@ void Xspress3::dataTask(void)
   //Create array for scalar data (max frame * number of SCAs).
   getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
   getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
-  pSCA = static_cast<epicsFloat32*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsFloat32)));
+  pSCA = static_cast<epicsFloat64*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsFloat64)));
   assert( pSCA != NULL );
   pSCA_INT = static_cast<epicsInt32*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsInt32)));
   assert( pSCA_INT != NULL );
 
   //Create data arrays for MCA spectra
-  pMCA = static_cast<epicsFloat32*>(calloc(maxSpectra*numChannels_*maxNumFrames, sizeof(epicsFloat32)));
+  pMCA = static_cast<epicsFloat64*>(calloc(maxSpectra*numChannels_*maxNumFrames, sizeof(epicsFloat64)));
   assert( pMCA != NULL );
   pMCA_INT = static_cast<epicsInt32*>(calloc(maxSpectra*numChannels_*maxNumFrames, sizeof(epicsInt32)));
   assert( pMCA_INT != NULL );
@@ -1727,9 +1702,9 @@ void Xspress3::dataTask(void)
       lock();
       setIntegerParam(NDArrayCounter, 0);
       //Need to clear local arrays here for each new acqusition.
-      memset(pSCA, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsFloat32));
+      memset(pSCA, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsFloat64));
       memset(pSCA_INT, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsInt32));
-      memset(pMCA, 0, (maxSpectra*numChannels_*maxNumFrames)*sizeof(epicsFloat32));
+      memset(pMCA, 0, (maxSpectra*numChannels_*maxNumFrames)*sizeof(epicsFloat64));
       memset(pMCA_INT, 0, (maxSpectra*numChannels_*maxNumFrames)*sizeof(epicsInt32));
       setIntegerParam(xsp3FrameCountParam, 0);
       setIntegerParam(NDArrayCounter, 0);
@@ -1853,17 +1828,17 @@ void Xspress3::dataTask(void)
               }
 
               //If reading un-corrected data, need to convert to doubles for the rest of the IOC code.    
-              epicsFloat32 *pDATA = pMCA;
+              epicsFloat64 *pDATA = pMCA;
               epicsInt32 *pDATA_INT = pMCA_INT;
-              epicsFloat32 *pSCA_DATA = pSCA;
+              epicsFloat64 *pSCA_DATA = pSCA;
               epicsInt32 *pSCA_DATA_INT = pSCA_INT;
               for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
                 for (int chan=0; chan<numChannels; ++chan) {
                   for (int bin=0; bin<maxSpectra; ++bin) {
-                    *(pDATA++) = static_cast<epicsFloat32>(*(pDATA_INT++));
+                    *(pDATA++) = static_cast<epicsFloat64>(*(pDATA_INT++));
                   }
                   for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
-                    *(pSCA_DATA++) = static_cast<epicsFloat32>(*(pSCA_DATA_INT++));
+                    *(pSCA_DATA++) = static_cast<epicsFloat64>(*(pSCA_DATA_INT++));
                   }
                 }
               }
@@ -1875,7 +1850,7 @@ void Xspress3::dataTask(void)
         }
 
         size_t dims[2] = {maxSpectra, numChannels};
-        epicsFloat32 *pScaData = pSCA;
+        epicsFloat64 *pScaData = pSCA;
 
         //For each frame, do the ROI and pack into an NDArray object
         if (!stillBusy) {
@@ -1889,7 +1864,7 @@ void Xspress3::dataTask(void)
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame number for this readout currentFrameOffset: %d\n", functionName, currentFrameOffset);
 
             //NDArray to hold the all channels spectra and attributes for each frame.
-            if ((pMCA_NDARRAY = this->pNDArrayPool->alloc(2, dims, NDFloat32, 0, NULL)) == NULL) {
+            if ((pMCA_NDARRAY = this->pNDArrayPool->alloc(2, dims, NDFloat64, 0, NULL)) == NULL) {
               asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: pNDArrayPool->alloc failed.\n", functionName);
               setStringParam(ADStatusMessage, "Memory Error. Check IOC Log.");
               setIntegerParam(ADStatus, ADStatusError);
@@ -1912,7 +1887,7 @@ void Xspress3::dataTask(void)
 
                 //Calculate MCA ROI here, if we have enabled it. Put the results into pMCA_ROI[chan][roi].
                 getIntegerParam(xsp3RoiEnableParam, &roiEnabled);
-                memset(&roiSum, 0, sizeof(epicsFloat32)*maxNumRoi_);
+                memset(&roiSum, 0, sizeof(epicsFloat64)*maxNumRoi_);
                 if (roiEnabled) {
 
                   getIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, &roiMin[0]);
@@ -1951,7 +1926,7 @@ void Xspress3::dataTask(void)
                   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calculating ROI Data.\n", functionName);
 
                   int roiOffset = ((maxSpectra*chan) + (maxSpectra*numChannels*currentFrameOffset));
-                  epicsFloat32 *pMCA_DATA = pMCA+roiOffset;
+                  epicsFloat64 *pMCA_DATA = pMCA+roiOffset;
                   for (int roi=0; roi<maxNumRoi_; ++roi) {
                     for (int energy=roiMin[roi]; energy<roiMax[roi]; ++energy) {
                       roiSum[roi] += *(pMCA_DATA+energy);
@@ -1985,8 +1960,8 @@ void Xspress3::dataTask(void)
               int frame_offset = maxSpectra*numChannels*currentFrameOffset;
               for (int chan=0; chan<numChannels; ++chan) {
                 int chan_offset = chan*maxSpectra;
-                epicsFloat32 *pMCA_DATA = pMCA+frame_offset;
-                memcpy(reinterpret_cast<epicsFloat32*>(pMCA_NDARRAY->pData)+chan_offset, pMCA_DATA+chan_offset, maxSpectra*sizeof(epicsFloat32));
+                epicsFloat64 *pMCA_DATA = pMCA+frame_offset;
+                memcpy(reinterpret_cast<epicsFloat64*>(pMCA_NDARRAY->pData)+chan_offset, pMCA_DATA+chan_offset, maxSpectra*sizeof(epicsFloat64));
               }
 
               int arrayCallbacks = 0;
@@ -1995,7 +1970,7 @@ void Xspress3::dataTask(void)
               epicsTimeGetCurrent(&nowTime);
               pMCA_NDARRAY->uniqueId = frame;
               pMCA_NDARRAY->timeStamp = nowTime.secPastEpoch + nowTime.nsec / 1.e9;
-              pMCA_NDARRAY->pAttributeList->add("TIMESTAMP", "Host Timestamp", NDAttrFloat32, &(pMCA_NDARRAY->timeStamp));
+              pMCA_NDARRAY->pAttributeList->add("TIMESTAMP", "Host Timestamp", NDAttrFloat64, &(pMCA_NDARRAY->timeStamp));
               this->getAttributes(pMCA_NDARRAY->pAttributeList);
               if (arrayCallbacks) {
                 unlock();
