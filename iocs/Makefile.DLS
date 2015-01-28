@@ -1,6 +1,6 @@
 TOP = ..
 include $(TOP)/configure/CONFIG
 
-DIRS := $(wildcard example4* xspress*)
+DIRS := $(filter-out Makefile, $(wildcard *))
 
 include $(TOP)/configure/RULES_DIRS
