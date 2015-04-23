@@ -1645,41 +1645,8 @@ void Xspress3::dataTask(void)
   pMCA_INT = static_cast<epicsInt32*>(calloc(maxSpectra*numChannels_*maxNumFrames, sizeof(epicsInt32)));
   assert( pMCA_INT != NULL );
 
-  //Code to set CPU affinitiy.
-  //This doesn't prevent the data readout thread being pre-empted by visualization threads. Need to set real time priority too. 
-  /*int core_id = 0; //This sets the CPU core
-  int num_cores = sysconf(_SC_NPROCESSORS_ONLN);
-  if (core_id < num_cores) {
-    cpu_set_t cpuset;
-    CPU_ZERO(&cpuset);
-    CPU_SET(core_id, &cpuset);
-    pthread_t current_thread = pthread_self();    
-    int return_val = pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
-    if (return_val != 0) {
-       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Error setting CPU affinity for data readout thread.\n", functionName);
-    }
-    }*/
-
-
   cout << "Data readout thread PID: " << getpid() << endl;
   cout << "Data readout thread TID syscall(SYS_gettid): " << syscall(SYS_gettid) << endl;
-
-  //Code to set SCHED_FIFO for this thread. Not tested yet.
-  /*struct sched_param param;
-  int priority = 10;
-  int policy = -999;
-
-  pthread_getschedparam(pthread_self(),&policy,&param);
-  printf("Thread policy before %d \n" ,policy);
-
-  param.sched_priority = priority;
-  policy = SCHED_FIFO;
-  // scheduling parameters of target thread
-  pthread_setschedparam(pthread_self(), policy, &param);
-  pthread_getschedparam(pthread_self(),&policy,&param);
-  printf("Thread policy after %d \n", policy);
-   */
-
 
   while (1) {
 
