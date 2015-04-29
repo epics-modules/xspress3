@@ -1,0 +1,28 @@
+* dataTask
+** wait for a stop event with a timeout
+** wait for a start event
+*** Do the arrays really need zeros written to them?
+    Can the number of values written to the arrays be monitored so that old data is not passed.
+** loop while acquiring
+*** wait for a stop event with a timeout
+*** If we have stopped, wait until we are not busy on all channels.
+*** Read how many data frames have been transferred
+#+BEGIN_SRC C++
+  int getNumDataFramesTransferred()
+  {
+      int frameCount
+      if (acquire || aborted) {
+          xsp3_status = xsp3->scaler_check_progress(xsp3_handle_);
+          if (xsp3_status < XSP3_OK) {
+              checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
+              status = asynError;
+          }
+          frameCount = xsp3_status;
+          setIntegerParam(xsp3FrameCountParam, frameCount-lastFrameCount);
+          asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameCount: %d.\n", functionName, frameCount);
+      } else {
+          frameCount = 0;
+      }
+      return frameCount;
+  }
+#+END_SRC
