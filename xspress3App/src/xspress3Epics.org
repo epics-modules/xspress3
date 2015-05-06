@@ -32,4 +32,5 @@
 ** Is the HDF5 writer described in the templates just for the ROIs or raw data?
 *** Where is it instantiated?
     It appears that this is not used in I18s as the HDF macro in highlevel is 'XSPRESS3-EXAMPLE:HDF5' and the ROIDATA NDFileHDF5 plugin has a P and R macro of 'BL18I-EA-XSP3-01:' and 'HDF5:' respectively
-**** TODO Check the I18 UI PVs related to the HDF5 writer
+**** DONE Check the I18 UI PVs related to the HDF5 writer
+     The UI looks at BL18I-EA-XSP3-01:HDF5:* so what is the point of the PVs in the highlevel template?
