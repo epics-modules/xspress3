@@ -1,5 +1,23 @@
 * dataTask
+** setup
+#+name setup
+#+BEGIN_SRC C++
+  int maxNumChannels;
+  int maxSpectra;
+  void *pSCA, *pMCA;
+
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
+  getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
+  getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
+  pSCA = calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*this->numChannels_, sizeof(epicsFloat64));
+  assert(pSCA != NULL);
+  pMCA = calloc(maxSpectra*this->numChannels_*maxNumFrames, sizeof(epicsFloat64));
+  assert(pMCA != NULL);
+#+END_SRC
 ** wait for a stop event with a timeout
+#+BEGIN_SRC C++
+
+#+END_SRC
 ** wait for a start event
 *** Do the arrays really need zeros written to them?
     Can the number of values written to the arrays be monitored so that old data is not passed.
