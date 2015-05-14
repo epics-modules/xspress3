@@ -143,55 +143,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3InvertF0ParamString,      asynParamInt32,       &xsp3InvertF0Param);
   createParam(xsp3InvertVetoParamString,      asynParamInt32,       &xsp3InvertVetoParam);
   createParam(xsp3DebounceParamString,      asynParamInt32,       &xsp3DebounceParam);
-  //These params will use different param lists based on asyn address
-  createParam(xsp3ChanMcaRoi1LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi1LlmParam);
-  createParam(xsp3ChanMcaRoi2LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi2LlmParam);
-  createParam(xsp3ChanMcaRoi3LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi3LlmParam);
-  createParam(xsp3ChanMcaRoi4LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi4LlmParam);
-  createParam(xsp3ChanMcaRoi5LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi5LlmParam);
-  createParam(xsp3ChanMcaRoi6LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi6LlmParam);
-  createParam(xsp3ChanMcaRoi7LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi7LlmParam);
-  createParam(xsp3ChanMcaRoi8LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi8LlmParam);
-  createParam(xsp3ChanMcaRoi9LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi9LlmParam);
-  createParam(xsp3ChanMcaRoi10LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi10LlmParam);
-  createParam(xsp3ChanMcaRoi11LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi11LlmParam);
-  createParam(xsp3ChanMcaRoi12LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi12LlmParam);
-  createParam(xsp3ChanMcaRoi13LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi13LlmParam);
-  createParam(xsp3ChanMcaRoi14LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi14LlmParam);
-  createParam(xsp3ChanMcaRoi15LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi15LlmParam);
-  createParam(xsp3ChanMcaRoi16LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi16LlmParam);
-  createParam(xsp3ChanMcaRoi1HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi1HlmParam);
-  createParam(xsp3ChanMcaRoi2HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi2HlmParam);
-  createParam(xsp3ChanMcaRoi3HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi3HlmParam);
-  createParam(xsp3ChanMcaRoi4HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi4HlmParam);
-  createParam(xsp3ChanMcaRoi5HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi5HlmParam);
-  createParam(xsp3ChanMcaRoi6HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi6HlmParam);
-  createParam(xsp3ChanMcaRoi7HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi7HlmParam);
-  createParam(xsp3ChanMcaRoi8HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi8HlmParam);
-  createParam(xsp3ChanMcaRoi9HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi9HlmParam);
-  createParam(xsp3ChanMcaRoi10HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi10HlmParam);
-  createParam(xsp3ChanMcaRoi11HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi11HlmParam);
-  createParam(xsp3ChanMcaRoi12HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi12HlmParam);
-  createParam(xsp3ChanMcaRoi13HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi13HlmParam);
-  createParam(xsp3ChanMcaRoi14HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi14HlmParam);
-  createParam(xsp3ChanMcaRoi15HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi15HlmParam);
-  createParam(xsp3ChanMcaRoi16HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi16HlmParam);
-  createParam(xsp3ChanMcaRoi1ParamString,     asynParamFloat64,&xsp3ChanMcaRoi1Param);
-  createParam(xsp3ChanMcaRoi2ParamString,     asynParamFloat64,&xsp3ChanMcaRoi2Param);
-  createParam(xsp3ChanMcaRoi3ParamString,     asynParamFloat64,&xsp3ChanMcaRoi3Param);
-  createParam(xsp3ChanMcaRoi4ParamString,     asynParamFloat64,&xsp3ChanMcaRoi4Param);
-  createParam(xsp3ChanMcaRoi5ParamString,     asynParamFloat64,&xsp3ChanMcaRoi5Param);
-  createParam(xsp3ChanMcaRoi6ParamString,     asynParamFloat64,&xsp3ChanMcaRoi6Param);
-  createParam(xsp3ChanMcaRoi7ParamString,     asynParamFloat64,&xsp3ChanMcaRoi7Param);
-  createParam(xsp3ChanMcaRoi8ParamString,     asynParamFloat64,&xsp3ChanMcaRoi8Param);
-  createParam(xsp3ChanMcaRoi9ParamString,     asynParamFloat64,&xsp3ChanMcaRoi9Param);
-  createParam(xsp3ChanMcaRoi10ParamString,     asynParamFloat64,&xsp3ChanMcaRoi10Param);
-  createParam(xsp3ChanMcaRoi11ParamString,     asynParamFloat64,&xsp3ChanMcaRoi11Param);
-  createParam(xsp3ChanMcaRoi12ParamString,     asynParamFloat64,&xsp3ChanMcaRoi12Param);
-  createParam(xsp3ChanMcaRoi13ParamString,     asynParamFloat64,&xsp3ChanMcaRoi13Param);
-  createParam(xsp3ChanMcaRoi14ParamString,     asynParamFloat64,&xsp3ChanMcaRoi14Param);
-  createParam(xsp3ChanMcaRoi15ParamString,     asynParamFloat64,&xsp3ChanMcaRoi15Param);
-  createParam(xsp3ChanMcaRoi16ParamString,     asynParamFloat64,&xsp3ChanMcaRoi16Param);
   createParam(xsp3ChanSca0ParamString,      asynParamFloat64,       &xsp3ChanSca0Param);
   createParam(xsp3ChanSca1ParamString,      asynParamFloat64,       &xsp3ChanSca1Param);
   createParam(xsp3ChanSca2ParamString,      asynParamFloat64,       &xsp3ChanSca2Param);
@@ -259,38 +210,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   paramStatus = ((setIntegerParam(xsp3InvertVetoParam, 0) == asynSuccess) && paramStatus);
   paramStatus = ((setIntegerParam(xsp3DebounceParam, 0) == asynSuccess) && paramStatus);
   for (int chan=0; chan<numChannels_; chan++) {
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi5LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi6LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi7LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi8LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi9LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi10LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi11LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi12LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi13LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi14LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi15LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi16LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi5HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi6HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi7HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi8HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi9HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi10HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi11HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi12HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi13HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi14HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi15HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi16HlmParam, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setIntegerParam(chan, xsp3ChanSca5HlmParam, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setIntegerParam(chan, xsp3ChanSca6HlmParam, 0) == asynSuccess) && paramStatus);
@@ -871,24 +790,6 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca5Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca6Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca7Param, 0) == asynSuccess) && paramStatus);
- 
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi1Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi2Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi3Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi4Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi5Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi6Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi7Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi8Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi9Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi10Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi11Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi12Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi13Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi14Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi15Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi16Param, 0) == asynSuccess) && paramStatus);
-    
     callParamCallbacks(chan);
   }
 
@@ -1228,168 +1129,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     getIntegerParam(addr, xsp3ChanSca6HlmParam, &xsp3_sca_lim);
     status = setWindow(addr, 1, value, xsp3_sca_lim);
   } 
-  //ROI low limits
-  else if (function == xsp3ChanMcaRoi1LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI1 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi1HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 1, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi2LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI2 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi2HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 2, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi3LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI3 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi3HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 3, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi4LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI4 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi4HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 4, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi5LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI5 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi5HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 5, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi6LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI6 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi6HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 6, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi7LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI7 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi7HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 7, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi8LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI8 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi8HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 8, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi9LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI9 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi9HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 9, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi10LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI10 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi10HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 10, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi11LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI11 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi11HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 11, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi12LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI12 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi12HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 12, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi13LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI13 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi13HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 13, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi14LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI14 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi14HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 14, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi15LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI15 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi15HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 15, value, xsp3_roi_lim); 
-  }
-  else if (function == xsp3ChanMcaRoi16LlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI16 Low Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi16HlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 16, value, xsp3_roi_lim); 
-  }
-  //ROI high limits
-  else if (function == xsp3ChanMcaRoi1HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI1 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi1LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 1, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi2HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI2 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi2LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 2, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi3HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI3 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi3LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 3, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi4HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI4 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi4LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 4, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi5HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI5 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi5LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 5, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi6HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI6 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi6LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 6, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi7HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI7 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi7LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 7, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi8HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI8 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi8LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 8, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi9HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI9 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi9LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 9, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi10HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI10 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi10LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 10, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi11HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI11 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi11LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 11, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi12HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI12 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi12LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 12, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi13HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI13 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi13LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 13, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi14HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI14 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi14LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 14, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi15HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI15 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi15LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 15, xsp3_roi_lim, value); 
-  }
-  else if (function == xsp3ChanMcaRoi16HlmParam) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI16 High Limit.\n", functionName);
-    getIntegerParam(addr, xsp3ChanMcaRoi16LlmParam, &xsp3_roi_lim);
-    status = checkRoi(addr, 16, xsp3_roi_lim, value); 
-  }
 
   else if (function == xsp3RoiEnableParam) {
     if (value == ctrlDisable_) {
@@ -1616,12 +1355,7 @@ void Xspress3::dataTask(void)
   epicsInt32 *pSCA_INT;
   epicsInt32 *pMCA_INT;
   NDArray *pMCA_NDARRAY;
-  int roiEnabled = 0;
-  epicsInt32 roiMin[maxNumRoi_];
-  epicsInt32 roiMax[maxNumRoi_];
-  epicsFloat64 roiSum[maxNumRoi_];
   int allocError = 0;
-  int dumpOffset = 0;
   int lastFrameCount = 0;
   int framesToReadOut = 0;
   bool stillBusy = false;
@@ -1680,7 +1414,6 @@ void Xspress3::dataTask(void)
       callParamCallbacks();
     }
 
-    dumpOffset = 0;
     lastFrameCount = 0;
     framesToReadOut = 0;
     stillBusy = false;
@@ -1757,9 +1490,9 @@ void Xspress3::dataTask(void)
           acquire=0;
         }
 
-        int frameOffset = frameCounter-framesToReadOut;
+        int frameOffset = frameCounter - framesToReadOut;
         if (!acquire) {
-          frameCounter = frameOffset+remainingFrames;
+          frameCounter = frameOffset + remainingFrames;
         }
 
         asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
@@ -1851,73 +1584,6 @@ void Xspress3::dataTask(void)
                 setDoubleParam(chan, xsp3ChanSca6Param, pScaData[6]);
                 setDoubleParam(chan, xsp3ChanSca7Param, pScaData[7]);
                 pScaData += XSP3_SW_NUM_SCALERS;
-
-                //Calculate MCA ROI here, if we have enabled it. Put the results into pMCA_ROI[chan][roi].
-                getIntegerParam(xsp3RoiEnableParam, &roiEnabled);
-                memset(&roiSum, 0, sizeof(epicsFloat64)*maxNumRoi_);
-                if (roiEnabled) {
-
-                  getIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, &roiMin[0]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, &roiMax[0]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, &roiMin[1]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, &roiMax[1]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, &roiMin[2]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, &roiMax[2]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, &roiMin[3]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, &roiMax[3]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi5LlmParam, &roiMin[4]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi5HlmParam, &roiMax[4]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi6LlmParam, &roiMin[5]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi6HlmParam, &roiMax[5]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi7LlmParam, &roiMin[6]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi7HlmParam, &roiMax[6]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi8LlmParam, &roiMin[7]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi8HlmParam, &roiMax[7]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi9LlmParam, &roiMin[8]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi9HlmParam, &roiMax[8]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi10LlmParam, &roiMin[9]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi10HlmParam, &roiMax[9]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi11LlmParam, &roiMin[10]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi11HlmParam, &roiMax[10]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi12LlmParam, &roiMin[11]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi12HlmParam, &roiMax[11]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi13LlmParam, &roiMin[12]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi13HlmParam, &roiMax[12]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi14LlmParam, &roiMin[13]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi14HlmParam, &roiMax[13]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi15LlmParam, &roiMin[14]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi15HlmParam, &roiMax[14]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi16LlmParam, &roiMin[15]);
-                  getIntegerParam(chan, xsp3ChanMcaRoi16HlmParam, &roiMax[15]);
-
-                  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calculating ROI Data.\n", functionName);
-
-                  int roiOffset = ((maxSpectra*chan) + (maxSpectra*numChannels*currentFrameOffset));
-                  epicsFloat64 *pMCA_DATA = pMCA+roiOffset;
-                  for (int roi=0; roi<maxNumRoi_; ++roi) {
-                    for (int energy=roiMin[roi]; energy<roiMax[roi]; ++energy) {
-                      roiSum[roi] += *(pMCA_DATA+energy);
-                    }
-                  }
-                }
-
-                asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Setting ROI Param Data.\n", functionName);
-                setDoubleParam(chan, xsp3ChanMcaRoi1Param, roiSum[0]);
-                setDoubleParam(chan, xsp3ChanMcaRoi2Param, roiSum[1]);
-                setDoubleParam(chan, xsp3ChanMcaRoi3Param, roiSum[2]);
-                setDoubleParam(chan, xsp3ChanMcaRoi4Param, roiSum[3]);
-                setDoubleParam(chan, xsp3ChanMcaRoi5Param, roiSum[4]);
-                setDoubleParam(chan, xsp3ChanMcaRoi6Param, roiSum[5]);
-                setDoubleParam(chan, xsp3ChanMcaRoi7Param, roiSum[6]);
-                setDoubleParam(chan, xsp3ChanMcaRoi8Param, roiSum[7]);
-                setDoubleParam(chan, xsp3ChanMcaRoi9Param, roiSum[8]);
-                setDoubleParam(chan, xsp3ChanMcaRoi10Param, roiSum[9]);
-                setDoubleParam(chan, xsp3ChanMcaRoi11Param, roiSum[10]);
-                setDoubleParam(chan, xsp3ChanMcaRoi12Param, roiSum[11]);
-                setDoubleParam(chan, xsp3ChanMcaRoi13Param, roiSum[12]);
-                setDoubleParam(chan, xsp3ChanMcaRoi14Param, roiSum[13]);
-                setDoubleParam(chan, xsp3ChanMcaRoi15Param, roiSum[14]);
-                setDoubleParam(chan, xsp3ChanMcaRoi16Param, roiSum[15]);
 
               } //End of channel loop
             } //end of else, if the alloc worked.
