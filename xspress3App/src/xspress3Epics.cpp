@@ -947,7 +947,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int addr = 0;
   int xsp3_status = 0;
   int xsp3_sca_lim = 0;
-  int xsp3_roi_lim = 0;
   int xsp3_time_frames = 0;
   int adStatus = 0;
   asynStatus status = asynSuccess;
