@@ -1360,6 +1360,37 @@ bool Xspress3::createMCAArray(size_t dims[2], NDArray*& pMCA, NDDataType_t dataT
     return false;
 }
 
+bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra)
+{
+    bool error = false;
+    int xsp3Status = 0;
+    const char* functionName = "Xspress3::readFrame";
+    xsp3Status = xsp3->hist_dtc_read4d(this->xsp3_handle_, pMCAData, pSCA, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, 1);
+    if (xsp3Status != XSP3_OK) {
+        checkStatus(xsp3Status, "xsp3_hist_dtc_read4d", functionName);
+        error = true;
+    }
+    return error;
+}
+
+bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra)
+{
+    bool error = false;
+    int xsp3Status = 0;
+    const char* functionName = "Xspress3::readFrame";
+    xsp3Status = xsp3->histogram_read4d(this->xsp3_handle_, pMCAData, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, 1);
+    if (xsp3Status != XSP3_OK) {
+        checkStatus(xsp3Status, "xsp3_histogram_read4d", functionName);
+        error = true;
+    } else {
+        xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameNumber, XSP3_SW_NUM_SCALERS, this->numChannels_, 1);
+        if (xsp3Status != XSP3_OK) {
+            checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
+            error = true;
+        }
+    }
+    return error;
+}
 
 /**
  * Data readout task.

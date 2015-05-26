@@ -131,6 +131,8 @@ class Xspress3 : public ADDriver {
   void adReportError(const char* message);
   bool createMCAArray(size_t dims[2], NDArray*& pMCA, NDDataType_t dataType);
   bool createSCAArray(void*& pSCA, NDDataType_t dataType);
+  bool readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra);
+  bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
   asynStatus connect(void);
 
