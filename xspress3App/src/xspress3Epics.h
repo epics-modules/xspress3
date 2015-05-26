@@ -128,17 +128,20 @@ class Xspress3 : public ADDriver {
   virtual void report(FILE *fp, int details);
 
   void dataTask(void);
+  void adReportError(const char* message);
+  bool createMCAArray(size_t dims[2], NDArray*& pMCA, NDDataType_t dataType);
+  bool createSCAArray(void*& pSCA, NDDataType_t dataType);
+  asynStatus setWindow(int channel, int sca, int llm, int hlm);
+  asynStatus connect(void);
 
  private:
 
   //Put private functions here
   void checkStatus(int status, const char *function, const char *parentFunction);
-  asynStatus connect(void);
   asynStatus disconnect(void);
   asynStatus saveSettings(void);
   asynStatus restoreSettings(void);
   asynStatus checkConnected(void);
-  asynStatus setWindow(int channel, int sca, int llm, int hlm);
   asynStatus checkRoi(int channel, int roi, int llm, int hlm);
   asynStatus erase(void);
   asynStatus eraseSCAMCAROI(void);

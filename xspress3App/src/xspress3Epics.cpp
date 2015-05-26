@@ -1328,6 +1328,37 @@ asynStatus Xspress3::checkHistBusy(int checkTimes)
   return status;
 }
 
+void Xspress3::adReportError(const char* message)
+{
+    setStringParam(ADStatusMessage, message);
+    setIntegerParam(ADStatus, ADStatusError);
+    setIntegerParam(ADAcquire, ADAcquireFalse_);
+}
+
+bool Xspress3::createSCAArray(void*& pSCA, NDDataType_t dataType)
+{
+    const char* functionName = "Xspress3::createSCAArray";
+    pSCA = malloc(XSP3_SW_NUM_SCALERS * this->numChannels_ * (dataType==NDFloat64 ? 8 : 4));
+    if (pSCA == NULL) {
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: SCA malloc failed.\n", functionName);
+        this->adReportError("Memory Error. Check IOC Log.");
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Xspress3::createMCAArray(size_t dims[2], NDArray*& pMCA, NDDataType_t dataType)
+{
+    const char* functionName = "Xspress3::createMCAArray";
+    pMCA = this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
+    if (pMCA == NULL) {
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: pNDArrayPool->alloc failed.\n", functionName);
+        this->adReportError("Memory Error. Check IOC Log.");
+        return true;
+    }
+    return false;
+}
 
 
 /**
