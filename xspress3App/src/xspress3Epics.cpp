@@ -66,6 +66,9 @@ const epicsInt32 Xspress3::mbboTriggerLVDSBOTH_ = 6;
 const epicsInt32 Xspress3::ADAcquireFalse_ = 0;
 const epicsInt32 Xspress3::ADAcquireTrue_ = 1;
 
+const int INTERFACE_MASK = asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask | asynGenericPointerMask;
+const int INTERRUPT_MASK = asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask | asynGenericPointerMask;
+
 //C Function prototypes to tie in with EPICS
 static void xsp3DataTaskC(void *drvPvt);
 
@@ -89,8 +92,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 	     NUM_DRIVER_PARAMS,
 	     maxBuffers,
 	     maxMemory,
-	     asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask | asynGenericPointerMask, /* Interface mask */
-	     asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask | asynGenericPointerMask,  /* Interrupt mask */
+         INTERFACE_MASK,
+         INTERRUPT_MASK,
 	     ASYN_CANBLOCK | ASYN_MULTIDEVICE, /* asynFlags.*/
 	     1, /* Autoconnect */
 	     0, /* default priority */
@@ -115,62 +118,13 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsEventCreate failure for start event.\n", functionName);
     return;
   }
-
-  //Add the params to the paramLib 
-  //createParam adds the parameters to all param lists automatically (using maxAddr).
-  createParam(xsp3FirstParamString,         asynParamInt32,       &xsp3FirstParam);
-  createParam(xsp3ResetParamString,         asynParamInt32,       &xsp3ResetParam);
-  createParam(xsp3EraseParamString,         asynParamInt32,       &xsp3EraseParam);
-  createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
-  createParam(xsp3MaxNumChannelsParamString,asynParamInt32,       &xsp3MaxNumChannelsParam);
-  createParam(xsp3MaxSpectraParamString,asynParamInt32,       &xsp3MaxSpectraParam);
-  createParam(xsp3MaxFramesParamString,asynParamInt32,       &xsp3MaxFramesParam);
-  createParam(xsp3FrameCountParamString,asynParamInt32,       &xsp3FrameCountParam);
-  createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
-  createParam(xsp3FixedTimeParamString,   asynParamInt32,       &xsp3FixedTimeParam);
-  createParam(xsp3NumFramesConfigParamString,     asynParamInt32,       &xsp3NumFramesConfigParam);
-  createParam(xsp3NumFramesDriverParamString,     asynParamInt32,       &xsp3NumFramesDriverParam);
-  createParam(xsp3NumCardsParamString,      asynParamInt32,       &xsp3NumCardsParam);
-  createParam(xsp3ConfigPathParamString,    asynParamOctet,       &xsp3ConfigPathParam);
-  createParam(xsp3ConfigSavePathParamString,    asynParamOctet,       &xsp3ConfigSavePathParam);
-  createParam(xsp3ConnectParamString,      asynParamInt32,       &xsp3ConnectParam);
-  createParam(xsp3ConnectedParamString,      asynParamInt32,       &xsp3ConnectedParam);
-  createParam(xsp3DisconnectParamString,      asynParamInt32,       &xsp3DisconnectParam);
-  createParam(xsp3SaveSettingsParamString,      asynParamInt32,       &xsp3SaveSettingsParam);
-  createParam(xsp3RestoreSettingsParamString,      asynParamInt32,       &xsp3RestoreSettingsParam);
-  createParam(xsp3RunFlagsParamString,      asynParamInt32,       &xsp3RunFlagsParam);
-  createParam(xsp3TriggerParamString,      asynParamInt32,       &xsp3TriggerParam);
-  createParam(xsp3InvertF0ParamString,      asynParamInt32,       &xsp3InvertF0Param);
-  createParam(xsp3InvertVetoParamString,      asynParamInt32,       &xsp3InvertVetoParam);
-  createParam(xsp3DebounceParamString,      asynParamInt32,       &xsp3DebounceParam);
-  createParam(xsp3ChanSca0ParamString,      asynParamFloat64,       &xsp3ChanSca0Param);
-  createParam(xsp3ChanSca1ParamString,      asynParamFloat64,       &xsp3ChanSca1Param);
-  createParam(xsp3ChanSca2ParamString,      asynParamFloat64,       &xsp3ChanSca2Param);
-  createParam(xsp3ChanSca3ParamString,      asynParamFloat64,       &xsp3ChanSca3Param);
-  createParam(xsp3ChanSca4ParamString,      asynParamFloat64,       &xsp3ChanSca4Param);
-  createParam(xsp3ChanSca5ParamString,      asynParamFloat64,       &xsp3ChanSca5Param);
-  createParam(xsp3ChanSca6ParamString,      asynParamFloat64,       &xsp3ChanSca6Param);
-  createParam(xsp3ChanSca7ParamString,      asynParamFloat64,       &xsp3ChanSca7Param);
-  createParam(xsp3ChanSca4ThresholdParamString,   asynParamInt32,       &xsp3ChanSca4ThresholdParam);
-  createParam(xsp3ChanSca5HlmParamString,   asynParamInt32,       &xsp3ChanSca5HlmParam);
-  createParam(xsp3ChanSca6HlmParamString,   asynParamInt32,       &xsp3ChanSca6HlmParam);
-  createParam(xsp3ChanSca5LlmParamString,   asynParamInt32,       &xsp3ChanSca5LlmParam);
-  createParam(xsp3ChanSca6LlmParamString,   asynParamInt32,       &xsp3ChanSca6LlmParam);
-  createParam(xsp3ChanDtcFlagsParamString,   asynParamInt32,       &xsp3ChanDtcFlagsParam);
-  createParam(xsp3ChanDtcAegParamString,   asynParamFloat64,       &xsp3ChanDtcAegParam);
-  createParam(xsp3ChanDtcAeoParamString,   asynParamFloat64,       &xsp3ChanDtcAeoParam);
-  createParam(xsp3ChanDtcIwgParamString,   asynParamFloat64,       &xsp3ChanDtcIwgParam);
-  createParam(xsp3ChanDtcIwoParamString,   asynParamFloat64,       &xsp3ChanDtcIwoParam);
-  //These controls calculations
-  createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
-  createParam(xsp3DtcEnableParamString,         asynParamInt32,       &xsp3DtcEnableParam);
-  createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
-  
+  this->createInitialParameters();
   //Initialize non static, non const, data members
   acquiring_ = 0;
   running_ = 0;
   xsp3_handle_ = 0;
-  
+  bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
+  paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
   //Create the thread that readouts the data 
   status = (epicsThreadCreate("GeDataTask",
                               epicsThreadPriorityHigh,
@@ -182,46 +136,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     return;
   }
 
-  bool paramStatus = true;
-  //Initialise any paramLib parameters that need passing up to device support
-  paramStatus = ((setIntegerParam(xsp3NumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3MaxNumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3TriggerModeParam, 0) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3FixedTimeParam, 0) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(ADNumImages, 0) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, maxFrames) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, maxDriverFrames) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3MaxSpectraParam, maxSpectra) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3MaxFramesParam, maxFrames) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3NumCardsParam, numCards) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3FrameCountParam, 0) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(ADStatus, ADStatusDisconnected) == asynSuccess) && paramStatus);
-  paramStatus = ((setStringParam (ADManufacturer, "Quantum Detectors") == asynSuccess) && paramStatus);
-  paramStatus = ((setStringParam (ADModel, "Xspress3") == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(ADMaxSizeX, maxSpectra) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(ADMaxSizeY, numChannels_) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(ADSizeX, maxSpectra) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(ADSizeY, numChannels_) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(NDArraySizeX, maxSpectra) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(NDArraySizeY, numChannels_) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(NDArraySize, (maxSpectra * numChannels_ * sizeof(double)))  == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3TriggerParam, 0) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3InvertF0Param, 0) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3InvertVetoParam, 0) == asynSuccess) && paramStatus);
-  paramStatus = ((setIntegerParam(xsp3DebounceParam, 0) == asynSuccess) && paramStatus);
-  for (int chan=0; chan<numChannels_; chan++) {
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca5HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca6HlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca5LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanSca6LlmParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(chan, xsp3ChanDtcFlagsParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAegParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAeoParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwgParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwoParam, 0) == asynSuccess) && paramStatus);
-  }
-  paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
 
   printf( "Simulation: %d\n", simTest_ );
   if (simTest_) {
@@ -242,9 +156,141 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 
 }
 
+Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, numChannels, NUM_DRIVER_PARAMS, -1, -1, INTERFACE_MASK, INTERRUPT_MASK, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, 0, 0), debug_(1), numChannels_(numChannels), simTest_(1), baseIP_("127.0.0.1")
+{
+    const char *functionName = "Xspress3::Xspress3";
+    const int maxFrames = 1000;
+    const int maxDriverFrames = 1000;
+    const int maxSpectra = 4096;
+    const int numCards = 1;
+    const int simTest = 1;
+    this->lock();
+    this->createInitialParameters();
+    //Initialize non static, non const, data members
+    acquiring_ = 0;
+    running_ = 0;
+    xsp3_handle_ = 0;
+    bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
+    paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
+    if (simTest) {
+        paramStatus = ((setStringParam(ADStatusMessage, "Init. Simulation Mode.") == asynSuccess) && paramStatus);
+        xsp3 = new xsp3Simulator(this->pasynUserSelf,numChannels,maxSpectra);
+    } else {
+        paramStatus = ((setStringParam(ADStatusMessage, "Init. System Disconnected.") == asynSuccess) && paramStatus);
+        xsp3 = new xsp3Detector(this->pasynUserSelf);
+    }
+  
+    callParamCallbacks();
+
+    if (!paramStatus) {
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
+    }
+
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s End Of Constructor.\n", functionName);
+
+}
+
+void Xspress3::createInitialParameters()
+{
+    //Add the params to the paramLib 
+    //createParam adds the parameters to all param lists automatically (using maxAddr).
+    createParam(xsp3FirstParamString, asynParamInt32, &xsp3FirstParam);
+    createParam(xsp3ResetParamString, asynParamInt32, &xsp3ResetParam);
+    createParam(xsp3EraseParamString, asynParamInt32, &xsp3EraseParam);
+    createParam(xsp3NumChannelsParamString, asynParamInt32, &xsp3NumChannelsParam);
+    createParam(xsp3MaxNumChannelsParamString, asynParamInt32, &xsp3MaxNumChannelsParam);
+    createParam(xsp3MaxSpectraParamString, asynParamInt32, &xsp3MaxSpectraParam);
+    createParam(xsp3MaxFramesParamString, asynParamInt32, &xsp3MaxFramesParam);
+    createParam(xsp3FrameCountParamString, asynParamInt32, &xsp3FrameCountParam);
+    createParam(xsp3TriggerModeParamString, asynParamInt32, &xsp3TriggerModeParam);
+    createParam(xsp3FixedTimeParamString, asynParamInt32, &xsp3FixedTimeParam);
+    createParam(xsp3NumFramesConfigParamString, asynParamInt32, &xsp3NumFramesConfigParam);
+    createParam(xsp3NumFramesDriverParamString, asynParamInt32, &xsp3NumFramesDriverParam);
+    createParam(xsp3NumCardsParamString, asynParamInt32, &xsp3NumCardsParam);
+    createParam(xsp3ConfigPathParamString, asynParamOctet, &xsp3ConfigPathParam);
+    createParam(xsp3ConfigSavePathParamString, asynParamOctet, &xsp3ConfigSavePathParam);
+    createParam(xsp3ConnectParamString, asynParamInt32, &xsp3ConnectParam);
+    createParam(xsp3ConnectedParamString, asynParamInt32, &xsp3ConnectedParam);
+    createParam(xsp3DisconnectParamString, asynParamInt32, &xsp3DisconnectParam);
+    createParam(xsp3SaveSettingsParamString, asynParamInt32, &xsp3SaveSettingsParam);
+    createParam(xsp3RestoreSettingsParamString, asynParamInt32, &xsp3RestoreSettingsParam);
+    createParam(xsp3RunFlagsParamString, asynParamInt32, &xsp3RunFlagsParam);
+    createParam(xsp3TriggerParamString, asynParamInt32, &xsp3TriggerParam);
+    createParam(xsp3InvertF0ParamString, asynParamInt32, &xsp3InvertF0Param);
+    createParam(xsp3InvertVetoParamString, asynParamInt32, &xsp3InvertVetoParam);
+    createParam(xsp3DebounceParamString, asynParamInt32, &xsp3DebounceParam);
+    createParam(xsp3ChanSca0ParamString, asynParamFloat64, &xsp3ChanSca0Param);
+    createParam(xsp3ChanSca1ParamString, asynParamFloat64, &xsp3ChanSca1Param);
+    createParam(xsp3ChanSca2ParamString, asynParamFloat64, &xsp3ChanSca2Param);
+    createParam(xsp3ChanSca3ParamString, asynParamFloat64, &xsp3ChanSca3Param);
+    createParam(xsp3ChanSca4ParamString, asynParamFloat64, &xsp3ChanSca4Param);
+    createParam(xsp3ChanSca5ParamString, asynParamFloat64, &xsp3ChanSca5Param);
+    createParam(xsp3ChanSca6ParamString, asynParamFloat64, &xsp3ChanSca6Param);
+    createParam(xsp3ChanSca7ParamString, asynParamFloat64, &xsp3ChanSca7Param);
+    createParam(xsp3ChanSca4ThresholdParamString, asynParamInt32, &xsp3ChanSca4ThresholdParam);
+    createParam(xsp3ChanSca5HlmParamString, asynParamInt32, &xsp3ChanSca5HlmParam);
+    createParam(xsp3ChanSca6HlmParamString, asynParamInt32, &xsp3ChanSca6HlmParam);
+    createParam(xsp3ChanSca5LlmParamString, asynParamInt32, &xsp3ChanSca5LlmParam);
+    createParam(xsp3ChanSca6LlmParamString, asynParamInt32, &xsp3ChanSca6LlmParam);
+    createParam(xsp3ChanDtcFlagsParamString, asynParamInt32, &xsp3ChanDtcFlagsParam);
+    createParam(xsp3ChanDtcAegParamString, asynParamFloat64, &xsp3ChanDtcAegParam);
+    createParam(xsp3ChanDtcAeoParamString, asynParamFloat64, &xsp3ChanDtcAeoParam);
+    createParam(xsp3ChanDtcIwgParamString, asynParamFloat64, &xsp3ChanDtcIwgParam);
+    createParam(xsp3ChanDtcIwoParamString, asynParamFloat64, &xsp3ChanDtcIwoParam);
+    //These controls calculations
+    createParam(xsp3RoiEnableParamString, asynParamInt32, &xsp3RoiEnableParam);
+    createParam(xsp3DtcEnableParamString, asynParamInt32, &xsp3DtcEnableParam);
+    createParam(xsp3LastParamString, asynParamInt32, &xsp3LastParam);
+}
+
+bool Xspress3::setInitialParameters(int maxFrames, int maxDriverFrames, int numCards, int maxSpectra)
+{
+    bool paramStatus = true;
+    //Initialise any paramLib parameters that need passing up to device support
+    paramStatus = ((setIntegerParam(xsp3NumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3MaxNumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3TriggerModeParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3FixedTimeParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(ADNumImages, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, maxFrames) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, maxDriverFrames) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3MaxSpectraParam, maxSpectra) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3MaxFramesParam, maxFrames) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3NumCardsParam, numCards) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3FrameCountParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(ADStatus, ADStatusDisconnected) == asynSuccess) && paramStatus);
+    paramStatus = ((setStringParam (ADManufacturer, "Quantum Detectors") == asynSuccess) && paramStatus);
+    paramStatus = ((setStringParam (ADModel, "Xspress3") == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(ADMaxSizeX, maxSpectra) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(ADMaxSizeY, numChannels_) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(ADSizeX, maxSpectra) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(ADSizeY, numChannels_) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(NDArraySizeX, maxSpectra) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(NDArraySizeY, numChannels_) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(NDArraySize, (maxSpectra * numChannels_ * sizeof(double)))  == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3TriggerParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3InvertF0Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3InvertVetoParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(xsp3DebounceParam, 0) == asynSuccess) && paramStatus);
+    for (int chan=0; chan<numChannels_; chan++) {
+        paramStatus = ((setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(chan, xsp3ChanSca5HlmParam, 0) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(chan, xsp3ChanSca6HlmParam, 0) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(chan, xsp3ChanSca5LlmParam, 0) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(chan, xsp3ChanSca6LlmParam, 0) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(chan, xsp3ChanDtcFlagsParam, 0) == asynSuccess) && paramStatus);
+        paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAegParam, 0) == asynSuccess) && paramStatus);
+        paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAeoParam, 0) == asynSuccess) && paramStatus);
+        paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwgParam, 0) == asynSuccess) && paramStatus);
+        paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwoParam, 0) == asynSuccess) && paramStatus);
+    }
+    return paramStatus;
+}
+
 Xspress3::~Xspress3() 
 {
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "Xspress3::~Xspress3 Called.\n");
+    this->unlock();
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "Xspress3::~Xspress3 Called.\n");
 }
 
 
