@@ -118,6 +118,7 @@ class Xspress3 : public ADDriver {
 
  public:
   Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
+  Xspress3(const char *portName, int numChannels);
   virtual ~Xspress3();
 
   /* These are the methods that we override from asynPortDriver */
@@ -128,13 +129,27 @@ class Xspress3 : public ADDriver {
   virtual void report(FILE *fp, int details);
 
   void dataTask(void);
+  const int checkForStopEvent(double timeout, const char *message);
+  const int waitForStartEvent(const char *message);
   void adReportError(const char* message);
-  bool createMCAArray(size_t dims[2], NDArray*& pMCA, NDDataType_t dataType);
-  bool createSCAArray(void*& pSCA, NDDataType_t dataType);
+  bool createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType);
+  bool createSCAArray(void *&pSCA);
   bool readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra);
   bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
   asynStatus connect(void);
+  void writeOutScas(void *&pSCA, int numChannels);
+  void setStartingParameters();
+  const NDDataType_t getDataType();
+  void getDims(size_t (&dims)[2]);
+  asynStatus checkHistBusy(int checkTimes);
+  const int getXsp3Handle() { return this->xsp3_handle_; }
+  xsp3Api *getXsp3() { return this->xsp3; }
+  void setNDArrayAttributes(NDArray *&pMCA, int frameNumber);
+  void setAcqStopParameters(bool aborted);
+  int getNumFramesToAcquire();
+  void doNDCallbacksIfRequired(NDArray *pMCA);
+  int getNumFramesRead();
 
  private:
 
@@ -149,11 +164,12 @@ class Xspress3 : public ADDriver {
   asynStatus eraseSCAMCAROI(void);
   asynStatus checkSaveDir(const char *dirName);
   asynStatus readSCAParams(void);
-  asynStatus readDTCParams(void); 
-  asynStatus checkHistBusy(int checkTimes);
+  asynStatus readDTCParams(void);
   asynStatus setupITFG(void); 
   asynStatus mapTriggerMode(int mode, int invert_f0, int invert_veto, int debounce, int *apiMode);
   asynStatus setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce );
+  void createInitialParameters();
+  bool setInitialParameters(int maxFrames, int maxDriverFrames, int numCards, int maxSpectra);
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;
