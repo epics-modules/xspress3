@@ -1929,7 +1929,7 @@ static void xsp3DataTaskC(void *xspAD)
         printf("Collect %d frames\n", numFrames);
         while (acquire && (frameNumber <= numFrames)) {
             acquired = pXspAD->getNumFramesRead();
-            if (acquired > lastAcquired) {
+            if (frameNumber <= acquired) {
                 lastAcquired = acquired;
                 printf("Num frames read: %d\n", acquired);
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
