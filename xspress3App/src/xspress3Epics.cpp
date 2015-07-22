@@ -29,7 +29,8 @@
 #include <stdexcept>
 #include "dirent.h"
 #include <sys/types.h>
-#include <syscall.h> 
+#include <syscall.h>
+#include <stdarg.h>
 
 //Epics headers
 #include <epicsTime.h>
@@ -1568,7 +1569,18 @@ int Xspress3::getNumFramesRead()
         this->setIntegerParam(xsp3FrameCountParam, numFrames);
     }
     return numFrames;
-}        
+}
+
+void Xspress3::xspAsynPrint(int asynPrintType, const char *format, ...)
+{
+    const int maxMessageLen=1024;
+    va_list pArg;
+    char message[maxMessageLen];
+    va_start(pArg, format);
+    vsprintf(message, format, pArg);
+    asynPrint(this->pasynUserSelf, asynPrintType, message);
+    va_end(pArg);
+}
 
 //Global C utility functions to tie in with EPICS
 static void xsp3DataTaskC(void *xspAD)
@@ -1600,20 +1612,20 @@ static void xsp3DataTaskC(void *xspAD)
         numChannels = dims[1];
         frameNumber = 1;
         numFrames = pXspAD->getNumFramesToAcquire();
-        printf("Collect %d frames\n", numFrames);
+        pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
         while (acquire && (frameNumber <= numFrames)) {
             acquired = pXspAD->getNumFramesRead();
             if (frameNumber <= acquired) {
                 lastAcquired = acquired;
-                printf("Num frames read: %d\n", acquired);
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
                     if (dataType == NDFloat64) {
                         error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frameNumber, maxSpectra);
                     } else {
                         error = pXspAD->readFrame(static_cast<u_int32_t*>(pSCA), static_cast<u_int32_t*>(pMCA->pData), frameNumber, maxSpectra);
                     }
-                    if (error)
-                        printf("There was an error during read out %d\n", error);
+                    if (error) {
+                        pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "There was an error during read out %d\n", error);
+                    }
                     pXspAD->lock();
                     pXspAD->writeOutScas(pSCA, numChannels);
                     pXspAD->unlock();
@@ -1621,6 +1633,8 @@ static void xsp3DataTaskC(void *xspAD)
                     pXspAD->setNDArrayAttributes(pMCA, frameNumber);
                     pXspAD->doNDCallbacksIfRequired(pMCA);
                     pMCA->release();
+                } else {
+                    pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "Did not create a new array!\n");
                 }
                 pXspAD->lock();
                 pXspAD->callParamCallbacks();

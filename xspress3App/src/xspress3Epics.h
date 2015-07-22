@@ -149,6 +149,7 @@ class Xspress3 : public ADDriver {
   int getNumFramesToAcquire();
   void doNDCallbacksIfRequired(NDArray *pMCA);
   int getNumFramesRead();
+  void xspAsynPrint(int asynPrintType, const char *format, ...);
 
  private:
 
