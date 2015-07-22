@@ -128,7 +128,6 @@ class Xspress3 : public ADDriver {
                                     size_t nChars, size_t *nActual);
   virtual void report(FILE *fp, int details);
 
-  void dataTask(void);
   const int checkForStopEvent(double timeout, const char *message);
   const int waitForStartEvent(const char *message);
   void adReportError(const char* message);
