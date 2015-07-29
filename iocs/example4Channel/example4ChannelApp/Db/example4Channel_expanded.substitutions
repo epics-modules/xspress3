@@ -10,7 +10,7 @@
 #  PORT     Asyn Port name
 #  TIMEOUT  Timeout
 #  ADDR     Asyn Port address
-file $(AREA_DETECTOR)/db/ADBase.template
+file $(ADCORE)/db/ADBase.template
 {
 pattern { P, R, PORT, TIMEOUT, ADDR }
     { "$(XSPRESS3_PREFIX)", ":", "XSP3", "5", "0" }
@@ -56,7 +56,7 @@ pattern { P, R, PORT, ADDR, TIMEOUT, CHAN, NELEMENTS }
 #  NDARRAY_PORT  Input Array Port
 #  NDARRAY_ADDR  Input Array Address
 #  Enabled       Plugin Enabled at startup?
-file $(AREA_DETECTOR)/db/NDPluginBase.template
+file $(ADCORE)/db/NDPluginBase.template
 {
 pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT, NDARRAY_ADDR, Enabled }
     { "$(XSPRESS3_PREFIX):", "C1_SCA0:", "XSP3.C1_SCA0", "1", "0", "XSP3", "0", "1" }
@@ -290,7 +290,7 @@ pattern { P, R, PORT, ADDR, TIMEOUT, NELEMENTS }
 #  PORT     Asyn Port name
 #  TIMEOUT  Timeout
 #  ADDR     Asyn Port address
-file $(AREA_DETECTOR)/db/NDROI.template
+file $(ADCORE)/db/NDROI.template
 {
 pattern { P, R, PORT, TIMEOUT, ADDR }
     { "$(XSPRESS3_PREFIX):", "ROI1:", "XSP3.ROI1", "1", "0" }
@@ -313,7 +313,7 @@ pattern { P, R, PORT, TIMEOUT, ADDR }
 #  TYPE       Asyn Type e.g. Int32
 #  FTVL       Format, e.g. Int
 #  NELEMENTS  Number of elements
-file $(AREA_DETECTOR)/db/NDStdArrays.template
+file $(ADCORE)/db/NDStdArrays.template
 {
 pattern { P, R, PORT, TIMEOUT, ADDR, TYPE, FTVL, NELEMENTS }
     { "$(XSPRESS3_PREFIX):", "ARR1:", "XSP3.ARR1", "1", "0", "Float64", "DOUBLE", "4096" }
@@ -332,7 +332,7 @@ pattern { P, R, PORT, TIMEOUT, ADDR, TYPE, FTVL, NELEMENTS }
 #  PORT     Asyn Port name
 #  TIMEOUT  Timeout
 #  ADDR     Asyn Port address
-file $(AREA_DETECTOR)/db/NDProcess.template
+file $(ADCORE)/db/NDProcess.template
 {
 pattern { P, R, PORT, TIMEOUT, ADDR }
     { "$(XSPRESS3_PREFIX):", "PROC:", "XSP3.PROC", "1", "0" }
@@ -344,7 +344,7 @@ pattern { P, R, PORT, TIMEOUT, ADDR }
 #  PORT     Asyn Port name
 #  TIMEOUT  Timeout
 #  ADDR     Asyn Port address
-file $(AREA_DETECTOR)/db/NDFile.template
+file $(ADCORE)/db/NDFile.template
 {
 pattern { P, R, PORT, TIMEOUT, ADDR }
     { "$(XSPRESS3_PREFIX):", "HDF5:", "XSP3.HDF5", "1", "0" }
@@ -354,7 +354,7 @@ pattern { P, R, PORT, TIMEOUT, ADDR }
 #  P     Device Prefix
 #  R     Device Suffix
 #  PORT  Asyn Port name
-file $(AREA_DETECTOR)/db/NDFileHDF5.template
+file $(ADCORE)/db/NDFileHDF5.template
 {
 pattern { P, R, PORT }
     { "$(XSPRESS3_PREFIX):", "HDF5:", "XSP3.HDF5" }
