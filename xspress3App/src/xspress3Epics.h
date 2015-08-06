@@ -190,8 +190,6 @@ class Xspress3 : public ADDriver {
   static const epicsInt32 ADAcquireTrue_;
   
   //Put private dynamic here
-  epicsUInt32 acquiring_; 
-  epicsUInt32 running_; 
   int xsp3_handle_; 
 
   xsp3Api* xsp3;

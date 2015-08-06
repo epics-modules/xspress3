@@ -121,8 +121,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   }
   this->createInitialParameters();
   //Initialize non static, non const, data members
-  acquiring_ = 0;
-  running_ = 0;
   xsp3_handle_ = 0;
   bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
   paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
@@ -168,8 +166,6 @@ Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, n
     this->lock();
     this->createInitialParameters();
     //Initialize non static, non const, data members
-    acquiring_ = 0;
-    running_ = 0;
     xsp3_handle_ = 0;
     bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
     paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
