@@ -155,6 +155,15 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 
 }
 
+ /** 
+ * A constructor for the test suite.
+ *
+ * This constructor defines a lot of parameters in it for ease of testing.
+ *
+ * @param portName The asyn port name, this must be unique to each instance.
+ * @param numChannels The number of channels to simulate.
+ *
+ */
 Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, numChannels, NUM_DRIVER_PARAMS, -1, -1, INTERFACE_MASK, INTERRUPT_MASK, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, 0, 0), debug_(1), numChannels_(numChannels), simTest_(1), baseIP_("127.0.0.1")
 {
     const char *functionName = "Xspress3::Xspress3";
@@ -187,6 +196,11 @@ Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, n
 
 }
 
+/** 
+ * Create the asyn parameters required to set up and control the xspress3.
+ *
+ * This method is normally called by the constructor.
+ */
 void Xspress3::createInitialParameters()
 {
     //Add the params to the paramLib 
@@ -240,6 +254,16 @@ void Xspress3::createInitialParameters()
     createParam(xsp3LastParamString, asynParamInt32, &xsp3LastParam);
 }
 
+/** 
+ * Set the parameters created in Xspress3::createInitialParameters
+ *
+ * @param maxFrames 
+ * @param maxDriverFrames 
+ * @param numCards 
+ * @param maxSpectra 
+ *
+ * @return 
+ */
 bool Xspress3::setInitialParameters(int maxFrames, int maxDriverFrames, int numCards, int maxSpectra)
 {
     bool paramStatus = true;
@@ -284,6 +308,11 @@ bool Xspress3::setInitialParameters(int maxFrames, int maxDriverFrames, int numC
     return paramStatus;
 }
 
+/** 
+ * Xspress3 destructor
+ *
+ * The destructor ensures that the lock is released.
+ */
 Xspress3::~Xspress3() 
 {
     this->unlock();
@@ -1371,6 +1400,11 @@ asynStatus Xspress3::checkHistBusy(int checkTimes)
   return status;
 }
 
+/** 
+ * Update areaDetector parameters to show an error
+ *
+ * @param message A string (const char*) to write to ADStatusMessage.
+ */
 void Xspress3::adReportError(const char* message)
 {
     setStringParam(ADStatusMessage, message);
@@ -1378,6 +1412,13 @@ void Xspress3::adReportError(const char* message)
     setIntegerParam(ADAcquire, ADAcquireFalse_);
 }
 
+/** 
+ * Malloc an array large enough to hold the SCAs
+ *
+ * @param pSCA A reference to a pointer that will point to the allocated memory
+ *
+ * @return true if an allocation error occurs otherwise false
+ */
 bool Xspress3::createSCAArray(void *&pSCA)
 {
     const char *functionName = "Xspress3::createSCAArray";
@@ -1391,6 +1432,15 @@ bool Xspress3::createSCAArray(void *&pSCA)
     }
 }
 
+/** 
+ * Allocate an NDArray to put a detector frame into
+ *
+ * @param dims [maximum number of spectral bins, number of channels]
+ * @param pMCA Reference to a pointer to the NDArray that will be allocated
+ * @param dataType The NDDataType_t of the NDArray (NDUInt32 or NDFloat64)
+ *
+ * @return true if an allocation error occurs otherwise false
+ */
 bool Xspress3::createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType)
 {
     const char *functionName = "Xspress3::createMCAArray";
@@ -1404,6 +1454,17 @@ bool Xspress3::createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataT
     return error;
 }
 
+/** 
+ * Read a frame, of dead-time corrected data, from the hardware into
+ * MCAData
+ *
+ * @param pSCA A pointer to the array to hold the SCAs
+ * @param pMCAData A pointer to the array to hold the MCA
+ * @param frameNumber The frame to read from the current capture
+ * @param maxSpectra The maximum number of spectral bins in the MCA array
+ *
+ * @return true if an allocation error occurs otherwise false
+ */
 bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra)
 {
     bool error = false;
@@ -1439,6 +1500,14 @@ bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, 
     return error;
 }
 
+/** 
+ * A shortcut to wait for the stop event and print diagnostics if necessary
+ *
+ * @param timeout The period to wait for the stop event before giving up
+ * @param message The message to print if the stop event has occured within timeout
+ *
+ * @return the status returned by epicsEventWaitWithTimeout
+ */
 const int Xspress3::checkForStopEvent(double timeout, const char *message)
 {
     int eventStatus;
@@ -1449,6 +1518,13 @@ const int Xspress3::checkForStopEvent(double timeout, const char *message)
     return eventStatus;
 }
 
+/** 
+ * A shortcut to wait indefinitely for a start event and print diagnostics if necessary
+ *
+ * @param message The message to print if the event has occured and requested
+ *
+ * @return the status returned by epicsEventWaitWithTimeout
+ */
 const int Xspress3::waitForStartEvent(const char *message)
 {
     int eventStatus;
@@ -1459,8 +1535,12 @@ const int Xspress3::waitForStartEvent(const char *message)
     return eventStatus;
 }
 
-//const int 
-
+/** 
+ * Write the SCAs to the AD parameters
+ *
+ * @param pSCA A pointer to an array of SCAs from the hardware
+ * @param numChannels The number of xspress3 channels in the SCA array
+ */
 void Xspress3::writeOutScas(void *&pSCA, int numChannels)
 {
     double *pScaData = static_cast<double*>(pSCA);
