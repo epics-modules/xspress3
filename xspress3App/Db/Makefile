@@ -16,7 +16,11 @@ DB += xspress3_highlevel.template
 DB += xspress3_AttrReset.template
 DB += xspress3_AttrUpdate.template
 DB += xspress3_pluginControl.template
-
-include $(TOP)/configure/RULES
-#----------------------------------------
-#  ADD RULES AFTER THIS LINE
+DB += xspress3_header.template
+ 
+ include $(TOP)/configure/RULES
+ #----------------------------------------
+ #  ADD RULES AFTER THIS LINE
+-
+-install:
+-	cp $(TOP)/xspress3App/Db/create_template.sh $(TOP)/db
