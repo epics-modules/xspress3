@@ -10,8 +10,6 @@ DATA+=xsp3.xml
 
 LIBRARY_IOC_Linux += xspress3Epics
 
-# xxxRecord.dbd will be installed into <top>/dbd
-#DBD += xspress3.dbd
 DBD += xspress3Support.dbd
 
 #xspress3_DBD += base.dbd
