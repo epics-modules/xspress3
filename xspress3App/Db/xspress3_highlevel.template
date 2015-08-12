@@ -71,7 +71,7 @@ record(dfanout, "$(P)$(R)ERASE_AttrReset")
 #########################################################################
 # Records to update the arrays in the NDAttribute plugins.
 # This is needed for high data rate collections at the end of a scan
-# due to the fact that the NDAttribute pugins only update the arrays
+# due to the fact that the NDAttribute plugins only update the arrays
 # at a slow rate and may miss some points at the end of a scan.
 #########################################################################
 
