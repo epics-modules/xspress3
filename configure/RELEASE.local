@@ -1,0 +1,13 @@
+# RELEASE.local
+
+
+#Dependencies for any builder example IOC
+BUSY=$(SUPPORT)/busy-1-6-1
+# Other Optional Support Modules
+ALIVE=$(SUPPORT)/alive-1-0
+DEVIOCSTATS=$(SUPPORT)/devIocStats-3-1-13
+AUTOSAVE=$(SUPPORT)/autosave-5-6-2
+SSCAN=$(SUPPORT)/sscan-2-10
+SNCSEQ=$(SUPPORT)/seq-2-1-18
+MCA=$(SUPPORT)/mca-7-6
+

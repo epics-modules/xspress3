@@ -1,4 +1,7 @@
 .svn
+core.*
+*~
+*#
 O.*
 bin/
 data/
