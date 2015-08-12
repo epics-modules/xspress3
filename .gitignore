@@ -1,6 +1,11 @@
 .svn
-O.Common
-O.linux-x86_64
 core.*
 *~
 *#
+O.*
+bin/
+data/
+db/
+dbd/
+include/
+lib/
