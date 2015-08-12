@@ -1557,6 +1557,10 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels)
     }
 }
 
+/** 
+ * Set parameters as they should be at the start of an acquisition
+ *
+ */
 void Xspress3::setStartingParameters()
 {
     this->setIntegerParam(this->NDArrayCounter, 0);
@@ -1583,6 +1587,12 @@ const NDDataType_t Xspress3::getDataType()
     }
 }
 
+/** 
+ * Get the dimensions of a frame from the xsp3 parameters
+ * as [maxSpectra, numChannels]
+ *
+ * @param dims A reference to an array to store the dimensions in
+ */
 void Xspress3::getDims(size_t (&dims)[2])
 {
     int numChannels, maxSpectra;
@@ -1592,6 +1602,13 @@ void Xspress3::getDims(size_t (&dims)[2])
     dims[1] = numChannels;
 }
 
+/** 
+ * Sets the uniqueId of *pMCA to the frame number and sets the timeStamp
+ * to the current time.
+ *
+ * @param pMCA A reference to a pointer to an NDArray
+ * @param frameNumber The number of the frame to be written to pMCA->uniqueId
+ */
 void Xspress3::setNDArrayAttributes(NDArray *&pMCA, int frameNumber)
 {
     int arrayCallbacks = 0;
@@ -1604,6 +1621,11 @@ void Xspress3::setNDArrayAttributes(NDArray *&pMCA, int frameNumber)
     this->getAttributes(pMCA->pAttributeList);
 }
 
+/** 
+ * Set the parameters to show that acquisition has stopped
+ *
+ * @param aborted true if the acquisition was aborted early
+ */
 void Xspress3::setAcqStopParameters(bool aborted)
 {
     this->setIntegerParam(ADAcquire, ADAcquireFalse_);
@@ -1617,6 +1639,12 @@ void Xspress3::setAcqStopParameters(bool aborted)
     this->callParamCallbacks();
 }
 
+/** 
+ * A getter for ADNumImages
+ *
+ *
+ * @return The number of frames stored in ADNumImages
+ */
 int Xspress3::getNumFramesToAcquire()
 {
     int numFrames;
@@ -1658,7 +1686,12 @@ void Xspress3::xspAsynPrint(int asynPrintType, const char *format, ...)
     va_end(pArg);
 }
 
-//Global C utility functions to tie in with EPICS
+/** 
+ * A function, ordinarily to be run in a seperate thread, to wait for
+ * and then execute acquisitions.
+ *
+ * @param xspAD A pointer to an instance of Xspress3
+ */
 static void xsp3DataTaskC(void *xspAD)
 {
     Xspress3 *pXspAD = (Xspress3 *)xspAD;
