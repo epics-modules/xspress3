@@ -19,6 +19,9 @@
 #
 #######################################################
 
+include "ADBase.template"
+include "xspress3_highlevel.template"
+
 # /// 
 # /// Reset the device.
 # ///
