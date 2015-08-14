@@ -31,3 +31,11 @@ CROSS_COMPILER_TARGET_ARCHS =
 # You must rebuild in the iocBoot directory for this to
 #   take effect.
 #IOCS_APPL_TOP = </IOC/path/to/application/top>
+
+-include $(AREA_DETECTOR)/configure/CONFIG_SITE
+-include $(AREA_DETECTOR)/configure/CONFIG_SITE.$(EPICS_HOST_ARCH)
+-include $(AREA_DETECTOR)/configure/CONFIG_SITE.$(EPICS_HOST_ARCH).Common
+ifdef T_A
+  -include $(AREA_DETECTOR)/configure/CONFIG_SITE.Common.$(T_A)
+  -include $(AREA_DETECTOR)/configure/CONFIG_SITE.$(EPICS_HOST_ARCH).$(T_A)
+endif
