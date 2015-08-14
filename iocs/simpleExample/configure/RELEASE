@@ -1,0 +1,5 @@
+# RELEASE - Location of external support modules
+
+-include $(TOP)/configure/RELEASE.local
+
+XSPRESS3 = $(TOP)/../..
