@@ -21,18 +21,28 @@
 
 TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
-SUPPORT=/dls_sw/prod/R3.14.12.3/support
-WORK=/dls_sw/work/R3.14.12.3/support
+SUPPORT=/local/DPbin/epics/epics_2015-08-31/synApps_5_8/support
+#WORK=/dls_sw/work/R3.14.12.3/support
 
-ASYN=		$(SUPPORT)/asyn/4-21
-AREA_DETECTOR=	$(SUPPORT)/areaDetector/1-9dls4
-CALC=		$(SUPPORT)/calc/3-1
+
+ASYN=$(SUPPORT)/asyn-4-26
+AREA_DETECTOR=$(SUPPORT)/areaDetector-2-3
+ADCORE=$(AREA_DETECTOR)/ADCore-R2-3
+CALC=$(SUPPORT)/calc-3-4-2
 
 #Dependencies for any builder example IOC
-BUSY=		$(SUPPORT)/busy/1-4dls1
+BUSY=$(SUPPORT)/busy-1-6-1
+# Other Optional Support Modules
+ALIVE=$(SUPPORT)/alive-1-0
+DEVIOCSTATS=$(SUPPORT)/devIocStats-3-1-13
+AUTOSAVE=$(SUPPORT)/autosave-5-6-2
+SSCAN=$(SUPPORT)/sscan-2-10
+SNCSEQ=$(SUPPORT)/seq-2-1-18
+
+
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
+EPICS_BASE=/local/DPbin/epics/epics_2015-08-31/base-3.15.2
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:
