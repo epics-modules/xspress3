@@ -1494,8 +1494,12 @@ bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, 
         setIntegerParam(NDArrayCounter, frameNumber);
         xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameNumber, XSP3_SW_NUM_SCALERS, this->numChannels_, 1);
         if (xsp3Status != XSP3_OK) {
-            checkStatus(xsp3Status, "xsp3_scaler_read", functionName+1);
+            checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
             error = true;
+        }
+        else 
+        {
+        setIntegerParam(NDArrayCounter, frameNumber+1);
         }
     }
     return error;
