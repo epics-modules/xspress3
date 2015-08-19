@@ -12,11 +12,8 @@ dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:2:,  PORT=$(P
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:3:,  PORT=$(PORT).C$(CHAN)SCAs,ADDR=2,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:4:,  PORT=$(PORT).C$(CHAN)SCAs,ADDR=3,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:5:,  PORT=$(PORT).C$(CHAN)SCAs,ADDR=4,TIMEOUT=1,NCHANS=$(NCHANS)")
-#dbLoadRecords("$(XSPRESS3)/db/xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=C$(CHAN)SCAs:5:,PORT=$(PORT).C$(CHAN)SCAs,ADDR=4,TIMEOUT=1,CHAN=$(CHAN), SCA=4")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:6:,  PORT=$(PORT).C$(CHAN)SCAs,ADDR=5,TIMEOUT=1,NCHANS=$(NCHANS)")
-#dbLoadRecords("$(XSPRESS3)/db/xspress3ChannelSCALimits.template", "P=$(PREFIX),R=C$(CHAN)SCAs:6:,PORT=$(PORT).C$(CHAN)SCAs, ADDR=5, TIMEOUT=1, CHAN=$(CHAN), SCA=5")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:7:,  PORT=$(PORT).C$(CHAN)SCAs,ADDR=6,TIMEOUT=1,NCHANS=$(NCHANS)")
-#dbLoadRecords("$(XSPRESS3)/db/xspress3ChannelSCALimits.template", "P=$(PREFIX),R=C$(CHAN)SCAs:7:,PORT=$(PORT).C$(CHAN)SCAs, ADDR=6, TIMEOUT=1, CHAN=$(CHAN), SCA=6")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:8:,  PORT=$(PORT).C$(CHAN)SCAs,ADDR=7,TIMEOUT=1,NCHANS=$(NCHANS)")
 
 
@@ -36,7 +33,7 @@ dbLoadRecords("$(ADCORE)/db/NDStdArrays.template", "P=$(PREFIX),R=ARR$(CHAN):,PO
 
 
 # New ROI Stats 
-NDROIStatConfigure("ROISTAT$(CHAN)", $(QSIZE), 0, "$(PORT)", 0, 32, 0, 0)
+NDROIStatConfigure("ROISTAT$(CHAN)", $(QSIZE), 0, "$(PORT).CHAN$(CHAN)", 0, 32, 0, 0)
 dbLoadRecords("NDROIStat.template",   "P=$(PREFIX),R=ROIStat$(CHAN):  ,PORT=ROISTAT$(CHAN),ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT),NCHANS=$(NCHANS)")
 dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=ROIStat$(CHAN):1:,PORT=ROISTAT$(CHAN),ADDR=0,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=ROIStat$(CHAN):2:,PORT=ROISTAT$(CHAN),ADDR=1,TIMEOUT=1,NCHANS=$(NCHANS)")

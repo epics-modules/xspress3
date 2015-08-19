@@ -1,12 +1,24 @@
 
 
-set_requestfile_path("$(AREA_DETECTOR)", "ADApp/Db")
 
-set_pass0_restoreFile("auto_settings.sav", "P=$(PREFIX)")
-set_pass1_restoreFile("auto_settings.sav", "P=$(PREFIX)")
-# save settings every thirty seconds
-doAfterIocInit("create_monitor_set('auto_settings.req',30,'P=$(PREFIX)')")
+
+
+set_requestfile_path("./")
+set_requestfile_path("$(ADCORE)", "ADApp/Db")
+set_requestfile_path("$(AUTOSAVE)", "asApp/Db")
+set_requestfile_path("$(BUSY)", "busyApp/Db")
+set_requestfile_path("$(CALC)", "calcApp/Db")
+set_requestfile_path("$(XSPRESS3)","xspress3App/Db")
+set_requestfile_path("$(SSCAN)", "sscanApp/Db")
+set_savefile_path("./autosave")
+set_pass0_restoreFile("auto_settings.sav")
+set_pass1_restoreFile("auto_settings.sav")
+save_restoreSet_status_prefix("$(PREFIX)")
+dbLoadRecords("$(AUTOSAVE)/asApp/Db/save_restoreStatus.db", "P=$(PREFIX)")
 
 epicsEnvSet("BUILT_SETTINGS", "built_settings.req")
-epicsEnvSet("BUILT_POSITIONS", "built_positions.req")
 autosaveBuild("$(BUILT_SETTINGS)", "_settings.req", 1)
+
+
+
+
