@@ -16,40 +16,8 @@
 record(dfanout, "$(P)$(R)C$(CHAN)_AttrReset") {
   field(PINI, "YES")
   field(VAL, "1")
-  field(OUTA, "$(P)$(R)C$(CHAN)_$(SCA0):Reset PP")
-  field(OUTB, "$(P)$(R)C$(CHAN)_$(SCA1):Reset PP")
-  field(OUTC, "$(P)$(R)C$(CHAN)_$(SCA2):Reset PP")
-  field(OUTD, "$(P)$(R)C$(CHAN)_$(SCA3):Reset PP")
-  field(OUTE, "$(P)$(R)C$(CHAN)_$(SCA4):Reset PP")
-  field(OUTF, "$(P)$(R)C$(CHAN)_$(SCA5):Reset PP")
-  field(OUTG, "$(P)$(R)C$(CHAN)_$(SCA6):Reset PP")
-  field(OUTH, "$(P)$(R)C$(CHAN)_$(SCA7):Reset PP")
-  field(FLNK, "$(P)$(R)C$(CHAN)_AttrReset_2")
-}
-
-record(dfanout, "$(P)$(R)C$(CHAN)_AttrReset_2") {
-  field(VAL, "1")
-  field(OUTA, "$(P)$(R)C$(CHAN)_$(ROI1):Reset PP")
-  field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI2):Reset PP")
-  field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI3):Reset PP")
-  field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI4):Reset PP")
-  field(OUTE, "$(P)$(R)C$(CHAN)_$(ROI5):Reset PP")
-  field(OUTF, "$(P)$(R)C$(CHAN)_$(ROI6):Reset PP")
-  field(OUTG, "$(P)$(R)C$(CHAN)_$(ROI7):Reset PP")
-  field(OUTH, "$(P)$(R)C$(CHAN)_$(ROI8):Reset PP")
-  field(FLNK, "$(P)$(R)C$(CHAN)_AttrReset_3")
-}
-
-record(dfanout, "$(P)$(R)C$(CHAN)_AttrReset_3") {
-  field(VAL, "1")
-  field(OUTA, "$(P)$(R)C$(CHAN)_$(ROI9):Reset PP")
-  field(OUTB, "$(P)$(R)C$(CHAN)_$(ROI10):Reset PP")
-  field(OUTC, "$(P)$(R)C$(CHAN)_$(ROI11):Reset PP")
-  field(OUTD, "$(P)$(R)C$(CHAN)_$(ROI12):Reset PP")
-  field(OUTE, "$(P)$(R)C$(CHAN)_$(ROI13):Reset PP")
-  field(OUTF, "$(P)$(R)C$(CHAN)_$(ROI14):Reset PP")
-  field(OUTG, "$(P)$(R)C$(CHAN)_$(ROI15):Reset PP")
-  field(OUTH, "$(P)$(R)C$(CHAN)_$(ROI16):Reset PP")
+  field(OUTA, "$(P)C$(CHAN)SCAs:Reset PP")
+  field(OUTB, "$(P)ROIStat$(CHAN):ResetAll PP")
 }
 
 record(bo, "$(P)$(R)C$(CHAN)_AttrResetFanIn") {
