@@ -1,0 +1,1023 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>948</width>
+    <height>546</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="styleSheet">
+   <string>
+
+QWidget#centralWidget {background: rgba(187, 187, 187, 255);}
+QPushButton::menu-indicator {image: url(none.png); width: 0}
+
+caTable {
+       font: 10pt;
+       background: cornsilk;
+       alternate-background-color: wheat;
+}
+
+caLineEdit {
+     border-radius: 1px;
+     background: lightyellow;
+     color: black;
+ }
+
+caTextEntry {
+    color: rgb(127, 0, 63);
+    background-color: cornsilk;
+    selection-color: #0a214c;
+    selection-background-color: wheat;
+    border: 1px groove black;
+    border-radius: 1px;
+    padding: 1px;
+}
+
+caTextEntry:focus {
+    padding: 0px;
+    border: 2px groove darkred;
+    border-radius: 1px;
+}
+
+QPushButton {
+      border-color: #00b;
+      border-radius: 2px;
+      padding: 3px;
+      border-width: 1px;
+
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+						   stop:0   rgba(224, 239, 255, 255),
+						   stop:0.5 rgba(199, 215, 230, 255),
+						   stop:1   rgba(184, 214, 236, 255));
+}
+QPushButton:hover {
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+						stop:0   rgba(201, 226, 255, 255),
+						stop:0.5 rgba(177, 204, 230, 255),
+						stop:1   rgba(163, 205, 236, 255));
+}
+QPushButton:pressed {
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+						stop:0   rgba(174, 219, 255, 255),
+						stop:0.5 rgba(165, 199, 230, 255),
+						stop:1   rgba(134, 188, 236, 255));
+}
+
+QPushButton:disabled {
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+						stop:0   rgba(174, 219, 255, 255),
+						stop:0.5 rgba(165, 199, 230, 255),
+						stop:1   rgba(134, 188, 236, 255));
+}
+
+caChoice {
+      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                  stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                  stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+}
+
+caChoice &gt; QPushButton {
+      text-align: left;
+      padding: 1px;
+}
+
+caSlider::groove:horizontal {
+border: 1px solid #bbb;
+background: lightgrey;
+height: 20px;
+border-radius: 4px;
+}
+
+caSlider::handle:horizontal {
+background: red;
+border: 1px solid #777;
+width: 13px;
+margin-top: -2px;
+margin-bottom: -2px;
+border-radius: 2px;
+}
+
+
+
+</string>
+  </property>
+  <property name="documentMode">
+   <bool>true</bool>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="MinimumExpanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>100</height>
+    </size>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>2</number>
+    </property>
+    <item>
+     <widget class="caFrame" name="Header">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>65</height>
+       </size>
+      </property>
+      <widget class="caGraphics" name="caRectangle_0">
+       <property name="geometry">
+        <rect>
+         <x>1</x>
+         <y>6</y>
+         <width>935</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>218</red>
+         <green>218</green>
+         <blue>218</blue>
+        </color>
+       </property>
+       <property name="linestyle" stdset="0">
+        <enum>caGraphics::Solid</enum>
+       </property>
+       <property name="fillstyle" stdset="0">
+        <enum>caGraphics::Filled</enum>
+       </property>
+       <property name="lineColor">
+        <color>
+         <red>218</red>
+         <green>218</green>
+         <blue>218</blue>
+        </color>
+       </property>
+       <property name="form">
+        <enum>caGraphics::Rectangle</enum>
+       </property>
+      </widget>
+      <widget class="caLabel" name="caLabel_2">
+       <property name="geometry">
+        <rect>
+         <x>151</x>
+         <y>41</y>
+         <width>132</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>Plugin type</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="fontScaleMode">
+        <enum>ESimpleLabel::WidthAndHeight</enum>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="background">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+      </widget>
+      <widget class="caLabel" name="caLabel_5">
+       <property name="geometry">
+        <rect>
+         <x>516</x>
+         <y>41</y>
+         <width>70</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>Blocking</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="fontScaleMode">
+        <enum>ESimpleLabel::WidthAndHeight</enum>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="background">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+      </widget>
+      <widget class="caLabel" name="caLabel_0">
+       <property name="geometry">
+        <rect>
+         <x>1</x>
+         <y>7</y>
+         <width>914</width>
+         <height>25</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>$(P) Common Plugins</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignAbsolute|Qt::AlignCenter|Qt::AlignHCenter|Qt::AlignVCenter</set>
+       </property>
+       <property name="fontScaleMode">
+        <enum>ESimpleLabel::WidthAndHeight</enum>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>10</red>
+         <green>0</green>
+         <blue>184</blue>
+        </color>
+       </property>
+       <property name="background">
+        <color alpha="0">
+         <red>10</red>
+         <green>0</green>
+         <blue>184</blue>
+        </color>
+       </property>
+      </widget>
+      <widget class="caLabel" name="caLabel_7">
+       <property name="geometry">
+        <rect>
+         <x>701</x>
+         <y>41</y>
+         <width>70</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>Free</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="fontScaleMode">
+        <enum>ESimpleLabel::WidthAndHeight</enum>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="background">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+      </widget>
+      <widget class="caLabel" name="caLabel_6">
+       <property name="geometry">
+        <rect>
+         <x>786</x>
+         <y>41</y>
+         <width>48</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>Rate</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="fontScaleMode">
+        <enum>ESimpleLabel::WidthAndHeight</enum>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="background">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+      </widget>
+      <widget class="caLabel" name="caLabel_1">
+       <property name="geometry">
+        <rect>
+         <x>11</x>
+         <y>41</y>
+         <width>132</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>Plugin name</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="fontScaleMode">
+        <enum>ESimpleLabel::WidthAndHeight</enum>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="background">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+      </widget>
+      <widget class="caLabel" name="caLabel_4">
+       <property name="geometry">
+        <rect>
+         <x>361</x>
+         <y>41</y>
+         <width>116</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>Enable</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="fontScaleMode">
+        <enum>ESimpleLabel::WidthAndHeight</enum>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="background">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+      </widget>
+      <widget class="caLabel" name="caLabel_3">
+       <property name="geometry">
+        <rect>
+         <x>296</x>
+         <y>41</y>
+         <width>48</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>Port</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="fontScaleMode">
+        <enum>ESimpleLabel::WidthAndHeight</enum>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="background">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+      </widget>
+      <widget class="caLabel" name="caLabel_8">
+       <property name="geometry">
+        <rect>
+         <x>612</x>
+         <y>41</y>
+         <width>84</width>
+         <height>20</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="text">
+        <string>Dropped</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+       </property>
+       <property name="fontScaleMode">
+        <enum>ESimpleLabel::WidthAndHeight</enum>
+       </property>
+       <property name="foreground">
+        <color>
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+       <property name="background">
+        <color alpha="0">
+         <red>0</red>
+         <green>0</green>
+         <blue>0</blue>
+        </color>
+       </property>
+      </widget>
+     </widget>
+    </item>
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Ignored" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="sizeIncrement">
+       <size>
+        <width>0</width>
+        <height>24</height>
+       </size>
+      </property>
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>100</height>
+       </size>
+      </property>
+      <property name="autoFillBackground">
+       <bool>true</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Plain</enum>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
+      </property>
+      <property name="horizontalScrollBarPolicy">
+       <enum>Qt::ScrollBarAlwaysOff</enum>
+      </property>
+      <property name="widgetResizable">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="Plugins">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>935</width>
+         <height>500</height>
+        </rect>
+       </property>
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="minimumSize">
+        <size>
+         <width>0</width>
+         <height>18</height>
+        </size>
+       </property>
+       <property name="sizeIncrement">
+        <size>
+         <width>0</width>
+         <height>24</height>
+        </size>
+       </property>
+       <property name="baseSize">
+        <size>
+         <width>0</width>
+         <height>400</height>
+        </size>
+       </property>
+       <layout class="QVBoxLayout" name="PluginsContent">
+        <property name="spacing">
+         <number>1</number>
+        </property>
+        <property name="margin">
+         <number>0</number>
+        </property>
+        <item>
+         <widget class="caInclude" name="XSP3.ARR1">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ARR1, UI=NDStdArrays.ui,LABELS=NDStdArrays.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.ARR2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ARR2, UI=NDStdArrays.ui,LABELS=NDStdArrays.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.ARR3">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ARR3, UI=NDStdArrays.ui,LABELS=NDStdArrays.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.ARR4">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ARR4, UI=NDStdArrays.ui,LABELS=NDStdArrays.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.C1SCAs">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=C1SCAs, UI=NDPluginAttribute.ui;NDPluginAttribute8.ui,LABELS=NDPluginAttribute.ui;NDPluginAttribute8.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.C2SCAs">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=C2SCAs, UI=NDPluginAttribute.ui;NDPluginAttribute8.ui,LABELS=NDPluginAttribute.ui;NDPluginAttribute8.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.C3SCAs">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=C3SCAs, UI=NDPluginAttribute.ui;NDPluginAttribute8.ui,LABELS=NDPluginAttribute.ui;NDPluginAttribute8.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.C4SCAs">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=C4SCAs, UI=NDPluginAttribute.ui;NDPluginAttribute8.ui,LABELS=NDPluginAttribute.ui;NDPluginAttribute8.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="FileHDF1">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=HDF1, UI=NDFileHDF5,LABELS=NDFileHDF5</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="PROC1">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=Proc1, UI=NDProcess.ui,LABELS=NDProcess.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.CHAN1">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ROI1, UI=NDROI.ui,LABELS=NDROI.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.CHAN2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ROI2, UI=NDROI.ui,LABELS=NDROI.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.CHAN3">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ROI3, UI=NDROI.ui,LABELS=NDROI.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="XSP3.CHAN4">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ROI4, UI=NDROI.ui,LABELS=NDROI.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="ROISTAT1">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ROIStat1, UI=NDROIStat.ui,LABELS=NDROIStat.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="ROISTAT2">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ROIStat2, UI=NDROIStat.ui,LABELS=NDROIStat.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="ROISTAT3">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ROIStat3, UI=NDROIStat.ui,LABELS=NDROIStat.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="caInclude" name="ROISTAT4">
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>20</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>16000</width>
+            <height>30</height>
+           </size>
+          </property>
+          <property name="macro">
+           <string notr="true">P=$(P),R=ROIStat4, UI=NDROIStat.ui,LABELS=NDROIStat.ui</string>
+          </property>
+          <property name="filename" stdset="0">
+           <string notr="true">ADcommonPlugins.ui</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>caFrame</class>
+   <extends>QFrame</extends>
+   <header>caFrame</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>caLabel</class>
+   <extends>QLabel</extends>
+   <header>caLabel</header>
+  </customwidget>
+  <customwidget>
+   <class>caGraphics</class>
+   <extends>QWidget</extends>
+   <header>caGraphics</header>
+  </customwidget>
+  <customwidget>
+   <class>caInclude</class>
+   <extends>QWidget</extends>
+   <header>caInclude</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
