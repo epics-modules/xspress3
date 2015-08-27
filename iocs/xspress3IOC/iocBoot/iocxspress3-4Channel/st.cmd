@@ -87,9 +87,7 @@ dbLoadRecords("xspress3.template","P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=0, TIM
 #Channel 1
 #########################################
 epicsEnvSet("CHAN",   "1")
-#dbLoadRecords("xspress3_pluginControl.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
-#dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
-#dbLoadRecords("xspress3_AttrUpdate.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
+dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
 
 <SCAROI.cmd
 dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=C$(CHAN)SCAs:5:,PORT=$(PORT),ADDR=0,TIMEOUT=1,CHAN=$(CHAN), SCA=4")
@@ -101,9 +99,7 @@ dbLoadRecords("xspress3ChannelDTC.template", "P=$(PREFIX),R=det1:,PORT=$(PORT),C
 #Channel 2
 #########################################
 epicsEnvSet("CHAN",   "2")
-#dbLoadRecords("xspress3_pluginControl.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
-#dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
-#dbLoadRecords("xspress3_AttrUpdate.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
+dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
 
 <SCAROI.cmd
 dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=C$(CHAN)SCAs:5:,PORT=$(PORT),ADDR=1,TIMEOUT=1,CHAN=$(CHAN), SCA=4")
@@ -115,9 +111,8 @@ dbLoadRecords("xspress3ChannelDTC.template", "P=$(PREFIX),R=det1:,PORT=$(PORT),C
 #Channel 3
 #########################################
 epicsEnvSet("CHAN",   "3")
-#dbLoadRecords("xspress3_pluginControl.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
-#dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
-#dbLoadRecords("xspress3_AttrUpdate.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
+dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
+
 <SCAROI.cmd
 dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=C$(CHAN)SCAs:5:,PORT=$(PORT),ADDR=2,TIMEOUT=1,CHAN=$(CHAN), SCA=4")
 dbLoadRecords("xspress3ChannelSCALimits.template", "P=$(PREFIX),R=C$(CHAN)SCAs:6:,PORT=$(PORT), ADDR=2, TIMEOUT=1, CHAN=$(CHAN), SCA=5")
@@ -128,9 +123,8 @@ dbLoadRecords("xspress3ChannelDTC.template", "P=$(PREFIX),R=det1:,PORT=$(PORT),C
 #Channel 4
 #########################################
 epicsEnvSet("CHAN",   "4")
-#dbLoadRecords("xspress3_pluginControl.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
-#dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
-#dbLoadRecords("xspress3_AttrUpdate.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
+dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
+
 <SCAROI.cmd
 dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=C$(CHAN)SCAs:5:,PORT=$(PORT),ADDR=3,TIMEOUT=1,CHAN=$(CHAN), SCA=4")
 dbLoadRecords("xspress3ChannelSCALimits.template", "P=$(PREFIX),R=C$(CHAN)SCAs:6:,PORT=$(PORT), ADDR=3, TIMEOUT=1, CHAN=$(CHAN), SCA=5")
