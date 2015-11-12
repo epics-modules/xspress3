@@ -17,6 +17,9 @@ simpleExample_DBD += base.dbd
 
 # Include dbd files from all support applications:
 simpleExample_DBD += asyn.dbd
+simpleExample_DBD += calcSupport.dbd
+simpleExample_DBD += ADSupport.dbd
+simpleExample_DBD += aCalcoutRecord.dbd
 simpleExample_DBD += xspress3Support.dbd
 
 # Add all the support libraries needed by this IOC
