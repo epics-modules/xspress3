@@ -1,0 +1,3 @@
+SUPPORT       = /scratch/clean_env
+EPICS_BASE    = /scratch/clean_env/base-3.14.12.3
+

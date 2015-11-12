@@ -1,4 +1,6 @@
 TOP = ../..
 include $(TOP)/configure/CONFIG
-SCRIPTS = stsimpleExample.boot
-include $(TOP)/configure/RULES
+ARCH = linux-x86_64
+TARGETS = envPaths cdCommands
+include $(TOP)/configure/RULES.ioc
+
