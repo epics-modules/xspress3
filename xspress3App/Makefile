@@ -7,5 +7,7 @@ DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *db*))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *Db*))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard *opi*))
 DIRS := $(DIRS) $(filter-out $(DIRS), $(wildcard protocol))
+DIRS += tests
+tests_DEPEND_DIRS += src
 include $(TOP)/configure/RULES_DIRS
 
