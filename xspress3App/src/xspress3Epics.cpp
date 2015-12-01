@@ -1439,19 +1439,20 @@ bool Xspress3::createSCAArray(void *&pSCA)
  * @param pMCA Reference to a pointer to the NDArray that will be allocated
  * @param dataType The NDDataType_t of the NDArray (NDUInt32 or NDFloat64)
  *
- * @return true if an allocation error occurs otherwise false
+ * @return false if an allocation error occurs otherwise false
  */
 bool Xspress3::createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType)
 {
     const char *functionName = "Xspress3::createMCAArray";
-    bool error = false;
+    bool allocated = false;
     pMCA = this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
     if (pMCA == NULL) {
         asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: pNDArrayPool->alloc failed.\n", functionName);
         this->adReportError("Memory Error. Check IOC Log.");
-        error = true;
+    } else {
+        allocated = true;
     }
-    return error;
+    return allocated;
 }
 
 /** 
@@ -1726,7 +1727,7 @@ static void xsp3DataTaskC(void *xspAD)
             acquired = pXspAD->getNumFramesRead();
             if (frameNumber <= acquired) {
                 lastAcquired = acquired;
-                if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
+                if (pXspAD->createMCAArray(dims, pMCA, dataType)) {
                     if (dataType == NDFloat64) {
                         error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frameNumber, maxSpectra);
                     } else {
