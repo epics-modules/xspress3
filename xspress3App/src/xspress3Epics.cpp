@@ -77,12 +77,13 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param numChannels The max number of channels to use (eg. 4 or 8)
  * @param numCards The number of Xspress3 systems (normally 1)
  * @param baseIP The base address used by the Xspress3 1Gig and 10Gig interfaces (eg. "192.168.0.1")
- * @param maxFrames The maximum number of frames that can be acquired in one acquisition (eg. 16384) 
+ * @param maxFrames The maximum number of frames that can be acquired in one acquisition (eg. 16384)
+ * @param maxDriverFrames The maximum number of frames that can be acquired in one acquisition (eg. 16384)
  * @param maxSpectra The maximum size of each spectra (eg. 4096)
  * @param maxBuffers Used by asynPortDriver (set to -1 for unlimited)
  * @param maxMemory Used by asynPortDriver (set to -1 for unlimited)
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
- * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
+ * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode.
  */
 Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
   : ADDriver(portName,
