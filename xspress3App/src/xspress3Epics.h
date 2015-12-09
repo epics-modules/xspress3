@@ -55,6 +55,10 @@
 #include "xsp3Detector.h"
 #include "xsp3Simulator.h"
 
+#ifdef __UNIT_TEST__
+#include "../tests/xspress3EpicsTest.h"
+#endif
+
 /* These are the drvInfo strings that are used to identify the parameters.
  * They are used by asyn clients, including standard asyn device support */
 //System wide settings
@@ -107,7 +111,12 @@
 #define xsp3RoiEnableParamString        "XSP3_CTRL_MCA_ROI"
 #define xsp3DtcEnableParamString        "XSP3_CTRL_DTC"
 
-
+const int INTERFACE_MASK = asynInt32Mask | asynInt32ArrayMask |
+    asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask |
+    asynDrvUserMask | asynOctetMask | asynGenericPointerMask;
+const int INTERRUPT_MASK = asynInt32Mask | asynInt32ArrayMask |
+    asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask |
+    asynOctetMask | asynGenericPointerMask;
 
 extern "C" {
   int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
@@ -115,11 +124,14 @@ extern "C" {
 
 
 class Xspress3 : public ADDriver {
-
+#ifdef __UNIT_TEST__
+    friend class Xspress3Det;
+#endif
  public:
   Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
   Xspress3(const char *portName, int numChannels);
   virtual ~Xspress3();
+  void mainLoop();
 
   /* These are the methods that we override from asynPortDriver */
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
@@ -128,30 +140,7 @@ class Xspress3 : public ADDriver {
                                     size_t nChars, size_t *nActual);
   virtual void report(FILE *fp, int details);
 
-  const int checkForStopEvent(double timeout, const char *message);
-  const int waitForStartEvent(const char *message);
-  void adReportError(const char* message);
-  bool createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType);
-  bool createSCAArray(void *&pSCA);
-  bool readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra);
-  bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra);
-  asynStatus setWindow(int channel, int sca, int llm, int hlm);
-  asynStatus connect(void);
-  void writeOutScas(void *&pSCA, int numChannels);
-  void setStartingParameters();
-  const NDDataType_t getDataType();
-  void getDims(size_t (&dims)[2]);
-  asynStatus checkHistBusy(int checkTimes);
-  const int getXsp3Handle() { return this->xsp3_handle_; }
-  xsp3Api *getXsp3() { return this->xsp3; }
-  void setNDArrayAttributes(NDArray *&pMCA, int frameNumber);
-  void setAcqStopParameters(bool aborted);
-  int getNumFramesToAcquire();
-  void doNDCallbacksIfRequired(NDArray *pMCA);
-  int getNumFramesRead();
-  void xspAsynPrint(int asynPrintType, const char *format, ...);
-
- private:
+   private:
 
   //Put private functions here
   void checkStatus(int status, const char *function, const char *parentFunction);
@@ -170,6 +159,24 @@ class Xspress3 : public ADDriver {
   asynStatus setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce );
   void createInitialParameters();
   bool setInitialParameters(int maxFrames, int maxDriverFrames, int numCards, int maxSpectra);
+  const int checkForStopEvent(double timeout, const char *message);
+  const int waitForStartEvent(const char *message);
+  void adReportError(const char* message);
+  bool createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType);
+  bool readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra);
+  bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra);
+  asynStatus setWindow(int channel, int sca, int llm, int hlm);
+  asynStatus connect(void);
+  void writeOutScas(void *&pSCA, int numChannels);
+  void setStartingParameters();
+  const NDDataType_t getDataType();
+  void getDims(size_t (&dims)[2]);
+  asynStatus checkHistBusy(int checkTimes);
+  void setNDArrayAttributes(NDArray *&pMCA, int frameNumber);
+  void setAcqStopParameters(bool aborted);
+  int getNumFramesToAcquire();
+  void doNDCallbacksIfRequired(NDArray *pMCA);
+  int getNumFramesRead();
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;

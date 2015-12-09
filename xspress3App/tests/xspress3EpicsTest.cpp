@@ -3,8 +3,8 @@
 #include <boost/test/unit_test.hpp>
 
 #include <stdio.h>
-#include "xspress3Epics.h"
 #include "xspress3.h"
+#include "xspress3EpicsTest.h"
 
 #define MAX_SPECTRA 4096
 #define NUM_CHANNELS 10
@@ -12,87 +12,83 @@
 // asynPorts seem to hang around even after the xspress destructor so use a new port name for each test suite.
 char asynPortHack = 1;
 
-struct xspress3Det
+Xspress3Det::Xspress3Det()
 {
-    Xspress3 xsp;
-    Xspress3 *pXsp;
- 
-    xspress3Det() : xsp(&asynPortHack, NUM_CHANNELS)
-    {
-        pXsp = &xsp;
-        BOOST_TEST_MESSAGE("setup xspress");
-        xsp.connect();
-        xsp.setWindow(0, 5, 0, 4);
-        asynPortHack++;
-    }
- 
-    ~xspress3Det()
-    {
-        if (pXsp == NULL)
-            BOOST_TEST_MESSAGE("xsp not null");
-        BOOST_TEST_MESSAGE("teardown xspress");
-    }
-};
+    xsp = new Xspress3(&asynPortHack, NUM_CHANNELS);
+}
 
-BOOST_FIXTURE_TEST_SUITE(support, xspress3Det)
+void Xspress3Det::connect()
+{
+    this->xsp->connect();
+}
 
-BOOST_AUTO_TEST_CASE(createMCAArrayUInt32)
+bool Xspress3Det::createMCAArray(NDDataType_t dataType)
 {
     size_t dims[2] = {MAX_SPECTRA, NUM_CHANNELS};
     NDArray *pMCA;
-    BOOST_CHECK(xsp.createMCAArray(dims, pMCA, NDUInt32) == true);
+    return this->xsp->createMCAArray(dims, pMCA, dataType);
+}
+
+bool Xspress3Det::readFrameUInt()
+{
+    u_int32_t SCA[XSP3_SW_NUM_SCALERS], MCAData[MAX_SPECTRA * NUM_CHANNELS];
+    return this->xsp->readFrame(&SCA[0], &MCAData[0], 0, MAX_SPECTRA);
+}
+
+bool Xspress3Det::readFrameDouble()
+{
+    double *SCA, *MCAData;
+    bool result;
+    SCA = new double[XSP3_SW_NUM_SCALERS];
+    MCAData = new double[MAX_SPECTRA * NUM_CHANNELS];
+    result = this->xsp->readFrame(SCA, MCAData, 0, MAX_SPECTRA);
+    // It looks like hist_dtc_read4d does something funny with SCA as
+    // delete causes a SIGABRT when freeing so lets just leak it for
+    // now.
+    delete[] MCAData;
+    return result;
+}
+
+struct xspress3Fixture
+{
+    Xspress3Det xspDet;
+    Xspress3Det *pXspDet;
+ 
+    xspress3Fixture()
+    {
+        pXspDet = &xspDet;
+        xspDet.connect();
+        asynPortHack++;
+    }
+ 
+    ~xspress3Fixture()
+    {
+        if (pXspDet == NULL)
+            BOOST_TEST_MESSAGE("xsp not null");
+    }
+};
+
+BOOST_FIXTURE_TEST_SUITE(support, xspress3Fixture)
+
+BOOST_AUTO_TEST_CASE(createMCAArrayUInt32)
+{
+    BOOST_CHECK(xspDet.createMCAArray(NDUInt32) == true);
 }
 
 BOOST_AUTO_TEST_CASE(createMCAArrayFloat64)
 {
-    size_t dims[2] = {MAX_SPECTRA, NUM_CHANNELS};
-    NDArray *pMCA;
-    BOOST_CHECK(xsp.createMCAArray(dims, pMCA, NDFloat64) == true);
+    BOOST_CHECK(xspDet.createMCAArray(NDFloat64) == true);
 }
 
-// BOOST_AUTO_TEST_CASE(readFrameDouble)
-// {
-//     size_t dims[2] = {MAX_SPECTRA, NUM_CHANNELS};
-//     double *pMCAData, *pSCA;
-//     pSCA = (double*)malloc(XSP3_SW_NUM_SCALERS * NUM_CHANNELS * 8);
-//     pMCAData = (double*)malloc(MAX_SPECTRA * NUM_CHANNELS * 8);
-//     BOOST_CHECK(xsp.readFrame(pSCA, pMCAData, 1, MAX_SPECTRA) == false);
-//     free(pSCA);
-//     free(pMCAData);
-// }
+BOOST_AUTO_TEST_CASE(readFrameDouble)
+{
+    BOOST_CHECK(xspDet.readFrameDouble() == false);
+}
 
 BOOST_AUTO_TEST_CASE(readFrameUInt)
 {
-    u_int32_t SCA[XSP3_SW_NUM_SCALERS], MCAData[MAX_SPECTRA * NUM_CHANNELS];
-    BOOST_CHECK(xsp.readFrame(&SCA[0], &MCAData[0], 1, MAX_SPECTRA) == false);
+    BOOST_CHECK(xspDet.readFrameUInt() == false);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
-
-// BOOST_AUTO_TEST_CASE(integration)
-// {
-//     Xspress3 xsp(&++asynPortHack, NUM_CHANNELS);
-//     xsp3Api *xsp3;
-//     NDArray *pMCA;
-//     double *pData;
-//     void *pSCA;
-//     size_t dims[2] = {MAX_SPECTRA, NUM_CHANNELS};
-//     xsp3 = xsp.getXsp3();
-//     xsp.connect();
-//     xsp.createMCAArray(dims, pMCA, NDFloat64);
-//     pData = (double*)pMCA->pData;
-//     xsp.createSCAArray(pSCA);
-//     xsp3->histogram_start(xsp.getXsp3Handle(), -1);
-//     xsp.readFrame(static_cast<double*>(pSCA), pData, 1, MAX_SPECTRA);
-//     BOOST_CHECK(pData[0] == 1);
-//     for (int i=0; i<MAX_SPECTRA; i++)
-//         BOOST_CHECK(pData[i] == (int)pData[i] % 100);
-//     free(pSCA);
-//     pMCA->release();
-// }
-
-// BOOST_AUTO_TEST_CASE(dataTask)
-// {
-//     xspress3Config(&++asynPortHack, NUM_CHANNELS, 1, "127.0.0.1", 16, 16, MAX_SPECTRA, -1, -1, 1, 1);
-// }
     

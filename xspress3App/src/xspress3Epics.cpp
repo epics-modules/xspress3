@@ -67,9 +67,6 @@ const epicsInt32 Xspress3::mbboTriggerLVDSBOTH_ = 6;
 const epicsInt32 Xspress3::ADAcquireFalse_ = 0;
 const epicsInt32 Xspress3::ADAcquireTrue_ = 1;
 
-const int INTERFACE_MASK = asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask | asynGenericPointerMask;
-const int INTERRUPT_MASK = asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask | asynGenericPointerMask;
-
 //C Function prototypes to tie in with EPICS
 static void xsp3DataTaskC(void *drvPvt);
 
@@ -1413,26 +1410,6 @@ void Xspress3::adReportError(const char* message)
 }
 
 /** 
- * Malloc an array large enough to hold the SCAs
- *
- * @param pSCA A reference to a pointer that will point to the allocated memory
- *
- * @return true if an allocation error occurs otherwise false
- */
-bool Xspress3::createSCAArray(void *&pSCA)
-{
-    const char *functionName = "Xspress3::createSCAArray";
-    pSCA = malloc(XSP3_SW_NUM_SCALERS * this->numChannels_ * sizeof(double));
-    if (pSCA == NULL) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: SCA malloc failed.\n", functionName);
-        this->adReportError("Memory Error. Check IOC Log.");
-        return true;
-    } else {
-        return false;
-    }
-}
-
-/** 
  * Allocate an NDArray to put a detector frame into
  *
  * @param dims [maximum number of spectral bins, number of channels]
@@ -1676,15 +1653,8 @@ int Xspress3::getNumFramesRead()
     return numFrames;
 }
 
-void Xspress3::xspAsynPrint(int asynPrintType, const char *format, ...)
+void Xspress3::mainLoop()
 {
-    const int maxMessageLen=1024;
-    va_list pArg;
-    char message[maxMessageLen];
-    va_start(pArg, format);
-    vsprintf(message, format, pArg);
-    asynPrint(this->pasynUserSelf, asynPrintType, message);
-    va_end(pArg);
 }
 
 /** 
@@ -1696,75 +1666,7 @@ void Xspress3::xspAsynPrint(int asynPrintType, const char *format, ...)
 static void xsp3DataTaskC(void *xspAD)
 {
     Xspress3 *pXspAD = (Xspress3 *)xspAD;
-    void *pSCA;
-    NDArray *pMCA;
-    NDDataType_t dataType;
-    bool acquire, aborted, error=false;
-    int numChannels, maxSpectra, frameNumber, numFrames=0, acquired, lastAcquired;
-    size_t dims[2];
-    const double timeout = 0.00001;
-    const int checkTimes = 20;
-    // The scalar array can be reused so create it now
-    pXspAD->createSCAArray(pSCA);
-    while (1) {
-        acquired = lastAcquired = frameNumber = 0;
-        aborted = false;
-        pXspAD->checkForStopEvent(timeout, "Got stop event before start event.\n");
-        if (pXspAD->waitForStartEvent("Got start event.\n") == epicsEventWaitOK) {
-            acquire = true;
-            pXspAD->lock();
-            pXspAD->setStartingParameters();
-            pXspAD->unlock();
-        }
-        dataType = pXspAD->getDataType();
-        pXspAD->getDims(dims);
-        maxSpectra = dims[0];
-        numChannels = dims[1];
-        frameNumber = 1;
-        numFrames = pXspAD->getNumFramesToAcquire();
-        pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
-        while (acquire && (frameNumber <= numFrames)) {
-            acquired = pXspAD->getNumFramesRead();
-            if (frameNumber <= acquired) {
-                lastAcquired = acquired;
-                if (pXspAD->createMCAArray(dims, pMCA, dataType)) {
-                    if (dataType == NDFloat64) {
-                        error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frameNumber, maxSpectra);
-                    } else {
-                        error = pXspAD->readFrame(static_cast<u_int32_t*>(pSCA), static_cast<u_int32_t*>(pMCA->pData), frameNumber, maxSpectra);
-                    }
-                    if (error) {
-                        pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "There was an error during read out %d\n", error);
-                    }
-                    pXspAD->lock();
-                    pXspAD->writeOutScas(pSCA, numChannels);
-                    pXspAD->unlock();
-                    frameNumber++;
-                    pXspAD->setNDArrayAttributes(pMCA, frameNumber);
-                    pXspAD->doNDCallbacksIfRequired(pMCA);
-                    pMCA->release();
-                } else {
-                    pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "Did not create a new array!\n");
-                }
-                pXspAD->lock();
-                pXspAD->callParamCallbacks();
-                pXspAD->unlock();
-            }
-            if (pXspAD->checkForStopEvent(timeout, "Got stop event.\n") == epicsEventWaitOK) {
-                acquire = false;
-                aborted = true;
-                pXspAD->checkHistBusy(checkTimes);
-                pXspAD->lock();
-                pXspAD->setAcqStopParameters(true);
-                pXspAD->unlock();
-            }
-        }
-        if (!aborted) {
-            pXspAD->lock();
-            pXspAD->setAcqStopParameters(false);
-            pXspAD->unlock();
-        }
-    }
+    pXspAD->mainLoop();
 }
 
 /*************************************************************************************/
