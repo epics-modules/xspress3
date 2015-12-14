@@ -66,6 +66,8 @@ const epicsInt32 Xspress3::mbboTriggerLVDSVETO_ = 5;
 const epicsInt32 Xspress3::mbboTriggerLVDSBOTH_ = 6;
 const epicsInt32 Xspress3::ADAcquireFalse_ = 0;
 const epicsInt32 Xspress3::ADAcquireTrue_ = 1;
+const epicsUInt8 Xspress3::startEvent = 1;
+const epicsUInt8 Xspress3::stopEvent = 2;
 
 //C Function prototypes to tie in with EPICS
 static void xsp3DataTaskC(void *drvPvt);
@@ -99,100 +101,49 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 	     0), /* Default stack size*/
     debug_(debug), numChannels_(numChannels), simTest_(simTest), baseIP_(baseIP)
 {
-  int status = asynSuccess;
-  const char *functionName = "Xspress3::Xspress3";
-
-  //strncpy(baseIP_, baseIP, 16);
-  //baseIP_[16] = '\0';
-
-  //Create the epicsEvent for signaling to the status task when parameters should have changed.
-  //This will cause it to do a poll immediately, rather than wait for the poll time period.
-  startEvent_ = epicsEventMustCreate(epicsEventEmpty);
-  if (!startEvent_) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsEventCreate failure for start event.\n", functionName);
-    return;
-  }
-  stopEvent_ = epicsEventMustCreate(epicsEventEmpty);
-  if (!stopEvent_) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsEventCreate failure for start event.\n", functionName);
-    return;
-  }
-  this->createInitialParameters();
-  //Initialize non static, non const, data members
-  xsp3_handle_ = 0;
-  bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
-  paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
-  //Create the thread that readouts the data 
-  status = (epicsThreadCreate("GeDataTask",
-                              epicsThreadPriorityHigh,
-                              epicsThreadGetStackSize(epicsThreadStackMedium),
-                              (EPICSTHREADFUNC)xsp3DataTaskC,
-                              this) == NULL);
-  if (status) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsThreadCreate failure for data task.\n", functionName);
-    return;
-  }
-
-
-  printf( "Simulation: %d\n", simTest_ );
-  if (simTest_) {
-    paramStatus = ((setStringParam(ADStatusMessage, "Init. Simulation Mode.") == asynSuccess) && paramStatus);
-    xsp3 = new xsp3Simulator(this->pasynUserSelf,numChannels,maxSpectra);
-  } else {
-    paramStatus = ((setStringParam(ADStatusMessage, "Init. System Disconnected.") == asynSuccess) && paramStatus);
-    xsp3 = new xsp3Detector(this->pasynUserSelf);
-  }
-  
-  callParamCallbacks();
-
-  if (!paramStatus) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
-  }
-
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s End Of Constructor.\n", functionName);
-
-}
-
- /** 
- * A constructor for the test suite.
- *
- * This constructor defines a lot of parameters in it for ease of testing.
- *
- * @param portName The asyn port name, this must be unique to each instance.
- * @param numChannels The number of channels to simulate.
- *
- */
-Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, numChannels, NUM_DRIVER_PARAMS, -1, -1, INTERFACE_MASK, INTERRUPT_MASK, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, 0, 0), debug_(1), numChannels_(numChannels), simTest_(1), baseIP_("127.0.0.1")
-{
+    int status = asynSuccess;
     const char *functionName = "Xspress3::Xspress3";
-    const int maxFrames = 1000;
-    const int maxDriverFrames = 1000;
-    const int maxSpectra = 4096;
-    const int numCards = 1;
-    const int simTest = 1;
+
+    // Create a message queue to pass events e.g. start and stop. The
+    // messages are epicsInt32s e.g. Xspress3::startEvent
+    this->queueSize = 16;
+    eventQueue = new epicsMessageQueue(this->queueSize, sizeof(this->startEvent));
+    // Create the array to hold the scalars and make sure a float and
+    // double pointer point at the array so that the same array can be
+    // used regardless of dead-time correction on the hardware.
+    pSCAd = new double[XSP3_SW_NUM_SCALERS * numChannels];
+    pSCAui = reinterpret_cast<const u_int32_t*>(pSCAd);
     this->lock();
     this->createInitialParameters();
     //Initialize non static, non const, data members
     xsp3_handle_ = 0;
     bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
+    //this->unlock();
     paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
-    if (simTest) {
+    //Create the thread that readouts the data 
+    status = (epicsThreadCreate("GetDataTask",
+                                epicsThreadPriorityHigh,
+                                epicsThreadGetStackSize(epicsThreadStackMedium),
+                                (EPICSTHREADFUNC)xsp3DataTaskC,
+                                this) == NULL);
+    if (status) {
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsThreadCreate failure for data task.\n", functionName);
+        return;
+    }
+    if (simTest_) {
+        printf( "Simulation: %d\n", simTest_ );
         paramStatus = ((setStringParam(ADStatusMessage, "Init. Simulation Mode.") == asynSuccess) && paramStatus);
         xsp3 = new xsp3Simulator(this->pasynUserSelf,numChannels,maxSpectra);
     } else {
         paramStatus = ((setStringParam(ADStatusMessage, "Init. System Disconnected.") == asynSuccess) && paramStatus);
         xsp3 = new xsp3Detector(this->pasynUserSelf);
     }
-  
     callParamCallbacks();
-
     if (!paramStatus) {
         asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
     }
-
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s End Of Constructor.\n", functionName);
-
-}
+     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s End Of Constructor.\n", functionName);
+ }
 
 /** 
  * Create the asyn parameters required to set up and control the xspress3.
@@ -1058,8 +1009,8 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 		status = asynError;
 	    }
 	    if (status == asynSuccess) {
-	      epicsEventSignal(this->startEvent_);
-              asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Collection.\n", functionName);
+            this->pushEvent(this->startEvent);
+            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Collection.\n", functionName);
 	    }
 	}
       }
@@ -1073,7 +1024,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 		status = asynError;
 	    }
 	    if (status == asynSuccess) {
-	      epicsEventSignal(this->stopEvent_);
+            this->pushEvent(this->stopEvent);
 	    }
 	  }
       }
@@ -1480,41 +1431,6 @@ bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, 
 }
 
 /** 
- * A shortcut to wait for the stop event and print diagnostics if necessary
- *
- * @param timeout The period to wait for the stop event before giving up
- * @param message The message to print if the stop event has occured within timeout
- *
- * @return the status returned by epicsEventWaitWithTimeout
- */
-const int Xspress3::checkForStopEvent(double timeout, const char *message)
-{
-    int eventStatus;
-    eventStatus = epicsEventWaitWithTimeout(this->stopEvent_, timeout);
-    if (eventStatus == epicsEventWaitOK) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, message);
-    }
-    return eventStatus;
-}
-
-/** 
- * A shortcut to wait indefinitely for a start event and print diagnostics if necessary
- *
- * @param message The message to print if the event has occured and requested
- *
- * @return the status returned by epicsEventWaitWithTimeout
- */
-const int Xspress3::waitForStartEvent(const char *message)
-{
-    int eventStatus;
-    eventStatus = epicsEventWait(startEvent_);          
-    if (eventStatus == epicsEventWaitOK) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, message);
-    }
-    return eventStatus;
-}
-
-/** 
  * Write the SCAs to the AD parameters
  *
  * @param pSCA A pointer to an array of SCAs from the hardware
@@ -1638,6 +1554,17 @@ void Xspress3::doNDCallbacksIfRequired(NDArray *pMCA)
     if (arrayCallbacks) {
         asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "doNDCallbacksIfRequired: Calling NDArray callback\n");
         this->doCallbacksGenericPointer(pMCA, NDArrayData, 0);
+    }
+}
+
+void Xspress3::pushEvent(const epicsUInt8& message)
+{
+    epicsUInt8 mess = message;
+    void *pMessage = reinterpret_cast<void*>(&mess);
+    if (this->eventQueue->trySend(pMessage, sizeof(mess)) == -1) {
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR,
+                  "No room left on the event queue\n");
+        throw 0;
     }
 }
 

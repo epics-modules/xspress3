@@ -14,12 +14,8 @@ char asynPortHack = 1;
 
 Xspress3Det::Xspress3Det()
 {
-    xsp = new Xspress3(&asynPortHack, NUM_CHANNELS);
-}
-
-void Xspress3Det::connect()
-{
-    this->xsp->connect();
+    xsp = new Xspress3Test(&asynPortHack, NUM_CHANNELS);
+    xsp->connect();
 }
 
 bool Xspress3Det::createMCAArray(NDDataType_t dataType)
@@ -31,7 +27,7 @@ bool Xspress3Det::createMCAArray(NDDataType_t dataType)
 
 bool Xspress3Det::readFrameUInt()
 {
-    u_int32_t SCA[XSP3_SW_NUM_SCALERS], MCAData[MAX_SPECTRA * NUM_CHANNELS];
+    u_int32_t SCA[XSP3_SW_NUM_SCALERS * NUM_CHANNELS], MCAData[MAX_SPECTRA * NUM_CHANNELS];
     return this->xsp->readFrame(&SCA[0], &MCAData[0], 0, MAX_SPECTRA);
 }
 
@@ -39,14 +35,23 @@ bool Xspress3Det::readFrameDouble()
 {
     double *SCA, *MCAData;
     bool result;
-    SCA = new double[XSP3_SW_NUM_SCALERS];
+    SCA = new double[XSP3_SW_NUM_SCALERS * NUM_CHANNELS];
     MCAData = new double[MAX_SPECTRA * NUM_CHANNELS];
     result = this->xsp->readFrame(SCA, MCAData, 0, MAX_SPECTRA);
-    // It looks like hist_dtc_read4d does something funny with SCA as
-    // delete causes a SIGABRT when freeing so lets just leak it for
-    // now.
+    delete[] SCA;
     delete[] MCAData;
     return result;
+}
+
+void Xspress3Det::pushSingleEvent()
+{
+    this->xsp->pushEvent(this->xsp->startEvent);
+}
+
+void Xspress3Det::fillEventQueue()
+{
+    for (int nEvent=0; nEvent<17; nEvent++)
+        this->xsp->pushEvent(this->xsp->stopEvent);
 }
 
 struct xspress3Fixture
@@ -57,7 +62,6 @@ struct xspress3Fixture
     xspress3Fixture()
     {
         pXspDet = &xspDet;
-        xspDet.connect();
         asynPortHack++;
     }
  
@@ -88,6 +92,20 @@ BOOST_AUTO_TEST_CASE(readFrameDouble)
 BOOST_AUTO_TEST_CASE(readFrameUInt)
 {
     BOOST_CHECK(xspDet.readFrameUInt() == false);
+}
+
+BOOST_AUTO_TEST_CASE(pushEvent)
+{
+    BOOST_CHECK_NO_THROW(xspDet.pushSingleEvent());
+}
+
+BOOST_AUTO_TEST_CASE(fillEventQueue)
+{
+    try {
+        xspDet.fillEventQueue();
+    } catch(...) {
+        BOOST_CHECK(true);
+    }
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -55,9 +55,9 @@
 #include "xsp3Detector.h"
 #include "xsp3Simulator.h"
 
-#ifdef __UNIT_TEST__
-#include "../tests/xspress3EpicsTest.h"
-#endif
+#include <iostream>
+using std::string;
+
 
 /* These are the drvInfo strings that are used to identify the parameters.
  * They are used by asyn clients, including standard asyn device support */
@@ -124,9 +124,7 @@ extern "C" {
 
 
 class Xspress3 : public ADDriver {
-#ifdef __UNIT_TEST__
     friend class Xspress3Det;
-#endif
  public:
   Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
   Xspress3(const char *portName, int numChannels);
@@ -159,8 +157,7 @@ class Xspress3 : public ADDriver {
   asynStatus setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce );
   void createInitialParameters();
   bool setInitialParameters(int maxFrames, int maxDriverFrames, int numCards, int maxSpectra);
-  const int checkForStopEvent(double timeout, const char *message);
-  const int waitForStartEvent(const char *message);
+  void pushEvent(const epicsUInt8& message);
   void adReportError(const char* message);
   bool createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType);
   bool readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra);
@@ -195,6 +192,8 @@ class Xspress3 : public ADDriver {
   static const epicsInt32 mbboTriggerLVDSBOTH_;
   static const epicsInt32 ADAcquireFalse_;
   static const epicsInt32 ADAcquireTrue_;
+  static const epicsUInt8 startEvent;
+  static const epicsUInt8 stopEvent;
   
   //Put private dynamic here
   int xsp3_handle_; 
@@ -207,9 +206,10 @@ class Xspress3 : public ADDriver {
   const epicsUInt32 simTest_; //Run in sim mode
   const std::string baseIP_; //Constructor param - IP address of host system
 
-  epicsEventId statusEvent_;
-  epicsEventId startEvent_;
-  epicsEventId stopEvent_;
+  const u_int32_t *pSCAui;
+  const double *pSCAd;
+  int queueSize;
+  epicsMessageQueue *eventQueue;
 
   //Values used for pasynUser->reason, and indexes into the parameter library.
   int xsp3FirstParam;

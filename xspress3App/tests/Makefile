@@ -9,6 +9,7 @@ include $(TOP)/configure/CONFIG
 ifdef BOOST 
   PROD_IOC_Linux += xspress3EpicsTest
   xspress3EpicsTest_SRCS += xspress3EpicsTest.cpp
+  xspress3EpicsTest_SRCS += testXspress3.cpp
   USR_INCLUDES += -D__UNIT_TEST__
   USR_INCLUDES += -I../../src
   ifdef BOOST_LIBS
