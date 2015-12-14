@@ -164,7 +164,8 @@ class Xspress3 : public ADDriver {
   bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
   asynStatus connect(void);
-  void writeOutScas(void *&pSCA, int numChannels);
+  template <typename SCAtype>
+  void writeOutScas(SCAtype pSCA, int numChannels);
   void setStartingParameters();
   const NDDataType_t getDataType();
   void getDims(size_t (&dims)[2]);
@@ -267,5 +268,35 @@ class Xspress3 : public ADDriver {
 
 //static const char *driverName = "Xspress3";
 
+/** 
+ * Write the SCAs to the AD parameters
+ *
+ * @param pSCA A pointer to an array of SCAs from the hardware
+ * @param numChannels The number of xspress3 channels in the SCA array
+ */
+template <typename SCAtype>
+void Xspress3::writeOutScas(const SCAtype pSCA, const int numChannels)
+{
+    SCAtype pScaData = pSCA;
+    for (int chan=0; chan<numChannels; ++chan) {
+        this->setDoubleParam(chan, this->xsp3ChanSca0Param,
+                             static_cast<epicsFloat64>(pScaData[0]));
+        this->setDoubleParam(chan, this->xsp3ChanSca1Param,
+                             static_cast<epicsFloat64>(pScaData[1]));
+        this->setDoubleParam(chan, this->xsp3ChanSca2Param,
+                             static_cast<epicsFloat64>(pScaData[2]));
+        this->setDoubleParam(chan, this->xsp3ChanSca3Param,
+                             static_cast<epicsFloat64>(pScaData[3]));
+        this->setDoubleParam(chan, this->xsp3ChanSca4Param,
+                             static_cast<epicsFloat64>(pScaData[4]));
+        this->setDoubleParam(chan, this->xsp3ChanSca5Param,
+                             static_cast<epicsFloat64>(pScaData[5]));
+        this->setDoubleParam(chan, this->xsp3ChanSca6Param,
+                             static_cast<epicsFloat64>(pScaData[6]));
+        this->setDoubleParam(chan, this->xsp3ChanSca7Param,
+                             static_cast<epicsFloat64>(pScaData[7]));
+        pScaData += XSP3_SW_NUM_SCALERS;
+    }
+}
 
 #endif //ISC110BL_H

@@ -17,4 +17,6 @@ class Xspress3Det
     bool readFrameDouble();
     void pushSingleEvent();
     void fillEventQueue();
+    void writeOutScasUInt();
+    void writeOutScasDouble();
 };
