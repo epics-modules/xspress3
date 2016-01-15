@@ -112,8 +112,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     // double pointer point at the array so that the same array can be
     // used regardless of dead-time correction on the hardware.
     pSCAd = new double[XSP3_SW_NUM_SCALERS * numChannels];
-    pSCAui = reinterpret_cast<const u_int32_t*>(pSCAd);
-    this->lock();
+    pSCAui = reinterpret_cast<u_int32_t*>(pSCAd);
+    
     this->createInitialParameters();
     //Initialize non static, non const, data members
     xsp3_handle_ = 0;

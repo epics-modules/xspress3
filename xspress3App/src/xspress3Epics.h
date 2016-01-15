@@ -207,8 +207,8 @@ class Xspress3 : public ADDriver {
   const epicsUInt32 simTest_; //Run in sim mode
   const std::string baseIP_; //Constructor param - IP address of host system
 
-  const u_int32_t *pSCAui;
-  const double *pSCAd;
+  u_int32_t *pSCAui;
+  double *pSCAd;
   int queueSize;
   epicsMessageQueue *eventQueue;
 
