@@ -19,4 +19,6 @@ class Xspress3Det
     void fillEventQueue();
     void writeOutScasUInt();
     void writeOutScasDouble();
+    void grabFrameDouble();
+    void doALapDouble();
 };

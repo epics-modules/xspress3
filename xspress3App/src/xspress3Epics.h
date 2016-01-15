@@ -88,6 +88,7 @@ using std::string;
 #define xsp3InvertF0ParamString           "XSP3_INVERT_F0"
 #define xsp3InvertVetoParamString           "XSP3_INVERT_VETO"
 #define xsp3DebounceParamString           "XSP3_DEBOUNCE"
+#define xsp3FramesPerRowString "XSP3_FRAMES_PER_ROW"
 //Settings for a channel
 #define xsp3ChanSca0ParamString           "XSP3_CHAN_SCA0"
 #define xsp3ChanSca1ParamString           "XSP3_CHAN_SCA1"
@@ -110,6 +111,9 @@ using std::string;
 //Params to enable or disable calculations
 #define xsp3RoiEnableParamString        "XSP3_CTRL_MCA_ROI"
 #define xsp3DtcEnableParamString        "XSP3_CTRL_DTC"
+//Params for large maps
+#define pointsPerRowParamString "PointsPerRow"
+#define readyForNextRowParamString "ReadyForNextRow"
 
 const int INTERFACE_MASK = asynInt32Mask | asynInt32ArrayMask |
     asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask |
@@ -175,6 +179,10 @@ class Xspress3 : public ADDriver {
   int getNumFramesToAcquire();
   void doNDCallbacksIfRequired(NDArray *pMCA);
   int getNumFramesRead();
+  void grabFrame(int frameNumber, int frameOffset);
+  void doALap(int chunkSize, int xspBufferSize);
+  void startAcquisition();
+  bool checkQueue(const epicsUInt8 request, bool block);
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;
@@ -197,7 +205,9 @@ class Xspress3 : public ADDriver {
   static const epicsUInt8 stopEvent;
   
   //Put private dynamic here
-  int xsp3_handle_; 
+  int xsp3_handle_;
+  int maxSpectra;
+  int dtcEnabled;
 
   xsp3Api* xsp3;
 
@@ -259,6 +269,8 @@ class Xspress3 : public ADDriver {
   int xsp3ChanDtcIwoParam;  
   int xsp3RoiEnableParam;
   int xsp3DtcEnableParam;
+  int pointsPerRowParam;
+  int readyForNextRowParam;
   int xsp3LastParam;
   #define XSP3_LAST_DRIVER_COMMAND xsp3LastParam
 

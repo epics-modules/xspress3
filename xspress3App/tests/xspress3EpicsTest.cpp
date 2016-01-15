@@ -15,7 +15,8 @@ char asynPortHack = 1;
 Xspress3Det::Xspress3Det()
 {
     xsp = new Xspress3Test(&asynPortHack, NUM_CHANNELS);
-    xsp->connect();
+    //xsp = new Xspress3Test(&asynPortHack, NUM_CHANNELS, 1, "192.168.0.1", 1000, 1000, 4096, -1, -1, 1, 0);
+    BOOST_CHECK(xsp->connect() == XSP3_OK);
 }
 
 bool Xspress3Det::createMCAArray(NDDataType_t dataType)
@@ -50,8 +51,14 @@ void Xspress3Det::pushSingleEvent()
 
 void Xspress3Det::fillEventQueue()
 {
-    for (int nEvent=0; nEvent<17; nEvent++)
-        this->xsp->pushEvent(this->xsp->stopEvent);
+    const int aLotOfEvents = 18;
+    // Take the lock so the events won't be serviced by another thread
+    this->xsp->lock();
+    for (int nEvent=0; nEvent<aLotOfEvents; nEvent++) {
+        printf("Event %d\n", nEvent);
+        this->xsp->pushEvent(this->xsp->startEvent);
+    }
+    this->xsp->unlock();
 }
 
 void Xspress3Det::writeOutScasUInt()
@@ -68,6 +75,22 @@ void Xspress3Det::writeOutScasDouble()
     pSCA = new double[XSP3_SW_NUM_SCALERS * NUM_CHANNELS];
     this->xsp->writeOutScas(pSCA, NUM_CHANNELS);
     delete[] pSCA;
+}
+
+void Xspress3Det::grabFrameDouble()
+{
+    this->xsp->dtcEnabled = true;
+    this->xsp->maxSpectra = MAX_SPECTRA;
+    this->xsp->grabFrame(0, 0);
+}
+
+void Xspress3Det::doALapDouble()
+{
+    this->xsp->dtcEnabled = true;
+    this->xsp->maxSpectra = MAX_SPECTRA;
+    BOOST_CHECK(this->xsp->xsp3->histogram_start(
+                    this->xsp->xsp3_handle_, -1) == XSP3_OK);
+    this->xsp->doALap(16, 4);
 }
 
 struct xspress3Fixture
@@ -119,6 +142,7 @@ BOOST_AUTO_TEST_CASE(fillEventQueue)
 {
     try {
         xspDet.fillEventQueue();
+        BOOST_CHECK(false);
     } catch(...) {
         BOOST_CHECK(true);
     }
@@ -132,6 +156,16 @@ BOOST_AUTO_TEST_CASE(writeOutScasUInt)
 BOOST_AUTO_TEST_CASE(writeOutScasDouble)
 {
     BOOST_CHECK_NO_THROW(xspDet.writeOutScasDouble());
+}
+
+BOOST_AUTO_TEST_CASE(grabFrameDouble)
+{
+    BOOST_CHECK_NO_THROW(xspDet.grabFrameDouble());
+}
+
+BOOST_AUTO_TEST_CASE(doALapDouble)
+{
+    BOOST_CHECK_NO_THROW(xspDet.doALapDouble());
 }
 
 BOOST_AUTO_TEST_SUITE_END()
