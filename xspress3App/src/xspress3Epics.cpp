@@ -1595,6 +1595,7 @@ void Xspress3::grabFrame(int frameNumber, int frameOffset)
         error = true;
     }
     if (!error) {
+        this->setNDArrayAttributes(pMCA, frameOffset + frameNumber);
         this->lock();
         setIntegerParam(NDArrayCounter, frameOffset + frameNumber);
         this->doNDCallbacksIfRequired(pMCA);
