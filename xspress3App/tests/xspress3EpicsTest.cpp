@@ -90,7 +90,7 @@ void Xspress3Det::doALapDouble()
     this->xsp->maxSpectra = MAX_SPECTRA;
     BOOST_CHECK(this->xsp->xsp3->histogram_start(
                     this->xsp->xsp3_handle_, -1) == XSP3_OK);
-    this->xsp->doALap(16, 4);
+    this->xsp->doALap(16, 4, 0);
 }
 
 struct xspress3Fixture

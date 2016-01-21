@@ -1631,14 +1631,14 @@ bool Xspress3::checkQueue(const epicsUInt8 request, bool block)
     }
 }
 
-void Xspress3::doALap(int chunkSize, int xspBufferSize)
+void Xspress3::doALap(int chunkSize, int xspBufferSize, int startFrame)
 {
     // If histogram_start takes too long this could drop frames but GDA
     // should wait for the readyForNextParam signal. It should be
     // possible to reset the time frames with an Frame0 signal on the
     // TTL0 input of the Xspress3 boxes according to William Helsby but
     // this is currently untested.
-    int xsp3Status, totalFrames;
+    int xsp3Status, totalFrames = startFrame;
     epicsUInt8 event;
     void *pEvent = &event;
     if (this->getNumFramesRead() == xspBufferSize) {
@@ -1653,14 +1653,15 @@ void Xspress3::doALap(int chunkSize, int xspBufferSize)
         this->callParamCallbacks();
         this->unlock();
         for (int j=0; j<chunkSize; j++) {
-            while (this->getNumFramesRead() <= (i + j)) {
+            do {
                 if (this->checkQueue(this->stopEvent, false)) {
+                    asynPrint(this->pasynUserSelf, ASYN_TRACE_WARNING,
+                              "Stop event so throw\n");
                     throw 0;
                 }                
-            }
-            this->getIntegerParam(this->NDArrayCounter, &totalFrames);
-            totalFrames++;
+            } while (this->getNumFramesRead() <= (i + j));
             this->grabFrame(i + j, xspBufferSize*(totalFrames / xspBufferSize));
+            totalFrames++;
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "doALap lock %d\n", totalFrames);
             this->lock();
             if (j == 0)
@@ -1679,7 +1680,7 @@ void Xspress3::doALap(int chunkSize, int xspBufferSize)
 
 void Xspress3::startAcquisition()
 {
-    int numToAcquire, maxFrames, xsp3Status, lapLength;
+    int numToAcquire, maxFrames, xsp3Status, lapLength, frameNum=0;
     int chunkSize = 32;
     this->setStartingParameters();
     this->getIntegerParam(this->xsp3MaxFramesParam, &maxFrames);
@@ -1698,8 +1699,10 @@ void Xspress3::startAcquisition()
     while (numToAcquire > 0) {
         try {
             this->doALap(chunkSize < numToAcquire ? chunkSize : numToAcquire,
-                         lapLength < numToAcquire ? lapLength : numToAcquire);
+                         lapLength < numToAcquire ? lapLength : numToAcquire,
+                         frameNum);
             numToAcquire -= lapLength;
+            frameNum += lapLength;
             if (numToAcquire <= 0) {
                 this->xsp3->histogram_stop(this->xsp3_handle_, -1);
                 this->setAcqStopParameters(false);
