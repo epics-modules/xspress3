@@ -1365,6 +1365,7 @@ void Xspress3::adReportError(const char* message)
     setStringParam(ADStatusMessage, message);
     setIntegerParam(ADStatus, ADStatusError);
     setIntegerParam(ADAcquire, ADAcquireFalse_);
+    this->pushEvent(this->stopEvent);
 }
 
 /** 
@@ -1579,18 +1580,19 @@ void Xspress3::grabFrame(int frameNumber, int frameOffset)
     NDArray *pMCA;
     size_t dims[2];
     bool error;
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "grabFrame\n");
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW,
+              "grabFrame: number %d; offset %d\n", frameNumber, frameOffset);
     this->getDims(dims);
-    if (this->dtcEnabled) {
-        this->createMCAArray(dims, pMCA, NDFloat64);
+    if (this->dtcEnabled && this->createMCAArray(dims, pMCA, NDFloat64)) {
         error = this->readFrame(pSCAd, static_cast<double*>(pMCA->pData),
                                 frameNumber, this->maxSpectra);
         this->writeOutScas(pSCAd, this->numChannels_);
-    } else {
-        this->createMCAArray(dims, pMCA, NDUInt32);
+    } else if (this->createMCAArray(dims, pMCA, NDUInt32)) {
         error = this->readFrame(pSCAui, static_cast<u_int32_t*>(pMCA->pData),
                                 frameNumber, this->maxSpectra);
         this->writeOutScas(pSCAui, this->numChannels_);
+    } else {
+        error = true;
     }
     if (!error) {
         this->lock();
