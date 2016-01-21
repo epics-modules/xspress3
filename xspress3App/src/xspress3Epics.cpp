@@ -1631,7 +1631,7 @@ bool Xspress3::checkQueue(const epicsUInt8 request, bool block)
     }
 }
 
-void Xspress3::doALap(int chunkSize, int xspBufferSize, int startFrame)
+void Xspress3::doALap(int chunkSize, int numToAcquire, int startFrame)
 {
     // If histogram_start takes too long this could drop frames but GDA
     // should wait for the readyForNextParam signal. It should be
@@ -1641,13 +1641,13 @@ void Xspress3::doALap(int chunkSize, int xspBufferSize, int startFrame)
     int xsp3Status, totalFrames = startFrame;
     epicsUInt8 event;
     void *pEvent = &event;
-    if (this->getNumFramesRead() == xspBufferSize) {
+    if (this->getNumFramesRead() == numToAcquire) {
         xsp3Status = this->xsp3->histogram_start(this->xsp3_handle_, -1);
         if (xsp3Status != XSP3_OK) {
             this->checkStatus(xsp3Status, "histogram_start", "doALap");
         }
     }
-    for (int i=0; i<xspBufferSize; i+=chunkSize) {
+    for (int i=0; i<numToAcquire; i+=chunkSize) {
         this->lock();
         this->setIntegerParam(this->readyForNextRowParam, 1);
         this->callParamCallbacks();
@@ -1660,7 +1660,7 @@ void Xspress3::doALap(int chunkSize, int xspBufferSize, int startFrame)
                     throw 0;
                 }                
             } while (this->getNumFramesRead() <= (i + j));
-            this->grabFrame(i + j, xspBufferSize*(totalFrames / xspBufferSize));
+            this->grabFrame(i + j, startFrame);
             totalFrames++;
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "doALap lock %d\n", totalFrames);
             this->lock();
@@ -1681,7 +1681,7 @@ void Xspress3::doALap(int chunkSize, int xspBufferSize, int startFrame)
 void Xspress3::startAcquisition()
 {
     int numToAcquire, maxFrames, xsp3Status, lapLength, frameNum=0;
-    int chunkSize = 32;
+    int chunkSize;
     this->setStartingParameters();
     this->getIntegerParam(this->xsp3MaxFramesParam, &maxFrames);
     this->getIntegerParam(this->xsp3MaxSpectraParam, &this->maxSpectra);
