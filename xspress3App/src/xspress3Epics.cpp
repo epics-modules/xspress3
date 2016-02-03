@@ -1599,6 +1599,14 @@ void Xspress3::grabFrame(int frameNumber, int frameOffset)
     }
 }
 
+/** 
+ * Check the event queue for "request"
+ *
+ * @param request event to match
+ * @param block if true wait for an event
+ *
+ * @return true if the event matches request else false
+ */
 bool Xspress3::checkQueue(const epicsUInt8 request, bool block)
 {
     epicsUInt8 event;
@@ -1623,6 +1631,18 @@ bool Xspress3::checkQueue(const epicsUInt8 request, bool block)
     }
 }
 
+/** 
+ * Read numToAcquire frames in chunks of chunkSize
+ *
+ * A lap is either the total number of frames to acquire or a multiple
+ * of chunkSize that fits into the Xspress3 buffer. The chunkSize is
+ * typically the number of points in a row of a map so that resetting of
+ * the Xspress3 buffers can happen between rows.
+ *
+ * @param chunkSize number of points between readyForNextRow
+ * @param numToAcquire number of frames to collect this lap
+ * @param startFrame number of the last frame or zero
+ */
 void Xspress3::doALap(int chunkSize, int numToAcquire, int startFrame)
 {
     // If histogram_start takes too long this could drop frames but GDA
