@@ -1620,14 +1620,10 @@ bool Xspress3::checkQueue(const epicsUInt8 request, bool block)
     } else {
         status = this->eventQueue->tryReceive(pEvent, sizeof(event));
     }
-    if (status != -1) {
-        if (event == request) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
+    if (status == -1 || event != request) {
         return false;
+    } else {
+        return true;
     }
 }
 
