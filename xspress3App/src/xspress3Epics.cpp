@@ -1072,14 +1072,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    status = asynError;
 	  }
       }
-  } 
-  else if (function == ADNumImages) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames To Read Out.\n", functionName);
-    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
-    if (value > xsp3_time_frames) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Num Frames Higher Than Number Configured.\n", functionName);
-      status = asynError;
-    }
   }
   else if (function == xsp3NumFramesConfigParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames For Intial API Configuration.\n", functionName);
@@ -1638,13 +1630,15 @@ void Xspress3::doALap(int chunkSize, int numToAcquire, int startFrame)
     // possible to reset the time frames with an Frame0 signal on the
     // TTL0 input of the Xspress3 boxes according to William Helsby but
     // this is currently untested.
-    int xsp3Status, totalFrames = startFrame;
+    int xsp3Status, xsp3NChannels, totalFrames = startFrame;
     epicsUInt8 event;
     void *pEvent = &event;
+    const char *functionName = "Xspress3::doALap";
+    getIntegerParam(xsp3NumChannelsParam, &xsp3NChannels);
     if (this->getNumFramesRead() == numToAcquire) {
         xsp3Status = this->xsp3->histogram_start(this->xsp3_handle_, -1);
         if (xsp3Status != XSP3_OK) {
-            this->checkStatus(xsp3Status, "histogram_start", "doALap");
+            this->checkStatus(xsp3Status, "histogram_start", functionName);
         }
     }
     for (int i=0; i<numToAcquire; i+=chunkSize) {
@@ -1673,8 +1667,10 @@ void Xspress3::doALap(int chunkSize, int numToAcquire, int startFrame)
             this->unlock();
         }
         asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "Clear histogram\n");
-        this->xsp3->histogram_clear(this->xsp3_handle_, 0, this->maxSpectra,
-                                    i, chunkSize);
+        xsp3Status = this->xsp3->histogram_clear(this->xsp3_handle_, 0,
+                                                 xsp3NChannels, i,
+                                                 chunkSize);
+        this->checkStatus(xsp3Status, "histogram_clear", functionName);
     }
 }
 
