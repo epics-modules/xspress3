@@ -1560,9 +1560,6 @@ int Xspress3::getNumFramesRead()
         this->checkStatus(xsp3Status, "xsp3_dma_check_desc", "getNumFrameRead");
     } else {
         numFrames = xsp3Status;
-        this->lock();
-        this->setIntegerParam(xsp3FrameCountParam, numFrames);
-        this->unlock();
     }
     return numFrames;
 }
