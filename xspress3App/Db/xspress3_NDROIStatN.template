@@ -1,0 +1,75 @@
+#=================================================================#
+# Template file: xspress3_NDROIStatN.template
+###################################################################
+#
+# This template changes how NDROIStatNs ROIs are defined to conform
+# with the previous Xspress3 design and exposes a time series of the
+# sum of counts in the ROI.
+#
+# Macros:
+# % macro, P, Device prefix
+# % macro, S, Base PV name
+# % macro, PORT, Asyn port name
+# % macro, CHAN, Channel number
+# % macro, INDEX, Index of the channel in the detector array Y axis
+# % macro, ROI, ROI number
+# % macro, NCHANS, Number of elements in stats waveforms
+# % macro, ADDR, Asyn address to use on the NDROIStat asyn port (usually ROI - 1)
+# % macro, TIMEOUT, Asyn port timeout
+#
+###################################################################
+
+# ///
+# /// Set the MCA ROI$(ROI) high level limit on channel $(CHAN)
+# ///
+record(calcout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI")
+{
+   field(INPA, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_HLM")
+   field(INPB, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM")
+   field(CALC, "A-B")
+   field(OUT, "$(P)$(S)C$(CHAN)_ROI$(ROI):SizeX PP")
+   field(OOPT, "On Change")
+   field(FLNK, "$(P)$(S)C$(CHAN)_ROI$(ROI):MinX")
+}
+
+record(longout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_HLM")
+{
+   field(VAL, "0")
+   field(FLNK, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI")
+}
+
+# ///
+# /// Get the MCA ROI$(ROI) high level limit on channel $(CHAN)
+# ///
+record(calc, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_HLM_RBV")
+{
+   field(PINI, "1")
+   field(INPA, "$(P)$(S)C$(CHAN)_ROI$(ROI):SizeX_RBV")
+   field(INPB, "$(P)$(S)C$(CHAN)_ROI$(ROI):MinX_RBV")
+   field(CALC, "B+A")
+}
+
+# ///
+# /// Set the MCA ROI$(ROI) low level limit on channel $(CHAN)
+# ///
+record(longout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM")
+{
+   field(OUT,  "$(P)$(S)C$(CHAN)_ROI$(ROI):MinX")
+   field(FLNK, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI")
+}
+
+# ///
+# /// Get the MCA ROI$(ROI) low level limit on channel $(CHAN)
+# ///
+record(longin, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM_RBV")
+{
+   field(PINI, "1")
+   field(INP, "$(P)$(S)C$(CHAN)_ROI$(ROI):MinX_RBV PP")
+}
+
+substitute "R=$(S)C$(CHAN)_ROI$(ROI):, NDARRAY_PORT=XSP3.ROISTAT$(ROI)"
+include "NDROIStatN.template"
+
+alias("$(P)$(S)C$(CHAN)_ROI$(ROI):TSTotal", "$(P)$(S)C$(CHAN)_ROI$(ROI):ArrayData_RBV")
+
+alias("$(P)$(S)C$(CHAN)_ROI$(ROI):Total_RBV", "$(P)$(S)C$(CHAN)_ROI$(ROI):Value_RBV")
