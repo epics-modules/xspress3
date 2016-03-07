@@ -74,7 +74,6 @@ using std::string;
 #define xsp3TriggerModeParamString        "XSP3_TRIGGER_MODE"
 #define xsp3FixedTimeParamString        "XSP3_FIXED_TIME"
 #define xsp3NumFramesConfigParamString          "XSP3_NUM_FRAMES_CONFIG"
-#define xsp3NumFramesDriverParamString          "XSP3_NUM_FRAMES_DRIVER"
 #define xsp3NumCardsParamString           "XSP3_NUM_CARDS"
 #define xsp3ConfigPathParamString           "XSP3_CONFIG_PATH"
 #define xsp3ConfigSavePathParamString           "XSP3_CONFIG_SAVE_PATH"
@@ -123,14 +122,14 @@ const int INTERRUPT_MASK = asynInt32Mask | asynInt32ArrayMask |
     asynOctetMask | asynGenericPointerMask;
 
 extern "C" {
-  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
+  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
 }
 
 
 class Xspress3 : public ADDriver {
     friend class Xspress3Det;
  public:
-  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
+  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
   Xspress3(const char *portName, int numChannels);
   virtual ~Xspress3();
   void mainLoop();
@@ -160,7 +159,7 @@ class Xspress3 : public ADDriver {
   asynStatus mapTriggerMode(int mode, int invert_f0, int invert_veto, int debounce, int *apiMode);
   asynStatus setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce );
   void createInitialParameters();
-  bool setInitialParameters(int maxFrames, int maxDriverFrames, int numCards, int maxSpectra);
+  bool setInitialParameters(int maxFrames, int numCards, int maxSpectra);
   void pushEvent(const epicsUInt8& message);
   void adReportError(const char* message);
   bool createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType);
@@ -235,7 +234,6 @@ class Xspress3 : public ADDriver {
   int xsp3TriggerModeParam;
   int xsp3FixedTimeParam;
   int xsp3NumFramesConfigParam;
-  int xsp3NumFramesDriverParam;
   int xsp3NumCardsParam;
   int xsp3ConfigPathParam;
   int xsp3ConfigSavePathParam;
