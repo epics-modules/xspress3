@@ -1,0 +1,33 @@
+###########################################################
+# A template to indicate when all plugins are on the same frame.
+#
+# Macros:
+# % macro,  P,           Device prefix
+# % macro,  R,           Device suffix
+# % macro,  CHAN,        Channel number
+# % macro,  PREV,        PV to get the previous channel's frame ID from
+#                        or -2 if it is the first channel
+#
+###########################################################
+
+
+# Calculate the mean ID from the enabled plugins
+record(calc, "$(P)$(R)C$(CHAN):AverageId")
+{
+    field(INPA, "$(P)$(R)C$(CHAN)_SCAS:UniqueId_RBV CPP")
+    field(INPB, "$(P)$(R)C$(CHAN)_SCAS:EnableCallbacks_RBV CPP")
+    field(INPC, "$(P)$(R)ARR$(CHAN):UniqueId_RBV CPP")
+    field(INPD, "$(P)$(R)ARR$(CHAN):EnableCallbacks_RBV CPP")
+    field(INPE, "$(P)$(R)ARRSUM$(CHAN):UniqueId_RBV CPP")
+    field(INPF, "$(P)$(R)ARRSUM$(CHAN):EnableCallbacks_RBV CPP")
+    field(CALC, "((B?A:0)+(D?C:0)+(F?E:0))/(B+D+F)")
+}
+
+# If G is -2 return the mean uniqueId for enabled plugins
+# otherwise compare the mean to the previous channels mean
+record(calc, "$(P)$(R)C$(CHAN):AVAILABLE_FRAME")
+{
+    field(INPA, "$(P)$(R)C$(CHAN):AverageId CPP")
+    field(INPB, "$(PREV)")
+    field(CALC, "B=-2?(FLOOR(A)=A?A:-1):(A=G?A:-1)")
+}

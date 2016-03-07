@@ -1,0 +1,13 @@
+# Template to report what frame is available in all plugins
+
+# Macros:
+# % macro,  P,           Device prefix
+# % macro,  R,           Device suffix
+# % macro,  CHANNELS,	 Number of channels in this detector
+
+
+record(longout, "$(P)$(R)AVAILABLE_FRAME")
+{
+    field(DTYP, "Soft Channel")
+    field(OUT, "$(P)$(R)C$(CHANNELS):AVAILABLE_FRAME CPP")
+}
