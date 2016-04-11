@@ -23,11 +23,11 @@ record(calc, "$(P)$(R)C$(CHAN):AverageId")
     field(CALC, "((B?A:0)+(D?C:0)+(F?E:0))/(B+D+F)")
 }
 
-# If G is -2 return the mean uniqueId for enabled plugins
+# If B is -2 return the mean uniqueId for enabled plugins
 # otherwise compare the mean to the previous channels mean
 record(calc, "$(P)$(R)C$(CHAN):AVAILABLE_FRAME")
 {
     field(INPA, "$(P)$(R)C$(CHAN):AverageId CPP")
     field(INPB, "$(PREV)")
-    field(CALC, "B=-2?(FLOOR(A)=A?A:-1):(A=G?A:-1)")
+    field(CALC, "B=-2?(FLOOR(A)=A?A:-1):(FLOOR(A)=B?A:-1)")
 }

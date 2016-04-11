@@ -6,8 +6,8 @@
 # % macro,  CHANNELS,	 Number of channels in this detector
 
 
-record(longout, "$(P)$(R)AVAILABLE_FRAME")
+record(longin, "$(P)$(R)AVAILABLE_FRAME")
 {
     field(DTYP, "Soft Channel")
-    field(OUT, "$(P)$(R)C$(CHANNELS):AVAILABLE_FRAME CPP")
+    field(INP, "$(P)$(R)C$(CHANNELS):AVAILABLE_FRAME CPP")
 }
