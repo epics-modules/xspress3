@@ -1639,11 +1639,9 @@ void Xspress3::doALap(int chunkSize, int numToAcquire, int startFrame)
     // TTL0 input of the Xspress3 boxes according to William Helsby but
     // this is currently untested.
     int xsp3Status, xsp3NChannels, totalFrames = startFrame;
-    epicsUInt8 event;
-    void *pEvent = &event;
     const char *functionName = "Xspress3::doALap";
     getIntegerParam(xsp3NumChannelsParam, &xsp3NChannels);
-    if (this->getNumFramesRead() == numToAcquire) {
+    if (this->getNumFramesRead() >= numToAcquire) {
         xsp3Status = this->xsp3->histogram_start(this->xsp3_handle_, -1);
         if (xsp3Status != XSP3_OK) {
             this->checkStatus(xsp3Status, "histogram_start", functionName);
