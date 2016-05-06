@@ -21,7 +21,7 @@
 	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 5" name="CHAN2SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
 	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 6" name="CHAN2SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
 	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 7" name="CHAN2SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
-  <Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC Flags" name="CHAN2DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC Flags" name="CHAN2DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
 	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC All Good Event Grad" name="CHAN2DTCAEG" source="XSP3_CHAN_DTC_AEG" type="PARAM"/>
 	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC All Good Event Offset" name="CHAN2DTCAEO" source="XSP3_CHAN_DTC_AEO" type="PARAM"/>
 	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC In Window Grad" name="CHAN2DTCIWG" source="XSP3_CHAN_DTC_IWG" type="PARAM"/>
