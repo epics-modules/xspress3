@@ -23,7 +23,13 @@
     </rect>
    </property>
    <property name="channels_1" stdset="0">
-    <string notr="true">;$(P)ARR$(CHAN):ArrayData</string>
+    <string notr="true">;$(P)MCASUM$(CHAN):ArrayData</string>
+   </property>
+   <property name="Style_1">
+    <enum>caCartesianPlot::Lines</enum>
+   </property>
+   <property name="symbol_1">
+    <enum>caCartesianPlot::NoSymbol</enum>
    </property>
    <property name="color_1">
     <color>
@@ -32,14 +38,24 @@
      <blue>255</blue>
     </color>
    </property>
+   <property name="gridColor">
+    <color alpha="25">
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
    <property name="XaxisScaling" stdset="0">
-    <enum>caCartesianPlot::Auto</enum>
+    <enum>caCartesianPlot::User</enum>
    </property>
    <property name="YaxisScaling" stdset="0">
-    <enum>caCartesianPlot::Channel</enum>
+    <enum>caCartesianPlot::Auto</enum>
+   </property>
+   <property name="XaxisLimits">
+    <string>0;4096</string>
    </property>
    <property name="YAxisType" stdset="0">
-    <enum>caCartesianPlot::log10</enum>
+    <enum>caCartesianPlot::linear</enum>
    </property>
   </widget>
   <widget class="caLabel" name="caLabel_0">
@@ -276,7 +292,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -369,7 +385,7 @@
      <widget class="caLabel" name="caLabel_11">
       <property name="maximumSize">
        <size>
-        <width>43</width>
+        <width>40</width>
         <height>20</height>
        </size>
       </property>
@@ -499,7 +515,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -625,7 +641,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -688,7 +704,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -883,7 +899,7 @@
      <widget class="caLabel" name="caLabel_12">
       <property name="maximumSize">
        <size>
-        <width>45</width>
+        <width>40</width>
         <height>20</height>
        </size>
       </property>
@@ -919,7 +935,7 @@
      <widget class="caLabel" name="caLabel_2">
       <property name="maximumSize">
        <size>
-        <width>45</width>
+        <width>40</width>
         <height>20</height>
        </size>
       </property>
@@ -961,7 +977,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1104,7 +1120,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1167,7 +1183,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1244,7 +1260,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1279,7 +1295,7 @@
      <widget class="caLabel" name="caLabel_5">
       <property name="maximumSize">
        <size>
-        <width>72</width>
+        <width>80</width>
         <height>20</height>
        </size>
       </property>
@@ -1321,7 +1337,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1362,7 +1378,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1403,7 +1419,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1466,7 +1482,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1507,7 +1523,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1570,7 +1586,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1699,7 +1715,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1740,7 +1756,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1781,7 +1797,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1822,7 +1838,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1863,7 +1879,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1904,7 +1920,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1945,7 +1961,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -1986,7 +2002,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2107,7 +2123,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2142,7 +2158,7 @@
      <widget class="caLabel" name="caLabel_4">
       <property name="maximumSize">
        <size>
-        <width>43</width>
+        <width>40</width>
         <height>20</height>
        </size>
       </property>
@@ -2206,7 +2222,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2263,7 +2279,7 @@
      <widget class="caLabel" name="caLabel_9">
       <property name="maximumSize">
        <size>
-        <width>72</width>
+        <width>80</width>
         <height>20</height>
        </size>
       </property>
@@ -2305,7 +2321,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2520,7 +2536,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2561,7 +2577,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2602,7 +2618,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2643,7 +2659,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2706,7 +2722,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2747,7 +2763,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2810,7 +2826,7 @@
       </property>
       <property name="font">
        <font>
-        <pointsize>11</pointsize>
+        <pointsize>10</pointsize>
        </font>
       </property>
       <property name="frameShape">
@@ -2875,11 +2891,11 @@ NDROIStat8.ui;
 NDROIStat8.ui</string>
       </property>
       <property name="args">
-       <string notr="true">P=$(P), R=ROIStat$(CHAN):;
-P=$(P),R=ROIStat$(CHAN):,ROI1=1:,ROI2=2:,ROI3=3:,ROI4=4:,ROI5=5:,ROI6=6:,ROI7=7:,ROI8=8:;
-P=$(P),R=ROIStat$(CHAN):,ROI1=9:,ROI2=10:,ROI3=11:,ROI4=12:,ROI5=13:,ROI6=14:,ROI7=15:,ROI8=16:;
-P=$(P),R=ROIStat$(CHAN):,ROI1=17:,ROI2=18:,ROI3=19:,ROI4=20:,ROI5=21:,ROI6=22:,ROI7=23:,ROI8=24:;
-P=$(P),R=ROIStat$(CHAN):,ROI1=25:,ROI2=26:,ROI3=27:,ROI4=28:,ROI5=29:,ROI6=30:,ROI7=31:,ROI8=32:</string>
+       <string notr="true">P=$(P), R=MCA$(CHAN)ROI:;
+P=$(P),R=MCA$(CHAN)ROI:,ROI1=1:,ROI2=2:,ROI3=3:,ROI4=4:,ROI5=5:,ROI6=6:,ROI7=7:,ROI8=8:;
+P=$(P),R=MCA$(CHAN)ROI:,ROI1=9:,ROI2=10:,ROI3=11:,ROI4=12:,ROI5=13:,ROI6=14:,ROI7=15:,ROI8=16:;
+P=$(P),R=MCA$(CHAN)ROI:,ROI1=17:,ROI2=18:,ROI3=19:,ROI4=20:,ROI5=21:,ROI6=22:,ROI7=23:,ROI8=24:;
+P=$(P),R=MCA$(CHAN)ROI:,ROI1=25:,ROI2=26:,ROI3=27:,ROI4=28:,ROI5=29:,ROI6=30:,ROI7=31:,ROI8=32:</string>
       </property>
       <property name="stackingMode" stdset="0">
        <enum>caRowColMenu::Menu</enum>
@@ -2904,7 +2920,7 @@ P=$(P),R=ROIStat$(CHAN):,ROI1=25:,ROI2=26:,ROI3=27:,ROI4=28:,ROI5=29:,ROI6=30:,R
        <string notr="true">xspress3_sca.ui</string>
       </property>
       <property name="args">
-       <string notr="true">P=$(P),CHAN=$(CHAN), R=C$(CHAN)SCAs:;
+       <string notr="true">P=$(P),CHAN=$(CHAN), R=C$(CHAN)SCA;
 </string>
       </property>
       <property name="stackingMode" stdset="0">
@@ -3089,10 +3105,10 @@ P=$(P),R=ROIStat$(CHAN):,ROI1=25:,ROI2=26:,ROI3=27:,ROI4=28:,ROI5=29:,ROI6=30:,R
     <string notr="true">B/C</string>
    </property>
    <property name="channelB">
-    <string notr="true">$(P)C$(CHAN)SCAs:4:Value_RBV</string>
+    <string notr="true">$(P)C$(CHAN)SCA4:Value_RBV</string>
    </property>
    <property name="channelC">
-    <string notr="true">$(P)C$(CHAN)SCAs:5:Value_RBV</string>
+    <string notr="true">$(P)C$(CHAN)SCA5:Value_RBV</string>
    </property>
   </widget>
   <widget class="caLabel" name="caLabel_54">
@@ -3172,18 +3188,13 @@ P=$(P),R=ROIStat$(CHAN):,ROI1=25:,ROI2=26:,ROI3=27:,ROI4=28:,ROI5=29:,ROI6=30:,R
   </customwidget>
   <customwidget>
    <class>caCartesianPlot</class>
-   <extends>QwtPlot</extends>
+   <extends>QFrame</extends>
    <header>caCartesianPlot</header>
   </customwidget>
   <customwidget>
    <class>caCalc</class>
    <extends>QLabel</extends>
    <header>caCalc</header>
-  </customwidget>
-  <customwidget>
-   <class>QwtPlot</class>
-   <extends>QFrame</extends>
-   <header>qwt_plot.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
