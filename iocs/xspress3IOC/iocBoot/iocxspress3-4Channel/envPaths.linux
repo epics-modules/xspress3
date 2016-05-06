@@ -1,19 +1,19 @@
 
 
-epicsEnvSet("SUPPORT","/local/DPbin/epics/epics_2015-05-31/synApps_5_8/support")
+epicsEnvSet("SUPPORT","/home/xspress3/devel")
 
-epicsEnvSet("EPICS_BASE","/local/DPbin/epics/epics_2015-08-31/base-3.14.12.5")
+epicsEnvSet("EPICS_BASE","/home/xspress3/devel/base")
 
-epicsEnvSet("ALIVE","$(SUPPORT)/alive-1-0")
-epicsEnvSet("ASYN","$(SUPPORT)/asyn-4-26")
-epicsEnvSet("CALC","$(SUPPORT)/calc-3-4-2")
-epicsEnvSet("BUSY","$(SUPPORT)/busy-1-6-1")
-epicsEnvSet("SSCAN","$(SUPPORT)/sscan-2-10")
-epicsEnvSet("AUTOSAVE","$(SUPPORT)/autosave-5-6-2")
-epicsEnvSet("AREA_DETECTOR","$(SUPPORT)/areaDetector-2-3")
-epicsEnvSet("ADBINARIES","$(AREA_DETECTOR)/ADBinaries-R2-2")
-epicsEnvSet("ADCORE","$(AREA_DETECTOR)/ADCore-R2-3")
-epicsEnvSet("DEVIOCSTATS","$(SUPPORT)/devIocStats-3-1-13")
+epicsEnvSet("ALIVE","$(SUPPORT)/alive")
+epicsEnvSet("ASYN","$(SUPPORT)/asyn")
+epicsEnvSet("CALC","$(SUPPORT)/calc")
+epicsEnvSet("BUSY","$(SUPPORT)/busy")
+epicsEnvSet("SSCAN","$(SUPPORT)/sscan")
+epicsEnvSet("AUTOSAVE","$(SUPPORT)/autosave")
+epicsEnvSet("AREA_DETECTOR","$(SUPPORT)/areaDetector")
+## epicsEnvSet("ADBINARIES","$(AREA_DETECTOR)/ADBinaries-R2-2")
+epicsEnvSet("ADCORE","$(AREA_DETECTOR)/ADCore")
+epicsEnvSet("DEVIOCSTATS","$(SUPPORT)/devIocStats")
 epicsEnvSet("XSPRESS3","$(SUPPORT)/xspress3")
 
 epicsEnvSet("TOP","$(XSPRESS3)/iocs/xspress3IOC")
