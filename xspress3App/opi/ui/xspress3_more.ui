@@ -131,44 +131,21 @@ P=$(P), R=$(R), CHAN=32</string>
        <string notr="true">ROIs</string>
       </property>
       <property name="labels">
-       <string notr="true">Channel 1;Channel 2;Channel 3;Channel 4;Channel 5;Channel 6;Channel 7;Channel 8;Channel 9;Channel 10;Channel 11;Channel 12;Channel 13;Channel 14;Channel 15;Channel 16;Channel 17; Channel 18; Channel 19; Channel 20; Channel 21; Channel 22;Channel 23;Channel 24;Channel 25;Channel 26;Channel 27;Channel 28;Channel 29;Channel 30;Channel 31;Channel 32</string>
+       <string notr="true">Channel 1;Channel 2;Channel 3;Channel 4;Channel 5;Channel 6;Channel 7;Channel 8;</string>
       </property>
       <property name="files">
-       <string notr="true">NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui; NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui</string>
+       <string notr="true">NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;NDROIStat.ui;</string>
       </property>
       <property name="args">
-       <string notr="true">P=$(P), R=ROIStat1:;
-P=$(P), R=ROIStat2:;
-P=$(P), R=ROIStat3:;
-P=$(P), R=ROIStat4:;
-P=$(P), R=ROIStat5:;
-P=$(P), R=ROIStat6:;
-P=$(P), R=ROIStat7:;
-P=$(P), R=ROIStat8:;
-P=$(P), R=ROIStat9:;
-P=$(P), R=ROIStat10:;
-P=$(P), R=ROIStat11:;
-P=$(P), R=ROIStat12:;
-P=$(P), R=ROIStat13:;
-P=$(P), R=ROIStat14:;
-P=$(P), R=ROIStat15:;
-P=$(P), R=ROIStat16:;
-P=$(P), R=ROIStat17:;
-P=$(P), R=ROIStat18:;
-P=$(P), R=ROIStat19:;
-P=$(P), R=ROIStat20:;
-P=$(P), R=ROIStat21:;
-P=$(P), R=ROIStat22:;
-P=$(P), R=ROIStat23:;
-P=$(P), R=ROIStat24:;
-P=$(P), R=ROIStat25:;
-P=$(P), R=ROIStat26:;
-P=$(P), R=ROIStat27:;
-P=$(P), R=ROIStat28:;
-P=$(P), R=ROIStat29:;
-P=$(P), R=ROIStat30:;
-P=$(P), R=ROIStat31:;
-P=$(P), R=ROIStat32:</string>
+       <string notr="true">P=$(P), R=MCA1ROI:;
+P=$(P), R=MCA1ROI:;
+P=$(P), R=MCA3ROI:;
+P=$(P), R=MCA4ROI:;
+P=$(P), R=MCA5ROI:;
+P=$(P), R=MCA6ROI:;
+P=$(P), R=MCA7ROI:;
+P=$(P), R=MCA8ROI:
+</string>
       </property>
       <property name="stackingMode" stdset="0">
        <enum>caRowColMenu::Menu</enum>
@@ -194,38 +171,13 @@ P=$(P), R=ROIStat32:</string>
 xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui;xspress3_sca.ui</string>
       </property>
       <property name="args">
-       <string notr="true">P=$(P),CHAN=1, R=C1SCAs:;
-P=$(P),CHAN=2, R=C2SCAs:;
-P=$(P),CHAN=3, R=C3SCAs:;
-P=$(P),CHAN=4, R=C4SCAs:;
-P=$(P),CHAN=5, R=C5SCAs:;
-P=$(P),CHAN=6, R=C6SCAs:;
-P=$(P),CHAN=7, R=C7SCAs:;
-P=$(P),CHAN=8, R=C8SCAs:;
-P=$(P),CHAN=9, R=C9SCAs:;
-P=$(P),CHAN=10, R=C10SCAs:;
-P=$(P),CHAN=11, R=C11SCAs:;
-P=$(P),CHAN=12, R=C12SCAs:;
-P=$(P),CHAN=13, R=C13SCAs:;
-P=$(P),CHAN=14, R=C14SCAs:;
-P=$(P),CHAN=15, R=C15SCAs:;
-P=$(P),CHAN=16, R=C16SCAs:;
-P=$(P),CHAN=17, R=C17SCAs:;
-P=$(P),CHAN=18, R=C18SCAs:;
-P=$(P),CHAN=19, R=C19SCAs:;
-P=$(P),CHAN=20, R=C20SCAs:;
-P=$(P),CHAN=21, R=C21SCAs:;
-P=$(P),CHAN=22, R=C22SCAs:;
-P=$(P),CHAN=23, R=C23SCAs:;
-P=$(P),CHAN=24, R=C24SCAs:;
-P=$(P),CHAN=25, R=C25SCAs:;
-P=$(P),CHAN=26, R=C26SCAs:;
-P=$(P),CHAN=27, R=C27SCAs:;
-P=$(P),CHAN=28, R=C28SCAs:;
-P=$(P),CHAN=29, R=C29SCAs:;
-P=$(P),CHAN=30, R=C30SCAs:;
-P=$(P),CHAN=31, R=C31SCAs:;
-P=$(P),CHAN=32, R=C32SCAs</string>
+       <string notr="true">P=$(P),CHAN=1, R=C1SCA;
+P=$(P),CHAN=2, R=C2SCA;
+P=$(P),CHAN=3, R=C3SCA;
+P=$(P),CHAN=4, R=C4SCA;
+P=$(P),CHAN=6, R=C6SCA;
+P=$(P),CHAN=7, R=C7SCA;
+P=$(P),CHAN=8, R=C8SCA</string>
       </property>
       <property name="stackingMode" stdset="0">
        <enum>caRowColMenu::Menu</enum>

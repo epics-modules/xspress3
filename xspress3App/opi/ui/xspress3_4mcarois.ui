@@ -31,8 +31,8 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
    <widget class="caCartesianPlot" name="caCartesianPlot_0">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>5</x>
+      <y>5</y>
       <width>400</width>
       <height>200</height>
      </rect>
@@ -41,7 +41,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
      <string notr="true">MCA$(MCA1)</string>
     </property>
     <property name="channels_1" stdset="0">
-     <string notr="true">;$(P)ARR$(MCA1):ArrayData</string>
+     <string notr="true">;$(P)MCASUM$(MCA1):ArrayData</string>
     </property>
     <property name="Style_1">
      <enum>caCartesianPlot::Lines</enum>
@@ -70,9 +70,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
     </property>
     <property name="foreground">
      <color>
-      <red>236</red>
-      <green>236</green>
-      <blue>236</blue>
+      <red>255</red>
+      <green>255</green>
+      <blue>255</blue>
      </color>
     </property>
     <property name="background">
@@ -89,27 +89,34 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
       <blue>70</blue>
      </color>
     </property>
+    <property name="gridColor">
+     <color alpha="25">
+      <red>0</red>
+      <green>0</green>
+      <blue>0</blue>
+     </color>
+    </property>
     <property name="XaxisScaling" stdset="0">
-     <enum>caCartesianPlot::Auto</enum>
+     <enum>caCartesianPlot::User</enum>
     </property>
     <property name="YaxisScaling" stdset="0">
-     <enum>caCartesianPlot::Channel</enum>
+     <enum>caCartesianPlot::Auto</enum>
     </property>
     <property name="XaxisLimits">
-     <string>0;1</string>
+     <string>0;4096</string>
     </property>
     <property name="YaxisLimits">
      <string>0;1</string>
     </property>
     <property name="YAxisType" stdset="0">
-     <enum>caCartesianPlot::log10</enum>
+     <enum>caCartesianPlot::linear</enum>
     </property>
    </widget>
    <widget class="caCartesianPlot" name="caCartesianPlot_1">
     <property name="geometry">
      <rect>
       <x>410</x>
-      <y>10</y>
+      <y>5</y>
       <width>400</width>
       <height>200</height>
      </rect>
@@ -118,7 +125,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
      <string notr="true">MCA$(MCA4)</string>
     </property>
     <property name="channels_1" stdset="0">
-     <string notr="true">;$(P)ARR$(MCA4):ArrayData</string>
+     <string notr="true">;$(P)MCASUM$(MCA4):ArrayData</string>
     </property>
     <property name="Style_1">
      <enum>caCartesianPlot::Lines</enum>
@@ -147,9 +154,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
     </property>
     <property name="foreground">
      <color>
-      <red>236</red>
-      <green>236</green>
-      <blue>236</blue>
+      <red>255</red>
+      <green>255</green>
+      <blue>255</blue>
      </color>
     </property>
     <property name="background">
@@ -166,23 +173,33 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
       <blue>70</blue>
      </color>
     </property>
+    <property name="gridColor">
+     <color alpha="25">
+      <red>0</red>
+      <green>0</green>
+      <blue>0</blue>
+     </color>
+    </property>
     <property name="XaxisScaling" stdset="0">
-     <enum>caCartesianPlot::Channel</enum>
+     <enum>caCartesianPlot::User</enum>
     </property>
     <property name="YaxisScaling" stdset="0">
-     <enum>caCartesianPlot::Channel</enum>
+     <enum>caCartesianPlot::Auto</enum>
+    </property>
+    <property name="XaxisLimits">
+     <string>0;4096</string>
     </property>
     <property name="YaxisLimits">
      <string>0;1</string>
     </property>
     <property name="YAxisType" stdset="0">
-     <enum>caCartesianPlot::log10</enum>
+     <enum>caCartesianPlot::linear</enum>
     </property>
    </widget>
    <widget class="caCartesianPlot" name="caCartesianPlot_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
+      <x>5</x>
       <y>210</y>
       <width>400</width>
       <height>200</height>
@@ -192,7 +209,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
      <string notr="true">MCA$(MCA2)</string>
     </property>
     <property name="channels_1" stdset="0">
-     <string notr="true">;$(P)ARR$(MCA2):ArrayData</string>
+     <string notr="true">;$(P)MCASUM$(MCA2):ArrayData</string>
     </property>
     <property name="Style_1">
      <enum>caCartesianPlot::Lines</enum>
@@ -221,9 +238,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
     </property>
     <property name="foreground">
      <color>
-      <red>236</red>
-      <green>236</green>
-      <blue>236</blue>
+      <red>255</red>
+      <green>255</green>
+      <blue>255</blue>
      </color>
     </property>
     <property name="background">
@@ -240,17 +257,27 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
       <blue>70</blue>
      </color>
     </property>
+    <property name="gridColor">
+     <color alpha="25">
+      <red>0</red>
+      <green>0</green>
+      <blue>0</blue>
+     </color>
+    </property>
     <property name="XaxisScaling" stdset="0">
-     <enum>caCartesianPlot::Channel</enum>
+     <enum>caCartesianPlot::User</enum>
     </property>
     <property name="YaxisScaling" stdset="0">
-     <enum>caCartesianPlot::Channel</enum>
+     <enum>caCartesianPlot::Auto</enum>
+    </property>
+    <property name="XaxisLimits">
+     <string>0;4096</string>
     </property>
     <property name="YaxisLimits">
      <string>0;1</string>
     </property>
     <property name="YAxisType" stdset="0">
-     <enum>caCartesianPlot::log10</enum>
+     <enum>caCartesianPlot::linear</enum>
     </property>
    </widget>
    <widget class="caCartesianPlot" name="caCartesianPlot_3">
@@ -266,7 +293,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
      <string notr="true">MCA$(MCA3)</string>
     </property>
     <property name="channels_1" stdset="0">
-     <string notr="true">;$(P)ARR$(MCA3):ArrayData</string>
+     <string notr="true">;$(P)MCASUM$(MCA3):ArrayData</string>
     </property>
     <property name="Style_1">
      <enum>caCartesianPlot::Lines</enum>
@@ -295,9 +322,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
     </property>
     <property name="foreground">
      <color>
-      <red>236</red>
-      <green>236</green>
-      <blue>236</blue>
+      <red>255</red>
+      <green>255</green>
+      <blue>255</blue>
      </color>
     </property>
     <property name="background">
@@ -314,17 +341,27 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
       <blue>70</blue>
      </color>
     </property>
+    <property name="gridColor">
+     <color alpha="25">
+      <red>0</red>
+      <green>0</green>
+      <blue>0</blue>
+     </color>
+    </property>
     <property name="XaxisScaling" stdset="0">
-     <enum>caCartesianPlot::Channel</enum>
+     <enum>caCartesianPlot::User</enum>
     </property>
     <property name="YaxisScaling" stdset="0">
-     <enum>caCartesianPlot::Channel</enum>
+     <enum>caCartesianPlot::Auto</enum>
+    </property>
+    <property name="XaxisLimits">
+     <string>0;4096</string>
     </property>
     <property name="YaxisLimits">
      <string>0;1</string>
     </property>
     <property name="YAxisType" stdset="0">
-     <enum>caCartesianPlot::log10</enum>
+     <enum>caCartesianPlot::linear</enum>
     </property>
    </widget>
    <widget class="QWidget" name="gridWidget" native="true">
@@ -346,14 +383,23 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
      <property name="sizeConstraint">
       <enum>QLayout::SetMinimumSize</enum>
      </property>
+     <property name="leftMargin">
+      <number>3</number>
+     </property>
+     <property name="topMargin">
+      <number>3</number>
+     </property>
+     <property name="rightMargin">
+      <number>3</number>
+     </property>
+     <property name="bottomMargin">
+      <number>3</number>
+     </property>
      <property name="horizontalSpacing">
       <number>2</number>
      </property>
      <property name="verticalSpacing">
       <number>1</number>
-     </property>
-     <property name="margin">
-      <number>3</number>
      </property>
      <item row="3" column="1">
       <widget class="caInclude" name="cainclude_2">
@@ -1637,13 +1683,8 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
   </customwidget>
   <customwidget>
    <class>caCartesianPlot</class>
-   <extends>QwtPlot</extends>
-   <header>caCartesianPlot</header>
-  </customwidget>
-  <customwidget>
-   <class>QwtPlot</class>
    <extends>QFrame</extends>
-   <header>qwt_plot.h</header>
+   <header>caCartesianPlot</header>
   </customwidget>
  </customwidgets>
  <resources/>

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>215</width>
+    <width>205</width>
     <height>18</height>
    </rect>
   </property>
@@ -31,9 +31,9 @@
   <widget class="caLineEdit" name="caROICounts">
    <property name="geometry">
     <rect>
-     <x>142</x>
+     <x>125</x>
      <y>0</y>
-     <width>72</width>
+     <width>75</width>
      <height>18</height>
     </rect>
    </property>
@@ -47,7 +47,7 @@
     <set>Qt::AlignCenter</set>
    </property>
    <property name="channel" stdset="0">
-    <string notr="true">$(P)ROIStat$(CHAN):$(ROI):Total_RBV</string>
+    <string notr="true">$(P)MCA$(CHAN)ROI:$(ROI):Total_RBV</string>
    </property>
    <property name="foreground">
     <color>
@@ -78,7 +78,7 @@
    <property name="minValue">
     <double>0.000000000000000</double>
    </property>
-   <property name="fontScaleMode">
+   <property name="fontScaleMode" stdset="0">
     <enum>caLineEdit::WidthAndHeight</enum>
    </property>
    <property name="formatType">
@@ -88,9 +88,9 @@
   <widget class="caTextEntry" name="caROIStart">
    <property name="geometry">
     <rect>
-     <x>44</x>
+     <x>40</x>
      <y>0</y>
-     <width>45</width>
+     <width>40</width>
      <height>18</height>
     </rect>
    </property>
@@ -104,7 +104,7 @@
     <set>Qt::AlignCenter</set>
    </property>
    <property name="channel" stdset="0">
-    <string notr="true">$(P)ROIStat$(CHAN):$(ROI):MinX</string>
+    <string notr="true">$(P)MCA$(CHAN)ROI:$(ROI):MinX</string>
    </property>
    <property name="foreground">
     <color>
@@ -135,7 +135,7 @@
    <property name="minValue">
     <double>0.000000000000000</double>
    </property>
-   <property name="fontScaleMode">
+   <property name="fontScaleMode" stdset="0">
     <enum>caLineEdit::WidthAndHeight</enum>
    </property>
    <property name="formatType">
@@ -145,9 +145,9 @@
   <widget class="caTextEntry" name="caROISize">
    <property name="geometry">
     <rect>
-     <x>92</x>
+     <x>80</x>
      <y>0</y>
-     <width>46</width>
+     <width>40</width>
      <height>18</height>
     </rect>
    </property>
@@ -161,7 +161,7 @@
     <set>Qt::AlignCenter</set>
    </property>
    <property name="channel" stdset="0">
-    <string notr="true">$(P)ROIStat$(CHAN):$(ROI):SizeX</string>
+    <string notr="true">$(P)MCA$(CHAN)ROI:$(ROI):SizeX</string>
    </property>
    <property name="foreground">
     <color>
@@ -192,7 +192,7 @@
    <property name="minValue">
     <double>0.000000000000000</double>
    </property>
-   <property name="fontScaleMode">
+   <property name="fontScaleMode" stdset="0">
     <enum>caLineEdit::WidthAndHeight</enum>
    </property>
    <property name="formatType">
@@ -204,8 +204,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>43</width>
-     <height>18</height>
+     <width>40</width>
+     <height>25</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -214,8 +214,13 @@
      <verstretch>0</verstretch>
     </sizepolicy>
    </property>
+   <property name="font">
+    <font>
+     <pointsize>7</pointsize>
+    </font>
+   </property>
    <property name="channel" stdset="0">
-    <string notr="true">$(P)ROIStat$(CHAN):$(ROI):Use</string>
+    <string notr="true">$(P)MCA$(CHAN)ROI:$(ROI):Use</string>
    </property>
   </widget>
  </widget>
