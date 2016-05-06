@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1066</width>
-    <height>530</height>
+    <height>796</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,14 +16,14 @@
   <widget class="caCartesianPlot" name="cacartesianplot">
    <property name="geometry">
     <rect>
-     <x>6</x>
-     <y>32</y>
+     <x>10</x>
+     <y>300</y>
      <width>874</width>
      <height>262</height>
     </rect>
    </property>
    <property name="channels_1" stdset="0">
-    <string notr="true">;$(P)MCASUM$(CHAN):ArrayData</string>
+    <string notr="true">;$(P)MCA$(CHAN):ArrayData</string>
    </property>
    <property name="Style_1">
     <enum>caCartesianPlot::Lines</enum>
@@ -103,8 +103,8 @@
   <widget class="QWidget" name="gridLayoutWidget">
    <property name="geometry">
     <rect>
-     <x>4</x>
-     <y>302</y>
+     <x>10</x>
+     <y>570</y>
      <width>1057</width>
      <height>221</height>
     </rect>
@@ -3151,6 +3151,51 @@ P=$(P),R=MCA$(CHAN)ROI:,ROI1=25:,ROI2=26:,ROI3=27:,ROI4=28:,ROI5=29:,ROI6=30:,RO
      <green>0</green>
      <blue>0</blue>
     </color>
+   </property>
+  </widget>
+  <widget class="caCartesianPlot" name="cacartesianplot_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>35</y>
+     <width>874</width>
+     <height>262</height>
+    </rect>
+   </property>
+   <property name="channels_1" stdset="0">
+    <string notr="true">;$(P)MCASUM$(CHAN):ArrayData</string>
+   </property>
+   <property name="Style_1">
+    <enum>caCartesianPlot::Lines</enum>
+   </property>
+   <property name="symbol_1">
+    <enum>caCartesianPlot::NoSymbol</enum>
+   </property>
+   <property name="color_1">
+    <color>
+     <red>0</red>
+     <green>0</green>
+     <blue>255</blue>
+    </color>
+   </property>
+   <property name="gridColor">
+    <color alpha="25">
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
+   <property name="XaxisScaling" stdset="0">
+    <enum>caCartesianPlot::User</enum>
+   </property>
+   <property name="YaxisScaling" stdset="0">
+    <enum>caCartesianPlot::Auto</enum>
+   </property>
+   <property name="XaxisLimits">
+    <string>0;4096</string>
+   </property>
+   <property name="YAxisType" stdset="0">
+    <enum>caCartesianPlot::linear</enum>
    </property>
   </widget>
  </widget>
