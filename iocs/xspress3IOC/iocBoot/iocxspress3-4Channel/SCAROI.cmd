@@ -1,5 +1,5 @@
 # SCA, ROI and Other stuff
-
+dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
 
 #SCAs
 #############
@@ -16,20 +16,37 @@ dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:6:,  PORT=$(P
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:7:,  PORT=$(PORT).C$(CHAN)SCAs,ADDR=6,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCAs:8:,  PORT=$(PORT).C$(CHAN)SCAs,ADDR=7,TIMEOUT=1,NCHANS=$(NCHANS)")
 
-
+dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=C$(CHAN)SCAs:5:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=4")
+dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=C$(CHAN)SCAs:6:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=5")
+dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=C$(CHAN)SCAs:7:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=6")
+dbLoadRecords("xspress3ChannelDTC.template",          "P=$(PREFIX),R=det1:, PORT=$(PORT),CHAN=$(CHAN), NDARRAY_PORT=$(PORT),ADDR=$(XADDR),TIMEOUT=5")
 
 #ROIs
 ###########
 
+#### MN May-4-2016 was:
+# # Take full 2D array and turn it into single spectra
+# NDROIConfigure("$(PORT).CHAN$(CHAN)", $(QSIZE), 0, "PROC1", 0, -1, -1)
+# dbLoadRecords("NDROI.template", ,"P=$(PREFIX), R=ROI$(CHAN):, PORT=$(PORT).CHAN$(CHAN), TIMEOUT=1, ADDR=0, NDARRAY_PORT=PROC1, NDARRAY_ADDR=0, Enabled=0")
+#
+# # Create StdArray for Visualization 
+# NDStdArraysConfigure("$(PORT).ARR$(CHAN)", 5, 0, "$(PORT).CHAN$(CHAN)", 0, 0)
+# dbLoadRecords("$(ADCORE)/db/NDStdArrays.template", "P=$(PREFIX),R=ARR$(CHAN):,PORT=$(PORT).ARR$(CHAN),ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT).CHAN$(CHAN),TYPE=Float64,FTVL=DOUBLE,NELEMENTS=$(XSIZE)")
+#### Mn May-4-2016 try:
+
 # Take full 2D array and turn it into single spectra
-NDROIConfigure("$(PORT).CHAN$(CHAN)", $(QSIZE), 0, "PROC1", 0, -1, -1)
-dbLoadRecords("NDROI.template", ,"P=$(PREFIX),R=ROI$(CHAN):, PORT=$(PORT).CHAN$(CHAN), TIMEOUT=1, ADDR=0, NDARRAY_PORT=PROC1, NDARRAY_ADDR=0, Enabled=0")
+NDROIConfigure("$(PORT).CHAN$(CHAN)", $(QSIZE), 0, "XSP3", 0, -1, -1)
+dbLoadRecords("NDROI.template", ,"P=$(PREFIX), R=ROI$(CHAN):, PORT=$(PORT).CHAN$(CHAN), TIMEOUT=1, ADDR=0, NDARRAY_PORT=XSP3, NDARRAY_ADDR=0, Enabled=0")
+
+NDROIConfigure("$(PORT).CHANSUM$(CHAN)", $(QSIZE), 0, "PROC1", 0, -1, -1)
+dbLoadRecords("NDROI.template", ,"P=$(PREFIX), R=ROISUM$(CHAN):, PORT=$(PORT).CHANSUM$(CHAN), TIMEOUT=1, ADDR=0, NDARRAY_PORT=PROC1, NDARRAY_ADDR=0, Enabled=0")
 
 # Create StdArray for Visualization 
 NDStdArraysConfigure("$(PORT).ARR$(CHAN)", 5, 0, "$(PORT).CHAN$(CHAN)", 0, 0)
 dbLoadRecords("$(ADCORE)/db/NDStdArrays.template", "P=$(PREFIX),R=ARR$(CHAN):,PORT=$(PORT).ARR$(CHAN),ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT).CHAN$(CHAN),TYPE=Float64,FTVL=DOUBLE,NELEMENTS=$(XSIZE)")
 
-
+NDStdArraysConfigure("$(PORT).ARRSUM$(CHAN)", 5, 0, "$(PORT).CHANSUM$(CHAN)", 0, 0)
+dbLoadRecords("$(ADCORE)/db/NDStdArrays.template", "P=$(PREFIX),R=ARRSUM$(CHAN):,PORT=$(PORT).ARRSUM$(CHAN),ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT).CHANSUM$(CHAN),TYPE=Float64,FTVL=DOUBLE,NELEMENTS=$(XSIZE)")
 
 
 # New ROI Stats 
