@@ -1,2 +1,42 @@
 file "built_settings.req",  P=$(P)
+file "NDFileHDF5_settings.req",  P=$(P), R=HDF1:
+file "NDROIStat_settings.req",   P=$(P), R=ROIStat1:
+file "NDROIStat_settings.req",   P=$(P), R=ROIStat2:
+file "NDROIStat_settings.req",   P=$(P), R=ROIStat3:
+file "NDROIStat_settings.req",   P=$(P), R=ROIStat4:
 
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat1:1:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat1:2:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat1:3:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat1:4:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat1:5:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat1:6:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat1:7:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat1:8:
+
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat2:1:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat2:2:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat2:3:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat2:4:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat2:5:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat2:6:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat2:7:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat2:8:
+
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat3:1:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat3:2:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat3:3:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat3:4:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat3:5:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat3:6:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat3:7:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat3:8:
+
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat4:1:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat4:2:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat4:3:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat4:4:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat4:5:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat4:6:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat4:7:
+file "NDROIStatN_settings.req",  P=$(P), R=ROIStat4:8:
