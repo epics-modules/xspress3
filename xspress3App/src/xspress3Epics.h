@@ -309,4 +309,8 @@ void Xspress3::writeOutScas(const SCAtype pSCA, const int numChannels)
     }
 }
 
+int xspress3Config(const char *portName, int numChannels, int numCards,
+                   const char *baseIP, int maxFrames, int maxSpectra,
+                   int maxBuffers, size_t maxMemory, int debug, int simTest);
+
 #endif //ISC110BL_H

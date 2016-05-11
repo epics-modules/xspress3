@@ -119,16 +119,6 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     bool paramStatus = this->setInitialParameters(maxFrames, numCards, maxSpectra);
     this->unlock();
     paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
-    //Create the thread that readouts the data 
-    status = (epicsThreadCreate("GetDataTask",
-                                epicsThreadPriorityHigh,
-                                epicsThreadGetStackSize(epicsThreadStackMedium),
-                                (EPICSTHREADFUNC)xsp3DataTaskC,
-                                this) == NULL);
-    if (status) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsThreadCreate failure for data task.\n", functionName);
-        return;
-    }
     this->lock();
     if (simTest_) {
         printf( "Simulation: %d\n", simTest_ );
@@ -1768,19 +1758,28 @@ extern "C" {
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
  */
-  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
+  int xspress3Config(const char *portName, int numChannels, int numCards,
+                     const char *baseIP, int maxFrames, int maxSpectra,
+                     int maxBuffers, size_t maxMemory, int debug, int simTest)
   {
-    asynStatus status = asynSuccess;
-    
-    /*Instantiate class.*/
-    try {
-      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest);
-    } catch (...) {
-      cout << "Unknown exception caught when trying to construct Xspress3." << endl;
-      status = asynError;
-    }
-    
-    return(status);
+      asynStatus status = asynSuccess;
+      try {
+          Xspress3 *xsp = new Xspress3(portName, numChannels, numCards, baseIP,
+                                       maxFrames, maxSpectra, maxBuffers,
+                                       maxMemory, debug, simTest);
+          status = (asynStatus)(
+              epicsThreadCreate(
+                  "GetDataTask", epicsThreadPriorityHigh,
+                  epicsThreadGetStackSize(epicsThreadStackMedium),
+                  (EPICSTHREADFUNC)xsp3DataTaskC, xsp) == NULL);
+          if (status) {
+              cout << "epicsThreadCreate failure for data task." << endl;
+          }
+      } catch (...) {
+          cout << "Unknown exception caught when trying to construct Xspress3." << endl;
+          status = asynError;
+      }
+      return(status);
   }
   
   /* Code for iocsh registration */

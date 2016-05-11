@@ -170,3 +170,8 @@ BOOST_AUTO_TEST_CASE(doALapDouble)
 
 BOOST_AUTO_TEST_SUITE_END()
     
+BOOST_AUTO_TEST_CASE(iocshConfigXspress3)
+{
+    BOOST_CHECK(xspress3Config("xspc", 10, 2, "127.0.0.1", 16384, 4096,
+                               16384, -1, 0, 1) == asynSuccess);
+}
