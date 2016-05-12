@@ -137,7 +137,7 @@ class Xspress3 : public ADDriver {
   bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
   asynStatus connect(void);
-  void writeOutScas(void *&pSCA, int numChannels);
+  void writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType);
   void setStartingParameters();
   const NDDataType_t getDataType();
   void getDims(size_t (&dims)[2]);

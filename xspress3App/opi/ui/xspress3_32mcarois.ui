@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TabWidget</class>
+ <widget class="QTabWidget" name="TabWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>825</width>
+    <height>580</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>TabWidget</string>
+  </property>
+  <property name="currentIndex">
+   <number>0</number>
+  </property>
+  <widget class="QWidget" name="MCA14">
+   <attribute name="title">
+    <string>Channels 1-4</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>820</width>
+      <height>552</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), R=$(R), MCA1=1, MCA2=2, MCA3=3, MCA4=4</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_4mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="MCA58">
+   <attribute name="title">
+    <string>Channels 5-8</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>820</width>
+      <height>552</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), R=$(R), MCA1=5, MCA2=6, MCA3=7, MCA4=8</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_4mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="tab">
+   <attribute name="title">
+    <string>Channels 9-12</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>820</width>
+      <height>552</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), R=$(R), MCA1=9, MCA2=10, MCA3=11, MCA4=12</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_4mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="tab_2">
+   <attribute name="title">
+    <string>Channels 13-16</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_4">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>820</width>
+      <height>552</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), R=$(R), MCA1=13, MCA2=14, MCA3=15, MCA4=16</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_4mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="tab_3">
+   <attribute name="title">
+    <string>Channels 17-20</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_5">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>820</width>
+      <height>552</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), R=$(R), MCA1=17, MCA2=18, MCA3=19, MCA4=20</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_4mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="tab_5">
+   <attribute name="title">
+    <string>Channels 21-24</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_6">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>820</width>
+      <height>552</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), R=$(R), MCA1=21, MCA2=22, MCA3=23, MCA4=24</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_4mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="tab_6">
+   <attribute name="title">
+    <string>Channels 25-28</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_7">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>820</width>
+      <height>552</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), R=$(R), MCA1=25, MCA2=26, MCA3=27, MCA4=28</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_4mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="tab_4">
+   <attribute name="title">
+    <string>Channels 29-32</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_8">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>820</width>
+      <height>552</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), R=$(R), MCA1=29, MCA2=30, MCA3=31, MCA4=32</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_4mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>caInclude</class>
+   <extends>QWidget</extends>
+   <header>caInclude</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

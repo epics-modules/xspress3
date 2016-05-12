@@ -6,3 +6,6 @@ db/
 dbd/
 include/
 lib/
+core*
+*~
+*#

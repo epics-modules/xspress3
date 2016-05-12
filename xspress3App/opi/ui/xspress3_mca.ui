@@ -1,0 +1,3247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="caFrame" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1066</width>
+    <height>796</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="caCartesianPlot" name="cacartesianplot">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>300</y>
+     <width>874</width>
+     <height>262</height>
+    </rect>
+   </property>
+   <property name="channels_1" stdset="0">
+    <string notr="true">;$(P)MCA$(CHAN):ArrayData</string>
+   </property>
+   <property name="Style_1">
+    <enum>caCartesianPlot::Lines</enum>
+   </property>
+   <property name="symbol_1">
+    <enum>caCartesianPlot::NoSymbol</enum>
+   </property>
+   <property name="color_1">
+    <color>
+     <red>0</red>
+     <green>0</green>
+     <blue>255</blue>
+    </color>
+   </property>
+   <property name="gridColor">
+    <color alpha="25">
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
+   <property name="XaxisScaling" stdset="0">
+    <enum>caCartesianPlot::User</enum>
+   </property>
+   <property name="YaxisScaling" stdset="0">
+    <enum>caCartesianPlot::Auto</enum>
+   </property>
+   <property name="XaxisLimits">
+    <string>0;4096</string>
+   </property>
+   <property name="YAxisType" stdset="0">
+    <enum>caCartesianPlot::linear</enum>
+   </property>
+  </widget>
+  <widget class="caLabel" name="caLabel_0">
+   <property name="geometry">
+    <rect>
+     <x>7</x>
+     <y>1</y>
+     <width>1059</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>150000</width>
+     <height>16777215</height>
+    </size>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="text">
+    <string>XSPRESS3: $(P)$(R) - Channel $(CHAN)</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="fontScaleMode">
+    <enum>ESimpleLabel::WidthAndHeight</enum>
+   </property>
+   <property name="foreground">
+    <color>
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
+   <property name="background">
+    <color alpha="0">
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
+  </widget>
+  <widget class="QWidget" name="gridLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>570</y>
+     <width>1057</width>
+     <height>221</height>
+    </rect>
+   </property>
+   <layout class="QGridLayout" name="gridLayout">
+    <property name="horizontalSpacing">
+     <number>6</number>
+    </property>
+    <property name="verticalSpacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="2">
+     <widget class="caLabel" name="caLabel_3">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>MIN</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="1" colspan="4">
+     <widget class="caInclude" name="cainclude_8">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=21, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="7">
+     <widget class="caLabel" name="caLabel_10">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>MIN</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="19">
+     <widget class="caLabel" name="caLabel_22">
+      <property name="maximumSize">
+       <size>
+        <width>72</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>COUNTS</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="17">
+     <widget class="caLabel" name="caLabel_19">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>MIN</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="15">
+     <widget class="caLabel" name="caLabel_53">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>12</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0">
+     <widget class="caLabel" name="caLabel_1">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>ROI</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="11" colspan="4">
+     <widget class="caInclude" name="cainclude_24">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=27, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="6">
+     <widget class="caLabel" name="caLabel_11">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>USE</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="1" colspan="4">
+     <widget class="caInclude" name="cainclude_7">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=25, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="16" colspan="4">
+     <widget class="caInclude" name="cainclude_26">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=8, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="11" colspan="4">
+     <widget class="caInclude" name="cainclude_17">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=11, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="6" colspan="4">
+     <widget class="caInclude" name="cainclude">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=6, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="5">
+     <widget class="caLabel" name="caLabel_7">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>2</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="6" colspan="4">
+     <widget class="caInclude" name="cainclude_3">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=2, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="12">
+     <widget class="caLabel" name="caLabel_15">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>11</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>MIN</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="6" colspan="4">
+     <widget class="caInclude" name="cainclude_19">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=30, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="10">
+     <widget class="caLabel" name="caLabel_43">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>19</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="1" colspan="4">
+     <widget class="caInclude" name="cainclude_6">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=29, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="caLabel" name="caLabel_6">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>1</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1" colspan="4">
+     <widget class="caInclude" name="cainclude_11">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=9, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="14">
+     <widget class="caLabel" name="caLabel_13">
+      <property name="maximumSize">
+       <size>
+        <width>72</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>COUNTS</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="6" colspan="4">
+     <widget class="caInclude" name="cainclude_21">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=22, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1" colspan="4">
+     <widget class="caInclude" name="cainclude_12">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=5, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="16" colspan="4">
+     <widget class="caInclude" name="cainclude_31">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=32, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="5">
+     <widget class="caLabel" name="caLabel_8">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>ROI</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="8">
+     <widget class="caLabel" name="caLabel_12">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>SIZE</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="3">
+     <widget class="caLabel" name="caLabel_2">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>SIZE</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="15">
+     <widget class="caLabel" name="caLabel_50">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>24</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="11" colspan="4">
+     <widget class="caInclude" name="cainclude_2">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=3, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="16" colspan="4">
+     <widget class="caInclude" name="cainclude_27">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=12, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="18">
+     <widget class="caLabel" name="caLabel_20">
+      <property name="maximumSize">
+       <size>
+        <width>45</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>SIZE</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="6" colspan="4">
+     <widget class="caInclude" name="cainclude_22">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=18, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="caLabel" name="caLabel_30">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>9</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="16" colspan="4">
+     <widget class="caInclude" name="cainclude_32">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=24, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="10">
+     <widget class="caLabel" name="caLabel_46">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>7</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="16">
+     <widget class="caLabel" name="caLabel_21">
+      <property name="maximumSize">
+       <size>
+        <width>43</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>USE</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="15">
+     <widget class="caLabel" name="caLabel_49">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>28</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="4">
+     <widget class="caLabel" name="caLabel_5">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>COUNTS</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="10">
+     <widget class="caLabel" name="caLabel_45">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>11</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="10">
+     <widget class="caLabel" name="caLabel_23">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>3</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="15">
+     <widget class="caLabel" name="caLabel_24">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>4</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="16" colspan="4">
+     <widget class="caInclude" name="cainclude_5">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=4, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="10">
+     <widget class="caLabel" name="caLabel_41">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>27</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="caLabel" name="caLabel_25">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>5</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="6" colspan="4">
+     <widget class="caInclude" name="cainclude_14">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=10, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="15">
+     <widget class="caLabel" name="caLabel_51">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>20</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="6" colspan="4">
+     <widget class="caInclude" name="cainclude_23">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=14, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="11" colspan="4">
+     <widget class="caInclude" name="cainclude_18">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=7, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="16" colspan="4">
+     <widget class="caInclude" name="cainclude_29">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=16, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1" colspan="4">
+     <widget class="caInclude" name="cainclude_10">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=13, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="5">
+     <widget class="caLabel" name="caLabel_36">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>14</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="10">
+     <widget class="caLabel" name="caLabel_44">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>15</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="5">
+     <widget class="caLabel" name="caLabel_37">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>10</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="caLabel" name="caLabel_32">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>13</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="5">
+     <widget class="caLabel" name="caLabel_38">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>6</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="0">
+     <widget class="caLabel" name="caLabel_28">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>25</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="0">
+     <widget class="caLabel" name="caLabel_27">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>29</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="15">
+     <widget class="caLabel" name="caLabel_39">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>8</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="4">
+     <widget class="caInclude" name="cainclude_4">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=1, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="10">
+     <widget class="caLabel" name="caLabel_16">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>ROI</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="6" colspan="4">
+     <widget class="caInclude" name="cainclude_20">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=26, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="5">
+     <widget class="caLabel" name="caLabel_26">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>30</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="caLabel" name="caLabel_4">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>USE</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="11" colspan="4">
+     <widget class="caInclude" name="cainclude_16">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=15, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="5">
+     <widget class="caLabel" name="caLabel_35">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>18</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="11" colspan="4">
+     <widget class="caInclude" name="cainclude_25">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=31, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="9">
+     <widget class="caLabel" name="caLabel_9">
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>COUNTS</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="5">
+     <widget class="caLabel" name="caLabel_33">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>26</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="1" colspan="4">
+     <widget class="caInclude" name="cainclude_9">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=17, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="7" column="16" colspan="4">
+     <widget class="caInclude" name="cainclude_30">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=28, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="15">
+     <widget class="caLabel" name="caLabel_18">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>ROI</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="11">
+     <widget class="caLabel" name="caLabel_14">
+      <property name="maximumSize">
+       <size>
+        <width>43</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>USE</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="13">
+     <widget class="caLabel" name="caLabel_17">
+      <property name="maximumSize">
+       <size>
+        <width>45</width>
+        <height>20</height>
+       </size>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>SIZE</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="11" colspan="4">
+     <widget class="caInclude" name="cainclude_13">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=23, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="0">
+     <widget class="caLabel" name="caLabel_31">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>17</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="5">
+     <widget class="caLabel" name="caLabel_34">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>22</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="15">
+     <widget class="caLabel" name="caLabel_48">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>32</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="0">
+     <widget class="caLabel" name="caLabel_29">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>21</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="11" colspan="4">
+     <widget class="caInclude" name="cainclude_15">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=19, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="6" column="10">
+     <widget class="caLabel" name="caLabel_42">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>23</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="15">
+     <widget class="caLabel" name="caLabel_52">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>16</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+    <item row="5" column="16" colspan="4">
+     <widget class="caInclude" name="cainclude_28">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>18</height>
+       </size>
+      </property>
+      <property name="macro">
+       <string notr="true">P=$(P), ROI=20, CHAN=$(CHAN)</string>
+      </property>
+      <property name="filename" stdset="0">
+       <string notr="true">xspress3_roisetupsmall.ui</string>
+      </property>
+     </widget>
+    </item>
+    <item row="8" column="10">
+     <widget class="caLabel" name="caLabel_40">
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>33</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>10</pointsize>
+       </font>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="text">
+       <string>31</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignCenter</set>
+      </property>
+      <property name="fontScaleMode">
+       <enum>ESimpleLabel::WidthAndHeight</enum>
+      </property>
+      <property name="foreground">
+       <color>
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+      <property name="background">
+       <color alpha="0">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QWidget" name="verticalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>893</x>
+     <y>90</y>
+     <width>160</width>
+     <height>120</height>
+    </rect>
+   </property>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="caRelatedDisplay" name="carelateddisplay_2">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="label">
+       <string notr="true">ROIs</string>
+      </property>
+      <property name="labels">
+       <string notr="true">Main;ROIS 1-8;ROIS 9-16;ROIS 17-24;ROIS 25-32</string>
+      </property>
+      <property name="files">
+       <string notr="true">NDROIStat.ui;
+NDROIStat8.ui;
+NDROIStat8.ui;
+NDROIStat8.ui;
+NDROIStat8.ui</string>
+      </property>
+      <property name="args">
+       <string notr="true">P=$(P), R=MCA$(CHAN)ROI:;
+P=$(P),R=MCA$(CHAN)ROI:,ROI1=1:,ROI2=2:,ROI3=3:,ROI4=4:,ROI5=5:,ROI6=6:,ROI7=7:,ROI8=8:;
+P=$(P),R=MCA$(CHAN)ROI:,ROI1=9:,ROI2=10:,ROI3=11:,ROI4=12:,ROI5=13:,ROI6=14:,ROI7=15:,ROI8=16:;
+P=$(P),R=MCA$(CHAN)ROI:,ROI1=17:,ROI2=18:,ROI3=19:,ROI4=20:,ROI5=21:,ROI6=22:,ROI7=23:,ROI8=24:;
+P=$(P),R=MCA$(CHAN)ROI:,ROI1=25:,ROI2=26:,ROI3=27:,ROI4=28:,ROI5=29:,ROI6=30:,ROI7=31:,ROI8=32:</string>
+      </property>
+      <property name="stackingMode" stdset="0">
+       <enum>caRowColMenu::Menu</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="caRelatedDisplay" name="carelateddisplay">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="label">
+       <string notr="true">SCAs</string>
+      </property>
+      <property name="labels">
+       <string notr="true">SCAs</string>
+      </property>
+      <property name="files">
+       <string notr="true">xspress3_sca.ui</string>
+      </property>
+      <property name="args">
+       <string notr="true">P=$(P),CHAN=$(CHAN), R=C$(CHAN)SCA;
+</string>
+      </property>
+      <property name="stackingMode" stdset="0">
+       <enum>caRowColMenu::Row</enum>
+      </property>
+      <property name="removeParent" stdset="0">
+       <string>false</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="caRelatedDisplay" name="dtcRelatedDisplay">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="label">
+       <string notr="true">DTC</string>
+      </property>
+      <property name="labels">
+       <string notr="true">DTC</string>
+      </property>
+      <property name="files">
+       <string notr="true">xspress3_dtc.ui</string>
+      </property>
+      <property name="args">
+       <string notr="true">P=$(P), R=$(R), CHAN=$(CHAN)
+</string>
+      </property>
+      <property name="stackingMode" stdset="0">
+       <enum>caRowColMenu::Row</enum>
+      </property>
+      <property name="removeParent" stdset="0">
+       <string>false</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="caRelatedDisplay" name="dtcRelatedDisplay_2">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>25</height>
+       </size>
+      </property>
+      <property name="label">
+       <string notr="true">Setup</string>
+      </property>
+      <property name="labels">
+       <string notr="true">Setup</string>
+      </property>
+      <property name="files">
+       <string notr="true">NDROI.ui</string>
+      </property>
+      <property name="args">
+       <string notr="true">P=$(P), R=ROI$(CHAN):
+</string>
+      </property>
+      <property name="stackingMode" stdset="0">
+       <enum>caRowColMenu::Row</enum>
+      </property>
+      <property name="removeParent" stdset="0">
+       <string>false</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="caTextEntry" name="catextentry">
+   <property name="geometry">
+    <rect>
+     <x>929</x>
+     <y>30</y>
+     <width>80</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="channel" stdset="0">
+    <string notr="true">$(P)ROI$(CHAN):NDArrayPort</string>
+   </property>
+  </widget>
+  <widget class="caLabel" name="caLabel_47">
+   <property name="geometry">
+    <rect>
+     <x>929</x>
+     <y>7</y>
+     <width>80</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>500</width>
+     <height>500</height>
+    </size>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="text">
+    <string>Array Port</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="fontScaleMode">
+    <enum>ESimpleLabel::WidthAndHeight</enum>
+   </property>
+   <property name="foreground">
+    <color>
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
+   <property name="background">
+    <color alpha="0">
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
+  </widget>
+  <widget class="caLineEdit" name="calineedit">
+   <property name="geometry">
+    <rect>
+     <x>929</x>
+     <y>59</y>
+     <width>80</width>
+     <height>18</height>
+    </rect>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="channel" stdset="0">
+    <string notr="true">$(P)ROI$(CHAN):NDArrayPort_RBV</string>
+   </property>
+   <property name="foreground">
+    <color>
+     <red>10</red>
+     <green>0</green>
+     <blue>184</blue>
+    </color>
+   </property>
+   <property name="background">
+    <color alpha="0">
+     <red>10</red>
+     <green>0</green>
+     <blue>184</blue>
+    </color>
+   </property>
+   <property name="colorMode">
+    <enum>caLineEdit::Static</enum>
+   </property>
+   <property name="frameColor">
+    <color alpha="0">
+     <red>0</red>
+     <green>0</green>
+     <blue>255</blue>
+    </color>
+   </property>
+  </widget>
+  <widget class="caCalc" name="cacalc">
+   <property name="geometry">
+    <rect>
+     <x>973</x>
+     <y>224</y>
+     <width>71</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="variable">
+    <string notr="true">DeadTime</string>
+   </property>
+   <property name="calc">
+    <string notr="true">B/C</string>
+   </property>
+   <property name="channelB">
+    <string notr="true">$(P)C$(CHAN)SCA4:Value_RBV</string>
+   </property>
+   <property name="channelC">
+    <string notr="true">$(P)C$(CHAN)SCA5:Value_RBV</string>
+   </property>
+  </widget>
+  <widget class="caLabel" name="caLabel_54">
+   <property name="geometry">
+    <rect>
+     <x>889</x>
+     <y>226</y>
+     <width>80</width>
+     <height>20</height>
+    </rect>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>500</width>
+     <height>500</height>
+    </size>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::NoFrame</enum>
+   </property>
+   <property name="text">
+    <string>ICR/OCR</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="fontScaleMode">
+    <enum>ESimpleLabel::WidthAndHeight</enum>
+   </property>
+   <property name="foreground">
+    <color>
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
+   <property name="background">
+    <color alpha="0">
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
+  </widget>
+  <widget class="caCartesianPlot" name="cacartesianplot_2">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>35</y>
+     <width>874</width>
+     <height>262</height>
+    </rect>
+   </property>
+   <property name="channels_1" stdset="0">
+    <string notr="true">;$(P)MCASUM$(CHAN):ArrayData</string>
+   </property>
+   <property name="Style_1">
+    <enum>caCartesianPlot::Lines</enum>
+   </property>
+   <property name="symbol_1">
+    <enum>caCartesianPlot::NoSymbol</enum>
+   </property>
+   <property name="color_1">
+    <color>
+     <red>0</red>
+     <green>0</green>
+     <blue>255</blue>
+    </color>
+   </property>
+   <property name="gridColor">
+    <color alpha="25">
+     <red>0</red>
+     <green>0</green>
+     <blue>0</blue>
+    </color>
+   </property>
+   <property name="XaxisScaling" stdset="0">
+    <enum>caCartesianPlot::User</enum>
+   </property>
+   <property name="YaxisScaling" stdset="0">
+    <enum>caCartesianPlot::Auto</enum>
+   </property>
+   <property name="XaxisLimits">
+    <string>0;4096</string>
+   </property>
+   <property name="YAxisType" stdset="0">
+    <enum>caCartesianPlot::linear</enum>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>caRelatedDisplay</class>
+   <extends>QWidget</extends>
+   <header>caRelatedDisplay</header>
+  </customwidget>
+  <customwidget>
+   <class>caTextEntry</class>
+   <extends>caLineEdit</extends>
+   <header>caTextEntry</header>
+  </customwidget>
+  <customwidget>
+   <class>caFrame</class>
+   <extends>QFrame</extends>
+   <header>caFrame</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>caLabel</class>
+   <extends>QLabel</extends>
+   <header>caLabel</header>
+  </customwidget>
+  <customwidget>
+   <class>caInclude</class>
+   <extends>QWidget</extends>
+   <header>caInclude</header>
+  </customwidget>
+  <customwidget>
+   <class>caLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>caLineEdit</header>
+  </customwidget>
+  <customwidget>
+   <class>caCartesianPlot</class>
+   <extends>QFrame</extends>
+   <header>caCartesianPlot</header>
+  </customwidget>
+  <customwidget>
+   <class>caCalc</class>
+   <extends>QLabel</extends>
+   <header>caCalc</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

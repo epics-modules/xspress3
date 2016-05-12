@@ -1,8 +1,6 @@
 substitute "P=XSPTEST, R=':', ADDR=0, TIMEOUT=5"
 
 substitute "HDF=$(P):HDF5:, PROC=$(P):PROC:, PORT=PORT1, MAX_SPECTRA=4096, MAX_FRAMES=100"
-include "ADBase.template"
-include "xspress3_highlevel.template"
 include "xspress3.template"
 #include "xspress3_pluginControl.template"
 
