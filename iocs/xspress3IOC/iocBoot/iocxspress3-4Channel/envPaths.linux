@@ -1,0 +1,20 @@
+
+
+epicsEnvSet("SUPPORT","/home/xspress3/devel")
+
+epicsEnvSet("EPICS_BASE","/home/xspress3/devel/base")
+
+epicsEnvSet("ALIVE","$(SUPPORT)/alive")
+epicsEnvSet("ASYN","$(SUPPORT)/asyn")
+epicsEnvSet("CALC","$(SUPPORT)/calc")
+epicsEnvSet("BUSY","$(SUPPORT)/busy")
+epicsEnvSet("SSCAN","$(SUPPORT)/sscan")
+epicsEnvSet("AUTOSAVE","$(SUPPORT)/autosave")
+epicsEnvSet("AREA_DETECTOR","$(SUPPORT)/areaDetector")
+## epicsEnvSet("ADBINARIES","$(AREA_DETECTOR)/ADBinaries-R2-2")
+epicsEnvSet("ADCORE","$(AREA_DETECTOR)/ADCore")
+epicsEnvSet("DEVIOCSTATS","$(SUPPORT)/devIocStats")
+epicsEnvSet("XSPRESS3","$(SUPPORT)/xspress3")
+
+epicsEnvSet("TOP","$(XSPRESS3)/iocs/xspress3IOC")
+

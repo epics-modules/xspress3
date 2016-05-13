@@ -21,18 +21,24 @@
 
 TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 
-SUPPORT=/dls_sw/prod/R3.14.12.3/support
-WORK=/dls_sw/work/R3.14.12.3/support
+SUPPORT=/home/xspress3/devel
 
-ASYN=		$(SUPPORT)/asyn/4-21
-AREA_DETECTOR=	$(SUPPORT)/areaDetector/1-9dls4
-CALC=		$(SUPPORT)/calc/3-1
+ASYN=$(SUPPORT)/asyn
+AREA_DETECTOR=$(SUPPORT)/areaDetector
+ADCORE=$(SUPPORT)/areaDetector/ADCore
+CALC=$(SUPPORT)/calc
 
 #Dependencies for any builder example IOC
-BUSY=		$(SUPPORT)/busy/1-4dls1
+BUSY=$(SUPPORT)/busy
+# Other Optional Support Modules
+ALIVE=$(SUPPORT)/alive
+## DEVIOCSTATS=$(SUPPORT)/devIocStats-3-1-13
+AUTOSAVE=$(SUPPORT)/autosave
+SSCAN=$(SUPPORT)/sscan
+SNCSEQ=$(SUPPORT)/seq
 
 # EPICS_BASE usually appears last so other apps can override stuff:
-EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
+EPICS_BASE=/home/xspress3/devel/base
 
 # Set RULES here if you want to take build rules from somewhere
 # other than EPICS_BASE:

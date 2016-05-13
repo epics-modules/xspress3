@@ -823,10 +823,11 @@ asynStatus Xspress3::erase(void)
       status = asynError;
     } else {
       if (status == asynSuccess) {
-	setStringParam(ADStatusMessage, "Erased Data");
-      } else {
-	setStringParam(ADStatusMessage, "Problem Erasing Data");
-	setIntegerParam(ADStatus, ADStatusError);
+	      setStringParam(ADStatusMessage, "Erased Data");
+      } 
+      else {
+	      setStringParam(ADStatusMessage, "Problem Erasing Data");
+	      setIntegerParam(ADStatus, ADStatusError);
       }
     }
   }
@@ -862,9 +863,36 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca5Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca6Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca7Param, 0) == asynSuccess) && paramStatus);
-    callParamCallbacks(chan);
+    //callParamCallbacks(chan);
   }
-
+  
+  // Send a blank frame
+  NDArray *pMCA;
+  int xsp3_max_spectra=0;
+  getIntegerParam(xsp3MaxSpectraParam, &xsp3_max_spectra);
+  
+  NDDataType_t dataType= this->getDataType();
+  
+  
+  size_t dims[2];
+  this->getDims(dims);
+  
+  pMCA= this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
+  
+  if (pMCA !=NULL) {
+    memset(pMCA->pData,0,pMCA->dataSize);
+    this->setNDArrayAttributes(pMCA, -1);
+    
+    this->lock();
+    
+    this->callParamCallbacks();
+    this->unlock();
+    this->doNDCallbacksIfRequired(pMCA);
+    
+    pMCA->release();
+  
+  }
+  
   if (!paramStatus) {
     status = asynError;
   }
@@ -1053,6 +1081,11 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       if (adStatus != ADStatusAcquire) {
 	  if ((status = checkConnected()) == asynSuccess) {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Starting Data Collection.\n", functionName);
+	    //MNewville:  explicitly stop and clear histogram before starting.
+	    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
+	    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+	    xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
+	    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
             setupITFG();
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 	    if (xsp3_status != XSP3_OK) {
@@ -1471,11 +1504,12 @@ bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameNumber, int ma
     int xsp3Status = 0;
     const char* functionName = "Xspress3::readFrame";
     xsp3Status = xsp3->hist_dtc_read4d(this->xsp3_handle_, pMCAData, pSCA, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, 1);
+    
     if (xsp3Status != XSP3_OK) {
         checkStatus(xsp3Status, "xsp3_hist_dtc_read4d", functionName);
         error = true;
     } else {
-        setIntegerParam(NDArrayCounter, frameNumber);
+        setIntegerParam(NDArrayCounter, frameNumber+1);
     }
     return error;
 }
@@ -1495,6 +1529,10 @@ bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, 
         if (xsp3Status != XSP3_OK) {
             checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
             error = true;
+        }
+        else 
+        {
+        setIntegerParam(NDArrayCounter, frameNumber+1);
         }
     }
     return error;
@@ -1541,10 +1579,11 @@ const int Xspress3::waitForStartEvent(const char *message)
  * @param pSCA A pointer to an array of SCAs from the hardware
  * @param numChannels The number of xspress3 channels in the SCA array
  */
-void Xspress3::writeOutScas(void *&pSCA, int numChannels)
+void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
 {
-    double *pScaData = static_cast<double*>(pSCA);
-    for (int chan=0; chan<numChannels; ++chan) {
+    if (dataType == NDFloat64) {
+      double *pScaData = static_cast<double*>(pSCA);
+      for (int chan=0; chan<numChannels; ++chan) {
         this->setDoubleParam(chan, this->xsp3ChanSca0Param, static_cast<epicsFloat64>(pScaData[0]));
         this->setDoubleParam(chan, this->xsp3ChanSca1Param, static_cast<epicsFloat64>(pScaData[1]));
         this->setDoubleParam(chan, this->xsp3ChanSca2Param, static_cast<epicsFloat64>(pScaData[2]));
@@ -1554,6 +1593,21 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels)
         this->setDoubleParam(chan, this->xsp3ChanSca6Param, static_cast<epicsFloat64>(pScaData[6]));
         this->setDoubleParam(chan, this->xsp3ChanSca7Param, static_cast<epicsFloat64>(pScaData[7]));
         pScaData += XSP3_SW_NUM_SCALERS;
+      }
+    }
+    else {
+      u_int32_t *pScaData = static_cast<u_int32_t*>(pSCA);
+      for (int chan=0; chan<numChannels; ++chan) {
+        this->setDoubleParam(chan, this->xsp3ChanSca0Param, static_cast<epicsFloat64>(pScaData[0]));
+        this->setDoubleParam(chan, this->xsp3ChanSca1Param, static_cast<epicsFloat64>(pScaData[1]));
+        this->setDoubleParam(chan, this->xsp3ChanSca2Param, static_cast<epicsFloat64>(pScaData[2]));
+        this->setDoubleParam(chan, this->xsp3ChanSca3Param, static_cast<epicsFloat64>(pScaData[3]));
+        this->setDoubleParam(chan, this->xsp3ChanSca4Param, static_cast<epicsFloat64>(pScaData[4]));
+        this->setDoubleParam(chan, this->xsp3ChanSca5Param, static_cast<epicsFloat64>(pScaData[5]));
+        this->setDoubleParam(chan, this->xsp3ChanSca6Param, static_cast<epicsFloat64>(pScaData[6]));
+        this->setDoubleParam(chan, this->xsp3ChanSca7Param, static_cast<epicsFloat64>(pScaData[7]));
+        pScaData += XSP3_SW_NUM_SCALERS;
+      }
     }
 }
 
@@ -1719,35 +1773,38 @@ static void xsp3DataTaskC(void *xspAD)
         pXspAD->getDims(dims);
         maxSpectra = dims[0];
         numChannels = dims[1];
-        frameNumber = 1;
         numFrames = pXspAD->getNumFramesToAcquire();
         pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
-        while (acquire && (frameNumber <= numFrames)) {
+        while (acquire && (frameNumber < numFrames)) {
             acquired = pXspAD->getNumFramesRead();
-            if (frameNumber <= acquired) {
+            if (frameNumber < acquired) {
                 lastAcquired = acquired;
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
                     if (dataType == NDFloat64) {
                         error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frameNumber, maxSpectra);
-                    } else {
+                    } 
+                    else {
                         error = pXspAD->readFrame(static_cast<u_int32_t*>(pSCA), static_cast<u_int32_t*>(pMCA->pData), frameNumber, maxSpectra);
                     }
                     if (error) {
                         pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "There was an error during read out %d\n", error);
                     }
+                    
                     pXspAD->lock();
-                    pXspAD->writeOutScas(pSCA, numChannels);
+                    pXspAD->writeOutScas(pSCA, numChannels, dataType);
                     pXspAD->unlock();
                     frameNumber++;
                     pXspAD->setNDArrayAttributes(pMCA, frameNumber);
+                    pXspAD->lock();
+                    pXspAD->callParamCallbacks();
+                    pXspAD->unlock();
                     pXspAD->doNDCallbacksIfRequired(pMCA);
                     pMCA->release();
-                } else {
+                } 
+                else {
                     pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "Did not create a new array!\n");
                 }
-                pXspAD->lock();
-                pXspAD->callParamCallbacks();
-                pXspAD->unlock();
+                
             }
             if (pXspAD->checkForStopEvent(timeout, "Got stop event.\n") == epicsEventWaitOK) {
                 acquire = false;
@@ -1846,4 +1903,3 @@ extern "C" {
 
 
 /****************************************************************************************/
-

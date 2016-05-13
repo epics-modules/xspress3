@@ -73,62 +73,8 @@ include "xspress3ChannelSCALimits.template"
 substitute "SCA=6"
 include "xspress3ChannelSCALimits.template"
 
-##########################################################################
-# Dead Time Correction Parameters Read At Connection Time
-##########################################################################
-# ///
-# /// Read the Dead Time Correction Flags.
-# ///
-record(longin, "$(P)$(R)C$(CHAN)_DTC_FLAGS_RBV")
-{
-   field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_FLAGS")
-   field(SCAN, "I/O Intr")
-}
 
-# ///
-# /// Read the Dead Time Correction All Event Grad parameter.
-# ///
-record(ai, "$(P)$(R)C$(CHAN)_DTC_AEG_RBV")
-{
-   field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_AEG")
-   field(SCAN, "I/O Intr")
-   field(PREC, "4")
-}
-
-# ///
-# /// Read the Dead Time Correction All Event Offset parameter.
-# ///
-record(ai, "$(P)$(R)C$(CHAN)_DTC_AEO_RBV")
-{
-   field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_AEO")
-   field(SCAN, "I/O Intr")
-   field(PREC, "4")
-}
-
-# ///
-# /// Read the Dead Time Correction In Window Grad parameter.
-# ///
-record(ai, "$(P)$(R)C$(CHAN)_DTC_IWG_RBV")
-{
-   field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_IWG")
-   field(SCAN, "I/O Intr")
-   field(PREC, "4")
-}
-
-# ///
-# /// Read the Dead Time Correction In Window Offset parameter.
-# ///
-record(ai, "$(P)$(R)C$(CHAN)_DTC_IWO_RBV")
-{
-   field(DTYP, "asynFloat64")
-   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_IWO")
-   field(SCAN, "I/O Intr")
-   field(PREC, "4")
-}
+include "xspress3ChannelDTC.template
 
 ##########################################################################
 # Add in MCA ROI records.
