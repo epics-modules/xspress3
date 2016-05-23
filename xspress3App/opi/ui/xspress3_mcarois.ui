@@ -175,6 +175,24 @@ border-radius: 2px;
                     <blue>255</blue>
                 </color>
             </property>
+            <property name="Style_1">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="Style_2">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="Style_3">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="symbol_1">
+                <enum>caCartesianPlot::NoSymbol</enum>
+            </property>
+            <property name="symbol_2">
+                <enum>caCartesianPlot::Rect</enum>
+            </property>
+            <property name="symbol_3">
+                <enum>caCartesianPlot::Triangle</enum>
+            </property>
             <property name="color_1">
                 <color alpha="255">
                     <red>0</red>
@@ -190,24 +208,6 @@ border-radius: 2px;
             </property>
             <property name="XaxisLimits">
                 <string>0;4096.000000</string>
-            </property>
-            <property name="Style_1">
-                <enum>caCartesianPlot::Dots</enum>
-            </property>
-            <property name="Style_2">
-                <enum>caCartesianPlot::Dots</enum>
-            </property>
-            <property name="Style_3">
-                <enum>caCartesianPlot::Dots</enum>
-            </property>
-            <property name="symbol_1">
-                <enum>caCartesianPlot::NoSymbol</enum>
-            </property>
-            <property name="symbol_2">
-                <enum>caCartesianPlot::Rect</enum>
-            </property>
-            <property name="symbol_3">
-                <enum>caCartesianPlot::Triangle</enum>
             </property>
             <property name="YaxisScaling">
                 <enum>caCartesianPlot::Channel</enum>
@@ -282,6 +282,24 @@ border-radius: 2px;
                     <blue>255</blue>
                 </color>
             </property>
+            <property name="Style_1">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="Style_2">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="Style_3">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="symbol_1">
+                <enum>caCartesianPlot::NoSymbol</enum>
+            </property>
+            <property name="symbol_2">
+                <enum>caCartesianPlot::Rect</enum>
+            </property>
+            <property name="symbol_3">
+                <enum>caCartesianPlot::Triangle</enum>
+            </property>
             <property name="color_1">
                 <color alpha="255">
                     <red>0</red>
@@ -297,24 +315,6 @@ border-radius: 2px;
             </property>
             <property name="XaxisLimits">
                 <string>0;4096.000000</string>
-            </property>
-            <property name="Style_1">
-                <enum>caCartesianPlot::Dots</enum>
-            </property>
-            <property name="Style_2">
-                <enum>caCartesianPlot::Dots</enum>
-            </property>
-            <property name="Style_3">
-                <enum>caCartesianPlot::Dots</enum>
-            </property>
-            <property name="symbol_1">
-                <enum>caCartesianPlot::NoSymbol</enum>
-            </property>
-            <property name="symbol_2">
-                <enum>caCartesianPlot::Rect</enum>
-            </property>
-            <property name="symbol_3">
-                <enum>caCartesianPlot::Triangle</enum>
             </property>
             <property name="YaxisScaling">
                 <enum>caCartesianPlot::Channel</enum>

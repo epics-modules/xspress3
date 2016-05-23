@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_mcarois.adl"
+	name="/home/epics/matt/xspress3_ui/xspress3_mcarois.adl"
 	version=030107
 }
 display {
@@ -112,6 +112,7 @@ text {
 		clr=14
 		bclr=0
 	}
+	style="line"
 	trace[0] {
 		ydata="$(P):MCASUM$(CHAN):ArrayData"
 		data_clr=14
@@ -146,6 +147,7 @@ text {
 		clr=14
 		bclr=0
 	}
+	style="line"
 	trace[0] {
 		ydata="$(P):MCA$(CHAN):ArrayData"
 		data_clr=14
