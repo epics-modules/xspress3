@@ -1,0 +1,933 @@
+
+file {
+	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_main.adl"
+	version=030107
+}
+display {
+	object {
+		x=125
+		y=175
+		width=450
+		height=525
+	}
+	clr=14
+	bclr=1
+	cmap=""
+	gridSpacing=5
+	gridOn=0
+	snapToGrid=1
+}
+"color map" {
+	ncolors=65
+	colors {
+		ffffff,
+		ececec,
+		dadada,
+		c8c8c8,
+		bbbbbb,
+		aeaeae,
+		9e9e9e,
+		919191,
+		858585,
+		787878,
+		696969,
+		5a5a5a,
+		464646,
+		2d2d2d,
+		000000,
+		00d800,
+		1ebb00,
+		339900,
+		2d7f00,
+		216c00,
+		fd0000,
+		de1309,
+		be190b,
+		a01207,
+		820400,
+		5893ff,
+		597ee1,
+		4b6ec7,
+		3a5eab,
+		27548d,
+		fbf34a,
+		f9da3c,
+		eeb62b,
+		e19015,
+		cd6100,
+		ffb0ff,
+		d67fe2,
+		ae4ebc,
+		8b1a96,
+		610a75,
+		a4aaff,
+		8793e2,
+		6a73c1,
+		4d52a4,
+		343386,
+		c7bb6d,
+		b79d5c,
+		a47e3c,
+		7d5627,
+		58340f,
+		99ffff,
+		73dfff,
+		4ea5f9,
+		2a63e4,
+		0a00b8,
+		ebf1b5,
+		d4db9d,
+		bbc187,
+		a6a462,
+		8b8239,
+		73ff6b,
+		52da3b,
+		3cb420,
+		289315,
+		1a7309,
+	}
+}
+rectangle {
+	object {
+		x=5
+		y=250
+		width=325
+		height=20
+	}
+	"basic attribute" {
+		clr=55
+	}
+}
+text {
+	object {
+		x=10
+		y=5
+		width=180
+		height=18
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix=" Xspress3: $(P)"
+}
+"message button" {
+	object {
+		x=5
+		y=80
+		width=75
+		height=25
+	}
+	control {
+		chan="$(P):det1:Acquire"
+		clr=14
+		bclr=15
+	}
+	label="Start"
+	press_msg="Acquire"
+}
+"message button" {
+	object {
+		x=165
+		y=80
+		width=75
+		height=25
+	}
+	control {
+		chan="$(P):det1:ERASE"
+		clr=14
+		bclr=31
+	}
+	label="Erase"
+	press_msg="Erase"
+}
+"message button" {
+	object {
+		x=85
+		y=80
+		width=75
+		height=25
+	}
+	control {
+		chan="$(P):det1:Acquire"
+		clr=14
+		bclr=21
+	}
+	label="Stop"
+	press_msg="Done"
+}
+text {
+	object {
+		x=4000
+		y=0
+		width=210
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Not sure how to delete"
+	align="horiz. centered"
+}
+rectangle {
+	object {
+		x=5
+		y=55
+		width=325
+		height=20
+	}
+	"basic attribute" {
+		clr=55
+	}
+}
+byte {
+	object {
+		x=425
+		y=60
+		width=15
+		height=15
+	}
+	monitor {
+		chan="$(P):det1:StatusMessage_RBV"
+		clr=60
+		bclr=20
+	}
+	sbit=0
+}
+text {
+	object {
+		x=360
+		y=60
+		width=60
+		height=18
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Busy"
+}
+"text update" {
+	object {
+		x=320
+		y=85
+		width=120
+		height=15
+	}
+	monitor {
+		chan="$(P):det1:DetectorState_RBV"
+		clr=54
+		bclr=0
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=360
+		y=120
+		width=75
+		height=15
+	}
+	monitor {
+		chan="$(P):det1:ArrayCounter_RBV"
+		clr=54
+		bclr=0
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=360
+		y=140
+		width=75
+		height=15
+	}
+	monitor {
+		chan="$(P):det1:ArrayRate_RBV"
+		clr=54
+		bclr=0
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+text {
+	object {
+		x=205
+		y=85
+		width=100
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Status"
+	align="horiz. right"
+}
+text {
+	object {
+		x=300
+		y=120
+		width=50
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="# Read"
+}
+text {
+	object {
+		x=300
+		y=140
+		width=50
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Rate"
+}
+byte {
+	object {
+		x=425
+		y=5
+		width=15
+		height=15
+	}
+	monitor {
+		chan="$(P):det1:CONNECTED"
+		clr=60
+		bclr=20
+	}
+	sbit=0
+}
+text {
+	object {
+		x=345
+		y=5
+		width=60
+		height=18
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Connected"
+}
+text {
+	object {
+		x=5
+		y=125
+		width=100
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="# Frames"
+}
+"text entry" {
+	object {
+		x=102
+		y=120
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P):det1:NumImages"
+		clr=14
+		bclr=2
+	}
+	limits {
+	}
+}
+"choice button" {
+	object {
+		x=155
+		y=175
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P):det1:CTRL_DTC"
+		clr=14
+		bclr=3
+	}
+	stacking="column"
+}
+text {
+	object {
+		x=5
+		y=180
+		width=150
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Dead Time Corr"
+}
+text {
+	object {
+		x=5
+		y=215
+		width=100
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Trigger"
+}
+"text entry" {
+	object {
+		x=100
+		y=315
+		width=320
+		height=20
+	}
+	control {
+		chan="$(P):HDF1:FilePath"
+		clr=14
+		bclr=2
+	}
+	format="string"
+	limits {
+	}
+}
+text {
+	object {
+		x=10
+		y=348
+		width=100
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="File Prefix"
+}
+"text entry" {
+	object {
+		x=100
+		y=345
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P):HDF1:FileName"
+		clr=14
+		bclr=2
+	}
+	format="string"
+	limits {
+	}
+}
+text {
+	object {
+		x=230
+		y=348
+		width=90
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="File Number"
+}
+"text entry" {
+	object {
+		x=320
+		y=346
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P):HDF1:FileNumber"
+		clr=14
+		bclr=2
+	}
+	limits {
+	}
+}
+byte {
+	object {
+		x=425
+		y=315
+		width=15
+		height=15
+	}
+	monitor {
+		chan="$(P):HDF1:FilePathExists_RBV"
+		clr=60
+		bclr=20
+	}
+	sbit=0
+}
+"message button" {
+	object {
+		x=5
+		y=275
+		width=120
+		height=30
+	}
+	control {
+		chan="$(P):HDF1:Capture"
+		clr=54
+		bclr=3
+	}
+	label="Start Capture"
+	press_msg="Capture"
+}
+"message button" {
+	object {
+		x=130
+		y=275
+		width=120
+		height=30
+	}
+	control {
+		chan="$(P):HDF1:Capture"
+		clr=54
+		bclr=3
+	}
+	label="Stop Capture"
+	press_msg="Done"
+}
+byte {
+	object {
+		x=420
+		y=250
+		width=15
+		height=15
+	}
+	monitor {
+		chan="$(P):HDF1:Capture_RBV"
+		clr=60
+		bclr=20
+	}
+	sbit=0
+}
+byte {
+	object {
+		x=425
+		y=491
+		width=15
+		height=15
+	}
+	monitor {
+		chan="$(P):HDF1:WriteStatus"
+		clr=60
+		bclr=20
+	}
+	sbit=0
+}
+"related display" {
+	object {
+		x=5
+		y=25
+		width=90
+		height=25
+	}
+	display[0] {
+		label="Plugins"
+		name="xspress3_adplugins.adl"
+		args="P=$(P):"
+	}
+	display[1] {
+		label="AreaDetector Base"
+		name="ADBase.adl"
+		args="P=$(P):, R=det1:"
+	}
+	display[2] {
+		label="HDF5 File Plugin"
+		name="NDFileHDF5.adl"
+		args="P=$(P), R=:HDF1:"
+	}
+	display[4] {
+		label="MCA Plots"
+		name="xspress3_4mcas.adl"
+		args="P=$(P)"
+	}
+	display[6] {
+		label="MCA 1"
+		name="xspress3_mcarois.adl"
+		args="P=$(P), CHAN=1"
+	}
+	display[7] {
+		label="MCA 2"
+		name="xspress3_mcarois.adl"
+		args="P=$(P), CHAN=2"
+	}
+	display[8] {
+		label="MCA 3"
+		name="xspress3_mcarois.adl"
+		args="P=$(P), CHAN=3"
+	}
+	display[9] {
+		label="MCA 4"
+		name="xspress3_mcarois.adl"
+		args="P=$(P), CHAN=4"
+	}
+	clr=54
+	bclr=55
+	label="More"
+}
+"text update" {
+	object {
+		x=210
+		y=120
+		width=75
+		height=15
+	}
+	monitor {
+		chan="$(P):det1:NumImages_RBV"
+		clr=54
+		bclr=0
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=280
+		y=175
+		width=120
+		height=15
+	}
+	monitor {
+		chan="$(P):det1:CTRL_DTC_RBV"
+		clr=54
+		bclr=0
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=285
+		y=210
+		width=120
+		height=15
+	}
+	monitor {
+		chan="$(P):det1:TriggerMode_RBV"
+		clr=54
+		bclr=0
+	}
+	limits {
+	}
+}
+menu {
+	object {
+		x=155
+		y=210
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P):det1:TriggerMode"
+		clr=54
+		bclr=2
+	}
+	clrmod="discrete"
+}
+text {
+	object {
+		x=5
+		y=150
+		width=100
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Dwell Time"
+}
+"text entry" {
+	object {
+		x=102
+		y=145
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P):det1:AcquireTime"
+		clr=14
+		bclr=2
+	}
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=210
+		y=145
+		width=75
+		height=15
+	}
+	monitor {
+		chan="$(P):det1:AcquireTime_RBV"
+		clr=54
+		bclr=0
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=10
+		y=59
+		width=175
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Control & Status"
+}
+text {
+	object {
+		x=5
+		y=250
+		width=150
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="HDF5 File Saving"
+}
+text {
+	object {
+		x=10
+		y=318
+		width=100
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="File Path"
+}
+text {
+	object {
+		x=335
+		y=250
+		width=60
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Capturing"
+}
+text {
+	object {
+		x=10
+		y=491
+		width=90
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Status"
+}
+"text update" {
+	object {
+		x=100
+		y=491
+		width=300
+		height=15
+	}
+	monitor {
+		chan="$(P):HDF1:WriteMessage"
+		clr=54
+		bclr=0
+	}
+	format="string"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=120
+		y=25
+		width=320
+		height=20
+	}
+	monitor {
+		chan="$(P):det1:StatusMessage_RBV"
+		clr=54
+		bclr=0
+	}
+	format="string"
+	limits {
+	}
+}
+text {
+	object {
+		x=10
+		y=441
+		width=90
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Frames Saved"
+}
+"text update" {
+	object {
+		x=100
+		y=441
+		width=100
+		height=15
+	}
+	monitor {
+		chan="$(P):HDF1:NumCaptured_RBV"
+		clr=54
+		bclr=0
+	}
+	format="string"
+	limits {
+	}
+}
+text {
+	object {
+		x=10
+		y=406
+		width=100
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Compression"
+}
+menu {
+	object {
+		x=100
+		y=404
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P):HDF1:Compression"
+		clr=54
+		bclr=2
+	}
+	clrmod="discrete"
+}
+text {
+	object {
+		x=230
+		y=406
+		width=80
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="ZLevel:"
+}
+"text entry" {
+	object {
+		x=320
+		y=406
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P):HDF1:ZLevel"
+		clr=14
+		bclr=2
+	}
+	limits {
+	}
+}
+text {
+	object {
+		x=10
+		y=466
+		width=100
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Last File"
+}
+"text update" {
+	object {
+		x=100
+		y=466
+		width=300
+		height=15
+	}
+	monitor {
+		chan="$(P):HDF1:FullFileName_RBV"
+		clr=54
+		bclr=0
+	}
+	format="string"
+	limits {
+	}
+}
+text {
+	object {
+		x=10
+		y=376
+		width=90
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="File Format"
+}
+"text entry" {
+	object {
+		x=100
+		y=376
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P):HDF1:FileTemplate"
+		clr=14
+		bclr=2
+	}
+	format="string"
+	limits {
+	}
+}
+text {
+	object {
+		x=230
+		y=376
+		width=90
+		height=14
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Auto Number"
+}
+menu {
+	object {
+		x=320
+		y=375
+		width=100
+		height=20
+	}
+	control {
+		chan="$(P):HDF1:AutoIncrement"
+		clr=54
+		bclr=2
+	}
+	clrmod="discrete"
+}
