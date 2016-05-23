@@ -87,28 +87,18 @@ display {
 		1a7309,
 	}
 }
-rectangle {
-	object {
-		x=10
-		y=10
-		width=400
-		height=30
-	}
-	"basic attribute" {
-		clr=1
-	}
-}
 text {
 	object {
-		x=10
-		y=10
-		width=750
-		height=0
+		x=200
+		y=5
+		width=400
+		height=20
 	}
 	"basic attribute" {
 		clr=14
 	}
 	textix="Xspress3 $(P) Channel $(CHAN) MCA Data"
+	align="horiz. centered"
 }
 "cartesian plot" {
 	object {
