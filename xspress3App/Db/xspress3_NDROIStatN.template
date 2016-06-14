@@ -19,6 +19,11 @@
 #
 ###################################################################
 
+# % $(ADDR)
+# % $(NCHANS)
+# % $(PORT)
+# % $(TIMEOUT)
+
 # ///
 # /// Set the MCA ROI$(ROI) high level limit on channel $(CHAN)
 # ///
