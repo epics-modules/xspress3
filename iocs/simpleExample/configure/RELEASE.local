@@ -1,0 +1,7 @@
+SUPPORT=/dls_sw/prod/R3.14.12.3/support
+
+ASYN=$(SUPPORT)/asyn/4-26
+CALC=$(SUPPORT)/calc/3-1
+ADCORE=$(SUPPORT)/ADCore/2-4dls4
+
+EPICS_BASE=/dls_sw/epics/R3.14.12.3/base
