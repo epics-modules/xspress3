@@ -175,7 +175,7 @@ class Xspress3WithPlugins(Xspress3):
             num_rois=Simple("Number of ROIStats per channel", int)))
 
     def _create_channels(self):
-        for channel in range(self.num_channels):
+        for channel in range(1, self.num_channels+1):
             _Xspress3Channel(channel, self.num_rois, self)
 
     def _create_hdf_writer(self):
