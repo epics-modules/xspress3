@@ -77,7 +77,7 @@ class _Xspress3NDROIStat(ADCore.NDROIStat):
     def __init__(self, channel_num, S, *args, **kwargs):
         self.channel_num = channel_num
         self.S = S
-        super(_Xspress3NDROIStat, self).__init__(*args, **kwargs)
+        super(_Xspress3NDROIStat, self).__init__(*args, S=S, **kwargs)
 
     def _create_roi_stat_n_templates(self):
         for roi in range(self.MAX_ROIS):
@@ -101,6 +101,10 @@ class _Xspress3Channel(iocbuilder.Device):
         self.typical_args = {"P": parent.P, "TIMEOUT": parent.TIMEOUT, "CHAN":
                              channel_num, "INDEX": channel_num+1}
         self._create_channel()
+        # All of the templates are created in the channel template so
+        # override makeTemplateInstance in ADCore to stop plugins from
+        # creating more database
+        ADCore.makeTemplateInstance = lambda *args: None
         self._create_roi_stats()
         self._create_update_flag()
 
@@ -122,14 +126,14 @@ class _Xspress3Channel(iocbuilder.Device):
         _Xspress3NDROIStat(
             self.channel_num, ":",
             "{}.ROISTAT{}".format(self.parent.PORT, self.channel_num),
-            self.parent.PORT, ADDR=0, NCHANS=self.parent.max_buffers,
-            P=self.parent.P, R=self.parent.R, TIMEOUT=self.parent.TIMEOUT)
+            "{}.ROI{}".format(self.parent.PORT, self.channel_num),
+            ADDR=0, NCHANS=self.parent.max_buffers, P=self.parent.P,
+            TIMEOUT=self.parent.TIMEOUT, QUEUE=self.parent.max_buffers,
+            BUFFERS=self.parent.max_buffers)
 
     def Initialise(self):
-        def makeTemplateInstance(*args):
-            pass
-        ADCore.makeTemplateInstance = makeTemplateInstance
         roi_port = "{}.ROI{}".format(self.parent.PORT, self.channel_num)
+        ADCore.makeTemplateInstance = lambda *args: None
         ADCore.NDROI(roi_port, self.parent.PORT,
                      QUEUE=self.parent.max_buffers).Initialise()
         ADCore.NDStdArrays(
