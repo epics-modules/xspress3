@@ -140,7 +140,7 @@ class _Xspress3Channel(iocbuilder.Device):
             "{}.ARR{}".format(self.parent.PORT, self.channel_num),
             roi_port, QUEUE=self.parent.max_buffers).Initialise()
         roisum_port = "{}.ROISUM{}".format(self.parent.PORT, self.channel_num)
-        ADCore.NDROI(roisum_port, self.parent.PORT,
+        ADCore.NDROI(roisum_port, self.parent.PORT+".PROC",
                      QUEUE=self.parent.max_buffers).Initialise()
         ADCore.NDStdArrays(
             "{}.ARRSUM{}".format(self.parent.PORT, self.channel_num),
