@@ -129,7 +129,7 @@ class _Xspress3Channel(iocbuilder.Device):
             "{}.ROI{}".format(self.parent.PORT, self.channel_num),
             ADDR=0, NCHANS=self.parent.max_buffers, P=self.parent.P,
             TIMEOUT=self.parent.TIMEOUT, QUEUE=self.parent.max_buffers,
-            BUFFERS=self.parent.max_buffers)
+            BUFFERS=self.parent.max_buffers, MAX_ROIS=self.num_rois)
 
     def Initialise(self):
         roi_port = "{}.ROI{}".format(self.parent.PORT, self.channel_num)
