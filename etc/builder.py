@@ -104,9 +104,11 @@ class _Xspress3Channel(iocbuilder.Device):
         # All of the templates are created in the channel template so
         # override makeTemplateInstance in ADCore to stop plugins from
         # creating more database
+        self._makeTemplateInstance = ADCore.makeTemplateInstance
         ADCore.makeTemplateInstance = lambda *args: None
         self._create_roi_stats()
         self._create_update_flag()
+        ADCore.makeTemplateInstance = self._makeTemplateInstance
 
     def _create_channel(self):
         _Xspress3ChannelTemplate(S=":", R=":", PORT=self.parent.PORT,
@@ -145,6 +147,7 @@ class _Xspress3Channel(iocbuilder.Device):
         ADCore.NDStdArrays(
             "{}.ARRSUM{}".format(self.parent.PORT, self.channel_num),
             roisum_port, QUEUE=self.parent.max_buffers).Initialise()
+        ADCore.makeTemplateInstance = self._makeTemplateInstance
 
 
 class Xspress3WithPlugins(Xspress3):
