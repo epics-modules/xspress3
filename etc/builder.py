@@ -99,7 +99,7 @@ class _Xspress3Channel(iocbuilder.Device):
         self.num_rois = num_rois
         self.parent = parent
         self.typical_args = {"P": parent.P, "TIMEOUT": parent.TIMEOUT, "CHAN":
-                             channel_num, "INDEX": channel_num+1}
+                             channel_num, "INDEX": channel_num-1}
         self._create_channel()
         # All of the templates are created in the channel template so
         # override makeTemplateInstance in ADCore to stop plugins from
