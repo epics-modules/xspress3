@@ -147,7 +147,21 @@ class _Xspress3Channel(iocbuilder.Device):
         ADCore.NDStdArrays(
             "{}.ARRSUM{}".format(self.parent.PORT, self.channel_num),
             roisum_port, QUEUE=self.parent.max_buffers).Initialise()
+        ADCore.NDAttribute(
+            "{}.C{}_SCAS".format(self.parent.PORT, self.channel_num),
+            self.parent.PORT, NDARRAY_ADDR=0, MAX_ATTRIBUTES=8,
+            QUEUE=self.parent.max_buffers,
+            TIMEOUT=self.parent.TIMEOUT, P=self.parent.P,
+            R=":C{}_SCAS".format(self.channel_num)).Initialise()
         ADCore.makeTemplateInstance = self._makeTemplateInstance
+
+    def PostIocInitialise(self):
+        for scaler in range(8):
+            print("dbpf({}, Chan{}Sca{})".format(
+                "{}:C{}_SCA{}:AttrName".format(self.parent.P,
+                                               self.channel_num,
+                                               scaler),
+                self.channel_num-1, scaler))
 
 
 class Xspress3WithPlugins(Xspress3):

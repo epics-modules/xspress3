@@ -169,14 +169,6 @@ void Xspress3::createInitialParameters()
     createParam(xsp3InvertF0ParamString, asynParamInt32, &xsp3InvertF0Param);
     createParam(xsp3InvertVetoParamString, asynParamInt32, &xsp3InvertVetoParam);
     createParam(xsp3DebounceParamString, asynParamInt32, &xsp3DebounceParam);
-    createParam(xsp3ChanSca0ParamString, asynParamFloat64, &xsp3ChanSca0Param);
-    createParam(xsp3ChanSca1ParamString, asynParamFloat64, &xsp3ChanSca1Param);
-    createParam(xsp3ChanSca2ParamString, asynParamFloat64, &xsp3ChanSca2Param);
-    createParam(xsp3ChanSca3ParamString, asynParamFloat64, &xsp3ChanSca3Param);
-    createParam(xsp3ChanSca4ParamString, asynParamFloat64, &xsp3ChanSca4Param);
-    createParam(xsp3ChanSca5ParamString, asynParamFloat64, &xsp3ChanSca5Param);
-    createParam(xsp3ChanSca6ParamString, asynParamFloat64, &xsp3ChanSca6Param);
-    createParam(xsp3ChanSca7ParamString, asynParamFloat64, &xsp3ChanSca7Param);
     createParam(xsp3ChanSca4ThresholdParamString, asynParamInt32, &xsp3ChanSca4ThresholdParam);
     createParam(xsp3ChanSca5HlmParamString, asynParamInt32, &xsp3ChanSca5HlmParam);
     createParam(xsp3ChanSca6HlmParamString, asynParamInt32, &xsp3ChanSca6HlmParam);
@@ -792,18 +784,6 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
   bool paramStatus = true;
   paramStatus = ((setIntegerParam(NDArrayCounter, 0) == asynSuccess) && paramStatus);
   paramStatus = ((setIntegerParam(xsp3FrameCountParam, 0) == asynSuccess) && paramStatus);
-
-  for (int chan=0; chan<xsp3_num_channels; ++chan) {
-    paramStatus = ((setDoubleParam(chan, xsp3ChanSca0Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanSca1Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanSca2Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanSca3Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanSca4Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanSca5Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanSca6Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setDoubleParam(chan, xsp3ChanSca7Param, 0) == asynSuccess) && paramStatus);
-    callParamCallbacks(chan);
-  }
 
   if (!paramStatus) {
     status = asynError;
@@ -1460,6 +1440,37 @@ void Xspress3::getDims(size_t (&dims)[2])
 }
 
 /** 
+ * Add NDAttributes to the NDArray MCA with the values of the scalers
+ * received from the Xspress3 e.g. reset statistics, pileup and number
+ * of counts in the hardware ROIs
+ *
+ * @param pMCA A pointer to an array of data to attache the attributes
+ * to.
+ */
+void Xspress3::addScalerAttributes(NDArray *&pMCA)
+{
+    int numChannels;
+    const int lenAttributeName = 12;
+    char attributeName[lenAttributeName];
+    bool isFloat;
+    double *dSCA = pSCAd;
+    unsigned int *iSCA = pSCAui;
+    isFloat = pMCA->dataType == NDFloat64;
+    this->getIntegerParam(this->xsp3NumChannelsParam, &numChannels);
+    for (int channel=0; channel<numChannels; channel++) {
+        for (int scaler=0; scaler<XSP3_SW_NUM_SCALERS; scaler++) {
+            sprintf(attributeName, "Chan%dSca%d", channel, scaler);
+            pMCA->pAttributeList->add(
+                attributeName, "",
+                static_cast<NDAttrDataType_t>(pMCA->dataType),
+                (isFloat ? static_cast<void*>(dSCA++) :
+                 static_cast<void*>(iSCA++)));
+        }
+    }
+}
+            
+
+/** 
  * Sets the uniqueId of *pMCA to the frame number and sets the timeStamp
  * to the current time.
  *
@@ -1474,7 +1485,8 @@ void Xspress3::setNDArrayAttributes(NDArray *&pMCA, int frameNumber)
     epicsTimeGetCurrent(&currentTime);
     pMCA->uniqueId = frameNumber;
     pMCA->timeStamp = currentTime.secPastEpoch + currentTime.nsec/1e9;
-    pMCA->pAttributeList->add("TIMESTAMP", "Host Timestamp", NDAttrFloat64, &(pMCA->timeStamp));
+    pMCA->pAttributeList->add("TIMESTAMP", "Host Timestamp", NDAttrFloat64,
+                              &(pMCA->timeStamp));
     this->getAttributes(pMCA->pAttributeList);
 }
 
@@ -1560,16 +1572,15 @@ void Xspress3::grabFrame(int frameNumber, int frameOffset)
     if (this->dtcEnabled && this->createMCAArray(dims, pMCA, NDFloat64)) {
         error = this->readFrame(pSCAd, static_cast<double*>(pMCA->pData),
                                 frameNumber, this->maxSpectra);
-        this->writeOutScas(pSCAd, this->numChannels_);
     } else if (this->createMCAArray(dims, pMCA, NDUInt32)) {
         error = this->readFrame(pSCAui, static_cast<u_int32_t*>(pMCA->pData),
                                 frameNumber, this->maxSpectra);
-        this->writeOutScas(pSCAui, this->numChannels_);
     } else {
         error = true;
     }
     if (!error) {
         this->setNDArrayAttributes(pMCA, frameOffset + frameNumber);
+        this->addScalerAttributes(pMCA);
         this->lock();
         setIntegerParam(NDArrayCounter, frameOffset + frameNumber);
         this->doNDCallbacksIfRequired(pMCA);

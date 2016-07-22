@@ -1,0 +1,1 @@
+The scaler parameters have been replaced with NDAttributes on the NDArrays so that NDPluginAttributes can be used. This reduces the number of plugins required and removes a lot of parameter handling code for updating these values as it is all handled by the NDPluginAttributes plugin.
