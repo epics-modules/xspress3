@@ -31,15 +31,20 @@ record(calcout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI")
    field(INPA, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_HLM")
    field(INPB, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM")
    field(CALC, "A-B")
-   field(OUT, "$(P)$(S)C$(CHAN)_ROI$(ROI):SizeX PP")
+   field(OUT,  "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI:DFAN PP")
    field(OOPT, "On Change")
-   field(FLNK, "$(P)$(S)C$(CHAN)_ROI$(ROI):MinX")
+}
+
+record(dfanout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI:DFAN")
+{
+    field(OUTA, "$(P)$(S)C$(CHAN)_ROI:$(ROI):SizeX PP")
+    field(OUTB, "$(P)$(S)C$(CHAN)_ROISUM:$(ROI):SizeX PP")
 }
 
 record(longout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_HLM")
 {
-   field(VAL, "0")
-   field(FLNK, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI")
+    field(PINI, 1)
+    field(FLNK, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI")
 }
 
 # ///
@@ -48,8 +53,8 @@ record(longout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_HLM")
 record(calc, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_HLM_RBV")
 {
    field(PINI, "1")
-   field(INPA, "$(P)$(S)C$(CHAN)_ROI$(ROI):SizeX_RBV")
-   field(INPB, "$(P)$(S)C$(CHAN)_ROI$(ROI):MinX_RBV")
+   field(INPA, "$(P)$(S)C$(CHAN)_ROI:$(ROI):SizeX_RBV")
+   field(INPB, "$(P)$(S)C$(CHAN)_ROI:$(ROI):MinX_RBV")
    field(CALC, "B+A")
 }
 
@@ -58,8 +63,15 @@ record(calc, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_HLM_RBV")
 # ///
 record(longout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM")
 {
-   field(OUT,  "$(P)$(S)C$(CHAN)_ROI$(ROI):MinX")
-   field(FLNK, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI")
+    field(PINI, 1)
+    field(OUT,  "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM:DFAN PP")
+    field(FLNK, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_CALC_HI")
+}
+
+record(dfanout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM:DFAN")
+{
+    field(OUTA, "$(P)$(S)C$(CHAN)_ROI:$(ROI):MinX PP")
+    field(OUTB,  "$(P)$(S)C$(CHAN)_ROISUM:$(ROI):MinX PP")
 }
 
 # ///
@@ -68,12 +80,37 @@ record(longout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM")
 record(longin, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM_RBV")
 {
    field(PINI, "1")
-   field(INP, "$(P)$(S)C$(CHAN)_ROI$(ROI):MinX_RBV PP")
+   field(INP, "$(P)$(S)C$(CHAN)_ROI:$(ROI):MinX_RBV PP")
 }
 
-substitute "R=$(S)C$(CHAN)_ROI$(ROI):"
+record(bo, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_USE")
+{
+    field(VAL,  "0")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(OUT, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_USE:DFAN PP")
+}
+
+record(dfanout, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_USE:DFAN")
+{
+    field(OUTA, "$(P)$(S)C$(CHAN)_ROI:$(ROI):Use PP")
+    field(OUTB, "$(P)$(S)C$(CHAN)_ROISUM:$(ROI):Use PP")
+}
+
+
+record(bo, "$(P)$(S)C$(CHAN)_ROI:$(ROI):PushUse")
+{
+    field(DOL, "$(P)$(S)C$(CHAN)_PluginControlVal CP")
+    field(OMSL, "closed_loop")
+    field(OUT, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_USE PP")
+}
+
+substitute "R=$(S)C$(CHAN)_ROI:$(ROI):"
 include "NDROIStatN.template"
+alias("$(P)$(S)C$(CHAN)_ROI:$(ROI):TSTotal", "$(P)$(S)C$(CHAN)_ROI$(ROI):ArrayData_RBV")
+alias("$(P)$(S)C$(CHAN)_ROI:$(ROI):Total_RBV", "$(P)$(S)C$(CHAN)_ROI$(ROI):Value_RBV")
 
-alias("$(P)$(S)C$(CHAN)_ROI$(ROI):TSTotal", "$(P)$(S)C$(CHAN)_ROI$(ROI):ArrayData_RBV")
-
-alias("$(P)$(S)C$(CHAN)_ROI$(ROI):Total_RBV", "$(P)$(S)C$(CHAN)_ROI$(ROI):Value_RBV")
+substitute "R=$(S)C$(CHAN)_ROISUM:$(ROI):, PORT=XSP3.ROISUMSTAT$(CHAN)"
+include "NDROIStatN.template"
+alias("$(P)$(S)C$(CHAN)_ROISUM:$(ROI):TSTotal", "$(P)$(S)C$(CHAN)_ROISUM$(ROI):ArrayData_RBV")
+alias("$(P)$(S)C$(CHAN)_ROISUM:$(ROI):Total_RBV", "$(P)$(S)C$(CHAN)_ROISUM$(ROI):Value_RBV")

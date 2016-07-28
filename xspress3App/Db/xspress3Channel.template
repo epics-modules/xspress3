@@ -167,7 +167,17 @@ record(bo, "$(P)$(R)PushEnableCallbacks")
 }
 
 
-substitute "R=:C_$(CHAN):, PORT=XSP3.ROISTAT$(CHAN), NDARRAY_PORT=XSP3.ROI$(CHAN), NCHANS=$(NELEMENTS)"
+substitute "R=:C$(CHAN)_ROI:, PORT=XSP3.ROISTAT$(CHAN), NDARRAY_PORT=XSP3.ROI$(CHAN), NCHANS=$(NELEMENTS)"
+include "NDROIStat.template"
+
+record(bo, "$(P)$(R)PushEnableCallbacks")
+{
+    field(DOL, "$(P)$(S)C$(CHAN)_PluginControlVal CP")
+    field(OMSL, "closed_loop")
+    field(OUT, "$(P)$(R)EnableCallbacks CA")
+}
+
+substitute "R=:C$(CHAN)_ROISUM:, PORT=XSP3.ROISUMSTAT$(CHAN), NDARRAY_PORT=XSP3.ROISUM$(CHAN), NCHANS=$(NELEMENTS)"
 include "NDROIStat.template"
 
 record(bo, "$(P)$(R)PushEnableCallbacks")

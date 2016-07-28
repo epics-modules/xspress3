@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 5
-y 66
+x 7
+y 773
 w 1000
 h 965
 font "arial-medium-r-12.0"
@@ -205,7 +205,7 @@ minor 1
 release 1
 x 10
 y 30
-w 334
+w 342
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -280,7 +280,7 @@ minor 1
 release 1
 x 10
 y 380
-w 353
+w 360
 h 16
 font "arial-bold-r-14.0"
 fgColor index 14
@@ -777,7 +777,7 @@ x 155
 y 860
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_ROI1:ValueSum_RBV"
+controlPv "$(P):C$(CHAN)_ROISUM1:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -800,7 +800,7 @@ x 255
 y 860
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_ROI2:ValueSum_RBV"
+controlPv "$(P):C$(CHAN)_ROISUM2:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -823,7 +823,7 @@ x 355
 y 860
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_ROI3:ValueSum_RBV"
+controlPv "$(P):C$(CHAN)_ROISUM3:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -846,7 +846,7 @@ x 455
 y 860
 w 90
 h 25
-controlPv "$(P):C$(CHAN)_ROI4:ValueSum_RBV"
+controlPv "$(P):C$(CHAN)_ROISUM4:Value_RBV"
 font "arial-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
@@ -874,7 +874,7 @@ bgColor index 3
 inconsistentColor index 14
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P):C$(CHAN)_ROI1:EnableCallbacks"
+controlPv "$(P):C$(CHAN)_MCA_ROI1_USE"
 font "arial-bold-r-12.0"
 endObjectProperties
 
@@ -893,7 +893,7 @@ bgColor index 3
 inconsistentColor index 14
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P):C$(CHAN)_ROI2:EnableCallbacks"
+controlPv "$(P):C$(CHAN)_MCA_ROI2_USE"
 font "arial-bold-r-12.0"
 endObjectProperties
 
@@ -912,7 +912,7 @@ bgColor index 3
 inconsistentColor index 14
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P):C$(CHAN)_ROI3:EnableCallbacks"
+controlPv "$(P):C$(CHAN)_MCA_ROI3_USE"
 font "arial-bold-r-12.0"
 endObjectProperties
 
@@ -931,7 +931,7 @@ bgColor index 3
 inconsistentColor index 14
 topShadowColor index 1
 botShadowColor index 11
-controlPv "$(P):C$(CHAN)_ROI4:EnableCallbacks"
+controlPv "$(P):C$(CHAN)_MCA_ROI4_USE"
 font "arial-bold-r-12.0"
 endObjectProperties
 
