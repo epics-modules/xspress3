@@ -11,7 +11,6 @@
 # % macro, S, Base PV name
 # % macro, PORT, Asyn port name
 # % macro, CHAN, Channel number
-# % macro, INDEX, Index of the channel in the detector array Y axis
 # % macro, ROI, ROI number
 # % macro, NCHANS, Number of elements in stats waveforms
 # % macro, ADDR, Asyn address to use on the NDROIStat asyn port (usually ROI - 1)
@@ -72,7 +71,7 @@ record(longin, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_LLM_RBV")
    field(INP, "$(P)$(S)C$(CHAN)_ROI$(ROI):MinX_RBV PP")
 }
 
-substitute "R=$(S)C$(CHAN)_ROI$(ROI):, NDARRAY_PORT=XSP3.ROISTAT$(ROI)"
+substitute "R=$(S)C$(CHAN)_ROI$(ROI):"
 include "NDROIStatN.template"
 
 alias("$(P)$(S)C$(CHAN)_ROI$(ROI):TSTotal", "$(P)$(S)C$(CHAN)_ROI$(ROI):ArrayData_RBV")
