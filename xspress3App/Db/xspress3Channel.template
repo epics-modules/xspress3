@@ -199,27 +199,35 @@ record(bo, "$(P)$(R)PushEnableCallbacks")
     field(OUT, "$(P)$(R)EnableCallbacks CA")
 }
 
-substitute "R=:C$(CHAN)_SCA0:, ADDR=0"
+substitute "R=:C$(CHAN)_SCAS:0:, ADDR=0"
 include "NDAttributeN.template"
+alias("$(P)$(R)Value_RBV", "$(P)$(S)C$(CHAN)_SCA0:Value_RBV")
 
-substitute "R=:C$(CHAN)_SCA1:, ADDR=1"
+substitute "R=:C$(CHAN)_SCAS:1:, ADDR=1"
 include "NDAttributeN.template"
+alias("$(P)$(R)Value_RBV", "$(P)$(S)C$(CHAN)_SCA1:Value_RBV")
 
-substitute "R=:C$(CHAN)_SCA2:, ADDR=2"
+substitute "R=:C$(CHAN)_SCAS:2:, ADDR=2"
 include "NDAttributeN.template"
+alias("$(P)$(R)Value_RBV", "$(P)$(S)C$(CHAN)_SCA2:Value_RBV")
 
-substitute "R=:C$(CHAN)_SCA3:, ADDR=3"
+substitute "R=:C$(CHAN)_SCAS:3:, ADDR=3"
 include "NDAttributeN.template"
+alias("$(P)$(R)Value_RBV", "$(P)$(S)C$(CHAN)_SCA3:Value_RBV")
 
-substitute "R=:C$(CHAN)_SCA4:, ADDR=4"
+substitute "R=:C$(CHAN)_SCAS:4:, ADDR=4"
 include "NDAttributeN.template"
+alias("$(P)$(R)Value_RBV", "$(P)$(S)C$(CHAN)_SCA4:Value_RBV")
 
-substitute "R=:C$(CHAN)_SCA5:, ADDR=5"
+substitute "R=:C$(CHAN)_SCAS:5:, ADDR=5"
 include "NDAttributeN.template"
+alias("$(P)$(R)Value_RBV", "$(P)$(S)C$(CHAN)_SCA5:Value_RBV")
 
-substitute "R=:C$(CHAN)_SCA6:, ADDR=6"
+substitute "R=:C$(CHAN)_SCAS:6:, ADDR=6"
 include "NDAttributeN.template"
+alias("$(P)$(R)Value_RBV", "$(P)$(S)C$(CHAN)_SCA6:Value_RBV")
 
-substitute "R=:C$(CHAN)_SCA7:, ADDR=7"
+substitute "R=:C$(CHAN)_SCAS:7:, ADDR=7"
 include "NDAttributeN.template"
+alias("$(P)$(R)Value_RBV", "$(P)$(S)C$(CHAN)_SCA7:Value_RBV")
 
