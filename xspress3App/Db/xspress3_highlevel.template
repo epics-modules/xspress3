@@ -76,15 +76,15 @@ record(dfanout, "$(P)$(R)ERASE_AttrReset")
 #########################################################################
 
 #Trigger an update of the NDAttribute arrays
-record(bo,"$(P)$(R)UPDATE") 
+record(bi,"$(P)$(R)UPDATE")
 {
-   field(FLNK, "$(P)$(R)UPDATE_AttrUpdate.PROC")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(FLNK, "$(P)$(R)UPDATER")
 }
 
-#On an erase, do a reset on the NDAttribute plugins. This has MDEL of 0, so channel access updates
-#are triggered every time, and there is a bo record for every channel that monitors its value.
-record(dfanout, "$(P)$(R)UPDATE_AttrUpdate")
+record(longout, "$(P)$(R)UPDATER")
 {
-   field(VAL, "1")
-   field(MDEL, "-1" )
+    field(VAL, 3)
+    field(MDEL, -1)
 }

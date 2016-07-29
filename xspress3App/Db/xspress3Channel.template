@@ -199,6 +199,13 @@ record(bo, "$(P)$(R)PushEnableCallbacks")
     field(OUT, "$(P)$(R)EnableCallbacks CA")
 }
 
+record(longout, "$(P)$(R)UpdateArrays")
+{
+    field(OMSL, "closed_loop")
+    field(DOL, "$(P)$(S)UPDATER CP")
+    field(OUT, "$(P)$(R)TSControl PP")
+}
+
 substitute "R=:C$(CHAN)_SCAS:0:, ADDR=0"
 include "NDAttributeN.template"
 alias("$(P)$(R)Value_RBV", "$(P)$(S)C$(CHAN)_SCA0:Value_RBV")
