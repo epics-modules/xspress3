@@ -8,9 +8,16 @@
 # % macro,  R,           Device suffix
 # % macro,  HDF,         HDF plugin record prefix
 # % macro,  PROC,        Processing plugin record prefix
+# % macro,  NDARRAY_PORT,Name of the Xspress3 asyn port
+# % macro,  NDARRAY_ADDR,Address of the Xspress3 asyn port
+# % macro,  TIMEOUT,     Timeout
+# % macro,  ADDR,        Asyn Port address
 #
 ###########################################################
 
+# % $(TIMEOUT)
+# % $(ADDR)
+# % $(NDARRAY_ADDR)
 
 #Add a FLNK to the NumImages record, to automatically set the HDF plugin NumCapture
 record(longout, "$(P)$(R)NumImages")
@@ -88,3 +95,9 @@ record(longout, "$(P)$(R)UPDATER")
     field(VAL, 3)
     field(MDEL, -1)
 }
+
+substitute "P=$(HDF), R=, PORT=$(NDARRAY_PORT).HDF5"
+include "NDFileHDF5.template"
+
+substitute "P=$(PROC), PORT=$(NDARRAY_PORT).PROC"
+include "NDProcess.template"
