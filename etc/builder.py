@@ -77,6 +77,10 @@ class _Xspress3NDROIStat(ADCore.NDROIStat):
     def __init__(self, channel_num, S, *args, **kwargs):
         self.channel_num = channel_num
         self.S = S
+        if "roi_prefix" in kwargs:
+            self.roi_prefix = kwargs["roi_prefix"]
+        else:
+            self.roi_prefix = ""
         super(_Xspress3NDROIStat, self).__init__(*args, S=S, **kwargs)
 
     def _create_roi_stat_n_templates(self):
@@ -84,7 +88,7 @@ class _Xspress3NDROIStat(ADCore.NDROIStat):
             _Xspress3NDROIStatNTemplate(
                 P=self.args["P"], S=self.S, NCHANS=self.NCHANS, PORT=self.PORT,
                 ADDR=roi, TIMEOUT=self.TIMEOUT, CHAN=self.channel_num,
-                ROI=roi+1)
+                ROI="{}{}".format(self.roi_prefix, roi+1))
 
 
 class _Xspress3ChannelTemplate(iocbuilder.AutoSubstitution):
@@ -132,6 +136,17 @@ class _Xspress3Channel(iocbuilder.Device):
             ADDR=0, NCHANS=self.parent.max_buffers, P=self.parent.P,
             TIMEOUT=self.parent.TIMEOUT, QUEUE=self.parent.max_buffers,
             BUFFERS=self.parent.max_buffers, MAX_ROIS=self.num_rois)
+        roi_func = _Xspress3NDROIStat._create_roi_stat_n_templates
+        _Xspress3NDROIStat._create_roi_stat_n_templates = lambda x: None
+        _Xspress3NDROIStat(
+            self.channel_num, ":",
+            "{}.ROISUMSTAT{}".format(self.parent.PORT, self.channel_num),
+            "{}.ROISUM{}".format(self.parent.PORT, self.channel_num),
+            roi_prefix="SUM", ADDR=0, NCHANS=self.parent.max_buffers,
+            P=self.parent.P, TIMEOUT=self.parent.TIMEOUT,
+            QUEUE=self.parent.max_buffers, BUFFERS=self.parent.max_buffers,
+            MAX_ROIS=self.num_rois)
+        _Xspress3NDROIStat._create_roi_stat_n_templates = roi_func
 
     def Initialise(self):
         roi_port = "{}.ROI{}".format(self.parent.PORT, self.channel_num)
@@ -158,10 +173,10 @@ class _Xspress3Channel(iocbuilder.Device):
     def PostIocInitialise(self):
         for scaler in range(8):
             print("dbpf({}, Chan{}Sca{})".format(
-                "{}:C{}_SCA{}:AttrName".format(self.parent.P,
-                                               self.channel_num,
-                                               scaler),
-                self.channel_num-1, scaler))
+                "{}:C{}_SCAS:{}:AttrName".format(self.parent.P,
+                                                 self.channel_num,
+                                                 scaler+1),
+                self.channel_num, scaler))
 
 
 class Xspress3WithPlugins(Xspress3):
