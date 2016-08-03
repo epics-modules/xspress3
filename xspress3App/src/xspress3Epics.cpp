@@ -1457,7 +1457,7 @@ void Xspress3::addScalerAttributes(NDArray *&pMCA)
     unsigned int *iSCA = pSCAui;
     isFloat = pMCA->dataType == NDFloat64;
     this->getIntegerParam(this->xsp3NumChannelsParam, &numChannels);
-    for (int channel=0; channel<numChannels; channel++) {
+    for (int channel=1; channel<=numChannels; channel++) {
         for (int scaler=0; scaler<XSP3_SW_NUM_SCALERS; scaler++) {
             sprintf(attributeName, "Chan%dSca%d", channel, scaler);
             pMCA->pAttributeList->add(
