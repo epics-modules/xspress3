@@ -4,6 +4,19 @@ import iocbuilder.modules.asyn as asyn
 from iocbuilder.arginfo import Simple
 
 
+def override_makeTemplateInstance(ad_object, *args, **kwargs):
+    """Create ad_object with no template.
+
+    If a template is included in another template but you would like
+    builder to take care of the startup script this will stop ad_object
+    creating a template."""
+    makeTemplateInstance = ADCore.makeTemplateInstance
+    ADCore.makeTemplateInstance = lambda *args: None
+    ad_thing = ad_object(*args, **kwargs)
+    ADCore.makeTemplateInstance = makeTemplateInstance
+    return ad_thing
+
+
 @ADCore.includesTemplates(ADCore.ADBaseTemplate)
 class _Xspress3Template(iocbuilder.AutoSubstitution):
     TemplateFile = "xspress3.template"
@@ -108,11 +121,8 @@ class _Xspress3Channel(iocbuilder.Device):
         # All of the templates are created in the channel template so
         # override makeTemplateInstance in ADCore to stop plugins from
         # creating more database
-        self._makeTemplateInstance = ADCore.makeTemplateInstance
-        ADCore.makeTemplateInstance = lambda *args: None
-        self._create_roi_stats()
-        self._create_update_flag()
-        ADCore.makeTemplateInstance = self._makeTemplateInstance
+        override_makeTemplateInstance(self._create_roi_stats)
+        override_makeTemplateInstance(self._create_update_flag)
 
     def _create_channel(self):
         _Xspress3ChannelTemplate(S=":", R=":", PORT=self.parent.PORT,
@@ -150,6 +160,7 @@ class _Xspress3Channel(iocbuilder.Device):
 
     def Initialise(self):
         roi_port = "{}.ROI{}".format(self.parent.PORT, self.channel_num)
+        makeTemplateInstance = ADCore.makeTemplateInstance
         ADCore.makeTemplateInstance = lambda *args: None
         ADCore.NDROI(roi_port, self.parent.PORT,
                      QUEUE=self.parent.max_buffers).Initialise()
@@ -168,7 +179,7 @@ class _Xspress3Channel(iocbuilder.Device):
             QUEUE=self.parent.max_buffers,
             TIMEOUT=self.parent.TIMEOUT, P=self.parent.P,
             R=":C{}_SCAS".format(self.channel_num)).Initialise()
-        ADCore.makeTemplateInstance = self._makeTemplateInstance
+        ADCore.makeTemplateInstance = makeTemplateInstance
 
     def PostIocInitialise(self):
         for scaler in range(8):
@@ -195,8 +206,8 @@ class Xspress3WithPlugins(Xspress3):
         self.typical_args = {"P": P, "QUEUE": self.max_buffers, "NDARRAY_ADDR":
                              ADDR, "BUFFERS": self.max_buffers, "MEMORY":
                              self.max_memory, "ADDR": 0, "TIMEOUT": 5}
-        self._create_proc()
-        self._create_hdf_writer()
+        override_makeTemplateInstance(self._create_proc)
+        override_makeTemplateInstance(self._create_hdf_writer)
         self._create_highlevel()
         self._create_channels()
         self._create_available_frame()
@@ -211,16 +222,39 @@ class Xspress3WithPlugins(Xspress3):
             _Xspress3Channel(channel, self.num_rois, self)
 
     def _create_hdf_writer(self):
-        ADCore.NDFileHDF5(self.PORT+".HDF5", self.PORT, R=":HDF5:",
-                          **self.typical_args)
+        prefix_r = ":HDF5:"
+        hdf = ADCore.NDFileHDF5(self.PORT+".HDF5", self.PORT, R=prefix_r,
+                                **self.typical_args)
+
+        def post_ioc_initialise():
+            print("dbpf({}{}EnableCallbacks Enable)".format(self.P, prefix_r))
+        hdf.PostIocInitialise = post_ioc_initialise
 
     def _create_proc(self):
-        ADCore.NDProcess(self.PORT+".PROC", self.PORT, R=":PROC:",
-                         **self.typical_args)
+        prefix_r = ":PROC:"
+        proc = ADCore.NDProcess(self.PORT+".PROC", self.PORT, R=prefix_r,
+                                **self.typical_args)
+
+        def post_ioc_initialise():
+            print("dbpf({}{}EnableCallbacks Enable)".format(self.P, prefix_r))
+            print("dbpf({}{}FilterType Sum)".format(self.P, prefix_r))
+            print("dbpf({}{}EnableFilter Enable)".format(self.P, prefix_r))
+        proc.PostIocInitialise = post_ioc_initialise
 
     def _create_highlevel(self):
+        hdf_port = "{}.ROIDATA".format(self.PORT)
         _Xspress3HighlevelTemplate(P=self.P, R=":", HDF=self.P+":HDF5:",
-                                   PROC=self.P+":PROC:")
+                                   PROC=self.P+":PROC:",
+                                   XSP3_PORT=self.PORT,
+                                   XSP3_ADDR=self.typical_args["ADDR"],
+                                   TIMEOUT=self.typical_args["TIMEOUT"],
+                                   ADDR=self.typical_args["ADDR"])
+        roi_data = override_makeTemplateInstance(
+            ADCore.NDROI, hdf_port, self.PORT, R=":ROIDATA:",
+            QUEUE=self.typical_args["QUEUE"])
+        def post_ioc_initialise():
+            print("dbpf({}:ROIDATA:EnableCallbacks Enable)".format(self.P))
+        roi_data.PostIocInitialise = post_ioc_initialise
 
     def _create_available_frame(self):
         _Xspress3AvailableFrameTemplate(P=self.P, R=":",

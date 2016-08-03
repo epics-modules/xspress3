@@ -8,8 +8,8 @@
 # % macro,  R,           Device suffix
 # % macro,  HDF,         HDF plugin record prefix
 # % macro,  PROC,        Processing plugin record prefix
-# % macro,  NDARRAY_PORT,Name of the Xspress3 asyn port
-# % macro,  NDARRAY_ADDR,Address of the Xspress3 asyn port
+# % macro,  XSP3_PORT,   Name of the Xspress3 asyn port
+# % macro,  XSP3_ADDR,   Address of the Xspress3 asyn port
 # % macro,  TIMEOUT,     Timeout
 # % macro,  ADDR,        Asyn Port address
 #
@@ -17,7 +17,7 @@
 
 # % $(TIMEOUT)
 # % $(ADDR)
-# % $(NDARRAY_ADDR)
+substitute "NDARRAY_PORT=$(XSP3_PORT), NDARRAY_ADDR=$(XSP3_ADDR)"
 
 #Add a FLNK to the NumImages record, to automatically set the HDF plugin NumCapture
 record(longout, "$(P)$(R)NumImages")
@@ -96,8 +96,13 @@ record(longout, "$(P)$(R)UPDATER")
     field(MDEL, -1)
 }
 
-substitute "P=$(HDF), R=, PORT=$(NDARRAY_PORT).HDF5"
+# ROI for file saving
+substitute "PORT=$(XSP3_PORT).ROIDATA, R=:ROIDATA:"
+include "NDROI.template"
+
+substitute "P=$(HDF), R=, PORT=$(XSP3_PORT).HDF5, NDARRAY_PORT=$(XSP3_PORT).ROIDATA"
 include "NDFileHDF5.template"
 
-substitute "P=$(PROC), PORT=$(NDARRAY_PORT).PROC"
+# This plugin is to create a running sum of the spectra
+substitute "P=$(PROC), R=, PORT=$(XSP3_PORT).PROC, NDARRAY_PORT=$(XSP3_PORT)"
 include "NDProcess.template"
