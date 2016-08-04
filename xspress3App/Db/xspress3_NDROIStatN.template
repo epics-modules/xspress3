@@ -9,7 +9,7 @@
 # Macros:
 # % macro, P, Device prefix
 # % macro, S, Base PV name
-# % macro, PORT, Asyn port name
+# % macro, XSP3_PORT, Asyn port name of the xspress3
 # % macro, CHAN, Channel number
 # % macro, ROI, ROI number
 # % macro, NCHANS, Number of elements in stats waveforms
@@ -18,9 +18,10 @@
 #
 ###################################################################
 
+substitute "PORT=$(XSP3_PORT)"
+
 # % $(ADDR)
 # % $(NCHANS)
-# % $(PORT)
 # % $(TIMEOUT)
 
 # ///
@@ -105,12 +106,12 @@ record(bo, "$(P)$(S)C$(CHAN)_ROI:$(ROI):PushUse")
     field(OUT, "$(P)$(S)C$(CHAN)_MCA_ROI$(ROI)_USE PP")
 }
 
-substitute "R=$(S)C$(CHAN)_ROI:$(ROI):"
+substitute "R=$(S)C$(CHAN)_ROI:$(ROI):, PORT=$(XSP3_PORT).ROISTAT$(CHAN)"
 include "NDROIStatN.template"
 alias("$(P)$(S)C$(CHAN)_ROI:$(ROI):TSTotal", "$(P)$(S)C$(CHAN)_ROI$(ROI):ArrayData_RBV")
 alias("$(P)$(S)C$(CHAN)_ROI:$(ROI):Total_RBV", "$(P)$(S)C$(CHAN)_ROI$(ROI):Value_RBV")
 
-substitute "R=$(S)C$(CHAN)_ROISUM:$(ROI):, PORT=XSP3.ROISUMSTAT$(CHAN)"
+substitute "R=$(S)C$(CHAN)_ROISUM:$(ROI):, PORT=$(XSP3_PORT).ROISUMSTAT$(CHAN)"
 include "NDROIStatN.template"
 alias("$(P)$(S)C$(CHAN)_ROISUM:$(ROI):TSTotal", "$(P)$(S)C$(CHAN)_ROISUM$(ROI):ArrayData_RBV")
 alias("$(P)$(S)C$(CHAN)_ROISUM:$(ROI):Total_RBV", "$(P)$(S)C$(CHAN)_ROISUM$(ROI):Value_RBV")

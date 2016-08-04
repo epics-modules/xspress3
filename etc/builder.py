@@ -87,9 +87,10 @@ class _Xspress3NDROIStat(ADCore.NDROIStat):
     instead
 
     """
-    def __init__(self, channel_num, S, *args, **kwargs):
+    def __init__(self, channel_num, xsp3_port, S, *args, **kwargs):
         self.channel_num = channel_num
         self.S = S
+        self.xsp3_port = xsp3_port
         if "roi_prefix" in kwargs:
             self.roi_prefix = kwargs["roi_prefix"]
         else:
@@ -99,8 +100,9 @@ class _Xspress3NDROIStat(ADCore.NDROIStat):
     def _create_roi_stat_n_templates(self):
         for roi in range(self.MAX_ROIS):
             _Xspress3NDROIStatNTemplate(
-                P=self.args["P"], S=self.S, NCHANS=self.NCHANS, PORT=self.PORT,
-                ADDR=roi, TIMEOUT=self.TIMEOUT, CHAN=self.channel_num,
+                P=self.args["P"], S=self.S, NCHANS=self.NCHANS,
+                XSP3_PORT=self.xsp3_port, ADDR=roi, TIMEOUT=self.TIMEOUT,
+                CHAN=self.channel_num,
                 ROI="{}{}".format(self.roi_prefix, roi+1))
 
 
@@ -125,8 +127,8 @@ class _Xspress3Channel(iocbuilder.Device):
         override_makeTemplateInstance(self._create_update_flag)
 
     def _create_channel(self):
-        _Xspress3ChannelTemplate(S=":", R=":", PORT=self.parent.PORT,
-                                 ADDR=self.parent.ADDR,
+        _Xspress3ChannelTemplate(S=":", R=":", XSP3_PORT=self.parent.PORT,
+                                 ADDR=self.parent.ADDR, PORT="",
                                  NELEMENTS=self.parent.max_buffers,
                                  **self.typical_args)
 
@@ -140,7 +142,7 @@ class _Xspress3Channel(iocbuilder.Device):
 
     def _create_roi_stats(self):
         _Xspress3NDROIStat(
-            self.channel_num, ":",
+            self.channel_num, self.parent.PORT, ":",
             "{}.ROISTAT{}".format(self.parent.PORT, self.channel_num),
             "{}.ROI{}".format(self.parent.PORT, self.channel_num),
             ADDR=0, NCHANS=self.parent.max_buffers, P=self.parent.P,
@@ -149,7 +151,7 @@ class _Xspress3Channel(iocbuilder.Device):
         roi_func = _Xspress3NDROIStat._create_roi_stat_n_templates
         _Xspress3NDROIStat._create_roi_stat_n_templates = lambda x: None
         _Xspress3NDROIStat(
-            self.channel_num, ":",
+            self.channel_num, self.parent.PORT, ":",
             "{}.ROISUMSTAT{}".format(self.parent.PORT, self.channel_num),
             "{}.ROISUM{}".format(self.parent.PORT, self.channel_num),
             roi_prefix="SUM", ADDR=0, NCHANS=self.parent.max_buffers,
@@ -223,8 +225,8 @@ class Xspress3WithPlugins(Xspress3):
 
     def _create_hdf_writer(self):
         prefix_r = ":HDF5:"
-        hdf = ADCore.NDFileHDF5(self.PORT+".HDF5", self.PORT, R=prefix_r,
-                                **self.typical_args)
+        hdf = ADCore.NDFileHDF5(self.PORT+".HDF5", self.PORT+".ROIDATA",
+                                R=prefix_r, **self.typical_args)
 
         def post_ioc_initialise():
             print("dbpf({}{}EnableCallbacks Enable)".format(self.P, prefix_r))
@@ -252,6 +254,7 @@ class Xspress3WithPlugins(Xspress3):
         roi_data = override_makeTemplateInstance(
             ADCore.NDROI, hdf_port, self.PORT, R=":ROIDATA:",
             QUEUE=self.typical_args["QUEUE"])
+
         def post_ioc_initialise():
             print("dbpf({}:ROIDATA:EnableCallbacks Enable)".format(self.P))
         roi_data.PostIocInitialise = post_ioc_initialise

@@ -6,7 +6,7 @@
 # Macros:
 # % macro,  P,           Device prefix
 # % macro,  S,           Device suffix
-# % macro,  PORT,        Asyn port name
+# % macro,  XSP3_PORT,   Asyn port name of the xspress3
 # % macro,  ADDR,        Asyn address
 # % macro,  TIMEOUT,     Asyn timeout
 # % macro,  CHAN,        Channel number
@@ -19,7 +19,7 @@
 # % $(NELEMENTS)
 ##########################################################################
 
-substitute "R=$(S)"
+substitute "R=$(S), PORT=$(XSP3_PORT)"
 
 ##########################################################################
 # Add in records to set SCA related parameters.
@@ -104,7 +104,7 @@ record(bo, "$(P)$(R)C$(CHAN)_PluginControlVal")
 }
 
 # Channel ROI
-substitute "R=:ROI$(CHAN):, NDARRAY_ADDR=0, NDARRAY_PORT=XSP3, PORT=XSP3.ROI$(CHAN)"
+substitute "R=:ROI$(CHAN):, NDARRAY_ADDR=0, NDARRAY_PORT=$(XSP3_PORT), PORT=$(XSP3_PORT).ROI$(CHAN)"
 include "NDROI.template"
 
 record(longout, "$(P)$(R)MinY")
@@ -124,7 +124,7 @@ record(bo, "$(P)$(R)PushEnableCallbacks")
     field(OUT, "$(P)$(R)EnableCallbacks CA")
 }
 
-substitute "R=:ARR$(CHAN):, NDARRAY_PORT=XSP3.ROI$(CHAN), PORT=XSP3.ARR$(CHAN), FTVL=DOUBLE, TYPE=Float64"
+substitute "R=:ARR$(CHAN):, NDARRAY_PORT=$(XSP3_PORT).ROI$(CHAN), PORT=$(XSP3_PORT).ARR$(CHAN), FTVL=DOUBLE, TYPE=Float64"
 include "NDStdArrays.template"
 
 record(bo, "$(P)$(R)PushEnableCallbacks")
@@ -135,7 +135,7 @@ record(bo, "$(P)$(R)PushEnableCallbacks")
 }
 
 
-substitute "R=:ROISUM$(CHAN):, PORT=XSP3.ROISUM$(CHAN), NDARRAY_PORT=XSP3.PROC"
+substitute "R=:ROISUM$(CHAN):, PORT=$(XSP3_PORT).ROISUM$(CHAN), NDARRAY_PORT=$(XSP3_PORT).PROC"
 include "NDROI.template"
 
 record(longout, "$(P)$(R)MinY")
@@ -156,7 +156,7 @@ record(bo, "$(P)$(R)PushEnableCallbacks")
 }
 
 
-substitute "R=:ARRSUM$(CHAN):, NDARRAY_PORT=XSP3.ROISUM$(CHAN), PORT=XSP3.ARRSUM$(CHAN)"
+substitute "R=:ARRSUM$(CHAN):, NDARRAY_PORT=$(XSP3_PORT).ROISUM$(CHAN), PORT=$(XSP3_PORT).ARRSUM$(CHAN)"
 include "NDStdArrays.template"
 
 record(bo, "$(P)$(R)PushEnableCallbacks")
@@ -167,7 +167,7 @@ record(bo, "$(P)$(R)PushEnableCallbacks")
 }
 
 
-substitute "R=:C$(CHAN)_ROI:, PORT=XSP3.ROISTAT$(CHAN), NDARRAY_PORT=XSP3.ROI$(CHAN), NCHANS=$(NELEMENTS)"
+substitute "R=:C$(CHAN)_ROI:, PORT=$(XSP3_PORT).ROISTAT$(CHAN), NDARRAY_PORT=$(XSP3_PORT).ROI$(CHAN), NCHANS=$(NELEMENTS)"
 include "NDROIStat.template"
 
 record(bo, "$(P)$(R)PushEnableCallbacks")
@@ -177,7 +177,7 @@ record(bo, "$(P)$(R)PushEnableCallbacks")
     field(OUT, "$(P)$(R)EnableCallbacks CA")
 }
 
-substitute "R=:C$(CHAN)_ROISUM:, PORT=XSP3.ROISUMSTAT$(CHAN), NDARRAY_PORT=XSP3.ROISUM$(CHAN), NCHANS=$(NELEMENTS)"
+substitute "R=:C$(CHAN)_ROISUM:, PORT=$(XSP3_PORT).ROISUMSTAT$(CHAN), NDARRAY_PORT=$(XSP3_PORT).ROISUM$(CHAN), NCHANS=$(NELEMENTS)"
 include "NDROIStat.template"
 
 record(bo, "$(P)$(R)PushEnableCallbacks")
@@ -189,7 +189,7 @@ record(bo, "$(P)$(R)PushEnableCallbacks")
 
 # NDAttribute plugins for the scalar outputs
 
-substitute "R=:C$(CHAN)_SCAS:, PORT=XSP3.C$(CHAN)_SCAS, ADDR=0, NDARRAY_PORT=XSP3, NCHANS=$(NELEMENTS)"
+substitute "R=:C$(CHAN)_SCAS:, PORT=$(XSP3_PORT).C$(CHAN)_SCAS, ADDR=0, NDARRAY_PORT=$(XSP3_PORT), NCHANS=$(NELEMENTS)"
 include "NDAttribute.template"
 
 record(bo, "$(P)$(R)PushEnableCallbacks")
