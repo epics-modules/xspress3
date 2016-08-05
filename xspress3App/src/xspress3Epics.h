@@ -89,14 +89,6 @@ using std::string;
 #define xsp3DebounceParamString           "XSP3_DEBOUNCE"
 #define xsp3FramesPerRowString "XSP3_FRAMES_PER_ROW"
 //Settings for a channel
-#define xsp3ChanSca0ParamString           "XSP3_CHAN_SCA0"
-#define xsp3ChanSca1ParamString           "XSP3_CHAN_SCA1"
-#define xsp3ChanSca2ParamString           "XSP3_CHAN_SCA2"
-#define xsp3ChanSca3ParamString           "XSP3_CHAN_SCA3"
-#define xsp3ChanSca4ParamString           "XSP3_CHAN_SCA4"
-#define xsp3ChanSca5ParamString           "XSP3_CHAN_SCA5"
-#define xsp3ChanSca6ParamString           "XSP3_CHAN_SCA6"
-#define xsp3ChanSca7ParamString           "XSP3_CHAN_SCA7"
 #define xsp3ChanSca4ThresholdParamString        "XSP3_CHAN_SCA4_THRESHOLD"
 #define xsp3ChanSca5HlmParamString        "XSP3_CHAN_SCA5_HLM"
 #define xsp3ChanSca6HlmParamString        "XSP3_CHAN_SCA6_HLM"
@@ -182,6 +174,7 @@ class Xspress3 : public ADDriver {
   void doALap(int chunkSize, int xspBufferSize, int startFrame);
   void startAcquisition();
   bool checkQueue(const epicsUInt8 request, bool block);
+  void addScalerAttributes(NDArray *&pMCA);
 
   //Put private static data members here
   static const epicsInt32 ctrlDisable_;
@@ -247,14 +240,6 @@ class Xspress3 : public ADDriver {
   int xsp3InvertF0Param;             
   int xsp3InvertVetoParam;             
   int xsp3DebounceParam;
-  int xsp3ChanSca0Param;
-  int xsp3ChanSca1Param;             
-  int xsp3ChanSca2Param;
-  int xsp3ChanSca3Param;
-  int xsp3ChanSca4Param;
-  int xsp3ChanSca5Param;
-  int xsp3ChanSca6Param;
-  int xsp3ChanSca7Param;             
   int xsp3ChanSca4ThresholdParam;          
   int xsp3ChanSca5HlmParam;          
   int xsp3ChanSca6HlmParam;          
@@ -275,39 +260,6 @@ class Xspress3 : public ADDriver {
 };
 
 #define NUM_DRIVER_PARAMS (&XSP3_LAST_DRIVER_COMMAND - &XSP3_FIRST_DRIVER_COMMAND + 1)
-
-//static const char *driverName = "Xspress3";
-
-/** 
- * Write the SCAs to the AD parameters
- *
- * @param pSCA A pointer to an array of SCAs from the hardware
- * @param numChannels The number of xspress3 channels in the SCA array
- */
-template <typename SCAtype>
-void Xspress3::writeOutScas(const SCAtype pSCA, const int numChannels)
-{
-    SCAtype pScaData = pSCA;
-    for (int chan=0; chan<numChannels; ++chan) {
-        this->setDoubleParam(chan, this->xsp3ChanSca0Param,
-                             static_cast<epicsFloat64>(pScaData[0]));
-        this->setDoubleParam(chan, this->xsp3ChanSca1Param,
-                             static_cast<epicsFloat64>(pScaData[1]));
-        this->setDoubleParam(chan, this->xsp3ChanSca2Param,
-                             static_cast<epicsFloat64>(pScaData[2]));
-        this->setDoubleParam(chan, this->xsp3ChanSca3Param,
-                             static_cast<epicsFloat64>(pScaData[3]));
-        this->setDoubleParam(chan, this->xsp3ChanSca4Param,
-                             static_cast<epicsFloat64>(pScaData[4]));
-        this->setDoubleParam(chan, this->xsp3ChanSca5Param,
-                             static_cast<epicsFloat64>(pScaData[5]));
-        this->setDoubleParam(chan, this->xsp3ChanSca6Param,
-                             static_cast<epicsFloat64>(pScaData[6]));
-        this->setDoubleParam(chan, this->xsp3ChanSca7Param,
-                             static_cast<epicsFloat64>(pScaData[7]));
-        pScaData += XSP3_SW_NUM_SCALERS;
-    }
-}
 
 int xspress3Config(const char *portName, int numChannels, int numCards,
                    const char *baseIP, int maxFrames, int maxSpectra,

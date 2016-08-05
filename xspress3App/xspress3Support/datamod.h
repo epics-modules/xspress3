@@ -23,15 +23,31 @@
 	2d		- A 2 D image of num_x cols and num_y rows.
 	1D_XY	- One or more 1d images, where the first row contains X and the
 			  second any subsequent rows contains Y data sets.
+ The bottom 4 bits are reserved for various plotting types. The top 12 bit allow specials to be coded
 */
 #ifndef DISP_2D
 #define DISP_2D		1
 #define DISP_1D_XY	2
 #define DISP_1D_Y	3
+#define DISP_XSP_DTC (1<<4|DISP_1D_XY)		/* Special display type for XSPRESS2 or 3 dtc_fit modules */
+
 #define DATA_LONG	1
 #define DATA_SHORT	2
 #define DATA_FLOAT	3
 #define DATA_DOUBLE	4
+
+#define DATA_SHORT_DIG1 32
+#define DATA_SHORT_DIG2 33
+
+#define DATA_FIXED8_DIG1 40
+#define DATA_FIXED8_DIG2 41
+#define DATA_FIXED8_DIG3 42
+#define DATA_FIXED8_DIG4 43
+#define DATA_FIXED8_DIG5 44
+#define DATA_FIXED8_DIG6 45
+#define DATA_FIXED8_DIG7 46
+#define DATA_FIXED8_DIG8 47
+
 #endif
 
 /* The structure contains x y and title strings */
@@ -154,20 +170,20 @@ int munlink(void *mod_head);
 int _os_unlink(void *mod_head);
 int datamod_size(void *mod_head);
 
-MOD_IMAGE *id_mkmod ( char *name, int num_x, int num_y, char *x_lab, char *y_lab,  int data_float, void **mod_head);
-MOD_IMAGE3D *id_mkmod3d ( char *name, int num_x, int num_y, int num_t, char *x_lab, char *y_lab, char *t_lab, char ** labels, int data_float, mh_com **mod_head);
-u_int32 *id_get_ptr(void *mod, int x, int y, int t);
+MOD_IMAGE *id_mkmod ( char *name, int num_x, int num_y, char *x_lab, char *y_lab,  int data_type, void **mod_head);
+MOD_IMAGE3D *id_mkmod3d ( char *name, int num_x, int num_y, int num_t, char *x_lab, char *y_lab, char *t_lab, char ** labels, int data_type, mh_com **mod_head);
 
 #else
-MOD_IMAGE *id_mkmod ( char *name, int num_x, int num_y, char *x_lab, char *y_lab,
-			 int data_float, mh_com **mod_head);
+MOD_IMAGE *id_mkmod ( char *name, int num_x, int num_y, char *x_lab, char *y_lab, int data_type, mh_com **mod_head);
 
-MOD_IMAGE3D *id_mkmod3d ( char *name, int num_x, int num_y, int num_t, char *x_lab, char *y_lab, char *t_lab, char ** labels, int data_float, mh_com **mod_head);
-
-u_int32 *id_get_ptr(void *mod, int x, int y, int t);
-
+MOD_IMAGE3D *id_mkmod3d ( char *name, int num_x, int num_y, int num_t, char *x_lab, char *y_lab, char *t_lab, char ** labels, int data_type, mh_com **mod_head);
 
 #endif
+u_int32 *id_get_ptr(void *mod, int x, int y, int t);
+int id_clear_mod(void *p);
+int id_copy_mod(void *s, void *d);
+char *id_get_label(void *p, int row);
+
 #ifdef __cplusplus
 }
 #endif

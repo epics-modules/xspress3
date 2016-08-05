@@ -61,22 +61,6 @@ void Xspress3Det::fillEventQueue()
     this->xsp->unlock();
 }
 
-void Xspress3Det::writeOutScasUInt()
-{
-    u_int32_t *pSCA;
-    pSCA = new u_int32_t[XSP3_SW_NUM_SCALERS * NUM_CHANNELS];
-    this->xsp->writeOutScas(pSCA, NUM_CHANNELS);
-    delete[] pSCA;
-}
-
-void Xspress3Det::writeOutScasDouble()
-{
-    double *pSCA;
-    pSCA = new double[XSP3_SW_NUM_SCALERS * NUM_CHANNELS];
-    this->xsp->writeOutScas(pSCA, NUM_CHANNELS);
-    delete[] pSCA;
-}
-
 void Xspress3Det::grabFrameDouble()
 {
     this->xsp->dtcEnabled = true;
@@ -146,16 +130,6 @@ BOOST_AUTO_TEST_CASE(fillEventQueue)
     } catch(...) {
         BOOST_CHECK(true);
     }
-}
-
-BOOST_AUTO_TEST_CASE(writeOutScasUInt)
-{
-    BOOST_CHECK_NO_THROW(xspDet.writeOutScasUInt());
-}
-
-BOOST_AUTO_TEST_CASE(writeOutScasDouble)
-{
-    BOOST_CHECK_NO_THROW(xspDet.writeOutScasDouble());
 }
 
 BOOST_AUTO_TEST_CASE(grabFrameDouble)

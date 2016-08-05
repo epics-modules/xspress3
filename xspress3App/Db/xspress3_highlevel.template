@@ -8,9 +8,16 @@
 # % macro,  R,           Device suffix
 # % macro,  HDF,         HDF plugin record prefix
 # % macro,  PROC,        Processing plugin record prefix
+# % macro,  XSP3_PORT,   Name of the Xspress3 asyn port
+# % macro,  XSP3_ADDR,   Address of the Xspress3 asyn port
+# % macro,  TIMEOUT,     Timeout
+# % macro,  ADDR,        Asyn Port address
 #
 ###########################################################
 
+# % $(TIMEOUT)
+# % $(ADDR)
+substitute "NDARRAY_PORT=$(XSP3_PORT), NDARRAY_ADDR=$(XSP3_ADDR)"
 
 #Add a FLNK to the NumImages record, to automatically set the HDF plugin NumCapture
 record(longout, "$(P)$(R)NumImages")
@@ -76,15 +83,26 @@ record(dfanout, "$(P)$(R)ERASE_AttrReset")
 #########################################################################
 
 #Trigger an update of the NDAttribute arrays
-record(bo,"$(P)$(R)UPDATE") 
+record(bi,"$(P)$(R)UPDATE")
 {
-   field(FLNK, "$(P)$(R)UPDATE_AttrUpdate.PROC")
+    field(ZNAM, "No")
+    field(ONAM, "Yes")
+    field(FLNK, "$(P)$(R)UPDATER")
 }
 
-#On an erase, do a reset on the NDAttribute plugins. This has MDEL of 0, so channel access updates
-#are triggered every time, and there is a bo record for every channel that monitors its value.
-record(dfanout, "$(P)$(R)UPDATE_AttrUpdate")
+record(longout, "$(P)$(R)UPDATER")
 {
-   field(VAL, "1")
-   field(MDEL, "-1" )
+    field(VAL, 3)
+    field(MDEL, -1)
 }
+
+# ROI for file saving
+substitute "PORT=$(XSP3_PORT).ROIDATA, R=:ROIDATA:"
+include "NDROI.template"
+
+substitute "P=$(HDF), R=, PORT=$(XSP3_PORT).HDF5, NDARRAY_PORT=$(XSP3_PORT).ROIDATA"
+include "NDFileHDF5.template"
+
+# This plugin is to create a running sum of the spectra
+substitute "P=$(PROC), R=, PORT=$(XSP3_PORT).PROC, NDARRAY_PORT=$(XSP3_PORT)"
+include "NDProcess.template"

@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 255
-y 147
+x 257
+y 773
 w 770
 h 690
 font "arial-medium-r-12.0"
@@ -459,69 +459,6 @@ fastUpdate
 useHexPrefix
 newPos
 objType "monitors"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 150
-y 225
-w 125
-h 35
-fgColor index 14
-bgColor index 3
-selectColor index 3
-inconsistentColor index 3
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P):CTRL_MCA_ROI"
-indicatorPv "$(P):CTRL_MCA_ROI_RBV"
-font "arial-bold-r-14.0"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 6
-release 0
-x 285
-y 225
-w 125
-h 35
-controlPv "$(P):CTRL_MCA_ROI_RBV"
-font "arial-bold-r-16.0"
-fontAlign "center"
-fgColor index 16
-bgColor index 10
-limitsFromDb
-nullColor index 30
-fastUpdate
-useHexPrefix
-newPos
-objType "monitors"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 20
-y 230
-w 125
-h 20
-font "arial-bold-r-14.0"
-fgColor index 14
-bgColor index 10
-useDisplayBg
-value {
-  "ROI Calculations"
-}
 endObjectProperties
 
 # (Exit Button)
