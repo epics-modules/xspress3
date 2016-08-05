@@ -27,8 +27,7 @@ AREA_DETECTOR=$(SUPPORT)
 ASYN=$(SUPPORT)/asyn/4-26
 
 CALC=$(SUPPORT)/calc/3-1
-ADCORE=$(SUPPORT)/ADCore/2-4dls4
-#ADCORE=/home/rfj82980/support/ADCore
+ADCORE=$(SUPPORT)/ADCore/2-4dls6
 BOOST=/dls_sw/prod/tools/RHEL6-x86_64/boost/1-48-0/prefix
 BOOST_INCLUDE=$(BOOST)/include
 BOOST_LIBS=$(BOOST)/lib
