@@ -32,7 +32,7 @@ class Xspress3(asyn.AsynPort):
 
     def __init__(self, PORT, num_channels=1, num_cards=1,
                  base_IP="192.168.0.1", max_buffers=4096, max_memory=-1,
-                 debug=0, simulation=0, **kwargs):
+                 settings_directory="", debug=0, simulation=0, **kwargs):
         super(Xspress3, self).__init__(PORT)
         self.__dict__.update(locals())
         # Get the template arguments in the local scope without
@@ -52,6 +52,8 @@ class Xspress3(asyn.AsynPort):
             max_buffers=Simple("Number of NDArray buffers to allocate", int),
             max_memory=Simple("Memory to allocate for driver and plugins",
                               int),
+            settings_directory=Simple(
+                "Path to the Xspress3 settings to upload to the device", str),
             debug=Simple("Turn on support library debugging", int),
             simulation=Simple("Run a simulation detector", int)))
 
@@ -62,6 +64,10 @@ class Xspress3(asyn.AsynPort):
               "'{base_IP}', {MAX_FRAMES}, {MAX_SPECTRA}, {max_buffers}, "
               "{max_memory}, {debug}, {simulation})".format(
                   **self.__dict__))
+
+    def PostIocInitialise(self):
+        print("dbpf({}{}CONFIG_PATH '{}')".format(self.P, self.R,
+                                                  self.settings_directory))
 
 
 class _Xspress3AvailableFrameTemplate(iocbuilder.AutoSubstitution):
