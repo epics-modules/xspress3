@@ -1524,6 +1524,11 @@ int Xspress3::getNumFramesToAcquire()
     return numFrames;
 }
 
+/** 
+ * Push the MCA NDArray out to plugins
+ *
+ * @param pMCA 
+ */
 void Xspress3::doNDCallbacksIfRequired(NDArray *pMCA)
 {
     int arrayCallbacks;
@@ -1536,6 +1541,12 @@ void Xspress3::doNDCallbacksIfRequired(NDArray *pMCA)
     }
 }
 
+/** 
+ * Push an event onto the queue to signal an event to the acquisition
+ * thread
+ *
+ * @param message 
+ */
 void Xspress3::pushEvent(const epicsUInt8& message)
 {
     epicsUInt8 mess = message;
@@ -1561,6 +1572,13 @@ int Xspress3::getNumFramesRead()
     return numFrames;
 }
 
+/** 
+ * Read in a frame of data, set some attributes and propagate the
+ * changes.
+ *
+ * @param frameNumber The number of the frame in this acquisition
+ * @param frameOffset The offset due to reseting the RAM buffer
+ */
 void Xspress3::grabFrame(int frameNumber, int frameOffset)
 {
     NDArray *pMCA;
