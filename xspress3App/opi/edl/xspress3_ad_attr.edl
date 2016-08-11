@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1044
-y 250
+x 1050
+y 825
 w 412
 h 927
 font "arial-medium-r-14.0"
@@ -69,7 +69,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 1
 y 3
@@ -100,7 +100,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 1
 y 3
 w 411
@@ -147,7 +147,7 @@ selectColor index 4
 inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
-controlPv "LOC\\$(!W)tab=e:0,SCA0,SCA1,SCA2,SCA3,SCA4,SCA5,SCA6,SCA7,ROI1,ROI2,ROI3,ROI4"
+controlPv "LOC\\$(!W)tab=e:0,SCAS,ROIS,ROISUMS"
 font "arial-bold-r-12.0"
 orientation "horizontal"
 endObjectProperties
@@ -219,48 +219,21 @@ botShadowColor index 0
 displaySource "menu"
 filePv "LOC\\$(!W)tab"
 sizeOfs 5
-numDsps 12
+numDsps 3
 displayFileName {
   0 "NDAttribute.edl"
-  1 "NDAttribute.edl"
-  2 "NDAttribute.edl"
-  3 "NDAttribute.edl"
-  4 "NDAttribute.edl"
-  5 "NDAttribute.edl"
-  6 "NDAttribute.edl"
-  7 "NDAttribute.edl"
-  8 "NDAttribute.edl"
-  9 "NDAttribute.edl"
-  10 "NDAttribute.edl"
-  11 "NDAttribute.edl"
+  1 "NDROIStat.edl"
+  2 "NDROIStat.edl"
 }
 menuLabel {
-  0 "SCA0"
-  1 "SCA1"
-  2 "SCA2"
-  3 "SCA3"
-  4 "SCA4"
-  5 "SCA5"
-  6 "SCA6"
-  7 "SCA7"
-  8 "ROI1"
-  9 "ROI2"
-  10 "ROI3"
-  11 "ROI4"
+  0 "SCAS"
+  1 "ROIS"
+  2 "ROISUMS"
 }
 symbols {
-  0 "R=:C$(CHAN)_SCA0:,ATTR=SCA0"
-  1 "R=:C$(CHAN)_SCA1:,ATTR=SCA1"
-  2 "R=:C$(CHAN)_SCA2:,ATTR=SCA2"
-  3 "R=:C$(CHAN)_SCA3:,ATTR=SCA3"
-  4 "R=:C$(CHAN)_SCA4:,ATTR=SCA4"
-  5 "R=:C$(CHAN)_SCA5:,ATTR=SCA5"
-  6 "R=:C$(CHAN)_SCA6:,ATTR=SCA6"
-  7 "R=:C$(CHAN)_SCA7:,ATTR=SCA7"
-  8 "R=:C$(CHAN)_ROI1:,ATTR=ROI1"
-  9 "R=:C$(CHAN)_ROI2:,ATTR=ROI2"
-  10 "R=:C$(CHAN)_ROI3:,ATTR=ROI3"
-  11 "R=:C$(CHAN)_ROI4:,ATTR=ROI4"
+  0 "R=:C$(CHAN)_SCAS:"
+  1 "R=:C$(CHAN)_ROI:"
+  2 "R=:C$(CHAN)_ROISUM:"
 }
 noScroll
 endObjectProperties
@@ -349,7 +322,7 @@ object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
-release 0
+release 1
 x 0
 y 0
 w 50
@@ -391,7 +364,7 @@ endObjectProperties
 object relatedDisplayClass
 beginObjectProperties
 major 4
-minor 2
+minor 4
 release 0
 x 10
 y 900
