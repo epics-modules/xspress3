@@ -213,6 +213,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   //These controls calculations
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
   createParam(xsp3DtcEnableParamString,         asynParamInt32,       &xsp3DtcEnableParam);
+  createParam(xsp3EventWidthParamString, asynParamFloat64, &xsp3EventWidthParam);
   createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
   
   //Initialize non static, non const, data members
@@ -500,6 +501,41 @@ asynStatus Xspress3::readDTCParams(void)
 
 
 /**
+ * Read the event width for each channel
+ */
+asynStatus Xspress3::readTrigB(void) 
+{
+    const char *functionName = "Xspress3::readTrigB";
+    asynStatus status = asynSuccess;
+    Xspress3_TriggerB trig_b;
+    int xsp3_status;
+
+    int xsp3_num_channels = 0;
+    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+
+    for (int chan=0; chan<xsp3_num_channels; chan++) {
+        xsp3_status = xsp3->get_trigger_b(xsp3_handle_, chan, &trig_b);
+
+        printf("xsp_get_trigger_b status: %d", xsp3_status);
+
+        if (xsp3_status < XSP3_OK) {
+            checkStatus(xsp3_status, "xsp3_get_trigger_b", functionName);
+            status = asynError;
+
+        } else {
+            int width = trig_b.enb_variable_width ? (trig_b.event_time-3) : trig_b.event_time;
+            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %d\n", functionName, chan, width);
+            setDoubleParam(chan, xsp3EventWidthParam, width);
+        }
+
+        callParamCallbacks(chan);
+    }
+
+    return status;
+}
+
+
+/**
  * Disconnect from the xspress3 system. 
  * This simply calls xsp3_close().
  */
@@ -678,6 +714,11 @@ asynStatus Xspress3::restoreSettings(void)
     // Read the DTC parameters
     if (status == asynSuccess) {
         status = readDTCParams();
+    }
+
+    // Read Trig B for DTC
+    if (status == asynSuccess) {
+        status = readTrigB();
     }
 
   return status;

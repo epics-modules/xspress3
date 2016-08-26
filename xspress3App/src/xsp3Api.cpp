@@ -348,3 +348,15 @@ int xsp3Api::scaler_read(int path, uint32_t *dest, unsigned scaler, unsigned cha
 
     return status;
 }
+
+int xsp3Api::get_trigger_b(int path, unsigned card, Xspress3_TriggerB *trig_b)
+{
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_get_trigger_b( %d, %d ) = ", path, card);
+
+    status = xsp3Api_get_trigger_b(path, card, trig_b);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+}

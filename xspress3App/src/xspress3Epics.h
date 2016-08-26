@@ -154,6 +154,7 @@
 //Params to enable or disable calculations
 #define xsp3RoiEnableParamString        "XSP3_CTRL_MCA_ROI"
 #define xsp3DtcEnableParamString        "XSP3_CTRL_DTC"
+#define xsp3EventWidthParamString        "XSP3_EVENT_WIDTH"
 
 
 
@@ -193,6 +194,7 @@ class Xspress3 : public ADDriver {
   asynStatus checkSaveDir(const char *dirName);
   asynStatus readSCAParams(void);
   asynStatus readDTCParams(void); 
+  asynStatus readTrigB(void);
   asynStatus checkHistBusy(int checkTimes);
   asynStatus setupITFG(void); 
   asynStatus mapTriggerMode(int mode, int invert_f0, int invert_veto, int debounce, int *apiMode);
@@ -328,6 +330,7 @@ class Xspress3 : public ADDriver {
   int xsp3ChanDtcIwoParam;  
   int xsp3RoiEnableParam;
   int xsp3DtcEnableParam;
+  int xsp3EventWidthParam;
   int xsp3LastParam;
   #define XSP3_LAST_DRIVER_COMMAND xsp3LastParam
 
