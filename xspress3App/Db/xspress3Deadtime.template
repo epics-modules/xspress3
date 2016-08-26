@@ -15,7 +15,7 @@ record(calc, "$(P)$(R)C$(CHAN)_DeadTime_RBV")
     field(INPB, "$(P)$(R)C$(CHAN)_SCA1:Value_RBV NPP NMS") # Reset Ticks
     field(INPC, "$(P)$(R)C$(CHAN)_EventWidth_RBV NPP NMS") # Event Width
     field(INPD, "$(P)$(R)C$(CHAN)_SCA0:Value_RBV NPP NMS") # Frame Time
-    field(CALC, "((A*(C+1)+(B*))/D*100")
+    field(CALC, "((A*(C+1)+(B))/D*100")
     field(PREC, "5")
     #field(SCAN, ".1 second")
     field(SCAN, "Passive")
