@@ -76,6 +76,8 @@ include "xspress3ChannelSCALimits.template"
 ##########################################################################
 # Dead Time Correction Parameters Read At Connection Time
 ##########################################################################
+include "xspress3Deadtime.template"
+
 # ///
 # /// Read the Dead Time Correction Flags.
 # ///
