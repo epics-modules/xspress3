@@ -228,6 +228,24 @@ border-radius: 2px;
                     <blue>218</blue>
                 </color>
             </property>
+            <property name="Style_1">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="Style_2">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="Style_3">
+                <enum>caCartesianPlot::Lines</enum>
+            </property>
+            <property name="symbol_1">
+                <enum>caCartesianPlot::NoSymbol</enum>
+            </property>
+            <property name="symbol_2">
+                <enum>caCartesianPlot::Rect</enum>
+            </property>
+            <property name="symbol_3">
+                <enum>caCartesianPlot::Triangle</enum>
+            </property>
             <property name="plotMode">
                 <enum>caCartesianPlot::PlotLastNPoints</enum>
             </property>
@@ -252,24 +270,6 @@ border-radius: 2px;
             </property>
             <property name="YaxisLimits">
                 <string>0;1</string>
-            </property>
-            <property name="Style_1">
-                <enum>caCartesianPlot::Dots</enum>
-            </property>
-            <property name="Style_2">
-                <enum>caCartesianPlot::Dots</enum>
-            </property>
-            <property name="Style_3">
-                <enum>caCartesianPlot::Dots</enum>
-            </property>
-            <property name="symbol_1">
-                <enum>caCartesianPlot::NoSymbol</enum>
-            </property>
-            <property name="symbol_2">
-                <enum>caCartesianPlot::Rect</enum>
-            </property>
-            <property name="symbol_3">
-                <enum>caCartesianPlot::Triangle</enum>
             </property>
         </widget>
         <widget class="caCartesianPlot" name="caCartesianPlot_2">
