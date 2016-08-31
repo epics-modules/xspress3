@@ -38,7 +38,7 @@ callbackSetQueueSize(4000)
 # maxMemory Used by asynPortDriver (set to -1 for unlimited)
 # debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
 # simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
-xspress3Config("XSP3", 32, 4, "192.168.0.1", 16384, 4096, 4096, 4096, 0, 0, 1 )
+xspress3Config("XSP3", 32, 4, "192.168.0.1", 16384, 4096, 4096, 4096, 0, 0, 0 )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
 NDAttrConfigure("XSP3.C1_SCA0", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1SCA0" )
