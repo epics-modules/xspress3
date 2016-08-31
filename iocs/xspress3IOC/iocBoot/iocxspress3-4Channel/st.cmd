@@ -5,6 +5,16 @@ errlogInit(20000)
 # ---------------------
 
 dbLoadDatabase("$(TOP)/dbd/xspress3App.dbd")
+
+# MN 27-June-2016
+# The default callback queue in EPICS base is only 2000 bytes.
+# This should suppress
+#    "callbackRequest: cbLow ring buffer full"
+# but I'm not really sure why this happens
+callbackSetQueueSize(8000)
+
+
+
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
 epicsEnvSet("PREFIX", "XPS3:")
