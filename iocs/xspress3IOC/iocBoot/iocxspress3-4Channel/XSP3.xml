@@ -1,5 +1,12 @@
 <?xml version="1.0" ?>
 <Attributes>
+    <Attribute name="Date"            type="EPICS_PV" source="S:IOC:timeOfDayForm1SI"       datatype="DBR_STRING" description="Date and time"/>
+    <Attribute name="ID RingCurrent"  type="EPICS_PV" source="S:SRcurrentAI.VAL"            dbrtype="DBR_NATIVE"  description="Ring current"/>
+    <Attribute name="HDF5_filename"   type="EPICS_PV" source="13QX4:HDF1:FullFileName_RBV"  dbrtype="DBR_STRING"  description="name of this file as written"/>
+    <Attribute name="ArrayCounter"    type="PARAM"    source="ARRAY_COUNTER"                datatype="INT"        description="Image counter"/>
+    <Attribute name="Model"           type="PARAM"    source="MODEL"                        datatype="STRING"     description="Camera model"/>
+    <Attribute name="Manufacturer"    type="PARAM"    source="MANUFACTURER"                 datatype="STRING"     description="Camera manufacturer"/>
+
 	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 0" name="CHAN1SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
 	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 1" name="CHAN1SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
 	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 2" name="CHAN1SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
