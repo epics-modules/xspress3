@@ -16,10 +16,11 @@ dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA6:,  PORT=$(POR
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA7:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=6,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA8:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=7,TIMEOUT=1,NCHANS=$(NCHANS)")
 
-dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=C$(CHAN)SCA5:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=4")
-dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=C$(CHAN)SCA6:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=5")
-dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=C$(CHAN)SCA7:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=6")
-dbLoadRecords("xspress3ChannelDTC.template",          "P=$(PREFIX),R=det1:, PORT=$(PORT),CHAN=$(CHAN), NDARRAY_PORT=$(PORT),ADDR=$(XADDR),TIMEOUT=5")
+dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=4")
+dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=5")
+dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=6")
+dbLoadRecords("xspress3ChannelDTC.template",          "P=$(PREFIX),R=det1:,PORT=$(PORT), CHAN=$(CHAN),  NDARRAY_PORT=$(PORT),ADDR=$(XADDR),TIMEOUT=5")
+dbLoadRecords("xspress3Deadtime.template",            "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN)")
 
 #ROIs
 ###########
