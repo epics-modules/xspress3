@@ -214,6 +214,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
   createParam(xsp3DtcEnableParamString,         asynParamInt32,       &xsp3DtcEnableParam);
   createParam(xsp3EventWidthParamString, asynParamFloat64, &xsp3EventWidthParam);
+  createParam(xsp3DTCFactorParamString, asynParamFloat64, &xsp3DTCFactorParam);
   createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
   
   //Initialize non static, non const, data members
@@ -912,6 +913,8 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca5Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca6Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca7Param, 0) == asynSuccess) && paramStatus);
+
+    paramStatus = ((setDoubleParam(chan, xsp3DTCFactorParam, 0) == asynSuccess) && paramStatus);
  
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi1Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi2Param, 0) == asynSuccess) && paramStatus);
@@ -1897,7 +1900,6 @@ void Xspress3::dataTask(void)
         if (!stillBusy) {
           int currentFrameOffset = 0;
           for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
-
             allocError = 0;
             setIntegerParam(NDArrayCounter, frame+1);
 
@@ -1914,7 +1916,17 @@ void Xspress3::dataTask(void)
               allocError = 1;
             } else {
 
+              double dtcFactor;
+              double dtcAllEvent;
+
               for (int chan=0; chan<numChannels; ++chan) {
+                xsp3_status = xsp3->get_dtcfactor(xsp3_handle_, reinterpret_cast<u_int32_t*>(pScaData), &dtcFactor, &dtcAllEvent, chan);
+                if (xsp3_status != XSP3_OK) {
+                  checkStatus(xsp3_status, "xsp3_calculate_dtc_factors", functionName);
+                  status = asynError;
+                }
+
+                setDoubleParam(chan, xsp3DTCFactorParam, dtcFactor);
 
                 setDoubleParam(chan, xsp3ChanSca0Param, pScaData[0]);
                 setDoubleParam(chan, xsp3ChanSca1Param, pScaData[1]);
