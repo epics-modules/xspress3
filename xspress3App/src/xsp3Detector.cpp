@@ -199,3 +199,10 @@ int xsp3Detector::xsp3Api_scaler_read(int path, u_int32_t *dest, unsigned scaler
     status = xsp3_scaler_read(path, dest, scaler, chan, t, n_scalers, n_chan, dt);
     return status;
 }
+
+int xsp3Detector::xsp3Api_get_trigger_b(int path, unsigned chan, Xspress3_TriggerB *trig_b)
+{
+    int status;
+    status = xsp3_get_trigger_b(path, chan, trig_b);
+    return status;
+}

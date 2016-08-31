@@ -29,8 +29,7 @@
 #include <stdexcept>
 #include "dirent.h"
 #include <sys/types.h>
-#include <syscall.h>
-#include <stdarg.h>
+#include <syscall.h> 
 
 //Epics headers
 #include <epicsTime.h>
@@ -67,9 +66,6 @@ const epicsInt32 Xspress3::mbboTriggerLVDSBOTH_ = 6;
 const epicsInt32 Xspress3::ADAcquireFalse_ = 0;
 const epicsInt32 Xspress3::ADAcquireTrue_ = 1;
 
-const int INTERFACE_MASK = asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask | asynGenericPointerMask;
-const int INTERRUPT_MASK = asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask | asynGenericPointerMask;
-
 //C Function prototypes to tie in with EPICS
 static void xsp3DataTaskC(void *drvPvt);
 
@@ -93,8 +89,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 	     NUM_DRIVER_PARAMS,
 	     maxBuffers,
 	     maxMemory,
-         INTERFACE_MASK,
-         INTERRUPT_MASK,
+	     asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynDrvUserMask | asynOctetMask | asynGenericPointerMask, /* Interface mask */
+	     asynInt32Mask | asynInt32ArrayMask | asynFloat64Mask | asynFloat32ArrayMask | asynFloat64ArrayMask | asynOctetMask | asynGenericPointerMask,  /* Interrupt mask */
 	     ASYN_CANBLOCK | ASYN_MULTIDEVICE, /* asynFlags.*/
 	     1, /* Autoconnect */
 	     0, /* default priority */
@@ -119,11 +115,112 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s epicsEventCreate failure for start event.\n", functionName);
     return;
   }
-  this->createInitialParameters();
+
+  //Add the params to the paramLib 
+  //createParam adds the parameters to all param lists automatically (using maxAddr).
+  createParam(xsp3FirstParamString,         asynParamInt32,       &xsp3FirstParam);
+  createParam(xsp3ResetParamString,         asynParamInt32,       &xsp3ResetParam);
+  createParam(xsp3EraseParamString,         asynParamInt32,       &xsp3EraseParam);
+  createParam(xsp3NumChannelsParamString,   asynParamInt32,       &xsp3NumChannelsParam);
+  createParam(xsp3MaxNumChannelsParamString,asynParamInt32,       &xsp3MaxNumChannelsParam);
+  createParam(xsp3MaxSpectraParamString,asynParamInt32,       &xsp3MaxSpectraParam);
+  createParam(xsp3MaxFramesParamString,asynParamInt32,       &xsp3MaxFramesParam);
+  createParam(xsp3FrameCountParamString,asynParamInt32,       &xsp3FrameCountParam);
+  createParam(xsp3TriggerModeParamString,   asynParamInt32,       &xsp3TriggerModeParam);
+  createParam(xsp3FixedTimeParamString,   asynParamInt32,       &xsp3FixedTimeParam);
+  createParam(xsp3NumFramesConfigParamString,     asynParamInt32,       &xsp3NumFramesConfigParam);
+  createParam(xsp3NumFramesDriverParamString,     asynParamInt32,       &xsp3NumFramesDriverParam);
+  createParam(xsp3NumCardsParamString,      asynParamInt32,       &xsp3NumCardsParam);
+  createParam(xsp3ConfigPathParamString,    asynParamOctet,       &xsp3ConfigPathParam);
+  createParam(xsp3ConfigSavePathParamString,    asynParamOctet,       &xsp3ConfigSavePathParam);
+  createParam(xsp3ConnectParamString,      asynParamInt32,       &xsp3ConnectParam);
+  createParam(xsp3ConnectedParamString,      asynParamInt32,       &xsp3ConnectedParam);
+  createParam(xsp3DisconnectParamString,      asynParamInt32,       &xsp3DisconnectParam);
+  createParam(xsp3SaveSettingsParamString,      asynParamInt32,       &xsp3SaveSettingsParam);
+  createParam(xsp3RestoreSettingsParamString,      asynParamInt32,       &xsp3RestoreSettingsParam);
+  createParam(xsp3RunFlagsParamString,      asynParamInt32,       &xsp3RunFlagsParam);
+  createParam(xsp3TriggerParamString,      asynParamInt32,       &xsp3TriggerParam);
+  createParam(xsp3InvertF0ParamString,      asynParamInt32,       &xsp3InvertF0Param);
+  createParam(xsp3InvertVetoParamString,      asynParamInt32,       &xsp3InvertVetoParam);
+  createParam(xsp3DebounceParamString,      asynParamInt32,       &xsp3DebounceParam);
+  //These params will use different param lists based on asyn address
+  createParam(xsp3ChanMcaRoi1LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi1LlmParam);
+  createParam(xsp3ChanMcaRoi2LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi2LlmParam);
+  createParam(xsp3ChanMcaRoi3LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi3LlmParam);
+  createParam(xsp3ChanMcaRoi4LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi4LlmParam);
+  createParam(xsp3ChanMcaRoi5LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi5LlmParam);
+  createParam(xsp3ChanMcaRoi6LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi6LlmParam);
+  createParam(xsp3ChanMcaRoi7LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi7LlmParam);
+  createParam(xsp3ChanMcaRoi8LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi8LlmParam);
+  createParam(xsp3ChanMcaRoi9LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi9LlmParam);
+  createParam(xsp3ChanMcaRoi10LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi10LlmParam);
+  createParam(xsp3ChanMcaRoi11LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi11LlmParam);
+  createParam(xsp3ChanMcaRoi12LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi12LlmParam);
+  createParam(xsp3ChanMcaRoi13LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi13LlmParam);
+  createParam(xsp3ChanMcaRoi14LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi14LlmParam);
+  createParam(xsp3ChanMcaRoi15LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi15LlmParam);
+  createParam(xsp3ChanMcaRoi16LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi16LlmParam);
+  createParam(xsp3ChanMcaRoi1HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi1HlmParam);
+  createParam(xsp3ChanMcaRoi2HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi2HlmParam);
+  createParam(xsp3ChanMcaRoi3HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi3HlmParam);
+  createParam(xsp3ChanMcaRoi4HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi4HlmParam);
+  createParam(xsp3ChanMcaRoi5HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi5HlmParam);
+  createParam(xsp3ChanMcaRoi6HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi6HlmParam);
+  createParam(xsp3ChanMcaRoi7HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi7HlmParam);
+  createParam(xsp3ChanMcaRoi8HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi8HlmParam);
+  createParam(xsp3ChanMcaRoi9HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi9HlmParam);
+  createParam(xsp3ChanMcaRoi10HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi10HlmParam);
+  createParam(xsp3ChanMcaRoi11HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi11HlmParam);
+  createParam(xsp3ChanMcaRoi12HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi12HlmParam);
+  createParam(xsp3ChanMcaRoi13HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi13HlmParam);
+  createParam(xsp3ChanMcaRoi14HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi14HlmParam);
+  createParam(xsp3ChanMcaRoi15HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi15HlmParam);
+  createParam(xsp3ChanMcaRoi16HlmParamString,  asynParamInt32, &xsp3ChanMcaRoi16HlmParam);
+  createParam(xsp3ChanMcaRoi1ParamString,     asynParamFloat64,&xsp3ChanMcaRoi1Param);
+  createParam(xsp3ChanMcaRoi2ParamString,     asynParamFloat64,&xsp3ChanMcaRoi2Param);
+  createParam(xsp3ChanMcaRoi3ParamString,     asynParamFloat64,&xsp3ChanMcaRoi3Param);
+  createParam(xsp3ChanMcaRoi4ParamString,     asynParamFloat64,&xsp3ChanMcaRoi4Param);
+  createParam(xsp3ChanMcaRoi5ParamString,     asynParamFloat64,&xsp3ChanMcaRoi5Param);
+  createParam(xsp3ChanMcaRoi6ParamString,     asynParamFloat64,&xsp3ChanMcaRoi6Param);
+  createParam(xsp3ChanMcaRoi7ParamString,     asynParamFloat64,&xsp3ChanMcaRoi7Param);
+  createParam(xsp3ChanMcaRoi8ParamString,     asynParamFloat64,&xsp3ChanMcaRoi8Param);
+  createParam(xsp3ChanMcaRoi9ParamString,     asynParamFloat64,&xsp3ChanMcaRoi9Param);
+  createParam(xsp3ChanMcaRoi10ParamString,     asynParamFloat64,&xsp3ChanMcaRoi10Param);
+  createParam(xsp3ChanMcaRoi11ParamString,     asynParamFloat64,&xsp3ChanMcaRoi11Param);
+  createParam(xsp3ChanMcaRoi12ParamString,     asynParamFloat64,&xsp3ChanMcaRoi12Param);
+  createParam(xsp3ChanMcaRoi13ParamString,     asynParamFloat64,&xsp3ChanMcaRoi13Param);
+  createParam(xsp3ChanMcaRoi14ParamString,     asynParamFloat64,&xsp3ChanMcaRoi14Param);
+  createParam(xsp3ChanMcaRoi15ParamString,     asynParamFloat64,&xsp3ChanMcaRoi15Param);
+  createParam(xsp3ChanMcaRoi16ParamString,     asynParamFloat64,&xsp3ChanMcaRoi16Param);
+  createParam(xsp3ChanSca0ParamString,      asynParamFloat64,       &xsp3ChanSca0Param);
+  createParam(xsp3ChanSca1ParamString,      asynParamFloat64,       &xsp3ChanSca1Param);
+  createParam(xsp3ChanSca2ParamString,      asynParamFloat64,       &xsp3ChanSca2Param);
+  createParam(xsp3ChanSca3ParamString,      asynParamFloat64,       &xsp3ChanSca3Param);
+  createParam(xsp3ChanSca4ParamString,      asynParamFloat64,       &xsp3ChanSca4Param);
+  createParam(xsp3ChanSca5ParamString,      asynParamFloat64,       &xsp3ChanSca5Param);
+  createParam(xsp3ChanSca6ParamString,      asynParamFloat64,       &xsp3ChanSca6Param);
+  createParam(xsp3ChanSca7ParamString,      asynParamFloat64,       &xsp3ChanSca7Param);
+  createParam(xsp3ChanSca4ThresholdParamString,   asynParamInt32,       &xsp3ChanSca4ThresholdParam);
+  createParam(xsp3ChanSca5HlmParamString,   asynParamInt32,       &xsp3ChanSca5HlmParam);
+  createParam(xsp3ChanSca6HlmParamString,   asynParamInt32,       &xsp3ChanSca6HlmParam);
+  createParam(xsp3ChanSca5LlmParamString,   asynParamInt32,       &xsp3ChanSca5LlmParam);
+  createParam(xsp3ChanSca6LlmParamString,   asynParamInt32,       &xsp3ChanSca6LlmParam);
+  createParam(xsp3ChanDtcFlagsParamString,   asynParamInt32,       &xsp3ChanDtcFlagsParam);
+  createParam(xsp3ChanDtcAegParamString,   asynParamFloat64,       &xsp3ChanDtcAegParam);
+  createParam(xsp3ChanDtcAeoParamString,   asynParamFloat64,       &xsp3ChanDtcAeoParam);
+  createParam(xsp3ChanDtcIwgParamString,   asynParamFloat64,       &xsp3ChanDtcIwgParam);
+  createParam(xsp3ChanDtcIwoParamString,   asynParamFloat64,       &xsp3ChanDtcIwoParam);
+  //These controls calculations
+  createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
+  createParam(xsp3DtcEnableParamString,         asynParamInt32,       &xsp3DtcEnableParam);
+  createParam(xsp3EventWidthParamString, asynParamFloat64, &xsp3EventWidthParam);
+  createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
+  
   //Initialize non static, non const, data members
+  acquiring_ = 0;
+  running_ = 0;
   xsp3_handle_ = 0;
-  bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
-  paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
+  
   //Create the thread that readouts the data 
   status = (epicsThreadCreate("GeDataTask",
                               epicsThreadPriorityHigh,
@@ -135,6 +232,78 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     return;
   }
 
+  bool paramStatus = true;
+  //Initialise any paramLib parameters that need passing up to device support
+  paramStatus = ((setIntegerParam(xsp3NumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3MaxNumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3TriggerModeParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3FixedTimeParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(ADNumImages, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, maxFrames) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, maxDriverFrames) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3MaxSpectraParam, maxSpectra) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3MaxFramesParam, maxFrames) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3NumCardsParam, numCards) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3FrameCountParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(ADStatus, ADStatusDisconnected) == asynSuccess) && paramStatus);
+  paramStatus = ((setStringParam (ADManufacturer, "Quantum Detectors") == asynSuccess) && paramStatus);
+  paramStatus = ((setStringParam (ADModel, "Xspress3") == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(ADMaxSizeX, maxSpectra) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(ADMaxSizeY, numChannels_) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(ADSizeX, maxSpectra) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(ADSizeY, numChannels_) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(NDArraySizeX, maxSpectra) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(NDArraySizeY, numChannels_) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(NDArraySize, (maxSpectra * numChannels_ * sizeof(double)))  == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3TriggerParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3InvertF0Param, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3InvertVetoParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3DebounceParam, 0) == asynSuccess) && paramStatus);
+  for (int chan=0; chan<numChannels_; chan++) {
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi5LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi6LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi7LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi8LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi9LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi10LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi11LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi12LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi13LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi14LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi15LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi16LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi5HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi6HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi7HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi8HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi9HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi10HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi11HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi12HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi13HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi14HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi15HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi16HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca5HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca6HlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca5LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanSca6LlmParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setIntegerParam(chan, xsp3ChanDtcFlagsParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAegParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAeoParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwgParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwoParam, 0) == asynSuccess) && paramStatus);
+  }
+  paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
 
   printf( "Simulation: %d\n", simTest_ );
   if (simTest_) {
@@ -155,168 +324,9 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 
 }
 
- /** 
- * A constructor for the test suite.
- *
- * This constructor defines a lot of parameters in it for ease of testing.
- *
- * @param portName The asyn port name, this must be unique to each instance.
- * @param numChannels The number of channels to simulate.
- *
- */
-Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, numChannels, NUM_DRIVER_PARAMS, -1, -1, INTERFACE_MASK, INTERRUPT_MASK, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, 0, 0), debug_(1), numChannels_(numChannels), simTest_(1), baseIP_("127.0.0.1")
-{
-    const char *functionName = "Xspress3::Xspress3";
-    const int maxFrames = 1000;
-    const int maxDriverFrames = 1000;
-    const int maxSpectra = 4096;
-    const int numCards = 1;
-    const int simTest = 1;
-    this->lock();
-    this->createInitialParameters();
-    //Initialize non static, non const, data members
-    xsp3_handle_ = 0;
-    bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
-    paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
-    if (simTest) {
-        paramStatus = ((setStringParam(ADStatusMessage, "Init. Simulation Mode.") == asynSuccess) && paramStatus);
-        xsp3 = new xsp3Simulator(this->pasynUserSelf,numChannels,maxSpectra);
-    } else {
-        paramStatus = ((setStringParam(ADStatusMessage, "Init. System Disconnected.") == asynSuccess) && paramStatus);
-        xsp3 = new xsp3Detector(this->pasynUserSelf);
-    }
-  
-    callParamCallbacks();
-
-    if (!paramStatus) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
-    }
-
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s End Of Constructor.\n", functionName);
-
-}
-
-/** 
- * Create the asyn parameters required to set up and control the xspress3.
- *
- * This method is normally called by the constructor.
- */
-void Xspress3::createInitialParameters()
-{
-    //Add the params to the paramLib 
-    //createParam adds the parameters to all param lists automatically (using maxAddr).
-    createParam(xsp3FirstParamString, asynParamInt32, &xsp3FirstParam);
-    createParam(xsp3ResetParamString, asynParamInt32, &xsp3ResetParam);
-    createParam(xsp3EraseParamString, asynParamInt32, &xsp3EraseParam);
-    createParam(xsp3NumChannelsParamString, asynParamInt32, &xsp3NumChannelsParam);
-    createParam(xsp3MaxNumChannelsParamString, asynParamInt32, &xsp3MaxNumChannelsParam);
-    createParam(xsp3MaxSpectraParamString, asynParamInt32, &xsp3MaxSpectraParam);
-    createParam(xsp3MaxFramesParamString, asynParamInt32, &xsp3MaxFramesParam);
-    createParam(xsp3FrameCountParamString, asynParamInt32, &xsp3FrameCountParam);
-    createParam(xsp3TriggerModeParamString, asynParamInt32, &xsp3TriggerModeParam);
-    createParam(xsp3FixedTimeParamString, asynParamInt32, &xsp3FixedTimeParam);
-    createParam(xsp3NumFramesConfigParamString, asynParamInt32, &xsp3NumFramesConfigParam);
-    createParam(xsp3NumFramesDriverParamString, asynParamInt32, &xsp3NumFramesDriverParam);
-    createParam(xsp3NumCardsParamString, asynParamInt32, &xsp3NumCardsParam);
-    createParam(xsp3ConfigPathParamString, asynParamOctet, &xsp3ConfigPathParam);
-    createParam(xsp3ConfigSavePathParamString, asynParamOctet, &xsp3ConfigSavePathParam);
-    createParam(xsp3ConnectParamString, asynParamInt32, &xsp3ConnectParam);
-    createParam(xsp3ConnectedParamString, asynParamInt32, &xsp3ConnectedParam);
-    createParam(xsp3DisconnectParamString, asynParamInt32, &xsp3DisconnectParam);
-    createParam(xsp3SaveSettingsParamString, asynParamInt32, &xsp3SaveSettingsParam);
-    createParam(xsp3RestoreSettingsParamString, asynParamInt32, &xsp3RestoreSettingsParam);
-    createParam(xsp3RunFlagsParamString, asynParamInt32, &xsp3RunFlagsParam);
-    createParam(xsp3TriggerParamString, asynParamInt32, &xsp3TriggerParam);
-    createParam(xsp3InvertF0ParamString, asynParamInt32, &xsp3InvertF0Param);
-    createParam(xsp3InvertVetoParamString, asynParamInt32, &xsp3InvertVetoParam);
-    createParam(xsp3DebounceParamString, asynParamInt32, &xsp3DebounceParam);
-    createParam(xsp3ChanSca0ParamString, asynParamFloat64, &xsp3ChanSca0Param);
-    createParam(xsp3ChanSca1ParamString, asynParamFloat64, &xsp3ChanSca1Param);
-    createParam(xsp3ChanSca2ParamString, asynParamFloat64, &xsp3ChanSca2Param);
-    createParam(xsp3ChanSca3ParamString, asynParamFloat64, &xsp3ChanSca3Param);
-    createParam(xsp3ChanSca4ParamString, asynParamFloat64, &xsp3ChanSca4Param);
-    createParam(xsp3ChanSca5ParamString, asynParamFloat64, &xsp3ChanSca5Param);
-    createParam(xsp3ChanSca6ParamString, asynParamFloat64, &xsp3ChanSca6Param);
-    createParam(xsp3ChanSca7ParamString, asynParamFloat64, &xsp3ChanSca7Param);
-    createParam(xsp3ChanSca4ThresholdParamString, asynParamInt32, &xsp3ChanSca4ThresholdParam);
-    createParam(xsp3ChanSca5HlmParamString, asynParamInt32, &xsp3ChanSca5HlmParam);
-    createParam(xsp3ChanSca6HlmParamString, asynParamInt32, &xsp3ChanSca6HlmParam);
-    createParam(xsp3ChanSca5LlmParamString, asynParamInt32, &xsp3ChanSca5LlmParam);
-    createParam(xsp3ChanSca6LlmParamString, asynParamInt32, &xsp3ChanSca6LlmParam);
-    createParam(xsp3ChanDtcFlagsParamString, asynParamInt32, &xsp3ChanDtcFlagsParam);
-    createParam(xsp3ChanDtcAegParamString, asynParamFloat64, &xsp3ChanDtcAegParam);
-    createParam(xsp3ChanDtcAeoParamString, asynParamFloat64, &xsp3ChanDtcAeoParam);
-    createParam(xsp3ChanDtcIwgParamString, asynParamFloat64, &xsp3ChanDtcIwgParam);
-    createParam(xsp3ChanDtcIwoParamString, asynParamFloat64, &xsp3ChanDtcIwoParam);
-    //These controls calculations
-    createParam(xsp3RoiEnableParamString, asynParamInt32, &xsp3RoiEnableParam);
-    createParam(xsp3DtcEnableParamString, asynParamInt32, &xsp3DtcEnableParam);
-    createParam(xsp3LastParamString, asynParamInt32, &xsp3LastParam);
-}
-
-/** 
- * Set the parameters created in Xspress3::createInitialParameters
- *
- * @param maxFrames 
- * @param maxDriverFrames 
- * @param numCards 
- * @param maxSpectra 
- *
- * @return 
- */
-bool Xspress3::setInitialParameters(int maxFrames, int maxDriverFrames, int numCards, int maxSpectra)
-{
-    bool paramStatus = true;
-    //Initialise any paramLib parameters that need passing up to device support
-    paramStatus = ((setIntegerParam(xsp3NumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3MaxNumChannelsParam, numChannels_) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3TriggerModeParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3FixedTimeParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(ADNumImages, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, maxFrames) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, maxDriverFrames) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3MaxSpectraParam, maxSpectra) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3MaxFramesParam, maxFrames) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3NumCardsParam, numCards) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3FrameCountParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(ADStatus, ADStatusDisconnected) == asynSuccess) && paramStatus);
-    paramStatus = ((setStringParam (ADManufacturer, "Quantum Detectors") == asynSuccess) && paramStatus);
-    paramStatus = ((setStringParam (ADModel, "Xspress3") == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(ADMaxSizeX, maxSpectra) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(ADMaxSizeY, numChannels_) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(ADSizeX, maxSpectra) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(ADSizeY, numChannels_) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(NDArraySizeX, maxSpectra) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(NDArraySizeY, numChannels_) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(NDArraySize, (maxSpectra * numChannels_ * sizeof(double)))  == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3TriggerParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3InvertF0Param, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3InvertVetoParam, 0) == asynSuccess) && paramStatus);
-    paramStatus = ((setIntegerParam(xsp3DebounceParam, 0) == asynSuccess) && paramStatus);
-    for (int chan=0; chan<numChannels_; chan++) {
-        paramStatus = ((setIntegerParam(chan, xsp3ChanSca4ThresholdParam, 0) == asynSuccess) && paramStatus);
-        paramStatus = ((setIntegerParam(chan, xsp3ChanSca5HlmParam, 0) == asynSuccess) && paramStatus);
-        paramStatus = ((setIntegerParam(chan, xsp3ChanSca6HlmParam, 0) == asynSuccess) && paramStatus);
-        paramStatus = ((setIntegerParam(chan, xsp3ChanSca5LlmParam, 0) == asynSuccess) && paramStatus);
-        paramStatus = ((setIntegerParam(chan, xsp3ChanSca6LlmParam, 0) == asynSuccess) && paramStatus);
-        paramStatus = ((setIntegerParam(chan, xsp3ChanDtcFlagsParam, 0) == asynSuccess) && paramStatus);
-        paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAegParam, 0) == asynSuccess) && paramStatus);
-        paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAeoParam, 0) == asynSuccess) && paramStatus);
-        paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwgParam, 0) == asynSuccess) && paramStatus);
-        paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwoParam, 0) == asynSuccess) && paramStatus);
-    }
-    return paramStatus;
-}
-
-/** 
- * Xspress3 destructor
- *
- * The destructor ensures that the lock is released.
- */
 Xspress3::~Xspress3() 
 {
-    this->unlock();
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "Xspress3::~Xspress3 Called.\n");
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "Xspress3::~Xspress3 Called.\n");
 }
 
 
@@ -488,6 +498,41 @@ asynStatus Xspress3::readDTCParams(void)
   return status;
 }
 
+
+
+/**
+ * Read the event width for each channel
+ */
+asynStatus Xspress3::readTrigB(void) 
+{
+    const char *functionName = "Xspress3::readTrigB";
+    asynStatus status = asynSuccess;
+    Xspress3_TriggerB trig_b;
+    int xsp3_status;
+
+    int xsp3_num_channels = 0;
+    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+
+    for (int chan=0; chan<xsp3_num_channels; chan++) {
+        xsp3_status = xsp3->get_trigger_b(xsp3_handle_, chan, &trig_b);
+
+        printf("xsp_get_trigger_b status: %d", xsp3_status);
+
+        if (xsp3_status < XSP3_OK) {
+            checkStatus(xsp3_status, "xsp3_get_trigger_b", functionName);
+            status = asynError;
+
+        } else {
+            int width = trig_b.enb_variable_width ? (trig_b.event_time-3) : trig_b.event_time;
+            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %d\n", functionName, chan, width);
+            setDoubleParam(chan, xsp3EventWidthParam, width);
+        }
+
+        callParamCallbacks(chan);
+    }
+
+    return status;
+}
 
 
 /**
@@ -671,6 +716,11 @@ asynStatus Xspress3::restoreSettings(void)
         status = readDTCParams();
     }
 
+    // Read Trig B for DTC
+    if (status == asynSuccess) {
+        status = readTrigB();
+    }
+
   return status;
 }
 
@@ -823,11 +873,10 @@ asynStatus Xspress3::erase(void)
       status = asynError;
     } else {
       if (status == asynSuccess) {
-	      setStringParam(ADStatusMessage, "Erased Data");
-      } 
-      else {
-	      setStringParam(ADStatusMessage, "Problem Erasing Data");
-	      setIntegerParam(ADStatus, ADStatusError);
+	setStringParam(ADStatusMessage, "Erased Data");
+      } else {
+	setStringParam(ADStatusMessage, "Problem Erasing Data");
+	setIntegerParam(ADStatus, ADStatusError);
       }
     }
   }
@@ -863,36 +912,27 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca5Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca6Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca7Param, 0) == asynSuccess) && paramStatus);
-    //callParamCallbacks(chan);
+ 
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi1Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi2Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi3Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi4Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi5Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi6Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi7Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi8Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi9Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi10Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi11Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi12Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi13Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi14Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi15Param, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi16Param, 0) == asynSuccess) && paramStatus);
+    
+    callParamCallbacks(chan);
   }
-  
-  // Send a blank frame
-  NDArray *pMCA;
-  int xsp3_max_spectra=0;
-  getIntegerParam(xsp3MaxSpectraParam, &xsp3_max_spectra);
-  
-  NDDataType_t dataType= this->getDataType();
-  
-  
-  size_t dims[2];
-  this->getDims(dims);
-  
-  pMCA= this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
-  
-  if (pMCA !=NULL) {
-    memset(pMCA->pData,0,pMCA->dataSize);
-    this->setNDArrayAttributes(pMCA, -1);
-    
-    this->lock();
-    
-    this->callParamCallbacks();
-    this->unlock();
-    this->doNDCallbacksIfRequired(pMCA);
-    
-    pMCA->release();
-  
-  }
-  
+
   if (!paramStatus) {
     status = asynError;
   }
@@ -1047,6 +1087,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int addr = 0;
   int xsp3_status = 0;
   int xsp3_sca_lim = 0;
+  int xsp3_roi_lim = 0;
   int xsp3_time_frames = 0;
   int adStatus = 0;
   asynStatus status = asynSuccess;
@@ -1081,11 +1122,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       if (adStatus != ADStatusAcquire) {
 	  if ((status = checkConnected()) == asynSuccess) {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Starting Data Collection.\n", functionName);
-	    //MNewville:  explicitly stop and clear histogram before starting.
-	    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
-	    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
-	    xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
-	    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
             setupITFG();
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 	    if (xsp3_status != XSP3_OK) {
@@ -1233,6 +1269,168 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     getIntegerParam(addr, xsp3ChanSca6HlmParam, &xsp3_sca_lim);
     status = setWindow(addr, 1, value, xsp3_sca_lim);
   } 
+  //ROI low limits
+  else if (function == xsp3ChanMcaRoi1LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI1 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi1HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 1, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi2LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI2 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi2HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 2, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi3LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI3 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi3HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 3, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi4LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI4 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi4HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 4, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi5LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI5 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi5HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 5, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi6LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI6 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi6HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 6, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi7LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI7 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi7HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 7, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi8LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI8 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi8HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 8, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi9LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI9 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi9HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 9, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi10LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI10 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi10HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 10, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi11LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI11 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi11HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 11, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi12LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI12 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi12HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 12, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi13LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI13 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi13HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 13, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi14LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI14 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi14HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 14, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi15LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI15 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi15HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 15, value, xsp3_roi_lim); 
+  }
+  else if (function == xsp3ChanMcaRoi16LlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI16 Low Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi16HlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 16, value, xsp3_roi_lim); 
+  }
+  //ROI high limits
+  else if (function == xsp3ChanMcaRoi1HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI1 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi1LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 1, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi2HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI2 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi2LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 2, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi3HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI3 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi3LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 3, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi4HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI4 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi4LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 4, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi5HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI5 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi5LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 5, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi6HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI6 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi6LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 6, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi7HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI7 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi7LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 7, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi8HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI8 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi8LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 8, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi9HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI9 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi9LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 9, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi10HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI10 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi10LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 10, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi11HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI11 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi11LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 11, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi12HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI12 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi12LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 12, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi13HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI13 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi13LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 13, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi14HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI14 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi14LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 14, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi15HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI15 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi15LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 15, xsp3_roi_lim, value); 
+  }
+  else if (function == xsp3ChanMcaRoi16HlmParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The MCA ROI16 High Limit.\n", functionName);
+    getIntegerParam(addr, xsp3ChanMcaRoi16LlmParam, &xsp3_roi_lim);
+    status = checkRoi(addr, 16, xsp3_roi_lim, value); 
+  }
 
   else if (function == xsp3RoiEnableParam) {
     if (value == ctrlDisable_) {
@@ -1433,394 +1631,447 @@ asynStatus Xspress3::checkHistBusy(int checkTimes)
   return status;
 }
 
-/** 
- * Update areaDetector parameters to show an error
- *
- * @param message A string (const char*) to write to ADStatusMessage.
- */
-void Xspress3::adReportError(const char* message)
-{
-    setStringParam(ADStatusMessage, message);
-    setIntegerParam(ADStatus, ADStatusError);
-    setIntegerParam(ADAcquire, ADAcquireFalse_);
-}
 
-/** 
- * Malloc an array large enough to hold the SCAs
- *
- * @param pSCA A reference to a pointer that will point to the allocated memory
- *
- * @return true if an allocation error occurs otherwise false
- */
-bool Xspress3::createSCAArray(void *&pSCA)
-{
-    const char *functionName = "Xspress3::createSCAArray";
-    pSCA = malloc(XSP3_SW_NUM_SCALERS * this->numChannels_ * sizeof(double));
-    if (pSCA == NULL) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: SCA malloc failed.\n", functionName);
-        this->adReportError("Memory Error. Check IOC Log.");
-        return true;
-    } else {
-        return false;
-    }
-}
-
-/** 
- * Allocate an NDArray to put a detector frame into
- *
- * @param dims [maximum number of spectral bins, number of channels]
- * @param pMCA Reference to a pointer to the NDArray that will be allocated
- * @param dataType The NDDataType_t of the NDArray (NDUInt32 or NDFloat64)
- *
- * @return true if an allocation error occurs otherwise false
- */
-bool Xspress3::createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType)
-{
-    const char *functionName = "Xspress3::createMCAArray";
-    bool error = false;
-    pMCA = this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
-    if (pMCA == NULL) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: pNDArrayPool->alloc failed.\n", functionName);
-        this->adReportError("Memory Error. Check IOC Log.");
-        error = true;
-    }
-    return error;
-}
-
-/** 
- * Read a frame, of dead-time corrected data, from the hardware into
- * MCAData
- *
- * @param pSCA A pointer to the array to hold the SCAs
- * @param pMCAData A pointer to the array to hold the MCA
- * @param frameNumber The frame to read from the current capture
- * @param maxSpectra The maximum number of spectral bins in the MCA array
- *
- * @return true if an allocation error occurs otherwise false
- */
-bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra)
-{
-    bool error = false;
-    int xsp3Status = 0;
-    const char* functionName = "Xspress3::readFrame";
-    xsp3Status = xsp3->hist_dtc_read4d(this->xsp3_handle_, pMCAData, pSCA, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, 1);
-    
-    if (xsp3Status != XSP3_OK) {
-        checkStatus(xsp3Status, "xsp3_hist_dtc_read4d", functionName);
-        error = true;
-    } else {
-        setIntegerParam(NDArrayCounter, frameNumber+1);
-    }
-    return error;
-}
-
-bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra)
-{
-    bool error = false;
-    int xsp3Status = 0;
-    const char* functionName = "Xspress3::readFrame";
-    xsp3Status = xsp3->histogram_read4d(this->xsp3_handle_, pMCAData, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, 1);
-    if (xsp3Status != XSP3_OK) {
-        checkStatus(xsp3Status, "xsp3_histogram_read4d", functionName);
-        error = true;
-    } else {
-        setIntegerParam(NDArrayCounter, frameNumber);
-        xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameNumber, XSP3_SW_NUM_SCALERS, this->numChannels_, 1);
-        if (xsp3Status != XSP3_OK) {
-            checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
-            error = true;
-        }
-        else 
-        {
-        setIntegerParam(NDArrayCounter, frameNumber+1);
-        }
-    }
-    return error;
-}
-
-/** 
- * A shortcut to wait for the stop event and print diagnostics if necessary
- *
- * @param timeout The period to wait for the stop event before giving up
- * @param message The message to print if the stop event has occured within timeout
- *
- * @return the status returned by epicsEventWaitWithTimeout
- */
-const int Xspress3::checkForStopEvent(double timeout, const char *message)
-{
-    int eventStatus;
-    eventStatus = epicsEventWaitWithTimeout(this->stopEvent_, timeout);
-    if (eventStatus == epicsEventWaitOK) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, message);
-    }
-    return eventStatus;
-}
-
-/** 
- * A shortcut to wait indefinitely for a start event and print diagnostics if necessary
- *
- * @param message The message to print if the event has occured and requested
- *
- * @return the status returned by epicsEventWaitWithTimeout
- */
-const int Xspress3::waitForStartEvent(const char *message)
-{
-    int eventStatus;
-    eventStatus = epicsEventWait(startEvent_);          
-    if (eventStatus == epicsEventWaitOK) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, message);
-    }
-    return eventStatus;
-}
-
-/** 
- * Write the SCAs to the AD parameters
- *
- * @param pSCA A pointer to an array of SCAs from the hardware
- * @param numChannels The number of xspress3 channels in the SCA array
- */
-void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
-{
-    if (dataType == NDFloat64) {
-      double *pScaData = static_cast<double*>(pSCA);
-      for (int chan=0; chan<numChannels; ++chan) {
-        this->setDoubleParam(chan, this->xsp3ChanSca0Param, static_cast<epicsFloat64>(pScaData[0]));
-        this->setDoubleParam(chan, this->xsp3ChanSca1Param, static_cast<epicsFloat64>(pScaData[1]));
-        this->setDoubleParam(chan, this->xsp3ChanSca2Param, static_cast<epicsFloat64>(pScaData[2]));
-        this->setDoubleParam(chan, this->xsp3ChanSca3Param, static_cast<epicsFloat64>(pScaData[3]));
-        this->setDoubleParam(chan, this->xsp3ChanSca4Param, static_cast<epicsFloat64>(pScaData[4]));
-        this->setDoubleParam(chan, this->xsp3ChanSca5Param, static_cast<epicsFloat64>(pScaData[5]));
-        this->setDoubleParam(chan, this->xsp3ChanSca6Param, static_cast<epicsFloat64>(pScaData[6]));
-        this->setDoubleParam(chan, this->xsp3ChanSca7Param, static_cast<epicsFloat64>(pScaData[7]));
-        pScaData += XSP3_SW_NUM_SCALERS;
-      }
-    }
-    else {
-      u_int32_t *pScaData = static_cast<u_int32_t*>(pSCA);
-      for (int chan=0; chan<numChannels; ++chan) {
-        this->setDoubleParam(chan, this->xsp3ChanSca0Param, static_cast<epicsFloat64>(pScaData[0]));
-        this->setDoubleParam(chan, this->xsp3ChanSca1Param, static_cast<epicsFloat64>(pScaData[1]));
-        this->setDoubleParam(chan, this->xsp3ChanSca2Param, static_cast<epicsFloat64>(pScaData[2]));
-        this->setDoubleParam(chan, this->xsp3ChanSca3Param, static_cast<epicsFloat64>(pScaData[3]));
-        this->setDoubleParam(chan, this->xsp3ChanSca4Param, static_cast<epicsFloat64>(pScaData[4]));
-        this->setDoubleParam(chan, this->xsp3ChanSca5Param, static_cast<epicsFloat64>(pScaData[5]));
-        this->setDoubleParam(chan, this->xsp3ChanSca6Param, static_cast<epicsFloat64>(pScaData[6]));
-        this->setDoubleParam(chan, this->xsp3ChanSca7Param, static_cast<epicsFloat64>(pScaData[7]));
-        pScaData += XSP3_SW_NUM_SCALERS;
-      }
-    }
-}
-
-/** 
- * Set parameters as they should be at the start of an acquisition
- *
- */
-void Xspress3::setStartingParameters()
-{
-    this->setIntegerParam(this->NDArrayCounter, 0);
-    this->setIntegerParam(this->xsp3FrameCountParam, 0);
-    this->setIntegerParam(this->ADStatus, ADStatusAcquire);
-    this->setStringParam(this->ADStatusMessage, "Acquiring Data");
-    this->callParamCallbacks();
-}
 
 /**
- * Dead time corrected data is double precision floating point
- * uncorrected data is unsigned 32 bit integers so find out
- * which one and return it
- * @return const NDDataType_t the type as specified in the NDDataType_t enum
+ * Data readout task.
+ * Calculate statistics and post waveforms.
  */
-const NDDataType_t Xspress3::getDataType()
+void Xspress3::dataTask(void)
 {
-    int deadTimeCorrect;
-    this->getIntegerParam(this->xsp3DtcEnableParam, &deadTimeCorrect);
-    if (deadTimeCorrect) {
-        return NDFloat64;
-    } else {
-        return NDUInt32;
+  epicsEventWaitStatus eventStatus;
+  epicsFloat64 timeout = 0.001;
+  int numChannels = 0;
+  int numFrames = 0;
+  int acquire = 0;
+  int xsp3_status = 0;
+  int status = 0;
+  int frame_count = 0;
+  int frameCounter = 0;
+  int maxNumFrames = 0;
+  int maxSpectra = 0;
+  epicsTimeStamp nowTime;
+  const char* functionName = "Xspress3::dataTask";
+  epicsFloat64 *pSCA;
+  epicsFloat64 *pMCA;
+  epicsInt32 *pSCA_INT;
+  epicsInt32 *pMCA_INT;
+  NDArray *pMCA_NDARRAY;
+  int roiEnabled = 0;
+  epicsInt32 roiMin[maxNumRoi_];
+  epicsInt32 roiMax[maxNumRoi_];
+  epicsFloat64 roiSum[maxNumRoi_];
+  int allocError = 0;
+  int dumpOffset = 0;
+  int lastFrameCount = 0;
+  int framesToReadOut = 0;
+  bool stillBusy = false;
+  int dtcEnable = 0;
+  bool aborted = false;
+  bool completed = false;
+
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Thread.\n", functionName);
+
+  //Create array for scalar data (max frame * number of SCAs).
+  getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
+  getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
+  pSCA = static_cast<epicsFloat64*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsFloat64)));
+  assert( pSCA != NULL );
+  pSCA_INT = static_cast<epicsInt32*>(calloc(XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_, sizeof(epicsInt32)));
+  assert( pSCA_INT != NULL );
+
+  //Create data arrays for MCA spectra
+  pMCA = static_cast<epicsFloat64*>(calloc(maxSpectra*numChannels_*maxNumFrames, sizeof(epicsFloat64)));
+  assert( pMCA != NULL );
+  pMCA_INT = static_cast<epicsInt32*>(calloc(maxSpectra*numChannels_*maxNumFrames, sizeof(epicsInt32)));
+  assert( pMCA_INT != NULL );
+
+  //Code to set CPU affinitiy.
+  //This doesn't prevent the data readout thread being pre-empted by visualization threads. Need to set real time priority too. 
+  /*int core_id = 0; //This sets the CPU core
+  int num_cores = sysconf(_SC_NPROCESSORS_ONLN);
+  if (core_id < num_cores) {
+    cpu_set_t cpuset;
+    CPU_ZERO(&cpuset);
+    CPU_SET(core_id, &cpuset);
+    pthread_t current_thread = pthread_self();    
+    int return_val = pthread_setaffinity_np(current_thread, sizeof(cpu_set_t), &cpuset);
+    if (return_val != 0) {
+       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Error setting CPU affinity for data readout thread.\n", functionName);
     }
-}
+    }*/
 
-/** 
- * Get the dimensions of a frame from the xsp3 parameters
- * as [maxSpectra, numChannels]
- *
- * @param dims A reference to an array to store the dimensions in
- */
-void Xspress3::getDims(size_t (&dims)[2])
-{
-    int numChannels, maxSpectra;
-    this->getIntegerParam(this->xsp3NumChannelsParam, &numChannels);
-    this->getIntegerParam(this->xsp3MaxSpectraParam, &maxSpectra);
-    dims[0] = maxSpectra;
-    dims[1] = numChannels;
-}
 
-/** 
- * Sets the uniqueId of *pMCA to the frame number and sets the timeStamp
- * to the current time.
- *
- * @param pMCA A reference to a pointer to an NDArray
- * @param frameNumber The number of the frame to be written to pMCA->uniqueId
- */
-void Xspress3::setNDArrayAttributes(NDArray *&pMCA, int frameNumber)
-{
-    int arrayCallbacks = 0;
-    epicsTimeStamp currentTime;
-    this->getIntegerParam(NDArrayCallbacks, &arrayCallbacks);
-    epicsTimeGetCurrent(&currentTime);
-    pMCA->uniqueId = frameNumber;
-    pMCA->timeStamp = currentTime.secPastEpoch + currentTime.nsec/1e9;
-    pMCA->pAttributeList->add("TIMESTAMP", "Host Timestamp", NDAttrFloat64, &(pMCA->timeStamp));
-    this->getAttributes(pMCA->pAttributeList);
-}
+  cout << "Data readout thread PID: " << getpid() << endl;
+  cout << "Data readout thread TID syscall(SYS_gettid): " << syscall(SYS_gettid) << endl;
 
-/** 
- * Set the parameters to show that acquisition has stopped
- *
- * @param aborted true if the acquisition was aborted early
- */
-void Xspress3::setAcqStopParameters(bool aborted)
-{
-    this->setIntegerParam(ADAcquire, ADAcquireFalse_);
-    if (aborted) {
-        this->setIntegerParam(ADStatus, ADStatusAborted);
-        this->setStringParam(ADStatusMessage, "Stopped Acquiring");
-    } else {
-        this->setIntegerParam(ADStatus, ADStatusIdle);
-        this->setStringParam(ADStatusMessage, "Completed Acquisition");
+  //Code to set SCHED_FIFO for this thread. Not tested yet.
+  /*struct sched_param param;
+  int priority = 10;
+  int policy = -999;
+
+  pthread_getschedparam(pthread_self(),&policy,&param);
+  printf("Thread policy before %d \n" ,policy);
+
+  param.sched_priority = priority;
+  policy = SCHED_FIFO;
+  // scheduling parameters of target thread
+  pthread_setschedparam(pthread_self(), policy, &param);
+  pthread_getschedparam(pthread_self(),&policy,&param);
+  printf("Thread policy after %d \n", policy);
+   */
+
+
+  while (1) {
+
+    //Wait for a stop event, with a short timeout, to catch any that were done during last readout.
+    eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
+    if (eventStatus == epicsEventWaitOK) {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Stop Event Before Start Event.\n", functionName);
     }
-    this->callParamCallbacks();
-}
 
-/** 
- * A getter for ADNumImages
- *
- *
- * @return The number of frames stored in ADNumImages
- */
-int Xspress3::getNumFramesToAcquire()
-{
-    int numFrames;
-    this->getIntegerParam(ADNumImages, &numFrames);
-    return numFrames;
-}
+    setIntegerParam(ADAcquire, 0);
+    callParamCallbacks();
 
-void Xspress3::doNDCallbacksIfRequired(NDArray *pMCA)
-{
-    int arrayCallbacks;
-    this->getIntegerParam(NDArrayCallbacks, &arrayCallbacks);
-    if (arrayCallbacks) {
-        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "doNDCallbacksIfRequired: Calling NDArray callback\n");
-        this->doCallbacksGenericPointer(pMCA, NDArrayData, 0);
+    eventStatus = epicsEventWait(startEvent_);          
+    if (eventStatus == epicsEventWaitOK) {
+      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Start Event.\n", functionName);
+      acquire = 1;
+      frameCounter = 0;
+      aborted = false;
+      completed = false;
+      lock();
+      setIntegerParam(NDArrayCounter, 0);
+      //Need to clear local arrays here for each new acqusition.
+      memset(pSCA, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsFloat64));
+      memset(pSCA_INT, 0, (XSP3_SW_NUM_SCALERS*maxNumFrames*numChannels_)*sizeof(epicsInt32));
+      memset(pMCA, 0, (maxSpectra*numChannels_*maxNumFrames)*sizeof(epicsFloat64));
+      memset(pMCA_INT, 0, (maxSpectra*numChannels_*maxNumFrames)*sizeof(epicsInt32));
+      setIntegerParam(xsp3FrameCountParam, 0);
+      setIntegerParam(NDArrayCounter, 0);
+      setIntegerParam(ADStatus, ADStatusAcquire);
+      setStringParam(ADStatusMessage, "Acquiring Data");
+      callParamCallbacks();
     }
-}
 
-int Xspress3::getNumFramesRead()
-{
-    int numFrames = 0;
-    int xsp3Status = xsp3->scaler_check_progress(this->xsp3_handle_);
-    if (xsp3Status < XSP3_OK) {
-        this->checkStatus(xsp3Status, "xsp3_dma_check_desc", "getNumFrameRead");
-    } else {
-        numFrames = xsp3Status;
-        this->setIntegerParam(xsp3FrameCountParam, numFrames);
-    }
-    return numFrames;
-}
+    dumpOffset = 0;
+    lastFrameCount = 0;
+    framesToReadOut = 0;
+    stillBusy = false;
 
-void Xspress3::xspAsynPrint(int asynPrintType, const char *format, ...)
-{
-    const int maxMessageLen=1024;
-    va_list pArg;
-    char message[maxMessageLen];
-    va_start(pArg, format);
-    vsprintf(message, format, pArg);
-    asynPrint(this->pasynUserSelf, asynPrintType, message);
-    va_end(pArg);
-}
+    //Get the number of channels actually in use.
+    getIntegerParam(xsp3NumChannelsParam, &numChannels);
+    //Read how many frames we want to read out before stopping.
+    getIntegerParam(ADNumImages, &numFrames);
+    //Do we want corrected or uncorrected data?
+    getIntegerParam(xsp3DtcEnableParam, &dtcEnable);
 
-/** 
- * A function, ordinarily to be run in a seperate thread, to wait for
- * and then execute acquisitions.
- *
- * @param xspAD A pointer to an instance of Xspress3
- */
-static void xsp3DataTaskC(void *xspAD)
-{
-    Xspress3 *pXspAD = (Xspress3 *)xspAD;
-    void *pSCA;
-    NDArray *pMCA;
-    NDDataType_t dataType;
-    bool acquire, aborted, error=false;
-    int numChannels, maxSpectra, frameNumber, numFrames=0, acquired, lastAcquired;
-    size_t dims[2];
-    const double timeout = 0.00001;
-    const int checkTimes = 20;
-    // The scalar array can be reused so create it now
-    pXspAD->createSCAArray(pSCA);
-    while (1) {
-        acquired = lastAcquired = frameNumber = 0;
-        aborted = false;
-        pXspAD->checkForStopEvent(timeout, "Got stop event before start event.\n");
-        if (pXspAD->waitForStartEvent("Got start event.\n") == epicsEventWaitOK) {
-            acquire = true;
-            pXspAD->lock();
-            pXspAD->setStartingParameters();
-            pXspAD->unlock();
+    while (acquire) {
+      setIntegerParam(ADStatus, ADStatusAcquire);
+      unlock();
+
+      //Wait for a stop event, with a short timeout.
+      eventStatus = epicsEventWaitWithTimeout(stopEvent_, timeout);          
+      if (eventStatus == epicsEventWaitOK) {
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Got Stop Event.\n", functionName);
+        acquire = 0;
+        aborted = true;
+      }
+      lock();
+
+      //If we have stopped, wait until we are not busy on all channels.
+      stillBusy = false;
+      if (!acquire) {
+          if (checkHistBusy(maxCheckHistPolls_) == asynError) {
+            stillBusy = true;
+          }
+          asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s stillBusy: %s.\n", functionName, (stillBusy?"true":"false"));
+      }
+
+      //Read how many data frames have been transferred.
+      if (acquire || aborted) {
+          xsp3_status = xsp3->scaler_check_progress(xsp3_handle_);
+          if (xsp3_status < XSP3_OK) {
+              checkStatus(xsp3_status, "xsp3_dma_check_desc", functionName);
+              status = asynError;
+          }
+          frame_count = xsp3_status;
+          setIntegerParam(xsp3FrameCountParam, frame_count-lastFrameCount);
+          asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
+      } else {
+        frame_count = 0;
+      }
+
+      if (frame_count > lastFrameCount) {
+        framesToReadOut = frame_count - lastFrameCount;
+        lastFrameCount = frame_count;
+
+        getIntegerParam(NDArrayCounter, &frameCounter);
+        frameCounter += framesToReadOut;
+        int remainingFrames = framesToReadOut;
+        //Check we are not overflowing or reading too many frames.
+        if (frameCounter > maxNumFrames) {
+          remainingFrames = maxNumFrames - (frameCounter - framesToReadOut);
+          asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
+          setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
+          setIntegerParam(ADAcquire, ADAcquireFalse_);
+          xsp3_status = xsp3->histogram_stop(xsp3_handle_, 0);
+          if (xsp3_status != XSP3_OK) {
+              checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+          }
+          acquire=0;
+          setIntegerParam(ADStatus, ADStatusAborted);
+        } else if (frameCounter >= numFrames) {
+          completed = true;
+          remainingFrames = numFrames - (frameCounter - framesToReadOut);
+          xsp3_status = xsp3->histogram_stop(xsp3_handle_, 0);
+          if (xsp3_status != XSP3_OK) {
+              checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+          }
+          acquire=0;
         }
-        dataType = pXspAD->getDataType();
-        pXspAD->getDims(dims);
-        maxSpectra = dims[0];
-        numChannels = dims[1];
-        numFrames = pXspAD->getNumFramesToAcquire();
-        pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
-        while (acquire && (frameNumber < numFrames)) {
-            acquired = pXspAD->getNumFramesRead();
-            if (frameNumber < acquired) {
-                lastAcquired = acquired;
-                if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
-                    if (dataType == NDFloat64) {
-                        error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frameNumber, maxSpectra);
-                    } 
-                    else {
-                        error = pXspAD->readFrame(static_cast<u_int32_t*>(pSCA), static_cast<u_int32_t*>(pMCA->pData), frameNumber, maxSpectra);
-                    }
-                    if (error) {
-                        pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "There was an error during read out %d\n", error);
-                    }
-                    
-                    pXspAD->lock();
-                    pXspAD->writeOutScas(pSCA, numChannels, dataType);
-                    pXspAD->unlock();
-                    frameNumber++;
-                    pXspAD->setNDArrayAttributes(pMCA, frameNumber);
-                    pXspAD->lock();
-                    pXspAD->callParamCallbacks();
-                    pXspAD->unlock();
-                    pXspAD->doNDCallbacksIfRequired(pMCA);
-                    pMCA->release();
-                } 
-                else {
-                    pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "Did not create a new array!\n");
+
+        int frameOffset = frameCounter-framesToReadOut;
+        if (!acquire) {
+          frameCounter = frameOffset+remainingFrames;
+        }
+
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame_count: %d.\n", functionName, frame_count);
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s framesToReadOut: %d.\n", functionName, framesToReadOut);
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameCounter: %d.\n", functionName, frameCounter);
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s remainingFrames: %d.\n", functionName, remainingFrames);
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frameOffset: %d.\n", functionName, frameOffset);
+
+        if (acquire || aborted) {
+          setIntegerParam(ADStatus, ADStatusReadout);
+          callParamCallbacks();
+        }
+
+        //Readout multiple frames of data here into local arrays.
+        if ((!stillBusy) && (remainingFrames != 0)) {
+             //Read out the MCA spectra and scaler data (dtc or non-corrected)
+            if (dtcEnable == 1) {
+              xsp3_status = xsp3->hist_dtc_read4d(xsp3_handle_, reinterpret_cast<double*>(pMCA), reinterpret_cast<double*>(pSCA), 0, 0, 0, frameOffset, maxSpectra, 1, numChannels, remainingFrames);
+              if (xsp3_status != XSP3_OK) {
+                checkStatus(xsp3_status, "xsp3_hist_dtc_read4d", functionName);
+                status = asynError;
+              }
+            } else {
+              xsp3_status = xsp3->histogram_read4d(xsp3_handle_, reinterpret_cast<u_int32_t*>(pMCA_INT), 0, 0, 0, frameOffset, maxSpectra, 1, numChannels, remainingFrames);
+              if (xsp3_status != XSP3_OK) {
+                checkStatus(xsp3_status, "xsp3_histogram_read4d", functionName);
+                status = asynError;
+              }
+              xsp3_status = xsp3->scaler_read(xsp3_handle_, reinterpret_cast<u_int32_t*>(pSCA_INT), 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, numChannels, remainingFrames);
+              if (xsp3_status != XSP3_OK) {
+                checkStatus(xsp3_status, "xsp3_scaler_read", functionName);
+                status = asynError;
+              }
+
+              //If reading un-corrected data, need to convert to doubles for the rest of the IOC code.    
+              epicsFloat64 *pDATA = pMCA;
+              epicsInt32 *pDATA_INT = pMCA_INT;
+              epicsFloat64 *pSCA_DATA = pSCA;
+              epicsInt32 *pSCA_DATA_INT = pSCA_INT;
+              for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
+                for (int chan=0; chan<numChannels; ++chan) {
+                  for (int bin=0; bin<maxSpectra; ++bin) {
+                    *(pDATA++) = static_cast<epicsFloat64>(*(pDATA_INT++));
+                  }
+                  for (int sca=0; sca<XSP3_SW_NUM_SCALERS; ++sca) {
+                    *(pSCA_DATA++) = static_cast<epicsFloat64>(*(pSCA_DATA_INT++));
+                  }
                 }
-                
-            }
-            if (pXspAD->checkForStopEvent(timeout, "Got stop event.\n") == epicsEventWaitOK) {
-                acquire = false;
-                aborted = true;
-                pXspAD->checkHistBusy(checkTimes);
-                pXspAD->lock();
-                pXspAD->setAcqStopParameters(true);
-                pXspAD->unlock();
+              }
             }
         }
-        if (!aborted) {
-            pXspAD->lock();
-            pXspAD->setAcqStopParameters(false);
-            pXspAD->unlock();
+
+        if (acquire) {
+          setIntegerParam(ADStatus, ADStatusAcquire);
         }
-    }
+
+        size_t dims[2] = {maxSpectra, numChannels};
+        epicsFloat64 *pScaData = pSCA;
+
+        //For each frame, do the ROI and pack into an NDArray object
+        if (!stillBusy) {
+          int currentFrameOffset = 0;
+          for (int frame=frameOffset; frame<(frameOffset+remainingFrames); ++frame) {
+
+            allocError = 0;
+            setIntegerParam(NDArrayCounter, frame+1);
+
+            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s absolute frame: %d.\n", functionName, frame);
+            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s frame number for this readout currentFrameOffset: %d\n", functionName, currentFrameOffset);
+
+            //NDArray to hold the all channels spectra and attributes for each frame.
+            if ((pMCA_NDARRAY = this->pNDArrayPool->alloc(2, dims, NDFloat64, 0, NULL)) == NULL) {
+              asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: pNDArrayPool->alloc failed.\n", functionName);
+              setStringParam(ADStatusMessage, "Memory Error. Check IOC Log.");
+              setIntegerParam(ADStatus, ADStatusError);
+              setIntegerParam(ADAcquire, ADAcquireFalse_);
+              acquire = 0;
+              allocError = 1;
+            } else {
+
+              for (int chan=0; chan<numChannels; ++chan) {
+
+                setDoubleParam(chan, xsp3ChanSca0Param, pScaData[0]);
+                setDoubleParam(chan, xsp3ChanSca1Param, pScaData[1]);
+                setDoubleParam(chan, xsp3ChanSca2Param, pScaData[2]);
+                setDoubleParam(chan, xsp3ChanSca3Param, pScaData[3]);
+                setDoubleParam(chan, xsp3ChanSca4Param, pScaData[4]);
+                setDoubleParam(chan, xsp3ChanSca5Param, pScaData[5]);
+                setDoubleParam(chan, xsp3ChanSca6Param, pScaData[6]);
+                setDoubleParam(chan, xsp3ChanSca7Param, pScaData[7]);
+                pScaData += XSP3_SW_NUM_SCALERS;
+
+                //Calculate MCA ROI here, if we have enabled it. Put the results into pMCA_ROI[chan][roi].
+                getIntegerParam(xsp3RoiEnableParam, &roiEnabled);
+                memset(&roiSum, 0, sizeof(epicsFloat64)*maxNumRoi_);
+                if (roiEnabled) {
+
+                  getIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, &roiMin[0]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi1HlmParam, &roiMax[0]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, &roiMin[1]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi2HlmParam, &roiMax[1]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi3LlmParam, &roiMin[2]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi3HlmParam, &roiMax[2]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi4LlmParam, &roiMin[3]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi4HlmParam, &roiMax[3]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi5LlmParam, &roiMin[4]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi5HlmParam, &roiMax[4]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi6LlmParam, &roiMin[5]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi6HlmParam, &roiMax[5]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi7LlmParam, &roiMin[6]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi7HlmParam, &roiMax[6]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi8LlmParam, &roiMin[7]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi8HlmParam, &roiMax[7]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi9LlmParam, &roiMin[8]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi9HlmParam, &roiMax[8]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi10LlmParam, &roiMin[9]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi10HlmParam, &roiMax[9]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi11LlmParam, &roiMin[10]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi11HlmParam, &roiMax[10]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi12LlmParam, &roiMin[11]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi12HlmParam, &roiMax[11]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi13LlmParam, &roiMin[12]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi13HlmParam, &roiMax[12]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi14LlmParam, &roiMin[13]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi14HlmParam, &roiMax[13]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi15LlmParam, &roiMin[14]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi15HlmParam, &roiMax[14]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi16LlmParam, &roiMin[15]);
+                  getIntegerParam(chan, xsp3ChanMcaRoi16HlmParam, &roiMax[15]);
+
+                  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calculating ROI Data.\n", functionName);
+
+                  int roiOffset = ((maxSpectra*chan) + (maxSpectra*numChannels*currentFrameOffset));
+                  epicsFloat64 *pMCA_DATA = pMCA+roiOffset;
+                  for (int roi=0; roi<maxNumRoi_; ++roi) {
+                    for (int energy=roiMin[roi]; energy<roiMax[roi]; ++energy) {
+                      roiSum[roi] += *(pMCA_DATA+energy);
+                    }
+                  }
+                }
+
+                asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Setting ROI Param Data.\n", functionName);
+                setDoubleParam(chan, xsp3ChanMcaRoi1Param, roiSum[0]);
+                setDoubleParam(chan, xsp3ChanMcaRoi2Param, roiSum[1]);
+                setDoubleParam(chan, xsp3ChanMcaRoi3Param, roiSum[2]);
+                setDoubleParam(chan, xsp3ChanMcaRoi4Param, roiSum[3]);
+                setDoubleParam(chan, xsp3ChanMcaRoi5Param, roiSum[4]);
+                setDoubleParam(chan, xsp3ChanMcaRoi6Param, roiSum[5]);
+                setDoubleParam(chan, xsp3ChanMcaRoi7Param, roiSum[6]);
+                setDoubleParam(chan, xsp3ChanMcaRoi8Param, roiSum[7]);
+                setDoubleParam(chan, xsp3ChanMcaRoi9Param, roiSum[8]);
+                setDoubleParam(chan, xsp3ChanMcaRoi10Param, roiSum[9]);
+                setDoubleParam(chan, xsp3ChanMcaRoi11Param, roiSum[10]);
+                setDoubleParam(chan, xsp3ChanMcaRoi12Param, roiSum[11]);
+                setDoubleParam(chan, xsp3ChanMcaRoi13Param, roiSum[12]);
+                setDoubleParam(chan, xsp3ChanMcaRoi14Param, roiSum[13]);
+                setDoubleParam(chan, xsp3ChanMcaRoi15Param, roiSum[14]);
+                setDoubleParam(chan, xsp3ChanMcaRoi16Param, roiSum[15]);
+
+              } //End of channel loop
+            } //end of else, if the alloc worked.
+
+            //Pack the MCA data into an NDArray for this frame.   Format is: [chan1 spectra][chan2 spectra][etc]
+            if (allocError == 0) {
+              int frame_offset = maxSpectra*numChannels*currentFrameOffset;
+              for (int chan=0; chan<numChannels; ++chan) {
+                int chan_offset = chan*maxSpectra;
+                epicsFloat64 *pMCA_DATA = pMCA+frame_offset;
+                memcpy(reinterpret_cast<epicsFloat64*>(pMCA_NDARRAY->pData)+chan_offset, pMCA_DATA+chan_offset, maxSpectra*sizeof(epicsFloat64));
+              }
+
+              int arrayCallbacks = 0;
+              getIntegerParam(NDArrayCallbacks, &arrayCallbacks);
+              //Do callbacks on NDArray for plugins.
+              epicsTimeGetCurrent(&nowTime);
+              pMCA_NDARRAY->uniqueId = frame;
+              pMCA_NDARRAY->timeStamp = nowTime.secPastEpoch + nowTime.nsec / 1.e9;
+              pMCA_NDARRAY->pAttributeList->add("TIMESTAMP", "Host Timestamp", NDAttrFloat64, &(pMCA_NDARRAY->timeStamp));
+              this->getAttributes(pMCA_NDARRAY->pAttributeList);
+              if (arrayCallbacks) {
+                unlock();
+                asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s: Calling NDArray callback\n", functionName);
+                doCallbacksGenericPointer(pMCA_NDARRAY, NDArrayData, 0);
+                lock();
+              }
+              //Free the NDArray
+              pMCA_NDARRAY->release();
+            } //end of if (allocError == 0)
+
+            //Need to call callParamCallbacks for each list (ie. channel, indexed by Asyn address).
+            for (int addr=0; addr<maxAddr; addr++) {
+              asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling callParamCallbacks for addr %d.\n", functionName, addr);
+              callParamCallbacks(addr);
+            }
+
+            ++currentFrameOffset;
+
+          } //end of frame loop
+        } //end of if (!stillBusy)
+
+      }  //end of if (frame_count > lastFrameCount)
+
+      if (aborted) {
+        setIntegerParam(ADAcquire, ADAcquireFalse_);
+        setIntegerParam(ADStatus, ADStatusAborted);
+        setStringParam(ADStatusMessage, "Stopped Acquiring");
+        callParamCallbacks();
+      }
+
+      if (completed) {
+        setStringParam(ADStatusMessage, "Completed Acqusition.");
+        setIntegerParam(ADAcquire, ADAcquireFalse_);
+        setIntegerParam(ADStatus, ADStatusIdle);
+      }
+
+      frame_count = 0;
+      framesToReadOut = 0;
+
+    } //end of while(acquire)
+
+    unlock();
+
+  } //end of while(1)
+
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s: ERROR: Exiting dataTask main loop.\n", functionName);
+  free(pSCA);
+  free(pMCA);
+  free(pMCA_INT);
+
+}
+
+
+//Global C utility functions to tie in with EPICS
+static void xsp3DataTaskC(void *drvPvt)
+{
+  Xspress3 *pPvt = (Xspress3 *)drvPvt;
+  
+  pPvt->dataTask();
 }
 
 /*************************************************************************************/
@@ -1903,3 +2154,4 @@ extern "C" {
 
 
 /****************************************************************************************/
+

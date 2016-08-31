@@ -209,3 +209,7 @@ int xsp3Simulator::xsp3Api_scaler_read(int path, uint32_t *dest, unsigned scaler
     return XSP3_OK;
 }
 
+int xsp3Simulator::xsp3Api_get_trigger_b(int path, unsigned chan, Xspress3_TriggerB *trig_b)
+{
+    return XSP3_OK;
+}
