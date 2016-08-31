@@ -96,10 +96,13 @@ epicsEnvSet("CHAN",   "4")
 epicsEnvSet("XADDR",  "3")
 <SCAROI.cmd
 
+
 # Optional: load scan records
 # dbLoadRecords("$(SSCAN)/sscanApp/Db/scan.db", "P=$(PREFIX),MAXPTS1=2000,MAXPTS2=200,MAXPTS3=20,MAXPTS4=10,MAXPTSH=10")
 # Optional: load sseq record for acquisition sequence
 # dbLoadRecords("$(CALC)/calcApp/Db/yySseq.db", "P=$(PREFIX), S=AcquireSequence")
+
+dbLoadRecords("xspress3Deadtime_4Channel.template",   "P=$(PREFIX)")
 
 < AutoSave.cmd
 

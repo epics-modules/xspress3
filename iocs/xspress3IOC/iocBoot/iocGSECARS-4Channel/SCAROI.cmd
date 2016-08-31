@@ -20,7 +20,7 @@ dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=det1:,PORT=
 dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=5")
 dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=6")
 dbLoadRecords("xspress3ChannelDTC.template",          "P=$(PREFIX),R=det1:,PORT=$(PORT), CHAN=$(CHAN),  NDARRAY_PORT=$(PORT),ADDR=$(XADDR),TIMEOUT=5")
-dbLoadRecords("xspress3Deadtime.template",            "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN)")
+dbLoadRecords("xspress3ChannelDeadtime.template",     "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN)")
 
 #ROIs
 ###########
