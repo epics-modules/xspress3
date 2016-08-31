@@ -21,3 +21,23 @@ record(calc, "$(P)$(R)C$(CHAN)_DeadTime_RBV")
     field(SCAN, "Passive")
     #field(SCAN, "I/O Intr")
 }
+
+# Deadtime Correction Factor
+record(calc, "$(P)$(R)C$(CHAN)_DTCFactor_RBV")
+{
+    field(INPA, "$(P)$(R)C$(CHAN)_DeadTime_RBV:Value_RBV NPP NMS") # All Event
+    field(CALC, "100/(100-A)")
+    field(PREC, "5")
+    #field(SCAN, ".1 second")
+    field(SCAN, "Passive")
+}
+
+# X3 Deadtime Correction Factor
+record(ai, "$(P)$(R)C$(CHAN)_X3DTCFactor_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_DTC_FACTOR")
+    field(SCAN, "I/O Intr")
+    field(VAL,  "0")
+    field(PREC, "5")
+}
