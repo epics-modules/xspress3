@@ -73,6 +73,10 @@ include "xspress3ChannelSCALimits.template"
 substitute "SCA=6"
 include "xspress3ChannelSCALimits.template"
 
+##########################################################################
+# Dead Time Correction Parameters Read At Connection Time
+##########################################################################
+include "xspress3Deadtime.template"
 
 include "xspress3ChannelDTC.template
 
