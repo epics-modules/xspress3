@@ -14,10 +14,9 @@ dbLoadDatabase("$(TOP)/dbd/xspress3App.dbd")
 callbackSetQueueSize(8000)
 
 
-
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
-epicsEnvSet("PREFIX", "XPS3:")
+epicsEnvSet("PREFIX", "13QX4:")
 epicsEnvSet("PORT",   "XSP3")
 epicsEnvSet("QSIZE",  "128")
 
