@@ -1,5 +1,5 @@
 # Event width from libx3
-record(ai, "$(P)$(R)C$(CHAN)_EventWidth_RBV") {
+record(ai, "$(P)C$(CHAN):EventWidth_RBV") {
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_EVENT_WIDTH")
     field(SCAN, "I/O Intr")
@@ -8,27 +8,23 @@ record(ai, "$(P)$(R)C$(CHAN)_EventWidth_RBV") {
 }
 
 # percent deadtime = allevent*event width + time in reset
-record(calc, "$(P)$(R)C$(CHAN)_DeadTime_RBV") {
-    field(INPA, "$(P)$(R)C$(CHAN)_SCA3:Value_RBV NPP NMS") # All Event
-    field(INPB, "$(P)$(R)C$(CHAN)_SCA1:Value_RBV NPP NMS") # Reset Ticks
-    field(INPC, "$(P)$(R)C$(CHAN)_EventWidth_RBV NPP NMS") # Event Width
-    field(INPD, "$(P)$(R)C$(CHAN)_SCA0:Value_RBV NPP NMS") # Frame Time
-    field(CALC, "(100.0*(A*(C+1)+B)/D")
+record(calc, "$(P)C$(CHAN):DeadTime_RBV") {
+    field(INPA, "$(P)C$(CHAN)SCA4:Value_RBV NPP NMS") # All Event
+    field(INPB, "$(P)C$(CHAN)SCA2:Value_RBV NPP NMS") # Reset Ticks
+    field(INPC, "$(P)C$(CHAN):EventWidth_RBV NPP NMS") # Event Width
+    field(INPD, "$(P)C$(CHAN)SCA1:Value_RBV NPP NMS") # Frame Time
+    field(CALC, "(100.0*(A*(C+1)+B)/D)")
     field(PREC, "5")
-    #field(SCAN, ".1 second")
-    field(SCAN, "Passive")
-    #field(SCAN, "I/O Intr")
+    field(SCAN, ".1 second")
 }
 
 # deadtime correction factor 
-record(calc, "$(P)$(R)C$(CHAN)_DTFactor_RBV") {
-    field(INPA, "$(P)$(R)C$(CHAN)_SCA3:Value_RBV NPP NMS") # All Event
-    field(INPB, "$(P)$(R)C$(CHAN)_SCA1:Value_RBV NPP NMS") # Reset Ticks
-    field(INPC, "$(P)$(R)C$(CHAN)_EventWidth_RBV NPP NMS") # Event Width
-    field(INPD, "$(P)$(R)C$(CHAN)_SCA0:Value_RBV NPP NMS") # Frame Time
+record(calc, "$(P)C$(CHAN):DTFactor_RBV") {
+    field(INPA, "$(P)C$(CHAN)SCA4:Value_RBV NPP NMS") # All Event
+    field(INPB, "$(P)C$(CHAN)SCA2:Value_RBV NPP NMS") # Reset Ticks
+    field(INPC, "$(P)C$(CHAN):EventWidth_RBV NPP NMS") # Event Width
+    field(INPD, "$(P)C$(CHAN)SCA1:Value_RBV NPP NMS") # Frame Time
     field(CALC, "(D/(D-(A*(C+1)+B)))")
     field(PREC, "5")
-    #field(SCAN, ".1 second")
-    field(SCAN, "Passive")
-    #field(SCAN, "I/O Intr")
+    field(SCAN, ".1 second")
 }
