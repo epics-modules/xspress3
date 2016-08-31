@@ -523,7 +523,12 @@ asynStatus Xspress3::readTrigB(void)
             status = asynError;
 
         } else {
-            int width = trig_b.enb_variable_width ? (trig_b.event_time-3) : trig_b.event_time;
+	    /* MN 31-Aug-2016, from Stu Fisher:
+	       for detectors with variable width events (and corresponding firmware?),
+	       the following line should be changed to 
+	       int width = trig_b.enb_variable_width ? (trig_b.event_time-3) : trig_b.event_time;
+   	    */
+	    int width = trig_b.event_time;
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %d\n", functionName, chan, width);
             setDoubleParam(chan, xsp3EventWidthParam, width);
         }
