@@ -71,6 +71,7 @@ protected:
     virtual int xsp3Api_has_itfg(int path, int card);
     virtual int xsp3Api_scaler_read(int path, uint32_t *dest, unsigned scaler, unsigned chan, unsigned t, unsigned n_scalers, unsigned n_chan, unsigned dt);
     virtual int xsp3Api_get_trigger_b(int path, unsigned chan, Xspress3_TriggerB *trig_b);
+    virtual int xsp3Api_get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan);
 
 private:
     std::vector<xsp3SimElement> detectors;

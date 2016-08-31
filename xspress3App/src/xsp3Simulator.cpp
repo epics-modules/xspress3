@@ -213,3 +213,8 @@ int xsp3Simulator::xsp3Api_get_trigger_b(int path, unsigned chan, Xspress3_Trigg
 {
     return XSP3_OK;
 }
+
+int xsp3Simulator::xsp3Api_get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan)
+{
+    return XSP3_OK;
+}

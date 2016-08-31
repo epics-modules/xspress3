@@ -360,3 +360,16 @@ int xsp3Api::get_trigger_b(int path, unsigned card, Xspress3_TriggerB *trig_b)
 
     return status;
 }
+
+int xsp3Api::get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan) 
+{
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_get_dtcfactor( %d, %d ) = ", path, chan);
+
+    status = xsp3Api_get_dtcfactor(path, scaData, dtcFactor, dtcAllEvent, chan);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+
+}

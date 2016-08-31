@@ -65,6 +65,7 @@ protected:
     virtual int xsp3Api_has_itfg(int path, int card) = 0;
     virtual int xsp3Api_scaler_read(int path, uint32_t *dest, unsigned scaler, unsigned chan, unsigned t, unsigned n_scalers, unsigned n_chan, unsigned dt) = 0;
     virtual int xsp3Api_get_trigger_b(int path, unsigned chan, Xspress3_TriggerB *trig_b) = 0;
+    virtual int xsp3Api_get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan) = 0;
 
 public:
     int clocks_setup(int path, int card, int clk_src, int flags, int tp_type);
@@ -96,6 +97,7 @@ public:
     int has_itfg(int path, int card);
     int scaler_read(int path, uint32_t *dest, unsigned scaler, unsigned chan, unsigned t, unsigned n_scalers, unsigned n_chan, unsigned dt);
     int get_trigger_b(int path, unsigned card, Xspress3_TriggerB *trig_b);
+    int get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan);
 
 private:
     asynUser * pasynUser;

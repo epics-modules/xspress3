@@ -206,3 +206,10 @@ int xsp3Detector::xsp3Api_get_trigger_b(int path, unsigned chan, Xspress3_Trigge
     status = xsp3_get_trigger_b(path, chan, trig_b);
     return status;
 }
+
+int xsp3Detector::xsp3Api_get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan)
+{
+    int status;
+    status = xsp3_calculateDeadtimeCorrectionFactors(path, scaData, dtcFactor, dtcAllEvent, 1, chan, 1);
+    return status;
+}
