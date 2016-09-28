@@ -971,7 +971,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -1060,7 +1060,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -1430,7 +1430,7 @@ border-radius: 2px;
     <property name="geometry">
      <rect>
       <x>270</x>
-      <y>210</y>
+      <y>240</y>
       <width>120</width>
       <height>15</height>
      </rect>
@@ -1481,7 +1481,7 @@ border-radius: 2px;
     <property name="geometry">
      <rect>
       <x>270</x>
-      <y>240</y>
+      <y>210</y>
       <width>120</width>
       <height>15</height>
      </rect>
@@ -1781,7 +1781,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -1858,7 +1858,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -2001,7 +2001,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -2093,7 +2093,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -2164,7 +2164,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -2253,7 +2253,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -2345,7 +2345,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
@@ -2434,7 +2434,7 @@ border-radius: 2px;
     </property>
     <property name="font">
      <font>
-      <pointsize>9</pointsize>
+      <pointsize>8</pointsize>
      </font>
     </property>
     <property name="frameShape">
