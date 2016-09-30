@@ -251,6 +251,7 @@ void Xspress3::createInitialParameters()
     //These controls calculations
     createParam(xsp3RoiEnableParamString, asynParamInt32, &xsp3RoiEnableParam);
     createParam(xsp3DtcEnableParamString, asynParamInt32, &xsp3DtcEnableParam);
+    createParam(xsp3EventWidthParamString, asynParamFloat64, &xsp3EventWidthParam);
     createParam(xsp3LastParamString, asynParamInt32, &xsp3LastParam);
 }
 
@@ -518,9 +519,10 @@ asynStatus Xspress3::readTrigB(void)
 	       the following line should be changed to 
 	       int width = trig_b.enb_variable_width ? (trig_b.event_time-3) : trig_b.event_time;
    	    */
-	    int width = trig_b.event_time;
+	    double width = trig_b.event_time;
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %d\n", functionName, chan, width);
-	    setIntegerParam(chan, xsp3EventWidthParam, width);
+	    printf("Setting Event Width: chan=%d, width=%.1f\n", chan, width);
+	    setDoubleParam(chan, xsp3EventWidthParam, width);
         }
 
         callParamCallbacks(chan);
