@@ -507,12 +507,10 @@ asynStatus Xspress3::readTrigB(void)
     for (int chan=0; chan<xsp3_num_channels; chan++) {
         xsp3_status = xsp3->get_trigger_b(xsp3_handle_, chan, &trig_b);
 
-        printf("xsp_get_trigger_b status: %d", xsp3_status);
-
+	printf("xsp_get_trigger_b: chan=%d, status=%d, ", chan, xsp3_status);
         if (xsp3_status < XSP3_OK) {
             checkStatus(xsp3_status, "xsp3_get_trigger_b", functionName);
             status = asynError;
-
         } else {
 	    /* MN 31-Aug-2016, from Stu Fisher:
 	       for detectors with variable width events (and corresponding firmware?),
@@ -520,11 +518,11 @@ asynStatus Xspress3::readTrigB(void)
 	       int width = trig_b.enb_variable_width ? (trig_b.event_time-3) : trig_b.event_time;
    	    */
 	    double width = trig_b.event_time;
-            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %d\n", functionName, chan, width);
-	    printf("Setting Event Width: chan=%d, width=%.1f\n", chan, width);
+            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %.1f\n", functionName, chan, width);
 	    setDoubleParam(chan, xsp3EventWidthParam, width);
+	    printf(" event_width=%.1f", width);
         }
-
+	printf("\n");
         callParamCallbacks(chan);
     }
 
