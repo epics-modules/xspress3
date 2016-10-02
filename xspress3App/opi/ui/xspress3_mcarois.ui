@@ -336,7 +336,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA1:Value_RBV</string>
+     <string>$(P):C$(CHAN)SCA0:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -804,7 +804,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA2:Value_RBV</string>
+     <string>$(P):C$(CHAN)SCA1:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -855,7 +855,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA3:Value_RBV</string>
+     <string>$(P):C$(CHAN)SCA2:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -906,7 +906,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA4:Value_RBV</string>
+     <string>$(P):C$(CHAN)SCA3:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -957,7 +957,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA5:Value_RBV</string>
+     <string>$(P):C$(CHAN)SCA4:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -1008,7 +1008,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA8:Value_RBV</string>
+     <string>$(P):C$(CHAN)SCA7:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
