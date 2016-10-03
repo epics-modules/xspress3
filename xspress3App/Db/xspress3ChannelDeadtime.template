@@ -8,22 +8,19 @@ record(ai, "$(P)C$(CHAN):EventWidth_RBV") {
 }
 
 # percent deadtime = allevent*event width + time in reset
-record(calcout, "$(P)C$(CHAN):DeadTime_RBV") {
-    field(INPA, "$(P)C$(CHAN)SCA3:Value_RBV NPP NMS") # All Event
-    field(INPB, "$(P)C$(CHAN)SCA1:Value_RBV NPP NMS") # Reset Ticks
-    field(INPC, "$(P)C$(CHAN):EventWidth_RBV NPP NMS") # Event Width
-    field(INPD, "$(P)C$(CHAN)SCA0:Value_RBV NPP NMS") # Frame Time
-    field(CALC, "D<1.0?0.0:(100.0*(A*(C+1)+B)/D)")
+record(ai, "$(P)C$(CHAN):DeadTime_RBV") {
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTPERCENT")
+    field(SCAN, "I/O Intr")
+    field(VAL,  "0")
     field(PREC, "5")
 }
 
 # deadtime correction factor 
-record(calcout, "$(P)C$(CHAN):DTFactor_RBV") {
-    field(INPA, "$(P)C$(CHAN)SCA3:Value_RBV NPP NMS") # All Event
-    field(INPB, "$(P)C$(CHAN)SCA1:Value_RBV NPP NMS") # Reset Ticks
-    field(INPC, "$(P)C$(CHAN):EventWidth_RBV NPP NMS") # Event Width
-    field(INPD, "$(P)C$(CHAN)SCA0:Value_RBV NPP NMS") # Frame Time
-    field(CALC, "D<1.0?1.0:(D/(D-(A*(C+1)+B)))")
+record(ai, "$(P)C$(CHAN):DTFactor_RBV") {
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTFACTOR")
+    field(SCAN, "I/O Intr")
+    field(VAL,  "1")
     field(PREC, "5")
 }
-
