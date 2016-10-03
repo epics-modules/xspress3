@@ -3,26 +3,6 @@
   <Attribute          name="Date"            source="S:IOC:timeOfDayForm1SI"   type="EPICS_PV" datatype="STRING" description="Date and time" />
   <Attribute          name="RingCurrent"     source="S:SRcurrentAI.VAL"        type="EPICS_PV" datatype="DOUBLE" description="Ring current" />
 
-  <Attribute          name="CHAN1DTFactor"   source="13QX4:C1:DTFactor_RBV"    type="EPICS_PV" datatype="DOUBLE" description="CHAN1 DT Factor" />
-  <Attribute          name="CHAN2DTFactor"   source="13QX4:C2:DTFactor_RBV"    type="EPICS_PV" datatype="DOUBLE" description="CHAN2 DT Factor" />
-  <Attribute          name="CHAN3DTFactor"   source="13QX4:C3:DTFactor_RBV"    type="EPICS_PV" datatype="DOUBLE" description="CHAN3 DT Factor" />
-  <Attribute          name="CHAN4DTFactor"   source="13QX4:C4:DTFactor_RBV"    type="EPICS_PV" datatype="DOUBLE" description="CHAN4 DT Factor" />
-
-  <Attribute          name="CHAN1ClockPV"    source="13QX4:C1:SCA0:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN1 Clock PV" />
-  <Attribute          name="CHAN2ClockPV"    source="13QX4:C2:SCA0:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN2 Clock PV" />
-  <Attribute          name="CHAN3ClockPV"    source="13QX4:C3:SCA0:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN3 Clock PV" />
-  <Attribute          name="CHAN4ClockPV"    source="13QX4:C4:SCA0:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN4 Clock PV" />
-
-  <Attribute          name="CHAN1ResetPV"    source="13QX4:C1:SCA1:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN1 ResetTicks PV" />
-  <Attribute          name="CHAN2ResetPV"    source="13QX4:C2:SCA1:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN2 ResetTicks PV" />
-  <Attribute          name="CHAN3ResetPV"    source="13QX4:C3:SCA1:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN3 ResetTicks PV" />
-  <Attribute          name="CHAN4ResetPV"    source="13QX4:C4:SCA1:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN4 ResetTicks PV" />
-
-  <Attribute          name="CHAN1AllEvPV"    source="13QX4:C1:SCA3:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN1 AllEvent PV" />
-  <Attribute          name="CHAN2AllEvPV"    source="13QX4:C2:SCA3:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN2 AllEvent PV" />
-  <Attribute          name="CHAN3AllEvPV"    source="13QX4:C3:SCA3:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN3 AllEvent PV" />
-  <Attribute          name="CHAN4AllEvPV"    source="13QX4:C4:SCA3:Value_RBV"  type="EPICS_PV" datatype="DOUBLE" description="CHAN4 AllEvent PV" />
-
   <Attribute          name="ArrayCounter"    source="ARRAY_COUNTER"            type="PARAM"    datatype="INT"    description="Image counter" />
   <Attribute          name="Model"           source="MODEL"                    type="PARAM"    datatype="STRING" description="Camera model" />
   <Attribute          name="Manufacturer"    source="MANUFACTURER"             type="PARAM"    datatype="STRING" description="Camera manufacturer" />
@@ -41,6 +21,7 @@
   <Attribute addr="0" name="CHAN1DTCIWG"     source="XSP3_CHAN_DTC_IWG"        type="PARAM"    datatype="DOUBLE" description="CHAN1 DTC In Window Grad" />
   <Attribute addr="0" name="CHAN1DTCIWO"     source="XSP3_CHAN_DTC_IWO"        type="PARAM"    datatype="DOUBLE" description="CHAN1 DTC In Window Offset" />
   <Attribute addr="0" name="CHAN1EventWidth" source="XSP3_EVENT_WIDTH"         type="PARAM"    datatype="DOUBLE" description="CHAN1 Event Width" />
+  <Attribute addr="0" name="CHAN1DTFactor"   source="XSP3_CHAN_DTFACTOR"       type="PARAM"    datatype="DOUBLE" description="CHAN1 DT Factor" />
 
   <Attribute addr="1" name="CHAN2SCA0"       source="XSP3_CHAN_SCA0"           type="PARAM"    datatype="DOUBLE" description="CHAN2 ClockTicks" />
   <Attribute addr="1" name="CHAN2SCA1"       source="XSP3_CHAN_SCA1"           type="PARAM"    datatype="DOUBLE" description="CHAN2 ResetTicks" />
@@ -56,6 +37,7 @@
   <Attribute addr="1" name="CHAN2DTCIWG"     source="XSP3_CHAN_DTC_IWG"        type="PARAM"    datatype="DOUBLE" description="CHAN2 DTC In Window Grad" />
   <Attribute addr="1" name="CHAN2DTCIWO"     source="XSP3_CHAN_DTC_IWO"        type="PARAM"    datatype="DOUBLE" description="CHAN2 DTC In Window Offset" />
   <Attribute addr="1" name="CHAN2EventWidth" source="XSP3_EVENT_WIDTH"         type="PARAM"    datatype="DOUBLE" description="CHAN2 Event Width" />
+  <Attribute addr="1" name="CHAN2DTFactor"   source="XSP3_CHAN_DTFACTOR"       type="PARAM"    datatype="DOUBLE" description="CHAN2 DT Factor" />
 
   <Attribute addr="2" name="CHAN3SCA0"       source="XSP3_CHAN_SCA0"           type="PARAM"    datatype="DOUBLE" description="CHAN3 ClockTicks" />
   <Attribute addr="2" name="CHAN3SCA1"       source="XSP3_CHAN_SCA1"           type="PARAM"    datatype="DOUBLE" description="CHAN3 ResetTicks" />
@@ -71,6 +53,7 @@
   <Attribute addr="2" name="CHAN3DTCIWG"     source="XSP3_CHAN_DTC_IWG"        type="PARAM"    datatype="DOUBLE" description="CHAN3 DTC In Window Grad" />
   <Attribute addr="2" name="CHAN3DTCIWO"     source="XSP3_CHAN_DTC_IWO"        type="PARAM"    datatype="DOUBLE" description="CHAN3 DTC In Window Offset" />
   <Attribute addr="2" name="CHAN3EventWidth" source="XSP3_EVENT_WIDTH"         type="PARAM"    datatype="DOUBLE" description="CHAN3 Event Width" />
+  <Attribute addr="2" name="CHAN3DTFactor"   source="XSP3_CHAN_DTFACTOR"       type="PARAM"    datatype="DOUBLE" description="CHAN3 DT Factor" />
 
   <Attribute addr="3" name="CHAN4SCA0"       source="XSP3_CHAN_SCA0"           type="PARAM"    datatype="DOUBLE" description="CHAN4 ClockTicks" />
   <Attribute addr="3" name="CHAN4SCA1"       source="XSP3_CHAN_SCA1"           type="PARAM"    datatype="DOUBLE" description="CHAN4 ResetTicks" />
@@ -86,5 +69,5 @@
   <Attribute addr="3" name="CHAN4DTCIWG"     source="XSP3_CHAN_DTC_IWG"        type="PARAM"    datatype="DOUBLE" description="CHAN4 DTC In Window Grad" />
   <Attribute addr="3" name="CHAN4DTCIWO"     source="XSP3_CHAN_DTC_IWO"        type="PARAM"    datatype="DOUBLE" description="CHAN4 DTC In Window Offset" />
   <Attribute addr="3" name="CHAN4EventWidth" source="XSP3_EVENT_WIDTH"         type="PARAM"    datatype="DOUBLE" description="CHAN4 Event Width" />
-
+  <Attribute addr="3" name="CHAN4DTFactor"   source="XSP3_CHAN_DTFACTOR"       type="PARAM"    datatype="DOUBLE" description="CHAN4 DT Factor" />
 </Attributes>
