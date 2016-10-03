@@ -1631,9 +1631,9 @@ const int Xspress3::waitForStartEvent(const char *message)
  */
 void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
 {
-  double allevt, resets, evtwidth, ctime;
-  double dtperc=0.0;
-  double dtfact=1.0;
+    double allevt, resets, evtwidth, ctime;
+    double dtperc=0.0;
+    double dtfact=1.0;
     if (dataType == NDFloat64) {
       double *pScaData = static_cast<double*>(pSCA);
       for (int chan=0; chan<numChannels; ++chan) {
