@@ -252,6 +252,9 @@ void Xspress3::createInitialParameters()
     createParam(xsp3RoiEnableParamString, asynParamInt32, &xsp3RoiEnableParam);
     createParam(xsp3DtcEnableParamString, asynParamInt32, &xsp3DtcEnableParam);
     createParam(xsp3EventWidthParamString, asynParamFloat64, &xsp3EventWidthParam);
+    createParam(xsp3ChanDTPercentParamString, asynParamFloat64, &xsp3ChanDTPercentParam);
+    createParam(xsp3ChanDTFactorParamString, asynParamFloat64, &xsp3ChanDTFactorParam);
+
     createParam(xsp3LastParamString, asynParamInt32, &xsp3LastParam);
 }
 
@@ -305,6 +308,9 @@ bool Xspress3::setInitialParameters(int maxFrames, int maxDriverFrames, int numC
         paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAeoParam, 0.0) == asynSuccess) && paramStatus);
         paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwgParam, 0.0) == asynSuccess) && paramStatus);
         paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwoParam, 0.0) == asynSuccess) && paramStatus);
+        paramStatus = ((setDoubleParam(chan, xsp3EventWidthParam, 5.0) == asynSuccess) && paramStatus);
+        paramStatus = ((setDoubleParam(chan, xsp3ChanDTPercentParam, 0.0) == asynSuccess) && paramStatus);
+        paramStatus = ((setDoubleParam(chan, xsp3ChanDTFactorParam, 1.0) == asynSuccess) && paramStatus);
     }
     return paramStatus;
 }
@@ -1625,6 +1631,9 @@ const int Xspress3::waitForStartEvent(const char *message)
  */
 void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
 {
+  double allevt, resets, evtwidth, ctime;
+  double dtperc=0.0;
+  double dtfact=1.0;
     if (dataType == NDFloat64) {
       double *pScaData = static_cast<double*>(pSCA);
       for (int chan=0; chan<numChannels; ++chan) {
@@ -1636,6 +1645,20 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
         this->setDoubleParam(chan, this->xsp3ChanSca5Param, static_cast<epicsFloat64>(pScaData[5]));
         this->setDoubleParam(chan, this->xsp3ChanSca6Param, static_cast<epicsFloat64>(pScaData[6]));
         this->setDoubleParam(chan, this->xsp3ChanSca7Param, static_cast<epicsFloat64>(pScaData[7]));
+
+        // MN set percent deadtime and deadtime correction factor here
+        ctime  = pScaData[0];
+        if (ctime > 10) {
+          getDoubleParam(chan, xsp3EventWidthParam, &evtwidth);
+          resets = pScaData[1];
+          allevt = pScaData[3];
+          dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
+          dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
+        }
+        // printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
+        setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
+        setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
+
         pScaData += XSP3_SW_NUM_SCALERS;
       }
     }
@@ -1650,6 +1673,21 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
         this->setDoubleParam(chan, this->xsp3ChanSca5Param, static_cast<epicsFloat64>(pScaData[5]));
         this->setDoubleParam(chan, this->xsp3ChanSca6Param, static_cast<epicsFloat64>(pScaData[6]));
         this->setDoubleParam(chan, this->xsp3ChanSca7Param, static_cast<epicsFloat64>(pScaData[7]));
+
+        // MN set percent deadtime and deadtime correction factor here
+        ctime  = 1.0*pScaData[0];
+        if (ctime > 10) {
+          getDoubleParam(chan, xsp3EventWidthParam, &evtwidth);
+          resets = 1.0*pScaData[1];
+          allevt = 1.0*pScaData[3];
+          dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
+          dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
+        }
+        // printf(":I> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f\n", chan, evtwidth, dtperc, dtfact);
+        setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
+        setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
+
+
         pScaData += XSP3_SW_NUM_SCALERS;
       }
     }
