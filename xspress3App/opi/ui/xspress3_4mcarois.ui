@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TabWidget</class>
+ <widget class="QTabWidget" name="TabWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>975</width>
+    <height>925</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>TabWidget</string>
+  </property>
+  <property name="currentIndex">
+   <number>1</number>
+  </property>
+  <widget class="QWidget" name="MCA1">
+   <attribute name="title">
+    <string>MCA1</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_1">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>975</width>
+      <height>890</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), CHAN=1</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="MCA2">
+   <attribute name="title">
+    <string>MCA2</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>975</width>
+      <height>890</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), CHAN=2</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="MCA3">
+   <attribute name="title">
+    <string>MCA3</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>975</width>
+      <height>890</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), CHAN=3</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QWidget" name="MCA4">
+   <attribute name="title">
+    <string>MCA4</string>
+   </attribute>
+   <widget class="caInclude" name="cainclude_4">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>975</width>
+      <height>890</height>
+     </rect>
+    </property>
+    <property name="macro">
+     <string notr="true">P=$(P), CHAN=4</string>
+    </property>
+    <property name="filename" stdset="0">
+     <string notr="true">xspress3_mcarois.ui</string>
+    </property>
+   </widget>
+  </widget>
+
+
+
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>caInclude</class>
+   <extends>QWidget</extends>
+   <header>caInclude</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

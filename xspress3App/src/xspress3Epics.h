@@ -106,7 +106,9 @@
 //Params to enable or disable calculations
 #define xsp3RoiEnableParamString        "XSP3_CTRL_MCA_ROI"
 #define xsp3DtcEnableParamString        "XSP3_CTRL_DTC"
-
+#define xsp3EventWidthParamString        "XSP3_EVENT_WIDTH"
+#define xsp3ChanDTPercentParamString     "XSP3_CHAN_DTPERCENT"
+#define xsp3ChanDTFactorParamString      "XSP3_CHAN_DTFACTOR"
 
 
 extern "C" {
@@ -137,7 +139,7 @@ class Xspress3 : public ADDriver {
   bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
   asynStatus connect(void);
-  void writeOutScas(void *&pSCA, int numChannels);
+  void writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType);
   void setStartingParameters();
   const NDDataType_t getDataType();
   void getDims(size_t (&dims)[2]);
@@ -164,7 +166,8 @@ class Xspress3 : public ADDriver {
   asynStatus eraseSCAMCAROI(void);
   asynStatus checkSaveDir(const char *dirName);
   asynStatus readSCAParams(void);
-  asynStatus readDTCParams(void);
+  asynStatus readDTCParams(void); 
+  asynStatus readTrigB(void);
   asynStatus setupITFG(void); 
   asynStatus mapTriggerMode(int mode, int invert_f0, int invert_veto, int debounce, int *apiMode);
   asynStatus setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce );
@@ -251,9 +254,11 @@ class Xspress3 : public ADDriver {
   int xsp3ChanDtcIwoParam;  
   int xsp3RoiEnableParam;
   int xsp3DtcEnableParam;
+  int xsp3EventWidthParam;
+  int xsp3ChanDTPercentParam;
+  int xsp3ChanDTFactorParam;
   int xsp3LastParam;
   #define XSP3_LAST_DRIVER_COMMAND xsp3LastParam
-
 };
 
 #define NUM_DRIVER_PARAMS (&XSP3_LAST_DRIVER_COMMAND - &XSP3_FIRST_DRIVER_COMMAND + 1)
