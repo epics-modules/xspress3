@@ -58,6 +58,7 @@ example_LIBS += hdf5
 example_LIBS += sz
 example_LIBS += netCDF
 SYS_PROD_LIBS += png12
+SYS_PROD_LIBS += pthread
 
 # We need to link this IOC Application against the EPICS Base libraries
 example_LIBS += $(EPICS_BASE_IOC_LIBS)
