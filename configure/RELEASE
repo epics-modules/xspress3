@@ -28,7 +28,7 @@ AREA_DETECTOR=  $(SUPPORT)/areaDetectorR1-9-1
 CALC=           $(SUPPORT)/calc-3-2
 
 #Dependencies for any builder example IOC
-BUSY=           $(SUPPORT)/busy1-6
+BUSY=           $(SUPPORT)/busy-1-6
 
 # EPICS_BASE usually appears last so other apps can override stuff:
 EPICS_BASE=/home/xspress3/software/epics/R3.14.12.3/base
