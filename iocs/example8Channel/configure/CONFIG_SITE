@@ -43,4 +43,4 @@ CHECK_RELEASE = YES
 XSPRESS3_PREFIX=XSPRESS3-EXAMPLE
 XSPRESS3_CONFIG:=$(abspath $(XSPRESS3))/xspress3_settings/8channel
 XSPRESS3_SAVE:=$(abspath $(TOP))/save
-XSPRESS3_DATA=/home/npr78/data
+XSPRESS3_DATA=/home/xspress3/data
