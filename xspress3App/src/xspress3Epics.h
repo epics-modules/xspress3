@@ -155,7 +155,9 @@
 #define xsp3RoiEnableParamString        "XSP3_CTRL_MCA_ROI"
 #define xsp3DtcEnableParamString        "XSP3_CTRL_DTC"
 #define xsp3EventWidthParamString        "XSP3_EVENT_WIDTH"
-#define xsp3DTCFactorParamString        "XSP3_DTC_FACTOR"
+
+#define xsp3ChanDTPercentParamString     "XSP3_CHAN_DTPERCENT"
+#define xsp3ChanDTFactorParamString      "XSP3_CHAN_DTFACTOR"
 
 
 
@@ -332,7 +334,8 @@ class Xspress3 : public ADDriver {
   int xsp3RoiEnableParam;
   int xsp3DtcEnableParam;
   int xsp3EventWidthParam;
-  int xsp3DTCFactorParam;
+  int xsp3ChanDTPercentParam;
+  int xsp3ChanDTFactorParam;
   int xsp3LastParam;
   #define XSP3_LAST_DRIVER_COMMAND xsp3LastParam
 

@@ -214,7 +214,8 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
   createParam(xsp3DtcEnableParamString,         asynParamInt32,       &xsp3DtcEnableParam);
   createParam(xsp3EventWidthParamString, asynParamFloat64, &xsp3EventWidthParam);
-  createParam(xsp3DTCFactorParamString, asynParamFloat64, &xsp3DTCFactorParam);
+  createParam(xsp3ChanDTPercentParamString, asynParamFloat64, &xsp3ChanDTPercentParam);
+  createParam(xsp3ChanDTFactorParamString, asynParamFloat64, &xsp3ChanDTFactorParam);
   createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
   
   //Initialize non static, non const, data members
@@ -303,6 +304,10 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     paramStatus = ((setDoubleParam(chan, xsp3ChanDtcAeoParam, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwgParam, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanDtcIwoParam, 0) == asynSuccess) && paramStatus);
+
+    paramStatus = ((setDoubleParam(chan, xsp3EventWidthParam, 5.0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDTPercentParam, 0.0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDTFactorParam, 1.0) == asynSuccess) && paramStatus);
   }
   paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
 
@@ -914,7 +919,8 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca6Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca7Param, 0) == asynSuccess) && paramStatus);
 
-    paramStatus = ((setDoubleParam(chan, xsp3DTCFactorParam, 0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDTPercentParam, 0.0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanDTFactorParam, 1.0) == asynSuccess) && paramStatus);
  
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi1Param, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanMcaRoi2Param, 0) == asynSuccess) && paramStatus);
@@ -1916,17 +1922,22 @@ void Xspress3::dataTask(void)
               allocError = 1;
             } else {
 
-              double dtcFactor;
-              double dtcAllEvent;
+              double allevt, resets, evtwidth, ctime;
+              double dtperc = 0.0;
+              double dtfact = 1.0;
 
               for (int chan=0; chan<numChannels; ++chan) {
-                xsp3_status = xsp3->get_dtcfactor(xsp3_handle_, reinterpret_cast<u_int32_t*>(pScaData), &dtcFactor, &dtcAllEvent, chan);
-                if (xsp3_status != XSP3_OK) {
-                  checkStatus(xsp3_status, "xsp3_calculate_dtc_factors", functionName);
-                  status = asynError;
+                ctime = pScaData[0];
+                if (ctime > 10) {
+                  getDoubleParam(chan, xsp3EventWidthParam, &evtwidth);
+                  resets = pScaData[1];
+                  allevt = pScaData[3];
+                  dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
+                  dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
                 }
-
-                setDoubleParam(chan, xsp3DTCFactorParam, dtcFactor);
+                // printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
+                setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
+                setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
 
                 setDoubleParam(chan, xsp3ChanSca0Param, pScaData[0]);
                 setDoubleParam(chan, xsp3ChanSca1Param, pScaData[1]);
