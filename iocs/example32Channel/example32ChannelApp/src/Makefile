@@ -49,6 +49,7 @@ example32Channel_SYS_LIBS += png12
 example32Channel_SYS_LIBS += bz2
 example32Channel_SYS_LIBS += Xext
 example32Channel_SYS_LIBS += freetype
+example32Channel_SYS_LIBS += pthread
 example32Channel_LIBS += $(EPICS_BASE_IOC_LIBS)
 example32Channel_SRCS += example32ChannelMain.cpp
 

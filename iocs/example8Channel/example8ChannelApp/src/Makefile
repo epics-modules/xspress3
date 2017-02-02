@@ -49,6 +49,7 @@ example8Channel_SYS_LIBS += png12
 example8Channel_SYS_LIBS += bz2
 example8Channel_SYS_LIBS += Xext
 example8Channel_SYS_LIBS += freetype
+example8Channel_SYS_LIBS += pthread
 example8Channel_LIBS += $(EPICS_BASE_IOC_LIBS)
 example8Channel_SRCS += example8ChannelMain.cpp
 
