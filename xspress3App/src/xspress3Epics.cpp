@@ -143,6 +143,11 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   createParam(xsp3InvertF0ParamString,      asynParamInt32,       &xsp3InvertF0Param);
   createParam(xsp3InvertVetoParamString,      asynParamInt32,       &xsp3InvertVetoParam);
   createParam(xsp3DebounceParamString,      asynParamInt32,       &xsp3DebounceParam);
+  createParam(xsp3PulsePerTriggerParamString,      asynParamInt32,       &xsp3PulsePerTriggerParam);
+  // itfg
+  createParam(xsp3ITFGStartParamString,         asynParamInt32,       &xsp3ITFGStartParam);
+  createParam(xsp3ITFGStopParamString,         asynParamInt32,       &xsp3ITFGStopParam);
+
   //These params will use different param lists based on asyn address
   createParam(xsp3ChanMcaRoi1LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi1LlmParam);
   createParam(xsp3ChanMcaRoi2LlmParamString,  asynParamInt32, &xsp3ChanMcaRoi2LlmParam);
@@ -213,9 +218,11 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   //These controls calculations
   createParam(xsp3RoiEnableParamString,         asynParamInt32,       &xsp3RoiEnableParam);
   createParam(xsp3DtcEnableParamString,         asynParamInt32,       &xsp3DtcEnableParam);
+  // dtc
   createParam(xsp3EventWidthParamString, asynParamFloat64, &xsp3EventWidthParam);
   createParam(xsp3ChanDTPercentParamString, asynParamFloat64, &xsp3ChanDTPercentParam);
   createParam(xsp3ChanDTFactorParamString, asynParamFloat64, &xsp3ChanDTFactorParam);
+
   createParam(xsp3LastParamString,         asynParamInt32,       &xsp3LastParam);
   
   //Initialize non static, non const, data members
@@ -261,6 +268,9 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   paramStatus = ((setIntegerParam(xsp3InvertF0Param, 0) == asynSuccess) && paramStatus);
   paramStatus = ((setIntegerParam(xsp3InvertVetoParam, 0) == asynSuccess) && paramStatus);
   paramStatus = ((setIntegerParam(xsp3DebounceParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3PulsePerTriggerParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3ITFGStartParam, 0) == asynSuccess) && paramStatus);
+  paramStatus = ((setIntegerParam(xsp3ITFGStopParam, 0) == asynSuccess) && paramStatus);
   for (int chan=0; chan<numChannels_; chan++) {
     paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi1LlmParam, 0) == asynSuccess) && paramStatus);
     paramStatus = ((setIntegerParam(chan, xsp3ChanMcaRoi2LlmParam, 0) == asynSuccess) && paramStatus);
@@ -373,13 +383,15 @@ asynStatus Xspress3::connect(void)
   } else {
     setIntegerParam(xsp3ConnectedParam, 1);
 
+    int generation = xsp3->get_generation(xsp3_handle_, 0);
+
     //Set up clocks on each card
     for (int i=0; i<xsp3_num_cards && status == asynSuccess; i++) {
-      xsp3_status = xsp3->clocks_setup(xsp3_handle_, i, XSP3_CLK_SRC_XTAL,
+      xsp3_status = xsp3->clocks_setup(xsp3_handle_, i, generation == 2 ? XSP3M_CLK_SRC_CDCM61004 : XSP3_CLK_SRC_XTAL,
                                       XSP3_CLK_FLAGS_MASTER | XSP3_CLK_FLAGS_NO_DITHER, 0);
       if (xsp3_status != XSP3_OK) {
-	checkStatus(xsp3_status, "xsp3_clocks_setup", functionName);
-	status = asynError;
+	      checkStatus(xsp3_status, "xsp3_clocks_setup", functionName);
+	      status = asynError;
       }
     }
     
@@ -522,7 +534,7 @@ asynStatus Xspress3::readTrigB(void)
     for (int chan=0; chan<xsp3_num_channels; chan++) {
         xsp3_status = xsp3->get_trigger_b(xsp3_handle_, chan, &trig_b);
 
-        printf("xsp_get_trigger_b status: %d", xsp3_status);
+        printf("xsp_get_trigger_b status: %d event width: %d\n", xsp3_status, trig_b.event_time);
 
         if (xsp3_status < XSP3_OK) {
             checkStatus(xsp3_status, "xsp3_get_trigger_b", functionName);
@@ -983,18 +995,30 @@ asynStatus Xspress3::setupITFG(void)
 {
     asynStatus status = asynSuccess;
     const char *functionName = "Xspress3::setupITFG";
-    int num_frames, trigger_mode;
+    int num_frames, trigger_mode, ppt;
     double exposureTime;
     int xsp3_status=XSP3_OK;
 
     getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
-    if (trigger_mode == XSP3_GTIMA_SRC_INTERNAL  &&
+    if (trigger_mode == mbboTriggerINTERNAL_ &&
         xsp3->has_itfg(xsp3_handle_, 0) > 0 ) {
         getIntegerParam(ADNumImages, &num_frames);
         getDoubleParam(ADAcquireTime, &exposureTime);
         xsp3_status = xsp3->itfg_setup( xsp3_handle_, 0, num_frames, 
                                        (u_int32_t) floor(exposureTime*80E6+0.5),
                                        XSP3_ITFG_TRIG_MODE_BURST, XSP3_ITFG_GAP_MODE_1US );
+    }
+
+    getIntegerParam(xsp3PulsePerTriggerParam, &ppt);
+    if (trigger_mode == mbboTriggerTTLVETO_ && 
+        (xsp3->has_itfg(xsp3_handle_, 0) > 0) && ppt) {
+
+        getIntegerParam(ADNumImages, &num_frames);
+        printf("setupIFTG - Pulse per trigger: %d\n", ppt);
+        xsp3_status = xsp3->itfg_setup2( xsp3_handle_, 0, num_frames, 
+                                       (u_int32_t) ppt,
+                                       XSP3_ITFG_TRIG_MODE_HARDWARE, 
+                                       XSP3_ITFG_GAP_MODE_1US, XSP3_ITFG_TRIG_ACQ_PAUSED_ALL, 0, 0 );
     }
 
     if (xsp3_status != XSP3_OK) {
@@ -1451,6 +1475,40 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3RunFlagsParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The Run Flags.\n", functionName);
   }
+
+  else if (function == xsp3PulsePerTriggerParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Changing trigger mode for pulse per trigger.\n", functionName);
+    int trigger_mode, invert_f0, invert_veto, debounce;
+
+    getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
+    getIntegerParam(xsp3InvertF0Param, &invert_f0);
+    getIntegerParam(xsp3InvertVetoParam, &invert_veto);
+    getIntegerParam(xsp3DebounceParam, &debounce);
+
+    if (trigger_mode == mbboTriggerTTLVETO_) {
+      if (value > 0) {
+        printf("PPT > 0, setting trigger mode to internal\n");
+        status = setTriggerMode(mbboTriggerINTERNAL_, invert_f0, invert_veto, debounce );
+      } else {
+        printf("PPT = 0, resetting trigger mode to %d\n", trigger_mode);
+        status = setTriggerMode(trigger_mode, invert_f0, invert_veto, debounce );
+      }
+    }
+    
+  }
+
+  else if (function == xsp3ITFGStartParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Restarting ITFG.\n", functionName);
+    printf("Restarting ITFG\n");
+    xsp3->itfg_start(xsp3_handle_, 0);
+  }
+
+  else if (function == xsp3ITFGStopParam) {
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Pausing ITFG.\n", functionName);
+    printf("Pausing ITFG\n");
+    xsp3->itfg_stop(xsp3_handle_, 0);
+  }
+
   else {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Matching Parameter In Xspress3 Driver.\n", functionName);
   }

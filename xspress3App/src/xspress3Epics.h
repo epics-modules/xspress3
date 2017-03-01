@@ -84,6 +84,9 @@
 #define xsp3InvertF0ParamString           "XSP3_INVERT_F0"
 #define xsp3InvertVetoParamString           "XSP3_INVERT_VETO"
 #define xsp3DebounceParamString           "XSP3_DEBOUNCE"
+#define xsp3PulsePerTriggerParamString           "XSP3_PPTRIGGER"
+#define xsp3ITFGStartParamString           "XSP3_ITFG_START"
+#define xsp3ITFGStopParamString           "XSP3_ITFG_STOP"
 //Settings for a channel
 #define xsp3ChanMcaRoi1LlmParamString     "XSP3_CHAN_ROI1_LLM"
 #define xsp3ChanMcaRoi2LlmParamString     "XSP3_CHAN_ROI2_LLM"
@@ -336,6 +339,9 @@ class Xspress3 : public ADDriver {
   int xsp3EventWidthParam;
   int xsp3ChanDTPercentParam;
   int xsp3ChanDTFactorParam;
+  int xsp3PulsePerTriggerParam;
+  int xsp3ITFGStartParam;
+  int xsp3ITFGStopParam;
   int xsp3LastParam;
   #define XSP3_LAST_DRIVER_COMMAND xsp3LastParam
 
