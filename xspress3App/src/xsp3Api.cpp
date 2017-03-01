@@ -321,6 +321,43 @@ int xsp3Api::itfg_setup(int path, int card, int num_tf, uint32_t col_time, int t
     return status;
 }
 
+int xsp3Api::itfg_setup2(int path, int card, int num_tf, uint32_t col_time, int trig_mode, int gap_mode, int acq_in_pause, int marker_period, int marker_frame)
+{
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_itfg_setup2( %d, %d, %d, %u, %d, %d, %d, %d, %d ) = ", path, card, num_tf, col_time, trig_mode, gap_mode, acq_in_pause, marker_period, marker_frame);
+
+    status = xsp3Api_itfg_setup2(path, card, num_tf, col_time, trig_mode, gap_mode, acq_in_pause, marker_period, marker_frame);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+}
+
+int xsp3Api::itfg_start(int path, int card) {
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_itfg_start( %d, %d ) = ", path, card);
+
+    status = xsp3Api_itfg_start(path, card);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+}
+
+int xsp3Api::itfg_stop(int path, int card) {
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_itfg_stop( %d, %d ) = ", path, card);
+
+    status = xsp3Api_itfg_stop(path, card);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+}
+
+
+
+
 int xsp3Api::has_itfg(int path, int card )
 {
     int status;
@@ -367,6 +404,19 @@ int xsp3Api::get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, doub
     asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_get_dtcfactor( %d, %d ) = ", path, chan);
 
     status = xsp3Api_get_dtcfactor(path, scaData, dtcFactor, dtcAllEvent, chan);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+
+}
+
+int xsp3Api::get_generation(int path, int card) 
+{
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_get_generation( %d, %d ) = ", path, card);
+
+    status = xsp3Api_get_generation(path, card);
 
     asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
 

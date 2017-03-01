@@ -186,6 +186,27 @@ int xsp3Detector::xsp3Api_itfg_setup(int path, int card, int num_tf, u_int32_t c
     return status;
 }
 
+int xsp3Detector::xsp3Api_itfg_setup2(int path, int card, int num_tf, u_int32_t col_time, int trig_mode, int gap_mode, int acq_in_pause, int marker_period, int marker_frame)
+{
+    int status;
+    status = xsp3_itfg_setup2(path, card, num_tf, col_time, trig_mode, gap_mode, acq_in_pause, marker_period, marker_frame);
+    return status;
+}
+
+int xsp3Detector::xsp3Api_itfg_start(int path, int card)
+{
+    int status;
+    status = xsp3_itfg_start(path, card);
+    return status;
+}
+
+int xsp3Detector::xsp3Api_itfg_stop(int path, int card)
+{
+    int status;
+    status = xsp3_itfg_stop(path, card);
+    return status;
+}
+
 int xsp3Detector::xsp3Api_has_itfg(int path, int card )
 {
     int status;
@@ -213,3 +234,9 @@ int xsp3Detector::xsp3Api_get_dtcfactor(int path, u_int32_t *scaData, double *dt
     status = xsp3_calculateDeadtimeCorrectionFactors(path, scaData, dtcFactor, dtcAllEvent, 1, chan, 1);
     return status;
 }
+
+int xsp3Detector::xsp3Api_get_generation(int path, int card)
+{
+    return xsp3_get_generation(path, card);
+}
+
