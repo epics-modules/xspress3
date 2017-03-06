@@ -238,6 +238,7 @@ void Xspress3::createInitialParameters()
     createParam(xsp3ChanSca5ParamString, asynParamFloat64, &xsp3ChanSca5Param);
     createParam(xsp3ChanSca6ParamString, asynParamFloat64, &xsp3ChanSca6Param);
     createParam(xsp3ChanSca7ParamString, asynParamFloat64, &xsp3ChanSca7Param);
+    createParam(xsp3ChanSca8ParamString, asynParamFloat64, &xsp3ChanSca8Param);
     createParam(xsp3ChanSca4ThresholdParamString, asynParamInt32, &xsp3ChanSca4ThresholdParam);
     createParam(xsp3ChanSca5HlmParamString, asynParamInt32, &xsp3ChanSca5HlmParam);
     createParam(xsp3ChanSca6HlmParamString, asynParamInt32, &xsp3ChanSca6HlmParam);
@@ -913,6 +914,7 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca5Param, 0.0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca6Param, 0.0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanSca7Param, 0.0) == asynSuccess) && paramStatus);
+    paramStatus = ((setDoubleParam(chan, xsp3ChanSca8Param, 0.0) == asynSuccess) && paramStatus);
     //callParamCallbacks(chan);
   }
   
@@ -1655,6 +1657,8 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
           dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
           dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
         }
+        this->setDoubleParam(chan, this->xsp3ChanSca8Param, static_cast<epicsFloat64>(dtfact));
+
         // printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
         setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
         setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
@@ -1683,6 +1687,7 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
           dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
           dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
         }
+        this->setDoubleParam(chan, this->xsp3ChanSca8Param, static_cast<epicsFloat64>(dtfact));
         // printf(":I> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f\n", chan, evtwidth, dtperc, dtfact);
         setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
         setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));

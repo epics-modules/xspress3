@@ -93,6 +93,7 @@
 #define xsp3ChanSca5ParamString           "XSP3_CHAN_SCA5"
 #define xsp3ChanSca6ParamString           "XSP3_CHAN_SCA6"
 #define xsp3ChanSca7ParamString           "XSP3_CHAN_SCA7"
+#define xsp3ChanSca8ParamString           "XSP3_CHAN_SCA8"
 #define xsp3ChanSca4ThresholdParamString        "XSP3_CHAN_SCA4_THRESHOLD"
 #define xsp3ChanSca5HlmParamString        "XSP3_CHAN_SCA5_HLM"
 #define xsp3ChanSca6HlmParamString        "XSP3_CHAN_SCA6_HLM"
@@ -242,6 +243,7 @@ class Xspress3 : public ADDriver {
   int xsp3ChanSca5Param;
   int xsp3ChanSca6Param;
   int xsp3ChanSca7Param;             
+  int xsp3ChanSca8Param;             
   int xsp3ChanSca4ThresholdParam;          
   int xsp3ChanSca5HlmParam;          
   int xsp3ChanSca6HlmParam;          
