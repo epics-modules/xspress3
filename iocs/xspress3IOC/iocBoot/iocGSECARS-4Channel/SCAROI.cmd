@@ -1,8 +1,8 @@
 # setup SCA, ROIs, etc for channel CHAN 
 dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
 
-#SCAs: create an NDAttribute plugin with 8 attributes
-NDAttrConfigure("$(PORT).C$(CHAN)SCA", $(QSIZE), 0, "$(PORT)", 0, 8, 0, 0, 0)
+#SCAs: create an NDAttribute plugin with 9 attributes
+NDAttrConfigure("$(PORT).C$(CHAN)SCA", $(QSIZE), 0, "$(PORT)", 0, 9, 0, 0, 0)
 dbLoadRecords("NDAttribute.template",  "P=$(PREFIX),R=C$(CHAN)SCA:,   PORT=$(PORT).C$(CHAN)SCA, ADDR=0,TIMEOUT=1,NCHANS=$(NCHANS),NDARRAY_PORT=$(PORT)")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA0:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=0,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA1:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=1,TIMEOUT=1,NCHANS=$(NCHANS)")
@@ -12,6 +12,7 @@ dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA4:,  PORT=$(POR
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA5:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=5,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA6:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=6,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA7:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=7,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA8:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=8,TIMEOUT=1,NCHANS=$(NCHANS)")
 
 dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=4")
 dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=5")

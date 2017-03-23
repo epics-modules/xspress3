@@ -15,6 +15,7 @@
   <Attribute addr="0" name="CHAN1SCA5"       source="XSP3_CHAN_SCA5"           type="PARAM"    datatype="DOUBLE" description="CHAN1 Window1" />
   <Attribute addr="0" name="CHAN1SCA6"       source="XSP3_CHAN_SCA6"           type="PARAM"    datatype="DOUBLE" description="CHAN1 Window2" />
   <Attribute addr="0" name="CHAN1SCA7"       source="XSP3_CHAN_SCA7"           type="PARAM"    datatype="DOUBLE" description="CHAN1 Pileup" />
+  <Attribute addr="0" name="CHAN1SCA8"       source="XSP3_CHAN_SCA8"           type="PARAM"    datatype="DOUBLE" description="CHAN1 DT Factor" />
   <Attribute addr="0" name="CHAN1DTCFLAGS"   source="XSP3_CHAN_DTC_FLAGS"      type="INT"      datatype="DOUBLE" description="CHAN1 DTC Flags" />
   <Attribute addr="0" name="CHAN1DTCAEG"     source="XSP3_CHAN_DTC_AEG"        type="PARAM"    datatype="DOUBLE" description="CHAN1 DTC All Good Event Grad" />
   <Attribute addr="0" name="CHAN1DTCAEO"     source="XSP3_CHAN_DTC_AEO"        type="PARAM"    datatype="DOUBLE" description="CHAN1 DTC All Good Event Offset" />
@@ -31,6 +32,7 @@
   <Attribute addr="1" name="CHAN2SCA5"       source="XSP3_CHAN_SCA5"           type="PARAM"    datatype="DOUBLE" description="CHAN2 Window1" />
   <Attribute addr="1" name="CHAN2SCA6"       source="XSP3_CHAN_SCA6"           type="PARAM"    datatype="DOUBLE" description="CHAN2 Window2" />
   <Attribute addr="1" name="CHAN2SCA7"       source="XSP3_CHAN_SCA7"           type="PARAM"    datatype="DOUBLE" description="CHAN2 Pileup" />
+  <Attribute addr="0" name="CHAN2SCA8"       source="XSP3_CHAN_SCA8"           type="PARAM"    datatype="DOUBLE" description="CHAN2 DT Factor" />
   <Attribute addr="1" name="CHAN2DTCFLAGS"   source="XSP3_CHAN_DTC_FLAGS"      type="INT"      datatype="DOUBLE" description="CHAN2 DTC Flags" />
   <Attribute addr="1" name="CHAN2DTCAEG"     source="XSP3_CHAN_DTC_AEG"        type="PARAM"    datatype="DOUBLE" description="CHAN2 DTC All Good Event Grad" />
   <Attribute addr="1" name="CHAN2DTCAEO"     source="XSP3_CHAN_DTC_AEO"        type="PARAM"    datatype="DOUBLE" description="CHAN2 DTC All Good Event Offset" />
@@ -47,6 +49,7 @@
   <Attribute addr="2" name="CHAN3SCA5"       source="XSP3_CHAN_SCA5"           type="PARAM"    datatype="DOUBLE" description="CHAN3 Window1" />
   <Attribute addr="2" name="CHAN3SCA6"       source="XSP3_CHAN_SCA6"           type="PARAM"    datatype="DOUBLE" description="CHAN3 Window2" />
   <Attribute addr="2" name="CHAN3SCA7"       source="XSP3_CHAN_SCA7"           type="PARAM"    datatype="DOUBLE" description="CHAN3 Pileup" />
+  <Attribute addr="0" name="CHAN3SCA8"       source="XSP3_CHAN_SCA8"           type="PARAM"    datatype="DOUBLE" description="CHAN3 DT Factor" />
   <Attribute addr="2" name="CHAN3DTCFLAGS"   source="XSP3_CHAN_DTC_FLAGS"      type="INT"      datatype="DOUBLE" description="CHAN3 DTC Flags" />
   <Attribute addr="2" name="CHAN3DTCAEG"     source="XSP3_CHAN_DTC_AEG"        type="PARAM"    datatype="DOUBLE" description="CHAN3 DTC All Good Event Grad" />
   <Attribute addr="2" name="CHAN3DTCAEO"     source="XSP3_CHAN_DTC_AEO"        type="PARAM"    datatype="DOUBLE" description="CHAN3 DTC All Good Event Offset" />
@@ -63,6 +66,7 @@
   <Attribute addr="3" name="CHAN4SCA5"       source="XSP3_CHAN_SCA5"           type="PARAM"    datatype="DOUBLE" description="CHAN4 Window1" />
   <Attribute addr="3" name="CHAN4SCA6"       source="XSP3_CHAN_SCA6"           type="PARAM"    datatype="DOUBLE" description="CHAN4 Window2" />
   <Attribute addr="3" name="CHAN4SCA7"       source="XSP3_CHAN_SCA7"           type="PARAM"    datatype="DOUBLE" description="CHAN4 Pileup" />
+  <Attribute addr="0" name="CHAN4SCA8"       source="XSP3_CHAN_SCA8"           type="PARAM"    datatype="DOUBLE" description="CHAN4 DT Factor" />
   <Attribute addr="3" name="CHAN4DTCFLAGS"   source="XSP3_CHAN_DTC_FLAGS"      type="INT"      datatype="DOUBLE" description="CHAN4 DTC Flags" />
   <Attribute addr="3" name="CHAN4DTCAEG"     source="XSP3_CHAN_DTC_AEG"        type="PARAM"    datatype="DOUBLE" description="CHAN4 DTC All Good Event Grad" />
   <Attribute addr="3" name="CHAN4DTCAEO"     source="XSP3_CHAN_DTC_AEO"        type="PARAM"    datatype="DOUBLE" description="CHAN4 DTC All Good Event Offset" />

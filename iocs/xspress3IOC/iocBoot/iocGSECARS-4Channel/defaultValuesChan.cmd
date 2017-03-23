@@ -9,6 +9,7 @@ dbpf("$(PREFIX)C$(CHAN)SCA4:AttrName", "CHAN$(CHAN)SCA4")
 dbpf("$(PREFIX)C$(CHAN)SCA5:AttrName", "CHAN$(CHAN)SCA5")
 dbpf("$(PREFIX)C$(CHAN)SCA6:AttrName", "CHAN$(CHAN)SCA6")
 dbpf("$(PREFIX)C$(CHAN)SCA7:AttrName", "CHAN$(CHAN)SCA7")
+dbpf("$(PREFIX)C$(CHAN)SCA8:AttrName", "CHAN$(CHAN)SCA8")
 
 dbpf("$(PREFIX)ROI$(CHAN):EnableX", "Enable")
 dbpf("$(PREFIX)ROI$(CHAN):EnableY", "Enable")

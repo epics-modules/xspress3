@@ -115,9 +115,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Xspress3 $(P) Channel $(CHAN) MCA Data</string>
     </property>
@@ -140,6 +137,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caCartesianPlot" name="caCartesianPlot_0">
@@ -222,9 +222,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Regions of Interest</string>
     </property>
@@ -247,6 +244,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caCartesianPlot" name="caCartesianPlot_1">
@@ -326,8 +326,8 @@ border-radius: 2px;
    <widget class="caLineEdit" name="caLineEdit_0">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>235</y>
+      <x>825</x>
+      <y>100</y>
       <width>120</width>
       <height>20</height>
      </rect>
@@ -336,7 +336,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA0:Value_RBV</string>
+     <string notr="true">$(P):C$(CHAN)SCA0:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -377,14 +377,11 @@ border-radius: 2px;
    <widget class="caLabel" name="caLabel_2">
     <property name="geometry">
      <rect>
-      <x>720</x>
-      <y>205</y>
+      <x>718</x>
+      <y>72</y>
       <width>220</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>SCAs, Timing Info (80MHz Clock):</string>
@@ -409,18 +406,18 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_3">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>235</y>
+      <x>725</x>
+      <y>100</y>
       <width>100</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>Clock Ticks</string>
@@ -445,6 +442,9 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_4">
     <property name="geometry">
@@ -454,9 +454,6 @@ border-radius: 2px;
       <width>20</width>
       <height>15</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>#</string>
@@ -480,6 +477,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caLineEdit" name="caLineEdit_1">
@@ -560,10 +560,10 @@ border-radius: 2px;
      </color>
     </property>
     <property name="labels">
-     <string>Main AD ROI for Channel;ROIStat Setup</string>
+     <string>Main;ROI Setup;Deadtime Setup</string>
     </property>
     <property name="files">
-     <string>NDROI.adl;NDROIStat.adl</string>
+     <string>NDROI.adl;NDROIStat.adl;xspress3_dtc.adl</string>
     </property>
     <property name="args">
      <string>P=$(P):, R=ROI$(CHAN):;P=$(P):, R=MCA$(CHAN)ROI:;P=$(P):det1, CHAN=$(CHAN)</string>
@@ -583,9 +583,6 @@ border-radius: 2px;
       <width>70</width>
       <height>15</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>Name</string>
@@ -610,18 +607,18 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_6">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>260</y>
+      <x>725</x>
+      <y>125</y>
       <width>100</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>Reset Ticks</string>
@@ -646,18 +643,18 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_7">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>285</y>
+      <x>725</x>
+      <y>150</y>
       <width>100</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>Reset Counts</string>
@@ -682,18 +679,18 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_8">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>310</y>
+      <x>725</x>
+      <y>175</y>
       <width>100</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>All Event</string>
@@ -718,18 +715,18 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_9">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>335</y>
+      <x>725</x>
+      <y>200</y>
       <width>100</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>All Good</string>
@@ -754,18 +751,18 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_10">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>360</y>
+      <x>725</x>
+      <y>225</y>
       <width>100</width>
       <height>20</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>Pileup</string>
@@ -790,12 +787,15 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLineEdit" name="caLineEdit_2">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>260</y>
+      <x>825</x>
+      <y>125</y>
       <width>120</width>
       <height>20</height>
      </rect>
@@ -804,7 +804,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA1:Value_RBV</string>
+     <string notr="true">$(P):C$(CHAN)SCA1:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -845,8 +845,8 @@ border-radius: 2px;
    <widget class="caLineEdit" name="caLineEdit_3">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>285</y>
+      <x>825</x>
+      <y>150</y>
       <width>120</width>
       <height>20</height>
      </rect>
@@ -855,7 +855,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA2:Value_RBV</string>
+     <string notr="true">$(P):C$(CHAN)SCA2:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -896,8 +896,8 @@ border-radius: 2px;
    <widget class="caLineEdit" name="caLineEdit_4">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>310</y>
+      <x>825</x>
+      <y>175</y>
       <width>120</width>
       <height>20</height>
      </rect>
@@ -906,7 +906,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA3:Value_RBV</string>
+     <string notr="true">$(P):C$(CHAN)SCA3:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -947,8 +947,8 @@ border-radius: 2px;
    <widget class="caLineEdit" name="caLineEdit_5">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>335</y>
+      <x>825</x>
+      <y>200</y>
       <width>120</width>
       <height>20</height>
      </rect>
@@ -957,7 +957,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA4:Value_RBV</string>
+     <string notr="true">$(P):C$(CHAN)SCA4:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -998,8 +998,8 @@ border-radius: 2px;
    <widget class="caLineEdit" name="caLineEdit_6">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>360</y>
+      <x>825</x>
+      <y>225</y>
       <width>120</width>
       <height>20</height>
      </rect>
@@ -1008,7 +1008,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string>$(P):C$(CHAN)SCA7:Value_RBV</string>
+     <string notr="true">$(P):C$(CHAN)SCA7:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -1103,9 +1103,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Min</string>
     </property>
@@ -1128,6 +1125,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_1">
@@ -1187,9 +1187,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>1</string>
     </property>
@@ -1213,6 +1210,9 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_13">
     <property name="geometry">
@@ -1222,9 +1222,6 @@ border-radius: 2px;
       <width>35</width>
       <height>15</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>Size</string>
@@ -1248,6 +1245,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_2">
@@ -1307,9 +1307,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Counts</string>
     </property>
@@ -1333,6 +1330,9 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_15">
     <property name="geometry">
@@ -1342,9 +1342,6 @@ border-radius: 2px;
       <width>20</width>
       <height>15</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>#</string>
@@ -1368,6 +1365,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caLineEdit" name="caLineEdit_7">
@@ -1430,9 +1430,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Name</string>
     </property>
@@ -1455,6 +1452,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_3">
@@ -1514,9 +1514,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Min</string>
     </property>
@@ -1539,6 +1536,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_4">
@@ -1598,9 +1598,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>2</string>
     </property>
@@ -1624,6 +1621,9 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_19">
     <property name="geometry">
@@ -1633,9 +1633,6 @@ border-radius: 2px;
       <width>35</width>
       <height>15</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>Size</string>
@@ -1659,6 +1656,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_5">
@@ -1718,9 +1718,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Counts</string>
     </property>
@@ -1744,6 +1741,9 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_21">
     <property name="geometry">
@@ -1753,9 +1753,6 @@ border-radius: 2px;
       <width>20</width>
       <height>15</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>#</string>
@@ -1779,6 +1776,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caLineEdit" name="caLineEdit_8">
@@ -1841,9 +1841,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Name</string>
     </property>
@@ -1866,6 +1863,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_6">
@@ -1925,9 +1925,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Min</string>
     </property>
@@ -1950,6 +1947,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_7">
@@ -2009,9 +2009,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>3</string>
     </property>
@@ -2035,6 +2032,9 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_25">
     <property name="geometry">
@@ -2044,9 +2044,6 @@ border-radius: 2px;
       <width>35</width>
       <height>15</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>Size</string>
@@ -2070,6 +2067,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_8">
@@ -2129,9 +2129,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Counts</string>
     </property>
@@ -2155,6 +2152,9 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_27">
     <property name="geometry">
@@ -2164,9 +2164,6 @@ border-radius: 2px;
       <width>20</width>
       <height>15</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>#</string>
@@ -2190,6 +2187,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caLineEdit" name="caLineEdit_9">
@@ -2252,9 +2252,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Name</string>
     </property>
@@ -2277,6 +2274,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_9">
@@ -2336,9 +2336,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Min</string>
     </property>
@@ -2361,6 +2358,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_10">
@@ -2420,9 +2420,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>4</string>
     </property>
@@ -2446,6 +2443,9 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
+    </property>
    </widget>
    <widget class="caLabel" name="caLabel_31">
     <property name="geometry">
@@ -2455,9 +2455,6 @@ border-radius: 2px;
       <width>35</width>
       <height>15</height>
      </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
     </property>
     <property name="text">
      <string>Size</string>
@@ -2481,6 +2478,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_11">
@@ -2540,9 +2540,6 @@ border-radius: 2px;
       <height>15</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>Counts</string>
     </property>
@@ -2565,6 +2562,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caLineEdit" name="caLineEdit_10">
@@ -2723,9 +2723,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>5</string>
     </property>
@@ -2748,6 +2745,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_14">
@@ -2954,9 +2954,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>6</string>
     </property>
@@ -2979,6 +2976,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_17">
@@ -3185,9 +3185,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>7</string>
     </property>
@@ -3210,6 +3207,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_20">
@@ -3416,9 +3416,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>8</string>
     </property>
@@ -3441,6 +3438,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_23">
@@ -3647,9 +3647,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>9</string>
     </property>
@@ -3672,6 +3669,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_26">
@@ -3878,9 +3878,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>10</string>
     </property>
@@ -3903,6 +3900,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_29">
@@ -4109,9 +4109,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>11</string>
     </property>
@@ -4134,6 +4131,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_32">
@@ -4340,9 +4340,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>12</string>
     </property>
@@ -4365,6 +4362,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_35">
@@ -4571,9 +4571,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>13</string>
     </property>
@@ -4596,6 +4593,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_38">
@@ -4802,9 +4802,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>14</string>
     </property>
@@ -4827,6 +4824,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_41">
@@ -5033,9 +5033,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>15</string>
     </property>
@@ -5058,6 +5055,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_44">
@@ -5264,9 +5264,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>16</string>
     </property>
@@ -5289,6 +5286,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_47">
@@ -5495,9 +5495,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>17</string>
     </property>
@@ -5520,6 +5517,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_50">
@@ -5726,9 +5726,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>18</string>
     </property>
@@ -5751,6 +5748,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_53">
@@ -5957,9 +5957,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>19</string>
     </property>
@@ -5982,6 +5979,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_56">
@@ -6188,9 +6188,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>20</string>
     </property>
@@ -6213,6 +6210,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_59">
@@ -6419,9 +6419,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>21</string>
     </property>
@@ -6444,6 +6441,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_62">
@@ -6650,9 +6650,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>22</string>
     </property>
@@ -6675,6 +6672,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_65">
@@ -6881,9 +6881,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>23</string>
     </property>
@@ -6906,6 +6903,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_68">
@@ -7112,9 +7112,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>24</string>
     </property>
@@ -7137,6 +7134,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_71">
@@ -7343,9 +7343,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>25</string>
     </property>
@@ -7368,6 +7365,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_74">
@@ -7574,9 +7574,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>26</string>
     </property>
@@ -7599,6 +7596,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_77">
@@ -7805,9 +7805,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>27</string>
     </property>
@@ -7830,6 +7827,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_80">
@@ -8036,9 +8036,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>28</string>
     </property>
@@ -8061,6 +8058,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_83">
@@ -8267,9 +8267,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>29</string>
     </property>
@@ -8292,6 +8289,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_86">
@@ -8498,9 +8498,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>30</string>
     </property>
@@ -8523,6 +8520,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_89">
@@ -8729,9 +8729,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>31</string>
     </property>
@@ -8754,6 +8751,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_92">
@@ -8960,9 +8960,6 @@ border-radius: 2px;
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
      <string>32</string>
     </property>
@@ -8985,6 +8982,9 @@ border-radius: 2px;
       <green>0</green>
       <blue>0</blue>
      </color>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <widget class="caTextEntry" name="caTextEntry_95">
@@ -9035,83 +9035,11 @@ border-radius: 2px;
      <enum>caLineEdit::decimal</enum>
     </property>
    </widget>
-   <widget class="caLabel" name="caLabel_61">
-    <property name="geometry">
-     <rect>
-      <x>720</x>
-      <y>80</y>
-      <width>220</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="text">
-     <string>Dead Time</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignAbsolute|Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-    <property name="fontScaleMode">
-     <enum>ESimpleLabel::WidthAndHeight</enum>
-    </property>
-    <property name="foreground">
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-    </property>
-    <property name="background">
-     <color alpha="0">
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-    </property>
-   </widget>
-   <widget class="caLabel" name="caLabel_62">
-    <property name="geometry">
-     <rect>
-      <x>730</x>
-      <y>110</y>
-      <width>100</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="text">
-     <string>% DeadTime</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignAbsolute|Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-    </property>
-    <property name="fontScaleMode">
-     <enum>ESimpleLabel::WidthAndHeight</enum>
-    </property>
-    <property name="foreground">
-     <color>
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-    </property>
-    <property name="background">
-     <color alpha="0">
-      <red>0</red>
-      <green>0</green>
-      <blue>0</blue>
-     </color>
-    </property>
-   </widget>
    <widget class="caLineEdit" name="caLineEdit_38">
     <property name="geometry">
      <rect>
-      <x>830</x>
-      <y>110</y>
+      <x>825</x>
+      <y>250</y>
       <width>120</width>
       <height>20</height>
      </rect>
@@ -9120,7 +9048,7 @@ border-radius: 2px;
      <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
     </property>
     <property name="channel" stdset="0">
-     <string notr="true">$(P):C$(CHAN):DeadTime_RBV</string>
+     <string>$(P):C$(CHAN)SCA8:Value_RBV</string>
     </property>
     <property name="foreground">
      <color>
@@ -9138,9 +9066,6 @@ border-radius: 2px;
     </property>
     <property name="colorMode">
      <enum>caLineEdit::Static</enum>
-    </property>
-    <property name="precision">
-     <number>2</number>
     </property>
     <property name="precisionMode">
      <enum>caLineEdit::Channel</enum>
@@ -9161,20 +9086,17 @@ border-radius: 2px;
      <enum>caLineEdit::decimal</enum>
     </property>
    </widget>
-   <widget class="caLabel" name="caLabel_63">
+   <widget class="caLabel" name="caLabel_61">
     <property name="geometry">
      <rect>
-      <x>730</x>
-      <y>140</y>
+      <x>725</x>
+      <y>250</y>
       <width>100</width>
       <height>20</height>
      </rect>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
     <property name="text">
-     <string>DT Correction</string>
+     <string>DT Factor</string>
     </property>
     <property name="alignment">
      <set>Qt::AlignAbsolute|Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
@@ -9196,59 +9118,8 @@ border-radius: 2px;
       <blue>0</blue>
      </color>
     </property>
-   </widget>
-   <widget class="caLineEdit" name="caLineEdit_39">
-    <property name="geometry">
-     <rect>
-      <x>830</x>
-      <y>140</y>
-      <width>120</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-    <property name="channel" stdset="0">
-     <string notr="true">$(P):C$(CHAN):DTFactor_RBV</string>
-    </property>
-    <property name="foreground">
-     <color>
-      <red>10</red>
-      <green>0</green>
-      <blue>184</blue>
-     </color>
-    </property>
-    <property name="background">
-     <color>
-      <red>255</red>
-      <green>255</green>
-      <blue>255</blue>
-     </color>
-    </property>
-    <property name="colorMode">
-     <enum>caLineEdit::Static</enum>
-    </property>
-    <property name="precision">
-     <number>5</number>
-    </property>
-    <property name="precisionMode">
-     <enum>caLineEdit::Channel</enum>
-    </property>
-    <property name="limitsMode">
-     <enum>caLineEdit::Channel</enum>
-    </property>
-    <property name="maxValue">
-     <double>1.000000000000000</double>
-    </property>
-    <property name="minValue">
-     <double>0.000000000000000</double>
-    </property>
-    <property name="fontScaleMode" stdset="0">
-     <enum>caLineEdit::WidthAndHeight</enum>
-    </property>
-    <property name="formatType">
-     <enum>caLineEdit::decimal</enum>
+    <property name="frameShape">
+     <enum>QFrame::NoFrame</enum>
     </property>
    </widget>
    <zorder>caLabel_0</zorder>
@@ -9449,11 +9320,8 @@ border-radius: 2px;
    <zorder>caTextEntry_93</zorder>
    <zorder>caTextEntry_94</zorder>
    <zorder>caTextEntry_95</zorder>
-   <zorder>caLabel_61</zorder>
-   <zorder>caLabel_62</zorder>
    <zorder>caLineEdit_38</zorder>
-   <zorder>caLabel_63</zorder>
-   <zorder>caLineEdit_39</zorder>
+   <zorder>caLabel_61</zorder>
   </widget>
  </widget>
  <customwidgets>
