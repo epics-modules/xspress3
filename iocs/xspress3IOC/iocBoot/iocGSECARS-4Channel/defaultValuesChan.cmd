@@ -1,6 +1,7 @@
 # Load Default values for a single channel
 
 dbpf("$(PREFIX)C$(CHAN)SCA:EnableCallbacks", "Enable")
+dbpf("$(PREFIX)C$(CHAN)SCA:TSNumPoints", "$(MAXFRAMES)")
 dbpf("$(PREFIX)C$(CHAN)SCA0:AttrName", "CHAN$(CHAN)SCA0")
 dbpf("$(PREFIX)C$(CHAN)SCA1:AttrName", "CHAN$(CHAN)SCA1")
 dbpf("$(PREFIX)C$(CHAN)SCA2:AttrName", "CHAN$(CHAN)SCA2")
@@ -24,9 +25,9 @@ dbpf("$(PREFIX)MCA$(CHAN):EnableCallbacks", "Enable")
 dbpf("$(PREFIX)ROISUM$(CHAN):EnableCallbacks", "Enable")
 dbpf("$(PREFIX)MCASUM$(CHAN):EnableCallbacks", "Enable")
 dbpf("$(PREFIX)MCA$(CHAN)ROI:EnableCallbacks", "Enable")
+dbpf("$(PREFIX)MCA$(CHAN)ROI:TSNumPoints", "$(MAXFRAMES)")
 
 dbpf("$(PREFIX)MCA$(CHAN):ArrayData.LOPR", 0.5)
-
 dbpf("$(PREFIX)C$(CHAN):DeadTime_RBV.SCAN", ".1 second")
 dbpf("$(PREFIX)C$(CHAN):DTFactor_RBV.SCAN", ".1 second")
 
