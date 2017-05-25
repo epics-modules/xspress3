@@ -31,6 +31,7 @@
 #define XSP3_DMA_CMD_CHECK_RX_DESC			13
 #define XSP3_DMA_CMD_SET_MSG_PPC1			14
 #define XSP3_DMA_CMD_SET_MSG_PPC2			15
+#define XSP3_DMA_CMD_GET_DESC_STATUS		16
 //! [XSP3_DMA_COMMANDS]
 
 #define XSP3_MBOX_MAGIC	0xF0123456
@@ -269,6 +270,8 @@ typedef struct
 } XSP3_DMA_MsgCheckDesc;
 //! [XSP3_DMA_MSG_CHECK_DESC]
 
+
+
 //! [XSP3_DMA_MSG_CHECK]
 #define XSP3_DMA_MSG_CHECK_NONE		1			// Do not do any checks, disables default checks
 #define XSP3_DMA_MSG_CHECK_LENGTH	2			// Check length from trailer in 10G Rx and Scalers
@@ -278,6 +281,14 @@ typedef struct
 #define XSP3_DMA_MSG_CHECK_TIMEFRAME 0x20			// Check time frame is in the app0 field for Xspress3 mini hist and scalars
 
 //! [XSP3_DMA_MSG_CHECK]
+
+//! [XSP3_DMA_MSG_GET_DESC_STATUS]
+typedef struct
+{
+	u_int32_t first_desc;
+} XSP3_DMA_MsgGetDescStatus;
+//! [XSP3_DMA_MSG_GET_DESC_STATUS]
+
 
 #define XSP3_DMA_MSG_TP_INC32		0
 #define XSP3_DMA_MSG_TP_INC8		1
