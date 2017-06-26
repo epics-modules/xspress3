@@ -8,8 +8,8 @@ y 164
 w 412
 h 927
 font "arial-medium-r-14.0"
-ctlFont "arial-bold-r-14.0"
-btnFont "arial-bold-r-14.0"
+ctlFont "helvetica-bold-r-14.0"
+btnFont "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 3
 textColor index 14
@@ -79,7 +79,7 @@ fgColor index 14
 bgColor index 3
 topShadowColor index 0
 botShadowColor index 0
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 xPosOffset 5
 yPosOffset 5
 button3Popup
@@ -105,7 +105,7 @@ x 1
 y 3
 w 411
 h 25
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 48
@@ -148,7 +148,7 @@ inconsistentColor index 0
 topShadowColor index 1
 botShadowColor index 11
 controlPv "LOC\\$(!W)tab=e:0,ROI,ARR,ROISUM,ARRSUM"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 orientation "horizontal"
 endObjectProperties
 
@@ -328,7 +328,7 @@ x 0
 y 0
 w 50
 h 30
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3

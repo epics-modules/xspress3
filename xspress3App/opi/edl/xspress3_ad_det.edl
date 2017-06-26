@@ -7,9 +7,9 @@ x 738
 y 47
 w 395
 h 820
-font "arial-bold-r-12.0"
-ctlFont "arial-bold-r-12.0"
-btnFont "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
+ctlFont "helvetica-bold-r-12.0"
+btnFont "helvetica-bold-r-12.0"
 fgColor index 14
 bgColor index 3
 textColor index 14
@@ -100,7 +100,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P)$(R)ArrayCallbacks"
 indicatorPv "$(P)$(R)ArrayCallbacks_RBV"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Byte)
@@ -131,7 +131,7 @@ x 280
 y 495
 w 70
 h 20
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -151,7 +151,7 @@ y 520
 w 100
 h 25
 controlPv "$(P):FRAME_COUNT_RBV"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -174,7 +174,7 @@ x 130
 y 525
 w 140
 h 20
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -194,7 +194,7 @@ y 550
 w 100
 h 25
 controlPv "$(P):CTRL_MCA_ROI_RBV"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -224,7 +224,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):CTRL_MCA_ROI"
 indicatorPv "$(P):CTRL_MCA_ROI_RBV"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Static Text)
@@ -237,7 +237,7 @@ x 55
 y 555
 w 110
 h 20
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -267,7 +267,7 @@ onLabel "Erase"
 offLabel "Erase"
 3d
 useEnumNumeric
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Related Display)
@@ -284,7 +284,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 buttonLabel "System Configuration"
 numPvs 4
 numDsps 1
@@ -306,7 +306,7 @@ x 115
 y 580
 w 155
 h 20
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -342,7 +342,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 buttonLabel "MCA Data and ROI Settings"
 numPvs 4
 numDsps 8
@@ -402,7 +402,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 buttonLabel "SCA Data & Window Settings"
 numPvs 4
 numDsps 8
@@ -462,7 +462,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 buttonLabel "DTC Params"
 numPvs 4
 numDsps 8
@@ -522,7 +522,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 buttonLabel "Enable/Disable AD Plugins"
 numPvs 4
 numDsps 1
@@ -551,7 +551,7 @@ x 55
 y 610
 w 105
 h 20
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -578,7 +578,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):CTRL_DTC"
 indicatorPv "$(P):CTRL_DTC_RBV"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Text Monitor)
@@ -592,7 +592,7 @@ y 610
 w 100
 h 25
 controlPv "$(P):CTRL_DTC_RBV"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -625,6 +625,6 @@ onLabel "Update Arrays"
 offLabel "Update Arrays"
 3d
 useEnumNumeric
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 

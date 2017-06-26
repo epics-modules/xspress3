@@ -84,7 +84,7 @@ fgColor index 14
 bgColor index 3
 topShadowColor index 0
 botShadowColor index 0
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 xPosOffset 5
 yPosOffset 5
 button3Popup
@@ -110,7 +110,7 @@ x 1
 y 3
 w 994
 h 25
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 51
@@ -213,7 +213,7 @@ x 10
 y 30
 w 311
 h 16
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 7
 value {
@@ -294,7 +294,7 @@ x 10
 y 380
 w 329
 h 16
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 7
 value {
@@ -329,7 +329,7 @@ x 10
 y 730
 w 284
 h 16
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 7
 value {
@@ -349,7 +349,7 @@ x 360
 y 765
 w 100
 h 30
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3
@@ -370,7 +370,7 @@ x 250
 y 765
 w 100
 h 30
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3
@@ -391,7 +391,7 @@ x 455
 y 770
 w 120
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3
@@ -416,7 +416,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -435,7 +435,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -450,7 +450,7 @@ y 835
 w 90
 h 25
 controlPv "$(P):C2_ROI1:Value_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -477,7 +477,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -496,7 +496,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -511,7 +511,7 @@ y 870
 w 90
 h 25
 controlPv "$(P):C3_ROI1:Value_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -538,7 +538,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -557,7 +557,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -572,7 +572,7 @@ y 905
 w 90
 h 25
 controlPv "$(P):C4_ROI1:Value_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -598,7 +598,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "Array"
 numPvs 4
 numDsps 1
@@ -628,7 +628,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -647,7 +647,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -662,7 +662,7 @@ y 800
 w 90
 h 25
 controlPv "$(P):C1_ROI1:Value_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -688,7 +688,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "Array"
 numPvs 4
 numDsps 1
@@ -717,7 +717,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "Array"
 numPvs 4
 numDsps 1
@@ -746,7 +746,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "Array"
 numPvs 4
 numDsps 1
@@ -771,7 +771,7 @@ x 555
 y 770
 w 120
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3
@@ -792,7 +792,7 @@ y 800
 w 90
 h 25
 controlPv "$(P):C1_ROI1:ValueSum_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -815,7 +815,7 @@ y 835
 w 90
 h 25
 controlPv "$(P):C2_ROI1:ValueSum_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -838,7 +838,7 @@ y 870
 w 90
 h 25
 controlPv "$(P):C3_ROI1:ValueSum_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -861,7 +861,7 @@ y 905
 w 90
 h 25
 controlPv "$(P):C4_ROI1:ValueSum_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -889,7 +889,7 @@ inconsistentColor index 14
 topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):C1_ROI1:EnableCallbacks"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Menu Button)
@@ -908,7 +908,7 @@ inconsistentColor index 14
 topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):C2_ROI1:EnableCallbacks"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Menu Button)
@@ -927,7 +927,7 @@ inconsistentColor index 14
 topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):C3_ROI1:EnableCallbacks"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Menu Button)
@@ -946,7 +946,7 @@ inconsistentColor index 14
 topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):C4_ROI1:EnableCallbacks"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Static Text)
@@ -959,7 +959,7 @@ x 660
 y 770
 w 130
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3
@@ -987,7 +987,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):C1_PluginControlVal"
 indicatorPv "$(P):C1_PluginControlVal"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Choice Button)
@@ -1008,7 +1008,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):C2_PluginControlVal"
 indicatorPv "$(P):C2_PluginControlVal"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Choice Button)
@@ -1029,7 +1029,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):C3_PluginControlVal"
 indicatorPv "$(P):C3_PluginControlVal"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Choice Button)
@@ -1050,7 +1050,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):C4_PluginControlVal"
 indicatorPv "$(P):C4_PluginControlVal"
-font "arial-bold-r-12.0"
+font "helvetica-bold-r-12.0"
 endObjectProperties
 
 # (Static Text)
@@ -1063,7 +1063,7 @@ x 125
 y 770
 w 130
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3
@@ -1083,7 +1083,7 @@ x 15
 y 795
 w 130
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 15
 bgColor index 3
@@ -1103,7 +1103,7 @@ x 15
 y 833
 w 130
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 25
 bgColor index 3
@@ -1123,7 +1123,7 @@ x 15
 y 910
 w 130
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 35
 bgColor index 3
@@ -1143,7 +1143,7 @@ x 15
 y 871
 w 130
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 20
 bgColor index 3

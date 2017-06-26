@@ -8,8 +8,8 @@ y 73
 w 630
 h 260
 font "arial-medium-r-14.0"
-ctlFont "arial-bold-r-14.0"
-btnFont "arial-bold-r-14.0"
+ctlFont "helvetica-bold-r-14.0"
+btnFont "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 3
 textColor index 14
@@ -80,7 +80,7 @@ fgColor index 14
 bgColor index 3
 topShadowColor index 0
 botShadowColor index 0
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 xPosOffset 5
 yPosOffset 5
 button3Popup
@@ -106,7 +106,7 @@ x 1
 y 3
 w 624
 h 25
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 51
@@ -163,7 +163,7 @@ x 10
 y 35
 w 230
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 7
@@ -188,7 +188,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -203,7 +203,7 @@ y 70
 w 70
 h 25
 controlPv "$(P):ROIDATA:MinX_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -226,7 +226,7 @@ x 75
 y 70
 w 125
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -245,7 +245,7 @@ x 25
 y 100
 w 165
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -269,7 +269,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -284,7 +284,7 @@ y 100
 w 70
 h 25
 controlPv "$(P):ROIDATA:SizeX_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -312,7 +312,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -327,7 +327,7 @@ y 130
 w 70
 h 25
 controlPv "$(P):ROIDATA:MinY_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -355,7 +355,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -370,7 +370,7 @@ y 160
 w 70
 h 25
 controlPv "$(P):ROIDATA:SizeY_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -393,7 +393,7 @@ x 55
 y 130
 w 140
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -412,7 +412,7 @@ x 45
 y 160
 w 145
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -431,7 +431,7 @@ x 365
 y 55
 w 240
 h 135
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -456,7 +456,7 @@ x 35
 y 215
 w 410
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg

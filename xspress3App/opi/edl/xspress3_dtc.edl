@@ -8,8 +8,8 @@ y 74
 w 435
 h 345
 font "arial-medium-r-14.0"
-ctlFont "arial-bold-r-14.0"
-btnFont "arial-bold-r-14.0"
+ctlFont "helvetica-bold-r-14.0"
+btnFont "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 3
 textColor index 14
@@ -80,7 +80,7 @@ fgColor index 14
 bgColor index 3
 topShadowColor index 0
 botShadowColor index 0
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 xPosOffset 5
 yPosOffset 5
 button3Popup
@@ -106,7 +106,7 @@ x 1
 y 3
 w 434
 h 25
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 51
@@ -163,7 +163,7 @@ x 10
 y 45
 w 395
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 7
@@ -184,7 +184,7 @@ y 120
 w 125
 h 35
 controlPv "$(P):C$(CHAN)_SCA3:Value_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -206,7 +206,7 @@ x 15
 y 130
 w 180
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3
@@ -227,7 +227,7 @@ y 160
 w 125
 h 35
 controlPv "$(P):C$(CHAN)_SCA4:Value_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -250,7 +250,7 @@ y 200
 w 125
 h 35
 controlPv "$(P):C$(CHAN)_DeadTime_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -273,7 +273,7 @@ y 240
 w 125
 h 35
 controlPv "$(P):C$(CHAN)_DTFactor_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -295,7 +295,7 @@ x 20
 y 170
 w 185
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3
@@ -315,7 +315,7 @@ x 35
 y 210
 w 150
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3
@@ -335,7 +335,7 @@ x 25
 y 250
 w 170
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 3

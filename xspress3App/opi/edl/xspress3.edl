@@ -99,7 +99,7 @@ fgColor index 14
 bgColor index 3
 topShadowColor index 0
 botShadowColor index 0
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 xPosOffset 5
 yPosOffset 5
 button3Popup
@@ -125,7 +125,7 @@ x 1
 y 3
 w 774
 h 25
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 14
 bgColor index 51
@@ -148,7 +148,7 @@ x 10
 y 35
 w 238
 h 16
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 7
 value {
@@ -179,7 +179,7 @@ onLabel "Start"
 offLabel "Start"
 3d
 useEnumNumeric
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Message Button)
@@ -203,7 +203,7 @@ onLabel "Erase"
 offLabel "Erase"
 3d
 useEnumNumeric
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Message Button)
@@ -227,7 +227,7 @@ onLabel "Stop"
 offLabel "Stop"
 3d
 useEnumNumeric
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Text Monitor)
@@ -241,7 +241,7 @@ y 65
 w 460
 h 35
 controlPv "$(P):StatusMessage_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -263,7 +263,7 @@ x 450
 y 155
 w 165
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -283,7 +283,7 @@ y 145
 w 125
 h 35
 controlPv "$(P):ArrayCounter_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -306,7 +306,7 @@ x 20
 y 310
 w 60
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -326,7 +326,7 @@ y 305
 w 195
 h 35
 controlPv "$(P):TriggerMode_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -355,7 +355,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):TriggerMode"
 indicatorPv "$(P):TriggerMode"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Static Text)
@@ -368,7 +368,7 @@ x 45
 y 155
 w 95
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -388,7 +388,7 @@ y 145
 w 125
 h 35
 controlPv "$(P):NumImages_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -415,7 +415,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -429,7 +429,7 @@ x 565
 y 115
 w 55
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -449,7 +449,7 @@ y 105
 w 125
 h 35
 controlPv "$(P):DetectorState_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -479,7 +479,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):CTRL_MCA_ROI"
 indicatorPv "$(P):CTRL_MCA_ROI_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Text Monitor)
@@ -493,7 +493,7 @@ y 225
 w 125
 h 35
 controlPv "$(P):CTRL_MCA_ROI_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -515,7 +515,7 @@ x 20
 y 230
 w 125
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -554,7 +554,7 @@ y 185
 w 125
 h 35
 controlPv "$(P):ArrayRate_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -577,7 +577,7 @@ x 505
 y 195
 w 110
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -614,7 +614,7 @@ x 325
 y 110
 w 45
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -641,7 +641,7 @@ topShadowColor index 1
 botShadowColor index 11
 controlPv "$(P):CTRL_DTC"
 indicatorPv "$(P):CTRL_DTC_RBV"
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Static Text)
@@ -654,7 +654,7 @@ x 25
 y 270
 w 125
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -674,7 +674,7 @@ y 265
 w 125
 h 35
 controlPv "$(P):CTRL_DTC_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -707,7 +707,7 @@ onLabel "Update Arrays"
 offLabel "Update Arrays"
 3d
 useEnumNumeric
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Byte)
@@ -738,7 +738,7 @@ x 620
 y 235
 w 80
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -776,7 +776,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "MCA Data and ROI Settings"
 numPvs 4
 numDsps 18
@@ -873,7 +873,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "SCA Data & Window Settings"
 numPvs 4
 numDsps 16
@@ -965,7 +965,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "Dead Time Correction Params"
 numPvs 4
 numDsps 8
@@ -1025,7 +1025,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "Area Detector (EPICS expert only)"
 numPvs 4
 numDsps 18
@@ -1101,7 +1101,7 @@ x 480
 y 365
 w 271
 h 16
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 7
 value {
@@ -1125,7 +1125,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "Enable/Disable Visualization"
 numPvs 4
 numDsps 1
@@ -1151,7 +1151,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "System Configuration"
 numPvs 4
 numDsps 1
@@ -1188,7 +1188,7 @@ x 15
 y 365
 w 98
 h 16
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 7
 value {
@@ -1234,7 +1234,7 @@ x 30
 y 385
 w 65
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -1293,7 +1293,7 @@ x 20
 y 440
 w 55
 h 40
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -1360,7 +1360,7 @@ x 255
 y 440
 w 65
 h 40
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -1384,7 +1384,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Textupdate)
@@ -1402,7 +1402,7 @@ fgColor index 16
 fgAlarm
 bgColor index 10
 fill
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -1445,7 +1445,7 @@ onLabel "Start File Saving"
 offLabel "Start File Saving"
 3d
 useEnumNumeric
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Message Button)
@@ -1469,7 +1469,7 @@ onLabel "Stop File Saving"
 offLabel "Stop File Saving"
 3d
 useEnumNumeric
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 endObjectProperties
 
 # (Related Display)
@@ -1486,7 +1486,7 @@ fgColor index 43
 bgColor index 3
 topShadowColor index 1
 botShadowColor index 11
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 buttonLabel "Set Up File Saving ROI"
 numPvs 4
 numDsps 1
@@ -1513,7 +1513,7 @@ fgColor index 16
 fgAlarm
 bgColor index 10
 fill
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
@@ -1527,7 +1527,7 @@ x 45
 y 630
 w 105
 h 35
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -1587,7 +1587,7 @@ x 25
 y 585
 w 130
 h 35
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -1606,7 +1606,7 @@ x 20
 y 195
 w 120
 h 20
-font "arial-bold-r-14.0"
+font "helvetica-bold-r-14.0"
 fgColor index 14
 bgColor index 10
 useDisplayBg
@@ -1626,7 +1626,7 @@ y 185
 w 125
 h 35
 controlPv "$(P):AcquireTime_RBV"
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 fgColor index 16
 bgColor index 10
@@ -1653,7 +1653,7 @@ fgColor index 25
 fgAlarm
 bgColor index 3
 fill
-font "arial-bold-r-16.0"
+font "helvetica-bold-r-14.0"
 fontAlign "center"
 endObjectProperties
 
