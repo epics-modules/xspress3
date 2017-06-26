@@ -1,6 +1,6 @@
 
 file {
-	name="xspress3_dtc.adl"
+	name="/media/sf_Liam/software_centos7/epics/R3.14.12.3/support/xspress3-epics/xspress3App/opi/adl/xspress3_dtc.adl"
 	version=030107
 }
 display {
@@ -148,19 +148,6 @@ text {
 text {
 	object {
 		x=140
-		y=90
-		width=50
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Flags"
-	align="horiz. right"
-}
-text {
-	object {
-		x=140
 		y=120
 		width=50
 		height=20
@@ -168,7 +155,7 @@ text {
 	"basic attribute" {
 		clr=14
 	}
-	textix="All Good Event Gradient"
+	textix="All Event"
 	align="horiz. right"
 }
 text {
@@ -181,7 +168,7 @@ text {
 	"basic attribute" {
 		clr=14
 	}
-	textix="All Good Event Offset"
+	textix="All Good Event"
 	align="horiz. right"
 }
 text {
@@ -194,7 +181,7 @@ text {
 	"basic attribute" {
 		clr=14
 	}
-	textix="In Window Gradient"
+	textix="% Dead Time"
 	align="horiz. right"
 }
 text {
@@ -207,24 +194,8 @@ text {
 	"basic attribute" {
 		clr=14
 	}
-	textix="In Window Offset"
+	textix="DTC Factor"
 	align="horiz. right"
-}
-"text update" {
-	object {
-		x=220
-		y=90
-		width=120
-		height=20
-	}
-	monitor {
-		chan="$(P):C$(CHAN)_DTC_FLAGS_RBV"
-		clr=60
-		bclr=13
-	}
-	align="horiz. right"
-	limits {
-	}
 }
 "text update" {
 	object {
@@ -234,7 +205,7 @@ text {
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)_DTC_AEG_RBV"
+		chan="$(P):C$(CHAN)_SCA3:Value_RBV"
 		clr=60
 		bclr=13
 	}
@@ -250,7 +221,7 @@ text {
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)_DTC_AEO_RBV"
+		chan="$(P):C$(CHAN)_SCA4:Value_RBV"
 		clr=60
 		bclr=13
 	}
@@ -266,7 +237,7 @@ text {
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)_DTC_IWG_RBV"
+		chan="$(P):C$(CHAN)_DeadTime_RBV"
 		clr=60
 		bclr=13
 	}
@@ -282,7 +253,7 @@ text {
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)_DTC_IWO_RBV"
+		chan="$(P):C$(CHAN)_DTFactor_RBV"
 		clr=60
 		bclr=13
 	}
