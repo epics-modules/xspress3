@@ -11,7 +11,7 @@
 #define XSPRESS3_DMA_PROTOCOL_H_
 
 /**
-	@defgroup XSP3_DMA   Macros to control the DMA engined in the FPGA.
+	@defgroup XSP3_DMA   Macros to control the DMA engines in the FPGA.
 	@ingroup XSP3_MACROS
 */
 
@@ -31,6 +31,7 @@
 #define XSP3_DMA_CMD_CHECK_RX_DESC			13
 #define XSP3_DMA_CMD_SET_MSG_PPC1			14
 #define XSP3_DMA_CMD_SET_MSG_PPC2			15
+#define XSP3_DMA_CMD_GET_DESC_STATUS		16
 //! [XSP3_DMA_COMMANDS]
 
 #define XSP3_MBOX_MAGIC	0xF0123456
@@ -49,6 +50,8 @@
 #define XSP3_DMA_ERROR_DESC_RANGE	9
 #define XSP3_DMA_ERROR_DATA_RANGE	10
 #define XSP3_DMA_ERROR_MSG_LEVEL	11
+#define XSP3_DMA_ERROR_OUTSIDE_VA	12
+#define XSP3_DMA_INSUFFICIENT_MEM	13
 
 /*! @defgroup XSP3_DMA_STREAM_NUMBER  Number used to identify DMA streams controlled by PPC1 in the Virtex-5 FPGA.
     @ingroup XSP3_DMA
@@ -62,8 +65,30 @@
 #define XSP3_DMA_STREAM_BNUM_HIST_TO_DRAM	5		//!< Use DMA for saving histogram addresses to DRAM and associated descriptors and memory buffer. Never used. Provided for debug only.
 #define XSP3_DMA_STREAM_BNUM_DRAM_TO_10G	6		//!< Use DMA Output FEM DRAM over 10 G Ethernet.
 #define XSP3_DMA_STREAM_BNUM_10G_TO_DRAM	7		//!< Use DMA filling FEM DRAM from 10 G Ethernet.
+// Some reuse in xspress3, unless need access to XSP3M_DMA_STREAM_BNUM_SOFT_HIST
+#define XSP3M_DMA_STREAM_BNUM_HIST_FRAMES   5		//!< Completed histogrammed frames in Xspress3 mini. Re use HIST to DRAM number as this is not used in any current builds
+#define XSP3M_DMA_STREAM_BNUM_HIST_LIST     8		//!< List of events for software histogramming Xspress3 mini. 
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST0    9		//!< Special BNUM  used to identify the soft histogram buffer (rather than the event list) associated with XSP3M_DMA_STREAM_BNUM_HIST_LIST
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST1    (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+1)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST2    (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+2)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST3    (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+3)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST4    (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+4)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST5    (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+5)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST6    (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+6)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST7    (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+7)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST8    (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+8)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST9    (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+9)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST10   (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+10)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST11   (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+11)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST12   (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+12)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST13   (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+13)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST14   (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+14)
+#define XSP3M_DMA_STREAM_BNUM_SOFT_HIST15   (XSP3M_DMA_STREAM_BNUM_SOFT_HIST0+15)
+
+
 //! @}
 #define XSP3_DMA_STREAM_NUM					(XSP3_DMA_STREAM_BNUM_10G_TO_DRAM+1)
+#define XSP4_DMA_STREAM_NUM					(XSP3M_DMA_STREAM_BNUM_SOFT_HIST15+1)
 
 /*! @defgroup XSP3_DMA_STREAM_MASK  Binary Mask used to identify multiple DMA streams controlled by PPC1 in the Virtex-5 FPGA.
     @ingroup XSP3_DMA
@@ -77,17 +102,49 @@
 #define XSP3_DMA_STREAM_MASK_HIST_TO_DRAM	(1<<XSP3_DMA_STREAM_BNUM_HIST_TO_DRAM)  //!< Use DMA for saving histogram addresses to DRAM and associated descriptors and memory buffer. Never used. Provided for debug only.
 #define XSP3_DMA_STREAM_MASK_DRAM_TO_10G	(1<<XSP3_DMA_STREAM_BNUM_DRAM_TO_10G)   //!< Use DMA Output FEM DRAM over 10 G Ethernet.
 #define XSP3_DMA_STREAM_MASK_10G_TO_DRAM	(1<<XSP3_DMA_STREAM_BNUM_10G_TO_DRAM)   //!< Use DMA filling FEM DRAM from 10 G Ethernet.
+#define XSP3M_DMA_STREAM_MASK_HIST_FRAMES   (1<<XSP3M_DMA_STREAM_BNUM_HIST_FRAMES)	//!< Completed histogrammed frames in Xspress3 mini. Re used SCOPE1 number in Xspress3 mini to allow backwards compatibility of status block size 
+#define XSP3M_DMA_STREAM_MASK_HIST_LIST     (1<<XSP3M_DMA_STREAM_BNUM_HIST_LIST)	//!< List of events for software histogramming Xspress3 mini. 
 //! @}
 
 #define XSP3_DMA_STATE_DESC_CONF	(1<<0)
 #define XSP3_DMA_STATE_BUFFER_CONF	(1<<1)
 #define XSP3_DMA_STATE_DESC_BUILT	(1<<2)
+#define XSP3_DMA_STATE_DESC_DEBUG	(1<<3)
 
 #define XSP3_DMA_DEBUG_DESC_SMALL			1
 #define XSP3_DMA_DEBUG_DESC_NEAR_PACKET		2
 #define XSP3_DMA_DEBUG_DESC_INC_FRAME		4
 
 #define XSP3_DMA_DEBUG_DESC_ALL_SMALL		0x10000
+#define XSP3_DMA_DEBUG_DESC_SHORT_BURSTS	0x20000
+
+/*! @defgroup XSP3_DMA_LAYOUT MACROS to interpret the layout option when configuring memory, currently on XSPRESS3-mini only.
+    @ingroup XSP3_DMA
+    @{
+*/
+//! [XSP3_DMA_LAYOUT_CODE]
+#define XSP3_CONF_MEM_OVERALL(x)			((x)&0xFF)
+#define XSP3_CONF_MEM_GET_OVERALL(x)		((x)&0xFF)
+
+#define XSP3_CONF_MEM_PLAYBACK_SCOPE(x)		(((x)&0x3F)<<8)
+#define XSP3_CONF_MEM_GET_PLAYBACK_SCOPE(x)	(((x)>>8)&0x3F)
+
+#define XSP3_CONF_MEM_HIST_OPTIONS(x)		(((x)&0x3F)<<14)
+#define XSP3_CONF_MEM_GET_HIST_OPTIONS(x)	(((x)>>14)&0x3F)
+#define XSP3_CONF_MEM_HIST_FRAME_SCALARS	0
+#define XSP3_CONF_MEM_HIST_ALL_SCALARS		1
+#define XSP3_CONF_MEM_HIST_10FRAME_DIAG		4
+#define XSP3_CONF_MEM_HIST_ALL_DIAG			5
+
+#define XSP3_CONF_MEM_NBITS_ENG(x)			(((x)&0xF)<<20)
+#define XSP3_CONF_MEM_GET_NBITS_ENG(x)		(((x)>>20)&0xF)
+
+#define XSP3_CONF_MEM_NUM_CHAN(x)			(((x)&0x3F)<<24)
+#define XSP3_CONF_MEM_GET_NUM_CHAN(x)		(((x)>>24)&0x3F)
+//! [XSP3_DMA_LAYOUT_CODE]
+
+
+/** @} */
 
 //! [XSP3_DMA_DESCRIPTOR]
 typedef struct _dma_desc
@@ -98,6 +155,23 @@ typedef struct _dma_desc
 	u_int32_t app[5];
 } DMADesc;
 //! [XSP3_DMA_DESCRIPTOR]
+
+//! [XSP4_DMA_DESCRIPTOR]
+/* This is padded to 64 byte boundaries and the padding space is used to store the virtual addresses of the descriptor and optionally data for ARM/Linux code */
+typedef struct _axidma_desc
+{
+	u_int32_t phys_next;
+	u_int32_t reserved0;
+	u_int32_t phys_addr;
+	u_int32_t reserved1[3];
+	u_int32_t control;
+	u_int32_t status;
+	u_int32_t app[5];
+	void *virt_next;
+	u_int32_t *virt_addr;
+	u_int32_t *buff_virt_addr;
+} AXIDMADesc;
+//! [XSP4_DMA_DESCRIPTOR]
 
 //! [XSP3_DMA_STREAM]
 typedef struct
@@ -196,18 +270,31 @@ typedef struct
 } XSP3_DMA_MsgCheckDesc;
 //! [XSP3_DMA_MSG_CHECK_DESC]
 
+
+
 //! [XSP3_DMA_MSG_CHECK]
 #define XSP3_DMA_MSG_CHECK_NONE		1			// Do not do any checks, disables default checks
 #define XSP3_DMA_MSG_CHECK_LENGTH	2			// Check length from trailer in 10G Rx and Scalers
 #define XSP3_DMA_MSG_CHECK_10GRX	4			// Check UDP Header flags and frame
 #define XSP3_DMA_MSG_CHECK_FRAME_PER_DESC	8	// Check SOF and EOF present, 1 local link frame per descriptor
 #define XSP3_DMA_MSG_CHECK_1_FRAME	0x10		// Check SOF in first desc and EOF in last, 1 large local link frame (scope)
+#define XSP3_DMA_MSG_CHECK_TIMEFRAME 0x20			// Check time frame is in the app0 field for Xspress3 mini hist and scalars
+
 //! [XSP3_DMA_MSG_CHECK]
+
+//! [XSP3_DMA_MSG_GET_DESC_STATUS]
+typedef struct
+{
+	u_int32_t first_desc;
+} XSP3_DMA_MsgGetDescStatus;
+//! [XSP3_DMA_MSG_GET_DESC_STATUS]
+
 
 #define XSP3_DMA_MSG_TP_INC32		0
 #define XSP3_DMA_MSG_TP_INC8		1
 #define XSP3_DMA_MSG_TP_SLIDE		2
 #define XSP3_DMA_MSG_TP_PLAYBACK	3
+#define XSP3_DMA_MSG_TP_DEADBEEF	4
 
 #define XSP3_DMA_MSG_PRINT_1COL		(1<<0)
 #define XSP3_DMA_MSG_PRINT_DEC		(1<<1)
@@ -218,6 +305,17 @@ typedef struct
 	DMAStream stream_def[XSP3_DMA_STREAM_NUM];
 } XSP3_DMA_StatusBlock;
 
+// This lengthened structure allows space for XSPRESS3 mini hist frames DMA and Diganostic Hist List DMA 
+typedef struct
+{
+	u_int32_t status[XSP3M_DMA_STREAM_BNUM_HIST_LIST+1];			// From RX or TX Register
+	DMAStream stream_def[XSP4_DMA_STREAM_NUM];
+	int mem_layout;
+	int padding[4];		// For future expansion
+} XSP4_DMA_StatusBlock;
+
+
 // Magic for Mail Box is chosen to start F0 as there are no valid addresses at 0xF0000000
+
 
 #endif /* XSPRESS3_DMA_PROTOCOL_H_ */
