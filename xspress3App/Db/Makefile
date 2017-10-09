@@ -18,10 +18,16 @@ DB += xspress3_AttrReset.template
 DB += xspress3_AttrUpdate.template
 DB += xspress3_pluginControl.template
 DB += xspress3_header.template
- 
+DB += xspress3ChannelDeadtime.template
+DB += xspress3Deadtime_14Channel.template
+DB += xspress3Deadtime_16Channel.template
+DB += xspress3Deadtime_4Channel.template
+DB += xspress3Deadtime_8Channel.template
+
 include $(TOP)/configure/RULES
 #----------------------------------------
 #  ADD RULES AFTER THIS LINE
 
 install:
-	cp $(TOP)/xspress3App/Db/create_template.sh $(TOP)/db
+
+
