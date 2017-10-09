@@ -36,7 +36,7 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(ADXSPRESS3)/db:.")
 
 
 #DevIOCStats
-dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC)")
+# dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC)")
 
 
 ##################################################
@@ -95,7 +95,6 @@ epicsEnvSet("XADDR",  "2")
 epicsEnvSet("CHAN",   "4")
 epicsEnvSet("XADDR",  "3")
 <SCAROI.cmd
-
 
 # Optional: load scan records
 # dbLoadRecords("$(SSCAN)/sscanApp/Db/scan.db", "P=$(PREFIX),MAXPTS1=2000,MAXPTS2=200,MAXPTS3=20,MAXPTS4=10,MAXPTSH=10")
