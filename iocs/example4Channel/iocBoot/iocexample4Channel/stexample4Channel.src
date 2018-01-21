@@ -41,76 +41,76 @@ callbackSetQueueSize(4000)
 xspress3Config("XSP3", 4, 1, "192.168.0.1", 16384, 16384, 4096, 4096, 0, 0, 0 )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_SCA0", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1SCA0" )
+NDAttrConfigure("XSP3.C1_SCA0", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1SCA0" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_SCA1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1SCA1" )
+NDAttrConfigure("XSP3.C1_SCA1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1SCA1" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_SCA2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1SCA2" )
+NDAttrConfigure("XSP3.C1_SCA2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1SCA2" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_SCA3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1SCA3" )
+NDAttrConfigure("XSP3.C1_SCA3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1SCA3" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_SCA4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1SCA4" )
+NDAttrConfigure("XSP3.C1_SCA4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1SCA4" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_SCA5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1SCA5" )
+NDAttrConfigure("XSP3.C1_SCA5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1SCA5" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_SCA6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1SCA6" )
+NDAttrConfigure("XSP3.C1_SCA6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1SCA6" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_SCA7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1SCA7" )
+NDAttrConfigure("XSP3.C1_SCA7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1SCA7" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI1" )
+NDAttrConfigure("XSP3.C1_ROI1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI1" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI2" )
+NDAttrConfigure("XSP3.C1_ROI2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI2" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI3" )
+NDAttrConfigure("XSP3.C1_ROI3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI3" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI4" )
+NDAttrConfigure("XSP3.C1_ROI4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI4" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI5" )
+NDAttrConfigure("XSP3.C1_ROI5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI5" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI6" )
+NDAttrConfigure("XSP3.C1_ROI6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI6" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI7" )
+NDAttrConfigure("XSP3.C1_ROI7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI7" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI8", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI8" )
+NDAttrConfigure("XSP3.C1_ROI8", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI8" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI9", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI9" )
+NDAttrConfigure("XSP3.C1_ROI9", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI9" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI10", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI10" )
+NDAttrConfigure("XSP3.C1_ROI10", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI10" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI11", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI11" )
+NDAttrConfigure("XSP3.C1_ROI11", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI11" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI12", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI12" )
+NDAttrConfigure("XSP3.C1_ROI12", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI12" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI13", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI13" )
+NDAttrConfigure("XSP3.C1_ROI13", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI13" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI14", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI14" )
+NDAttrConfigure("XSP3.C1_ROI14", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI14" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI15", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI15" )
+NDAttrConfigure("XSP3.C1_ROI15", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI15" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C1_ROI16", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN1ROI16" )
+NDAttrConfigure("XSP3.C1_ROI16", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN1ROI16" )
 
 # NDROIConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
 NDROIConfigure("XSP3.ROI1", 4096, 0, "XSP3", 0, -1, -1)
@@ -125,76 +125,76 @@ NDStdArraysConfigure("XSP3.ARR1", 4096, 0, "XSP3.ROI1", 0, -1)
 NDStdArraysConfigure("XSP3.ARRSUM1", 4096, 0, "XSP3.ROISUM1", 0, -1)
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_SCA0", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2SCA0" )
+NDAttrConfigure("XSP3.C2_SCA0", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2SCA0" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_SCA1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2SCA1" )
+NDAttrConfigure("XSP3.C2_SCA1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2SCA1" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_SCA2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2SCA2" )
+NDAttrConfigure("XSP3.C2_SCA2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2SCA2" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_SCA3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2SCA3" )
+NDAttrConfigure("XSP3.C2_SCA3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2SCA3" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_SCA4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2SCA4" )
+NDAttrConfigure("XSP3.C2_SCA4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2SCA4" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_SCA5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2SCA5" )
+NDAttrConfigure("XSP3.C2_SCA5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2SCA5" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_SCA6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2SCA6" )
+NDAttrConfigure("XSP3.C2_SCA6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2SCA6" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_SCA7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2SCA7" )
+NDAttrConfigure("XSP3.C2_SCA7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2SCA7" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI1" )
+NDAttrConfigure("XSP3.C2_ROI1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI1" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI2" )
+NDAttrConfigure("XSP3.C2_ROI2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI2" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI3" )
+NDAttrConfigure("XSP3.C2_ROI3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI3" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI4" )
+NDAttrConfigure("XSP3.C2_ROI4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI4" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI5" )
+NDAttrConfigure("XSP3.C2_ROI5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI5" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI6" )
+NDAttrConfigure("XSP3.C2_ROI6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI6" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI7" )
+NDAttrConfigure("XSP3.C2_ROI7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI7" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI8", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI8" )
+NDAttrConfigure("XSP3.C2_ROI8", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI8" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI9", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI9" )
+NDAttrConfigure("XSP3.C2_ROI9", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI9" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI10", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI10" )
+NDAttrConfigure("XSP3.C2_ROI10", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI10" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI11", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI11" )
+NDAttrConfigure("XSP3.C2_ROI11", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI11" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI12", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI12" )
+NDAttrConfigure("XSP3.C2_ROI12", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI12" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI13", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI13" )
+NDAttrConfigure("XSP3.C2_ROI13", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI13" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI14", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI14" )
+NDAttrConfigure("XSP3.C2_ROI14", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI14" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI15", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI15" )
+NDAttrConfigure("XSP3.C2_ROI15", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI15" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C2_ROI16", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN2ROI16" )
+NDAttrConfigure("XSP3.C2_ROI16", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN2ROI16" )
 
 # NDROIConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
 NDROIConfigure("XSP3.ROI2", 4096, 0, "XSP3", 0, -1, -1)
@@ -209,76 +209,76 @@ NDStdArraysConfigure("XSP3.ARR2", 4096, 0, "XSP3.ROI2", 0, -1)
 NDStdArraysConfigure("XSP3.ARRSUM2", 4096, 0, "XSP3.ROISUM2", 0, -1)
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_SCA0", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3SCA0" )
+NDAttrConfigure("XSP3.C3_SCA0", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3SCA0" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_SCA1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3SCA1" )
+NDAttrConfigure("XSP3.C3_SCA1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3SCA1" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_SCA2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3SCA2" )
+NDAttrConfigure("XSP3.C3_SCA2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3SCA2" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_SCA3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3SCA3" )
+NDAttrConfigure("XSP3.C3_SCA3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3SCA3" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_SCA4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3SCA4" )
+NDAttrConfigure("XSP3.C3_SCA4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3SCA4" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_SCA5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3SCA5" )
+NDAttrConfigure("XSP3.C3_SCA5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3SCA5" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_SCA6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3SCA6" )
+NDAttrConfigure("XSP3.C3_SCA6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3SCA6" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_SCA7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3SCA7" )
+NDAttrConfigure("XSP3.C3_SCA7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3SCA7" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI1" )
+NDAttrConfigure("XSP3.C3_ROI1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI1" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI2" )
+NDAttrConfigure("XSP3.C3_ROI2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI2" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI3" )
+NDAttrConfigure("XSP3.C3_ROI3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI3" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI4" )
+NDAttrConfigure("XSP3.C3_ROI4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI4" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI5" )
+NDAttrConfigure("XSP3.C3_ROI5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI5" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI6" )
+NDAttrConfigure("XSP3.C3_ROI6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI6" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI7" )
+NDAttrConfigure("XSP3.C3_ROI7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI7" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI8", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI8" )
+NDAttrConfigure("XSP3.C3_ROI8", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI8" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI9", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI9" )
+NDAttrConfigure("XSP3.C3_ROI9", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI9" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI10", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI10" )
+NDAttrConfigure("XSP3.C3_ROI10", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI10" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI11", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI11" )
+NDAttrConfigure("XSP3.C3_ROI11", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI11" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI12", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI12" )
+NDAttrConfigure("XSP3.C3_ROI12", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI12" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI13", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI13" )
+NDAttrConfigure("XSP3.C3_ROI13", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI13" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI14", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI14" )
+NDAttrConfigure("XSP3.C3_ROI14", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI14" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI15", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI15" )
+NDAttrConfigure("XSP3.C3_ROI15", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI15" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C3_ROI16", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN3ROI16" )
+NDAttrConfigure("XSP3.C3_ROI16", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN3ROI16" )
 
 # NDROIConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
 NDROIConfigure("XSP3.ROI3", 4096, 0, "XSP3", 0, -1, -1)
@@ -293,76 +293,76 @@ NDStdArraysConfigure("XSP3.ARR3", 4096, 0, "XSP3.ROI3", 0, -1)
 NDStdArraysConfigure("XSP3.ARRSUM3", 4096, 0, "XSP3.ROISUM3", 0, -1)
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_SCA0", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4SCA0" )
+NDAttrConfigure("XSP3.C4_SCA0", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4SCA0" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_SCA1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4SCA1" )
+NDAttrConfigure("XSP3.C4_SCA1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4SCA1" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_SCA2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4SCA2" )
+NDAttrConfigure("XSP3.C4_SCA2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4SCA2" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_SCA3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4SCA3" )
+NDAttrConfigure("XSP3.C4_SCA3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4SCA3" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_SCA4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4SCA4" )
+NDAttrConfigure("XSP3.C4_SCA4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4SCA4" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_SCA5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4SCA5" )
+NDAttrConfigure("XSP3.C4_SCA5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4SCA5" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_SCA6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4SCA6" )
+NDAttrConfigure("XSP3.C4_SCA6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4SCA6" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_SCA7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4SCA7" )
+NDAttrConfigure("XSP3.C4_SCA7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4SCA7" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI1" )
+NDAttrConfigure("XSP3.C4_ROI1", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI1" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI2" )
+NDAttrConfigure("XSP3.C4_ROI2", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI2" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI3" )
+NDAttrConfigure("XSP3.C4_ROI3", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI3" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI4" )
+NDAttrConfigure("XSP3.C4_ROI4", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI4" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI5" )
+NDAttrConfigure("XSP3.C4_ROI5", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI5" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI6" )
+NDAttrConfigure("XSP3.C4_ROI6", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI6" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI7" )
+NDAttrConfigure("XSP3.C4_ROI7", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI7" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI8", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI8" )
+NDAttrConfigure("XSP3.C4_ROI8", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI8" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI9", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI9" )
+NDAttrConfigure("XSP3.C4_ROI9", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI9" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI10", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI10" )
+NDAttrConfigure("XSP3.C4_ROI10", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI10" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI11", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI11" )
+NDAttrConfigure("XSP3.C4_ROI11", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI11" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI12", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI12" )
+NDAttrConfigure("XSP3.C4_ROI12", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI12" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI13", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI13" )
+NDAttrConfigure("XSP3.C4_ROI13", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI13" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI14", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI14" )
+NDAttrConfigure("XSP3.C4_ROI14", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI14" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI15", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI15" )
+NDAttrConfigure("XSP3.C4_ROI15", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI15" )
 
 # NDAttrConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory, priority, stackSize, maxTimeSeries, attrName)
-NDAttrConfigure("XSP3.C4_ROI16", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 4096, "CHAN4ROI16" )
+NDAttrConfigure("XSP3.C4_ROI16", 4096, 0, "XSP3", 0,  -1, -1, 0,0, 16384, "CHAN4ROI16" )
 
 # NDROIConfigure(portName, queueSize, blockingCallbacks, NDArrayPort, NDArrayAddr, maxBuffers, maxMemory)
 NDROIConfigure("XSP3.ROI4", 4096, 0, "XSP3", 0, -1, -1)
@@ -396,6 +396,7 @@ iocInit
 dbpf("$(XSPRESS3_PREFIX):HDF5:FileTemplate", "%s%s%d.hdf5")
 dbpf("$(XSPRESS3_PREFIX):HDF5:FileWriteMode", "Stream")
 dbpf("$(XSPRESS3_PREFIX):HDF5:EnableCallbacks", "Enable")
+dbpf("$(XSPRESS3_PREFIX):HDF5:BlockingCallbacks", "Yes")
 
 #Set up the PROC plugin spectra summing
 dbpf("$(XSPRESS3_PREFIX):PROC:EnableFilter", "Enable")
@@ -406,6 +407,7 @@ dbpf("$(XSPRESS3_PREFIX):PROC:EnableCallbacks", "Enable")
 dbpf("$(XSPRESS3_PREFIX):C1_PluginControlVal", "Enabled")
 
 #Set up the ROI parameters
+dbpf("$(XSPRESS3_PREFIX):ROIDATA:BlockingCallbacks", "Yes")
 dbpf("$(XSPRESS3_PREFIX):ROIDATA:EnableX", "Enable")
 dbpf("$(XSPRESS3_PREFIX):ROIDATA:EnableY", "Enable")
 
@@ -484,7 +486,7 @@ dbpf $(XSPRESS3_PREFIX):NDAttributesFile, example4ChannelApp/data/XSP3.xml
 # disable DTC by default
 dbpf("$(XSPRESS3_PREFIX):CTRL_DTC", "0")
 
-
+#asynSetTraceMask("XSP3", -1, 0x10)
 
 
 
