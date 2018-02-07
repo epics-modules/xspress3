@@ -41,8 +41,8 @@ pattern { P, R, PORT, ADDR, TIMEOUT, MAX_SPECTRA, MAX_FRAMES }
 file $(XSPRESS3)/db/xspress3Channel.template
 {
 pattern { P, R, PORT, ADDR, TIMEOUT, CHAN, NELEMENTS }
-    { "$(XSPRESS3_PREFIX)", ":", "XSP3", "0", "5", "1", "4096" }
-    { "$(XSPRESS3_PREFIX)", ":", "XSP3", "1", "5", "2", "4096" }
+    { "$(XSPRESS3_PREFIX)", ":", "XSP3", "0", "5", "1", "16384" }
+    { "$(XSPRESS3_PREFIX)", ":", "XSP3", "1", "5", "2", "16384" }
 }
 
 # Macros:
@@ -128,54 +128,54 @@ pattern { P, R, PORT, TIMEOUT, ADDR, NDARRAY_PORT, NDARRAY_ADDR, Enabled }
 file $(SPECTRAPLUGINS)/db/NDPluginAttribute.template
 {
 pattern { P, R, PORT, ADDR, TIMEOUT, NELEMENTS }
-    { "$(XSPRESS3_PREFIX):", "C1_SCA0:", "XSP3.C1_SCA0", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_SCA1:", "XSP3.C1_SCA1", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_SCA2:", "XSP3.C1_SCA2", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_SCA3:", "XSP3.C1_SCA3", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_SCA4:", "XSP3.C1_SCA4", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_SCA5:", "XSP3.C1_SCA5", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_SCA6:", "XSP3.C1_SCA6", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_SCA7:", "XSP3.C1_SCA7", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI1:", "XSP3.C1_ROI1", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI2:", "XSP3.C1_ROI2", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI3:", "XSP3.C1_ROI3", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI4:", "XSP3.C1_ROI4", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI5:", "XSP3.C1_ROI5", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI6:", "XSP3.C1_ROI6", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI7:", "XSP3.C1_ROI7", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI8:", "XSP3.C1_ROI8", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI9:", "XSP3.C1_ROI9", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI10:", "XSP3.C1_ROI10", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI11:", "XSP3.C1_ROI11", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI12:", "XSP3.C1_ROI12", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI13:", "XSP3.C1_ROI13", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI14:", "XSP3.C1_ROI14", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI15:", "XSP3.C1_ROI15", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C1_ROI16:", "XSP3.C1_ROI16", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_SCA0:", "XSP3.C2_SCA0", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_SCA1:", "XSP3.C2_SCA1", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_SCA2:", "XSP3.C2_SCA2", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_SCA3:", "XSP3.C2_SCA3", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_SCA4:", "XSP3.C2_SCA4", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_SCA5:", "XSP3.C2_SCA5", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_SCA6:", "XSP3.C2_SCA6", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_SCA7:", "XSP3.C2_SCA7", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI1:", "XSP3.C2_ROI1", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI2:", "XSP3.C2_ROI2", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI3:", "XSP3.C2_ROI3", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI4:", "XSP3.C2_ROI4", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI5:", "XSP3.C2_ROI5", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI6:", "XSP3.C2_ROI6", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI7:", "XSP3.C2_ROI7", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI8:", "XSP3.C2_ROI8", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI9:", "XSP3.C2_ROI9", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI10:", "XSP3.C2_ROI10", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI11:", "XSP3.C2_ROI11", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI12:", "XSP3.C2_ROI12", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI13:", "XSP3.C2_ROI13", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI14:", "XSP3.C2_ROI14", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI15:", "XSP3.C2_ROI15", "0", "1", "4096" }
-    { "$(XSPRESS3_PREFIX):", "C2_ROI16:", "XSP3.C2_ROI16", "0", "1", "4096" }
+    { "$(XSPRESS3_PREFIX):", "C1_SCA0:", "XSP3.C1_SCA0", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_SCA1:", "XSP3.C1_SCA1", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_SCA2:", "XSP3.C1_SCA2", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_SCA3:", "XSP3.C1_SCA3", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_SCA4:", "XSP3.C1_SCA4", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_SCA5:", "XSP3.C1_SCA5", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_SCA6:", "XSP3.C1_SCA6", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_SCA7:", "XSP3.C1_SCA7", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI1:", "XSP3.C1_ROI1", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI2:", "XSP3.C1_ROI2", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI3:", "XSP3.C1_ROI3", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI4:", "XSP3.C1_ROI4", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI5:", "XSP3.C1_ROI5", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI6:", "XSP3.C1_ROI6", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI7:", "XSP3.C1_ROI7", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI8:", "XSP3.C1_ROI8", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI9:", "XSP3.C1_ROI9", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI10:", "XSP3.C1_ROI10", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI11:", "XSP3.C1_ROI11", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI12:", "XSP3.C1_ROI12", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI13:", "XSP3.C1_ROI13", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI14:", "XSP3.C1_ROI14", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI15:", "XSP3.C1_ROI15", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C1_ROI16:", "XSP3.C1_ROI16", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_SCA0:", "XSP3.C2_SCA0", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_SCA1:", "XSP3.C2_SCA1", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_SCA2:", "XSP3.C2_SCA2", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_SCA3:", "XSP3.C2_SCA3", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_SCA4:", "XSP3.C2_SCA4", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_SCA5:", "XSP3.C2_SCA5", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_SCA6:", "XSP3.C2_SCA6", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_SCA7:", "XSP3.C2_SCA7", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI1:", "XSP3.C2_ROI1", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI2:", "XSP3.C2_ROI2", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI3:", "XSP3.C2_ROI3", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI4:", "XSP3.C2_ROI4", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI5:", "XSP3.C2_ROI5", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI6:", "XSP3.C2_ROI6", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI7:", "XSP3.C2_ROI7", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI8:", "XSP3.C2_ROI8", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI9:", "XSP3.C2_ROI9", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI10:", "XSP3.C2_ROI10", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI11:", "XSP3.C2_ROI11", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI12:", "XSP3.C2_ROI12", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI13:", "XSP3.C2_ROI13", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI14:", "XSP3.C2_ROI14", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI15:", "XSP3.C2_ROI15", "0", "1", "16384" }
+    { "$(XSPRESS3_PREFIX):", "C2_ROI16:", "XSP3.C2_ROI16", "0", "1", "16384" }
 }
 
 # Macros:
