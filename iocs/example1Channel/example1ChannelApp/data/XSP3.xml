@@ -4,6 +4,8 @@
 	<Attribute addr="0" datatype="INT" description="Image counter" name="ImageCounter" source="ARRAY_COUNTER" type="PARAM"/>
 	<Attribute addr="0" datatype="STRING" description="Model" name="Model" source="MODEL" type="PARAM"/>
 	<Attribute addr="0" datatype="STRING" description="Manufacturer" name="Manufacturer" source="MANUFACTURER" type="PARAM"/>
+	<Attribute name="CHAN1DTFACTOR" addr="0" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 1 DTC Factor"/>
+	<Attribute name="CHAN1DTPERCENT" addr="0" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 1 DTC Percent"/>
 	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 0" name="CHAN1SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
 	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 1" name="CHAN1SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
 	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 2" name="CHAN1SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>

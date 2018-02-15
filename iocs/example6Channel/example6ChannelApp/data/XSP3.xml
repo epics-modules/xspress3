@@ -4,6 +4,18 @@
 	<Attribute addr="0" datatype="INT" description="Image counter" name="ImageCounter" source="ARRAY_COUNTER" type="PARAM"/>
 	<Attribute addr="0" datatype="STRING" description="Model" name="Model" source="MODEL" type="PARAM"/>
 	<Attribute addr="0" datatype="STRING" description="Manufacturer" name="Manufacturer" source="MANUFACTURER" type="PARAM"/>
+	<Attribute name="CHAN1DTFACTOR" addr="0" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 1 DTC Factor"/>
+	<Attribute name="CHAN2DTFACTOR" addr="1" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 2 DTC Factor"/>
+	<Attribute name="CHAN3DTFACTOR" addr="2" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 3 DTC Factor"/>
+	<Attribute name="CHAN4DTFACTOR" addr="3" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 4 DTC Factor"/>
+	<Attribute name="CHAN5DTFACTOR" addr="4" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 5 DTC Factor"/>
+	<Attribute name="CHAN6DTFACTOR" addr="5" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 6 DTC Factor"/>
+	<Attribute name="CHAN1DTPERCENT" addr="0" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 1 DTC Percent"/>
+	<Attribute name="CHAN2DTPERCENT" addr="1" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 2 DTC Percent"/>
+	<Attribute name="CHAN3DTPERCENT" addr="2" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 3 DTC Percent"/>
+	<Attribute name="CHAN4DTPERCENT" addr="3" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 4 DTC Percent"/>
+	<Attribute name="CHAN5DTPERCENT" addr="4" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 5 DTC Percent"/>
+	<Attribute name="CHAN6DTPERCENT" addr="5" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 6 DTC Percent"/>
 	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 0" name="CHAN1SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
 	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 1" name="CHAN1SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
 	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 2" name="CHAN1SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
