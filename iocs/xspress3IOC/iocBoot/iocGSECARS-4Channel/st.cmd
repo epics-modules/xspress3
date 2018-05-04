@@ -115,4 +115,13 @@ iocInit
 # save settings every thirty seconds
 create_monitor_set("auto_settings.req",30,"P=$(PREFIX)")
 
+epicsThreadSleep(5.)
 
+# Set default event widths for deadtime correction
+# note that these should be tuned for each detector:
+dbpf("$(PREFIX)C1:EventWidth",    "8")
+dbpf("$(PREFIX)C2:EventWidth",    "8")
+dbpf("$(PREFIX)C3:EventWidth",    "7")
+dbpf("$(PREFIX)C4:EventWidth",    "6")
+
+# Xspress3 is now ready to use!
