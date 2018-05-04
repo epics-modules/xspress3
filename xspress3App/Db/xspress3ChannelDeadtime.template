@@ -3,7 +3,7 @@ record(ai, "$(P)C$(CHAN):EventWidth") {
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_EVENT_WIDTH")
     field(SCAN, "I/O Intr")
-    field(VAL,  "0")
+    field(VAL,  "5")
     field(PREC, "1")
 }
 
