@@ -3,8 +3,8 @@
  *
  * @author W.I.Helsby
  * @author G.R.Mant
- * @version 2.1.0
- * @date 17/1/2017
+ * @version 2.2.0
+ * @date 26/6/2018
  * @tableofcontents
  * @section intro "Introduction"
  *
@@ -124,7 +124,9 @@
  * For use in particularly long raster scan experiments, there is an option to use TTL_IN(2..3) to give 2 markers in the data. These are saved in the 3rd row of the time frame status module and can be read back by 
  * {@link xsp3_histogram_get_tf_markers()}. This feature also exists in normal (single pass) buffer mode.
  * @n
- * Currently circular buffer mode is not available in XSPRESS3Mini. 
+ * The circular buffer mode is also available in XSPRESS3Mini, but the implementation is rather different. The circular buffer is within the Zynq DRAM, with the frames being written to the DRAM via AXIS DMA engines.
+ * These are programmed to stop with an error rather overwrite the data. The API is preserved except that now calling {@link xsp3_histogram_circ_ack()} is mandatory. 
+ * The API for {@link xsp3_histogram_get_tf_status} still exists, though it is now strongly encouraged to use {@link xsp3_histogram_get_tf_status_block()} as this is more efficient.
  *
  * @subsection registers Register Layout
  *
@@ -201,6 +203,9 @@
 PATH=/sbin:/bin:/usr/bin:/usr/sbin
 
 arp -i eth2 -s 192.168.0.66 02:00:00:00:00:00
+arp -i eth3 -s 192.168.0.70 02:00:00:00:00:02
+arp -i eth4 -s 192.168.0.74 02:00:00:00:00:04
+arp -i eth5 -s 192.168.0.78 02:00:00:00:00:06
 #route -v add -host 192.168.0.66 eth2
 
 # Setting default and max buffer sizes for networking.
@@ -221,12 +226,13 @@ sysctl -w net.core.rmem_default=1073741824
 * @snippet test_circ_buffer.c XSP3_CIRC_BUFF_EXAMPLE
 
  * @section revisions "Revision History"
-    1.0.0 Original Release.
+    1.0.0 Original Release. @n
 	2.0.0  8/5/2014  API supporting event assembly processing in software and scalers in software.
 		Note: User code should now check for histogramming threads busy using {@link xsp3_histogram_is_any_busy} rather than {@link xsp3_histogram_is_busy}
 		as new function check all cards and all channels as necessary.
-		User code should use {@link xsp3_scaler_check_progress} to check progress through time frames.
-	2.1.0  17/1/2017  API adding supporting for XSPRESS3Mini and XSPRESS4.
+		User code should use {@link xsp3_scaler_check_progress} to check progress through time frames.@n
+	2.1.0  17/1/2017  API adding supporting for XSPRESS3Mini and XSPRESS4. @n
+	2.2.0  28/6/2018  API adding supporting for circular buffers in Xspress3Mini @n
 		
 
  */
