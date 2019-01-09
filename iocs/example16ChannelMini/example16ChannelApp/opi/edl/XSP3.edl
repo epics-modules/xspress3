@@ -1,0 +1,490 @@
+4 0 1
+beginScreenProperties
+h 927
+major 4
+minor 0
+release 1
+w 412
+x 0
+y 0
+bgColor index 3
+botShadowColor index 11
+btnFont "arial-bold-r-14.0"
+ctlBgColor1 index 3
+ctlBgColor2 index 14
+ctlFgColor1 index 25
+ctlFgColor2 index 0
+ctlFont "arial-bold-r-14.0"
+fgColor index 14
+font "arial-medium-r-14.0"
+showGrid
+snapToGrid
+textColor index 14
+title "Device - XSP3"
+topShadowColor index 1
+endScreenProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+h 30
+major 4
+minor 0
+release 0
+w 412
+x 0
+y 0
+
+
+beginGroup
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+h 25
+major 4
+minor 0
+release 0
+w 410
+x 0
+y 2
+fillColor index 0
+lineColor index 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+h 25
+major 4
+minor 0
+release 0
+w 410
+x 1
+y 3
+fillColor index 0
+lineColor index 11
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+h 24
+major 4
+minor 2
+release 0
+w 410
+x 1
+y 3
+bgColor index 3
+botShadowColor index 0
+button3Popup
+buttonLabel "tooltip"
+displayFileName {
+  0 "generic-tooltip"
+}
+fgColor index 14
+font "arial-bold-r-14.0"
+invisible
+numDsps 1
+numPvs 4
+setPosition {
+  0 "button"
+}
+topShadowColor index 0
+xPosOffset 5
+yPosOffset 5
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+h 25
+major 4
+minor 1
+release 0
+w 452
+x 1
+y 3
+bgColor index 48
+fgColor index 14
+font "arial-bold-r-16.0"
+fontAlign "center"
+value {
+  "XSP3 Top"
+}
+endObjectProperties
+
+endGroup
+
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+h 847
+major 4
+minor 0
+release 0
+w 392
+x 10
+y 40
+
+
+beginGroup
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+h 25
+major 4
+minor 0
+release 0
+w 391
+x 10
+y 40
+bgColor index 3
+botShadowColor index 11
+controlPv "LOC\\$(!W)tab=e:0,ROI1,ROISUM1,ROI2,ROISUM2,ROI3,ROISUM3,ROI4,ROISUM4,ROI5,ROISUM5,ROI6,ROISUM6,ROI7,ROISUM7,ROI8,ROISUM8,ROI9,ROISUM9,ROI10,ROISUM10,ROI11,ROISUM11,ROI12,ROISUM12,ROI13,ROISUM13,ROI14,ROISUM14,ROI15,ROISUM15,ROI16,ROISUM16,ROIDATA,ARR1,ARRSUM1,ARR2,ARRSUM2,ARR3,ARRSUM3,ARR4,ARRSUM4,ARR5,ARRSUM5,ARR6,ARRSUM6,ARR7,ARRSUM7,ARR8,ARRSUM8,ARR9,ARRSUM9,ARR10,ARRSUM10,ARR11,ARRSUM11,ARR12,ARRSUM12,ARR13,ARRSUM13,ARR14,ARRSUM14,ARR15,ARRSUM15,ARR16,ARRSUM16,PROC,HDF5"
+fgColor index 14
+font "arial-bold-r-12.0"
+inconsistentColor index 0
+orientation "horizontal"
+selectColor index 4
+topShadowColor index 1
+endObjectProperties
+
+# (Lines)
+object activeLineClass
+beginObjectProperties
+h 821
+major 4
+minor 0
+release 1
+w 392
+x 10
+y 66
+fillColor index 0
+lineColor index 1
+numPoints 3
+xPoints {
+  0 10
+  1 402
+  2 402
+}
+yPoints {
+  0 887
+  1 887
+  2 66
+}
+endObjectProperties
+
+# (Lines)
+object activeLineClass
+beginObjectProperties
+h 821
+major 4
+minor 0
+release 1
+w 392
+x 10
+y 66
+fillColor index 0
+lineColor index 11
+numPoints 3
+xPoints {
+  0 10
+  1 10
+  2 402
+}
+yPoints {
+  0 887
+  1 66
+  2 66
+}
+endObjectProperties
+
+# (Embedded Window)
+object activePipClass
+beginObjectProperties
+h 820
+major 4
+minor 1
+release 0
+w 390
+x 11
+y 66
+bgColor index 3
+botShadowColor index 0
+displayFileName {
+  0 "NDROI.edl"
+  1 "NDROI.edl"
+  2 "NDROI.edl"
+  3 "NDROI.edl"
+  4 "NDROI.edl"
+  5 "NDROI.edl"
+  6 "NDROI.edl"
+  7 "NDROI.edl"
+  8 "NDROI.edl"
+  9 "NDROI.edl"
+  10 "NDROI.edl"
+  11 "NDROI.edl"
+  12 "NDROI.edl"
+  13 "NDROI.edl"
+  14 "NDROI.edl"
+  15 "NDROI.edl"
+  16 "NDROI.edl"
+  17 "NDROI.edl"
+  18 "NDROI.edl"
+  19 "NDROI.edl"
+  20 "NDROI.edl"
+  21 "NDROI.edl"
+  22 "NDROI.edl"
+  23 "NDROI.edl"
+  24 "NDROI.edl"
+  25 "NDROI.edl"
+  26 "NDROI.edl"
+  27 "NDROI.edl"
+  28 "NDROI.edl"
+  29 "NDROI.edl"
+  30 "NDROI.edl"
+  31 "NDROI.edl"
+  32 "NDROI.edl"
+  33 "NDStdArrays.edl"
+  34 "NDStdArrays.edl"
+  35 "NDStdArrays.edl"
+  36 "NDStdArrays.edl"
+  37 "NDStdArrays.edl"
+  38 "NDStdArrays.edl"
+  39 "NDStdArrays.edl"
+  40 "NDStdArrays.edl"
+  41 "NDStdArrays.edl"
+  42 "NDStdArrays.edl"
+  43 "NDStdArrays.edl"
+  44 "NDStdArrays.edl"
+  45 "NDStdArrays.edl"
+  46 "NDStdArrays.edl"
+  47 "NDStdArrays.edl"
+  48 "NDStdArrays.edl"
+  49 "NDStdArrays.edl"
+  50 "NDStdArrays.edl"
+  51 "NDStdArrays.edl"
+  52 "NDStdArrays.edl"
+  53 "NDStdArrays.edl"
+  54 "NDStdArrays.edl"
+  55 "NDStdArrays.edl"
+  56 "NDStdArrays.edl"
+  57 "NDStdArrays.edl"
+  58 "NDStdArrays.edl"
+  59 "NDStdArrays.edl"
+  60 "NDStdArrays.edl"
+  61 "NDStdArrays.edl"
+  62 "NDStdArrays.edl"
+  63 "NDStdArrays.edl"
+  64 "NDStdArrays.edl"
+  65 "NDProcess.edl"
+  66 "NDFileHDF5.edl"
+}
+displaySource "menu"
+fgColor index 14
+filePv "LOC\\$(!W)tab"
+noScroll
+numDsps 67
+sizeOfs 5
+symbols {
+  0 "P=$(XSPRESS3_PREFIX):,R=ROI1:,label=ROI1"
+  1 "P=$(XSPRESS3_PREFIX):,R=ROISUM1:,label=ROISUM1"
+  2 "P=$(XSPRESS3_PREFIX):,R=ROI2:,label=ROI2"
+  3 "P=$(XSPRESS3_PREFIX):,R=ROISUM2:,label=ROISUM2"
+  4 "P=$(XSPRESS3_PREFIX):,R=ROI3:,label=ROI3"
+  5 "P=$(XSPRESS3_PREFIX):,R=ROISUM3:,label=ROISUM3"
+  6 "P=$(XSPRESS3_PREFIX):,R=ROI4:,label=ROI4"
+  7 "P=$(XSPRESS3_PREFIX):,R=ROISUM4:,label=ROISUM4"
+  8 "P=$(XSPRESS3_PREFIX):,R=ROI5:,label=ROI5"
+  9 "P=$(XSPRESS3_PREFIX):,R=ROISUM5:,label=ROISUM5"
+  10 "P=$(XSPRESS3_PREFIX):,R=ROI6:,label=ROI6"
+  11 "P=$(XSPRESS3_PREFIX):,R=ROISUM6:,label=ROISUM6"
+  12 "P=$(XSPRESS3_PREFIX):,R=ROI7:,label=ROI7"
+  13 "P=$(XSPRESS3_PREFIX):,R=ROISUM7:,label=ROISUM7"
+  14 "P=$(XSPRESS3_PREFIX):,R=ROI8:,label=ROI8"
+  15 "P=$(XSPRESS3_PREFIX):,R=ROISUM8:,label=ROISUM8"
+  16 "P=$(XSPRESS3_PREFIX):,R=ROI9:,label=ROI9"
+  17 "P=$(XSPRESS3_PREFIX):,R=ROISUM9:,label=ROISUM9"
+  18 "P=$(XSPRESS3_PREFIX):,R=ROI10:,label=ROI10"
+  19 "P=$(XSPRESS3_PREFIX):,R=ROISUM10:,label=ROISUM10"
+  20 "P=$(XSPRESS3_PREFIX):,R=ROI11:,label=ROI11"
+  21 "P=$(XSPRESS3_PREFIX):,R=ROISUM11:,label=ROISUM11"
+  22 "P=$(XSPRESS3_PREFIX):,R=ROI12:,label=ROI12"
+  23 "P=$(XSPRESS3_PREFIX):,R=ROISUM12:,label=ROISUM12"
+  24 "P=$(XSPRESS3_PREFIX):,R=ROI13:,label=ROI13"
+  25 "P=$(XSPRESS3_PREFIX):,R=ROISUM13:,label=ROISUM13"
+  26 "P=$(XSPRESS3_PREFIX):,R=ROI14:,label=ROI14"
+  27 "P=$(XSPRESS3_PREFIX):,R=ROISUM14:,label=ROISUM14"
+  28 "P=$(XSPRESS3_PREFIX):,R=ROI15:,label=ROI15"
+  29 "P=$(XSPRESS3_PREFIX):,R=ROISUM15:,label=ROISUM15"
+  30 "P=$(XSPRESS3_PREFIX):,R=ROI16:,label=ROI16"
+  31 "P=$(XSPRESS3_PREFIX):,R=ROISUM16:,label=ROISUM16"
+  32 "P=$(XSPRESS3_PREFIX):,R=ROIDATA:,label=ROIDATA"
+  33 "P=$(XSPRESS3_PREFIX):,R=ARR1:,label=ARR1"
+  34 "P=$(XSPRESS3_PREFIX):,R=ARRSUM1:,label=ARRSUM1"
+  35 "P=$(XSPRESS3_PREFIX):,R=ARR2:,label=ARR2"
+  36 "P=$(XSPRESS3_PREFIX):,R=ARRSUM2:,label=ARRSUM2"
+  37 "P=$(XSPRESS3_PREFIX):,R=ARR3:,label=ARR3"
+  38 "P=$(XSPRESS3_PREFIX):,R=ARRSUM3:,label=ARRSUM3"
+  39 "P=$(XSPRESS3_PREFIX):,R=ARR4:,label=ARR4"
+  40 "P=$(XSPRESS3_PREFIX):,R=ARRSUM4:,label=ARRSUM4"
+  41 "P=$(XSPRESS3_PREFIX):,R=ARR5:,label=ARR5"
+  42 "P=$(XSPRESS3_PREFIX):,R=ARRSUM5:,label=ARRSUM5"
+  43 "P=$(XSPRESS3_PREFIX):,R=ARR6:,label=ARR6"
+  44 "P=$(XSPRESS3_PREFIX):,R=ARRSUM6:,label=ARRSUM6"
+  45 "P=$(XSPRESS3_PREFIX):,R=ARR7:,label=ARR7"
+  46 "P=$(XSPRESS3_PREFIX):,R=ARRSUM7:,label=ARRSUM7"
+  47 "P=$(XSPRESS3_PREFIX):,R=ARR8:,label=ARR8"
+  48 "P=$(XSPRESS3_PREFIX):,R=ARRSUM8:,label=ARRSUM8"
+  49 "P=$(XSPRESS3_PREFIX):,R=ARR9:,label=ARR9"
+  50 "P=$(XSPRESS3_PREFIX):,R=ARRSUM9:,label=ARRSUM9"
+  51 "P=$(XSPRESS3_PREFIX):,R=ARR10:,label=ARR10"
+  52 "P=$(XSPRESS3_PREFIX):,R=ARRSUM10:,label=ARRSUM10"
+  53 "P=$(XSPRESS3_PREFIX):,R=ARR11:,label=ARR11"
+  54 "P=$(XSPRESS3_PREFIX):,R=ARRSUM11:,label=ARRSUM11"
+  55 "P=$(XSPRESS3_PREFIX):,R=ARR12:,label=ARR12"
+  56 "P=$(XSPRESS3_PREFIX):,R=ARRSUM12:,label=ARRSUM12"
+  57 "P=$(XSPRESS3_PREFIX):,R=ARR13:,label=ARR13"
+  58 "P=$(XSPRESS3_PREFIX):,R=ARRSUM13:,label=ARRSUM13"
+  59 "P=$(XSPRESS3_PREFIX):,R=ARR14:,label=ARR14"
+  60 "P=$(XSPRESS3_PREFIX):,R=ARRSUM14:,label=ARRSUM14"
+  61 "P=$(XSPRESS3_PREFIX):,R=ARR15:,label=ARR15"
+  62 "P=$(XSPRESS3_PREFIX):,R=ARRSUM15:,label=ARRSUM15"
+  63 "P=$(XSPRESS3_PREFIX):,R=ARR16:,label=ARR16"
+  64 "P=$(XSPRESS3_PREFIX):,R=ARRSUM16:,label=ARRSUM16"
+  65 "P=$(XSPRESS3_PREFIX):,R=PROC:,label=PROC"
+  66 "P=$(XSPRESS3_PREFIX):,R=HDF5:,label=HDF5"
+}
+topShadowColor index 0
+endObjectProperties
+
+endGroup
+
+
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+h 30
+major 4
+minor 0
+release 0
+w 50
+x 0
+y 0
+
+
+beginGroup
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+h 29
+major 4
+minor 0
+release 0
+w 48
+x 0
+y 0
+fillColor index 0
+lineColor index 1
+lineWidth 2
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+h 29
+major 4
+minor 0
+release 0
+w 48
+x 2
+y 2
+fillColor index 0
+lineColor index 11
+lineWidth 2
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+h 27
+major 4
+minor 0
+release 0
+w 47
+x 2
+y 2
+fill
+fillColor index 48
+lineColor index 49
+lineWidth 3
+endObjectProperties
+
+# (Circle)
+object activeCircleClass
+beginObjectProperties
+h 3
+major 4
+minor 0
+release 0
+w 4
+x 12
+y 6
+fill
+fillColor index 0
+lineColor index 1
+lineWidth 2
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+h 30
+major 4
+minor 1
+release 0
+w 50
+x 0
+y 0
+bgColor index 3
+fgColor index 14
+font "arial-bold-r-14.0"
+fontAlign "center"
+useDisplayBg
+value {
+  "XSP3"
+}
+endObjectProperties
+
+endGroup
+
+
+endObjectProperties
+
+# (Exit Button)
+object activeExitButtonClass
+beginObjectProperties
+h 20
+major 4
+minor 1
+release 0
+w 90
+x 312
+y 897
+3d
+bgColor index 3
+botShadowColor index 11
+fgColor index 46
+font "arial-medium-r-16.0"
+label "EXIT"
+topShadowColor index 1
+endObjectProperties

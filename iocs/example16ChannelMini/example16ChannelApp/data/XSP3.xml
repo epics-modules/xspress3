@@ -1,0 +1,1015 @@
+<?xml version="1.0" ?>
+<Attributes>
+	<Attribute dbrtype="DBR_NATIVE" description="Ring Current" name="RingCurrent" source="SR-DI-DCCT-01:SIGNAL" type="EPICS_PV"/>
+	<Attribute addr="0" datatype="INT" description="Image counter" name="ImageCounter" source="ARRAY_COUNTER" type="PARAM"/>
+	<Attribute addr="0" datatype="STRING" description="Model" name="Model" source="MODEL" type="PARAM"/>
+	<Attribute addr="0" datatype="STRING" description="Manufacturer" name="Manufacturer" source="MANUFACTURER" type="PARAM"/>
+	<Attribute name="CHAN1DTFACTOR" addr="0" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 1 DTC Factor"/>
+	<Attribute name="CHAN2DTFACTOR" addr="1" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 2 DTC Factor"/>
+	<Attribute name="CHAN3DTFACTOR" addr="2" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 3 DTC Factor"/>
+	<Attribute name="CHAN4DTFACTOR" addr="3" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 4 DTC Factor"/>
+	<Attribute name="CHAN5DTFACTOR" addr="4" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 5 DTC Factor"/>
+	<Attribute name="CHAN6DTFACTOR" addr="5" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 6 DTC Factor"/>
+	<Attribute name="CHAN7DTFACTOR" addr="6" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 7 DTC Factor"/>
+	<Attribute name="CHAN8DTFACTOR" addr="7" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 8 DTC Factor"/>
+	<Attribute name="CHAN9DTFACTOR" addr="8" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 9 DTC Factor"/>
+	<Attribute name="CHAN10DTFACTOR" addr="9" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 10 DTC Factor"/>
+	<Attribute name="CHAN11DTFACTOR" addr="10" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 11 DTC Factor"/>
+	<Attribute name="CHAN12DTFACTOR" addr="11" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 12 DTC Factor"/>
+	<Attribute name="CHAN13DTFACTOR" addr="12" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 13 DTC Factor"/>
+	<Attribute name="CHAN14DTFACTOR" addr="13" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 14 DTC Factor"/>
+	<Attribute name="CHAN15DTFACTOR" addr="14" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 15 DTC Factor"/>
+	<Attribute name="CHAN16DTFACTOR" addr="15" type="PARAM"    source="XSP3_CHAN_DTFACTOR"           datatype="DOUBLE"        description="Chan 16 DTC Factor"/>
+	<Attribute name="CHAN1DTPERCENT" addr="0" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 1 DTC Percent"/>
+	<Attribute name="CHAN2DTPERCENT" addr="1" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 2 DTC Percent"/>
+	<Attribute name="CHAN3DTPERCENT" addr="2" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 3 DTC Percent"/>
+	<Attribute name="CHAN4DTPERCENT" addr="3" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 4 DTC Percent"/>
+	<Attribute name="CHAN5DTPERCENT" addr="4" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 5 DTC Percent"/>
+	<Attribute name="CHAN6DTPERCENT" addr="5" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 6 DTC Percent"/>
+	<Attribute name="CHAN7DTPERCENT" addr="6" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 7 DTC Percent"/>
+	<Attribute name="CHAN8DTPERCENT" addr="7" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 8 DTC Percent"/>
+	<Attribute name="CHAN9DTPERCENT" addr="8" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 9 DTC Percent"/>
+	<Attribute name="CHAN10DTPERCENT" addr="9" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 10 DTC Percent"/>
+	<Attribute name="CHAN11DTPERCENT" addr="10" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 11 DTC Percent"/>
+	<Attribute name="CHAN12DTPERCENT" addr="11" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 12 DTC Percent"/>
+	<Attribute name="CHAN13DTPERCENT" addr="12" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 13 DTC Percent"/>
+	<Attribute name="CHAN14DTPERCENT" addr="13" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 14 DTC Percent"/>
+	<Attribute name="CHAN15DTPERCENT" addr="14" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 15 DTC Percent"/>
+	<Attribute name="CHAN16DTPERCENT" addr="15" type="PARAM"   source="XSP3_CHAN_DTPERCENT"          datatype="DOUBLE"        description="Chan 16 DTC Percent"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 0" name="CHAN1SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 1" name="CHAN1SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 2" name="CHAN1SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 3" name="CHAN1SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 4" name="CHAN1SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 5" name="CHAN1SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 6" name="CHAN1SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 SCA 7" name="CHAN1SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 DTC Flags" name="CHAN1DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 DTC All Good Event Grad" name="CHAN1DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 DTC All Good Event Offset" name="CHAN1DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 DTC In Window Grad" name="CHAN1DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 DTC In Window Offset" name="CHAN1DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 1" name="CHAN1ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 1 Low Limit" name="CHAN1ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 1 High Limit" name="CHAN1ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 2" name="CHAN1ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 2 Low Limit" name="CHAN1ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 2 High Limit" name="CHAN1ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 3" name="CHAN1ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 3 Low Limit" name="CHAN1ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 3 High Limit" name="CHAN1ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 4" name="CHAN1ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 4 Low Limit" name="CHAN1ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 4 High Limit" name="CHAN1ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 5" name="CHAN1ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 5 Low Limit" name="CHAN1ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 5 High Limit" name="CHAN1ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 6" name="CHAN1ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 6 Low Limit" name="CHAN1ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 6 High Limit" name="CHAN1ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 7" name="CHAN1ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 7 Low Limit" name="CHAN1ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 7 High Limit" name="CHAN1ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 8" name="CHAN1ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 8 Low Limit" name="CHAN1ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 8 High Limit" name="CHAN1ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 9" name="CHAN1ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 9 Low Limit" name="CHAN1ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 9 High Limit" name="CHAN1ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 10" name="CHAN1ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 10 Low Limit" name="CHAN1ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 10 High Limit" name="CHAN1ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 11" name="CHAN1ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 11 Low Limit" name="CHAN1ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 11 High Limit" name="CHAN1ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 12" name="CHAN1ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 12 Low Limit" name="CHAN1ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 12 High Limit" name="CHAN1ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 13" name="CHAN1ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 13 Low Limit" name="CHAN1ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 13 High Limit" name="CHAN1ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 14" name="CHAN1ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 14 Low Limit" name="CHAN1ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 14 High Limit" name="CHAN1ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 15" name="CHAN1ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 15 Low Limit" name="CHAN1ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 15 High Limit" name="CHAN1ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="0" datatype="DOUBLE" description="Chan 1 ROI 16" name="CHAN1ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 16 Low Limit" name="CHAN1ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="0" datatype="INT" description="Chan 1 ROI 16 High Limit" name="CHAN1ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 0" name="CHAN2SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 1" name="CHAN2SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 2" name="CHAN2SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 3" name="CHAN2SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 4" name="CHAN2SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 5" name="CHAN2SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 6" name="CHAN2SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 SCA 7" name="CHAN2SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC Flags" name="CHAN2DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC All Good Event Grad" name="CHAN2DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC All Good Event Offset" name="CHAN2DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC In Window Grad" name="CHAN2DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 DTC In Window Offset" name="CHAN2DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 1" name="CHAN2ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 1 Low Limit" name="CHAN2ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 1 High Limit" name="CHAN2ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 2" name="CHAN2ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 2 Low Limit" name="CHAN2ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 2 High Limit" name="CHAN2ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 3" name="CHAN2ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 3 Low Limit" name="CHAN2ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 3 High Limit" name="CHAN2ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 4" name="CHAN2ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 4 Low Limit" name="CHAN2ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 4 High Limit" name="CHAN2ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 5" name="CHAN2ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 5 Low Limit" name="CHAN2ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 5 High Limit" name="CHAN2ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 6" name="CHAN2ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 6 Low Limit" name="CHAN2ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 6 High Limit" name="CHAN2ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 7" name="CHAN2ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 7 Low Limit" name="CHAN2ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 7 High Limit" name="CHAN2ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 8" name="CHAN2ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 8 Low Limit" name="CHAN2ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 8 High Limit" name="CHAN2ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 9" name="CHAN2ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 9 Low Limit" name="CHAN2ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 9 High Limit" name="CHAN2ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 10" name="CHAN2ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 10 Low Limit" name="CHAN2ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 10 High Limit" name="CHAN2ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 11" name="CHAN2ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 11 Low Limit" name="CHAN2ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 11 High Limit" name="CHAN2ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 12" name="CHAN2ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 12 Low Limit" name="CHAN2ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 12 High Limit" name="CHAN2ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 13" name="CHAN2ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 13 Low Limit" name="CHAN2ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 13 High Limit" name="CHAN2ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 14" name="CHAN2ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 14 Low Limit" name="CHAN2ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 14 High Limit" name="CHAN2ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 15" name="CHAN2ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 15 Low Limit" name="CHAN2ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 15 High Limit" name="CHAN2ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="1" datatype="DOUBLE" description="Chan 2 ROI 16" name="CHAN2ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 16 Low Limit" name="CHAN2ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="1" datatype="INT" description="Chan 2 ROI 16 High Limit" name="CHAN2ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 SCA 0" name="CHAN3SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 SCA 1" name="CHAN3SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 SCA 2" name="CHAN3SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 SCA 3" name="CHAN3SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 SCA 4" name="CHAN3SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 SCA 5" name="CHAN3SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 SCA 6" name="CHAN3SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 SCA 7" name="CHAN3SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 DTC Flags" name="CHAN3DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 DTC All Good Event Grad" name="CHAN3DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 DTC All Good Event Offset" name="CHAN3DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 DTC In Window Grad" name="CHAN3DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 DTC In Window Offset" name="CHAN3DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 1" name="CHAN3ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 1 Low Limit" name="CHAN3ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 1 High Limit" name="CHAN3ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 2" name="CHAN3ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 2 Low Limit" name="CHAN3ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 2 High Limit" name="CHAN3ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 3" name="CHAN3ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 3 Low Limit" name="CHAN3ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 3 High Limit" name="CHAN3ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 4" name="CHAN3ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 4 Low Limit" name="CHAN3ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 4 High Limit" name="CHAN3ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 5" name="CHAN3ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 5 Low Limit" name="CHAN3ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 5 High Limit" name="CHAN3ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 6" name="CHAN3ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 6 Low Limit" name="CHAN3ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 6 High Limit" name="CHAN3ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 7" name="CHAN3ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 7 Low Limit" name="CHAN3ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 7 High Limit" name="CHAN3ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 8" name="CHAN3ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 8 Low Limit" name="CHAN3ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 8 High Limit" name="CHAN3ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 9" name="CHAN3ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 9 Low Limit" name="CHAN3ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 9 High Limit" name="CHAN3ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 10" name="CHAN3ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 10 Low Limit" name="CHAN3ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 10 High Limit" name="CHAN3ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 11" name="CHAN3ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 11 Low Limit" name="CHAN3ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 11 High Limit" name="CHAN3ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 12" name="CHAN3ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 12 Low Limit" name="CHAN3ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 12 High Limit" name="CHAN3ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 13" name="CHAN3ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 13 Low Limit" name="CHAN3ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 13 High Limit" name="CHAN3ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 14" name="CHAN3ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 14 Low Limit" name="CHAN3ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 14 High Limit" name="CHAN3ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 15" name="CHAN3ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 15 Low Limit" name="CHAN3ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 15 High Limit" name="CHAN3ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="2" datatype="DOUBLE" description="Chan 3 ROI 16" name="CHAN3ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 16 Low Limit" name="CHAN3ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="2" datatype="INT" description="Chan 3 ROI 16 High Limit" name="CHAN3ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 SCA 0" name="CHAN4SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 SCA 1" name="CHAN4SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 SCA 2" name="CHAN4SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 SCA 3" name="CHAN4SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 SCA 4" name="CHAN4SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 SCA 5" name="CHAN4SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 SCA 6" name="CHAN4SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 SCA 7" name="CHAN4SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 DTC Flags" name="CHAN4DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 DTC All Good Event Grad" name="CHAN4DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 DTC All Good Event Offset" name="CHAN4DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 DTC In Window Grad" name="CHAN4DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 DTC In Window Offset" name="CHAN4DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 1" name="CHAN4ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 1 Low Limit" name="CHAN4ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 1 High Limit" name="CHAN4ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 2" name="CHAN4ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 2 Low Limit" name="CHAN4ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 2 High Limit" name="CHAN4ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 3" name="CHAN4ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 3 Low Limit" name="CHAN4ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 3 High Limit" name="CHAN4ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 4" name="CHAN4ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 4 Low Limit" name="CHAN4ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 4 High Limit" name="CHAN4ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 5" name="CHAN4ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 5 Low Limit" name="CHAN4ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 5 High Limit" name="CHAN4ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 6" name="CHAN4ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 6 Low Limit" name="CHAN4ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 6 High Limit" name="CHAN4ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 7" name="CHAN4ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 7 Low Limit" name="CHAN4ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 7 High Limit" name="CHAN4ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 8" name="CHAN4ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 8 Low Limit" name="CHAN4ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 8 High Limit" name="CHAN4ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 9" name="CHAN4ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 9 Low Limit" name="CHAN4ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 9 High Limit" name="CHAN4ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 10" name="CHAN4ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 10 Low Limit" name="CHAN4ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 10 High Limit" name="CHAN4ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 11" name="CHAN4ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 11 Low Limit" name="CHAN4ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 11 High Limit" name="CHAN4ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 12" name="CHAN4ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 12 Low Limit" name="CHAN4ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 12 High Limit" name="CHAN4ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 13" name="CHAN4ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 13 Low Limit" name="CHAN4ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 13 High Limit" name="CHAN4ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 14" name="CHAN4ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 14 Low Limit" name="CHAN4ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 14 High Limit" name="CHAN4ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 15" name="CHAN4ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 15 Low Limit" name="CHAN4ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 15 High Limit" name="CHAN4ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="3" datatype="DOUBLE" description="Chan 4 ROI 16" name="CHAN4ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 16 Low Limit" name="CHAN4ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="3" datatype="INT" description="Chan 4 ROI 16 High Limit" name="CHAN4ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 SCA 0" name="CHAN5SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 SCA 1" name="CHAN5SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 SCA 2" name="CHAN5SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 SCA 3" name="CHAN5SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 SCA 4" name="CHAN5SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 SCA 5" name="CHAN5SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 SCA 6" name="CHAN5SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 SCA 7" name="CHAN5SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 DTC Flags" name="CHAN5DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 DTC All Good Event Grad" name="CHAN5DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 DTC All Good Event Offset" name="CHAN5DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 DTC In Window Grad" name="CHAN5DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 DTC In Window Offset" name="CHAN5DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 1" name="CHAN5ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 1 Low Limit" name="CHAN5ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 1 High Limit" name="CHAN5ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 2" name="CHAN5ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 2 Low Limit" name="CHAN5ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 2 High Limit" name="CHAN5ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 3" name="CHAN5ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 3 Low Limit" name="CHAN5ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 3 High Limit" name="CHAN5ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 4" name="CHAN5ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 4 Low Limit" name="CHAN5ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 4 High Limit" name="CHAN5ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 5" name="CHAN5ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 5 Low Limit" name="CHAN5ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 5 High Limit" name="CHAN5ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 6" name="CHAN5ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 6 Low Limit" name="CHAN5ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 6 High Limit" name="CHAN5ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 7" name="CHAN5ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 7 Low Limit" name="CHAN5ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 7 High Limit" name="CHAN5ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 8" name="CHAN5ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 8 Low Limit" name="CHAN5ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 8 High Limit" name="CHAN5ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 9" name="CHAN5ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 9 Low Limit" name="CHAN5ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 9 High Limit" name="CHAN5ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 10" name="CHAN5ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 10 Low Limit" name="CHAN5ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 10 High Limit" name="CHAN5ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 11" name="CHAN5ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 11 Low Limit" name="CHAN5ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 11 High Limit" name="CHAN5ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 12" name="CHAN5ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 12 Low Limit" name="CHAN5ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 12 High Limit" name="CHAN5ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 13" name="CHAN5ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 13 Low Limit" name="CHAN5ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 13 High Limit" name="CHAN5ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 14" name="CHAN5ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 14 Low Limit" name="CHAN5ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 14 High Limit" name="CHAN5ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 15" name="CHAN5ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 15 Low Limit" name="CHAN5ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 15 High Limit" name="CHAN5ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="4" datatype="DOUBLE" description="Chan 5 ROI 16" name="CHAN5ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 16 Low Limit" name="CHAN5ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="4" datatype="INT" description="Chan 5 ROI 16 High Limit" name="CHAN5ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 SCA 0" name="CHAN6SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 SCA 1" name="CHAN6SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 SCA 2" name="CHAN6SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 SCA 3" name="CHAN6SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 SCA 4" name="CHAN6SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 SCA 5" name="CHAN6SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 SCA 6" name="CHAN6SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 SCA 7" name="CHAN6SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 DTC Flags" name="CHAN6DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 DTC All Good Event Grad" name="CHAN6DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 DTC All Good Event Offset" name="CHAN6DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 DTC In Window Grad" name="CHAN6DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 DTC In Window Offset" name="CHAN6DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 1" name="CHAN6ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 1 Low Limit" name="CHAN6ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 1 High Limit" name="CHAN6ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 2" name="CHAN6ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 2 Low Limit" name="CHAN6ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 2 High Limit" name="CHAN6ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 3" name="CHAN6ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 3 Low Limit" name="CHAN6ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 3 High Limit" name="CHAN6ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 4" name="CHAN6ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 4 Low Limit" name="CHAN6ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 4 High Limit" name="CHAN6ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 5" name="CHAN6ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 5 Low Limit" name="CHAN6ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 5 High Limit" name="CHAN6ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 6" name="CHAN6ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 6 Low Limit" name="CHAN6ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 6 High Limit" name="CHAN6ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 7" name="CHAN6ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 7 Low Limit" name="CHAN6ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 7 High Limit" name="CHAN6ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 8" name="CHAN6ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 8 Low Limit" name="CHAN6ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 8 High Limit" name="CHAN6ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 9" name="CHAN6ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 9 Low Limit" name="CHAN6ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 9 High Limit" name="CHAN6ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 10" name="CHAN6ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 10 Low Limit" name="CHAN6ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 10 High Limit" name="CHAN6ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 11" name="CHAN6ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 11 Low Limit" name="CHAN6ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 11 High Limit" name="CHAN6ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 12" name="CHAN6ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 12 Low Limit" name="CHAN6ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 12 High Limit" name="CHAN6ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 13" name="CHAN6ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 13 Low Limit" name="CHAN6ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 13 High Limit" name="CHAN6ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 14" name="CHAN6ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 14 Low Limit" name="CHAN6ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 14 High Limit" name="CHAN6ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 15" name="CHAN6ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 15 Low Limit" name="CHAN6ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 15 High Limit" name="CHAN6ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="5" datatype="DOUBLE" description="Chan 6 ROI 16" name="CHAN6ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 16 Low Limit" name="CHAN6ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="5" datatype="INT" description="Chan 6 ROI 16 High Limit" name="CHAN6ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 SCA 0" name="CHAN7SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 SCA 1" name="CHAN7SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 SCA 2" name="CHAN7SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 SCA 3" name="CHAN7SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 SCA 4" name="CHAN7SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 SCA 5" name="CHAN7SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 SCA 6" name="CHAN7SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 SCA 7" name="CHAN7SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 DTC Flags" name="CHAN7DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 DTC All Good Event Grad" name="CHAN7DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 DTC All Good Event Offset" name="CHAN7DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 DTC In Window Grad" name="CHAN7DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 DTC In Window Offset" name="CHAN7DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 1" name="CHAN7ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 1 Low Limit" name="CHAN7ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 1 High Limit" name="CHAN7ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 2" name="CHAN7ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 2 Low Limit" name="CHAN7ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 2 High Limit" name="CHAN7ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 3" name="CHAN7ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 3 Low Limit" name="CHAN7ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 3 High Limit" name="CHAN7ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 4" name="CHAN7ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 4 Low Limit" name="CHAN7ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 4 High Limit" name="CHAN7ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 5" name="CHAN7ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 5 Low Limit" name="CHAN7ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 5 High Limit" name="CHAN7ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 6" name="CHAN7ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 6 Low Limit" name="CHAN7ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 6 High Limit" name="CHAN7ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 7" name="CHAN7ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 7 Low Limit" name="CHAN7ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 7 High Limit" name="CHAN7ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 8" name="CHAN7ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 8 Low Limit" name="CHAN7ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 8 High Limit" name="CHAN7ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 9" name="CHAN7ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 9 Low Limit" name="CHAN7ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 9 High Limit" name="CHAN7ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 10" name="CHAN7ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 10 Low Limit" name="CHAN7ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 10 High Limit" name="CHAN7ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 11" name="CHAN7ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 11 Low Limit" name="CHAN7ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 11 High Limit" name="CHAN7ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 12" name="CHAN7ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 12 Low Limit" name="CHAN7ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 12 High Limit" name="CHAN7ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 13" name="CHAN7ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 13 Low Limit" name="CHAN7ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 13 High Limit" name="CHAN7ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 14" name="CHAN7ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 14 Low Limit" name="CHAN7ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 14 High Limit" name="CHAN7ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 15" name="CHAN7ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 15 Low Limit" name="CHAN7ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 15 High Limit" name="CHAN7ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="6" datatype="DOUBLE" description="Chan 7 ROI 16" name="CHAN7ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 16 Low Limit" name="CHAN7ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="6" datatype="INT" description="Chan 7 ROI 16 High Limit" name="CHAN7ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 SCA 0" name="CHAN8SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 SCA 1" name="CHAN8SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 SCA 2" name="CHAN8SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 SCA 3" name="CHAN8SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 SCA 4" name="CHAN8SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 SCA 5" name="CHAN8SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 SCA 6" name="CHAN8SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 SCA 7" name="CHAN8SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 DTC Flags" name="CHAN8DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 DTC All Good Event Grad" name="CHAN8DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 DTC All Good Event Offset" name="CHAN8DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 DTC In Window Grad" name="CHAN8DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 DTC In Window Offset" name="CHAN8DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 1" name="CHAN8ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 1 Low Limit" name="CHAN8ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 1 High Limit" name="CHAN8ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 2" name="CHAN8ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 2 Low Limit" name="CHAN8ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 2 High Limit" name="CHAN8ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 3" name="CHAN8ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 3 Low Limit" name="CHAN8ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 3 High Limit" name="CHAN8ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 4" name="CHAN8ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 4 Low Limit" name="CHAN8ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 4 High Limit" name="CHAN8ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 5" name="CHAN8ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 5 Low Limit" name="CHAN8ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 5 High Limit" name="CHAN8ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 6" name="CHAN8ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 6 Low Limit" name="CHAN8ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 6 High Limit" name="CHAN8ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 7" name="CHAN8ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 7 Low Limit" name="CHAN8ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 7 High Limit" name="CHAN8ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 8" name="CHAN8ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 8 Low Limit" name="CHAN8ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 8 High Limit" name="CHAN8ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 9" name="CHAN8ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 9 Low Limit" name="CHAN8ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 9 High Limit" name="CHAN8ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 10" name="CHAN8ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 10 Low Limit" name="CHAN8ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 10 High Limit" name="CHAN8ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 11" name="CHAN8ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 11 Low Limit" name="CHAN8ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 11 High Limit" name="CHAN8ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 12" name="CHAN8ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 12 Low Limit" name="CHAN8ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 12 High Limit" name="CHAN8ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 13" name="CHAN8ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 13 Low Limit" name="CHAN8ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 13 High Limit" name="CHAN8ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 14" name="CHAN8ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 14 Low Limit" name="CHAN8ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 14 High Limit" name="CHAN8ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 15" name="CHAN8ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 15 Low Limit" name="CHAN8ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 15 High Limit" name="CHAN8ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="7" datatype="DOUBLE" description="Chan 8 ROI 16" name="CHAN8ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 16 Low Limit" name="CHAN8ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="7" datatype="INT" description="Chan 8 ROI 16 High Limit" name="CHAN8ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 SCA 0" name="CHAN9SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 SCA 1" name="CHAN9SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 SCA 2" name="CHAN9SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 SCA 3" name="CHAN9SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 SCA 4" name="CHAN9SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 SCA 5" name="CHAN9SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 SCA 6" name="CHAN9SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 SCA 7" name="CHAN9SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 DTC Flags" name="CHAN9DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 DTC All Good Event Grad" name="CHAN9DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 DTC All Good Event Offset" name="CHAN9DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 DTC In Window Grad" name="CHAN9DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 DTC In Window Offset" name="CHAN9DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 1" name="CHAN9ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 1 Low Limit" name="CHAN9ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 1 High Limit" name="CHAN9ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 2" name="CHAN9ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 2 Low Limit" name="CHAN9ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 2 High Limit" name="CHAN9ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 3" name="CHAN9ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 3 Low Limit" name="CHAN9ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 3 High Limit" name="CHAN9ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 4" name="CHAN9ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 4 Low Limit" name="CHAN9ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 4 High Limit" name="CHAN9ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 5" name="CHAN9ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 5 Low Limit" name="CHAN9ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 5 High Limit" name="CHAN9ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 6" name="CHAN9ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 6 Low Limit" name="CHAN9ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 6 High Limit" name="CHAN9ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 7" name="CHAN9ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 7 Low Limit" name="CHAN9ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 7 High Limit" name="CHAN9ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 8" name="CHAN9ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 8 Low Limit" name="CHAN9ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 8 High Limit" name="CHAN9ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 9" name="CHAN9ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 9 Low Limit" name="CHAN9ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 9 High Limit" name="CHAN9ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 10" name="CHAN9ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 10 Low Limit" name="CHAN9ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 10 High Limit" name="CHAN9ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 11" name="CHAN9ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 11 Low Limit" name="CHAN9ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 11 High Limit" name="CHAN9ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 12" name="CHAN9ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 12 Low Limit" name="CHAN9ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 12 High Limit" name="CHAN9ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 13" name="CHAN9ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 13 Low Limit" name="CHAN9ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 13 High Limit" name="CHAN9ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 14" name="CHAN9ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 14 Low Limit" name="CHAN9ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 14 High Limit" name="CHAN9ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 15" name="CHAN9ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 15 Low Limit" name="CHAN9ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 15 High Limit" name="CHAN9ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="8" datatype="DOUBLE" description="Chan 9 ROI 16" name="CHAN9ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 16 Low Limit" name="CHAN9ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="8" datatype="INT" description="Chan 9 ROI 16 High Limit" name="CHAN9ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 SCA 0" name="CHAN10SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 SCA 1" name="CHAN10SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 SCA 2" name="CHAN10SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 SCA 3" name="CHAN10SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 SCA 4" name="CHAN10SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 SCA 5" name="CHAN10SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 SCA 6" name="CHAN10SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 SCA 7" name="CHAN10SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 DTC Flags" name="CHAN10DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 DTC All Good Event Grad" name="CHAN10DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 DTC All Good Event Offset" name="CHAN10DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 DTC In Window Grad" name="CHAN10DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 DTC In Window Offset" name="CHAN10DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 1" name="CHAN10ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 1 Low Limit" name="CHAN10ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 1 High Limit" name="CHAN10ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 2" name="CHAN10ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 2 Low Limit" name="CHAN10ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 2 High Limit" name="CHAN10ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 3" name="CHAN10ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 3 Low Limit" name="CHAN10ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 3 High Limit" name="CHAN10ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 4" name="CHAN10ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 4 Low Limit" name="CHAN10ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 4 High Limit" name="CHAN10ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 5" name="CHAN10ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 5 Low Limit" name="CHAN10ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 5 High Limit" name="CHAN10ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 6" name="CHAN10ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 6 Low Limit" name="CHAN10ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 6 High Limit" name="CHAN10ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 7" name="CHAN10ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 7 Low Limit" name="CHAN10ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 7 High Limit" name="CHAN10ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 8" name="CHAN10ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 8 Low Limit" name="CHAN10ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 8 High Limit" name="CHAN10ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 9" name="CHAN10ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 9 Low Limit" name="CHAN10ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 9 High Limit" name="CHAN10ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 10" name="CHAN10ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 10 Low Limit" name="CHAN10ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 10 High Limit" name="CHAN10ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 11" name="CHAN10ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 11 Low Limit" name="CHAN10ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 11 High Limit" name="CHAN10ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 12" name="CHAN10ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 12 Low Limit" name="CHAN10ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 12 High Limit" name="CHAN10ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 13" name="CHAN10ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 13 Low Limit" name="CHAN10ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 13 High Limit" name="CHAN10ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 14" name="CHAN10ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 14 Low Limit" name="CHAN10ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 14 High Limit" name="CHAN10ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 15" name="CHAN10ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 15 Low Limit" name="CHAN10ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 15 High Limit" name="CHAN10ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="9" datatype="DOUBLE" description="Chan 10 ROI 16" name="CHAN10ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 16 Low Limit" name="CHAN10ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="9" datatype="INT" description="Chan 10 ROI 16 High Limit" name="CHAN10ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 SCA 0" name="CHAN11SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 SCA 1" name="CHAN11SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 SCA 2" name="CHAN11SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 SCA 3" name="CHAN11SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 SCA 4" name="CHAN11SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 SCA 5" name="CHAN11SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 SCA 6" name="CHAN11SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 SCA 7" name="CHAN11SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 DTC Flags" name="CHAN11DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 DTC All Good Event Grad" name="CHAN11DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 DTC All Good Event Offset" name="CHAN11DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 DTC In Window Grad" name="CHAN11DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 DTC In Window Offset" name="CHAN11DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 1" name="CHAN11ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 1 Low Limit" name="CHAN11ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 1 High Limit" name="CHAN11ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 2" name="CHAN11ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 2 Low Limit" name="CHAN11ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 2 High Limit" name="CHAN11ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 3" name="CHAN11ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 3 Low Limit" name="CHAN11ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 3 High Limit" name="CHAN11ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 4" name="CHAN11ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 4 Low Limit" name="CHAN11ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 4 High Limit" name="CHAN11ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 5" name="CHAN11ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 5 Low Limit" name="CHAN11ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 5 High Limit" name="CHAN11ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 6" name="CHAN11ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 6 Low Limit" name="CHAN11ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 6 High Limit" name="CHAN11ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 7" name="CHAN11ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 7 Low Limit" name="CHAN11ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 7 High Limit" name="CHAN11ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 8" name="CHAN11ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 8 Low Limit" name="CHAN11ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 8 High Limit" name="CHAN11ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 9" name="CHAN11ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 9 Low Limit" name="CHAN11ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 9 High Limit" name="CHAN11ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 10" name="CHAN11ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 10 Low Limit" name="CHAN11ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 10 High Limit" name="CHAN11ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 11" name="CHAN11ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 11 Low Limit" name="CHAN11ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 11 High Limit" name="CHAN11ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 12" name="CHAN11ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 12 Low Limit" name="CHAN11ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 12 High Limit" name="CHAN11ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 13" name="CHAN11ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 13 Low Limit" name="CHAN11ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 13 High Limit" name="CHAN11ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 14" name="CHAN11ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 14 Low Limit" name="CHAN11ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 14 High Limit" name="CHAN11ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 15" name="CHAN11ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 15 Low Limit" name="CHAN11ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 15 High Limit" name="CHAN11ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="10" datatype="DOUBLE" description="Chan 11 ROI 16" name="CHAN11ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 16 Low Limit" name="CHAN11ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="10" datatype="INT" description="Chan 11 ROI 16 High Limit" name="CHAN11ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 SCA 0" name="CHAN12SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 SCA 1" name="CHAN12SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 SCA 2" name="CHAN12SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 SCA 3" name="CHAN12SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 SCA 4" name="CHAN12SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 SCA 5" name="CHAN12SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 SCA 6" name="CHAN12SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 SCA 7" name="CHAN12SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 DTC Flags" name="CHAN12DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 DTC All Good Event Grad" name="CHAN12DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 DTC All Good Event Offset" name="CHAN12DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 DTC In Window Grad" name="CHAN12DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 DTC In Window Offset" name="CHAN12DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 1" name="CHAN12ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 1 Low Limit" name="CHAN12ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 1 High Limit" name="CHAN12ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 2" name="CHAN12ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 2 Low Limit" name="CHAN12ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 2 High Limit" name="CHAN12ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 3" name="CHAN12ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 3 Low Limit" name="CHAN12ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 3 High Limit" name="CHAN12ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 4" name="CHAN12ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 4 Low Limit" name="CHAN12ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 4 High Limit" name="CHAN12ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 5" name="CHAN12ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 5 Low Limit" name="CHAN12ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 5 High Limit" name="CHAN12ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 6" name="CHAN12ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 6 Low Limit" name="CHAN12ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 6 High Limit" name="CHAN12ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 7" name="CHAN12ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 7 Low Limit" name="CHAN12ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 7 High Limit" name="CHAN12ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 8" name="CHAN12ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 8 Low Limit" name="CHAN12ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 8 High Limit" name="CHAN12ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 9" name="CHAN12ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 9 Low Limit" name="CHAN12ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 9 High Limit" name="CHAN12ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 10" name="CHAN12ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 10 Low Limit" name="CHAN12ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 10 High Limit" name="CHAN12ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 11" name="CHAN12ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 11 Low Limit" name="CHAN12ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 11 High Limit" name="CHAN12ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 12" name="CHAN12ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 12 Low Limit" name="CHAN12ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 12 High Limit" name="CHAN12ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 13" name="CHAN12ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 13 Low Limit" name="CHAN12ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 13 High Limit" name="CHAN12ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 14" name="CHAN12ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 14 Low Limit" name="CHAN12ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 14 High Limit" name="CHAN12ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 15" name="CHAN12ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 15 Low Limit" name="CHAN12ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 15 High Limit" name="CHAN12ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="11" datatype="DOUBLE" description="Chan 12 ROI 16" name="CHAN12ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 16 Low Limit" name="CHAN12ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="11" datatype="INT" description="Chan 12 ROI 16 High Limit" name="CHAN12ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 SCA 0" name="CHAN13SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 SCA 1" name="CHAN13SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 SCA 2" name="CHAN13SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 SCA 3" name="CHAN13SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 SCA 4" name="CHAN13SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 SCA 5" name="CHAN13SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 SCA 6" name="CHAN13SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 SCA 7" name="CHAN13SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 DTC Flags" name="CHAN13DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 DTC All Good Event Grad" name="CHAN13DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 DTC All Good Event Offset" name="CHAN13DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 DTC In Window Grad" name="CHAN13DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 DTC In Window Offset" name="CHAN13DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 1" name="CHAN13ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 1 Low Limit" name="CHAN13ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 1 High Limit" name="CHAN13ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 2" name="CHAN13ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 2 Low Limit" name="CHAN13ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 2 High Limit" name="CHAN13ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 3" name="CHAN13ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 3 Low Limit" name="CHAN13ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 3 High Limit" name="CHAN13ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 4" name="CHAN13ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 4 Low Limit" name="CHAN13ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 4 High Limit" name="CHAN13ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 5" name="CHAN13ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 5 Low Limit" name="CHAN13ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 5 High Limit" name="CHAN13ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 6" name="CHAN13ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 6 Low Limit" name="CHAN13ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 6 High Limit" name="CHAN13ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 7" name="CHAN13ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 7 Low Limit" name="CHAN13ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 7 High Limit" name="CHAN13ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 8" name="CHAN13ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 8 Low Limit" name="CHAN13ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 8 High Limit" name="CHAN13ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 9" name="CHAN13ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 9 Low Limit" name="CHAN13ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 9 High Limit" name="CHAN13ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 10" name="CHAN13ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 10 Low Limit" name="CHAN13ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 10 High Limit" name="CHAN13ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 11" name="CHAN13ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 11 Low Limit" name="CHAN13ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 11 High Limit" name="CHAN13ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 12" name="CHAN13ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 12 Low Limit" name="CHAN13ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 12 High Limit" name="CHAN13ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 13" name="CHAN13ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 13 Low Limit" name="CHAN13ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 13 High Limit" name="CHAN13ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 14" name="CHAN13ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 14 Low Limit" name="CHAN13ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 14 High Limit" name="CHAN13ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 15" name="CHAN13ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 15 Low Limit" name="CHAN13ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 15 High Limit" name="CHAN13ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="12" datatype="DOUBLE" description="Chan 13 ROI 16" name="CHAN13ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 16 Low Limit" name="CHAN13ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="12" datatype="INT" description="Chan 13 ROI 16 High Limit" name="CHAN13ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 SCA 0" name="CHAN14SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 SCA 1" name="CHAN14SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 SCA 2" name="CHAN14SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 SCA 3" name="CHAN14SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 SCA 4" name="CHAN14SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 SCA 5" name="CHAN14SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 SCA 6" name="CHAN14SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 SCA 7" name="CHAN14SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 DTC Flags" name="CHAN14DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 DTC All Good Event Grad" name="CHAN14DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 DTC All Good Event Offset" name="CHAN14DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 DTC In Window Grad" name="CHAN14DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 DTC In Window Offset" name="CHAN14DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 1" name="CHAN14ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 1 Low Limit" name="CHAN14ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 1 High Limit" name="CHAN14ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 2" name="CHAN14ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 2 Low Limit" name="CHAN14ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 2 High Limit" name="CHAN14ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 3" name="CHAN14ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 3 Low Limit" name="CHAN14ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 3 High Limit" name="CHAN14ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 4" name="CHAN14ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 4 Low Limit" name="CHAN14ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 4 High Limit" name="CHAN14ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 5" name="CHAN14ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 5 Low Limit" name="CHAN14ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 5 High Limit" name="CHAN14ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 6" name="CHAN14ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 6 Low Limit" name="CHAN14ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 6 High Limit" name="CHAN14ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 7" name="CHAN14ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 7 Low Limit" name="CHAN14ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 7 High Limit" name="CHAN14ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 8" name="CHAN14ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 8 Low Limit" name="CHAN14ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 8 High Limit" name="CHAN14ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 9" name="CHAN14ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 9 Low Limit" name="CHAN14ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 9 High Limit" name="CHAN14ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 10" name="CHAN14ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 10 Low Limit" name="CHAN14ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 10 High Limit" name="CHAN14ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 11" name="CHAN14ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 11 Low Limit" name="CHAN14ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 11 High Limit" name="CHAN14ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 12" name="CHAN14ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 12 Low Limit" name="CHAN14ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 12 High Limit" name="CHAN14ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 13" name="CHAN14ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 13 Low Limit" name="CHAN14ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 13 High Limit" name="CHAN14ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 14" name="CHAN14ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 14 Low Limit" name="CHAN14ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 14 High Limit" name="CHAN14ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 15" name="CHAN14ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 15 Low Limit" name="CHAN14ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 15 High Limit" name="CHAN14ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="13" datatype="DOUBLE" description="Chan 14 ROI 16" name="CHAN14ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 16 Low Limit" name="CHAN14ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="13" datatype="INT" description="Chan 14 ROI 16 High Limit" name="CHAN14ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 SCA 0" name="CHAN15SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 SCA 1" name="CHAN15SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 SCA 2" name="CHAN15SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 SCA 3" name="CHAN15SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 SCA 4" name="CHAN15SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 SCA 5" name="CHAN15SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 SCA 6" name="CHAN15SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 SCA 7" name="CHAN15SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 DTC Flags" name="CHAN15DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 DTC All Good Event Grad" name="CHAN15DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 DTC All Good Event Offset" name="CHAN15DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 DTC In Window Grad" name="CHAN15DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 DTC In Window Offset" name="CHAN15DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 1" name="CHAN15ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 1 Low Limit" name="CHAN15ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 1 High Limit" name="CHAN15ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 2" name="CHAN15ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 2 Low Limit" name="CHAN15ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 2 High Limit" name="CHAN15ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 3" name="CHAN15ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 3 Low Limit" name="CHAN15ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 3 High Limit" name="CHAN15ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 4" name="CHAN15ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 4 Low Limit" name="CHAN15ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 4 High Limit" name="CHAN15ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 5" name="CHAN15ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 5 Low Limit" name="CHAN15ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 5 High Limit" name="CHAN15ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 6" name="CHAN15ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 6 Low Limit" name="CHAN15ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 6 High Limit" name="CHAN15ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 7" name="CHAN15ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 7 Low Limit" name="CHAN15ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 7 High Limit" name="CHAN15ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 8" name="CHAN15ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 8 Low Limit" name="CHAN15ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 8 High Limit" name="CHAN15ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 9" name="CHAN15ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 9 Low Limit" name="CHAN15ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 9 High Limit" name="CHAN15ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 10" name="CHAN15ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 10 Low Limit" name="CHAN15ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 10 High Limit" name="CHAN15ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 11" name="CHAN15ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 11 Low Limit" name="CHAN15ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 11 High Limit" name="CHAN15ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 12" name="CHAN15ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 12 Low Limit" name="CHAN15ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 12 High Limit" name="CHAN15ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 13" name="CHAN15ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 13 Low Limit" name="CHAN15ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 13 High Limit" name="CHAN15ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 14" name="CHAN15ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 14 Low Limit" name="CHAN15ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 14 High Limit" name="CHAN15ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 15" name="CHAN15ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 15 Low Limit" name="CHAN15ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 15 High Limit" name="CHAN15ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="14" datatype="DOUBLE" description="Chan 15 ROI 16" name="CHAN15ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 16 Low Limit" name="CHAN15ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="14" datatype="INT" description="Chan 15 ROI 16 High Limit" name="CHAN15ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 SCA 0" name="CHAN16SCA0" source="XSP3_CHAN_SCA0" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 SCA 1" name="CHAN16SCA1" source="XSP3_CHAN_SCA1" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 SCA 2" name="CHAN16SCA2" source="XSP3_CHAN_SCA2" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 SCA 3" name="CHAN16SCA3" source="XSP3_CHAN_SCA3" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 SCA 4" name="CHAN16SCA4" source="XSP3_CHAN_SCA4" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 SCA 5" name="CHAN16SCA5" source="XSP3_CHAN_SCA5" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 SCA 6" name="CHAN16SCA6" source="XSP3_CHAN_SCA6" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 SCA 7" name="CHAN16SCA7" source="XSP3_CHAN_SCA7" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 DTC Flags" name="CHAN16DTCFLAGS" source="XSP3_CHAN_DTC_FLAGS" type="INT"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 DTC All Good Event Grad" name="CHAN16DTCAEG" source="XSP3_CHAN_DTC_AEG" type="DOUBLE"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 DTC All Good Event Offset" name="CHAN16DTCAEO" source="XSP3_CHAN_DTC_AEO" type="DOUBLE"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 DTC In Window Grad" name="CHAN16DTCIWG" source="XSP3_CHAN_DTC_IWG" type="DOUBLE"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 DTC In Window Offset" name="CHAN16DTCIWO" source="XSP3_CHAN_DTC_IWO" type="DOUBLE"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 1" name="CHAN16ROI1" source="XSP3_CHAN_ROI1" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 1 Low Limit" name="CHAN16ROI1LLM" source="XSP3_CHAN_ROI1_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 1 High Limit" name="CHAN16ROI1HLM" source="XSP3_CHAN_ROI1_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 2" name="CHAN16ROI2" source="XSP3_CHAN_ROI2" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 2 Low Limit" name="CHAN16ROI2LLM" source="XSP3_CHAN_ROI2_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 2 High Limit" name="CHAN16ROI2HLM" source="XSP3_CHAN_ROI2_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 3" name="CHAN16ROI3" source="XSP3_CHAN_ROI3" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 3 Low Limit" name="CHAN16ROI3LLM" source="XSP3_CHAN_ROI3_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 3 High Limit" name="CHAN16ROI3HLM" source="XSP3_CHAN_ROI3_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 4" name="CHAN16ROI4" source="XSP3_CHAN_ROI4" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 4 Low Limit" name="CHAN16ROI4LLM" source="XSP3_CHAN_ROI4_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 4 High Limit" name="CHAN16ROI4HLM" source="XSP3_CHAN_ROI4_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 5" name="CHAN16ROI5" source="XSP3_CHAN_ROI5" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 5 Low Limit" name="CHAN16ROI5LLM" source="XSP3_CHAN_ROI5_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 5 High Limit" name="CHAN16ROI5HLM" source="XSP3_CHAN_ROI5_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 6" name="CHAN16ROI6" source="XSP3_CHAN_ROI6" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 6 Low Limit" name="CHAN16ROI6LLM" source="XSP3_CHAN_ROI6_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 6 High Limit" name="CHAN16ROI6HLM" source="XSP3_CHAN_ROI6_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 7" name="CHAN16ROI7" source="XSP3_CHAN_ROI7" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 7 Low Limit" name="CHAN16ROI7LLM" source="XSP3_CHAN_ROI7_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 7 High Limit" name="CHAN16ROI7HLM" source="XSP3_CHAN_ROI7_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 8" name="CHAN16ROI8" source="XSP3_CHAN_ROI8" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 8 Low Limit" name="CHAN16ROI8LLM" source="XSP3_CHAN_ROI8_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 8 High Limit" name="CHAN16ROI8HLM" source="XSP3_CHAN_ROI8_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 9" name="CHAN16ROI9" source="XSP3_CHAN_ROI9" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 9 Low Limit" name="CHAN16ROI9LLM" source="XSP3_CHAN_ROI9_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 9 High Limit" name="CHAN16ROI9HLM" source="XSP3_CHAN_ROI9_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 10" name="CHAN16ROI10" source="XSP3_CHAN_ROI10" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 10 Low Limit" name="CHAN16ROI10LLM" source="XSP3_CHAN_ROI10_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 10 High Limit" name="CHAN16ROI10HLM" source="XSP3_CHAN_ROI10_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 11" name="CHAN16ROI11" source="XSP3_CHAN_ROI11" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 11 Low Limit" name="CHAN16ROI11LLM" source="XSP3_CHAN_ROI11_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 11 High Limit" name="CHAN16ROI11HLM" source="XSP3_CHAN_ROI11_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 12" name="CHAN16ROI12" source="XSP3_CHAN_ROI12" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 12 Low Limit" name="CHAN16ROI12LLM" source="XSP3_CHAN_ROI12_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 12 High Limit" name="CHAN16ROI12HLM" source="XSP3_CHAN_ROI12_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 13" name="CHAN16ROI13" source="XSP3_CHAN_ROI13" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 13 Low Limit" name="CHAN16ROI13LLM" source="XSP3_CHAN_ROI13_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 13 High Limit" name="CHAN16ROI13HLM" source="XSP3_CHAN_ROI13_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 14" name="CHAN16ROI14" source="XSP3_CHAN_ROI14" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 14 Low Limit" name="CHAN16ROI14LLM" source="XSP3_CHAN_ROI14_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 14 High Limit" name="CHAN16ROI14HLM" source="XSP3_CHAN_ROI14_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 15" name="CHAN16ROI15" source="XSP3_CHAN_ROI15" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 15 Low Limit" name="CHAN16ROI15LLM" source="XSP3_CHAN_ROI15_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 15 High Limit" name="CHAN16ROI15HLM" source="XSP3_CHAN_ROI15_HLM" type="PARAM"/>
+	<Attribute addr="15" datatype="DOUBLE" description="Chan 16 ROI 16" name="CHAN16ROI16" source="XSP3_CHAN_ROI16" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 16 Low Limit" name="CHAN16ROI16LLM" source="XSP3_CHAN_ROI16_LLM" type="PARAM"/>
+	<Attribute addr="15" datatype="INT" description="Chan 16 ROI 16 High Limit" name="CHAN16ROI16HLM" source="XSP3_CHAN_ROI16_HLM" type="PARAM"/>
+</Attributes>
