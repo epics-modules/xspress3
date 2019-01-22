@@ -396,6 +396,13 @@ asynStatus Xspress3::connect(void)
 
       printf("xsp3_clocks_setup: Measured frequency %.2f MHz\n", float(xsp3_status)/1.0e6);
     }
+
+    // Limit frames for Mini > 1 channel
+    if (generation == 2 && numChannels_ > 1) {
+        int paramStatus;
+        paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, 12216) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, 12216) == asynSuccess) && paramStatus);
+    }
     
     //Restore settings from a file
     if (status == asynSuccess)
