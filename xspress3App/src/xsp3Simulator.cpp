@@ -199,6 +199,23 @@ int xsp3Simulator::xsp3Api_itfg_setup(int path, int card, int num_tf, uint32_t c
     return XSP3_OK;
 }
 
+int xsp3Simulator::xsp3Api_itfg_setup2(int path, int card, int num_tf, uint32_t col_time, int trig_mode, int gap_mode, int acq_in_pause, int marker_period, int marker_frame)
+{
+    frame_time = (double) col_time/80E6;
+    num_frames = num_tf;
+    return XSP3_OK;
+}
+
+int xsp3Simulator::xsp3Api_itfg_start(int path, int card)
+{
+    return XSP3_OK;
+}
+
+int xsp3Simulator::xsp3Api_itfg_stop(int path, int card)
+{
+    return XSP3_OK;
+}
+
 int xsp3Simulator::xsp3Api_has_itfg(int path, int card )
 {
     return 1;
@@ -212,4 +229,14 @@ int xsp3Simulator::xsp3Api_scaler_read(int path, uint32_t *dest, unsigned scaler
 int xsp3Simulator::xsp3Api_get_trigger_b(int path, unsigned chan, Xspress3_TriggerB *trig_b)
 {
     return XSP3_OK;
+}
+
+int xsp3Simulator::xsp3Api_get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan)
+{
+    return XSP3_OK;
+}
+
+int xsp3Simulator::xsp3Api_get_generation(int path, int card)
+{
+    return 0;
 }
