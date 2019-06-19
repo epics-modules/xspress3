@@ -75,7 +75,7 @@
 #define XSP3_HW_DEFINED_SCALERS 8
 
 #define XSP3_ENERGIES 4096
-#define XSP3_MAX_CARDS 8			//!< Maximum number of cards in a logical system
+#define XSP3_MAX_CARDS 16			//!< Maximum number of cards in a logical system
 #define XSP3_MAX_CARD_INDEX 62		//!< Maximum card index across all systems
 #define XSP3_MAX_PATH 20
 #define XSP3_MAX_IP_CHARS 16
@@ -86,6 +86,7 @@
 #define XSP3_MAX_ROI 8
 #define XSP3_ADC_RANGE 65536
 #define XSP3_MAX_TOP_SAMPLES 1024
+#define XSP3_CSHR_MAX_NUM_NEB		6		//!< Maxiumum number of charge sharing neighbours
 
 #define XSP3_CALIB_NBITS 10 						// Allows +/- 512 bins around zero 
 #define XSP3_CALIB_NBINS (1<<XSP3_CALIB_NBITS)	// Allows +/- 512 bins around zero 
@@ -111,6 +112,8 @@
 #define XSP3_CANNOT_OPEN_FILE	-10
 #define XSP3_FILE_READ_FAILED	-11
 #define XSP3_FILE_WRITE_FAILED	-12
+#define XSP3_FILE_RENAME_FAILED	-13
+#define XSP3_LOG_FILE_MISSING	-14
 
 #define XSP3_WOULD_BLOCK		-20	
 
@@ -121,7 +124,7 @@
 #endif
 #define XSP_MAX_MAC_ADDR 18
 #define XSP_MAX_IP_ADDR  16
-
+#define XSP3_MAX_PLAYBACK_FILES 10				//!< Maximum number of files to be used in one call to load playback data
 
 //! The 3 off 32 bit feature registers store 3 x 8 x 4 bit fields. Unpacked in struct using chars
 #define XSP3_FEATURE_ACK_EOF_NONE 0				//!< No End of Frame Acknowledge packets.
@@ -150,7 +153,7 @@ typedef struct _tf_status
 	int markers;		// Marker inputs, circular buffer and normal mode.
 } Xsp3TFStatus;
 
-typedef enum  {Xsp3GDPFixed, Xsp3GDPLinear, Xsp3GDPLinearRate} Xsp3GenDataPeriodType;
+typedef enum  {Xsp3GDPFixed, Xsp3GDPLinear, Xsp3GDPLinearRate, Xsp3GDPTriangleRate} Xsp3GenDataPeriodType;
 typedef enum  {Xsp3GDHFixed, Xsp3GDHLinear, Xsp3GDHKAlphaBeta} Xsp3GenDataHeightType;
 typedef struct 
 {
@@ -270,6 +273,7 @@ typedef struct _Histogram {
 	cpu_set_t cpu_set;			// CPU set to run scope mode on if specified
 	int num_sub_frames, ts_divide;
 	int list_mode_fd;
+	double gain_scaling;	// Copy of gain scaling implemented in quotient BRAM. Note may not be restired by restore settings. For use in da.server only.
 } Histogram;
 
 typedef struct clock_setup_struct
@@ -280,6 +284,29 @@ typedef struct clock_setup_struct
 	int adc_clk_delay;	//!< ADC clock delay in LMK03200 for Xspress3 only.
 	int fpga_clk_delay;	//!< FPGA clock delay in LMK03200 for Xspress3 only.
 } ClockSetup; 
+
+typedef enum {
+Xsp3SysLog_StartNewFile=1,
+Xsp3SysLog_KeepFiles=2,
+Xsp3SysLog_DisableADCTemp=0x10
+} Xsp3SysLogFlags;
+
+typedef struct xsp3_sys_log_struct 
+{
+	int active;
+	Xsp3SysLogFlags flags;
+	char *fname;
+	int debug;
+	FILE *ofp;
+	int period;
+	pthread_t tid;
+	int count;
+	int max_count;
+	int max_file_num;
+	int error_code;
+	struct timeval start_time;
+} Xsp3SysLogger;
+
 
 typedef struct _XSP3Path {
 	void* femHandle;				//!< Pointer to data structure managing TCP communication with the FEM/ZYNQ.
@@ -329,6 +356,7 @@ typedef struct _XSP3Path {
 	int itfg_trig_mode;										//!< ITFG setup for calculatio/estimation of live_ticks in sub-frames mode, stored on top level (or only) path
 	int itfg_gap_mode;										//!< ITFG setup for calculatio/estimation of live_ticks in sub-frames mode, stored on top level (or only) path
 	int itfg_acq_in_pause;									//!< ITFG setup for calculatio/estimation of live_ticks in sub-frames mode, stored on top level (or only) path
+	Xsp3SysLogger sys_log;									//!< System looger information, used in top (or single) path only.
 	} XSP3Path; 
 
 typedef struct trigger_b_setttings
@@ -388,6 +416,17 @@ typedef struct {
 	u_int32_t cardn_a_extra;	//!< Extra bits to mask into other card timeA (usually 0)
 	int padding[2];			//!< For future expansion
 } Xsp3Timing;
+
+typedef struct 
+{
+	int enable;				//!< Enable Charge sharing functions (currently permanentley enabled at firmware level)
+	int coinc_mode;			//!< Coincence mode, see XSP3_CSHR_COINC_ANY, XSP3_CSHR_COINC_PM2 etc.
+	int enb_neb_trig;		//!< Enable generation of a dummy trigger on neighbour channels which have some shared charge, to exclude this charge from the preceding and folowwing events on that channel.
+	int enb_mask_large;		//!< Assume that any "large" events are not charge sharing and ignore.
+	int override_discard;	//!< -1 to use default discard setting when FIFOs overfill, 0 to disable, > 0 to enable selected.
+	int unused[8];			//!< For future expansion
+} Xsp3CShrControl;
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -596,6 +635,7 @@ int 	xsp3_read_fan_cont(int path, int card, int offset, int size, u_int32_t *val
 int     xsp3_playback_load_x2(int path, int card, char *filename0, char *filename1, char *filename2, char *filename3, char *filename4, char *filename5, char *filename6, char *filename7, 
                               int do_test, int do_scale, int do_swap, int reverse, int smooth_join, int glob_reset, int enb16chan, int no_retry); 
 int 	xsp3_playback_load_x3(int path, int card, char *filename, int src[16],  int file_streams, int str0dig, int smooth_join, int enb_higher_chan, int no_retry, int xspress4_dig, int glob_reset); 
+int 	xsp3_playback_load_x3_multi(int path, int card, char ** file_list, int src[16],  int file_streams_list[XSP3_MAX_PLAYBACK_FILES], int str0dig, int smooth_join, int enb_higher_chan, int no_retry, int xspress4_dig, int glob_reset);
 int 	xsp3_read_fem_config(int path, int card, int offset, int size, u_int8_t *value);
 int 	xsp3_write_fem_config(int path, int card, int offset, int size, u_int8_t* value);
 
@@ -779,6 +819,24 @@ int xsp3m_histogram_circ_ack(int path, unsigned chan, unsigned tf, unsigned num_
 int xsp3_playback_generate(int path, int card, Xsp3GenDataType *gd_type);
 int xsp3_playback_generate_est_counts(int path, int chan, unsigned int tf, Xsp3GenDataType *gd_type, int64_t ts1, int64_t ts2, int *est_minP, double * max_rateP);
 int xsp3_playback_get_num_t(int path, int card); 
+double xsp3_get_scaling(int path, int chan);
+int xsp3_write_cshare_min_eng_mark(int path, int chan, int num_neb, int *value);
+int xsp3_write_cshare_min_eng_trig(int path, int chan, int num_neb, int *value);
+int xsp3_read_cshare_min_eng_mark(int path, int chan, int num_neb, int *value);
+int xsp3_read_cshare_min_eng_trig(int path, int chan, int num_neb, int *value);
+int xsp3_write_cshare_control(int path, int chan, Xsp3CShrControl *set);
+int xsp3_read_cshare_control(int path, int chan, Xsp3CShrControl *set);
+int xsp3_write_cshare_mapping(int path, int chan, int num_neb, int *rel_board, int *chan_of_card);
+int xsp3_read_cshare_mapping(int path, int chan, int num_neb, int *rel_board, int *chan_of_card);
+
+
+int xsp3_sys_log_start(int path, char *fname, int period, int max_count, Xsp3SysLogFlags flags);
+int xsp3_sys_log_continue(int path);
+int xsp3_sys_log_stop(int path);
+int xsp3_sys_log_pause(int path);
+int xsp3_sys_log_stop_or_pause(int path, int pause);
+int xsp3_sys_log_roll_files(int path);
+int xsp3_sys_log_open(int path, int truncate);
 
 #ifdef __cplusplus
 }
@@ -839,8 +897,15 @@ int xsp3_playback_get_num_t(int path, int card);
 #define XSP3_IN_WIDNOW1_SCAL 	(32+6)		//!< All event Scaler direct readback			
 
 #define XSP3_MAX_NUM_READ_CHAN_REG 39
-#define XSP3_NUM_SUB_FRAMES		48			//!< Registre to store number of sub frames in sub-frames mode, otherwise 0
+#define XSP3_NUM_SUB_FRAMES		48			//!< Register to store number of sub frames in sub-frames mode, otherwise 0
 
+#define XSP3_CSHR_CONT			49
+#define XSP3_CSHR_MIN_ENG_MARK_A 50			//!< Minimum Energy on neighbouring channel to mark "Central" as charge shared (neighbours 3..0)
+#define XSP3_CSHR_MIN_ENG_MARK_B 51			//!< Minimum Energy on neighbouring channel to mark "Central" as charge shared (neighbours 7(5)..4)
+#define XSP3_CSHR_MIN_ENG_TRIG_A 52			//!< Minimum Energy on neighbouring channel to cause trigger on that channel to exclude shared charge (neighbours 3..0)
+#define XSP3_CSHR_MIN_ENG_TRIG_B 53			//!< Minimum Energy on neighbouring channel to cause trigger on that channel to exclude shared charge (neighbours 7..4)
+#define XSP3_CSHR_DEST_MAPPING_A 54			//!< Destination mapping for measured charge sharing back to "central/requesting channel"
+#define XSP3_CSHR_DEST_MAPPING_B 55			//!< Destination mapping for measured charge sharing back to "central/requesting channel higher bits"
 /** @} 
 */
 #define XSP3_REVISION_GET_DETECTOR(x) (((x)>>24)&0xFF)
@@ -1337,6 +1402,36 @@ int xsp3_playback_get_num_t(int path, int card);
 
 #define XSP3_CHAN_GLOB 15
 
+//! [XSP3_CSHR_CONT_REGISER]
+
+#define XSP3_CSHR_CONT_ENB					(1<<0)
+#define XSP3_CSHR_CONT_SET_COINC(x)			(((x)&3)<<1)
+#define XSP3_CSHR_CONT_GET_COINC(x)			(((x)>>1)&3)
+#define XSP3_CSHR_CONT_ENB_NEB_TRIG			(1<<8)
+#define XSP3_CSHR_CONT_ENB_MASK_LARGE		(1<<9)
+#define XSP3_CSHR_CONT_NEB_TRIG_DISCARD_BAD	(1<<10)
+
+#define XSP3_CSHR_COINC_ANY		0		//!< Use all neighbour charge measurement, even if they overlap an event.
+#define XSP3_CSHR_COINC_PM2		1		//!< Use non-overlapping neighbour charge measurements and those that are coincident to triggers on the neighbour +/- 2 cycles, ignore others which overlap events
+#define XSP3_CSHR_COINC_PM1		2		//!< Use non-overlapping neighbour charge measurements and those that are coincident to triggers on the neighbour +/- 1 cycles, ignore others which overlap events
+#define XSP3_CSHR_COINC_COINC	3		//!< Use non-overlapping neighbour charge measurements and those that are coincident to triggers on the neighbour to the cycle, ignore others which overlap events
+
+#define XSP3_CSHR_CONT_DEFAULT				(XSP3_CSHR_CONT_NEB_TRIG_DISCARD_BAD)
+#define XSP3_CSHR_CONT_DISCARD_ALL			(XSP3_CSHR_CONT_NEB_TRIG_DISCARD_BAD)
+
+
+//! [XSP3_CSHR_CONT_REGISER]
+
+//! [XSP3_CSHR_MAPPING_REGISER]
+
+#define XSP3_CSHR_MAP_CHAN_OF_CARD(ch,neb)		(((u_int64_t)(ch)&0xF)<<(6*neb))
+#define XSP3_CSHR_MAP_REL_BOARD(brd,neb)		(((u_int64_t)(brd)&0x3)<<(4+6*neb))
+
+#define XSP3_CSHR_MAP_GET_CHAN_OF_CARD(x,neb)	(((x)>>(6*neb))&0xF)
+#define XSP3_CSHR_MAP_GET_REL_BOARD(x,neb)		(((x)>>(4+6*neb))&0x3)
+
+//! [XSP3_CSHR_MAPPING_REGISER]
+
 //! [XSP3_REGIONS]
 #define XSP3_REGION_RAM_TESTPAT		1
 #define XSP3_REGION_RAM_RESET_TAIL	2
@@ -1392,6 +1487,12 @@ int xsp3_playback_get_num_t(int path, int card);
 #define XSP3_PWL_SERVO_SIZE16 2048
 
 #define XSP3_XTK_MAP_STRETCH_WIDTH	(1<<31)				//!< Event width is stretched by specified time, rather than a fixed width pulse.
+
+#define XSP3_XTK_MAP_CSHR_ENB		(1<<30)				//!< Enable making a trigger to measure charse shared signal from neighbour
+#define XSP3_XTK_MAP_CSHR_STRETCH_WIDTH	(1<<29)			//!< Event width for charge sharing measurement is stretched by specified time, rather than a fixed width pulse.
+// #define XSP3_XTK_MAP_CSHR_NEB_NUM(x)(((x)&0x7)<<26)		//!< Neighbour number 0..3 for square pixels, 0..5 for hexagonal pixels.
+#define XSP3_XTK_MAP_CSHR_WIDTH(x)	(((x)&0x3F)<<20)	//!< Event width or strtech time for charge sharing measurement
+
 #define XSP3_XTK_MAP_MASK_WIDTH(x)	(((x)&0x3F)<<14)
 #define XSP3_XTK_MAP_MASK_DELAY(x)	(((x)&0x3F)<<8)
 #define XSP3_XTK_MAP_VALID_SUBTRACT	(1<<7)
@@ -1701,7 +1802,8 @@ extern const char *xsp3_bram_name[XSP3_REGION_RAM_MAX+1];
 extern char *xsp3_feature_test_data_source_a[4] ;
 extern char *xsp3_feature_test_data_source_b[4] ;
 extern char *xsp3_feature_real_data_source[16] ;
-extern char *xsp3_feature_data_mux[16] ;
+extern char *xsp3_feature_data_mux20_pr[8] ;
+extern char *xsp3_feature_data_mux3[2] ;
 
 extern char *xsp3_feature_inl_corr_a[4] ;
 extern char *xsp3_feature_inl_corr_b[4] ;
@@ -1873,14 +1975,19 @@ extern char *xsp3_feature_scope_mode3[2] ;
 //#define XSP3_FORMAT_DISABLE_SCALER		4	/* Disable scaler so top histogramming locations are not overwritten.		 	*/
 //#define XSP3_FORMAT_DISABLE_HIST		8   /* Disable all histogram data and use all memory for many scalers.				*/
 //! [XSP3_FORMAT_LAYOUT]
+#define XSP3_FORMAT_CSHR_MODE(x)	(((x)&0x3)<<1)
 #define XSP3_FORMAT_USER_TIMESTAMP	(1<<3)		//!< Output timestamped data for builds which support this.
 #define XSP3_FORMAT_PILEUP_REJECT	(1<<31)
-//! [XSP3_FORMAT_LAYOUT]
 #define XSP3_FORMAT_AUX1_MODE(x)	(((x)&0xF)<<4)
 #define XSP3_FORMAT_AUX1_THRES(x)	(((x)&0x3FF)<<8)
 #define XSP3_FORMAT_NBITS_ENG(x)	(((x)&0xF)<<21)
 #define XSP3_FORMAT_NBITS_ADC(x)	(((x)&0x7)<<25)
 #define XSP3_FORMAT_AUX_MODE(x)		(((x)&0x7)<<28)
+//! [XSP3_FORMAT_LAYOUT]
+
+#define XSP3_FORMAT_CSHR_NONE		0		//!<	No Charge sharing processing
+#define XSP3_FORMAT_CSHR_MARK		1		//!< 	Double size of aux1 dimesions (typically from 1 to 2) to mark Charge shared events as <normal aux0...aux n-1> <Cshared aux0...aux n-1>
+#define XSP3_FORMAT_CSHR_DELETE		2		//!<	Delete Charge shared events from MCA and in window scalars but NOT AllEvent or AllGood.
 
 #define XSP3_FORMAT_NBITS_AUX0	0
 #define XSP3_FORMAT_NBITS_AUX4	1
@@ -1905,6 +2012,8 @@ extern char *xsp3_feature_scope_mode3[2] ;
 //! [XSP3_AUX1_MODE]
 #define XSP3_FORMAT_AUX1_MODE_NONE			0		//!< No Auxilliary data 1 									
 #define XSP3_FORMAT_AUX1_MODE_PILEUP		7		//!< 1 bit of Aux1, set when pileup detected for Width or hardware 
+#define XSP3_FORMAT_AUX1_MODE_CSHR			10		//!< 4 or 6 bits showing the 4 or 6 CShare status bit.
+#define XSP3_FORMAT_AUX1_MODE_CSHR_ENC		11		//!< 3 bit 0..5 showing the priority encoded CShare status bits, otherwise coded 7 is "good"
 #define XSP3_FORMAT_AUX1_MODE_GOOD_GRADE	15		//!< 0 bits, but Masks MCA (and scalers) for events with min < thres
 #define XSP3_FORMAT_AUX1_MODE_TIMESTAMPED	100		//!< 0 bits, Auxiliary data is replaced by timestamp. Not written to hardware.
 //! [XSP3_AUX1_MODE]
@@ -1923,10 +2032,11 @@ extern char *xsp3_feature_scope_mode3[2] ;
 
 #define XSP3_FORMAT_RES_MODE_GOOD_GRADE	15		/* 0 bits, but Masks MCA (and scalers) for events with min < thres	*/
 
-#define XSP3_FORMAT_GET_AUX1_MODE(x)	(((x)>>4)&0xF)
-#define XSP3_FORMAT_GET_AUX1_THRES(x)	(((x)>>8)&0x3FF)
+#define XSP3_FORMAT_GET_CSHR_MODE(x)		(((x)>>1)&0x3)
+#define XSP3_FORMAT_GET_AUX1_MODE(x)		(((x)>>4)&0xF)
+#define XSP3_FORMAT_GET_AUX1_THRES(x)		(((x)>>8)&0x3FF)
 #define XSP3_FORMAT_GET_NBITS_ENG_LOST(x)	(((x)>>21)&0xF)
-#define XSP3_FORMAT_GET_NBITS_ADC(x)	(((x)>>25)&0x7)
+#define XSP3_FORMAT_GET_NBITS_ADC(x)		(((x)>>25)&0x7)
 #define XSP3_FORMAT_GET_AUX2_MODE(x)		(((x)>>28)&0x7)
 
 #define XSP3_MIN_BITS_ENG  1
@@ -2092,6 +2202,7 @@ typedef struct _x3m_fan_cont
 #define XSP3_FEATURE_NEB_GET_XTK_CORR(x)			(((x)>>2)&0x3)	//!< Get 2 bits of Xtk correction type. 0 and 1 defined so far.
 #define XSP3_FEATURE_NEB_XTK_CORR_NONE    			0				//!< No crosstalk correction (does not preclude neighbour event triggering )
 #define XSP3_FEATURE_NEB_XTK_CORR_ADC_SUBTRACT    	1				//!< Subtraction of Scaled crosstalk signatures before servo and running average with single pass trigger.
+#define XSP3_FEATURE_NEB_XTK_CORR_ADC_SUB_AND_CSHR  2				//!< Subtraction of Scaled crosstalk signatures before servo and running average with single pass trigger and Charge sharing detection.
 
 
 /**
@@ -2241,13 +2352,15 @@ typedef struct _x3m_fan_cont
 #define XSP3_HGT64_MASK_DIFF_NEGATIVE			(1L<<14)				//!< Mask for difference (top-bot) < 0
 #define XSP3_HGT64_MASK_RESET					(1L<<15)				//!< Mask for real or reset
 #define XSP3_HGT64_MASK_GOOD_GRADE				(1L<<16)				//!< Mask for good resolution grade
-#define XSP3_HGT64_MASK_RESET_DUMMY				(1L<<45)				//!< Mask for dummy reset.
+#define XSP3_HGT64_MASK_RESET_DUMMY				((u_int64_t)1<<45)				//!< Mask for dummy reset.
 
-#define XSP3_HGT64_MASK_TF_DELETE				(1L<<56)				//!< Mask for Time Frame Delete (clear) previous frame data.
-#define XSP3_HGT64_MASK_TF_MARKER1				(1L<<57)				//!< Mask for Time Frame Status Marker 1
-#define XSP3_HGT64_MASK_TF_MARKER2				(1L<<58)				//!< Mask for Time Frame Status Marker 2
+#define XSP3_HGT64_MASK_CSHARE					((u_int64_t)1<<49)				//!< Mask for Charge Shared event
 
-#define XSP3_HGT64_MASK_END_OF_FRAME			(1L<<59)				//!< Mask for End of Frame Marker.
+#define XSP3_HGT64_MASK_TF_DELETE				((u_int64_t)1<<56)				//!< Mask for Time Frame Delete (clear) previous frame data.
+#define XSP3_HGT64_MASK_TF_MARKER1				((u_int64_t)1<<57)				//!< Mask for Time Frame Status Marker 1
+#define XSP3_HGT64_MASK_TF_MARKER2				((u_int64_t)1<<58)				//!< Mask for Time Frame Status Marker 2
+
+#define XSP3_HGT64_MASK_END_OF_FRAME			((u_int64_t)1<<59)				//!< Mask for End of Frame Marker.
 
 #define XSP3_HGT64_GET_TS(x)					( (((x)>>17)&0xFFFF) | (((x)>>(46-16))&0x30000) | (((x)>>(52-18))&0x3FFC0000) )	//!< Timestamp
 
@@ -2569,7 +2682,13 @@ This data is assembled nibble at a time into the 32 bit hardware registers XSP4_
 #define XSP4_SCOPE_SEL6TO11_XTK_OUT_CORR	6	//!< Crosstalk correction block with correction.
 #define XSP4_SCOPE_SEL6TO11_XTK_CORR		7	//!< Correction to be subtracted by crosstalk correction block
 #define XSP4_SCOPE_SEL6TO11_XTK_TIMESTAMP	8	//!< Time stamp
-#define XSP4_SCOPE_SEL6TO11_XTK_EVENTS_OUT 11	//!< Xtk event lits output from current channel
+#define XSP4_SCOPE_SEL6TO11_XTK_EVENTS_OUT 11	//!< Xtk event list output from current channel
+#define XSP4_SCOPE_SEL6TO11_XTK_NOISE_EVENTS 12	//!< Calculation of Noise events
+#define XSP4_SCOPE_SEL6TO11_CSHR_MEASURE 	13	//!< Measurement of Charge shared signals on neighbouring channels.
+#define XSP4_SCOPE_SEL6TO11_CSHR_MARKERS 	14	//!< Marking of event output as charge shared.
+
+
+#define XSP4_SCOPE_CHAN_CSHR				15	//!< Special cahnnel number reads datafrom Charge sharing data paths.
 
 /* Streams 12..13 are 4 input mux. Input, TriggerB and Servo and are used in the 7 out of 8 or 14 out of 16 analogue modes, or can be set using the XSP4_SCOPE_SEL_DIG below */
 #define XSP4_SCOPE_SEL12TO13_INP		0	//!< Select ADC input or reset detector output (see alternates)
