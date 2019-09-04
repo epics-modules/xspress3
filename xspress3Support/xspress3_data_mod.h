@@ -179,7 +179,7 @@ extern "C" {
 #endif
 #undef XSP3_MAX_MODNAME
 #define XSP3_MAX_MODNAME 100
-#define XSP3_MAX_CARDS 8
+#define XSP3_MAX_CARDS 16
 #define XSP3_SCOPE_MODULE_MAGIC "xsp3scp"
 
 /**
@@ -281,13 +281,16 @@ int xsp3_scope_calc_num_t(XSP3ScopeModule *mod);
 #define XSP4_SCOPE_NUM_SRC0	 	 16
 #define XSP4_SCOPE_NUM_SRC1	 	 16
 #define XSP4_SCOPE_NUM_SRC2TO5	 12
-#define XSP4_SCOPE_NUM_SRC6TO11  11
+#define XSP4_SCOPE_NUM_SRC6TO11  15
 #define XSP4_SCOPE_NUM_SRC12TO15 16
+
+#define XSP4_SCOPE_NUM_SRC_CSHR	12
 
 #define XSP3M_SCOPE_NUM_SRC0  	16
 #define XSP3M_SCOPE_NUM_SRC1 	16
 #define XSP3M_SCOPE_NUM_SRC2TO4  11
 #define XSP3M_SCOPE_NUM_SRC5	16
+
 /**
  * @ingroup scope_module
  * Data Type to describe the data stored in a scope mode stream see {@link xsp3_scope_stream_details()}
@@ -323,6 +326,8 @@ extern const char *xsp4_scope_alt_names_s1[XSP4_SCOPE_NUM_SRC1][16];
 extern const char *xsp4_scope_alt_names_s2to5[XSP4_SCOPE_NUM_SRC2TO5][16];
 extern const char *xsp4_scope_alt_names_s6to11[XSP4_SCOPE_NUM_SRC6TO11][16];
 extern const char *xsp4_scope_alt_names_s12to13[XSP4_SCOPE_NUM_SRC12TO15][16];
+extern const char *xsp4_scope_cshr_src_name[16];
+extern const char *xsp4_scope_cshr_alt_name[XSP4_SCOPE_NUM_SRC_CSHR][16];
 
 extern const char *xsp3m_scope_name_s0[16];
 extern const char *xsp3m_scope_name_s1[16];
