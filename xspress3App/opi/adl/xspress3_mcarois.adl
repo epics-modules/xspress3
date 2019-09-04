@@ -1,6 +1,6 @@
 
 file {
-	name="/home/xspress3/epics/areaDetector/xspress3/xspress3App/opi/adl/xspress3_mcarois.adl"
+	name="/home/epics/matt/adl/xspress3_mcarois.adl"
 	version=030109
 }
 display {
@@ -185,7 +185,7 @@ text {
 	"basic attribute" {
 		clr=14
 	}
-	textix="SCAs, Timing Info:"
+	textix="SCAs, Timing Info: (80MHz clock)"
 }
 text {
 	object {
@@ -226,32 +226,6 @@ text {
 	align="horiz. right"
 	limits {
 	}
-}
-"related display" {
-	object {
-		x=723
-		y=335
-		width=100
-		height=25
-	}
-	display[0] {
-		label="Main"
-		name="NDROI.adl"
-		args="P=$(P):, R=ROI$(CHAN):"
-	}
-	display[1] {
-		label="ROI Setup"
-		name="NDROIStat.adl"
-		args="P=$(P):, R=MCA$(CHAN)ROI:"
-	}
-	display[2] {
-		label="Deadtime Setup"
-		name="xspress3_dtc.adl"
-		args="P=$(P):det1, CHAN=$(CHAN)"
-	}
-	clr=54
-	bclr=30
-	label="- More"
 }
 text {
 	object {
@@ -3000,18 +2974,6 @@ text {
 	align="horiz. right"
 	limits {
 	}
-}
-text {
-	object {
-		x=718
-		y=70
-		width=220
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="(80MHz Clock)"
 }
 "text update" {
 	object {

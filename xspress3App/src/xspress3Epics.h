@@ -2,17 +2,17 @@
  * Author: Diamond Light Source, Copyright 2013
  *
  * License: This file is part of 'xspress3'
- * 
+ *
  * 'xspress3' is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * 'xspress3' is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with 'xspress3'.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -84,6 +84,9 @@
 #define xsp3InvertF0ParamString           "XSP3_INVERT_F0"
 #define xsp3InvertVetoParamString           "XSP3_INVERT_VETO"
 #define xsp3DebounceParamString           "XSP3_DEBOUNCE"
+#define xsp3PulsePerTriggerParamString           "XSP3_PPTRIGGER"
+#define xsp3ITFGStartParamString           "XSP3_ITFG_START"
+#define xsp3ITFGStopParamString           "XSP3_ITFG_STOP"
 //Settings for a channel
 #define xsp3ChanSca0ParamString           "XSP3_CHAN_SCA0"
 #define xsp3ChanSca1ParamString           "XSP3_CHAN_SCA1"
@@ -127,7 +130,7 @@ class Xspress3 : public ADDriver {
   /* These are the methods that we override from asynPortDriver */
   virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
   virtual asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
-  virtual asynStatus writeOctet(asynUser *pasynUser, const char *value, 
+  virtual asynStatus writeOctet(asynUser *pasynUser, const char *value,
                                     size_t nChars, size_t *nActual);
   virtual void report(FILE *fp, int details);
 
@@ -138,8 +141,6 @@ class Xspress3 : public ADDriver {
   bool createSCAArray(void *&pSCA);
   bool readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra);
   bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra);
-  asynStatus setWindow(int channel, int sca, int llm, int hlm);
-  asynStatus connect(void);
   void writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType);
   void setStartingParameters();
   const NDDataType_t getDataType();
@@ -158,18 +159,20 @@ class Xspress3 : public ADDriver {
 
   //Put private functions here
   void checkStatus(int status, const char *function, const char *parentFunction);
+  asynStatus connect(void);
   asynStatus disconnect(void);
   asynStatus saveSettings(void);
   asynStatus restoreSettings(void);
   asynStatus checkConnected(void);
+  asynStatus setWindow(int channel, int sca, int llm, int hlm);
   asynStatus checkRoi(int channel, int roi, int llm, int hlm);
   asynStatus erase(void);
   asynStatus eraseSCAMCAROI(void);
   asynStatus checkSaveDir(const char *dirName);
   asynStatus readSCAParams(void);
-  asynStatus readDTCParams(void); 
+  asynStatus readDTCParams(void);
   asynStatus readTrigB(void);
-  asynStatus setupITFG(void); 
+  asynStatus setupITFG(void);
   asynStatus mapTriggerMode(int mode, int invert_f0, int invert_veto, int debounce, int *apiMode);
   asynStatus setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce );
   void createInitialParameters();
@@ -192,9 +195,9 @@ class Xspress3 : public ADDriver {
   static const epicsInt32 mbboTriggerLVDSBOTH_;
   static const epicsInt32 ADAcquireFalse_;
   static const epicsInt32 ADAcquireTrue_;
-  
+
   //Put private dynamic here
-  int xsp3_handle_; 
+  int xsp3_handle_;
 
   xsp3Api* xsp3;
 
@@ -230,35 +233,38 @@ class Xspress3 : public ADDriver {
   int xsp3DisconnectParam;
   int xsp3SaveSettingsParam;
   int xsp3RestoreSettingsParam;
-  int xsp3RunFlagsParam;             
-  int xsp3TriggerParam;             
-  int xsp3InvertF0Param;             
-  int xsp3InvertVetoParam;             
+  int xsp3RunFlagsParam;
+  int xsp3TriggerParam;
+  int xsp3InvertF0Param;
+  int xsp3InvertVetoParam;
   int xsp3DebounceParam;
   int xsp3ChanSca0Param;
-  int xsp3ChanSca1Param;             
+  int xsp3ChanSca1Param;
   int xsp3ChanSca2Param;
   int xsp3ChanSca3Param;
   int xsp3ChanSca4Param;
   int xsp3ChanSca5Param;
   int xsp3ChanSca6Param;
-  int xsp3ChanSca7Param;             
-  int xsp3ChanSca8Param;             
-  int xsp3ChanSca4ThresholdParam;          
-  int xsp3ChanSca5HlmParam;          
-  int xsp3ChanSca6HlmParam;          
-  int xsp3ChanSca5LlmParam;          
-  int xsp3ChanSca6LlmParam;  
-  int xsp3ChanDtcFlagsParam;  
-  int xsp3ChanDtcAegParam;  
-  int xsp3ChanDtcAeoParam;  
-  int xsp3ChanDtcIwgParam;  
-  int xsp3ChanDtcIwoParam;  
+  int xsp3ChanSca7Param;
+  int xsp3ChanSca8Param;
+  int xsp3ChanSca4ThresholdParam;
+  int xsp3ChanSca5HlmParam;
+  int xsp3ChanSca6HlmParam;
+  int xsp3ChanSca5LlmParam;
+  int xsp3ChanSca6LlmParam;
+  int xsp3ChanDtcFlagsParam;
+  int xsp3ChanDtcAegParam;
+  int xsp3ChanDtcAeoParam;
+  int xsp3ChanDtcIwgParam;
+  int xsp3ChanDtcIwoParam;
   int xsp3RoiEnableParam;
   int xsp3DtcEnableParam;
   int xsp3EventWidthParam;
   int xsp3ChanDTPercentParam;
   int xsp3ChanDTFactorParam;
+  int xsp3PulsePerTriggerParam;
+  int xsp3ITFGStartParam;
+  int xsp3ITFGStopParam;
   int xsp3LastParam;
   #define XSP3_LAST_DRIVER_COMMAND xsp3LastParam
 };

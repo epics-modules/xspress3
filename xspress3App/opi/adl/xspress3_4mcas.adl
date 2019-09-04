@@ -1,6 +1,6 @@
 
 file {
-	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_4mcarois.adl"
+	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_4mcas.adl"
 	version=030107
 }
 display {
