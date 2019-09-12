@@ -1,77 +1,61 @@
 <?xml version="1.0" ?>
 <Attributes>
-  <Attribute          name="Date"            source="S:IOC:timeOfDayForm1SI"   type="EPICS_PV" datatype="STRING" description="Date and time" />
-  <Attribute          name="RingCurrent"     source="S:SRcurrentAI.VAL"        type="EPICS_PV" datatype="DOUBLE" description="Ring current" />
+  <Attribute  name="Date"            source="S:IOC:timeOfDayForm1SI"   type="EPICS_PV" datatype="STRING" description="Date and time" />
+  <Attribute  name="RingCurrent"     source="S:SRcurrentAI.VAL"        type="EPICS_PV" datatype="DOUBLE" description="Ring current" />
+  <Attribute  name="ArrayCounter"    source="ARRAY_COUNTER"            type="PARAM"    datatype="INT"    description="Image counter" />
+  <Attribute  name="Model"           source="MODEL"                    type="PARAM"    datatype="STRING" description="Camera model" />
+  <Attribute  name="Manufacturer"    source="MANUFACTURER"             type="PARAM"    datatype="STRING" description="Camera manufacturer" />
 
-  <Attribute          name="ArrayCounter"    source="ARRAY_COUNTER"            type="PARAM"    datatype="INT"    description="Image counter" />
-  <Attribute          name="Model"           source="MODEL"                    type="PARAM"    datatype="STRING" description="Camera model" />
-  <Attribute          name="Manufacturer"    source="MANUFACTURER"             type="PARAM"    datatype="STRING" description="Camera manufacturer" />
+  <Attribute  name="CHAN1SCA0"       source="XSP3_CHAN_SCA0"      addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 ClockTicks" />
+  <Attribute  name="CHAN1SCA1"       source="XSP3_CHAN_SCA1"      addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 ResetTicks" />
+  <Attribute  name="CHAN1SCA2"       source="XSP3_CHAN_SCA2"      addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 ResetCounts" />
+  <Attribute  name="CHAN1SCA3"       source="XSP3_CHAN_SCA3"      addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 AllEvent" />
+  <Attribute  name="CHAN1SCA4"       source="XSP3_CHAN_SCA4"      addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 AllGood" />
+  <Attribute  name="CHAN1SCA5"       source="XSP3_CHAN_SCA5"      addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 Window1" />
+  <Attribute  name="CHAN1SCA6"       source="XSP3_CHAN_SCA6"      addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 Window2" />
+  <Attribute  name="CHAN1SCA7"       source="XSP3_CHAN_SCA7"      addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 Pileup" />
+  <Attribute  name="CHAN1SCA8"       source="XSP3_CHAN_SCA8"      addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 DT Factor" />
+  <Attribute  name="CHAN1EventWidth" source="XSP3_EVENT_WIDTH"    addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 Event Width" />
+  <Attribute  name="CHAN1DTFactor"   source="XSP3_CHAN_DTFACTOR"  addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 DT Factor" />
+  <Attribute  name="CHAN1DTPercent"  source="XSP3_CHAN_DTPERCENT" addr="0"  type="PARAM"    datatype="DOUBLE" description="CHAN1 DT Percent" />
 
-  <Attribute addr="0" name="CHAN1SCA0"       source="XSP3_CHAN_SCA0"           type="PARAM"    datatype="DOUBLE" description="CHAN1 ClockTicks" />
-  <Attribute addr="0" name="CHAN1SCA1"       source="XSP3_CHAN_SCA1"           type="PARAM"    datatype="DOUBLE" description="CHAN1 ResetTicks" />
-  <Attribute addr="0" name="CHAN1SCA2"       source="XSP3_CHAN_SCA2"           type="PARAM"    datatype="DOUBLE" description="CHAN1 ResetCounts" />
-  <Attribute addr="0" name="CHAN1SCA3"       source="XSP3_CHAN_SCA3"           type="PARAM"    datatype="DOUBLE" description="CHAN1 AllEvent" />
-  <Attribute addr="0" name="CHAN1SCA4"       source="XSP3_CHAN_SCA4"           type="PARAM"    datatype="DOUBLE" description="CHAN1 AllGood" />
-  <Attribute addr="0" name="CHAN1SCA5"       source="XSP3_CHAN_SCA5"           type="PARAM"    datatype="DOUBLE" description="CHAN1 Window1" />
-  <Attribute addr="0" name="CHAN1SCA6"       source="XSP3_CHAN_SCA6"           type="PARAM"    datatype="DOUBLE" description="CHAN1 Window2" />
-  <Attribute addr="0" name="CHAN1SCA7"       source="XSP3_CHAN_SCA7"           type="PARAM"    datatype="DOUBLE" description="CHAN1 Pileup" />
-  <Attribute addr="0" name="CHAN1SCA8"       source="XSP3_CHAN_SCA8"           type="PARAM"    datatype="DOUBLE" description="CHAN1 DT Factor" />
-  <Attribute addr="0" name="CHAN1DTCFLAGS"   source="XSP3_CHAN_DTC_FLAGS"      type="INT"      datatype="DOUBLE" description="CHAN1 DTC Flags" />
-  <Attribute addr="0" name="CHAN1DTCAEG"     source="XSP3_CHAN_DTC_AEG"        type="PARAM"    datatype="DOUBLE" description="CHAN1 DTC All Good Event Grad" />
-  <Attribute addr="0" name="CHAN1DTCAEO"     source="XSP3_CHAN_DTC_AEO"        type="PARAM"    datatype="DOUBLE" description="CHAN1 DTC All Good Event Offset" />
-  <Attribute addr="0" name="CHAN1DTCIWG"     source="XSP3_CHAN_DTC_IWG"        type="PARAM"    datatype="DOUBLE" description="CHAN1 DTC In Window Grad" />
-  <Attribute addr="0" name="CHAN1DTCIWO"     source="XSP3_CHAN_DTC_IWO"        type="PARAM"    datatype="DOUBLE" description="CHAN1 DTC In Window Offset" />
-  <Attribute addr="0" name="CHAN1EventWidth" source="XSP3_EVENT_WIDTH"         type="PARAM"    datatype="DOUBLE" description="CHAN1 Event Width" />
-  <Attribute addr="0" name="CHAN1DTFactor"   source="XSP3_CHAN_DTFACTOR"       type="PARAM"    datatype="DOUBLE" description="CHAN1 DT Factor" />
+  <Attribute  name="CHAN2SCA0"       source="XSP3_CHAN_SCA0"      addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 ClockTicks" />
+  <Attribute  name="CHAN2SCA1"       source="XSP3_CHAN_SCA1"      addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 ResetTicks" />
+  <Attribute  name="CHAN2SCA2"       source="XSP3_CHAN_SCA2"      addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 ResetCounts" />
+  <Attribute  name="CHAN2SCA3"       source="XSP3_CHAN_SCA3"      addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 AllEvent" />
+  <Attribute  name="CHAN2SCA4"       source="XSP3_CHAN_SCA4"      addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 AllGood" />
+  <Attribute  name="CHAN2SCA5"       source="XSP3_CHAN_SCA5"      addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 Window1" />
+  <Attribute  name="CHAN2SCA6"       source="XSP3_CHAN_SCA6"      addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 Window2" />
+  <Attribute  name="CHAN2SCA7"       source="XSP3_CHAN_SCA7"      addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 Pileup" />
+  <Attribute  name="CHAN2SCA8"       source="XSP3_CHAN_SCA8"      addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 DT Factor" />
+  <Attribute  name="CHAN2EventWidth" source="XSP3_EVENT_WIDTH"    addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 Event Width" />
+  <Attribute  name="CHAN2DTFactor"   source="XSP3_CHAN_DTFACTOR"  addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 DT Factor" />
+  <Attribute  name="CHAN2DTPercent"  source="XSP3_CHAN_DTPERCENT" addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN2 DT Percent" />
 
-  <Attribute addr="1" name="CHAN2SCA0"       source="XSP3_CHAN_SCA0"           type="PARAM"    datatype="DOUBLE" description="CHAN2 ClockTicks" />
-  <Attribute addr="1" name="CHAN2SCA1"       source="XSP3_CHAN_SCA1"           type="PARAM"    datatype="DOUBLE" description="CHAN2 ResetTicks" />
-  <Attribute addr="1" name="CHAN2SCA2"       source="XSP3_CHAN_SCA2"           type="PARAM"    datatype="DOUBLE" description="CHAN2 ResetCounts" />
-  <Attribute addr="1" name="CHAN2SCA3"       source="XSP3_CHAN_SCA3"           type="PARAM"    datatype="DOUBLE" description="CHAN2 AllEvent" />
-  <Attribute addr="1" name="CHAN2SCA4"       source="XSP3_CHAN_SCA4"           type="PARAM"    datatype="DOUBLE" description="CHAN2 AllGood" />
-  <Attribute addr="1" name="CHAN2SCA5"       source="XSP3_CHAN_SCA5"           type="PARAM"    datatype="DOUBLE" description="CHAN2 Window1" />
-  <Attribute addr="1" name="CHAN2SCA6"       source="XSP3_CHAN_SCA6"           type="PARAM"    datatype="DOUBLE" description="CHAN2 Window2" />
-  <Attribute addr="1" name="CHAN2SCA7"       source="XSP3_CHAN_SCA7"           type="PARAM"    datatype="DOUBLE" description="CHAN2 Pileup" />
-  <Attribute addr="1" name="CHAN2SCA8"       source="XSP3_CHAN_SCA8"           type="PARAM"    datatype="DOUBLE" description="CHAN2 DT Factor" />
-  <Attribute addr="1" name="CHAN2DTCFLAGS"   source="XSP3_CHAN_DTC_FLAGS"      type="INT"      datatype="DOUBLE" description="CHAN2 DTC Flags" />
-  <Attribute addr="1" name="CHAN2DTCAEG"     source="XSP3_CHAN_DTC_AEG"        type="PARAM"    datatype="DOUBLE" description="CHAN2 DTC All Good Event Grad" />
-  <Attribute addr="1" name="CHAN2DTCAEO"     source="XSP3_CHAN_DTC_AEO"        type="PARAM"    datatype="DOUBLE" description="CHAN2 DTC All Good Event Offset" />
-  <Attribute addr="1" name="CHAN2DTCIWG"     source="XSP3_CHAN_DTC_IWG"        type="PARAM"    datatype="DOUBLE" description="CHAN2 DTC In Window Grad" />
-  <Attribute addr="1" name="CHAN2DTCIWO"     source="XSP3_CHAN_DTC_IWO"        type="PARAM"    datatype="DOUBLE" description="CHAN2 DTC In Window Offset" />
-  <Attribute addr="1" name="CHAN2EventWidth" source="XSP3_EVENT_WIDTH"         type="PARAM"    datatype="DOUBLE" description="CHAN2 Event Width" />
-  <Attribute addr="1" name="CHAN2DTFactor"   source="XSP3_CHAN_DTFACTOR"       type="PARAM"    datatype="DOUBLE" description="CHAN2 DT Factor" />
+  <Attribute  name="CHAN3SCA0"       source="XSP3_CHAN_SCA0"      addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 ClockTicks" />
+  <Attribute  name="CHAN3SCA1"       source="XSP3_CHAN_SCA1"      addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 ResetTicks" />
+  <Attribute  name="CHAN3SCA2"       source="XSP3_CHAN_SCA2"      addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 ResetCounts" />
+  <Attribute  name="CHAN3SCA3"       source="XSP3_CHAN_SCA3"      addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 AllEvent" />
+  <Attribute  name="CHAN3SCA4"       source="XSP3_CHAN_SCA4"      addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 AllGood" />
+  <Attribute  name="CHAN3SCA5"       source="XSP3_CHAN_SCA5"      addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 Window1" />
+  <Attribute  name="CHAN3SCA6"       source="XSP3_CHAN_SCA6"      addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 Window2" />
+  <Attribute  name="CHAN3SCA7"       source="XSP3_CHAN_SCA7"      addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 Pileup" />
+  <Attribute  name="CHAN3SCA8"       source="XSP3_CHAN_SCA8"      addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 DT Factor" />
+  <Attribute  name="CHAN3EventWidth" source="XSP3_EVENT_WIDTH"    addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 Event Width" />
+  <Attribute  name="CHAN3DTFactor"   source="XSP3_CHAN_DTFACTOR"  addr="2"  type="PARAM"    datatype="DOUBLE" description="CHAN3 DT Factor" />
+  <Attribute  name="CHAN3DTPercent"  source="XSP3_CHAN_DTPERCENT" addr="1"  type="PARAM"    datatype="DOUBLE" description="CHAN3 DT Percent" />
 
-  <Attribute addr="2" name="CHAN3SCA0"       source="XSP3_CHAN_SCA0"           type="PARAM"    datatype="DOUBLE" description="CHAN3 ClockTicks" />
-  <Attribute addr="2" name="CHAN3SCA1"       source="XSP3_CHAN_SCA1"           type="PARAM"    datatype="DOUBLE" description="CHAN3 ResetTicks" />
-  <Attribute addr="2" name="CHAN3SCA2"       source="XSP3_CHAN_SCA2"           type="PARAM"    datatype="DOUBLE" description="CHAN3 ResetCounts" />
-  <Attribute addr="2" name="CHAN3SCA3"       source="XSP3_CHAN_SCA3"           type="PARAM"    datatype="DOUBLE" description="CHAN3 AllEvent" />
-  <Attribute addr="2" name="CHAN3SCA4"       source="XSP3_CHAN_SCA4"           type="PARAM"    datatype="DOUBLE" description="CHAN3 AllGood" />
-  <Attribute addr="2" name="CHAN3SCA5"       source="XSP3_CHAN_SCA5"           type="PARAM"    datatype="DOUBLE" description="CHAN3 Window1" />
-  <Attribute addr="2" name="CHAN3SCA6"       source="XSP3_CHAN_SCA6"           type="PARAM"    datatype="DOUBLE" description="CHAN3 Window2" />
-  <Attribute addr="2" name="CHAN3SCA7"       source="XSP3_CHAN_SCA7"           type="PARAM"    datatype="DOUBLE" description="CHAN3 Pileup" />
-  <Attribute addr="2" name="CHAN3SCA8"       source="XSP3_CHAN_SCA8"           type="PARAM"    datatype="DOUBLE" description="CHAN3 DT Factor" />
-  <Attribute addr="2" name="CHAN3DTCFLAGS"   source="XSP3_CHAN_DTC_FLAGS"      type="INT"      datatype="DOUBLE" description="CHAN3 DTC Flags" />
-  <Attribute addr="2" name="CHAN3DTCAEG"     source="XSP3_CHAN_DTC_AEG"        type="PARAM"    datatype="DOUBLE" description="CHAN3 DTC All Good Event Grad" />
-  <Attribute addr="2" name="CHAN3DTCAEO"     source="XSP3_CHAN_DTC_AEO"        type="PARAM"    datatype="DOUBLE" description="CHAN3 DTC All Good Event Offset" />
-  <Attribute addr="2" name="CHAN3DTCIWG"     source="XSP3_CHAN_DTC_IWG"        type="PARAM"    datatype="DOUBLE" description="CHAN3 DTC In Window Grad" />
-  <Attribute addr="2" name="CHAN3DTCIWO"     source="XSP3_CHAN_DTC_IWO"        type="PARAM"    datatype="DOUBLE" description="CHAN3 DTC In Window Offset" />
-  <Attribute addr="2" name="CHAN3EventWidth" source="XSP3_EVENT_WIDTH"         type="PARAM"    datatype="DOUBLE" description="CHAN3 Event Width" />
-  <Attribute addr="2" name="CHAN3DTFactor"   source="XSP3_CHAN_DTFACTOR"       type="PARAM"    datatype="DOUBLE" description="CHAN3 DT Factor" />
+  <Attribute  name="CHAN4SCA0"       source="XSP3_CHAN_SCA0"      addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 ClockTicks" />
+  <Attribute  name="CHAN4SCA1"       source="XSP3_CHAN_SCA1"      addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 ResetTicks" />
+  <Attribute  name="CHAN4SCA2"       source="XSP3_CHAN_SCA2"      addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 ResetCounts" />
+  <Attribute  name="CHAN4SCA3"       source="XSP3_CHAN_SCA3"      addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 AllEvent" />
+  <Attribute  name="CHAN4SCA4"       source="XSP3_CHAN_SCA4"      addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 AllGood" />
+  <Attribute  name="CHAN4SCA5"       source="XSP3_CHAN_SCA5"      addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 Window1" />
+  <Attribute  name="CHAN4SCA6"       source="XSP3_CHAN_SCA6"      addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 Window2" />
+  <Attribute  name="CHAN4SCA7"       source="XSP3_CHAN_SCA7"      addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 Pileup" />
+  <Attribute  name="CHAN4SCA8"       source="XSP3_CHAN_SCA8"      addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 DT Factor" />
+  <Attribute  name="CHAN4EventWidth" source="XSP3_EVENT_WIDTH"    addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 Event Width" />
+  <Attribute  name="CHAN4DTFactor"   source="XSP3_CHAN_DTFACTOR"  addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 DT Factor" />
+  <Attribute  name="CHAN4DTPercent"  source="XSP3_CHAN_DTPERCENT" addr="3"  type="PARAM"    datatype="DOUBLE" description="CHAN4 DT Percent" />
 
-  <Attribute addr="3" name="CHAN4SCA0"       source="XSP3_CHAN_SCA0"           type="PARAM"    datatype="DOUBLE" description="CHAN4 ClockTicks" />
-  <Attribute addr="3" name="CHAN4SCA1"       source="XSP3_CHAN_SCA1"           type="PARAM"    datatype="DOUBLE" description="CHAN4 ResetTicks" />
-  <Attribute addr="3" name="CHAN4SCA2"       source="XSP3_CHAN_SCA2"           type="PARAM"    datatype="DOUBLE" description="CHAN4 ResetCounts" />
-  <Attribute addr="3" name="CHAN4SCA3"       source="XSP3_CHAN_SCA3"           type="PARAM"    datatype="DOUBLE" description="CHAN4 AllEvent" />
-  <Attribute addr="3" name="CHAN4SCA4"       source="XSP3_CHAN_SCA4"           type="PARAM"    datatype="DOUBLE" description="CHAN4 AllGood" />
-  <Attribute addr="3" name="CHAN4SCA5"       source="XSP3_CHAN_SCA5"           type="PARAM"    datatype="DOUBLE" description="CHAN4 Window1" />
-  <Attribute addr="3" name="CHAN4SCA6"       source="XSP3_CHAN_SCA6"           type="PARAM"    datatype="DOUBLE" description="CHAN4 Window2" />
-  <Attribute addr="3" name="CHAN4SCA7"       source="XSP3_CHAN_SCA7"           type="PARAM"    datatype="DOUBLE" description="CHAN4 Pileup" />
-  <Attribute addr="3" name="CHAN4SCA8"       source="XSP3_CHAN_SCA8"           type="PARAM"    datatype="DOUBLE" description="CHAN4 DT Factor" />
-  <Attribute addr="3" name="CHAN4DTCFLAGS"   source="XSP3_CHAN_DTC_FLAGS"      type="INT"      datatype="DOUBLE" description="CHAN4 DTC Flags" />
-  <Attribute addr="3" name="CHAN4DTCAEG"     source="XSP3_CHAN_DTC_AEG"        type="PARAM"    datatype="DOUBLE" description="CHAN4 DTC All Good Event Grad" />
-  <Attribute addr="3" name="CHAN4DTCAEO"     source="XSP3_CHAN_DTC_AEO"        type="PARAM"    datatype="DOUBLE" description="CHAN4 DTC All Good Event Offset" />
-  <Attribute addr="3" name="CHAN4DTCIWG"     source="XSP3_CHAN_DTC_IWG"        type="PARAM"    datatype="DOUBLE" description="CHAN4 DTC In Window Grad" />
-  <Attribute addr="3" name="CHAN4DTCIWO"     source="XSP3_CHAN_DTC_IWO"        type="PARAM"    datatype="DOUBLE" description="CHAN4 DTC In Window Offset" />
-  <Attribute addr="3" name="CHAN4EventWidth" source="XSP3_EVENT_WIDTH"         type="PARAM"    datatype="DOUBLE" description="CHAN4 Event Width" />
-  <Attribute addr="3" name="CHAN4DTFactor"   source="XSP3_CHAN_DTFACTOR"       type="PARAM"    datatype="DOUBLE" description="CHAN4 DT Factor" />
 </Attributes>
