@@ -12,8 +12,10 @@ INC += xspress3_dma_protocol.h
 INC += os9types.h
 INC += xspress3_data_mod.h
 
-LIB_INSTALLS_Linux += ../os/$(T_A)/libxspress3.a
-LIB_INSTALLS_Linux += ../os/$(T_A)/libimg_mod.a
+ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+LIB_INSTALLS_Linux += ../os/linux-x86_64/libxspress3.a
+LIB_INSTALLS_Linux += ../os/linux-x86_64/libimg_mod.a
+endif
 
 #=============================
 
