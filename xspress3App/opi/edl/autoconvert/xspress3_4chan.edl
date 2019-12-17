@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 125
-y 175
+x 282
+y 200
 w 450
 h 525
 font "helvetica-medium-r-18.0"
@@ -1213,8 +1213,8 @@ botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-14.0"
 icon
 buttonLabel "More"
-numPvs 16
-numDsps 8
+numPvs 24
+numDsps 12
 displayFileName {
   0 xspress3_adplugins.edl
   1 ADBase.edl
@@ -1224,6 +1224,10 @@ displayFileName {
   5 xspress3_mcarois.edl
   6 xspress3_mcarois.edl
   7 xspress3_mcarois.edl
+  8 NDPluginAttribute.edl
+  9 NDPluginAttribute.edl
+  10 NDPluginAttribute.edl
+  11 NDPluginAttribute.edl
 }
 menuLabel {
   0 Plugins
@@ -1234,6 +1238,10 @@ menuLabel {
   5 MCA 2
   6 MCA 3
   7 MCA 4
+  8 SCA 1 
+  9 SCA 2
+  10 SCA 3
+  11 SCA 4
 }
 symbols {
   0 "P=$(P):"
@@ -1244,6 +1252,10 @@ symbols {
   5 "P=$(P),CHAN=2"
   6 "P=$(P),CHAN=3"
   7 "P=$(P),CHAN=4"
+  8 "P=$(P):,R=C1SCA:"
+  9 "P=$(P):,R=C2SCA:"
+  10 "P=$(P):,R=C3SCA:"
+  11 "P=$(P):,R=C4SCA:"
 }
 replaceSymbols {
   0 1
@@ -1254,6 +1266,10 @@ replaceSymbols {
   5 1
   6 1
   7 1
+  8 1
+  9 1
+  10 1
+  11 1
 }
 endObjectProperties
 

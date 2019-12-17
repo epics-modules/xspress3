@@ -28,8 +28,8 @@
   <snap_to_geometry>false</snap_to_geometry>
   <widget_type>Display</widget_type>
   <width>450</width>
-  <x>125</x>
-  <y>175</y>
+  <x>282</x>
+  <y>200</y>
   <widget typeId="org.csstudio.opibuilder.widgets.Rectangle" version="1.0.0">
     <actions hook="false" hook_all="false" />
     <alarm_pulsing>false</alarm_pulsing>
@@ -1703,6 +1703,46 @@ $(pv_value)</tooltip>
         </macros>
         <mode>1</mode>
         <description>MCA 4</description>
+      </action>
+      <action type="OPEN_DISPLAY">
+        <path>NDPluginAttribute.opi</path>
+        <macros>
+          <include_parent_macros>true</include_parent_macros>
+          <P>$(P):</P>
+          <R>C1SCA:</R>
+        </macros>
+        <mode>1</mode>
+        <description>SCA 1 </description>
+      </action>
+      <action type="OPEN_DISPLAY">
+        <path>NDPluginAttribute.opi</path>
+        <macros>
+          <include_parent_macros>true</include_parent_macros>
+          <P>$(P):</P>
+          <R>C2SCA:</R>
+        </macros>
+        <mode>1</mode>
+        <description>SCA 2</description>
+      </action>
+      <action type="OPEN_DISPLAY">
+        <path>NDPluginAttribute.opi</path>
+        <macros>
+          <include_parent_macros>true</include_parent_macros>
+          <P>$(P):</P>
+          <R>C3SCA:</R>
+        </macros>
+        <mode>1</mode>
+        <description>SCA 3</description>
+      </action>
+      <action type="OPEN_DISPLAY">
+        <path>NDPluginAttribute.opi</path>
+        <macros>
+          <include_parent_macros>true</include_parent_macros>
+          <P>$(P):</P>
+          <R>C4SCA:</R>
+        </macros>
+        <mode>1</mode>
+        <description>SCA 4</description>
       </action>
     </actions>
     <actions_from_pv>false</actions_from_pv>
