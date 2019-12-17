@@ -1,0 +1,1685 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 244
+y 119
+w 900
+h 720
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-bold-r-10.0"
+btnFont "helvetica-medium-r-18.0"
+fgColor rgb 0 0 0
+bgColor rgb 55808 55808 55808
+textColor rgb 0 0 0
+ctlFgColor1 rgb 64256 62208 18944
+ctlFgColor2 rgb 60928 46592 11008
+ctlBgColor1 rgb 52480 24832 0
+ctlBgColor2 rgb 65280 45056 65280
+topShadowColor rgb 44544 19968 48128
+botShadowColor rgb 13312 13056 34304
+showGrid
+snapToGrid
+gridSize 4
+endScreenProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 25
+y 45
+w 849
+h 319
+lineColor rgb 34048 34048 34048
+fill
+fillColor rgb 34048 34048 34048
+lineWidth 0
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 25
+y 10
+w 849
+h 24
+lineColor rgb 29440 65280 27392
+fill
+fillColor rgb 29440 65280 27392
+lineWidth 0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 25
+y 10
+w 753
+h 25
+font "helvetica-medium-r-18.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Xspress3 Control - $(P)"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4000
+y 0
+w 210
+h 15
+font "helvetica-medium-r-12.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Not sure how to delete"
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 25
+y 38
+w 209
+h 19
+lineColor rgb 47872 47872 47872
+fill
+fillColor rgb 47872 47872 47872
+lineWidth 0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 23
+y 40
+w 214
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Acquistion Controls and Status"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 260
+y 65
+w 500
+h 45
+controlPv "$(P):StatusMessage_RBV"
+format "string"
+font "utopia-medium-r-34.0"
+fontAlign "center"
+fgColor rgb 29440 65280 27392
+bgColor rgb 23040 23040 23040
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 340
+y 120
+w 30
+h 30
+controlPv "$(P):StatusMessage_RBV"
+lineColor rgb 0 0 0
+onColor rgb 29440 65280 27392
+offColor rgb 64768 0 0
+endian "big"
+numBits 2
+shift -1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 265
+y 130
+w 64
+h 24
+font "helvetica-medium-r-18.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Busy"
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 25
+y 381
+w 439
+h 289
+lineColor rgb 34048 34048 34048
+fill
+fillColor rgb 34048 34048 34048
+lineWidth 0
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 482
+y 382
+w 389
+h 284
+lineColor rgb 34048 34048 34048
+fill
+fillColor rgb 34048 34048 34048
+lineWidth 5
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 600
+y 120
+w 160
+h 25
+controlPv "$(P):DetectorState_RBV"
+format "decimal"
+font "helvetica-medium-r-18.0"
+fontAlign "center"
+fgColor rgb 29440 65280 27392
+bgColor rgb 23040 23040 23040
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 600
+y 155
+w 160
+h 25
+controlPv "$(P):ArrayCounter_RBV"
+format "decimal"
+font "helvetica-medium-r-18.0"
+fontAlign "center"
+fgColor rgb 29440 65280 27392
+bgColor rgb 23040 23040 23040
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 600
+y 190
+w 160
+h 25
+controlPv "$(P):ArrayRate_RBV"
+format "decimal"
+font "helvetica-medium-r-18.0"
+fontAlign "center"
+fgColor rgb 29440 65280 27392
+bgColor rgb 23040 23040 23040
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 495
+y 125
+w 100
+h 14
+font "helvetica-medium-r-12.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Status"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 459
+y 160
+w 136
+h 14
+font "helvetica-medium-r-12.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Total Frames Readout"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 495
+y 195
+w 100
+h 14
+font "helvetica-medium-r-12.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Frame Rate / s"
+}
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 715
+y 233
+w 30
+h 30
+controlPv "$(P):Connected_RBV"
+lineColor rgb 0 0 0
+onColor rgb 29440 65280 27392
+offColor rgb 64768 0 0
+endian "big"
+numBits 2
+shift -1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 650
+y 237
+w 107
+h 23
+font "helvetica-medium-r-18.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Connected"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 40
+y 180
+w 119
+h 15
+font "helvetica-medium-r-12.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Number Of Frames"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 150
+y 180
+w 100
+h 35
+controlPv "$(P):NumImages"
+format "decimal"
+font "helvetica-medium-r-18.0"
+fontAlign "left"
+fgColor rgb 2560 0 47104
+bgColor rgb 51200 51200 51200
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 40
+y 220
+w 218
+h 35
+font "utopia-medium-r-24.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "ROI Calculations"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 40
+y 260
+w 207
+h 35
+font "utopia-medium-r-24.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Dead Time Corr"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 40
+y 305
+w 108
+h 35
+font "utopia-medium-r-24.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Trigger"
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 25
+y 370
+w 99
+h 19
+lineColor rgb 47872 47872 47872
+fill
+fillColor rgb 47872 47872 47872
+lineWidth 0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 25
+y 370
+w 100
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "File Saving"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 75
+y 400
+w 320
+h 20
+controlPv "$(P):HDF5:FilePath"
+format "string"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 51200 51200 51200
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 75
+y 430
+w 320
+h 20
+controlPv "$(P):HDF5:FilePath_RBV"
+format "string"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 29440 65280 27392
+bgColor rgb 11520 11520 11520
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 28
+y 400
+w 43
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Path"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 24
+y 460
+w 51
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Name"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 75
+y 460
+w 150
+h 20
+controlPv "$(P):HDF5:FileName"
+format "string"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 2560 0 47104
+bgColor rgb 51200 51200 51200
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 75
+y 490
+w 150
+h 20
+controlPv "$(P):HDF5:FileName_RBV"
+format "string"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 29440 65280 27392
+bgColor rgb 11520 11520 11520
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 234
+y 460
+w 91
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "File Number"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 320
+y 460
+w 75
+h 20
+controlPv "$(P):HDF5:FileNumber"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 2560 0 47104
+bgColor rgb 51200 51200 51200
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 320
+y 490
+w 75
+h 20
+controlPv "$(P):HDF5:FileNumber_RBV"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 29440 65280 27392
+bgColor rgb 11520 11520 11520
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 403
+y 400
+w 30
+h 30
+controlPv "$(P):HDF5:FilePathExists_RBV"
+lineColor rgb 0 0 0
+onColor rgb 29440 65280 27392
+offColor rgb 64768 0 0
+endian "big"
+numBits 2
+shift -1
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 32
+y 565
+w 226
+h 30
+font "utopia-medium-r-24.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "File Saving Status"
+}
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 165
+y 565
+w 230
+h 30
+controlPv "$(P):HDF5:WriteMessage"
+format "string"
+font "helvetica-medium-r-18.0"
+fontAlign "left"
+fgColor rgb 29440 65280 27392
+bgColor rgb 11520 11520 11520
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 403
+y 520
+w 30
+h 30
+controlPv "$(P):HDF5:Capture_RBV"
+lineColor rgb 0 0 0
+onColor rgb 29440 65280 27392
+offColor rgb 64768 0 0
+endian "big"
+numBits 2
+shift -1
+endObjectProperties
+
+# (Byte)
+object ByteClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 403
+y 565
+w 30
+h 30
+controlPv "$(P):HDF5:WriteStatus"
+lineColor rgb 0 0 0
+onColor rgb 29440 65280 27392
+offColor rgb 64768 0 0
+endian "big"
+numBits 2
+shift -1
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 165
+y 600
+w 100
+h 30
+controlPv "$(P):HDF5:NumCaptured_RBV"
+format "decimal"
+font "helvetica-medium-r-18.0"
+fontAlign "left"
+fgColor rgb 29440 65280 27392
+bgColor rgb 11520 11520 11520
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x -43
+y 600
+w 183
+h 30
+font "utopia-medium-r-24.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Frames saved"
+}
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 480
+y 370
+w 249
+h 19
+lineColor rgb 47872 47872 47872
+fill
+fillColor rgb 47872 47872 47872
+lineWidth 0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 480
+y 370
+w 250
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Date Displays and Detailed Screens"
+}
+endObjectProperties
+
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 260
+y 180
+w 200
+h 155
+
+beginGroup
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 260
+y 180
+w 200
+h 35
+controlPv "$(P):NumImages_RBV"
+format "decimal"
+font "utopia-medium-r-24.0"
+fontAlign "center"
+fgColor rgb 29440 65280 27392
+bgColor rgb 23040 23040 23040
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 260
+y 220
+w 200
+h 35
+controlPv "$(P):CTRL_MCA_ROI_RBV"
+format "decimal"
+font "utopia-medium-r-24.0"
+fontAlign "center"
+fgColor rgb 29440 65280 27392
+bgColor rgb 23040 23040 23040
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 260
+y 260
+w 200
+h 35
+controlPv "$(P):CTRL_DTC_RBV"
+format "decimal"
+font "utopia-medium-r-24.0"
+fontAlign "center"
+fgColor rgb 29440 65280 27392
+bgColor rgb 23040 23040 23040
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 260
+y 300
+w 200
+h 35
+controlPv "$(P):TriggerMode_RBV"
+format "decimal"
+font "utopia-medium-r-24.0"
+fontAlign "center"
+fgColor rgb 29440 65280 27392
+bgColor rgb 23040 23040 23040
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+endGroup
+
+endObjectProperties
+
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 40
+y 65
+w 100
+h 45
+fgColor rgb 2560 0 47104
+onColor rgb 47872 47872 47872
+offColor rgb 47872 47872 47872
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P):Acquire"
+pressValue "Acquire"
+releaseValue 
+onLabel "Start"
+offLabel "Start"
+3d
+font "utopia-medium-r-24.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 65
+w 100
+h 45
+fgColor rgb 2560 0 47104
+onColor rgb 47872 47872 47872
+offColor rgb 47872 47872 47872
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P):ERASE"
+pressValue "Erase"
+releaseValue 
+onLabel "Erase"
+offLabel "Erase"
+3d
+font "utopia-medium-r-24.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 40
+y 120
+w 100
+h 45
+fgColor rgb 2560 0 47104
+onColor rgb 47872 47872 47872
+offColor rgb 47872 47872 47872
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P):Acquire"
+pressValue "Done"
+releaseValue 
+onLabel "Stop"
+offLabel "Stop"
+3d
+font "utopia-medium-r-24.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 120
+w 100
+h 45
+fgColor rgb 2560 0 47104
+onColor rgb 47872 47872 47872
+offColor rgb 47872 47872 47872
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P):UPDATE"
+pressValue "1"
+releaseValue 
+onLabel "Update Arrays"
+offLabel "Update Arrays"
+3d
+useEnumNumeric
+font "utopia-medium-r-24.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 220
+w 100
+h 35
+fgColor rgb 0 0 0
+bgColor rgb 51200 51200 51200
+selectColor rgb 51200 51200 51200
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P):CTRL_MCA_ROI"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 260
+w 100
+h 35
+fgColor rgb 0 0 0
+bgColor rgb 51200 51200 51200
+selectColor rgb 51200 51200 51200
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P):CTRL_DTC"
+font "helvetica-medium-r-10.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 75
+y 520
+w 150
+h 30
+fgColor rgb 2560 0 47104
+onColor rgb 51200 51200 51200
+offColor rgb 51200 51200 51200
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P):HDF5:Capture"
+pressValue "Capture"
+releaseValue 
+onLabel "Start File Saving"
+offLabel "Start File Saving"
+3d
+font "helvetica-medium-r-18.0"
+endObjectProperties
+
+# (Message Button)
+object activeMessageButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 245
+y 520
+w 150
+h 30
+fgColor rgb 2560 0 47104
+onColor rgb 51200 51200 51200
+offColor rgb 51200 51200 51200
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P):HDF5:Capture"
+pressValue "Done"
+releaseValue 
+onLabel "Stop File Saving"
+offLabel "Stop File Saving"
+3d
+font "helvetica-medium-r-18.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 275
+y 600
+w 160
+h 30
+fgColor rgb 32000 22016 9984
+bgColor rgb 51200 51200 51200
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-18.0"
+icon
+buttonLabel "Set Up File Saving ROI"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 xspress3_file_roi.edl
+}
+menuLabel {
+  0 
+}
+symbols {
+  0 "P=$(P)"
+}
+replaceSymbols {
+  0 1
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 490
+y 410
+w 350
+h 30
+fgColor rgb 32000 22016 9984
+bgColor rgb 51200 51200 51200
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-18.0"
+icon
+buttonLabel "System Configuration"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 xspress3_config.edl
+}
+menuLabel {
+  0 
+}
+symbols {
+  0 "P=$(P)"
+}
+replaceSymbols {
+  0 1
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 490
+y 445
+w 350
+h 30
+fgColor rgb 32000 22016 9984
+bgColor rgb 51200 51200 51200
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-18.0"
+icon
+buttonLabel "MCA Data and ROI Settings"
+numPvs 16
+numDsps 8
+displayFileName {
+  0 xspress3_mca.edl
+  1 xspress3_mca.edl
+  2 xspress3_mca.edl
+  3 xspress3_mca.edl
+  4 xspress3_mca.edl
+  5 xspress3_mca.edl
+  6 xspress3_mca.edl
+  7 xspress3_mca.edl
+}
+menuLabel {
+  0 Channel 1
+  1 Channel 2
+  2 Channel 3
+  3 Channel 4
+  4 Channel 5
+  5 Channel 6
+  6 Channel 7
+  7 Channel 8
+}
+symbols {
+  0 "CHAN=1,P=$(P)"
+  1 "CHAN=2,P=$(P)"
+  2 "CHAN=3,P=$(P)"
+  3 "CHAN=4,P=$(P)"
+  4 "CHAN=5,P=$(P)"
+  5 "CHAN=6,P=$(P)"
+  6 "CHAN=7,P=$(P)"
+  7 "CHAN=8,P=$(P)"
+}
+replaceSymbols {
+  0 1
+  1 1
+  2 1
+  3 1
+  4 1
+  5 1
+  6 1
+  7 1
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 490
+y 480
+w 350
+h 30
+fgColor rgb 32000 22016 9984
+bgColor rgb 51200 51200 51200
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-18.0"
+icon
+buttonLabel "SCA Data & Window settings"
+numPvs 16
+numDsps 8
+displayFileName {
+  0 xspress3_sca.edl
+  1 xspress3_sca.edl
+  2 xspress3_sca.edl
+  3 xspress3_sca.edl
+  4 xspress3_sca.edl
+  5 xspress3_sca.edl
+  6 xspress3_sca.edl
+  7 xspress3_sca.edl
+}
+menuLabel {
+  0 Channel 1
+  1 Channel 2
+  2 Channel 3
+  3 Channel 4
+  4 Channel 5
+  5 Channel 6
+  6 Channel 7
+  7 Channel 8
+}
+symbols {
+  0 "CHAN=1,P=$(P)"
+  1 "CHAN=2,P=$(P)"
+  2 "CHAN=3,P=$(P)"
+  3 "CHAN=4,P=$(P)"
+  4 "CHAN=5,P=$(P)"
+  5 "CHAN=6,P=$(P)"
+  6 "CHAN=7,P=$(P)"
+  7 "CHAN=8,P=$(P)"
+}
+replaceSymbols {
+  0 1
+  1 1
+  2 1
+  3 1
+  4 1
+  5 1
+  6 1
+  7 1
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 490
+y 515
+w 350
+h 30
+fgColor rgb 32000 22016 9984
+bgColor rgb 51200 51200 51200
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-18.0"
+icon
+buttonLabel "Dead Time Correction Params"
+numPvs 16
+numDsps 8
+displayFileName {
+  0 xspress3_dtc.edl
+  1 xspress3_dtc.edl
+  2 xspress3_dtc.edl
+  3 xspress3_dtc.edl
+  4 xspress3_dtc.edl
+  5 xspress3_dtc.edl
+  6 xspress3_dtc.edl
+  7 xspress3_dtc.edl
+}
+menuLabel {
+  0 Channel 1
+  1 Channel 2
+  2 Channel 3
+  3 Channel 4
+  4 Channel 5
+  5 Channel 6
+  6 Channel 7
+  7 Channel 8
+}
+symbols {
+  0 "CHAN=1,P=$(P)"
+  1 "CHAN=2,P=$(P)"
+  2 "CHAN=3,P=$(P)"
+  3 "CHAN=4,P=$(P)"
+  4 "CHAN=5,P=$(P)"
+  5 "CHAN=6,P=$(P)"
+  6 "CHAN=7,P=$(P)"
+  7 "CHAN=8,P=$(P)"
+}
+replaceSymbols {
+  0 1
+  1 1
+  2 1
+  3 1
+  4 1
+  5 1
+  6 1
+  7 1
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 490
+y 550
+w 350
+h 30
+fgColor rgb 32000 22016 9984
+bgColor rgb 51200 51200 51200
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-18.0"
+icon
+buttonLabel "Enable/Disable Visualization"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 xspress3_ad_plugincontrol.edl
+}
+menuLabel {
+  0 
+}
+symbols {
+  0 "P=$(P)"
+}
+replaceSymbols {
+  0 1
+}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 490
+y 585
+w 350
+h 30
+fgColor rgb 32000 22016 9984
+bgColor rgb 51200 51200 51200
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-18.0"
+icon
+buttonLabel "Area Detector (EPICS expert only)"
+numPvs 20
+numDsps 10
+displayFileName {
+  0 xspress3_ad.edl
+  1 xspress3_ad_chan.edl
+  2 xspress3_ad_chan.edl
+  3 xspress3_ad_chan.edl
+  4 xspress3_ad_chan.edl
+  5 xspress3_ad_chan.edl
+  6 xspress3_ad_chan.edl
+  7 xspress3_ad_chan.edl
+  8 xspress3_ad_chan.edl
+  9 xspress3_ad.edl
+}
+menuLabel {
+  0 Xspress3 area detector control
+  1 Channel 1 Spectra
+  2 Channel 2 Spectra
+  3 Channel 3 Spectra
+  4 Channel 4 Spectra
+  5 Channel 5 Spectra
+  6 Channel 6 Spectra
+  7 Channel 7 Spectra
+  8 Channel 8 Spectra
+  9 Detector,File Saving & Summing
+}
+symbols {
+  0 "P=$(P)"
+  1 "CHAN=1,P=$(P)"
+  2 "CHAN=2,P=$(P)"
+  3 "CHAN=3,P=$(P)"
+  4 "CHAN=4,P=$(P)"
+  5 "CHAN=5,P=$(P)"
+  6 "CHAN=6,P=$(P)"
+  7 "CHAN=7,P=$(P)"
+  8 "CHAN=8,P=$(P)"
+  9 "P=$(P)"
+}
+replaceSymbols {
+  0 1
+  1 1
+  2 1
+  3 1
+  4 1
+  5 1
+  6 1
+  7 1
+  8 1
+  9 1
+}
+endObjectProperties
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 260
+y 180
+w 200
+h 155
+
+beginGroup
+
+endGroup
+
+endObjectProperties
+
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 150
+y 300
+w 100
+h 35
+fgColor rgb 0 0 0
+bgColor rgb 51200 51200 51200
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P):TriggerMode"
+indicatorPv "$(P):TriggerMode"
+font "helvetica-medium-r-18.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 490
+y 625
+w 350
+h 30
+fgColor rgb 32000 22016 9984
+bgColor rgb 51200 51200 51200
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-18.0"
+icon
+buttonLabel "Area Detector atrributes menu (EPICS expert only)"
+numPvs 16
+numDsps 8
+displayFileName {
+  0 xspress3_ad_attr_2.edl
+  1 xspress3_ad_attr_2.edl
+  2 xspress3_ad_attr_2.edl
+  3 xspress3_ad_attr_2.edl
+  4 xspress3_ad_attr_2.edl
+  5 xspress3_ad_attr_2.edl
+  6 xspress3_ad_attr_2.edl
+  7 xspress3_ad_attr_2.edl
+}
+menuLabel {
+  0 Attributes menu - Channel 1
+  1 Attributes menu - Channel 2
+  2 Attributes menu - Channel 3
+  3 Attributes menu - Channel 4
+  4 Attributes menu - Channel 5
+  5 Attributes menu - Channel 6
+  6 Attributes menu - Channel 7
+  7 Attributes menu - Channel 8
+}
+symbols {
+  0 "CHAN=1,P=$(P)"
+  1 "CHAN=2,P=$(P)"
+  2 "CHAN=3,P=$(P)"
+  3 "CHAN=4,P=$(P)"
+  4 "CHAN=5,P=$(P)"
+  5 "CHAN=6,P=$(P)"
+  6 "CHAN=7,P=$(P)"
+  7 "CHAN=8,P=$(P)"
+}
+replaceSymbols {
+  0 1
+  1 1
+  2 1
+  3 1
+  4 1
+  5 1
+  6 1
+  7 1
+}
+endObjectProperties
+

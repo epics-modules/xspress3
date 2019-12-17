@@ -1,8 +1,25 @@
-#RELEASE Location of external products
+##RELEASE Location of external products
 # Run "gnumake clean uninstall install" in the application
 # top directory each time this file is changed.
 
--include $(TOP)/../configure/RELEASE_LIBS_INCLUDE
--include $(TOP)/RELEASE.local
+TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
+
+# If you don't want to install into $(TOP) then
+# define INSTALL_LOCATION_APP here
+#INSTALL_LOCATION_APP=<fullpathname>
+
+SUPPORT=/corvette/home/epics/devel
+
+# This module
+XSPRESS3=$(SUPPORT)/xspress3-2-2
+
+# XSPRESS3 requires areaDetector, and areaDetector/configure already defines
+# ASYN, CALC, etc.
+AREA_DETECTOR=$(SUPPORT)/areaDetector-3-8
+-include $(TOP)/../RELEASE.$(EPICS_HOST_ARCH).local
+-include $(AREA_DETECTOR)/configure/RELEASE_PRODS.local
+
+-include $(TOP)/../RELEASE.local
+-include $(TOP)/../RELEASE.$(EPICS_HOST_ARCH).local
 -include $(TOP)/configure/RELEASE.local
 
