@@ -1,12 +1,12 @@
 
 file {
-	name="/home/epics/matt/adl/xspress3_mcarois.adl"
+	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_mcarois.adl"
 	version=030109
 }
 display {
 	object {
-		x=229
-		y=100
+		x=87
+		y=121
 		width=975
 		height=900
 	}
@@ -122,6 +122,9 @@ text {
 		rangeStyle="user-specified"
 		maxRange=4096.000000
 	}
+	y1_axis {
+		rangeStyle="auto-scale"
+	}
 }
 text {
 	object {
@@ -157,16 +160,19 @@ text {
 		rangeStyle="user-specified"
 		maxRange=4096.000000
 	}
+	y1_axis {
+		rangeStyle="auto-scale"
+	}
 }
 "text update" {
 	object {
-		x=848
+		x=845
 		y=100
 		width=120
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)SCA0:Value_RBV"
+		chan="$(P):C$(CHAN)SCA:0:Value_RBV"
 		clr=54
 		bclr=0
 	}
@@ -189,7 +195,7 @@ text {
 }
 text {
 	object {
-		x=713
+		x=715
 		y=100
 		width=100
 		height=20
@@ -241,7 +247,7 @@ text {
 }
 text {
 	object {
-		x=713
+		x=715
 		y=130
 		width=100
 		height=20
@@ -253,7 +259,7 @@ text {
 }
 text {
 	object {
-		x=713
+		x=715
 		y=160
 		width=100
 		height=20
@@ -265,7 +271,7 @@ text {
 }
 text {
 	object {
-		x=713
+		x=715
 		y=190
 		width=100
 		height=20
@@ -277,7 +283,7 @@ text {
 }
 text {
 	object {
-		x=713
+		x=715
 		y=220
 		width=100
 		height=20
@@ -289,8 +295,8 @@ text {
 }
 text {
 	object {
-		x=713
-		y=250
+		x=715
+		y=310
 		width=100
 		height=20
 	}
@@ -301,13 +307,13 @@ text {
 }
 "text update" {
 	object {
-		x=848
+		x=845
 		y=130
 		width=120
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)SCA1:Value_RBV"
+		chan="$(P):C$(CHAN)SCA:1:Value_RBV"
 		clr=54
 		bclr=0
 	}
@@ -317,13 +323,13 @@ text {
 }
 "text update" {
 	object {
-		x=848
+		x=845
 		y=160
 		width=120
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)SCA2:Value_RBV"
+		chan="$(P):C$(CHAN)SCA:2:Value_RBV"
 		clr=54
 		bclr=0
 	}
@@ -333,13 +339,13 @@ text {
 }
 "text update" {
 	object {
-		x=848
+		x=845
 		y=190
 		width=120
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)SCA3:Value_RBV"
+		chan="$(P):C$(CHAN)SCA:3:Value_RBV"
 		clr=54
 		bclr=0
 	}
@@ -349,13 +355,13 @@ text {
 }
 "text update" {
 	object {
-		x=848
+		x=845
 		y=220
 		width=120
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)SCA4:Value_RBV"
+		chan="$(P):C$(CHAN)SCA:4:Value_RBV"
 		clr=54
 		bclr=0
 	}
@@ -365,13 +371,13 @@ text {
 }
 "text update" {
 	object {
-		x=848
+		x=845
 		y=250
 		width=120
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)SCA7:Value_RBV"
+		chan="$(P):C$(CHAN)SCA:5:Value_RBV"
 		clr=54
 		bclr=0
 	}
@@ -2949,8 +2955,8 @@ text {
 }
 text {
 	object {
-		x=713
-		y=280
+		x=715
+		y=370
 		width=100
 		height=20
 	}
@@ -2961,13 +2967,13 @@ text {
 }
 "text update" {
 	object {
-		x=848
+		x=845
 		y=280
 		width=120
 		height=20
 	}
 	monitor {
-		chan="$(P):C$(CHAN)SCA8:Value_RBV"
+		chan="$(P):C$(CHAN)SCA:6:Value_RBV"
 		clr=54
 		bclr=0
 	}
@@ -3566,4 +3572,116 @@ text {
 	}
 	limits {
 	}
+}
+"text update" {
+	object {
+		x=845
+		y=310
+		width=120
+		height=20
+	}
+	monitor {
+		chan="$(P):C$(CHAN)SCA:7:Value_RBV"
+		clr=54
+		bclr=0
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=845
+		y=340
+		width=120
+		height=20
+	}
+	monitor {
+		chan="$(P):C$(CHAN)SCA:8:Value_RBV"
+		clr=54
+		bclr=0
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=845
+		y=370
+		width=120
+		height=20
+	}
+	monitor {
+		chan="$(P):C$(CHAN)SCA:9:Value_RBV"
+		clr=54
+		bclr=0
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+"text update" {
+	object {
+		x=845
+		y=400
+		width=120
+		height=20
+	}
+	monitor {
+		chan="$(P):C$(CHAN)SCA:10:Value_RBV"
+		clr=54
+		bclr=0
+	}
+	align="horiz. right"
+	limits {
+	}
+}
+text {
+	object {
+		x=715
+		y=400
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="DT Percent"
+}
+text {
+	object {
+		x=715
+		y=340
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Event Width"
+}
+text {
+	object {
+		x=715
+		y=280
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Window 2"
+}
+text {
+	object {
+		x=715
+		y=250
+		width=100
+		height=20
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Window 1"
 }

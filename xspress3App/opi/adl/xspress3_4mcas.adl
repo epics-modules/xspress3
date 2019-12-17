@@ -133,6 +133,7 @@ display {
 		clr=14
 		bclr=2
 	}
+	style="line"
 	erase_oldest="plot last n pts"
 	trace[0] {
 		ydata="$(P):MCASUM1:ArrayData"

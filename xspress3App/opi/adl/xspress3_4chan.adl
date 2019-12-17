@@ -1,12 +1,12 @@
 
 file {
-	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_main.adl"
-	version=030107
+	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_4chan.adl"
+	version=030109
 }
 display {
 	object {
-		x=125
-		y=175
+		x=282
+		y=200
 		width=450
 		height=525
 	}
@@ -570,6 +570,26 @@ byte {
 		label="MCA 4"
 		name="xspress3_mcarois.adl"
 		args="P=$(P), CHAN=4"
+	}
+	display[10] {
+		label="SCA 1 "
+		name="NDPluginAttribute.adl"
+		args="P=$(P):, R=C1SCA:"
+	}
+	display[11] {
+		label="SCA 2"
+		name="NDPluginAttribute.adl"
+		args="P=$(P):, R=C2SCA:"
+	}
+	display[12] {
+		label="SCA 3"
+		name="NDPluginAttribute.adl"
+		args="P=$(P):, R=C3SCA:"
+	}
+	display[13] {
+		label="SCA 4"
+		name="NDPluginAttribute.adl"
+		args="P=$(P):, R=C4SCA:"
 	}
 	clr=54
 	bclr=55
