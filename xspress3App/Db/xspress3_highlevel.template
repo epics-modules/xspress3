@@ -29,7 +29,7 @@ record(calcout, "$(HDF)NumCapture_CALC")
 
 
 #Turn off the default alarm state of the HDF plugin Capture_RBV PV
-record(bi, $(HDF)Capture_RBV)
+record(bi, "$(HDF)Capture_RBV")
 {
    field(OSV, "NO_ALARM")
 }
