@@ -8,14 +8,14 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 # define INSTALL_LOCATION_APP here
 #INSTALL_LOCATION_APP=<fullpathname>
 
-SUPPORT=/corvette/home/epics/devel
+SUPPORT=/tmp
 
 # This module
-XSPRESS3=$(SUPPORT)/xspress3-2-2
+XSPRESS3=$(SUPPORT)/xspress
 
 # XSPRESS3 requires areaDetector, and areaDetector/configure already defines
 # ASYN, CALC, etc.
-AREA_DETECTOR=$(SUPPORT)/areaDetector-3-8
+AREA_DETECTOR=$(SUPPORT)/areaDetector
 -include $(TOP)/../RELEASE.$(EPICS_HOST_ARCH).local
 -include $(AREA_DETECTOR)/configure/RELEASE_PRODS.local
 
