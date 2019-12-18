@@ -9,7 +9,7 @@ XSPRESS3=$(TOP)/../..
 
 # XSPRESS3 requires areaDetector, and areaDetector/configure already defines
 # ASYN, CALC, etc.
-AREA_DETECTOR=$(SUPPORT)/areaDetector-3-8
+AREA_DETECTOR=$(SUPPORT)/areaDetector
 -include $(XSPRESS3)/../RELEASE.$(EPICS_HOST_ARCH).local
 -include $(AREA_DETECTOR)/configure/RELEASE_PRODS.local
 
