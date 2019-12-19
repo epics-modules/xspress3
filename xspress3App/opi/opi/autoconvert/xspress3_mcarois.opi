@@ -65,9 +65,9 @@
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>400</width>
+    <width>380</width>
     <wrap_words>false</wrap_words>
-    <x>200</x>
+    <x>210</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.xyGraph" version="1.0.0">
@@ -673,7 +673,7 @@ $(trace_0_y_pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>170</width>
+    <width>190</width>
     <wrap_words>false</wrap_words>
     <x>8</x>
     <y>595</y>
@@ -1268,7 +1268,7 @@ $(trace_0_y_pv_value)</tooltip>
     <foreground_color>
       <color red="10" green="0" blue="184" />
     </foreground_color>
-    <format_type>4</format_type>
+    <format_type>1</format_type>
     <height>20</height>
     <horizontal_alignment>2</horizontal_alignment>
     <name>Text Update</name>
@@ -1332,7 +1332,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>220</width>
+    <width>320</width>
     <wrap_words>false</wrap_words>
     <x>718</x>
     <y>40</y>
@@ -1372,7 +1372,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>110</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>100</y>
@@ -1412,7 +1412,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>9</width>
     <wrap_words>false</wrap_words>
     <x>5</x>
     <y>620</y>
@@ -1503,7 +1503,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>70</width>
+    <width>36</width>
     <wrap_words>false</wrap_words>
     <x>25</x>
     <y>620</y>
@@ -1543,7 +1543,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>110</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>130</y>
@@ -1583,7 +1583,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>120</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>160</y>
@@ -1623,7 +1623,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>90</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>190</y>
@@ -1663,7 +1663,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>80</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>220</y>
@@ -1703,7 +1703,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>60</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>310</y>
@@ -2060,7 +2060,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>35</width>
+    <width>27</width>
     <wrap_words>false</wrap_words>
     <x>100</x>
     <y>620</y>
@@ -2162,9 +2162,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>10</width>
     <wrap_words>false</wrap_words>
-    <x>5</x>
+    <x>10</x>
     <y>640</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -2202,7 +2202,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>35</width>
+    <width>36</width>
     <wrap_words>false</wrap_words>
     <x>136</x>
     <y>620</y>
@@ -2304,7 +2304,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>50</width>
+    <width>54</width>
     <wrap_words>false</wrap_words>
     <x>180</x>
     <y>620</y>
@@ -2344,7 +2344,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>9</width>
     <wrap_words>false</wrap_words>
     <x>245</x>
     <y>620</y>
@@ -2435,7 +2435,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>70</width>
+    <width>36</width>
     <wrap_words>false</wrap_words>
     <x>265</x>
     <y>620</y>
@@ -2537,7 +2537,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>35</width>
+    <width>27</width>
     <wrap_words>false</wrap_words>
     <x>340</x>
     <y>620</y>
@@ -2639,9 +2639,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>10</width>
     <wrap_words>false</wrap_words>
-    <x>245</x>
+    <x>250</x>
     <y>640</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -2679,7 +2679,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>35</width>
+    <width>36</width>
     <wrap_words>false</wrap_words>
     <x>376</x>
     <y>620</y>
@@ -2781,7 +2781,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>50</width>
+    <width>54</width>
     <wrap_words>false</wrap_words>
     <x>420</x>
     <y>620</y>
@@ -2821,7 +2821,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>9</width>
     <wrap_words>false</wrap_words>
     <x>485</x>
     <y>620</y>
@@ -2912,7 +2912,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>70</width>
+    <width>36</width>
     <wrap_words>false</wrap_words>
     <x>505</x>
     <y>620</y>
@@ -3014,7 +3014,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>35</width>
+    <width>27</width>
     <wrap_words>false</wrap_words>
     <x>580</x>
     <y>620</y>
@@ -3116,9 +3116,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>10</width>
     <wrap_words>false</wrap_words>
-    <x>485</x>
+    <x>490</x>
     <y>640</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -3156,7 +3156,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>35</width>
+    <width>36</width>
     <wrap_words>false</wrap_words>
     <x>616</x>
     <y>620</y>
@@ -3258,7 +3258,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>50</width>
+    <width>54</width>
     <wrap_words>false</wrap_words>
     <x>660</x>
     <y>620</y>
@@ -3298,7 +3298,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>9</width>
     <wrap_words>false</wrap_words>
     <x>725</x>
     <y>620</y>
@@ -3389,7 +3389,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>70</width>
+    <width>36</width>
     <wrap_words>false</wrap_words>
     <x>745</x>
     <y>620</y>
@@ -3491,7 +3491,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>35</width>
+    <width>27</width>
     <wrap_words>false</wrap_words>
     <x>820</x>
     <y>620</y>
@@ -3593,9 +3593,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>10</width>
     <wrap_words>false</wrap_words>
-    <x>725</x>
+    <x>730</x>
     <y>640</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -3633,7 +3633,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>35</width>
+    <width>36</width>
     <wrap_words>false</wrap_words>
     <x>856</x>
     <y>620</y>
@@ -3735,7 +3735,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>50</width>
+    <width>54</width>
     <wrap_words>false</wrap_words>
     <x>900</x>
     <y>620</y>
@@ -3950,9 +3950,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>10</width>
     <wrap_words>false</wrap_words>
-    <x>5</x>
+    <x>10</x>
     <y>665</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="2.0.0">
@@ -4227,9 +4227,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>10</width>
     <wrap_words>false</wrap_words>
-    <x>245</x>
+    <x>250</x>
     <y>665</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="2.0.0">
@@ -4504,9 +4504,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>10</width>
     <wrap_words>false</wrap_words>
-    <x>485</x>
+    <x>490</x>
     <y>665</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="2.0.0">
@@ -4781,9 +4781,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>10</width>
     <wrap_words>false</wrap_words>
-    <x>725</x>
+    <x>730</x>
     <y>665</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="2.0.0">
@@ -5058,9 +5058,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>20</width>
+    <width>10</width>
     <wrap_words>false</wrap_words>
-    <x>5</x>
+    <x>10</x>
     <y>690</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.TextInput" version="2.0.0">
@@ -11531,7 +11531,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>90</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>370</y>
@@ -14082,7 +14082,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>110</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>340</y>
@@ -14122,7 +14122,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>80</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>280</y>
@@ -14162,7 +14162,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>100</width>
+    <width>80</width>
     <wrap_words>false</wrap_words>
     <x>715</x>
     <y>250</y>

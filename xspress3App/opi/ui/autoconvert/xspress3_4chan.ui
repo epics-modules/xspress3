@@ -4,8 +4,8 @@
 <widget class="QMainWindow" name="MainWindow">
     <property name="geometry">
         <rect>
-            <x>282</x>
-            <y>200</y>
+            <x>843</x>
+            <y>250</y>
             <width>450</width>
             <height>525</height>
         </rect>
@@ -15,10 +15,518 @@
 
 QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
 
+caTable {
+       font: 10pt;
+       background: cornsilk;
+       alternate-background-color: wheat;
+}
+
+caLineEdit {
+     border-radius: 1px;
+     background: lightyellow;
+     color: black;
+ }
+
+caTextEntry {
+    color: rgb(127, 0, 63);
+    background-color: cornsilk;
+    selection-color: #0a214c;
+    selection-background-color: wheat;
+    border: 1px groove black;
+    border-radius: 1px;
+    padding: 1px;
+}
+
+caTextEntry:focus {
+    padding: 0px;
+    border: 2px groove darkred;
+    border-radius: 1px;
+}
+
+QPushButton {
+      border-color: #00b;
+      border-radius: 2px;
+      padding: 3px;
+      border-width: 1px;
+
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+						   stop:0   rgba(224, 239, 255, 255),
+						   stop:0.5 rgba(199, 215, 230, 255),
+						   stop:1   rgba(184, 214, 236, 255));
+}
+QPushButton:hover {
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+						stop:0   rgba(201, 226, 255, 255),
+						stop:0.5 rgba(177, 204, 230, 255),
+						stop:1   rgba(163, 205, 236, 255));
+}
+QPushButton:pressed {
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+						stop:0   rgba(174, 219, 255, 255),
+						stop:0.5 rgba(165, 199, 230, 255),
+						stop:1   rgba(134, 188, 236, 255));
+}
+
+QPushButton:disabled {
+	background: qlineargradient(spread:pad, x1:0, y1:0, x2:0, y2:1,
+						stop:0   rgba(174, 219, 255, 255),
+						stop:0.5 rgba(165, 199, 230, 255),
+						stop:1   rgba(134, 188, 236, 255));
+}
+
+caChoice {
+      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                  stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                  stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+}
+
+caChoice &gt; QPushButton {
+      text-align: left;
+      padding: 1px;
+}
+
+caSlider::groove:horizontal {
+border: 1px solid #bbb;
+background: lightgrey;
+height: 20px;
+border-radius: 4px;
+}
+
+caSlider::handle:horizontal {
+background: red;
+border: 1px solid #777;
+width: 13px;
+margin-top: -2px;
+margin-bottom: -2px;
+border-radius: 2px;
+}
+
+
+
 </string>
     </property>
     <widget class="QWidget" name="centralWidget">
         <widget class="caGraphics" name="caRectangle_0">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>491</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfNotZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):HDF1:WriteStatus</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_1">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>250</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfNotZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):HDF1:Capture_RBV</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_2">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>491</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):HDF1:WriteStatus</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_3">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>316</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfNotZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):HDF1:FilePathExists_RBV</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_4">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>250</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):HDF1:Capture_RBV</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_5">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>62</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):det1:StatusMessage_RBV</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_6">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>5</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfNotZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):det1:CONNECTED</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_7">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>5</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):det1:CONNECTED</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_8">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>62</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>115</red>
+                    <green>255</green>
+                    <blue>107</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfNotZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):det1:StatusMessage_RBV</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_9">
+            <property name="form">
+                <enum>caGraphics::Rectangle</enum>
+            </property>
+            <property name="geometry">
+                <rect>
+                    <x>425</x>
+                    <y>316</y>
+                    <width>15</width>
+                    <height>15</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="fillstyle">
+                <enum>Filled</enum>
+            </property>
+            <property name="lineColor">
+                <color alpha="255">
+                    <red>253</red>
+                    <green>0</green>
+                    <blue>0</blue>
+                </color>
+            </property>
+            <property name="linestyle">
+                <enum>Solid</enum>
+            </property>
+            <property name="visibility">
+                <enum>caGraphics::IfZero</enum>
+            </property>
+            <property name="visibilityCalc">
+                <string>A</string>
+            </property>
+            <property name="channel">
+                <string>$(P):HDF1:FilePathExists_RBV</string>
+            </property>
+        </widget>
+        <widget class="caGraphics" name="caRectangle_10">
             <property name="form">
                 <enum>caGraphics::Rectangle</enum>
             </property>
@@ -79,7 +587,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>10</x>
                     <y>5</y>
-                    <width>180</width>
+                    <width>300</width>
                     <height>18</height>
                 </rect>
             </property>
@@ -233,14 +741,14 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
             <property name="geometry">
                 <rect>
-                    <x>4000</x>
+                    <x>4006</x>
                     <y>0</y>
-                    <width>210</width>
+                    <width>198</width>
                     <height>15</height>
                 </rect>
             </property>
         </widget>
-        <widget class="caGraphics" name="caRectangle_1">
+        <widget class="caGraphics" name="caRectangle_11">
             <property name="form">
                 <enum>caGraphics::Rectangle</enum>
             </property>
@@ -273,48 +781,6 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <enum>Solid</enum>
             </property>
         </widget>
-        <widget class="caByte" name="caByte_0">
-            <property name="geometry">
-                <rect>
-                    <x>425</x>
-                    <y>60</y>
-                    <width>15</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="channel">
-                <string>$(P):det1:StatusMessage_RBV</string>
-            </property>
-            <property name="foreground">
-                <color alpha="255">
-                    <red>115</red>
-                    <green>255</green>
-                    <blue>107</blue>
-                </color>
-            </property>
-            <property name="background">
-                <color alpha="255">
-                    <red>253</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                </color>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="colorMode">
-                <enum>caByte::Static</enum>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="endBit">
-                <number>0</number>
-            </property>
-            <property name="direction">
-                <enum>Right</enum>
-            </property>
-        </widget>
         <widget class="caLabel" name="caLabel_2">
             <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -341,9 +807,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
             <property name="geometry">
                 <rect>
-                    <x>360</x>
+                    <x>385</x>
                     <y>60</y>
-                    <width>60</width>
+                    <width>32</width>
                     <height>18</height>
                 </rect>
             </property>
@@ -399,7 +865,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <double>1.0</double>
             </property>
             <property name="formatType">
-                <enum>decimal</enum>
+                <enum>string</enum>
             </property>
             <property name="colorMode">
                 <enum>caLineEdit::Static</enum>
@@ -542,9 +1008,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
             <property name="geometry">
                 <rect>
-                    <x>205</x>
+                    <x>263</x>
                     <y>85</y>
-                    <width>100</width>
+                    <width>42</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -577,7 +1043,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>300</x>
                     <y>120</y>
-                    <width>50</width>
+                    <width>54</width>
                     <height>15</height>
                 </rect>
             </property>
@@ -609,58 +1075,16 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             <property name="fontScaleMode">
                 <enum>ESimpleLabel::WidthAndHeight</enum>
             </property>
-            <property name="geometry">
-                <rect>
-                    <x>300</x>
-                    <y>140</y>
-                    <width>50</width>
-                    <height>15</height>
-                </rect>
-            </property>
             <property name="alignment">
-                <set>Qt::AlignAbsolute|Qt::AlignLeft|Qt::AlignVCenter</set>
+                <set>Qt::AlignAbsolute|Qt::AlignRight|Qt::AlignVCenter</set>
             </property>
-        </widget>
-        <widget class="caByte" name="caByte_1">
             <property name="geometry">
                 <rect>
-                    <x>425</x>
-                    <y>5</y>
-                    <width>15</width>
+                    <x>314</x>
+                    <y>140</y>
+                    <width>36</width>
                     <height>15</height>
                 </rect>
-            </property>
-            <property name="channel">
-                <string>$(P):det1:CONNECTED</string>
-            </property>
-            <property name="foreground">
-                <color alpha="255">
-                    <red>115</red>
-                    <green>255</green>
-                    <blue>107</blue>
-                </color>
-            </property>
-            <property name="background">
-                <color alpha="255">
-                    <red>253</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                </color>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="colorMode">
-                <enum>caByte::Static</enum>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="endBit">
-                <number>0</number>
-            </property>
-            <property name="direction">
-                <enum>Right</enum>
             </property>
         </widget>
         <widget class="caLabel" name="caLabel_6">
@@ -691,7 +1115,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>345</x>
                     <y>5</y>
-                    <width>60</width>
+                    <width>72</width>
                     <height>18</height>
                 </rect>
             </property>
@@ -725,9 +1149,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
             <property name="geometry">
                 <rect>
-                    <x>5</x>
+                    <x>23</x>
                     <y>125</y>
-                    <width>100</width>
+                    <width>72</width>
                     <height>15</height>
                 </rect>
             </property>
@@ -845,9 +1269,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
             <property name="geometry">
                 <rect>
-                    <x>5</x>
+                    <x>20</x>
                     <y>180</y>
-                    <width>150</width>
+                    <width>126</width>
                     <height>15</height>
                 </rect>
             </property>
@@ -881,9 +1305,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
             <property name="geometry">
                 <rect>
-                    <x>5</x>
+                    <x>97</x>
                     <y>215</y>
-                    <width>100</width>
+                    <width>49</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -970,7 +1394,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>10</x>
                     <y>348</y>
-                    <width>100</width>
+                    <width>77</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -1057,7 +1481,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>230</x>
                     <y>348</y>
-                    <width>90</width>
+                    <width>77</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -1116,54 +1540,12 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <enum>decimal</enum>
             </property>
         </widget>
-        <widget class="caByte" name="caByte_2">
-            <property name="geometry">
-                <rect>
-                    <x>425</x>
-                    <y>315</y>
-                    <width>15</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="channel">
-                <string>$(P):HDF1:FilePathExists_RBV</string>
-            </property>
-            <property name="foreground">
-                <color alpha="255">
-                    <red>115</red>
-                    <green>255</green>
-                    <blue>107</blue>
-                </color>
-            </property>
-            <property name="background">
-                <color alpha="255">
-                    <red>253</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                </color>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="colorMode">
-                <enum>caByte::Static</enum>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="endBit">
-                <number>0</number>
-            </property>
-            <property name="direction">
-                <enum>Right</enum>
-            </property>
-        </widget>
         <widget class="caMessageButton" name="caMessageButton_3">
             <property name="geometry">
                 <rect>
                     <x>5</x>
                     <y>275</y>
-                    <width>120</width>
+                    <width>140</width>
                     <height>30</height>
                 </rect>
             </property>
@@ -1200,9 +1582,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
         <widget class="caMessageButton" name="caMessageButton_4">
             <property name="geometry">
                 <rect>
-                    <x>130</x>
+                    <x>150</x>
                     <y>275</y>
-                    <width>120</width>
+                    <width>140</width>
                     <height>30</height>
                 </rect>
             </property>
@@ -1234,90 +1616,6 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
             <property name="colorMode">
                 <enum>caMessageButton::Static</enum>
-            </property>
-        </widget>
-        <widget class="caByte" name="caByte_3">
-            <property name="geometry">
-                <rect>
-                    <x>420</x>
-                    <y>250</y>
-                    <width>15</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="channel">
-                <string>$(P):HDF1:Capture_RBV</string>
-            </property>
-            <property name="foreground">
-                <color alpha="255">
-                    <red>115</red>
-                    <green>255</green>
-                    <blue>107</blue>
-                </color>
-            </property>
-            <property name="background">
-                <color alpha="255">
-                    <red>253</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                </color>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="colorMode">
-                <enum>caByte::Static</enum>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="endBit">
-                <number>0</number>
-            </property>
-            <property name="direction">
-                <enum>Right</enum>
-            </property>
-        </widget>
-        <widget class="caByte" name="caByte_4">
-            <property name="geometry">
-                <rect>
-                    <x>425</x>
-                    <y>491</y>
-                    <width>15</width>
-                    <height>15</height>
-                </rect>
-            </property>
-            <property name="channel">
-                <string>$(P):HDF1:WriteStatus</string>
-            </property>
-            <property name="foreground">
-                <color alpha="255">
-                    <red>115</red>
-                    <green>255</green>
-                    <blue>107</blue>
-                </color>
-            </property>
-            <property name="background">
-                <color alpha="255">
-                    <red>253</red>
-                    <green>0</green>
-                    <blue>0</blue>
-                </color>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="colorMode">
-                <enum>caByte::Static</enum>
-            </property>
-            <property name="startBit">
-                <number>0</number>
-            </property>
-            <property name="endBit">
-                <number>0</number>
-            </property>
-            <property name="direction">
-                <enum>Right</enum>
             </property>
         </widget>
         <widget class="caRelatedDisplay" name="caRelatedDisplay_0">
@@ -1582,7 +1880,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>5</x>
                     <y>150</y>
-                    <width>100</width>
+                    <width>90</width>
                     <height>15</height>
                 </rect>
             </property>
@@ -1723,7 +2021,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>10</x>
                     <y>59</y>
-                    <width>175</width>
+                    <width>160</width>
                     <height>20</height>
                 </rect>
             </property>
@@ -1759,7 +2057,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>5</x>
                     <y>250</y>
-                    <width>150</width>
+                    <width>160</width>
                     <height>20</height>
                 </rect>
             </property>
@@ -1793,9 +2091,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
             <property name="geometry">
                 <rect>
-                    <x>10</x>
+                    <x>24</x>
                     <y>318</y>
-                    <width>100</width>
+                    <width>63</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -1831,7 +2129,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>335</x>
                     <y>250</y>
-                    <width>60</width>
+                    <width>81</width>
                     <height>15</height>
                 </rect>
             </property>
@@ -1867,7 +2165,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>10</x>
                     <y>491</y>
-                    <width>90</width>
+                    <width>42</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -2011,7 +2309,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>10</x>
                     <y>441</y>
-                    <width>90</width>
+                    <width>84</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -2101,7 +2399,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>10</x>
                     <y>406</y>
-                    <width>100</width>
+                    <width>77</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -2165,9 +2463,9 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
             <property name="geometry">
                 <rect>
-                    <x>230</x>
+                    <x>258</x>
                     <y>406</y>
-                    <width>80</width>
+                    <width>49</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -2254,7 +2552,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>10</x>
                     <y>466</y>
-                    <width>100</width>
+                    <width>63</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -2344,7 +2642,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>10</x>
                     <y>376</y>
-                    <width>90</width>
+                    <width>77</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -2431,7 +2729,7 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
                 <rect>
                     <x>230</x>
                     <y>376</y>
-                    <width>90</width>
+                    <width>77</width>
                     <height>14</height>
                 </rect>
             </property>
@@ -2470,9 +2768,19 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
             </property>
         </widget>
         <zorder>caRectangle_0</zorder>
+        <zorder>caRectangle_1</zorder>
+        <zorder>caRectangle_2</zorder>
+        <zorder>caRectangle_3</zorder>
+        <zorder>caRectangle_4</zorder>
+        <zorder>caRectangle_5</zorder>
+        <zorder>caRectangle_6</zorder>
+        <zorder>caRectangle_7</zorder>
+        <zorder>caRectangle_8</zorder>
+        <zorder>caRectangle_9</zorder>
+        <zorder>caRectangle_10</zorder>
         <zorder>caLabel_0</zorder>
         <zorder>caLabel_1</zorder>
-        <zorder>caRectangle_1</zorder>
+        <zorder>caRectangle_11</zorder>
         <zorder>caLabel_2</zorder>
         <zorder>caLabel_3</zorder>
         <zorder>caLabel_4</zorder>
@@ -2498,21 +2806,16 @@ QWidget#centralWidget {background: rgba(236, 236, 236, 255);}
         <zorder>caMessageButton_0</zorder>
         <zorder>caMessageButton_1</zorder>
         <zorder>caMessageButton_2</zorder>
-        <zorder>caByte_0</zorder>
         <zorder>caLineEdit_0</zorder>
         <zorder>caLineEdit_1</zorder>
         <zorder>caLineEdit_2</zorder>
-        <zorder>caByte_1</zorder>
         <zorder>caTextEntry_0</zorder>
         <zorder>caChoice_0</zorder>
         <zorder>caTextEntry_1</zorder>
         <zorder>caTextEntry_2</zorder>
         <zorder>caTextEntry_3</zorder>
-        <zorder>caByte_2</zorder>
         <zorder>caMessageButton_3</zorder>
         <zorder>caMessageButton_4</zorder>
-        <zorder>caByte_3</zorder>
-        <zorder>caByte_4</zorder>
         <zorder>caRelatedDisplay_0</zorder>
         <zorder>caLineEdit_3</zorder>
         <zorder>caLineEdit_4</zorder>

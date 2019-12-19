@@ -30,9 +30,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 200
+x 210
 y 5
-w 400
+w 380
 h 20
 font "helvetica-medium-r-14.0"
 fontAlign "center"
@@ -102,7 +102,7 @@ minor 1
 release 1
 x 8
 y 595
-w 170
+w 190
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -174,7 +174,7 @@ y 100
 w 120
 h 20
 controlPv "$(P):C$(CHAN)SCA:0:Value_RBV"
-format "string"
+format "decimal"
 font "helvetica-medium-r-14.0"
 fontAlign "right"
 fgColor rgb 2560 0 47104
@@ -195,7 +195,7 @@ minor 1
 release 1
 x 718
 y 40
-w 230
+w 320
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -214,7 +214,7 @@ minor 1
 release 1
 x 715
 y 100
-w 100
+w 110
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -276,7 +276,7 @@ minor 1
 release 1
 x 25
 y 620
-w 70
+w 46
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -295,7 +295,7 @@ minor 1
 release 1
 x 715
 y 130
-w 100
+w 110
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -314,7 +314,7 @@ minor 1
 release 1
 x 715
 y 160
-w 101
+w 120
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -333,7 +333,7 @@ minor 1
 release 1
 x 715
 y 190
-w 100
+w 90
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -352,7 +352,7 @@ minor 1
 release 1
 x 715
 y 220
-w 100
+w 80
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -371,7 +371,7 @@ minor 1
 release 1
 x 715
 y 310
-w 100
+w 60
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -646,7 +646,7 @@ minor 1
 release 1
 x 180
 y 620
-w 53
+w 54
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -708,7 +708,7 @@ minor 1
 release 1
 x 265
 y 620
-w 70
+w 46
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -863,7 +863,7 @@ minor 1
 release 1
 x 420
 y 620
-w 53
+w 54
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -925,7 +925,7 @@ minor 1
 release 1
 x 505
 y 620
-w 70
+w 46
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -1080,7 +1080,7 @@ minor 1
 release 1
 x 660
 y 620
-w 53
+w 54
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -1142,7 +1142,7 @@ minor 1
 release 1
 x 745
 y 620
-w 70
+w 46
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -1297,7 +1297,7 @@ minor 1
 release 1
 x 900
 y 620
-w 53
+w 54
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -4732,7 +4732,7 @@ minor 1
 release 1
 x 715
 y 370
-w 100
+w 90
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -5866,7 +5866,7 @@ minor 1
 release 1
 x 715
 y 340
-w 100
+w 110
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -5885,7 +5885,7 @@ minor 1
 release 1
 x 715
 y 280
-w 100
+w 80
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -5904,7 +5904,7 @@ minor 1
 release 1
 x 715
 y 250
-w 100
+w 80
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0

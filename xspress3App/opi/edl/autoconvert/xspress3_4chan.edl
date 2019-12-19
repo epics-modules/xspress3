@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 282
-y 200
+x 843
+y 250
 w 450
 h 525
 font "helvetica-medium-r-18.0"
@@ -30,6 +30,201 @@ beginObjectProperties
 major 4
 minor 0
 release 0
+x 425
+y 491
+w 14
+h 14
+lineColor rgb 29440 65280 27392
+fill
+fillColor rgb 29440 65280 27392
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):HDF1:WriteStatus)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 425
+y 250
+w 14
+h 14
+lineColor rgb 29440 65280 27392
+fill
+fillColor rgb 29440 65280 27392
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):HDF1:Capture_RBV)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 425
+y 491
+w 14
+h 14
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):HDF1:WriteStatus)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 425
+y 316
+w 14
+h 14
+lineColor rgb 29440 65280 27392
+fill
+fillColor rgb 29440 65280 27392
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):HDF1:FilePathExists_RBV)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 425
+y 250
+w 14
+h 14
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):HDF1:Capture_RBV)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 425
+y 62
+w 14
+h 14
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):det1:StatusMessage_RBV)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 425
+y 5
+w 14
+h 14
+lineColor rgb 29440 65280 27392
+fill
+fillColor rgb 29440 65280 27392
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):det1:CONNECTED)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 425
+y 5
+w 14
+h 14
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):det1:CONNECTED)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 425
+y 62
+w 14
+h 14
+lineColor rgb 29440 65280 27392
+fill
+fillColor rgb 29440 65280 27392
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):det1:StatusMessage_RBV)"
+visInvert
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 425
+y 316
+w 14
+h 14
+lineColor rgb 64768 0 0
+fill
+fillColor rgb 64768 0 0
+lineWidth 0
+visPv "CALC\\\{(A)\}($(P):HDF1:FilePathExists_RBV)"
+visMin 0
+visMax 1
+endObjectProperties
+
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
 x 5
 y 250
 w 324
@@ -48,7 +243,7 @@ minor 1
 release 1
 x 10
 y 5
-w 180
+w 300
 h 18
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -65,9 +260,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 4000
+x 4006
 y 0
-w 210
+w 198
 h 15
 font "helvetica-medium-r-12.0"
 fontAlign "center"
@@ -95,34 +290,15 @@ fillColor rgb 60160 61696 46336
 lineWidth 0
 endObjectProperties
 
-# (Byte)
-object ByteClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 425
-y 60
-w 15
-h 15
-controlPv "$(P):det1:StatusMessage_RBV"
-lineColor rgb 0 0 0
-onColor rgb 29440 65280 27392
-offColor rgb 64768 0 0
-endian "big"
-numBits 2
-shift -1
-endObjectProperties
-
 # (Static Text)
 object activeXTextClass
 beginObjectProperties
 major 4
 minor 1
 release 1
-x 360
+x 385
 y 60
-w 60
+w 46
 h 18
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -144,7 +320,7 @@ y 85
 w 120
 h 15
 controlPv "$(P):det1:DetectorState_RBV"
-format "decimal"
+format "string"
 font "helvetica-medium-r-12.0"
 fontAlign "right"
 fgColor rgb 2560 0 47104
@@ -211,9 +387,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 205
+x 257
 y 85
-w 100
+w 48
 h 14
 font "helvetica-medium-r-12.0"
 fontAlign "right"
@@ -250,36 +426,18 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 300
+x 311
 y 140
-w 50
+w 39
 h 15
 font "helvetica-medium-r-12.0"
+fontAlign "right"
 fgColor rgb 0 0 0
 bgColor index 3
 useDisplayBg
 value {
   "Rate"
 }
-endObjectProperties
-
-# (Byte)
-object ByteClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 425
-y 5
-w 15
-h 15
-controlPv "$(P):det1:CONNECTED"
-lineColor rgb 0 0 0
-onColor rgb 29440 65280 27392
-offColor rgb 64768 0 0
-endian "big"
-numBits 2
-shift -1
 endObjectProperties
 
 # (Static Text)
@@ -307,9 +465,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 5
+x 23
 y 125
-w 100
+w 72
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -352,9 +510,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 5
+x 20
 y 180
-w 150
+w 126
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -371,9 +529,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 5
+x 97
 y 215
-w 100
+w 53
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -418,7 +576,7 @@ minor 1
 release 1
 x 10
 y 348
-w 100
+w 77
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -463,7 +621,7 @@ minor 1
 release 1
 x 230
 y 348
-w 90
+w 82
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -498,63 +656,6 @@ smartRefresh
 fastUpdate
 newPos
 objType "controls"
-endObjectProperties
-
-# (Byte)
-object ByteClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 425
-y 315
-w 15
-h 15
-controlPv "$(P):HDF1:FilePathExists_RBV"
-lineColor rgb 0 0 0
-onColor rgb 29440 65280 27392
-offColor rgb 64768 0 0
-endian "big"
-numBits 2
-shift -1
-endObjectProperties
-
-# (Byte)
-object ByteClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 420
-y 250
-w 15
-h 15
-controlPv "$(P):HDF1:Capture_RBV"
-lineColor rgb 0 0 0
-onColor rgb 29440 65280 27392
-offColor rgb 64768 0 0
-endian "big"
-numBits 2
-shift -1
-endObjectProperties
-
-# (Byte)
-object ByteClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 425
-y 491
-w 15
-h 15
-controlPv "$(P):HDF1:WriteStatus"
-lineColor rgb 0 0 0
-onColor rgb 29440 65280 27392
-offColor rgb 64768 0 0
-endian "big"
-numBits 2
-shift -1
 endObjectProperties
 
 # (Text Monitor)
@@ -637,7 +738,7 @@ minor 1
 release 1
 x 5
 y 150
-w 100
+w 90
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -706,7 +807,7 @@ minor 1
 release 1
 x 10
 y 59
-w 175
+w 160
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -725,7 +826,7 @@ minor 1
 release 1
 x 5
 y 250
-w 150
+w 160
 h 20
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -742,9 +843,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 10
+x 24
 y 318
-w 100
+w 64
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -763,7 +864,7 @@ minor 1
 release 1
 x 335
 y 250
-w 68
+w 81
 h 15
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -782,7 +883,7 @@ minor 1
 release 1
 x 10
 y 491
-w 90
+w 48
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -892,7 +993,7 @@ minor 1
 release 1
 x 10
 y 406
-w 100
+w 86
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -909,9 +1010,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 230
+x 258
 y 406
-w 80
+w 57
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -956,7 +1057,7 @@ minor 1
 release 1
 x 10
 y 466
-w 100
+w 63
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -999,7 +1100,7 @@ minor 1
 release 1
 x 10
 y 376
-w 90
+w 77
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -1044,7 +1145,7 @@ minor 1
 release 1
 x 230
 y 376
-w 90
+w 87
 h 14
 font "helvetica-medium-r-12.0"
 fgColor rgb 0 0 0
@@ -1156,7 +1257,7 @@ minor 0
 release 0
 x 5
 y 275
-w 120
+w 140
 h 30
 fgColor rgb 2560 0 47104
 onColor rgb 51200 51200 51200
@@ -1178,9 +1279,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 130
+x 150
 y 275
-w 120
+w 140
 h 30
 fgColor rgb 2560 0 47104
 onColor rgb 51200 51200 51200
