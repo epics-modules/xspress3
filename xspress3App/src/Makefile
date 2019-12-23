@@ -8,7 +8,9 @@ include $(TOP)/configure/CONFIG
 
 DATA+=xsp3.xml
 
-LIBRARY_IOC_Linux += xspress3Epics
+ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+  LIBRARY_IOC_Linux += xspress3Epics
+endif
 
 DBD += xspress3Support.dbd
 

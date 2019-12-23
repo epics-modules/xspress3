@@ -7,7 +7,10 @@ TOP = ../..
 include $(TOP)/configure/CONFIG
 
 PROD_NAME = xspress3App
-PROD_IOC_Linux  += $(PROD_NAME)
+
+ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
+  PROD_IOC_Linux  += $(PROD_NAME)
+endif
 
 # Uncomment the USR_LDFLAGS line to avoid the following error which happens with newer versions of gcc
 #    libimg_mod.a(img_mod_linux.o): relocation R_X86_64_32 against `.rodata' can not be used when making a PIE object; recompile with -fPIC
