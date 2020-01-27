@@ -6,6 +6,9 @@
 TOP = ../..
 include $(TOP)/configure/CONFIG
 
+# To build statically uncomment this line
+#STATIC_BUILD = NO
+
 PROD_NAME = xspress3App
 
 ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
@@ -25,7 +28,7 @@ $(PROD_NAME)_SRCS += $(PROD_NAME)_registerRecordDeviceDriver.cpp $(PROD_NAME)Mai
 $(PROD_NAME)_LIBS += xspress3Epics
 $(PROD_NAME)_LIBS += xspress3
 $(PROD_NAME)_LIBS += img_mod
-
+$(PROD_NAME)_SYS_LIBS += pthread rt
 
 include $(ADCORE)/ADApp/commonDriverMakefile
 
