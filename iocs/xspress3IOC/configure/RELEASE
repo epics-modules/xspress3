@@ -2,15 +2,8 @@
 # Run "gnumake clean uninstall install" in the application
 # top directory each time this file is changed.
 
-# This module
-XSPRESS3=$(TOP)/../..
-include $(XSPRESS3)/configure/RELEASE
+XSPRESS3 = $(TOP)/../..
 
-# XSPRESS3 requires areaDetector, and areaDetector/configure already defines
-# ASYN, CALC, etc.
--include $(XSPRESS3)/../RELEASE.$(EPICS_HOST_ARCH).local
--include $(AREA_DETECTOR)/configure/RELEASE_PRODS.local
-
--include $(XSPRESS3)/../RELEASE.local
--include $(XSPRESS3)/../RELEASE.$(EPICS_HOST_ARCH).local
+-include $(TOP)/../../../configure/RELEASE_PRODS_INCLUDE
+-include $(TOP)/RELEASE.local
 -include $(TOP)/configure/RELEASE.local
