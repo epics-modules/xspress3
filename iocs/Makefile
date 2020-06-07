@@ -1,7 +1,7 @@
 TOP = ..
 include $(TOP)/configure/CONFIG
 
-DIRS := $(filter-out Makefile, $(wildcard *))
+DIRS := $(wildcard *IOC)
 
 include $(TOP)/configure/RULES_TOP
 
