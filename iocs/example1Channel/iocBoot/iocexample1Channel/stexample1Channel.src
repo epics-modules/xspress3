@@ -191,7 +191,7 @@ dbpf("$(XSPRESS3_PREFIX):ROISUM1:SizeY", "1")
 dbpf("$(XSPRESS3_PREFIX):C1_PluginControlValExtraROI", "0")
 
 
-dbpf $(XSPRESS3_PREFIX):NDAttributesFile, example1ChannelApp/data/XSP3.xml
+dbpf $(XSPRESS3_PREFIX):NDAttributesFile, example1ChannelApp/data/XSP3-1Channel.xml
 
 dbpf("$(XSPRESS3_PREFIX):C1_PluginControlValExtraROI", "0")
 

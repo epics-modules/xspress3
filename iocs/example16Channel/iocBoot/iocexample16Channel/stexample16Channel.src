@@ -1631,7 +1631,7 @@ dbpf("$(XSPRESS3_PREFIX):C16_PluginControlValExtraROI", "0")
 
 dbpf("$(XSPRESS3_PREFIX):C16_PluginControlVal", "0")
 
-dbpf $(XSPRESS3_PREFIX):NDAttributesFile, example16ChannelApp/data/XSP3.xml
+dbpf $(XSPRESS3_PREFIX):NDAttributesFile, example16ChannelApp/data/XSP3-16Channel.xml
 
 # disable DTC by default
 dbpf("$(XSPRESS3_PREFIX):CTRL_DTC", "0")

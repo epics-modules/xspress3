@@ -335,7 +335,7 @@ create_monitor_set("example.req", 10)
 
 #Set up the NDAttributes file to tell areaDetector what attributes to
 #save in the NDArray objects (and to file).
-dbpf("$(XSPRESS3_PREFIX):NDAttributesFile", "$(XSPRESS3_ABSPATH)/data/xsp3.xml")
+dbpf("$(XSPRESS3_PREFIX):NDAttributesFile", "exampleApp/data/XSP3-example.xml")
 
 #Set up some of the more complicated HDF PVs
 dbpf("$(XSPRESS3_PREFIX):HDF5:FileTemplate", "%s%s%d.hdf5")

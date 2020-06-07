@@ -6,8 +6,6 @@ include $(TOP)/configure/CONFIG
 # Build an Diamond Support Module
 # -------------------------------
 
-DATA+=xsp3.xml
-
 ifeq (linux-x86_64, $(findstring linux-x86_64, $(T_A)))
   LIBRARY_IOC_Linux += xspress3Epics
 endif

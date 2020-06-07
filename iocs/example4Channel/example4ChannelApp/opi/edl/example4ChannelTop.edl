@@ -229,7 +229,7 @@ bgColor index 3
 botShadowColor index 11
 buttonLabel ""
 displayFileName {
-  0 "XSP3.edl"
+  0 "XSP3-4Channel.edl"
 }
 fgColor index 43
 font "arial-bold-r-14.0"
