@@ -17,8 +17,8 @@ epicsEnvSet "EPICS_TS_MIN_WEST", '0'
 
 cd "$(INSTALL)"
 
-dbLoadDatabase "dbd/example4Channel.dbd"
-example4Channel_registerRecordDeviceDriver(pdbbase)
+dbLoadDatabase "dbd/xspress3App.dbd"
+xspress3_registerRecordDeviceDriver(pdbbase)
 
 callbackSetQueueSize(4000)
 
@@ -479,7 +479,7 @@ dbpf("$(XSPRESS3_PREFIX):C4_PluginControlValExtraROI", "0")
 
 dbpf("$(XSPRESS3_PREFIX):C4_PluginControlVal", "0")
 
-dbpf $(XSPRESS3_PREFIX):NDAttributesFile, example4ChannelApp/data/XSP3-4Channel.xml
+dbpf $(XSPRESS3_PREFIX):NDAttributesFile, xspress3App/data/XSP3-4Channel.xml
 
 # disable DTC by default
 dbpf("$(XSPRESS3_PREFIX):CTRL_DTC", "0")

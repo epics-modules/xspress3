@@ -1,4 +1,4 @@
-#!$(INSTALL)/bin/$(ARCH)/example
+#!$(INSTALL)/bin/$(ARCH)/xspress3App
 
 ## You may have to change example to something else
 ## everywhere it appears in this file
@@ -6,8 +6,8 @@
 cd "$(INSTALL)"
 
 ## Register all support components
-dbLoadDatabase("dbd/example.dbd")
-example_registerRecordDeviceDriver(pdbbase)
+dbLoadDatabase("dbd/xspress3App.dbd")
+xspress3_registerRecordDeviceDriver(pdbbase)
 
 callbackSetQueueSize(4000)
 
@@ -335,7 +335,7 @@ create_monitor_set("example.req", 10)
 
 #Set up the NDAttributes file to tell areaDetector what attributes to
 #save in the NDArray objects (and to file).
-dbpf("$(XSPRESS3_PREFIX):NDAttributesFile", "exampleApp/data/XSP3-example.xml")
+dbpf("$(XSPRESS3_PREFIX):NDAttributesFile", "xspress3App/data/XSP3-example.xml")
 
 #Set up some of the more complicated HDF PVs
 dbpf("$(XSPRESS3_PREFIX):HDF5:FileTemplate", "%s%s%d.hdf5")
