@@ -8,6 +8,7 @@ include $(TOP)/configure/CONFIG
 
 SCRIPTS += ../stexample4Channel.sh
 SCRIPTS += stexample4Channel.boot
+SCRIPTS += stexample4ChannelMini.boot
 PATH := $(PATH):/dls_sw/epics/R3.14.12.3/extensions/bin/linux-x86_64
 
 USR_BOOT_FLAGS+=-MXSPRESS3_PREFIX=$(XSPRESS3_PREFIX)
