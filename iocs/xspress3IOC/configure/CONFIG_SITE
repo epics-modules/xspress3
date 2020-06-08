@@ -44,3 +44,12 @@ XSPRESS3_PREFIX=XSPRESS3
 XSPRESS3_CONFIG:=$(abspath $(XSPRESS3))/xspress3_settings
 XSPRESS3_SAVE:=$(abspath $(TOP))/save
 XSPRESS3_DATA=/home/xspress3/data
+
+# Get settings from AREA_DETECTOR, so we only have to configure once for all detectors if we want to
+-include $(AREA_DETECTOR)/configure/CONFIG_SITE
+-include $(AREA_DETECTOR)/configure/CONFIG_SITE.$(EPICS_HOST_ARCH)
+-include $(AREA_DETECTOR)/configure/CONFIG_SITE.$(EPICS_HOST_ARCH).Common
+ifdef T_A
+  -include $(AREA_DETECTOR)/configure/CONFIG_SITE.Common.$(T_A)
+  -include $(AREA_DETECTOR)/configure/CONFIG_SITE.$(EPICS_HOST_ARCH).$(T_A)
+endif
