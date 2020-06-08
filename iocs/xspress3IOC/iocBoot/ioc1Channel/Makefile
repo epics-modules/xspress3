@@ -6,16 +6,15 @@
 TOP = ../..
 include $(TOP)/configure/CONFIG
 
+SCRIPTS += ../st1Channel.sh
+SCRIPTS += st1Channel.boot
 PATH := $(PATH):/dls_sw/epics/R3.14.12.3/extensions/bin/linux-x86_64
-DB += example.db
-DB += 1Channel.db
-DB += 2Channel.db
-DB += 4Channel.db
-DB += 6Channel.db
-DB += 7Channel.db
-DB += 8Channel.db
-DB += 16Channel.db
-DB += 32Channel.db
+
+USR_BOOT_FLAGS+=-MXSPRESS3_PREFIX=$(XSPRESS3_PREFIX)
+USR_BOOT_FLAGS+=-MXSPRESS3_CONFIG=$(abspath $(XSPRESS3_CONFIG))
+USR_BOOT_FLAGS+=-MXSPRESS3_SAVE=$(abspath $(XSPRESS3_SAVE))
+USR_BOOT_FLAGS+=-MXSPRESS3_DATA=$(abspath $(XSPRESS3_DATA))
+USR_BOOT_FLAGS+=-MXSPRESS3_ABSPATH=$(abspath $(XSPRESS3))
 
 include $(TOP)/configure/RULES
 

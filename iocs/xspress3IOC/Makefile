@@ -11,14 +11,14 @@ DIRS += xspress3App/Db
 DIRS += xspress3App/src
 DIRS += xspress3App/opi/edl
 DIRS += iocBoot/iocexample
-DIRS += iocBoot/iocexample1Channel
-DIRS += iocBoot/iocexample2Channel
-DIRS += iocBoot/iocexample4Channel
-DIRS += iocBoot/iocexample6Channel
-DIRS += iocBoot/iocexample7Channel
-DIRS += iocBoot/iocexample8Channel
-DIRS += iocBoot/iocexample16Channel
-DIRS += iocBoot/iocexample32Channel
+DIRS += iocBoot/ioc1Channel
+DIRS += iocBoot/ioc2Channel
+DIRS += iocBoot/ioc4Channel
+DIRS += iocBoot/ioc6Channel
+DIRS += iocBoot/ioc7Channel
+DIRS += iocBoot/ioc8Channel
+DIRS += iocBoot/ioc16Channel
+DIRS += iocBoot/ioc32Channel
 
 include $(TOP)/configure/RULES_TOP
 
