@@ -1,24 +1,14 @@
 TOP = ../..
 include $(TOP)/configure/CONFIG
-
-SCRIPTS+=stexample.boot
-SCRIPTS+=xspress3-ioc.sh
-SCRIPTS+=xspress3-medm.sh
-SCRIPTS+=xspress3-edm.sh
-
-USR_BOOT_FLAGS+=-MXSPRESS3_PREFIX=$(XSPRESS3_PREFIX)
-USR_BOOT_FLAGS+=-MXSPRESS3_CONFIG=$(abspath $(XSPRESS3_CONFIG))
-USR_BOOT_FLAGS+=-MXSPRESS3_SAVE=$(abspath $(XSPRESS3_SAVE))
-USR_BOOT_FLAGS+=-MXSPRESS3_DATA=$(abspath $(XSPRESS3_DATA))
-USR_BOOT_FLAGS+=-MXSPRESS3_AUTOSAVE=$(abspath $(XSPRESS3_AUTOSAVE))
-USR_BOOT_FLAGS+=-MXSPRESS3_NUM_CHANNELS=$(XSPRESS3_NUM_CHANNELS)
-USR_BOOT_FLAGS+=-MXSPRESS3_ABSPATH=$(abspath $(XSPRESS3))
-USR_BOOT_FLAGS+=-MINSTALL=$(abspath $(TOP))
-
-include $(TOP)/configure/RULES
+ARCH = linux-x86_64
+TARGETS = envPaths
+TARGETS += stexample.boot
+TARGETS += xspress3-ioc.sh
+TARGETS += xspress3-medm.sh
+TARGETS += xspress3-edm.sh
+include $(TOP)/configure/RULES.ioc
 
 SYS_BOOT_FLAGS+=-MXSPRESS3=$(abspath $(XSPRESS3))
 SYS_BOOT_FLAGS+=-MXSPRESS3_PREFIX=$(XSPRESS3_PREFIX)
-
-%.sh: ../%.sh
+%.sh: %.src
 	$(MSI) $(SYS_BOOT_FLAGS) $< | sed 's/\\\$$/$$/g' > $@

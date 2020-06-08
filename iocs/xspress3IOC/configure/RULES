@@ -4,7 +4,3 @@ include $(CONFIG)/RULES
 
 # Library should be rebuilt because LIBOBJS may have changed.
 $(LIBNAME): ../Makefile
-
-# Create a .boot file from a .src file
-%.boot: ../%.src $(wildcard $(TOP)/configure/RELEASE $(TOP)/configure/RELEASE.private)
-	$(MSI) $(SYS_BOOT_FLAGS) $(USR_BOOT_FLAGS) $< > $@
