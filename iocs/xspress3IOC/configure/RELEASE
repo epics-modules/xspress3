@@ -2,7 +2,8 @@
 # Run "gnumake clean uninstall install" in the application
 # top directory each time this file is changed.
 
-SUPPORT=/home/xspress3/epics
+# SUPPORT= should be defined in xspress3/configure/RELEASE.local
+-include $(TOP)/../../configure/RELEASE.local
 
 # This module
 XSPRESS3=$(TOP)/../..
