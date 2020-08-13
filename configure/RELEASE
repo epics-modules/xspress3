@@ -8,9 +8,7 @@ TEMPLATE_TOP=$(EPICS_BASE)/templates/makeBaseApp/top
 # define INSTALL_LOCATION_APP here
 #INSTALL_LOCATION_APP=<fullpathname>
 
-# SUPPORT=/home/xspress3/epics must be defined in RELEASE.local
-# RELEASE.local will be used to build iocs/xspres3IOC/bin/[distribution]/xspress3App
--include $(TOP)/../configure/RELEASE.local
+SUPPORT=/home/xspress3/epics
 
 # This module
 XSPRESS3=$(SUPPORT)/xspress3
