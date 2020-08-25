@@ -16,7 +16,8 @@ callbackSetQueueSize(8000)
 
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
-epicsEnvSet("PREFIX", "XSPRESS3:")
+### epicsEnvSet("PREFIX", "XSPRESS3:")
+epicsEnvSet("PREFIX", "XF:05IDD-ES{Xsp:1}:")
 epicsEnvSet("PORT",   "XSP3")
 epicsEnvSet("QSIZE",  "128")
 
