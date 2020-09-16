@@ -829,6 +829,7 @@ int xsp3_read_cshare_control(int path, int chan, Xsp3CShrControl *set);
 int xsp3_write_cshare_mapping(int path, int chan, int num_neb, int *rel_board, int *chan_of_card);
 int xsp3_read_cshare_mapping(int path, int chan, int num_neb, int *rel_board, int *chan_of_card);
 
+int xsp3_measure_clock_frequency_all(int path, int card, int num, u_int32_t *raw, int *freq);
 
 int xsp3_sys_log_start(int path, char *fname, int period, int max_count, Xsp3SysLogFlags flags);
 int xsp3_sys_log_continue(int path);
@@ -837,6 +838,10 @@ int xsp3_sys_log_pause(int path);
 int xsp3_sys_log_stop_or_pause(int path, int pause);
 int xsp3_sys_log_roll_files(int path);
 int xsp3_sys_log_open(int path, int truncate);
+
+int xsp3_playback_load_x3_internal(int path, int fd, char * filename, int fnum, int nstreams, int src[16], int file_streams, int str0dig, int smooth_join, int no_retry, int xspress4_dig, int glob_reset, u_int16_t  *write_buff, 	size_t file_num_t, size_t max_playback_num_t, off_t file_offset);
+int xsp3_playback_load_detfile_multi(int path, int hw_card, char ** file_list, int src[16], int file_card, int str0dig, int smooth_join, int enb_higher_chan, int no_retry, int xspress4_dig, int glob_reset);
+
 
 #ifdef __cplusplus
 }
@@ -886,7 +891,7 @@ int xsp3_sys_log_open(int path, int truncate);
 
 #define XSP3_RST_XTK  	    30	//!< Direct reset crosstalk padding from on chip neighbouring resets (For SGX)
 
-#define XSP_MAX_NUM_CHAN_REG	32			//!< Maximum number of writeable channel registers use for initialise
+#define XSP_MAX_NUM_CHAN_REG	64			//!< Maximum number of writeable channel registers use for initialise, 26/3/2020 increaszed to 64 to clear charge sharing registers.
 
 #define XSP3_LIVE_TIME_SCAL		(32+0) 	   	//!< Total Time Scaler direct readback			
 #define XSP3_RESET_TICKS_SCAL	(32+1) 	 	//!< Reset Ticks Scaler direct readback			
@@ -896,7 +901,7 @@ int xsp3_sys_log_open(int path, int truncate);
 #define XSP3_IN_WIDNOW0_SCAL 	(32+5)		//!< All event Scaler direct readback			
 #define XSP3_IN_WIDNOW1_SCAL 	(32+6)		//!< All event Scaler direct readback			
 
-#define XSP3_MAX_NUM_READ_CHAN_REG 39
+#define XSP3_MAX_NUM_READ_CHAN_REG 64
 #define XSP3_NUM_SUB_FRAMES		48			//!< Register to store number of sub frames in sub-frames mode, otherwise 0
 
 #define XSP3_CSHR_CONT			49
@@ -1452,7 +1457,7 @@ int xsp3_sys_log_open(int path, int truncate);
 #define XSP3_REGION_RAM_MAX		13
 #define XSP3_REGION_REGS		0
 
-#define XSP3_REGS_SIZE			32
+#define XSP3_REGS_SIZE			64				// 26/3/2020 increased to 64 to allow for charge sharing registers.
 #define XSP3_CHAN_TP_SIZE		0
 #define XSP3_RESET_TAIL_SIZE	1024
 #define XSP3_QUOTIENT_SIZE		1024
@@ -1836,6 +1841,7 @@ extern char *xsp3_feature_global_reset[16] ;
 extern char *xsp3_feature_timing_generator[16] ;
 extern char *xsp3_feature_scope_mode210[8] ;
 extern char *xsp3_feature_scope_mode3[2] ;
+extern char *xsp4_aurora_names[];
 
 //! [XSP3_RUN_FLAGS]
 #define XSP3_RUN_FLAGS_PLAYBACK 1		//!< Enable build of descriptors and start of DMA for Playback DMA
@@ -2029,6 +2035,8 @@ extern char *xsp3_feature_scope_mode3[2] ;
 #define XSP3_FORMAT_RES_MODE_PILEUP		7		/* 1 bit of Aux1, set when pileup detected for Width or hardware */
 #define XSP3_FORMAT_RES_MODE_LUT_SETUP	8		/* 12 bits of res grade to learn setup for LO/LUT mode 		*/
 #define XSP3_FORMAT_RES_MODE_LUT_THRES	9		/* 1 bit thresholded using the LUT LSB						*/
+
+#define XSP3_FORMAT_RES_MODE_T6B4		12		/* Debug mode for variation in shaep with base count base[7:4]&top[5:2]	*/
 
 #define XSP3_FORMAT_RES_MODE_GOOD_GRADE	15		/* 0 bits, but Masks MCA (and scalers) for events with min < thres	*/
 
@@ -2466,10 +2474,15 @@ typedef struct _x3m_fan_cont
 #define XSP4_GLOB_AURORA_CONT 		(4|XSP4_GLOB_REG_BUS_CLK_FLAG)
 
 #define XSP4_GLOB_ADC_CLK_FREQ 		(16|XSP4_GLOB_REG_BUS_CLK_FLAG)
+#define XSP4_GLOB_ADC_CLK_FREQ_10G 	(17|XSP4_GLOB_REG_BUS_CLK_FLAG)
+#define XSP4_GLOB_ADC_CLK_FREQ_MGT113 (18|XSP4_GLOB_REG_BUS_CLK_FLAG)
+#define XSP4_GLOB_ADC_CLK_FREQ_MGT114 (19|XSP4_GLOB_REG_BUS_CLK_FLAG)
 
 #define XSP4_GLOB_AURORA_STATUS0	(29|XSP4_GLOB_REG_BUS_CLK_FLAG)
 #define XSP4_GLOB_AURORA_STATUS1	(30|XSP4_GLOB_REG_BUS_CLK_FLAG)
 #define XSP4_GLOB_ADC_BRD_STATUS	(31|XSP4_GLOB_REG_BUS_CLK_FLAG)
+
+#define XSP4_NUM_FREQ_MEASURERS		4
 
 #define XSP4_10G_TPG_NQWORDS(n)		((n)&0xFFFFF)
 #define XSP4_10G_TPG_NBLOCKS(n)		(((n)&0x3FF)<<20)
@@ -2483,7 +2496,7 @@ typedef struct _x3m_fan_cont
 #define XSP4_ADC_CLOCK_FREQ_GET_FREQ(x)	((x)&0xFFFFF)		//!< Get the Frequency counter part of the ADC Clock frequency Measurer
 #define XSP4_ADC_CLOCK_FREQ_READY		(1<<31)				//!< The MSB is an overall ready bit, but gives no information if the measurement fails.
 #define XSP4_ADC_CLOCK_FREQ_TIMER_READY	(1<<30)				//!< The Bus Clk timer has expired, so the ADC Clk should be ready
-#define XSP4_ADC_CLOCK_FREQ_ADC_VALID	(1<<29)				//!< Reports that the ADC Clk has seem the timer expire is ready. If not The Bus Clk timer has expired, so the ADC Clk should be ready
+#define XSP4_ADC_CLOCK_FREQ_ADC_VALID	(1<<29)				//!< Reports that the ADC Clk has seen the timer expire is ready. If not The Bus Clk timer has expired, so the ADC Clk should be ready
 /** @} */
 
 /**
