@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 125
-y 175
+x 207
+y 68
 w 450
 h 525
 font "helvetica-medium-r-18.0"
@@ -270,7 +270,7 @@ major 4
 minor 0
 release 0
 x 425
-y 5
+y 35
 w 15
 h 15
 controlPv "$(P):det1:CONNECTED"
@@ -289,7 +289,7 @@ major 4
 minor 1
 release 1
 x 345
-y 5
+y 35
 w 84
 h 18
 font "helvetica-medium-r-14.0"
@@ -824,9 +824,9 @@ major 4
 minor 7
 release 0
 x 120
-y 25
-w 320
-h 20
+y 5
+w 300
+h 18
 controlPv "$(P):det1:StatusMessage_RBV"
 format "string"
 font "helvetica-medium-r-14.0"
@@ -1212,38 +1212,44 @@ topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-14.0"
 icon
-buttonLabel "More"
-numPvs 16
-numDsps 8
+buttonLabel "Plugins"
+numPvs 20
+numDsps 10
 displayFileName {
-  0 "xspress3_adplugins.edl"
-  1 "ADBase.edl"
-  2 "NDFileHDF5.edl"
-  3 "xspress3_4mcas.edl"
-  4 "xspress3_mcarois.edl"
-  5 "xspress3_mcarois.edl"
-  6 "xspress3_mcarois.edl"
-  7 "xspress3_mcarois.edl"
+  0 "ADBase.edl"
+  1 "NDFileHDF5.edl"
+  2 "NDProcess.edl"
+  3 "xspress3_chan_plugins.edl"
+  4 "xspress3_chan_plugins.edl"
+  5 "xspress3_chan_plugins.edl"
+  6 "xspress3_chan_plugins.edl"
+  7 "xspress3_chan_plugins.edl"
+  8 "xspress3_chan_plugins.edl"
+  9 "xspress3_chan_plugins.edl"
 }
 menuLabel {
-  0 "Plugins"
-  1 "AreaDetector Base"
-  2 "HDF5 File Plugin"
-  3 "MCA Plots"
-  4 "MCA 1"
-  5 "MCA 2"
-  6 "MCA 3"
-  7 "MCA 4"
+  0 "AreaDetector Base"
+  1 "HDF5 File Plugin"
+  2 "PROC1 (For MCA Sums)"
+  3 "Channel 1 Plugins"
+  4 "Channel 2 Plugins"
+  5 "Channel 3 Plugins"
+  6 "Channel 4 Plugins"
+  7 "Channel 5 Plugins"
+  8 "Channel 6 Plugins"
+  9 "Channel 7 Plugins"
 }
 symbols {
-  0 "P=$(P):"
-  1 "P=$(P):,R=det1:"
-  2 "P=$(P),R=:HDF1:"
-  3 "P=$(P)"
-  4 "P=$(P),CHAN=1"
-  5 "P=$(P),CHAN=2"
-  6 "P=$(P),CHAN=3"
-  7 "P=$(P),CHAN=4"
+  0 "P=$(P):,R=det1:"
+  1 "P=$(P),R=:HDF1:"
+  2 "P=$(P):,R=Proc1:"
+  3 "P=$(P):,R=1"
+  4 "P=$(P):,R=2"
+  5 "P=$(P):,R=3"
+  6 "P=$(P):,R=4"
+  7 "P=$(P):,R=5"
+  8 "P=$(P):,R=6"
+  9 "P=$(P):,R=7"
 }
 replaceSymbols {
   0 1
@@ -1254,6 +1260,8 @@ replaceSymbols {
   5 1
   6 1
   7 1
+  8 1
+  9 1
 }
 endObjectProperties
 
@@ -1315,5 +1323,78 @@ botShadowColor rgb 17920 17920 17920
 controlPv "$(P):HDF1:AutoIncrement"
 indicatorPv "$(P):HDF1:AutoIncrement"
 font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 105
+y 25
+w 90
+h 25
+fgColor rgb 2560 0 47104
+bgColor rgb 60160 61696 46336
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-14.0"
+icon
+buttonLabel "MCAs"
+numPvs 22
+numDsps 11
+displayFileName {
+  0 "xspress3_7mcas_me7.edl"
+  1 "xspress3_7mcas_me7.edl"
+  2 "xspress3_7mcas_sxd7.edl"
+  3 "xspress3_7mcas_sxd7.edl"
+  4 "xspress3_mcarois.edl"
+  5 "xspress3_mcarois.edl"
+  6 "xspress3_mcarois.edl"
+  7 "xspress3_mcarois.edl"
+  8 "xspress3_mcarois.edl"
+  9 "xspress3_mcarois.edl"
+  10 "xspress3_mcarois.edl"
+}
+menuLabel {
+  0 "Single MCA Plots [ME7]"
+  1 "Summed MCA Plots [ME7]"
+  2 "Single MCA Plots [SXD7]"
+  3 "Summed MCA Plots [SXD7]"
+  4 "MCA 1"
+  5 "MCA 2"
+  6 "MCA 3"
+  7 "MCA 4"
+  8 "MCA 5"
+  9 "MCA 6"
+  10 "MCA 7"
+}
+symbols {
+  0 "P=$(P),R=MCA"
+  1 "P=$(P),R=MCASUM"
+  2 "P=$(P),R=MCA"
+  3 "P=$(P),R=MCASUM"
+  4 "P=$(P),CHAN=1"
+  5 "P=$(P),CHAN=2"
+  6 "P=$(P),CHAN=3"
+  7 "P=$(P),CHAN=4"
+  8 "P=$(P),CHAN=5"
+  9 "P=$(P),CHAN=6"
+  10 "P=$(P),CHAN=7"
+}
+replaceSymbols {
+  0 1
+  1 1
+  2 1
+  3 1
+  4 1
+  5 1
+  6 1
+  7 1
+  8 1
+  9 1
+  10 1
+}
 endObjectProperties
 
