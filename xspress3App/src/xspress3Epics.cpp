@@ -543,8 +543,8 @@ asynStatus Xspress3::readTrigB(void)
 	       int width = trig_b.enb_variable_width ? (trig_b.event_time-3) : trig_b.event_time;
    	    */
 	  double width = trig_b.enb_variable_width ? (trig_b.event_time-3.0) : 1.0*trig_b.event_time;
-            asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %.1f\n", functionName, chan, width);
-	    setDoubleParam(chan, xsp3EventWidthParam, width);
+	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %.1f\n", functionName, chan, width);
+	  setDoubleParam(chan, xsp3EventWidthParam, width);
         }
         callParamCallbacks(chan);
     }
@@ -1023,7 +1023,7 @@ asynStatus Xspress3::setupITFG(void)
         (xsp3->has_itfg(xsp3_handle_, 0) > 0) && ppt) {
 
         getIntegerParam(ADNumImages, &num_frames);
-        printf("setupIFTG - Pulse per trigger: %d\n", ppt);
+        // printf("setupIFTG - Pulse per trigger: %d\n", ppt);
         xsp3_status = xsp3->itfg_setup2( xsp3_handle_, 0, num_frames,
                                        (u_int32_t) ppt,
                                        XSP3_ITFG_TRIG_MODE_HARDWARE,
@@ -1721,7 +1721,6 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
           dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
           dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
         }
-
         // printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
         setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
         setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
