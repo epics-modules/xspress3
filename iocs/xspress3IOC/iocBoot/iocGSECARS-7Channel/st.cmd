@@ -13,7 +13,6 @@ dbLoadDatabase("$(TOP)/dbd/xspress3App.dbd")
 # but I'm not really sure why this happens
 callbackSetQueueSize(8000)
 
-
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
 epicsEnvSet("PREFIX", "13QX7:")
@@ -137,12 +136,12 @@ epicsThreadSleep(5.)
 
 # Set default event widths for deadtime correction
 # note that these should be tuned for each detector:
-dbpf("$(PREFIX)C1:EventWidth",    "8")
-dbpf("$(PREFIX)C2:EventWidth",    "8")
-dbpf("$(PREFIX)C3:EventWidth",    "7")
-dbpf("$(PREFIX)C4:EventWidth",    "6")
-dbpf("$(PREFIX)C5:EventWidth",    "7")
-dbpf("$(PREFIX)C6:EventWidth",    "7")
-dbpf("$(PREFIX)C7:EventWidth",    "7")
+# dbpf("$(PREFIX)C1:EventWidth",    "7")
+# dbpf("$(PREFIX)C2:EventWidth",    "7")
+# dbpf("$(PREFIX)C3:EventWidth",    "7")
+# dbpf("$(PREFIX)C4:EventWidth",    "7")
+# dbpf("$(PREFIX)C5:EventWidth",    "7")
+# dbpf("$(PREFIX)C6:EventWidth",    "7")
+# dbpf("$(PREFIX)C7:EventWidth",    "7")
 
 # Xspress3 is now ready to use!
