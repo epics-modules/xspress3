@@ -1,31 +1,50 @@
 # setup SCA, ROIs, etc for channel CHAN 
 dbLoadRecords("xspress3_AttrReset.template", "P=$(PREFIX),R=det1:,CHAN=$(CHAN)")
 
-#SCAs: create an NDAttribute plugin with 8 attributes
-NDAttrConfigure("$(PORT).C$(CHAN)SCA", $(QSIZE), 0, "$(PORT)", 0, 8, 0, 0, 0)
+#ROIs: take 2D array and turn it into two 1D spectra for each channel: 
+# 1 for per-frame spectra, 1 for accumulated spectra (using PROC plugin to do accumulation)
+NDROIConfigure("CHAN$(CHAN)", 256, 0, "XSP3", 0, -1, -1)
+dbLoadRecords("NDROI.template", ,"P=$(PREFIX), R=ROI$(CHAN):, PORT=CHAN$(CHAN), TIMEOUT=1, ADDR=0, NDARRAY_PORT=$(PORT), NDARRAY_ADDR=0, Enabled=0")
+
+NDROIConfigure("CHANSUM$(CHAN)", 256, 0, "PROC1", 0, -1, -1)
+dbLoadRecords("NDROI.template", ,"P=$(PREFIX), R=ROISUM$(CHAN):, PORT=CHANSUM$(CHAN), TIMEOUT=1, ADDR=0, NDARRAY_PORT=PROC1, NDARRAY_ADDR=0, Enabled=0")
+
+#SCAs: create an NDAttribute plugin with 9 attributes
+NDAttrConfigure("$(PORT).C$(CHAN)SCA", 256, 0, "$(PORT)", 0, 12)
 dbLoadRecords("NDAttribute.template",  "P=$(PREFIX),R=C$(CHAN)SCA:,   PORT=$(PORT).C$(CHAN)SCA, ADDR=0,TIMEOUT=1,NCHANS=$(NCHANS),NDARRAY_PORT=$(PORT)")
-dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA0:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=0,TIMEOUT=1,NCHANS=$(NCHANS)")
-dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA1:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=1,TIMEOUT=1,NCHANS=$(NCHANS)")
-dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA2:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=2,TIMEOUT=1,NCHANS=$(NCHANS)")
-dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA3:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=3,TIMEOUT=1,NCHANS=$(NCHANS)")
-dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA4:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=4,TIMEOUT=1,NCHANS=$(NCHANS)")
-dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA5:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=5,TIMEOUT=1,NCHANS=$(NCHANS)")
-dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA6:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=6,TIMEOUT=1,NCHANS=$(NCHANS)")
-dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA7:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=7,TIMEOUT=1,NCHANS=$(NCHANS)")
+
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:0:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=0,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:1:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=1,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:2:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=2,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:3:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=3,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:4:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=4,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:5:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=5,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:6:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=6,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:7:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=7,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:8:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=8,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:9:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=9,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDAttributeN.template", "P=$(PREFIX),R=C$(CHAN)SCA:10:,  PORT=$(PORT).C$(CHAN)SCA, ADDR=10,TIMEOUT=1,NCHANS=$(NCHANS)")
+
+NDTimeSeriesConfigure("$(PORT).C$(CHAN)SCA_TS", 256, 0, "$(PORT)", 0, 12)
+dbLoadRecords("$(ADCORE)/db/NDTimeSeries.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:, PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT).C$(CHAN)SCA,NDARRAY_ADDR=1,NCHANS=$(NCHANS),ENABLED=1")
+
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:0:, NAME='CHAN$(CHAN)SCA0', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=0,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:1:, NAME='CHAN$(CHAN)SCA1', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=1,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:2:, NAME='CHAN$(CHAN)SCA2', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=2,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:3:, NAME='CHAN$(CHAN)SCA3', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=3,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:4:, NAME='CHAN$(CHAN)SCA4', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=4,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:5:, NAME='CHAN$(CHAN)SCA7', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=5,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:6:, NAME='CHAN$(CHAN)SCA8', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=6,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:7:, NAME='CHAN$(CHAN)SCA7', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=7,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:8:, NAME='CHAN$(CHAN)EventWidth', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=8,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:9:, NAME='CHAN$(CHAN)DTFactor',  PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=9,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDTimeSeriesN.template", "P=$(PREFIX),R=C$(CHAN)SCA:TS:10:, NAME='CHAN$(CHAN)DTPercent', PORT=$(PORT).C$(CHAN)SCA_TS, ADDR=10,TIMEOUT=1,NCHANS=$(NCHANS)")
 
 dbLoadRecords("xspress3ChannelSCAThreshold.template", "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=4")
 dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=5")
 dbLoadRecords("xspress3ChannelSCALimits.template",    "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN), SCA=6")
 dbLoadRecords("xspress3ChannelDTC.template",          "P=$(PREFIX),R=det1:,PORT=$(PORT), CHAN=$(CHAN),  NDARRAY_PORT=$(PORT),ADDR=$(XADDR),TIMEOUT=5")
 dbLoadRecords("xspress3ChannelDeadtime.template",     "P=$(PREFIX),R=det1:,PORT=$(PORT), ADDR=$(XADDR), TIMEOUT=1, CHAN=$(CHAN)")
-
-#ROIs: take 2D array and turn it into two 1D spectra for each channel: 
-# 1 for per-frame spectra, 1 for accumulated spectra (using PROC plugin to do accumulation)
-NDROIConfigure("CHAN$(CHAN)", $(QSIZE), 0, "XSP3", 0, -1, -1)
-dbLoadRecords("NDROI.template", ,"P=$(PREFIX), R=ROI$(CHAN):, PORT=CHAN$(CHAN), TIMEOUT=1, ADDR=0, NDARRAY_PORT=XSP3, NDARRAY_ADDR=0, Enabled=0")
-
-NDROIConfigure("CHANSUM$(CHAN)", $(QSIZE), 0, "PROC1", 0, -1, -1)
-dbLoadRecords("NDROI.template", ,"P=$(PREFIX), R=ROISUM$(CHAN):, PORT=CHANSUM$(CHAN), TIMEOUT=1, ADDR=0, NDARRAY_PORT=PROC1, NDARRAY_ADDR=0, Enabled=0")
 
 #MCAs: create StdArray for Visualization: 
 NDStdArraysConfigure("MCA$(CHAN)", 5, 0, "CHAN$(CHAN)", 0, 0)
@@ -34,8 +53,8 @@ dbLoadRecords("$(ADCORE)/db/NDStdArrays.template", "P=$(PREFIX),R=MCA$(CHAN):,PO
 NDStdArraysConfigure("MCASUM$(CHAN)", 5, 0, "CHANSUM$(CHAN)", 0, 0)
 dbLoadRecords("$(ADCORE)/db/NDStdArrays.template", "P=$(PREFIX),R=MCASUM$(CHAN):,PORT=MCASUM$(CHAN),ADDR=0,TIMEOUT=1,NDARRAY_PORT=CHANSUM$(CHAN),TYPE=Float64,FTVL=DOUBLE,NELEMENTS=$(XSIZE)")
 
-#ROIStats: build 32 ROIs for each of the 1D spectra (per-frame).
-NDROIStatConfigure("ROISTAT$(CHAN)", $(QSIZE), 0, "CHAN$(CHAN)", 0, 32, 0, 0)
+#ROIStats: build 48 ROIs for each of the 1D spectra (per-frame).
+NDROIStatConfigure("ROISTAT$(CHAN)", 256, 0, "CHAN$(CHAN)", 0, 48, 0, 0)
 dbLoadRecords("NDROIStat.template",   "P=$(PREFIX),R=MCA$(CHAN)ROI: ,PORT=ROISTAT$(CHAN),ADDR=0,TIMEOUT=1, NDARRAY_PORT=CHAN$(CHAN),NCHANS=$(NCHANS)")
 dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:1:,PORT=ROISTAT$(CHAN),ADDR=0,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:2:,PORT=ROISTAT$(CHAN),ADDR=1,TIMEOUT=1,NCHANS=$(NCHANS)")
@@ -69,4 +88,20 @@ dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:29:,PORT=ROIS
 dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:30:,PORT=ROISTAT$(CHAN),ADDR=29,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:31:,PORT=ROISTAT$(CHAN),ADDR=30,TIMEOUT=1,NCHANS=$(NCHANS)")
 dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:32:,PORT=ROISTAT$(CHAN),ADDR=31,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:33:,PORT=ROISTAT$(CHAN),ADDR=32,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:34:,PORT=ROISTAT$(CHAN),ADDR=33,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:35:,PORT=ROISTAT$(CHAN),ADDR=34,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:36:,PORT=ROISTAT$(CHAN),ADDR=35,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:37:,PORT=ROISTAT$(CHAN),ADDR=36,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:38:,PORT=ROISTAT$(CHAN),ADDR=37,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:39:,PORT=ROISTAT$(CHAN),ADDR=38,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:40:,PORT=ROISTAT$(CHAN),ADDR=29,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:41:,PORT=ROISTAT$(CHAN),ADDR=40,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:42:,PORT=ROISTAT$(CHAN),ADDR=41,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:43:,PORT=ROISTAT$(CHAN),ADDR=42,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:44:,PORT=ROISTAT$(CHAN),ADDR=43,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:45:,PORT=ROISTAT$(CHAN),ADDR=44,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:46:,PORT=ROISTAT$(CHAN),ADDR=45,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:47:,PORT=ROISTAT$(CHAN),ADDR=46,TIMEOUT=1,NCHANS=$(NCHANS)")
+dbLoadRecords("NDROIStatN.template",  "P=$(PREFIX),R=MCA$(CHAN)ROI:48:,PORT=ROISTAT$(CHAN),ADDR=47,TIMEOUT=1,NCHANS=$(NCHANS)")
 

@@ -16,7 +16,7 @@ callbackSetQueueSize(8000)
 
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
-epicsEnvSet("PREFIX", "12BMXSP3:")
+epicsEnvSet("PREFIX", "XSP3_14:")
 epicsEnvSet("PORT",   "XSP3")
 epicsEnvSet("QSIZE",  "128")
 
@@ -30,12 +30,12 @@ epicsEnvSet("NCHANS", "16384")
 
 epicsEnvSet("MAXFRAMES", "16384")
 # The maximum number of frames buffered in the NDPluginCircularBuff plugin
-epicsEnvSet("CBUFFS", "500")
+epicsEnvSet("CBUFFS", "4096")
 # The search path for database files
 epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(XSPRESS3)/db:.")
 
 #DevIOCStats
-dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC)")
+# dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC)")
 
 ##################################################
 # Start Xspress3 driver
