@@ -1,0 +1,14 @@
+# max and mean deadtimes for a 4 Channel detecto
+
+record(calcout, "$(P)MeanDeadTime_RBV") {
+    field(INPA, "$(P)C1:DeadTime_RBV NPP NMS")
+    field(CALC, "1.0*(A)")
+    field(PREC, "5")
+}
+
+record(calcout, "$(P)MaxDeadTime_RBV") {
+    field(INPA, "$(P)C1:DeadTime_RBV NPP NMS")
+    field(CALC, "1.0*(A)")
+    field(PREC, "5")
+}
+
