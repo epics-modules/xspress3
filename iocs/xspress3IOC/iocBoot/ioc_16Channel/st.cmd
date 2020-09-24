@@ -2,13 +2,13 @@
 errlogInit(20000)
 
 # PREFIX
-epicsEnvSet("PREFIX", "XSP3_7Chan:")
+epicsEnvSet("PREFIX", "XSP3_16Chan:")
 
 # Number of xspress3 channels
-epicsEnvSet("NUM_CHANNELS",  "7")            
+epicsEnvSet("NUM_CHANNELS",  "16")            
 
 # Number of xspress3 cards and IP ADDR
-epicsEnvSet("XSP3CARDS", "1")
+epicsEnvSet("XSP3CARDS", "2")
 epicsEnvSet("XSP3ADDR",  "192.168.0.1")
 
 # Max Number of Frames for data collection
@@ -56,9 +56,54 @@ epicsEnvSet("CHAN",   "7")
 epicsEnvSet("CHM1",   "6")
 < ../common/DefineSCAROI.cmd
 
+#Channel 8
+epicsEnvSet("CHAN",   "8")
+epicsEnvSet("CHM1",   "7")
+< ../common/DefineSCAROI.cmd
+
+#Channel 9
+epicsEnvSet("CHAN",   "9")
+epicsEnvSet("CHM1",   "8")
+< ../common/DefineSCAROI.cmd
+
+#Channel 10
+epicsEnvSet("CHAN",   "10")
+epicsEnvSet("CHM1",   "9")
+< ../common/DefineSCAROI.cmd
+
+#Channel 11
+epicsEnvSet("CHAN",   "11")
+epicsEnvSet("CHM1",   "10")
+< ../common/DefineSCAROI.cmd
+
+#Channel 12
+epicsEnvSet("CHAN",   "12")
+epicsEnvSet("CHM1",   "11")
+< ../common/DefineSCAROI.cmd
+
+#Channel 13
+epicsEnvSet("CHAN",   "13")
+epicsEnvSet("CHM1",   "12")
+< ../common/DefineSCAROI.cmd
+
+#Channel 14
+epicsEnvSet("CHAN",   "14")
+epicsEnvSet("CHM1",   "13")
+< ../common/DefineSCAROI.cmd
+
+#Channel 15
+epicsEnvSet("CHAN",   "15")
+epicsEnvSet("CHM1",   "14")
+< ../common/DefineSCAROI.cmd
+
+#Channel 16
+epicsEnvSet("CHAN",   "16")
+epicsEnvSet("CHM1",   "15")
+< ../common/DefineSCAROI.cmd
+
 ###############################
 
-dbLoadRecords("xspress3Deadtime_7Channel.template",   "P=$(PREFIX)")
+dbLoadRecords("xspress3Deadtime_16Channel.template",   "P=$(PREFIX)")
 
 < ../common/AutoSave.cmd
 
@@ -109,6 +154,51 @@ epicsEnvSet("CHM1",   "5")
 epicsEnvSet("CHAN",   "7")
 epicsEnvSet("CHM1",   "6")
 < ../common/SetChannelValues.cmd
+
+#Channel 8
+epicsEnvSet("CHAN",   "8")
+epicsEnvSet("CHM1",   "7")
+< ../common/SetChannelValues.cmd
+
+#Channel 9
+epicsEnvSet("CHAN",   "9")
+epicsEnvSet("CHM1",   "8")
+< ../common/SetChannelValues.cmd
+
+#Channel 10
+epicsEnvSet("CHAN",   "10")
+epicsEnvSet("CHM1",   "9")
+< ../common/SetChannelValues.cmd
+
+#Channel 11
+epicsEnvSet("CHAN",   "11")
+epicsEnvSet("CHM1",   "10")
+< ../common/SetChannelValues.cmd
+
+#Channel 12
+epicsEnvSet("CHAN",   "12")
+epicsEnvSet("CHM1",   "11")
+< ../common/SetChannelValues.cmd
+
+#Channel 13
+epicsEnvSet("CHAN",   "13")
+epicsEnvSet("CHM1",   "12")
+< ../common/SetChannelValues.cmd
+
+#Channel 14
+epicsEnvSet("CHAN",   "14")
+epicsEnvSet("CHM1",   "13")
+< ../common/SetChannelValues.cmd
+
+#Channel 15
+epicsEnvSet("CHAN",   "15")
+epicsEnvSet("CHM1",   "14")
+< ../common/SetChannelValues.cmd
+
+#Channel 16
+epicsEnvSet("CHAN",   "16")
+epicsEnvSet("CHM1",   "15")
+< ../common/SetChannelValues.cmd
 ###############################
 
 # save settings every thirty seconds
@@ -125,5 +215,14 @@ dbpf("$(PREFIX)C4:EventWidth",    "6")
 dbpf("$(PREFIX)C5:EventWidth",    "6")
 dbpf("$(PREFIX)C6:EventWidth",    "6")
 dbpf("$(PREFIX)C7:EventWidth",    "6")
+dbpf("$(PREFIX)C8:EventWidth",    "6")
+dbpf("$(PREFIX)C9:EventWidth",    "6")
+dbpf("$(PREFIX)C10:EventWidth",   "6")
+dbpf("$(PREFIX)C11:EventWidth",   "6")
+dbpf("$(PREFIX)C12:EventWidth",   "6")
+dbpf("$(PREFIX)C13:EventWidth",   "6")
+dbpf("$(PREFIX)C14:EventWidth",   "6")
+dbpf("$(PREFIX)C15:EventWidth",   "6")
+dbpf("$(PREFIX)C16:EventWidth",   "6")
 
 # Xspress3 is now ready to use!
