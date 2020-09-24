@@ -1,5 +1,8 @@
 # Load Default values for a single channel
 
+dbpf("$(PREFIX)ROI$(CHAN):MinY",    "$(CHM1)")
+dbpf("$(PREFIX)ROISUM$(CHAN):MinY", "$(CHM1)")
+
 dbpf("$(PREFIX)C$(CHAN)SCA:EnableCallbacks", "Enable")
 
 dbpf("$(PREFIX)C$(CHAN)SCA:0:AttrName", "CHAN$(CHAN)SCA0")
