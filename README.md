@@ -6,10 +6,10 @@ An EPICS driver based on [areaDetector](https://github.com/areaDetector) for [Qu
 
 The simplest installation process will build a complete epics environment:
 
-  mkdir /home/xspress3/epics
-  cd    /home/xspress3/epics
-  wget  https://github.com/epics-modules/xspress3/blob/master/build_xspress3.py
-  python build_xspress3.py all
+   mkdir /home/xspress3/epics
+   cd    /home/xspress3/epics
+   wget  https://github.com/epics-modules/xspress3/blob/master/build_xspress3.py
+   python build_xspress3.py all
 
 
 # Run
@@ -36,8 +36,9 @@ should be able to run your xspress3 with
 and then view screens for your detector either using an Epics display
 manager like medm or run the XRF Control application with
 
-    ~> /home/xspress3/epics/bin/run_medm.sh
+    /home/xspress3/epics/bin/run_medm.sh
+
 or
-    ~> /home/xspress3/epics/bin/run_xrfcontrol.py
+    /home/xspress3/epics/bin/run_xrfcontrol.py
 
 
