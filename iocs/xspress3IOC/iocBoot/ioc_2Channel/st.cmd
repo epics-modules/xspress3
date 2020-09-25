@@ -68,7 +68,7 @@ epicsThreadSleep(5.)
 
 # Set default event widths for deadtime correction
 # note: these may be tuned for each detector:
-dbpf("$(PREFIX)C1:EventWidth",    "6")
-dbpf("$(PREFIX)C2:EventWidth",    "6")
+# dbpf("$(PREFIX)C1:EventWidth",    "6")
+# dbpf("$(PREFIX)C2:EventWidth",    "6")
 
 # Xspress3 is now ready to use!
