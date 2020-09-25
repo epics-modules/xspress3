@@ -1,58 +1,101 @@
-INSTRUCTIONS FOR BUILDING XSPRESS3 SOFTWARE FROM SCRATCH.
+Build instructions for the Xspress3 3.2 driver
 
-Xspress3 has been tested using a blank RHEL6 workstation install. The
-following packages needed to be installed:
+First, to build a complete Epics environment for the Xspress3, see
+INSTALL_Standalone.md and the build_xspress3.py script.
 
-For compilers
- - gcc-4.4.7-3.el6.x86_64
- - gcc-c++-4.4.7-3.el6.x86_64
+The following instructions assume that you know that you do not want
+to build a standalone environment but include Xspress3 support in an
+existing Epics development environment. 
 
-For EPICS base
- - readline-devel-6.0-4.el6.x86_64
+Required Packages
+======================
 
-For medm and edm:
- - openmotif-devel-2.3.3-5.el6_3.x86_64
+Xspress3 version 3.2 builds with areaDetector 3.7 or higher on Centos7
+(or later).  It needs the following Epics modules (and 'known to work'
+versions):
 
-For areaDetector
- - libxml2-devel-2.7.6-12.el6_4.1.x86_64
- - bzip2-devel-1.0.5-7.el6_0.x86_64
+   base      3.15 to 7.0.4 should work 
+   asyn      4-38
+   seq       2.2.6
+   ipac      2.15
+   alive     R1-1-1
+   std       R3-6
+   autosave  R5-10
+   iocStats  3.1.16
+   busy      R1-7-2
+   sscan     R2-11-3
+   calc      R3-7-3
+   areaDetector  3-7 or later, with ADCore and ADSupport.
 
-For edm only:
- - libXtst-devel-1.2.1-2.el6.x86_64
- - giflib-devel-4.1.6-3.1.el6.x86_64
 
-Once you have got this sorted, go through the following steps:
+In addition to a complete gcc development suite, which can be installed with
 
-1. Decide your directory structure
-I suggest having everything under a well-known root. Potentially:
-  - /opt/xspress3/epics
-  - /usr/local/xspress3
-  - /home/$USER/software
+  sudo yum install @Development Tools
 
-Then, for example the main software areas could be:
-  - Boost:      /opt/xspress3/boost
-  - Base:       /opt/xspress3/epics/R3.14.12.3/base/
-  - Extensions: /opt/xspress3/epics/R3.14.12.3/extensions/
-  - Modules:    /opt/xspress3/epics/R3.14.12.3/support/<module>
+the following packages may need to be installed:
+  
+   re2c  
+   boost, boost-devel
+   readline, readline-devel
+   hdf5, hdf5-devel
+   libtiff, libtiff-devel
+   libjpeg, libjpeg-turbo-devel
+   libxml2, libxml2-devel
+   bzip2-devel, bzip2-libs
+   GraphicsMagick, GraphicsMagick-devel
+   motif, motif-devel (for medm)
 
-2. Edit the INSTALL.sh script:
-The first few lines of the INSTALL.sh script contains some of the locations
-defined above for you to set, an http_proxy if you need it and where to put
-the downloaded tar files. Edit these lines to reflect your preferences. You
-can, of course, do more major edits if you want, but let me know why.
-Alternatively, you can just use it as a guide to a manual install.
+which can be installed with 
+   
+  sudo yum install re2c ...
 
-3. Run the INSTALL.sh script.
-This should run to completion installing boost first, the EPICS base, and then
-all the dependent modules.
+On some modern linux machines, you may also need to install
 
-4. Set your paths and EPICS_HOST_ARCH in your .bash_profile
+   rpcgen libtirpc-devel
 
-5. Run the software:
- - xspress3-ioc.sh: to start the ioc.
- - xspress3-medm.sh: to start the medm screens.
- - xspress3-edm.sh: to start the edm screens.
+if /usr/include/rpc/rpc.h is not already installed.
 
-Nick Rees
-Nick.Rees@diamond.ac.uk
-2 September 2013
+
+Unpack the source kit
+=========================
+The source kit for this folder should be in folder called or
+symbolically linked to `xspress3` that is in the same folder as
+areaDetector and the other epics modules, perhaps as:
+
+   /home/xpsress3/epics/
+   /home/xpsress3/epics/areaDetector
+   /home/xpsress3/epics/std
+   /home/xpsress3/epics/busy
+   /home/xpsress3/epics/....
+   /home/xpsress3/epics/xspress3
+
+Build
+=================
+
+You will need to set environment variables
+
+   export EPICS_CA_AUTO_ADDR_LIST=NO
+   export EPICS_HOST_ARCH=linux-x86_64
+   export EPICS_CA_MAX_ARRAY_BYTES=20000000
+   export EPICS_CA_ADDR_LIST=<your broadcast address>
+   export EPICS_BASE=<location of epics base>
+   export EPICS_EXTENSIONS=<location of epics extensions>
+
+and then run make both in the top-level and in the IOC directory
+
+   make -j8 install && cd iocs && make -j8 install && cd ..
+
+Configure IOC
+===============
+
+You can then run select one of the available IOCS in
+   iocs/xspress3IOC/iocboot
+
+and modify the startup script, and the run the xspress3 app:
+
+   cd iocs/xspress3IOC/iocBoot/ioc_4Channel
+   ../../bin/linux-x86_64/xspress3App  st.cmd
+
+
+
+
