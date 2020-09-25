@@ -44,10 +44,10 @@ needed to run the Xspress3 epics interface.  To use this script,
 create a folder for your epics tree, say /home/xspress3/epics and run
 the build script from that folder:
 
-  ~> mkdir /home/xspress3/epics
-  ~> cd    /home/xspress3/epics
-  ~> wget  https://github.com/epics-modules/xspress3/blob/master/build_xspress3.py
-  ~> python build_xspress3.py all
+    mkdir /home/xspress3/epics
+    cd    /home/xspress3/epics
+    wget  https://github.com/epics-modules/xspress3/blob/master/build_xspress3.py
+    python build_xspress3.py all
 
 
 This will build all the epics modules, including the Xspress3
