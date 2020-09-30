@@ -47,6 +47,17 @@ LARCH_URL   = 'https://millenia.cars.aps.anl.gov/xraylarch/downloads/'
 LARCH_FNAME = 'xraylarch-0.9.47-Linux-x86_64.sh'
 
 ######################################################################
+required_tools = {'re2c': '/bin/re2c', 'rpcgen': '/bin/rpcgen',
+                  'readline': '/lib64/libreadline.so.6',
+                  'readline-devel': '/usr/lib64/libreadline.so',
+                  'hdf5_devel': '/usr/include/hdf5.h',
+                  'libtiff-devel': '/usr/include/tiff.h',
+                  'bzip-devel': 'usr/include/bzlib.h',
+                  'libxml2-devel': '/usr/lib64/libxml2.so',
+                  'GraphicsMagick-devel ':  '/usr/lib64/libGraphicsMagick.so'}
+
+recommended_tools = {'telnet': '/bin/telnet',
+                     'motif-devel', '/usr/lib64/libXm.so'}
 
 HELP_MESSAGE = '''build_xspress3.py: build Epics Xspress3 module
 
@@ -417,10 +428,32 @@ def install_xrfapp(nelem=4):
     with open('bin/Xspress3.env', 'w') as fh:
         fh.write('\n'.join(buff))
 
+def check_dependencies():
+    missing_reqs = []
+    for name, exe in required_tools.items():
+        if not os.path.exists(exe):
+            missing_reqs.append(name)
+    if len(missing_reqs) > 0:
+        print("There are missing dependencies. Install with `sudo yum install`:")
+        print("  ".join(missing_reqs))
+        sys.exit(0)
+
+    missing_tools = []
+    for name, exe in recommended_tools.items():
+        if not os.path.exists(exe):
+            missing_tools.append(name)
+    return missing_tools
+
 def build(nelem=4):
+    missing_tools = check_dependencies()
     if not os.path.exists('do_build.sh'):
         create_buildscript(nelem=nelem)
     o = sp.call(['sh', 'do_build.sh'])
+
+    if len(missing_tools) > 0:
+        print("There are missing useful tools. Install with `sudo yum install`:")
+        print("  ".join(missing_tools))
+
 
 def clean():
     remove_link_or_dir('sources')
