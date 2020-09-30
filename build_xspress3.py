@@ -179,10 +179,16 @@ glib-2.0_DIR = /usr/lib64
 PROFILE = '''#!/bin/bash
 # startup script to use epics environment for xspress3
 
-export EPICS_CA_AUTO_ADDR_LIST=NO
+unset  EPICS_CAS_INTF_ADDR_LIST
+unset  EPICS_CA_ADDR_LIST
+export EPICS_CA_AUTO_ADDR_LIST=YES
+# you may need to explicitly set EPICS_CA_ADDR_LIST 
+# to your broadcast address or localhost 
+# export EPICS_CA_ADDR_LIST={broadcast:s}
+# export EPICS_CA_ADDR_LIST=localhost
 export EPICS_HOST_ARCH=linux-x86_64
-export EPICS_CA_MAX_ARRAY_BYTES=20000000
-export EPICS_CA_ADDR_LIST={broadcast:s}
+export EPICS_CA_MAX_ARRAY_BYTES=768000
+
 export EPICS_BASE='{topdir:s}/base'
 export EPICS_EXTENSIONS='{topdir:s}/extensions'
 export EPICS_DISPLAY_PATH='{topdir:s}/adls'
@@ -232,8 +238,7 @@ def write_bash_profile(nelem=4):
             break
     with open ('bin/bash_profile.sh', 'w') as fh:
         fh.write(PROFILE.format(topdir=os.getcwd(),
-                                homedir=HOME_DIR,
-                                broadcast=broadcast))
+                                homedir=HOME_DIR, broadcast=broadcast))
     with open ('bin/run_xspress3.sh', 'w') as fh:
         fh.write(START_IOC.format(topdir=os.getcwd(), nelem=nelem))
     with open ('bin/run_medm.sh', 'w') as fh:
@@ -450,7 +455,7 @@ if __name__ == '__main__':
         if cmd == 'extract':
             extract_sources()
         elif cmd == 'configure':
-            create_buildscript()
+            create_buildscript(nelem=nelem)
             configure_release()
         elif cmd == 'xrfapp':
             install_xrfapp(nelem=nelem)
@@ -462,7 +467,7 @@ if __name__ == '__main__':
             build()
         elif cmd == 'all':
             extract_sources()
-            create_buildscript()
+            create_buildscript(nelem=nelem)
             configure_release()
             build()
             install_xrfapp(nelem=nelem)
