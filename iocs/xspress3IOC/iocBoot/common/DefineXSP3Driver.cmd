@@ -9,6 +9,7 @@ xspress3App_registerRecordDeviceDriver(pdbbase)
 
 epicsEnvSet("PORT",   "XSP3")
 epicsEnvSet("QSIZE",  "128")
+epicsEnvSet("XSIZE",  "$(NUM_BINS)")
 
 # The maximum number of frames buffered in the NDPluginCircularBuff plugin
 epicsEnvSet("CBUFFS", "4096")
