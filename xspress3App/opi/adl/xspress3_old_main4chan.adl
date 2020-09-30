@@ -1,12 +1,12 @@
 
 file {
-	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_main.adl"
-	version=030107
+	name="/home/epics/devel/xspress3-2-2/xspress3App/opi/adl/xspress3_4chan.adl"
+	version=030109
 }
 display {
 	object {
-		x=125
-		y=175
+		x=843
+		y=250
 		width=450
 		height=525
 	}
@@ -89,6 +89,166 @@ display {
 }
 rectangle {
 	object {
+		x=425
+		y=491
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=60
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		calc="A"
+		chan="$(P):HDF1:WriteStatus"
+	}
+}
+rectangle {
+	object {
+		x=425
+		y=250
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=60
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		calc="A"
+		chan="$(P):HDF1:Capture_RBV"
+	}
+}
+rectangle {
+	object {
+		x=425
+		y=491
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		calc="A"
+		chan="$(P):HDF1:WriteStatus"
+	}
+}
+rectangle {
+	object {
+		x=425
+		y=316
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=60
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		calc="A"
+		chan="$(P):HDF1:FilePathExists_RBV"
+	}
+}
+rectangle {
+	object {
+		x=425
+		y=250
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		calc="A"
+		chan="$(P):HDF1:Capture_RBV"
+	}
+}
+rectangle {
+	object {
+		x=425
+		y=62
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		calc="A"
+		chan="$(P):det1:StatusMessage_RBV"
+	}
+}
+rectangle {
+	object {
+		x=425
+		y=5
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=60
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		calc="A"
+		chan="$(P):det1:CONNECTED"
+	}
+}
+rectangle {
+	object {
+		x=425
+		y=5
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		calc="A"
+		chan="$(P):det1:CONNECTED"
+	}
+}
+rectangle {
+	object {
+		x=425
+		y=62
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=60
+	}
+	"dynamic attribute" {
+		vis="if not zero"
+		calc="A"
+		chan="$(P):det1:StatusMessage_RBV"
+	}
+}
+rectangle {
+	object {
+		x=425
+		y=316
+		width=15
+		height=15
+	}
+	"basic attribute" {
+		clr=20
+	}
+	"dynamic attribute" {
+		vis="if zero"
+		calc="A"
+		chan="$(P):HDF1:FilePathExists_RBV"
+	}
+}
+rectangle {
+	object {
 		x=5
 		y=250
 		width=325
@@ -102,7 +262,7 @@ text {
 	object {
 		x=10
 		y=5
-		width=180
+		width=300
 		height=18
 	}
 	"basic attribute" {
@@ -157,9 +317,9 @@ text {
 }
 text {
 	object {
-		x=4000
+		x=4006
 		y=0
-		width=210
+		width=198
 		height=15
 	}
 	"basic attribute" {
@@ -179,25 +339,11 @@ rectangle {
 		clr=55
 	}
 }
-byte {
-	object {
-		x=425
-		y=60
-		width=15
-		height=15
-	}
-	monitor {
-		chan="$(P):det1:StatusMessage_RBV"
-		clr=60
-		bclr=20
-	}
-	sbit=0
-}
 text {
 	object {
-		x=360
+		x=385
 		y=60
-		width=60
+		width=32
 		height=18
 	}
 	"basic attribute" {
@@ -218,6 +364,7 @@ text {
 		bclr=0
 	}
 	align="horiz. right"
+	format="string"
 	limits {
 	}
 }
@@ -255,9 +402,9 @@ text {
 }
 text {
 	object {
-		x=205
+		x=263
 		y=85
-		width=100
+		width=42
 		height=14
 	}
 	"basic attribute" {
@@ -270,7 +417,7 @@ text {
 	object {
 		x=300
 		y=120
-		width=50
+		width=54
 		height=15
 	}
 	"basic attribute" {
@@ -280,35 +427,22 @@ text {
 }
 text {
 	object {
-		x=300
+		x=314
 		y=140
-		width=50
+		width=36
 		height=15
 	}
 	"basic attribute" {
 		clr=14
 	}
 	textix="Rate"
-}
-byte {
-	object {
-		x=425
-		y=5
-		width=15
-		height=15
-	}
-	monitor {
-		chan="$(P):det1:CONNECTED"
-		clr=60
-		bclr=20
-	}
-	sbit=0
+	align="horiz. right"
 }
 text {
 	object {
 		x=345
 		y=5
-		width=60
+		width=72
 		height=18
 	}
 	"basic attribute" {
@@ -318,9 +452,9 @@ text {
 }
 text {
 	object {
-		x=5
+		x=23
 		y=125
-		width=100
+		width=72
 		height=15
 	}
 	"basic attribute" {
@@ -359,9 +493,9 @@ text {
 }
 text {
 	object {
-		x=5
+		x=20
 		y=180
-		width=150
+		width=126
 		height=15
 	}
 	"basic attribute" {
@@ -371,9 +505,9 @@ text {
 }
 text {
 	object {
-		x=5
+		x=97
 		y=215
-		width=100
+		width=49
 		height=14
 	}
 	"basic attribute" {
@@ -401,7 +535,7 @@ text {
 	object {
 		x=10
 		y=348
-		width=100
+		width=77
 		height=14
 	}
 	"basic attribute" {
@@ -429,7 +563,7 @@ text {
 	object {
 		x=230
 		y=348
-		width=90
+		width=77
 		height=14
 	}
 	"basic attribute" {
@@ -452,25 +586,11 @@ text {
 	limits {
 	}
 }
-byte {
-	object {
-		x=425
-		y=315
-		width=15
-		height=15
-	}
-	monitor {
-		chan="$(P):HDF1:FilePathExists_RBV"
-		clr=60
-		bclr=20
-	}
-	sbit=0
-}
 "message button" {
 	object {
 		x=5
 		y=275
-		width=120
+		width=140
 		height=30
 	}
 	control {
@@ -483,9 +603,9 @@ byte {
 }
 "message button" {
 	object {
-		x=130
+		x=150
 		y=275
-		width=120
+		width=140
 		height=30
 	}
 	control {
@@ -495,34 +615,6 @@ byte {
 	}
 	label="Stop Capture"
 	press_msg="Done"
-}
-byte {
-	object {
-		x=420
-		y=250
-		width=15
-		height=15
-	}
-	monitor {
-		chan="$(P):HDF1:Capture_RBV"
-		clr=60
-		bclr=20
-	}
-	sbit=0
-}
-byte {
-	object {
-		x=425
-		y=491
-		width=15
-		height=15
-	}
-	monitor {
-		chan="$(P):HDF1:WriteStatus"
-		clr=60
-		bclr=20
-	}
-	sbit=0
 }
 "related display" {
 	object {
@@ -570,6 +662,26 @@ byte {
 		label="MCA 4"
 		name="xspress3_mcarois.adl"
 		args="P=$(P), CHAN=4"
+	}
+	display[10] {
+		label="SCA 1 "
+		name="NDPluginAttribute.adl"
+		args="P=$(P):, R=C1SCA:"
+	}
+	display[11] {
+		label="SCA 2"
+		name="NDPluginAttribute.adl"
+		args="P=$(P):, R=C2SCA:"
+	}
+	display[12] {
+		label="SCA 3"
+		name="NDPluginAttribute.adl"
+		args="P=$(P):, R=C3SCA:"
+	}
+	display[13] {
+		label="SCA 4"
+		name="NDPluginAttribute.adl"
+		args="P=$(P):, R=C4SCA:"
 	}
 	clr=54
 	bclr=55
@@ -638,7 +750,7 @@ text {
 	object {
 		x=5
 		y=150
-		width=100
+		width=90
 		height=15
 	}
 	"basic attribute" {
@@ -680,7 +792,7 @@ text {
 	object {
 		x=10
 		y=59
-		width=175
+		width=160
 		height=20
 	}
 	"basic attribute" {
@@ -692,7 +804,7 @@ text {
 	object {
 		x=5
 		y=250
-		width=150
+		width=160
 		height=20
 	}
 	"basic attribute" {
@@ -702,9 +814,9 @@ text {
 }
 text {
 	object {
-		x=10
+		x=24
 		y=318
-		width=100
+		width=63
 		height=14
 	}
 	"basic attribute" {
@@ -716,7 +828,7 @@ text {
 	object {
 		x=335
 		y=250
-		width=60
+		width=81
 		height=15
 	}
 	"basic attribute" {
@@ -728,7 +840,7 @@ text {
 	object {
 		x=10
 		y=491
-		width=90
+		width=42
 		height=14
 	}
 	"basic attribute" {
@@ -772,7 +884,7 @@ text {
 	object {
 		x=10
 		y=441
-		width=90
+		width=84
 		height=14
 	}
 	"basic attribute" {
@@ -800,7 +912,7 @@ text {
 	object {
 		x=10
 		y=406
-		width=100
+		width=77
 		height=14
 	}
 	"basic attribute" {
@@ -824,9 +936,9 @@ menu {
 }
 text {
 	object {
-		x=230
+		x=258
 		y=406
-		width=80
+		width=49
 		height=14
 	}
 	"basic attribute" {
@@ -853,7 +965,7 @@ text {
 	object {
 		x=10
 		y=466
-		width=100
+		width=63
 		height=14
 	}
 	"basic attribute" {
@@ -881,7 +993,7 @@ text {
 	object {
 		x=10
 		y=376
-		width=90
+		width=77
 		height=14
 	}
 	"basic attribute" {
@@ -909,7 +1021,7 @@ text {
 	object {
 		x=230
 		y=376
-		width=90
+		width=77
 		height=14
 	}
 	"basic attribute" {
