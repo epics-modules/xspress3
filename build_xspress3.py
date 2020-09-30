@@ -190,13 +190,6 @@ glib-2.0_DIR = /usr/lib64
 PROFILE = '''#!/bin/bash
 # startup script to use epics environment for xspress3
 
-unset  EPICS_CAS_INTF_ADDR_LIST
-unset  EPICS_CA_ADDR_LIST
-export EPICS_CA_AUTO_ADDR_LIST=YES
-# you may need to explicitly set EPICS_CA_ADDR_LIST 
-# to your broadcast address or localhost 
-# export EPICS_CA_ADDR_LIST={broadcast:s}
-# export EPICS_CA_ADDR_LIST=localhost
 export EPICS_HOST_ARCH=linux-x86_64
 export EPICS_CA_MAX_ARRAY_BYTES=768000
 
@@ -204,9 +197,29 @@ export EPICS_BASE='{topdir:s}/base'
 export EPICS_EXTENSIONS='{topdir:s}/extensions'
 export EPICS_DISPLAY_PATH='{topdir:s}/adls'
 
+# turn this off to make sure PVs can be seen by other
+# machines on your network
+unset  EPICS_CAS_INTF_ADDR_LIST
+
+# setting EPICS Address list, there are 2 options:
+# a) use automatic address lookup.
+#    works well for  machines with 1 NIC (xpsress3 minis?)
+export EPICS_CA_AUTO_ADDR_LIST=YES
+unset  EPICS_CA_ADDR_LIST
+
+# b) turn off automatic address lookup, explicitly set address
+#    list to the broadcast address (or localhost).  This gives 
+#    fewer warning messages for machines with multiple NICs, 
+#    such as non-mini xspress3 units.
+export EPICS_CA_AUTO_ADDR_LIST=NO
+# export EPICS_CA_ADDR_LIST=localhost
+export EPICS_CA_ADDR_LIST={broadcast:s}
+
+# include bin folders in PATH
 PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/lib64/qt-3.3/bin
 export PATH=$PATH:$EPICS_BASE/bin/linux-x86_64:$EPICS_EXTENSIONS/bin/linux-x86_64:{topdir:s}/bin
 
+# include bin folders in LD_LIBRARY_PATH
 LD_LIBRARY_PATH={homedir:s}/software/boost/stage/lib:/usr/local/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$EPICS_BASE/lib/linux-x86_64:$EPICS_EXTENSIONS/lib/linux-x86_64
 '''
