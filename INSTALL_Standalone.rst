@@ -11,22 +11,23 @@ Xspress3 IOC that is ready to configure and run, but has been tested
 only on Centos7 machines.  
 
 Some dependencies that may need to be installed (one time only) with
-your package manager:
+your package manager::
 
-   re2c  
-   rpcgen
-   readline, readline-devel
-   hdf5, hdf5-devel
-   libtiff, libtiff-devel
-   libjpeg, libjpeg-turbo-devel
-   libxml2, libxml2-devel
-   bzip2-devel, bzip2-libs
-   GraphicsMagick, GraphicsMagick-devel
-   motif, motif-devel (for medm)
+    re2c  
+    rpcgen
+    readline, readline-devel
+    hdf5, hdf5-devel
+    libtiff, libtiff-devel
+    libjpeg, libjpeg-turbo-devel
+    libxml2, libxml2-devel
+    bzip2-devel, bzip2-libs
+    GraphicsMagick, GraphicsMagick-devel
+    motif, motif-devel (for medm)
+    telnet (for procServ)
 
-On Centos7, you should be able to install these with 
+On Centos7, you should be able to install these with::
 
-   sudo yum install re2c readline-devel hdf5-devel ...
+    sudo yum install re2c readline-devel hdf5-devel ...
 
 
 Build Epics and Xspress3 support
@@ -42,18 +43,17 @@ environment starting with Epics base (7.0.3.1), areaDetector version
 3.9, and recent versions of all the other needed Epics libraries
 needed to run the Xspress3 epics interface.  To use this script,
 create a folder for your epics tree, say /home/xspress3/epics and run
-the build script from that folder:
+the build script from that folder::
 
     mkdir /home/xspress3/epics
     cd    /home/xspress3/epics
     wget  https://raw.githubusercontent.com/epics-modules/xspress3/master/build_xspress3.py
     python build_xspress3.py all
 
-
 This will build all the epics modules, including the Xspress3
 application in the current folder. It will also create a 'bin'
 directory here that contains scripts to set your environment and run
-the Xspress3 IOC:
+the Xspress3 IOC::
 
     bin/bash_profile.sh     bash script to set environmental variables
     bin/procServ            useful utility for long-running tasks like an IOC
@@ -70,10 +70,12 @@ should be able to run your xspress3 with
     /home/xspress3/epics/bin/start_ioc xspress3
 
 and then view screens for your detector either using an Epics display
-manager like medm or run the XRF Control application with
+manager like medm or run the XRF Control application with::
 
     ~> /home/xspress3/epics/bin/run_medm.sh
-or
+
+or::
+
     ~> /home/xspress3/epics/bin/run_xrfcontrol.py
 
 
@@ -82,22 +84,24 @@ Setting up an IOC
 
 After building the Xspress3 application, you will need to configure
 and set up an IOC to run with your Xspress3 detector electronics.
-There are several example IOCs in
+There are several example IOCs in::
 
-  xspress3/iocs/xspress3IOC/iocBoot/
+    xspress3/iocs/xspress3IOC/iocBoot/
 
 Depending on the number of detector channels you have, you can probably 
-start with one of
-  ioc_1Channel/         
-  ioc_2Channel/         
-  ioc_4Channel/         
-  ioc_7Channel/
-  ioc_14Channel/        
-  ioc_16Channel/        
+start with one of::
 
-or 
-  iocGSECARS-4Channel/  
-  iocGSECARS-7Channel/
+    ioc_1Channel/ 
+    ioc_2Channel/         
+    ioc_4Channel/         
+    ioc_7Channel/
+    ioc_14Channel/        
+    ioc_16Channel/        
+
+or::
+
+    iocGSECARS-4Channel/  
+    iocGSECARS-7Channel/
 
 For each of these IOC directories, the startup file `st.cmd` is the
 main IOC startup file. These define the PREFIX for all the Epics PVs
@@ -106,7 +110,8 @@ may wish to modify this PREFIX.  Other common configurable values can
 be changed here as well.
 
 The startup file also defines the folder used to read the xspress3
-calibration files.  By default, this is set to 
+calibration files.  By default, this is set to::
+
     /home/xspress3/xspress3_settings/current/
 
 You can change this value, but read the section on configuration and
@@ -121,41 +126,42 @@ you have carefully calibrated and measured the deadtimes for your
 detector channels, you can set these here, or at run-time. 
 
 You can run your IOC with the bin/run_xspress3.sh bash script. This
-defines the variable
+defines the variable::
 
-  IOCNAME=ioc_4Channel
+    IOCNAME=ioc_4Channel
 
 which you may need to change to reflect the IOC and to match you
 detector and electronics configuration. 
 
 Once you have verified that this script runs and is connecting to your
-Xspress3, you can use the 'start_ioc' script with 
+Xspress3, you can use the 'start_ioc' script with::
 
-  ~>  /home/xspress3/epics/bin/start_ioc xspress3
+    ~> /home/xspress3/epics/bin/start_ioc xspress3
 
 to run the IOC with the procServ utility for running, logging, and
 reconnecting to long-running processes such as IOCs.
 
 Important Note:
----------------
+------------------
 
 If you have changed the PREFIX of the IOC from the initially 
 installed value, you may need to edit the following scripts to 
-have a consistent PREFIX:
+have a consistent PREFIX::
 
-   bin/run_xspress3.sh
-   bin/run_medm.sh
-   bin/run_xrfcontrol.py
-   bin/Xspress3.env 
+    bin/run_xspress3.sh
+    bin/run_medm.sh
+    bin/run_xrfcontrol.py
+    bin/Xspress3.env 
 
 
 Display Files for MEDM, etc
 ==================================
 
-Simple display files for medm, caqtdm, and css/boy are placed in the folders
-  adls/
-  uis/
-  opis/
+Simple display files for medm, caqtdm, and css/boy are placed in the folders::
+
+    adls/
+    uis/
+    opis/
 
 respectively. You should use the files 'xspress3_4chan.*' and
 'xspress3_7chan.*' as the starting main screens.  
@@ -166,10 +172,10 @@ build the other display managers.
 Once connected, you can run medm from the bin directory (which will be
 placed in your path if you source the bin/bash_profile.sh file) to
 connect to your Xspress3 by providing the base PREFIX (without a
-trailing ':'!!)  for the appropriate display file, as with
+trailing ':'!!)  for the appropriate display file, as with::
 
-  ~> source /home/xspress3/epics/bin/bash_profile.sh
-  ~> /home/epics/bin/run_medm.sh
+    ~> source /home/xspress3/epics/bin/bash_profile.sh
+    ~> /home/epics/bin/run_medm.sh
 
 
 Xspress3 configuration and calibration settings
@@ -178,18 +184,18 @@ Xspress3 configuration and calibration settings
 The Xspress3 iocs need to read Xspress3 setting files as supplied by
 Quantum detectors or configured using xspress3-autocalib.py.  By
 default (or when you run the calibration procedure yourself), these
-files will be put in
+files will be put in::
 
- /etc/xspress3/calibration/initial/settings/
+    /etc/xspress3/calibration/initial/settings/
 
 or some similar directory under  /etc/xspress3/calibration/
 
 The challenge is that if you change detectors or re-run the calibration, 
 these files might be overwritten. 
 
-The iocs here all point to settings files in 
+The iocs here all point to settings files in:: 
 
-  /home/xspress3/settings/current/
+   /home/xspress3/settings/current/
 
 you should make copies of the settings in /etc/xspress3/calibration/
 and place the files you want to use in this folder.
@@ -200,9 +206,9 @@ Troubleshooting Xspress3 errors
 
 If you are changing detectors, and especially the number of detector
 elements in use, you may get some cryptic messages about the wrong
-number of channels. If so, doing
+number of channels. If so, doing::
 
-   rm /dev/shm/xsp*
+    rm /dev/shm/xsp*
 
 should remove any stale shared memory files that are used to connect
 and transfer data to the xspress3.  These will be rebuilt by the
@@ -238,7 +244,7 @@ each.  Occassionally, it will also reset its charge (using 1 clock
 tick). Each event has a finite time-width called the "EventWidth"
 which will include the rise time for the charge collection and the
 initial detection of the event.  Thus for any spectrum that counted for 
-ClockTicks real time, the "Dead Time" will be
+ClockTicks real time, the "Dead Time" will be::
 
      DeadTime = N_Resets + N_AllEvents * EventWidth
 
@@ -247,11 +253,11 @@ spectrum, N_AllEvents is the number of events processed (the "input
 counts") and Eventwidth is the time to process each event.
 
 The "live time" will be ClockTicks - DeadTime, and the deadtime correction
-factor will be
+factor will be::
  
      DT_Factor = ClockTicks / (ClockTicks - N_Resets - N_AllEvents*EventWidth)
 
-The "percent deadtime" will be
+The "percent deadtime" will be::
 
      DT_Percent = 100 * (N_Resets + N_AllEvents*EventWidth)/ClockTicks
 
@@ -261,9 +267,9 @@ between about 4 (50 nsec) and 12 (150 nsec), depending on the detector
 type.  This value should be set individually for each detector element
 in the Xspress3 calibration procedure.  But, you may want to measure
 deadtime curves and tweak these values yourself.   The IOC startup scripts 
-end with setting these values, as with:
+end with setting these values, as with::
 
-  # dbpf("$(PREFIX)C1:EventWidth",    "6")
+    # dbpf("$(PREFIX)C1:EventWidth",    "6")
 
 By default, these are commented out, so that the calibration values
 will be used, but you can adjust these values here. 
