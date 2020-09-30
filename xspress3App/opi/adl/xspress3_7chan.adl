@@ -1,12 +1,12 @@
 
 file {
-	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_7chan.adl"
-	version=030109
+	name="/home/xspress3/epics/xspress3/xspress3App/opi/adl/xspress3_7chan.adl"
+	version=030112
 }
 display {
 	object {
-		x=207
-		y=68
+		x=690
+		y=186
 		width=450
 		height=525
 	}
@@ -172,7 +172,7 @@ rectangle {
 	object {
 		x=5
 		y=55
-		width=325
+		width=150
 		height=20
 	}
 	"basic attribute" {
@@ -292,8 +292,8 @@ text {
 }
 byte {
 	object {
-		x=425
-		y=35
+		x=330
+		y=60
 		width=15
 		height=15
 	}
@@ -306,8 +306,8 @@ byte {
 }
 text {
 	object {
-		x=345
-		y=35
+		x=260
+		y=60
 		width=60
 		height=18
 	}
@@ -528,7 +528,7 @@ byte {
 	object {
 		x=5
 		y=25
-		width=90
+		width=75
 		height=25
 	}
 	display[1] {
@@ -546,44 +546,12 @@ byte {
 		name="NDProcess.adl"
 		args="P=$(P):, R=Proc1:"
 	}
-	display[6] {
-		label="Channel 1 Plugins"
-		name="xspress3_chan_plugins.adl"
-		args="P=$(P):, R=1"
-	}
-	display[7] {
-		label="Channel 2 Plugins"
-		name="xspress3_chan_plugins.adl"
-		args="P=$(P):, R=2"
-	}
-	display[8] {
-		label="Channel 3 Plugins"
-		name="xspress3_chan_plugins.adl"
-		args="P=$(P):, R=3"
-	}
-	display[9] {
-		label="Channel 4 Plugins"
-		name="xspress3_chan_plugins.adl"
-		args="P=$(P):, R=4"
-	}
 	display[10] {
-		label="Channel 5 Plugins"
-		name="xspress3_chan_plugins.adl"
-		args="P=$(P):, R=5"
-	}
-	display[11] {
-		label="Channel 6 Plugins"
-		name="xspress3_chan_plugins.adl"
-		args="P=$(P):, R=6"
-	}
-	display[12] {
-		label="Channel 7 Plugins"
-		name="xspress3_chan_plugins.adl"
-		args="P=$(P):, R=7"
+		name="l"
 	}
 	clr=54
 	bclr=55
-	label="Plugins"
+	label="-Plugins"
 }
 "text update" {
 	object {
@@ -690,7 +658,7 @@ text {
 	object {
 		x=10
 		y=59
-		width=175
+		width=150
 		height=20
 	}
 	"basic attribute" {
@@ -943,30 +911,10 @@ menu {
 }
 "related display" {
 	object {
-		x=105
+		x=85
 		y=25
-		width=90
+		width=75
 		height=25
-	}
-	display[1] {
-		label="Single MCA Plots [ME7]"
-		name="xspress3_7mcas_me7.adl"
-		args="P=$(P), R=MCA"
-	}
-	display[2] {
-		label="Summed MCA Plots [ME7]"
-		name="xspress3_7mcas_me7.adl"
-		args="P=$(P), R=MCASUM"
-	}
-	display[3] {
-		label="Single MCA Plots [SXD7]"
-		name="xspress3_7mcas_sxd7.adl"
-		args="P=$(P), R=MCA"
-	}
-	display[4] {
-		label="Summed MCA Plots [SXD7]"
-		name="xspress3_7mcas_sxd7.adl"
-		args="P=$(P), R=MCASUM"
 	}
 	display[6] {
 		label="MCA 1"
@@ -1005,5 +953,36 @@ menu {
 	}
 	clr=54
 	bclr=55
-	label="MCAs"
+	label="-MCAs 1-7"
+}
+"related display" {
+	object {
+		x=165
+		y=25
+		width=120
+		height=25
+	}
+	display[1] {
+		label="Single MCA Plots [ME7]"
+		name="xspress3_7mcas_me7.adl"
+		args="P=$(P), R=MCA"
+	}
+	display[2] {
+		label="Summed MCA Plots [ME7]"
+		name="xspress3_7mcas_me7.adl"
+		args="P=$(P), R=MCASUM"
+	}
+	display[3] {
+		label="Single MCA Plots [SXD7]"
+		name="xspress3_7mcas_sxd7.adl"
+		args="P=$(P), R=MCA"
+	}
+	display[4] {
+		label="Summed MCA Plots [SXD7]"
+		name="xspress3_7mcas_sxd7.adl"
+		args="P=$(P), R=MCASUM"
+	}
+	clr=54
+	bclr=55
+	label="-Combined Plots"
 }
