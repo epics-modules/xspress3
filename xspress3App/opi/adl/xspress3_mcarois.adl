@@ -1,6 +1,6 @@
 
 file {
-	name="/home/xspress3/epics/xspress3/xspress3App/opi/adl/xspress3_x.adl"
+	name="/home/xspress3/epics/xspress3/xspress3App/opi/adl/xspress3_mcarois.adl"
 	version=030112
 }
 display {
@@ -529,7 +529,7 @@ text {
 	display[0] {
 		label="SCAs"
 		name="xspress3_sca_tseries.adl"
-		args="P=$(P):,R=C$(CHAN)SCA:, A1=1:, A2=2:, A3=3:, A4=4:, A5=5:, A6=6:, A7=7:, A8=8:, A9=9:, A10=10:"
+		args="P=$(P):,R=C$(CHAN)SCA:, A0=0:, A1=1:, A2=2:, A3=3:, A4=4:, A5=5:, A6=6:, A7=7:, A8=8:, A9=9:, A10=10:"
 	}
 	clr=14
 	bclr=55

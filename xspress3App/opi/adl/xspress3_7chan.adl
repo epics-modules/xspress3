@@ -1,7 +1,7 @@
 
 file {
-	name="/home/epics/support/xspress3/xspress3App/opi/adl/xspress3_7chan.adl"
-	version=030109
+	name="/home/xspress3/epics/xspress3/xspress3App/opi/adl/xspress3_7chan.adl"
+	version=030112
 }
 display {
 	object {
@@ -545,9 +545,6 @@ byte {
 		label="PROC1 (For MCA Sums)"
 		name="NDProcess.adl"
 		args="P=$(P):, R=Proc1:"
-	}
-	display[10] {
-		name="l"
 	}
 	clr=54
 	bclr=55
