@@ -823,9 +823,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 120
+x 170
 y 5
-w 300
+w 275
 h 18
 controlPv "$(P):det1:StatusMessage_RBV"
 format "string"
@@ -1204,7 +1204,7 @@ minor 0
 release 0
 x 5
 y 25
-w 75
+w 90
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336
@@ -1306,9 +1306,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 85
+x 105
 y 25
-w 75
+w 100
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336
@@ -1390,9 +1390,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 165
+x 320
 y 25
-w 120
+w 125
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336

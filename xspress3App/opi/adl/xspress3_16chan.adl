@@ -1,7 +1,7 @@
 
 file {
-	name="/home/xspress3/epics/xspress3/xspress3App/opi/adl/xspress3_16chan.adl"
-	version=030112
+	name="/home/epics/support/xspress3/xspress3App/opi/adl/xspress3_16chan.adl"
+	version=030109
 }
 display {
 	object {
@@ -528,7 +528,7 @@ byte {
 	object {
 		x=5
 		y=25
-		width=75
+		width=90
 		height=25
 	}
 	display[1] {
@@ -732,9 +732,9 @@ text {
 }
 "text update" {
 	object {
-		x=120
+		x=170
 		y=5
-		width=300
+		width=275
 		height=18
 	}
 	monitor {
@@ -911,9 +911,9 @@ menu {
 }
 "related display" {
 	object {
-		x=85
+		x=105
 		y=25
-		width=75
+		width=100
 		height=25
 	}
 	display[0] {
@@ -1002,9 +1002,9 @@ menu {
 }
 "related display" {
 	object {
-		x=165
-		y=25
-		width=120
+		x=320
+		y=30
+		width=125
 		height=25
 	}
 	display[1] {

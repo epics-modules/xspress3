@@ -48,7 +48,7 @@ minor 1
 release 1
 x 10
 y 5
-w 180
+w 150
 h 18
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -823,9 +823,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 120
+x 170
 y 5
-w 300
+w 275
 h 18
 controlPv "$(P):det1:StatusMessage_RBV"
 format "string"
@@ -1204,7 +1204,7 @@ minor 0
 release 0
 x 5
 y 25
-w 75
+w 90
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336
@@ -1302,9 +1302,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 85
+x 100
 y 25
-w 50
+w 60
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336
@@ -1334,9 +1334,9 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 140
+x 170
 y 25
-w 50
+w 60
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336

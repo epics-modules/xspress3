@@ -179,7 +179,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>180</width>
+    <width>150</width>
     <wrap_words>false</wrap_words>
     <x>10</x>
     <y>5</y>
@@ -1700,7 +1700,7 @@ $(pv_value)</tooltip>
     <transparent>false</transparent>
     <visible>true</visible>
     <widget_type>Menu Button</widget_type>
-    <width>75</width>
+    <width>90</width>
     <x>5</x>
     <y>25</y>
   </widget>
@@ -2351,9 +2351,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Text Update</widget_type>
-    <width>300</width>
+    <width>275</width>
     <wrap_words>false</wrap_words>
-    <x>120</x>
+    <x>170</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -2961,8 +2961,8 @@ $(pv_value)</tooltip>
 $(pv_value)</tooltip>
     <visible>true</visible>
     <widget_type>Action Button</widget_type>
-    <width>50</width>
-    <x>85</x>
+    <width>60</width>
+    <x>100</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3016,8 +3016,8 @@ $(pv_value)</tooltip>
 $(pv_value)</tooltip>
     <visible>true</visible>
     <widget_type>Action Button</widget_type>
-    <width>50</width>
-    <x>140</x>
+    <width>60</width>
+    <x>170</x>
     <y>25</y>
   </widget>
 </display>

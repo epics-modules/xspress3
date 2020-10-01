@@ -48,7 +48,7 @@ minor 1
 release 1
 x 10
 y 5
-w 180
+w 150
 h 18
 font "helvetica-medium-r-14.0"
 fgColor rgb 0 0 0
@@ -823,9 +823,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 120
+x 170
 y 5
-w 300
+w 275
 h 18
 controlPv "$(P):det1:StatusMessage_RBV"
 format "string"
@@ -1204,7 +1204,7 @@ minor 0
 release 0
 x 5
 y 25
-w 75
+w 90
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336
@@ -1302,16 +1302,16 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 85
+x 95
 y 25
-w 50
+w 55
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336
 topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-14.0"
-buttonLabel "MCA 1"
+buttonLabel "MCA1"
 numPvs 2
 numDsps 1
 displayFileName {
@@ -1334,16 +1334,16 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 140
+x 150
 y 25
-w 50
+w 55
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336
 topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-14.0"
-buttonLabel "MCA 2"
+buttonLabel "MCA2"
 numPvs 2
 numDsps 1
 displayFileName {
@@ -1366,16 +1366,16 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 195
+x 205
 y 25
-w 50
+w 55
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336
 topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-14.0"
-buttonLabel "MCA 3"
+buttonLabel "MCA3"
 numPvs 2
 numDsps 1
 displayFileName {
@@ -1398,16 +1398,16 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 250
+x 260
 y 25
-w 50
+w 55
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336
 topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-14.0"
-buttonLabel "MCA 4"
+buttonLabel "MCA4"
 numPvs 2
 numDsps 1
 displayFileName {
@@ -1432,7 +1432,7 @@ minor 0
 release 0
 x 320
 y 25
-w 120
+w 125
 h 25
 fgColor rgb 2560 0 47104
 bgColor rgb 60160 61696 46336

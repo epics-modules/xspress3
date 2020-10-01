@@ -30,7 +30,7 @@
     <text>Xspress3: $(P)</text>
     <x>10</x>
     <y>5</y>
-    <width>180</width>
+    <width>150</width>
     <height>18</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -542,7 +542,7 @@
     <text>Plugins</text>
     <x>5</x>
     <y>25</y>
-    <width>75</width>
+    <width>90</width>
     <height>25</height>
     <foreground_color>
       <color red="10" green="0" blue="184">
@@ -771,9 +771,9 @@
   <widget type="textupdate" version="2.0.0">
     <name>text update #159</name>
     <pv_name>$(P):det1:StatusMessage_RBV</pv_name>
-    <x>120</x>
+    <x>170</x>
     <y>5</y>
-    <width>300</width>
+    <width>275</width>
     <height>18</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -967,10 +967,10 @@
         <description>MCA 1</description>
       </action>
     </actions>
-    <text>MCA 1</text>
-    <x>85</x>
+    <text>MCA1</text>
+    <x>95</x>
     <y>25</y>
-    <width>50</width>
+    <width>55</width>
     <height>25</height>
     <foreground_color>
       <color red="10" green="0" blue="184">
@@ -993,10 +993,10 @@
         <description>MCA 1</description>
       </action>
     </actions>
-    <text>MCA 2</text>
-    <x>140</x>
+    <text>MCA2</text>
+    <x>150</x>
     <y>25</y>
-    <width>50</width>
+    <width>55</width>
     <height>25</height>
     <foreground_color>
       <color red="10" green="0" blue="184">
@@ -1019,10 +1019,10 @@
         <description>MCA 1</description>
       </action>
     </actions>
-    <text>MCA 3</text>
-    <x>195</x>
+    <text>MCA3</text>
+    <x>205</x>
     <y>25</y>
-    <width>50</width>
+    <width>55</width>
     <height>25</height>
     <foreground_color>
       <color red="10" green="0" blue="184">
@@ -1045,10 +1045,10 @@
         <description>MCA 1</description>
       </action>
     </actions>
-    <text>MCA 4</text>
-    <x>250</x>
+    <text>MCA4</text>
+    <x>260</x>
     <y>25</y>
-    <width>50</width>
+    <width>55</width>
     <height>25</height>
     <foreground_color>
       <color red="10" green="0" blue="184">
@@ -1082,7 +1082,7 @@
     <text>Combined Plots</text>
     <x>320</x>
     <y>25</y>
-    <width>120</width>
+    <width>125</width>
     <height>25</height>
     <foreground_color>
       <color red="10" green="0" blue="184">

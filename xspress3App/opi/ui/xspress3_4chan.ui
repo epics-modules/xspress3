@@ -167,7 +167,7 @@ border-radius: 2px;
                 <rect>
                     <x>10</x>
                     <y>5</y>
-                    <width>180</width>
+                    <width>150</width>
                     <height>18</height>
                 </rect>
             </property>
@@ -1413,7 +1413,7 @@ border-radius: 2px;
                 <rect>
                     <x>5</x>
                     <y>25</y>
-                    <width>75</width>
+                    <width>90</width>
                     <height>25</height>
                 </rect>
             </property>
@@ -2020,9 +2020,9 @@ border-radius: 2px;
         <widget class="caLineEdit" name="caLineEdit_8">
             <property name="geometry">
                 <rect>
-                    <x>120</x>
+                    <x>170</x>
                     <y>5</y>
-                    <width>300</width>
+                    <width>275</width>
                     <height>18</height>
                 </rect>
             </property>
@@ -2560,9 +2560,9 @@ border-radius: 2px;
         <widget class="caRelatedDisplay" name="caRelatedDisplay_1">
             <property name="geometry">
                 <rect>
-                    <x>85</x>
+                    <x>95</x>
                     <y>25</y>
-                    <width>50</width>
+                    <width>55</width>
                     <height>25</height>
                 </rect>
             </property>
@@ -2581,7 +2581,7 @@ border-radius: 2px;
                 </color>
             </property>
             <property name="label">
-                <string>-MCA 1</string>
+                <string>-MCA1</string>
             </property>
             <property name="stackingMode">
                 <enum>Menu</enum>
@@ -2602,9 +2602,9 @@ border-radius: 2px;
         <widget class="caRelatedDisplay" name="caRelatedDisplay_2">
             <property name="geometry">
                 <rect>
-                    <x>140</x>
+                    <x>150</x>
                     <y>25</y>
-                    <width>50</width>
+                    <width>55</width>
                     <height>25</height>
                 </rect>
             </property>
@@ -2623,7 +2623,7 @@ border-radius: 2px;
                 </color>
             </property>
             <property name="label">
-                <string>-MCA 2</string>
+                <string>-MCA2</string>
             </property>
             <property name="stackingMode">
                 <enum>Menu</enum>
@@ -2644,9 +2644,9 @@ border-radius: 2px;
         <widget class="caRelatedDisplay" name="caRelatedDisplay_3">
             <property name="geometry">
                 <rect>
-                    <x>195</x>
+                    <x>205</x>
                     <y>25</y>
-                    <width>50</width>
+                    <width>55</width>
                     <height>25</height>
                 </rect>
             </property>
@@ -2665,7 +2665,7 @@ border-radius: 2px;
                 </color>
             </property>
             <property name="label">
-                <string>-MCA 3</string>
+                <string>-MCA3</string>
             </property>
             <property name="stackingMode">
                 <enum>Menu</enum>
@@ -2686,9 +2686,9 @@ border-radius: 2px;
         <widget class="caRelatedDisplay" name="caRelatedDisplay_4">
             <property name="geometry">
                 <rect>
-                    <x>250</x>
+                    <x>260</x>
                     <y>25</y>
-                    <width>50</width>
+                    <width>55</width>
                     <height>25</height>
                 </rect>
             </property>
@@ -2707,7 +2707,7 @@ border-radius: 2px;
                 </color>
             </property>
             <property name="label">
-                <string>-MCA 4</string>
+                <string>-MCA4</string>
             </property>
             <property name="stackingMode">
                 <enum>Menu</enum>
@@ -2730,7 +2730,7 @@ border-radius: 2px;
                 <rect>
                     <x>320</x>
                     <y>25</y>
-                    <width>120</width>
+                    <width>125</width>
                     <height>25</height>
                 </rect>
             </property>

@@ -179,7 +179,7 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Label</widget_type>
-    <width>180</width>
+    <width>150</width>
     <wrap_words>false</wrap_words>
     <x>10</x>
     <y>5</y>
@@ -1700,7 +1700,7 @@ $(pv_value)</tooltip>
     <transparent>false</transparent>
     <visible>true</visible>
     <widget_type>Menu Button</widget_type>
-    <width>75</width>
+    <width>90</width>
     <x>5</x>
     <y>25</y>
   </widget>
@@ -2351,9 +2351,9 @@ $(pv_value)</tooltip>
     <vertical_alignment>1</vertical_alignment>
     <visible>true</visible>
     <widget_type>Text Update</widget_type>
-    <width>300</width>
+    <width>275</width>
     <wrap_words>false</wrap_words>
-    <x>120</x>
+    <x>170</x>
     <y>5</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.Label" version="1.0.0">
@@ -2955,14 +2955,14 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <style>0</style>
-    <text>MCA 1</text>
+    <text>MCA1</text>
     <toggle_button>false</toggle_button>
     <tooltip>$(pv_name)
 $(pv_value)</tooltip>
     <visible>true</visible>
     <widget_type>Action Button</widget_type>
-    <width>50</width>
-    <x>85</x>
+    <width>55</width>
+    <x>95</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3010,14 +3010,14 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <style>0</style>
-    <text>MCA 2</text>
+    <text>MCA2</text>
     <toggle_button>false</toggle_button>
     <tooltip>$(pv_name)
 $(pv_value)</tooltip>
     <visible>true</visible>
     <widget_type>Action Button</widget_type>
-    <width>50</width>
-    <x>140</x>
+    <width>55</width>
+    <x>150</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3065,14 +3065,14 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <style>0</style>
-    <text>MCA 3</text>
+    <text>MCA3</text>
     <toggle_button>false</toggle_button>
     <tooltip>$(pv_name)
 $(pv_value)</tooltip>
     <visible>true</visible>
     <widget_type>Action Button</widget_type>
-    <width>50</width>
-    <x>195</x>
+    <width>55</width>
+    <x>205</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.ActionButton" version="2.0.0">
@@ -3120,14 +3120,14 @@ $(pv_value)</tooltip>
     </scale_options>
     <scripts />
     <style>0</style>
-    <text>MCA 4</text>
+    <text>MCA4</text>
     <toggle_button>false</toggle_button>
     <tooltip>$(pv_name)
 $(pv_value)</tooltip>
     <visible>true</visible>
     <widget_type>Action Button</widget_type>
-    <width>50</width>
-    <x>250</x>
+    <width>55</width>
+    <x>260</x>
     <y>25</y>
   </widget>
   <widget typeId="org.csstudio.opibuilder.widgets.MenuButton" version="1.0.0">
@@ -3189,7 +3189,7 @@ $(pv_value)</tooltip>
     <transparent>false</transparent>
     <visible>true</visible>
     <widget_type>Menu Button</widget_type>
-    <width>120</width>
+    <width>125</width>
     <x>320</x>
     <y>25</y>
   </widget>

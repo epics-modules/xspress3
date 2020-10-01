@@ -30,7 +30,7 @@
     <text>Xspress3: $(P)</text>
     <x>10</x>
     <y>5</y>
-    <width>180</width>
+    <width>150</width>
     <height>18</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -546,7 +546,7 @@
     <text>Plugins</text>
     <x>5</x>
     <y>25</y>
-    <width>75</width>
+    <width>90</width>
     <height>25</height>
     <foreground_color>
       <color red="10" green="0" blue="184">
@@ -775,9 +775,9 @@
   <widget type="textupdate" version="2.0.0">
     <name>text update #160</name>
     <pv_name>$(P):det1:StatusMessage_RBV</pv_name>
-    <x>120</x>
+    <x>170</x>
     <y>5</y>
-    <width>300</width>
+    <width>275</width>
     <height>18</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -1020,9 +1020,8 @@
       </action>
     </actions>
     <text>MCAs 1-7</text>
-    <x>85</x>
+    <x>105</x>
     <y>25</y>
-    <width>75</width>
     <height>25</height>
     <foreground_color>
       <color red="10" green="0" blue="184">
@@ -1070,9 +1069,9 @@
       </action>
     </actions>
     <text>Combined Plots</text>
-    <x>165</x>
+    <x>325</x>
     <y>25</y>
-    <width>120</width>
+    <width>125</width>
     <height>25</height>
     <foreground_color>
       <color red="10" green="0" blue="184">

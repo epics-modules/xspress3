@@ -167,7 +167,7 @@ border-radius: 2px;
                 <rect>
                     <x>10</x>
                     <y>5</y>
-                    <width>180</width>
+                    <width>150</width>
                     <height>18</height>
                 </rect>
             </property>
@@ -1335,7 +1335,7 @@ border-radius: 2px;
                 <rect>
                     <x>5</x>
                     <y>25</y>
-                    <width>75</width>
+                    <width>90</width>
                     <height>25</height>
                 </rect>
             </property>
@@ -1942,9 +1942,9 @@ border-radius: 2px;
         <widget class="caLineEdit" name="caLineEdit_8">
             <property name="geometry">
                 <rect>
-                    <x>120</x>
+                    <x>170</x>
                     <y>5</y>
-                    <width>300</width>
+                    <width>275</width>
                     <height>18</height>
                 </rect>
             </property>
@@ -2482,9 +2482,9 @@ border-radius: 2px;
         <widget class="caRelatedDisplay" name="caRelatedDisplay_1">
             <property name="geometry">
                 <rect>
-                    <x>85</x>
+                    <x>100</x>
                     <y>25</y>
-                    <width>50</width>
+                    <width>60</width>
                     <height>25</height>
                 </rect>
             </property>
