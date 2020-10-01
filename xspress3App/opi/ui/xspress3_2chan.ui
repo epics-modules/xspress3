@@ -4,8 +4,8 @@
 <widget class="QMainWindow" name="MainWindow">
     <property name="geometry">
         <rect>
-            <x>690</x>
-            <y>186</y>
+            <x>207</x>
+            <y>68</y>
             <width>450</width>
             <height>525</height>
         </rect>
@@ -1438,16 +1438,16 @@ border-radius: 2px;
                 <enum>Menu</enum>
             </property>
             <property name="labels">
-                <string>AreaDetector Base;HDF5 File Plugin;PROC1 (For MCA Sums);PROC1 (For MCA Sums)</string>
+                <string>AreaDetector Base;HDF5 File Plugin;PROC1 (For MCA Sums)</string>
             </property>
             <property name="files">
-                <string>ADBase.adl;NDFileHDF5.adl;NDProcess.adl;l</string>
+                <string>ADBase.adl;NDFileHDF5.adl;NDProcess.adl</string>
             </property>
             <property name="args">
-                <string>P=$(P):, R=det1:;P=$(P), R=:HDF1:;P=$(P):, R=Proc1:;P=$(P):, R=Proc1:</string>
+                <string>P=$(P):, R=det1:;P=$(P), R=:HDF1:;P=$(P):, R=Proc1:</string>
             </property>
             <property name="removeParent">
-                <string>false;false;false;false</string>
+                <string>false;false;false</string>
             </property>
         </widget>
         <widget class="caLineEdit" name="caLineEdit_3">
@@ -1811,7 +1811,7 @@ border-radius: 2px;
                 <rect>
                     <x>10</x>
                     <y>59</y>
-                    <width>150</width>
+                    <width>175</width>
                     <height>20</height>
                 </rect>
             </property>
@@ -2562,7 +2562,7 @@ border-radius: 2px;
                 <rect>
                     <x>85</x>
                     <y>25</y>
-                    <width>75</width>
+                    <width>50</width>
                     <height>25</height>
                 </rect>
             </property>
@@ -2581,30 +2581,30 @@ border-radius: 2px;
                 </color>
             </property>
             <property name="label">
-                <string>-MCAs 1-16</string>
+                <string>-MCA 1</string>
             </property>
             <property name="stackingMode">
                 <enum>Menu</enum>
             </property>
             <property name="labels">
-                <string>MCA 1;MCA 2;MCA 3;MCA 4;MCA 5;MCA 6;MCA 7;MCA 8;MCA 9;MCA 10;MCA 11;MCA 12;MCA 13;MCA 14;MCA 15;MCA 16</string>
+                <string>MCA 1</string>
             </property>
             <property name="files">
-                <string>xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl</string>
+                <string>xspress3_mcarois.adl</string>
             </property>
             <property name="args">
-                <string>P=$(P), CHAN=1;P=$(P), CHAN=2;P=$(P), CHAN=3;P=$(P), CHAN=4;P=$(P), CHAN=5;P=$(P), CHAN=6;P=$(P), CHAN=7;P=$(P), CHAN=8;P=$(P), CHAN=9;P=$(P), CHAN=10;P=$(P), CHAN=11;P=$(P), CHAN=12;P=$(P), CHAN=13;P=$(P), CHAN=14;P=$(P), CHAN=15;P=$(P), CHAN=16</string>
+                <string>P=$(P), CHAN=1</string>
             </property>
             <property name="removeParent">
-                <string>false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false</string>
+                <string>false</string>
             </property>
         </widget>
         <widget class="caRelatedDisplay" name="caRelatedDisplay_2">
             <property name="geometry">
                 <rect>
-                    <x>165</x>
+                    <x>140</x>
                     <y>25</y>
-                    <width>120</width>
+                    <width>50</width>
                     <height>25</height>
                 </rect>
             </property>
@@ -2623,22 +2623,22 @@ border-radius: 2px;
                 </color>
             </property>
             <property name="label">
-                <string>-Combined Plots</string>
+                <string>-MCA 2</string>
             </property>
             <property name="stackingMode">
                 <enum>Menu</enum>
             </property>
             <property name="labels">
-                <string>Single MCA Plots ;Summed MCA Plots </string>
+                <string>MCA 1</string>
             </property>
             <property name="files">
-                <string>xspress3_16mcas.adl;xspress3_16mcas.adl</string>
+                <string>xspress3_mcarois.adl</string>
             </property>
             <property name="args">
-                <string>P=$(P), R=MCA;P=$(P), R=MCASUM</string>
+                <string>P=$(P), CHAN=2</string>
             </property>
             <property name="removeParent">
-                <string>false;false</string>
+                <string>false</string>
             </property>
         </widget>
         <zorder>caRectangle_0</zorder>

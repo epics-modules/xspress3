@@ -2581,22 +2581,22 @@ border-radius: 2px;
                 </color>
             </property>
             <property name="label">
-                <string>-MCAs 1-16</string>
+                <string>-MCAs 1-8</string>
             </property>
             <property name="stackingMode">
                 <enum>Menu</enum>
             </property>
             <property name="labels">
-                <string>MCA 1;MCA 2;MCA 3;MCA 4;MCA 5;MCA 6;MCA 7;MCA 8;MCA 9;MCA 10;MCA 11;MCA 12;MCA 13;MCA 14;MCA 15;MCA 16</string>
+                <string>MCA 1;MCA 2;MCA 3;MCA 4;MCA 5;MCA 6;MCA 7;MCA 8</string>
             </property>
             <property name="files">
-                <string>xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl</string>
+                <string>xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl</string>
             </property>
             <property name="args">
-                <string>P=$(P), CHAN=1;P=$(P), CHAN=2;P=$(P), CHAN=3;P=$(P), CHAN=4;P=$(P), CHAN=5;P=$(P), CHAN=6;P=$(P), CHAN=7;P=$(P), CHAN=8;P=$(P), CHAN=9;P=$(P), CHAN=10;P=$(P), CHAN=11;P=$(P), CHAN=12;P=$(P), CHAN=13;P=$(P), CHAN=14;P=$(P), CHAN=15;P=$(P), CHAN=16</string>
+                <string>P=$(P), CHAN=1;P=$(P), CHAN=2;P=$(P), CHAN=3;P=$(P), CHAN=4;P=$(P), CHAN=5;P=$(P), CHAN=6;P=$(P), CHAN=7;P=$(P), CHAN=8</string>
             </property>
             <property name="removeParent">
-                <string>false;false;false;false;false;false;false;false;false;false;false;false;false;false;false;false</string>
+                <string>false;false;false;false;false;false;false;false</string>
             </property>
         </widget>
         <widget class="caRelatedDisplay" name="caRelatedDisplay_2">
@@ -2629,10 +2629,10 @@ border-radius: 2px;
                 <enum>Menu</enum>
             </property>
             <property name="labels">
-                <string>Single MCA Plots ;Summed MCA Plots </string>
+                <string>Single MCA Plots [ME7];Summed MCA Plots [ME7]</string>
             </property>
             <property name="files">
-                <string>xspress3_16mcas.adl;xspress3_16mcas.adl</string>
+                <string>xspress3_8mcas.adl;xspress3_8mcas.adl</string>
             </property>
             <property name="args">
                 <string>P=$(P), R=MCA;P=$(P), R=MCASUM</string>

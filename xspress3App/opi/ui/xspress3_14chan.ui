@@ -2581,13 +2581,13 @@ border-radius: 2px;
                 </color>
             </property>
             <property name="label">
-                <string>-MCAs 1-16</string>
+                <string>-MCAs 1-14</string>
             </property>
             <property name="stackingMode">
                 <enum>Menu</enum>
             </property>
             <property name="labels">
-                <string>MCA 1;MCA 2;MCA 3;MCA 4;MCA 5;MCA 6;MCA 7;MCA 8;MCA 9;MCA 10;MCA 11;MCA 12;MCA 13;MCA 14;MCA 15;MCA 16</string>
+                <string>MCA 1;MCA 2;MCA 3;MCA 4;MCA 5;MCA 6;MCA 7;MCA 8;MCA 9;MCA 10;MCA 11;MCA 12;MCA 13;MCA 14;MCA 14;MCA 14</string>
             </property>
             <property name="files">
                 <string>xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl</string>
@@ -2629,7 +2629,7 @@ border-radius: 2px;
                 <enum>Menu</enum>
             </property>
             <property name="labels">
-                <string>Single MCA Plots ;Summed MCA Plots </string>
+                <string>Single MCA Plots;Summed MCA Plots </string>
             </property>
             <property name="files">
                 <string>xspress3_16mcas.adl;xspress3_16mcas.adl</string>

@@ -4,8 +4,8 @@
 <widget class="QMainWindow" name="MainWindow">
     <property name="geometry">
         <rect>
-            <x>282</x>
-            <y>200</y>
+            <x>207</x>
+            <y>68</y>
             <width>450</width>
             <height>525</height>
         </rect>
@@ -336,7 +336,7 @@ border-radius: 2px;
                 <rect>
                     <x>5</x>
                     <y>55</y>
-                    <width>325</width>
+                    <width>150</width>
                     <height>20</height>
                 </rect>
             </property>
@@ -712,8 +712,8 @@ border-radius: 2px;
         <widget class="caByte" name="caByte_1">
             <property name="geometry">
                 <rect>
-                    <x>425</x>
-                    <y>5</y>
+                    <x>325</x>
+                    <y>60</y>
                     <width>15</width>
                     <height>15</height>
                 </rect>
@@ -777,8 +777,8 @@ border-radius: 2px;
             </property>
             <property name="geometry">
                 <rect>
-                    <x>345</x>
-                    <y>5</y>
+                    <x>255</x>
+                    <y>60</y>
                     <width>60</width>
                     <height>18</height>
                 </rect>
@@ -1413,7 +1413,7 @@ border-radius: 2px;
                 <rect>
                     <x>5</x>
                     <y>25</y>
-                    <width>90</width>
+                    <width>75</width>
                     <height>25</height>
                 </rect>
             </property>
@@ -1432,22 +1432,22 @@ border-radius: 2px;
                 </color>
             </property>
             <property name="label">
-                <string>More</string>
+                <string>-Plugins</string>
             </property>
             <property name="stackingMode">
                 <enum>Menu</enum>
             </property>
             <property name="labels">
-                <string>Plugins;AreaDetector Base;HDF5 File Plugin;MCA Plots;MCA 1;MCA 2;MCA 3;MCA 4;SCA 1 ;SCA 2;SCA 3;SCA 4</string>
+                <string>AreaDetector Base;HDF5 File Plugin;PROC1 (For MCA Sums)</string>
             </property>
             <property name="files">
-                <string>xspress3_adplugins.adl;ADBase.adl;NDFileHDF5.adl;xspress3_4mcas.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;NDPluginAttribute.adl;NDPluginAttribute.adl;NDPluginAttribute.adl;NDPluginAttribute.adl</string>
+                <string>ADBase.adl;NDFileHDF5.adl;NDProcess.adl</string>
             </property>
             <property name="args">
-                <string>P=$(P):;P=$(P):, R=det1:;P=$(P), R=:HDF1:;P=$(P);P=$(P), CHAN=1;P=$(P), CHAN=2;P=$(P), CHAN=3;P=$(P), CHAN=4;P=$(P):, R=C1SCA:;P=$(P):, R=C2SCA:;P=$(P):, R=C3SCA:;P=$(P):, R=C4SCA:</string>
+                <string>P=$(P):, R=det1:;P=$(P), R=:HDF1:;P=$(P):, R=Proc1:</string>
             </property>
             <property name="removeParent">
-                <string>false;false;false;false;false;false;false;false;false;false;false;false</string>
+                <string>false;false;false</string>
             </property>
         </widget>
         <widget class="caLineEdit" name="caLineEdit_3">
@@ -1811,7 +1811,7 @@ border-radius: 2px;
                 <rect>
                     <x>10</x>
                     <y>59</y>
-                    <width>175</width>
+                    <width>150</width>
                     <height>20</height>
                 </rect>
             </property>
@@ -2021,9 +2021,9 @@ border-radius: 2px;
             <property name="geometry">
                 <rect>
                     <x>120</x>
-                    <y>25</y>
-                    <width>320</width>
-                    <height>20</height>
+                    <y>5</y>
+                    <width>300</width>
+                    <height>18</height>
                 </rect>
             </property>
             <property name="fontScaleMode">
@@ -2557,6 +2557,216 @@ border-radius: 2px;
                 <enum>caMenu::Static</enum>
             </property>
         </widget>
+        <widget class="caRelatedDisplay" name="caRelatedDisplay_1">
+            <property name="geometry">
+                <rect>
+                    <x>85</x>
+                    <y>25</y>
+                    <width>50</width>
+                    <height>25</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>10</red>
+                    <green>0</green>
+                    <blue>184</blue>
+                </color>
+            </property>
+            <property name="background">
+                <color alpha="255">
+                    <red>235</red>
+                    <green>241</green>
+                    <blue>181</blue>
+                </color>
+            </property>
+            <property name="label">
+                <string>-MCA 1</string>
+            </property>
+            <property name="stackingMode">
+                <enum>Menu</enum>
+            </property>
+            <property name="labels">
+                <string>MCA 1</string>
+            </property>
+            <property name="files">
+                <string>xspress3_mcarois.adl</string>
+            </property>
+            <property name="args">
+                <string>P=$(P), CHAN=1</string>
+            </property>
+            <property name="removeParent">
+                <string>false</string>
+            </property>
+        </widget>
+        <widget class="caRelatedDisplay" name="caRelatedDisplay_2">
+            <property name="geometry">
+                <rect>
+                    <x>140</x>
+                    <y>25</y>
+                    <width>50</width>
+                    <height>25</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>10</red>
+                    <green>0</green>
+                    <blue>184</blue>
+                </color>
+            </property>
+            <property name="background">
+                <color alpha="255">
+                    <red>235</red>
+                    <green>241</green>
+                    <blue>181</blue>
+                </color>
+            </property>
+            <property name="label">
+                <string>-MCA 2</string>
+            </property>
+            <property name="stackingMode">
+                <enum>Menu</enum>
+            </property>
+            <property name="labels">
+                <string>MCA 1</string>
+            </property>
+            <property name="files">
+                <string>xspress3_mcarois.adl</string>
+            </property>
+            <property name="args">
+                <string>P=$(P), CHAN=2</string>
+            </property>
+            <property name="removeParent">
+                <string>false</string>
+            </property>
+        </widget>
+        <widget class="caRelatedDisplay" name="caRelatedDisplay_3">
+            <property name="geometry">
+                <rect>
+                    <x>195</x>
+                    <y>25</y>
+                    <width>50</width>
+                    <height>25</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>10</red>
+                    <green>0</green>
+                    <blue>184</blue>
+                </color>
+            </property>
+            <property name="background">
+                <color alpha="255">
+                    <red>235</red>
+                    <green>241</green>
+                    <blue>181</blue>
+                </color>
+            </property>
+            <property name="label">
+                <string>-MCA 3</string>
+            </property>
+            <property name="stackingMode">
+                <enum>Menu</enum>
+            </property>
+            <property name="labels">
+                <string>MCA 1</string>
+            </property>
+            <property name="files">
+                <string>xspress3_mcarois.adl</string>
+            </property>
+            <property name="args">
+                <string>P=$(P), CHAN=3</string>
+            </property>
+            <property name="removeParent">
+                <string>false</string>
+            </property>
+        </widget>
+        <widget class="caRelatedDisplay" name="caRelatedDisplay_4">
+            <property name="geometry">
+                <rect>
+                    <x>250</x>
+                    <y>25</y>
+                    <width>50</width>
+                    <height>25</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>10</red>
+                    <green>0</green>
+                    <blue>184</blue>
+                </color>
+            </property>
+            <property name="background">
+                <color alpha="255">
+                    <red>235</red>
+                    <green>241</green>
+                    <blue>181</blue>
+                </color>
+            </property>
+            <property name="label">
+                <string>-MCA 4</string>
+            </property>
+            <property name="stackingMode">
+                <enum>Menu</enum>
+            </property>
+            <property name="labels">
+                <string>MCA 1</string>
+            </property>
+            <property name="files">
+                <string>xspress3_mcarois.adl</string>
+            </property>
+            <property name="args">
+                <string>P=$(P), CHAN=4</string>
+            </property>
+            <property name="removeParent">
+                <string>false</string>
+            </property>
+        </widget>
+        <widget class="caRelatedDisplay" name="caRelatedDisplay_5">
+            <property name="geometry">
+                <rect>
+                    <x>320</x>
+                    <y>25</y>
+                    <width>120</width>
+                    <height>25</height>
+                </rect>
+            </property>
+            <property name="foreground">
+                <color alpha="255">
+                    <red>10</red>
+                    <green>0</green>
+                    <blue>184</blue>
+                </color>
+            </property>
+            <property name="background">
+                <color alpha="255">
+                    <red>235</red>
+                    <green>241</green>
+                    <blue>181</blue>
+                </color>
+            </property>
+            <property name="label">
+                <string>-Combined Plots</string>
+            </property>
+            <property name="stackingMode">
+                <enum>Menu</enum>
+            </property>
+            <property name="labels">
+                <string>Single MCA Plots [ME4];Summed MCA Plots [ME4]</string>
+            </property>
+            <property name="files">
+                <string>xspress3_4mcas.adl;xspress3_4mcas.adl</string>
+            </property>
+            <property name="args">
+                <string>P=$(P), R=MCA;P=$(P), R=MCASUM</string>
+            </property>
+            <property name="removeParent">
+                <string>false;false</string>
+            </property>
+        </widget>
         <zorder>caRectangle_0</zorder>
         <zorder>caLabel_0</zorder>
         <zorder>caLabel_1</zorder>
@@ -2616,6 +2826,11 @@ border-radius: 2px;
         <zorder>caLineEdit_10</zorder>
         <zorder>caTextEntry_6</zorder>
         <zorder>caMenu_2</zorder>
+        <zorder>caRelatedDisplay_1</zorder>
+        <zorder>caRelatedDisplay_2</zorder>
+        <zorder>caRelatedDisplay_3</zorder>
+        <zorder>caRelatedDisplay_4</zorder>
+        <zorder>caRelatedDisplay_5</zorder>
     </widget>
 </widget>
 </ui>
