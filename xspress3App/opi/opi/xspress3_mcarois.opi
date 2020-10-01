@@ -2423,6 +2423,7 @@ $(pv_value)</tooltip>
           <include_parent_macros>true</include_parent_macros>
           <P>$(P):</P>
           <R>C$(CHAN)SCA:</R>
+          <A0>0:</A0>
           <A1>1:</A1>
           <A2>2:</A2>
           <A3>3:</A3>

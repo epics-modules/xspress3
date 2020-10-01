@@ -619,6 +619,7 @@
       <action type="open_display">
         <file>xspress3_sca_tseries.opi</file>
         <macros>
+          <A0>0:</A0>
           <A1>1:</A1>
           <A10>10:</A10>
           <A2>2:</A2>

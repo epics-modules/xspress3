@@ -1,704 +1,986 @@
+4 0 1
+beginScreenProperties
+major 4
+minor 0
+release 1
+x 180
+y 150
+w 940
+h 150
+font "helvetica-medium-r-18.0"
+ctlFont "helvetica-bold-r-10.0"
+btnFont "helvetica-medium-r-18.0"
+fgColor rgb 0 0 0
+bgColor rgb 47872 47872 47872
+textColor rgb 0 0 0
+ctlFgColor1 rgb 64256 62208 18944
+ctlFgColor2 rgb 60928 46592 11008
+ctlBgColor1 rgb 52480 24832 0
+ctlBgColor2 rgb 65280 45056 65280
+topShadowColor rgb 44544 19968 48128
+botShadowColor rgb 13312 13056 34304
+showGrid
+snapToGrid
+gridSize 4
+endScreenProperties
 
-file {
-	name="/home/epics/support/CARS/CARSApp/op/adl/xspress3_chan_plugins.adl"
-	version=030109
+# (Rectangle)
+object activeRectangleClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 5
+w 849
+h 24
+lineColor rgb 55808 55808 55808
+fill
+fillColor rgb 55808 55808 55808
+lineWidth 0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 249
+y 5
+w 335
+h 25
+font "helvetica-medium-r-18.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor index 3
+useDisplayBg
+value {
+  "Xspress3 Plugins for $(P) Channel $(R)"
 }
-display {
-	object {
-		x=180
-		y=150
-		width=940
-		height=150
-	}
-	clr=14
-	bclr=4
-	cmap=""
-	gridSpacing=5
-	gridOn=0
-	snapToGrid=0
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 10
+y 40
+w 110
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Plugin name"
 }
-"color map" {
-	ncolors=65
-	colors {
-		ffffff,
-		ececec,
-		dadada,
-		c8c8c8,
-		bbbbbb,
-		aeaeae,
-		9e9e9e,
-		919191,
-		858585,
-		787878,
-		696969,
-		5a5a5a,
-		464646,
-		2d2d2d,
-		000000,
-		00d800,
-		1ebb00,
-		339900,
-		2d7f00,
-		216c00,
-		fd0000,
-		de1309,
-		be190b,
-		a01207,
-		820400,
-		5893ff,
-		597ee1,
-		4b6ec7,
-		3a5eab,
-		27548d,
-		fbf34a,
-		f9da3c,
-		eeb62b,
-		e19015,
-		cd6100,
-		ffb0ff,
-		d67fe2,
-		ae4ebc,
-		8b1a96,
-		610a75,
-		a4aaff,
-		8793e2,
-		6a73c1,
-		4d52a4,
-		343386,
-		c7bb6d,
-		b79d5c,
-		a47e3c,
-		7d5627,
-		58340f,
-		99ffff,
-		73dfff,
-		4ea5f9,
-		2a63e4,
-		0a00b8,
-		ebf1b5,
-		d4db9d,
-		bbc187,
-		a6a462,
-		8b8239,
-		73ff6b,
-		52da3b,
-		3cb420,
-		289315,
-		1a7309,
-	}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 150
+y 40
+w 110
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Plugin type"
 }
-rectangle {
-	object {
-		x=0
-		y=5
-		width=850
-		height=25
-	}
-	"basic attribute" {
-		clr=2
-	}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 10
+y 60
+w 110
+h 18
+controlPv "$(P)ROI$(R):PortName_RBV"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 125
+y 60
+w 160
+h 18
+controlPv "$(P)ROI$(R):PluginType_RBV"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 10
+y 120
+w 110
+h 18
+controlPv "$(P)MCA$(R)ROI:PortName_RBV"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 125
+y 120
+w 160
+h 18
+controlPv "$(P)MCA$(R)ROI:PluginType_RBV"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 300
+y 40
+w 40
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Port"
 }
-text {
-	object {
-		x=308
-		y=5
-		width=216
-		height=25
-	}
-	"basic attribute" {
-		clr=54
-	}
-	textix="Xspress3 Plugins for $(P) Channel $(R)"
-	align="horiz. centered"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 407
+y 40
+w 60
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Enable"
 }
-text {
-	object {
-		x=10
-		y=40
-		width=110
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Plugin name"
-	align="horiz. right"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 525
+y 40
+w 80
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Blocking"
 }
-text {
-	object {
-		x=150
-		y=40
-		width=110
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Plugin type"
-	align="horiz. right"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 290
+y 60
+w 60
+h 20
+controlPv "$(P)ROI$(R):NDArrayPort"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 440
+y 60
+w 80
+h 18
+controlPv "$(P)ROI$(R):EnableCallbacks_RBV"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 17920 17920 17920
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 290
+y 120
+w 60
+h 20
+controlPv "$(P)MCA$(R)ROI:NDArrayPort"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 440
+y 120
+w 80
+h 18
+controlPv "$(P)MCA$(R)ROI:EnableCallbacks_RBV"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 17920 17920 17920
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 797
+y 40
+w 43
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Rate"
 }
-"text update" {
-	object {
-		x=10
-		y=60
-		width=110
-		height=18
-	}
-	monitor {
-		chan="$(P)ROI$(R):PortName_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	format="string"
-	limits {
-	}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 780
+y 60
+w 80
+h 18
+controlPv "$(P)ROI$(R):ArrayRate_RBV"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 780
+y 120
+w 80
+h 18
+controlPv "$(P)MCA$(R)ROI:ArrayRate_RBV"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 615
+y 40
+w 70
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Dropped"
 }
-"text update" {
-	object {
-		x=125
-		y=60
-		width=160
-		height=18
-	}
-	monitor {
-		chan="$(P)ROI$(R):PluginType_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	format="string"
-	limits {
-	}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 610
+y 60
+w 80
+h 18
+controlPv "$(P)ROI$(R):DroppedArrays_RBV"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 610
+y 120
+w 80
+h 18
+controlPv "$(P)MCA$(R)ROI:DroppedArrays_RBV"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 700
+y 40
+w 70
+h 20
+font "helvetica-medium-r-14.0"
+fontAlign "right"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Free"
 }
-"text update" {
-	object {
-		x=10
-		y=120
-		width=110
-		height=18
-	}
-	monitor {
-		chan="$(P)MCA$(R)ROI:PortName_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	format="string"
-	limits {
-	}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 695
+y 60
+w 80
+h 18
+controlPv "$(P)ROI$(R):QueueFree"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 17920 17920 17920
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 695
+y 120
+w 80
+h 18
+controlPv "$(P)MCA$(R)ROI:QueueFree"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 17920 17920 17920
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 10
+y 90
+w 110
+h 18
+controlPv "$(P)ROISUM$(R):PortName_RBV"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 125
+y 90
+w 160
+h 18
+controlPv "$(P)ROISUM$(R):PluginType_RBV"
+format "string"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Control)
+object activeXTextDspClass
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 290
+y 90
+w 60
+h 20
+controlPv "$(P)ROISUM$(R):NDArrayPort"
+format "decimal"
+font "helvetica-medium-r-12.0"
+fontAlign "left"
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+editable
+motifWidget
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 440
+y 90
+w 80
+h 18
+controlPv "$(P)ROISUM$(R):EnableCallbacks_RBV"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 17920 17920 17920
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 780
+y 90
+w 80
+h 18
+controlPv "$(P)ROISUM$(R):ArrayRate_RBV"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 610
+y 90
+w 80
+h 18
+controlPv "$(P)ROISUM$(R):DroppedArrays_RBV"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 2560 0 47104
+bgColor rgb 47872 47872 47872
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 695
+y 90
+w 80
+h 18
+controlPv "$(P)ROISUM$(R):QueueFree"
+format "decimal"
+font "helvetica-medium-r-14.0"
+fontAlign "center"
+fgColor rgb 0 65535 0
+fgAlarm
+bgColor rgb 17920 17920 17920
+limitsFromDb
+nullColor rgb 60928 46592 11008
+smartRefresh
+fastUpdate
+newPos
+objType "controls"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 355
+y 60
+w 80
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)ROI$(R):EnableCallbacks"
+indicatorPv "$(P)ROI$(R):EnableCallbacks"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 525
+y 59
+w 80
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)ROI$(R):BlockingCallbacks"
+indicatorPv "$(P)ROI$(R):BlockingCallbacks"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 355
+y 120
+w 80
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)MCA$(R)ROI:EnableCallbacks"
+indicatorPv "$(P)MCA$(R)ROI:EnableCallbacks"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 525
+y 120
+w 80
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)MCA$(R)ROI:BlockingCallbacks"
+indicatorPv "$(P)MCA$(R)ROI:BlockingCallbacks"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 870
+y 60
+w 60
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+buttonLabel "ROI"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 "NDROI.edl"
 }
-"text update" {
-	object {
-		x=125
-		y=120
-		width=160
-		height=18
-	}
-	monitor {
-		chan="$(P)MCA$(R)ROI:PluginType_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	format="string"
-	limits {
-	}
+menuLabel {
+  0 "ROI"
 }
-text {
-	object {
-		x=300
-		y=40
-		width=40
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Port"
-	align="horiz. right"
+symbols {
+  0 "P=$(P),R=ROI$(R):"
 }
-text {
-	object {
-		x=407
-		y=40
-		width=60
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Enable"
-	align="horiz. right"
+replaceSymbols {
+  0 1
 }
-text {
-	object {
-		x=525
-		y=40
-		width=80
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Blocking"
-	align="horiz. right"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 870
+y 120
+w 60
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+buttonLabel "ROIStats"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 "NDROIStat.edl"
 }
-"text entry" {
-	object {
-		x=290
-		y=60
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)ROI$(R):NDArrayPort"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
+menuLabel {
+  0 "ROIStats"
 }
-menu {
-	object {
-		x=355
-		y=60
-		width=80
-		height=20
-	}
-	control {
-		chan="$(P)ROI$(R):EnableCallbacks"
-		clr=14
-		bclr=51
-	}
+symbols {
+  0 "P=$(P),R=MCA$(R)ROI:"
 }
-"text update" {
-	object {
-		x=440
-		y=60
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)ROI$(R):EnableCallbacks_RBV"
-		clr=54
-		bclr=12
-	}
-	clrmod="alarm"
-	align="horiz. centered"
-	limits {
-	}
+replaceSymbols {
+  0 1
 }
-menu {
-	object {
-		x=525
-		y=59
-		width=80
-		height=20
-	}
-	control {
-		chan="$(P)ROI$(R):BlockingCallbacks"
-		clr=14
-		bclr=51
-	}
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 355
+y 90
+w 80
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)ROISUM$(R):EnableCallbacks"
+indicatorPv "$(P)ROISUM$(R):EnableCallbacks"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Menu Button)
+object activeMenuButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 525
+y 90
+w 80
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+inconsistentColor rgb 17920 17920 17920
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+controlPv "$(P)ROISUM$(R):BlockingCallbacks"
+indicatorPv "$(P)ROISUM$(R):BlockingCallbacks"
+font "helvetica-medium-r-12.0"
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 870
+y 90
+w 60
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+buttonLabel "ROISUM"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 "NDROI.edl"
 }
-"text entry" {
-	object {
-		x=290
-		y=120
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)MCA$(R)ROI:NDArrayPort"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
+menuLabel {
+  0 "ROISUM"
 }
-menu {
-	object {
-		x=355
-		y=120
-		width=80
-		height=20
-	}
-	control {
-		chan="$(P)MCA$(R)ROI:EnableCallbacks"
-		clr=14
-		bclr=51
-	}
+symbols {
+  0 "P=$(P),R=ROISUM$(R):"
 }
-"text update" {
-	object {
-		x=440
-		y=120
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)MCA$(R)ROI:EnableCallbacks_RBV"
-		clr=54
-		bclr=12
-	}
-	clrmod="alarm"
-	align="horiz. centered"
-	limits {
-	}
+replaceSymbols {
+  0 1
 }
-menu {
-	object {
-		x=525
-		y=120
-		width=80
-		height=20
-	}
-	control {
-		chan="$(P)MCA$(R)ROI:BlockingCallbacks"
-		clr=14
-		bclr=51
-	}
+endObjectProperties
+
+# (Related Display)
+object relatedDisplayClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 870
+y 11
+w 60
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 29440 57088 65280
+topShadowColor rgb 55808 55808 55808
+botShadowColor rgb 17920 17920 17920
+font "helvetica-medium-r-12.0"
+buttonLabel "SCA"
+numPvs 2
+numDsps 1
+displayFileName {
+  0 "NDPluginAttribute.edl"
 }
-text {
-	object {
-		x=800
-		y=40
-		width=40
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Rate"
-	align="horiz. right"
+menuLabel {
+  0 "SCAs"
 }
-"related display" {
-	object {
-		x=870
-		y=60
-		width=60
-		height=20
-	}
-	display[0] {
-		label="ROI"
-		name="NDROI.adl"
-		args="P=$(P),R=ROI$(R):"
-	}
-	clr=14
-	bclr=51
-	label="-ROI"
+symbols {
+  0 "P=$(P),R=C$(R)SCA:"
 }
-"text update" {
-	object {
-		x=780
-		y=60
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)ROI$(R):ArrayRate_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	limits {
-	}
+replaceSymbols {
+  0 1
 }
-"related display" {
-	object {
-		x=870
-		y=120
-		width=60
-		height=20
-	}
-	display[0] {
-		label="ROIStats"
-		name="NDROIStat.adl"
-		args="P=$(P),R=MCA$(R)ROI:"
-	}
-	clr=14
-	bclr=51
-	label="-ROIStats"
-}
-"text update" {
-	object {
-		x=780
-		y=120
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)MCA$(R)ROI:ArrayRate_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	limits {
-	}
-}
-text {
-	object {
-		x=615
-		y=40
-		width=70
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Dropped"
-	align="horiz. right"
-}
-"text update" {
-	object {
-		x=610
-		y=60
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)ROI$(R):DroppedArrays_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	limits {
-	}
-}
-"text update" {
-	object {
-		x=610
-		y=120
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)MCA$(R)ROI:DroppedArrays_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	limits {
-	}
-}
-text {
-	object {
-		x=700
-		y=40
-		width=70
-		height=20
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Free"
-	align="horiz. right"
-}
-"text update" {
-	object {
-		x=695
-		y=60
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)ROI$(R):QueueFree"
-		clr=54
-		bclr=12
-	}
-	clrmod="alarm"
-	align="horiz. centered"
-	limits {
-	}
-}
-"text update" {
-	object {
-		x=695
-		y=120
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)MCA$(R)ROI:QueueFree"
-		clr=54
-		bclr=12
-	}
-	clrmod="alarm"
-	align="horiz. centered"
-	limits {
-	}
-}
-"text update" {
-	object {
-		x=10
-		y=90
-		width=110
-		height=18
-	}
-	monitor {
-		chan="$(P)ROISUM$(R):PortName_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	format="string"
-	limits {
-	}
-}
-"text update" {
-	object {
-		x=125
-		y=90
-		width=160
-		height=18
-	}
-	monitor {
-		chan="$(P)ROISUM$(R):PluginType_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	format="string"
-	limits {
-	}
-}
-"text entry" {
-	object {
-		x=290
-		y=90
-		width=60
-		height=20
-	}
-	control {
-		chan="$(P)ROISUM$(R):NDArrayPort"
-		clr=14
-		bclr=51
-	}
-	limits {
-	}
-}
-menu {
-	object {
-		x=355
-		y=90
-		width=80
-		height=20
-	}
-	control {
-		chan="$(P)ROISUM$(R):EnableCallbacks"
-		clr=14
-		bclr=51
-	}
-}
-"text update" {
-	object {
-		x=440
-		y=90
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)ROISUM$(R):EnableCallbacks_RBV"
-		clr=54
-		bclr=12
-	}
-	clrmod="alarm"
-	align="horiz. centered"
-	limits {
-	}
-}
-menu {
-	object {
-		x=525
-		y=90
-		width=80
-		height=20
-	}
-	control {
-		chan="$(P)ROISUM$(R):BlockingCallbacks"
-		clr=14
-		bclr=51
-	}
-}
-"related display" {
-	object {
-		x=870
-		y=90
-		width=60
-		height=20
-	}
-	display[0] {
-		label="ROISUM"
-		name="NDROI.adl"
-		args="P=$(P),R=ROISUM$(R):"
-	}
-	clr=14
-	bclr=51
-	label="-ROISUM"
-}
-"text update" {
-	object {
-		x=780
-		y=90
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)ROISUM$(R):ArrayRate_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	limits {
-	}
-}
-"text update" {
-	object {
-		x=610
-		y=90
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)ROISUM$(R):DroppedArrays_RBV"
-		clr=54
-		bclr=4
-	}
-	align="horiz. centered"
-	limits {
-	}
-}
-"text update" {
-	object {
-		x=695
-		y=90
-		width=80
-		height=18
-	}
-	monitor {
-		chan="$(P)ROISUM$(R):QueueFree"
-		clr=54
-		bclr=12
-	}
-	clrmod="alarm"
-	align="horiz. centered"
-	limits {
-	}
-}
-"related display" {
-	object {
-		x=870
-		y=11
-		width=60
-		height=20
-	}
-	display[0] {
-		label="SCAs"
-		name="NDPluginAttribute.adl"
-		args="P=$(P),R=C$(R)SCA:"
-	}
-	clr=14
-	bclr=51
-	label="-SCA"
-}
+endObjectProperties
+

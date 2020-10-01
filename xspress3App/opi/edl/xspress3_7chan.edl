@@ -1212,31 +1212,27 @@ topShadowColor rgb 55808 55808 55808
 botShadowColor rgb 17920 17920 17920
 font "helvetica-medium-r-14.0"
 buttonLabel "Plugins"
-numPvs 8
-numDsps 4
+numPvs 6
+numDsps 3
 displayFileName {
   0 "ADBase.edl"
   1 "NDFileHDF5.edl"
   2 "NDProcess.edl"
-  3 "l"
 }
 menuLabel {
   0 "AreaDetector Base"
   1 "HDF5 File Plugin"
   2 "PROC1 (For MCA Sums)"
-  3 ""
 }
 symbols {
   0 "P=$(P):,R=det1:"
   1 "P=$(P),R=:HDF1:"
   2 "P=$(P):,R=Proc1:"
-  3 
 }
 replaceSymbols {
   0 1
   1 1
   2 1
-  3 1
 }
 endObjectProperties
 

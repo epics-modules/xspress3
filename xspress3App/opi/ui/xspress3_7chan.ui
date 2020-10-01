@@ -1438,16 +1438,16 @@ border-radius: 2px;
                 <enum>Menu</enum>
             </property>
             <property name="labels">
-                <string>AreaDetector Base;HDF5 File Plugin;PROC1 (For MCA Sums);PROC1 (For MCA Sums)</string>
+                <string>AreaDetector Base;HDF5 File Plugin;PROC1 (For MCA Sums)</string>
             </property>
             <property name="files">
-                <string>ADBase.adl;NDFileHDF5.adl;NDProcess.adl;l</string>
+                <string>ADBase.adl;NDFileHDF5.adl;NDProcess.adl</string>
             </property>
             <property name="args">
-                <string>P=$(P):, R=det1:;P=$(P), R=:HDF1:;P=$(P):, R=Proc1:;P=$(P):, R=Proc1:</string>
+                <string>P=$(P):, R=det1:;P=$(P), R=:HDF1:;P=$(P):, R=Proc1:</string>
             </property>
             <property name="removeParent">
-                <string>false;false;false;false</string>
+                <string>false;false;false</string>
             </property>
         </widget>
         <widget class="caLineEdit" name="caLineEdit_3">
