@@ -13,6 +13,7 @@ SUPPORT=/home/xspress3/epics
 # This module
 XSPRESS3=$(SUPPORT)/xspress3
 
+BUILD_IOCS=YES
 # XSPRESS3 requires areaDetector, and areaDetector/configure already defines
 # ASYN, CALC, etc.
 AREA_DETECTOR=$(SUPPORT)/areaDetector
