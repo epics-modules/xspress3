@@ -34,7 +34,7 @@ modules = {'base': 'base-7.0.3.1.tar.gz',
            'sscan': 'sscan-R2-11-3.tar.gz',
            'calc': 'calc-R3-7-3.tar.gz',
            'areaDetector': 'areaDetector-R3-9.tar.gz',
-           'xspress3': 'xspress3-2-4.tar.gz'}
+           'xspress3': 'xspress3-2-5.tar.gz'}
 
 ad_modules = {'ADSupport': 'adSupport-R1-9.tar.gz',
               'ADCore': 'adCore-R3-9.tar.gz'}
@@ -397,9 +397,6 @@ def create_buildscript(nelem=4):
     for mod in build_mods:
         dirname = os.path.join(cwd, mod)
         script.append(bline.format(dirname=mod))
-
-    script.append('# build xspress3 iocs')
-    script.append('cd xspress3/iocs && make && cd ../..')
 
     script.append('# build medm')
     script.append(BUILD_MEDM)
