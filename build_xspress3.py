@@ -41,10 +41,10 @@ ad_modules = {'ADSupport': 'adSupport-R1-9.tar.gz',
 
 other_sources = ('procServ-2.6.0.tar.gz', 'bin.tar.gz', 'medm_ext.tar.gz')
 
-SOURCES_URL = 'https://millenia.cars.aps.anl.gov/software/xspress3build/sources'
+SOURCES_URL = 'https://millenia.cars.aps.anl.gov/software/xspress3/sources'
 
 LARCH_URL   = 'https://millenia.cars.aps.anl.gov/xraylarch/downloads/'
-LARCH_FNAME = 'xraylarch-0.9.47-Linux-x86_64.sh'
+LARCH_FNAME = 'xraylarch-0.9.48-Linux-x86_64.sh'
 
 ######################################################################
 required_tools = {'re2c': '/bin/re2c', 'rpcgen': '/bin/rpcgen',
