@@ -15,7 +15,7 @@ epicsEnvSet("XSIZE",  "$(NUM_BINS)")
 epicsEnvSet("CBUFFS", "4096")
 
 # The search path for database files
-epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(XSPRESS3)/db:.")
+epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(ADXSPRESS3)/db:.")
 
 ##################################################
 # Start Xspress3 driver
