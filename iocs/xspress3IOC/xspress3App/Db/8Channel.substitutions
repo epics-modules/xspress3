@@ -24,7 +24,7 @@ pattern { P, R, PORT, TIMEOUT, ADDR }
 #  TIMEOUT      Asyn timeout
 #  MAX_SPECTRA  The maximum number of frames that can be acquired in one acquisition (eg. 16384)
 #  MAX_FRAMES   The maximum size of each spectra (eg. 4096) in a scan.
-file $(XSPRESS3)/db/xspress3.template
+file $(ADXSPRESS3)/db/xspress3.template
 {
 pattern { P, R, PORT, ADDR, TIMEOUT, MAX_SPECTRA, MAX_FRAMES }
     { "$(XSPRESS3_PREFIX)", ":", "XSP3", "0", "5", "4096", "16384" }
@@ -38,7 +38,7 @@ pattern { P, R, PORT, ADDR, TIMEOUT, MAX_SPECTRA, MAX_FRAMES }
 #  TIMEOUT    Asyn timeout
 #  CHAN       Channel number
 #  NELEMENTS  Number of elements in NDAttribute waveform
-file $(XSPRESS3)/db/xspress3Channel.template
+file $(ADXSPRESS3)/db/xspress3Channel.template
 {
 pattern { P, R, PORT, ADDR, TIMEOUT, CHAN, NELEMENTS }
     { "$(XSPRESS3_PREFIX)", ":", "XSP3", "0", "5", "1", "16384" }
@@ -389,7 +389,7 @@ pattern { P, R, PORT }
 #  R     Device suffix
 #  HDF   HDF plugin record prefix
 #  PROC  Processing plugin record prefix
-file $(XSPRESS3)/db/xspress3_highlevel.template
+file $(ADXSPRESS3)/db/xspress3_highlevel.template
 {
 pattern { P, R, HDF, PROC }
     { "$(XSPRESS3_PREFIX)", ":", "$(XSPRESS3_PREFIX):HDF5:", "$(XSPRESS3_PREFIX):PROC:" }

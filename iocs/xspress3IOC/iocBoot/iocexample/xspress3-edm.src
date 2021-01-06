@@ -5,7 +5,7 @@ EPICS_CA_SERVER_PORT=5064
 EPICS_CA_REPEATER_PORT=5065
 
 declare -A locations
-locations[XSPRESS3]=$(XSPRESS3)
+locations[ADXSPRESS3]=$(ADXSPRESS3)
 locations[AREA_DETECTOR]=$(AREA_DETECTOR)
 locations[DEVIOCSTATS]=$(DEVIOCSTATS)
 locations[ASYN]=$(ASYN)
@@ -13,7 +13,7 @@ locations[SPECTRAPLUGINS]=$(SPECTRAPLUGINS)
 
 # Default edl display locations in source tree
 declare -A edls
-edls[XSPRESS3]=xspress3App/opi/edl/xspress3.edl
+edls[ADXSPRESS3]=xspress3App/opi/edl/xspress3.edl
 edls[AREA_DETECTOR]=ADApp/op/edl/ADBase.edl
 edls[DEVIOCSTATS]=iocAdmin/srcDisplay/ioc_stats_soft.edl
 edls[ASYN]=opi/edm/asynRecord.edl
