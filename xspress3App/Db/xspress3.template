@@ -3,10 +3,7 @@
 # Matthew Pearson
 # Sept 2012
 #
-# Channel dependant records are in xspress3Channel.template
-# Channel SCA records are in xspress3ChannelSCA.template, xspress3ChannelSCANoLimits.template
-# and xspress3ChannelSCAThreshold.template, depending on the type of SCA.
-# Records to control live data update are in xspress3DataUpdate.template
+# Channel dependant records are in xsp3_chan.template
 #
 # Macros:
 # % macro,  P,           Device prefix
@@ -40,10 +37,6 @@ record(bo,"$(P)$(R)ERASE")
     field(ONAM,"Erase")
 }
 
-record(bi, "$(P)$(R)Acquire_RBV") {
-   field(OSV,  "NO_ALARM")
-}
-
 # ///
 # /// Set the numer of channels to read out.
 # ///
@@ -56,7 +49,7 @@ record(longout, "$(P)$(R)NUM_CHANNELS")
 }
 
 # ///
-# /// Read the number of channels
+# /// Read the number of channels.
 # ///
 record(longin, "$(P)$(R)NUM_CHANNELS_RBV")
 {
@@ -67,7 +60,7 @@ record(longin, "$(P)$(R)NUM_CHANNELS_RBV")
 }
 
 # ///
-# /// Read the max number of channels supported by the system
+# /// Read the max number of channels supported by the system.
 # ///
 record(longin, "$(P)$(R)MAX_NUM_CHANNELS_RBV")
 {
@@ -127,8 +120,7 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
 }
 
 # ///
-# /// Set whether the sense of F0 is inverted
-# /// (only used in LVDS_BOTH and TTL_BOTH modes)
+# /// Trigger next frame.
 # ///
 record(bo, "$(P)$(R)TRIGGER")
 {
@@ -140,7 +132,7 @@ record(bo, "$(P)$(R)TRIGGER")
 
 # ///
 # /// Set whether the sense of F0 is inverted
-# /// (only used in LVDS_BOTH and TTL_BOTH modes)
+# /// (only used in LVDS_BOTH and TTL_BOTH modes).
 # ///
 record(longout, "$(P)$(R)INVERT_F0")
 {
@@ -151,7 +143,7 @@ record(longout, "$(P)$(R)INVERT_F0")
 
 # ///
 # /// Set whether the sense of F0 is inverted
-# /// (only used in LVDS_BOTH and TTL_BOTH modes)
+# /// (only used in LVDS_BOTH and TTL_BOTH modes).
 # ///
 record(longin, "$(P)$(R)INVERT_F0_RBV")
 {
@@ -163,7 +155,7 @@ record(longin, "$(P)$(R)INVERT_F0_RBV")
 
 # ///
 # /// Set whether the sense of VETO is inverted
-# /// (only used in LVDS, LVDS_BOTH, TTL and TTL_BOTH modes)
+# /// (only used in LVDS, LVDS_BOTH, TTL and TTL_BOTH modes).
 # ///
 record(longout, "$(P)$(R)INVERT_VETO")
 {
@@ -174,7 +166,7 @@ record(longout, "$(P)$(R)INVERT_VETO")
 
 # ///
 # /// Set whether the sense of VETO is inverted
-# /// (only used in LVDS, LVDS_BOTH, TTL and TTL_BOTH modes)
+# /// (only used in LVDS, LVDS_BOTH, TTL and TTL_BOTH modes).
 # ///
 record(longin, "$(P)$(R)INVERT_VETO_RBV")
 {
@@ -185,7 +177,7 @@ record(longin, "$(P)$(R)INVERT_VETO_RBV")
 }
 
 # ///
-# /// Sets the trigger debounce time in 80 MHz cycles
+# /// Sets the trigger debounce time in 80 MHz cycles.
 # ///
 record(longout, "$(P)$(R)DEBOUNCE")
 {
@@ -195,7 +187,7 @@ record(longout, "$(P)$(R)DEBOUNCE")
 }
 
 # ///
-# /// Sets the trigger debounce time in 80 MHz cycles
+# /// Sets the trigger debounce time in 80 MHz cycles.
 # ///
 record(longin, "$(P)$(R)DEBOUNCE_RBV")
 {
@@ -206,7 +198,7 @@ record(longin, "$(P)$(R)DEBOUNCE_RBV")
 }
 
 # ///
-# /// Sets the pulses per frame trigger
+# /// Sets the pulses per frame trigger.
 # ///
 record(longout, "$(P)$(R)PPTRIGGER")
 {
@@ -216,7 +208,7 @@ record(longout, "$(P)$(R)PPTRIGGER")
 }
 
 # ///
-# /// Reads the pulses per frame trigger
+# /// Reads the pulses per frame trigger.
 # ///
 record(longin, "$(P)$(R)PPTRIGGER_RBV")
 {
@@ -227,7 +219,7 @@ record(longin, "$(P)$(R)PPTRIGGER_RBV")
 }
 
 # ///
-# /// Stops the ITFG
+# /// Stops the ITFG.
 # ///
 record(longout, "$(P)$(R)IFTG_STOP")
 {
@@ -237,7 +229,7 @@ record(longout, "$(P)$(R)IFTG_STOP")
 }
 
 # ///
-# /// Starts the ITFG
+# /// Starts the ITFG.
 # ///
 record(longout, "$(P)$(R)IFTG_START")
 {
@@ -484,30 +476,6 @@ record(mbbi, "$(P)$(R)RUN_FLAGS_RBV")
 }
 
 # ///
-# /// Disable or enable MCA ROI calculations.
-# ///
-record(bo,"$(P)$(R)CTRL_MCA_ROI") {
-    field(DTYP, "asynInt32")
-    field(OUT, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_ROI")
-    field(ZNAM,"Disable")
-    field(ONAM,"Enable")
-    field(PINI, "YES")
-    field(VAL, "1")
-}
-
-# /// 
-# /// Readback disable or enable MCA ROI calculations.
-# ///
-record(bi, "$(P)$(R)CTRL_MCA_ROI_RBV")
-{
-    field(DTYP,"asynInt32")
-    field(INP, "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CTRL_MCA_ROI")
-    field(ZNAM,"Disabled")	
-    field(ONAM,"Enabled")
-    field(SCAN, "I/O Intr")	
-}
-
-# ///
 # /// Disable or enable DTC calculations.
 # /// These corrections are done by the Xspress3 API in the detector 
 # /// thread. So they slow down acqusition.
@@ -544,7 +512,7 @@ record(ai, "$(P)$(R)PoolUsedMem")
 }
 
 # ///
-# /// Name of this detector
+# /// Name of this detector.
 # ///
 record(stringout, "$(P)$(R)NAME")
 {
@@ -552,7 +520,7 @@ record(stringout, "$(P)$(R)NAME")
    field(DESC, "Xspress3 EPICS Control")
 }
 
-#Set DISA for PVs in ADBase that do not apply to Xspress3
+# Set DISA for PVs in ADBase that do not apply to Xspress3.
 
 record(mbbo, "$(P)$(R)DataType")
 {
@@ -666,3 +634,4 @@ record(ai, "$(P)$(R)Gain_RBV")
 {
     field(DISA, "1")
 }
+

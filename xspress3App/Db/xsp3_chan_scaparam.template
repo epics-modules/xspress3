@@ -1,0 +1,21 @@
+# ///
+# /// Set the SCA$(SCA) $(PARAM) on the channel.
+# ///
+record(longout, "$(P)$(R)SCA$(SCA)_$(PARAM)")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_$(PARAM)")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Get the SCA$(SCA) $(PARAM) on the channel.
+# ///
+record(longin, "$(P)$(R)SCA$(SCA)_$(PARAM)_RBV")
+{
+   field(PINI, "1")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA$(SCA)_$(PARAM)")
+   field(SCAN, "I/O Intr")
+}
+
