@@ -16,11 +16,11 @@ DB += xspress3Channel.template
 DB += xspress3ChannelSCALimits.template
 DB += xspress3ChannelSCAThreshold.template
 DB += xspress3ChannelMCAROI.template
-DB += xspress3_highlevel.template
-DB += xspress3_AttrReset.template
-DB += xspress3_AttrUpdate.template
-DB += xspress3_pluginControl.template
 DB += xspress3Deadtime.template
+DB += xspress3Channel.db
+
+REQ += xspress3.req
+REQ += xsp3_chan.req
 
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add

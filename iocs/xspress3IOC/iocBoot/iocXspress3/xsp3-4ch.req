@@ -1,0 +1,6 @@
+file "xspress3.req", P=$(P)
+file "xsp3_chan.req", P=$(P), CHAN=1
+file "xsp3_chan.req", P=$(P), CHAN=2
+file "xsp3_chan.req", P=$(P), CHAN=3
+file "xsp3_chan.req", P=$(P), CHAN=4
+

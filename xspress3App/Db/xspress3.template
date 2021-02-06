@@ -14,10 +14,9 @@
 # % macro,  PORT,        Asyn port name
 # % macro,  ADDR,        Asyn address (set to zero)
 # % macro,  TIMEOUT,     Asyn timeout
-# % macro,  MAX_SPECTRA, The maximum number of frames that can be acquired in one acquisition (eg. 16384)
-# % macro,  MAX_FRAMES,  The maximum size of each spectra (eg. 4096) in a scan.
-#
 #######################################################
+
+include "ADBase.template"
 
 # /// 
 # /// Reset the device.
@@ -45,7 +44,6 @@ record(bi, "$(P)$(R)Acquire_RBV") {
    field(OSV,  "NO_ALARM")
 }
 
-
 # ///
 # /// Set the numer of channels to read out.
 # ///
@@ -56,7 +54,6 @@ record(longout, "$(P)$(R)NUM_CHANNELS")
    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_CHANNELS")
    field(VAL,  "1")
 }
-
 
 # ///
 # /// Read the number of channels
@@ -272,7 +269,6 @@ record(longout, "$(P)$(R)IFTG_START")
 #   field(SCAN, "I/O Intr")
 #}
 
-
 # ///
 # /// Set the numer of frames to configure the system with.
 # ///
@@ -294,7 +290,6 @@ record(longin, "$(P)$(R)NUM_FRAMES_CONFIG_RBV")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_FRAMES_CONFIG")
    field(SCAN, "I/O Intr")
 }
-
 
 # ///
 # /// Get the number of xspress3 cards to set up. 
@@ -334,7 +329,6 @@ record(waveform, "$(P)$(R)CONFIG_PATH_RBV")
     field(NELM, "256")
     field(SCAN, "I/O Intr")
 }
-
 
 # ///
 # /// Set the path used for config file saving.
@@ -385,7 +379,6 @@ record(bi,"$(P)$(R)CONNECTED") {
     field(SCAN, "I/O Intr")
 }
 
-
 # ///
 # /// Disconnect from the xspress3. This runs the xsp3_close function as
 # /// well as some other setup functions.
@@ -411,7 +404,6 @@ record(bo, "$(P)$(R)SAVE_SETTINGS")
    field(ONAM,"Save")	
 }
 
-
 # ///
 # /// Restore the xspress3 settings from a file. This makes use of the 
 # /// API function xsp3_save_settings(). This does nothing if we are not 
@@ -425,24 +417,9 @@ record(bo, "$(P)$(R)RESTORE_SETTINGS")
    field(ONAM,"Restore")	
 }
 
-
-# ///
-# /// Set the max number of elements in a spectra. This is a database parameter, so the
-# /// record has DISP=1 so it can't be changed at runtime.
-# ///
-record(longout, "$(P)$(R)MAX_SPECTRA")
-{
-   field(PINI, "YES")
-   field(DTYP, "asynInt32")
-   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_SPECTRA")
-   field(VAL,  "$(MAX_SPECTRA)")
-   field(DISP, "1")
-   field(FLNK, "$(P)$(R)MAX_SPECTRA_RBV.PROC")
-}
-
 # ///
 # /// Read the max spectra size from the driver. This was set at startup
-# /// by $(P)$(R)MAX_SPECTRA.
+# /// in the driver config.
 # ///
 record(longin, "$(P)$(R)MAX_SPECTRA_RBV")
 {
@@ -450,7 +427,6 @@ record(longin, "$(P)$(R)MAX_SPECTRA_RBV")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_SPECTRA")
    field(SCAN, "I/O Intr")
 }
-
 
 # ///
 # /// Read the max number of frames from the driver. This is the max allowed number
@@ -465,20 +441,6 @@ record(longin, "$(P)$(R)MAX_FRAMES_RBV")
 }
 
 # ///
-# /// This is the maximum number of frames allowed for a single acqusition. This is set in the 
-# /// database when building the IOC, and also set in the driver IOC config function. This determins
-# /// how big the driver and waveform arrays are.
-# ///
-record(longout, "$(P)$(R)MAX_FRAMES_DRIVER_RBV")
-{
-   field(PINI, "YES")
-   field(DTYP, "Soft Channel")
-   field(VAL,  "$(MAX_FRAMES)")
-   field(DISP, "1")
-}
-
-
-# ///
 # /// Read the number of frames acquired in an acquisition. This is
 # /// updated during an acqusition.
 # ///
@@ -488,7 +450,6 @@ record(longin, "$(P)$(R)FRAME_COUNT_RBV")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_FRAME_COUNT")
    field(SCAN, "I/O Intr")
 }
-
 
 # ///
 # /// Set the run flags. This can be used to readout playback data
