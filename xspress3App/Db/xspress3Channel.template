@@ -10,55 +10,10 @@
 # % macro,  ADDR,        Asyn address
 # % macro,  TIMEOUT,     Asyn timeout
 # % macro,  CHAN,        Channel number
-# % macro,  NELEMENTS,   Number of elements in NDAttribute waveform
-#
-# The following just forces the Diamond iocbuilder to recognise that
-# the NELEMENTS macro is needed - it is used in an included file,
-# but not this file
-# % $(NELEMENTS)
-#
-# Set the channel specific attribute names.
-# These are used in the templates below that deal with the channel
-# specific areaDetector plugins.
 ##########################################################################
-substitute "SCA0=SCA0"
-substitute "SCA1=SCA1"
-substitute "SCA2=SCA2"
-substitute "SCA3=SCA3"
-substitute "SCA4=SCA4"
-substitute "SCA5=SCA5"
-substitute "SCA6=SCA6"
-substitute "SCA7=SCA7"
-substitute "ROI1=ROI1"
-substitute "ROI2=ROI2"
-substitute "ROI3=ROI3"
-substitute "ROI4=ROI4"
-substitute "ROI5=ROI5"
-substitute "ROI6=ROI6"
-substitute "ROI7=ROI7"
-substitute "ROI8=ROI8"
-substitute "ROI9=ROI9"
-substitute "ROI10=ROI10"
-substitute "ROI11=ROI11"
-substitute "ROI12=ROI12"
-substitute "ROI13=ROI13"
-substitute "ROI14=ROI14"
-substitute "ROI15=ROI15"
-substitute "ROI16=ROI16"
-
-##########################################################################
-# Add in the records that enable and disable all the
-# areaDetector channel specific plugins.
-##########################################################################
-
-include "xspress3_pluginControl.template"
-include "xspress3_AttrReset.template"
-include "xspress3_AttrUpdate.template"
 
 ##########################################################################
 # Add in records to set SCA related parameters.
-# Note: the actual SCA data is displayed to the user using 
-# the NDAttribute plugin.
 ##########################################################################
 
 #All good SCA
@@ -82,8 +37,6 @@ include "xspress3ChannelDTC.template
 
 ##########################################################################
 # Add in MCA ROI records.
-# Note: the actual ROI data is displayed to the user using 
-# the NDAttribute plugin.
 ##########################################################################
 substitute "ROI=1"
 include "xspress3ChannelMCAROI.template"
@@ -133,78 +86,3 @@ include "xspress3ChannelMCAROI.template"
 substitute "ROI=16"
 include "xspress3ChannelMCAROI.template"
 
-##########################################################################
-# Add in all the NDAttributePlugin records.
-##########################################################################
-substitute "ADDR=0"
-substitute "R=:C$(CHAN)_SCA0:,PORT=XSP3.C$(CHAN)_SCA0"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_SCA1:,PORT=XSP3.C$(CHAN)_SCA1"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_SCA2:,PORT=XSP3.C$(CHAN)_SCA2"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_SCA3:,PORT=XSP3.C$(CHAN)_SCA3"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_SCA4:,PORT=XSP3.C$(CHAN)_SCA4"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_SCA5:,PORT=XSP3.C$(CHAN)_SCA5"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_SCA6:,PORT=XSP3.C$(CHAN)_SCA6"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_SCA7:,PORT=XSP3.C$(CHAN)_SCA7"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI1:,PORT=XSP3.C$(CHAN)_ROI1"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI2:,PORT=XSP3.C$(CHAN)_ROI2"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI3:,PORT=XSP3.C$(CHAN)_ROI3"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI4:,PORT=XSP3.C$(CHAN)_ROI4"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI5:,PORT=XSP3.C$(CHAN)_ROI5"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI6:,PORT=XSP3.C$(CHAN)_ROI6"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI7:,PORT=XSP3.C$(CHAN)_ROI7"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI8:,PORT=XSP3.C$(CHAN)_ROI8"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI9:,PORT=XSP3.C$(CHAN)_ROI9"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI10:,PORT=XSP3.C$(CHAN)_ROI10"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI11:,PORT=XSP3.C$(CHAN)_ROI11"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI12:,PORT=XSP3.C$(CHAN)_ROI12"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI13:,PORT=XSP3.C$(CHAN)_ROI13"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI14:,PORT=XSP3.C$(CHAN)_ROI14"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI15:,PORT=XSP3.C$(CHAN)_ROI15"
-include "NDPluginAttribute.template"
-
-substitute "R=:C$(CHAN)_ROI16:,PORT=XSP3.C$(CHAN)_ROI16"
-include "NDPluginAttribute.template"

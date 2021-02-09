@@ -7,7 +7,6 @@ TOP = ../../..
 include $(TOP)/configure/CONFIG
 
 DATA += $(patsubst ../%, %, $(wildcard ../*.edl))
-SCRIPTS += ../stexample4Channel-gui
 
 include $(TOP)/configure/RULES
 

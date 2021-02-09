@@ -1,0 +1,9 @@
+file "$(ADXSPRESS3)/db/xspress3Channel.db"
+{
+pattern { P, R, PORT, ADDR, CHAN, TIMEOUT }
+{ "$(P_)", "", "$(PORT_)", 0, 1, 1 }
+{ "$(P_)", "", "$(PORT_)", 1, 2, 1 }
+{ "$(P_)", "", "$(PORT_)", 2, 3, 1 }
+{ "$(P_)", "", "$(PORT_)", 3, 4, 1 }
+}
+
