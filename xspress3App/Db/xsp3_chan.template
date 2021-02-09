@@ -1,0 +1,216 @@
+#######################################################
+# Database records for an Xspress3 channel
+# Matthew Pearson/Nick Rees
+# Sept 2014
+#
+# Macros:
+# % macro,  P,           Device prefix
+# % macro,  R,           Device suffix
+# % macro,  PORT,        Asyn port name
+# % macro,  ADDR,        Asyn address
+# % macro,  TIMEOUT,     Asyn timeout
+# % macro,  CHAN,        Channel number
+##########################################################################
+
+##########################################################################
+# Dead Time Correction Parameters Read At Connection Time
+##########################################################################
+
+# ///
+# /// Set the event width.
+# ///
+record(ao, "$(P)$(R)EventWidth") {
+    field(DTYP, "asynFloat64")
+    field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_EVENT_WIDTH")
+    field(VAL,  "6.0")
+    field(PREC, "1")
+}
+
+# ///
+# /// Read the event width.
+# ///
+record(ai, "$(P)$(R)EventWidth_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_EVENT_WIDTH")
+    field(SCAN, "I/O Intr")
+    field(VAL,  "0")
+    field(PREC, "1")
+}
+
+# ///
+# /// Read the dead time as % of frame time.
+# ///
+record(ai, "$(P)$(R)DeadTime_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTPERCENT")
+    field(SCAN, "I/O Intr")
+    field(VAL,  "0")
+    field(PREC, "5")
+}
+
+# ///
+# /// Read the dead time correction factor.
+# ///
+record(ai, "$(P)$(R)DTFactor_RBV")
+{
+    field(DTYP, "asynFloat64")
+    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTFACTOR")
+    field(SCAN, "I/O Intr")
+    field(VAL,  "1")
+    field(PREC, "5")
+}
+
+# ///
+# /// Read the dead time correction flags.
+# ///
+record(longin, "$(P)$(R)DTC_FLAGS_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_FLAGS")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Read the dead time correction All Event Grad parameter.
+# ///
+record(ai, "$(P)$(R)DTC_AEG_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_AEG")
+   field(SCAN, "I/O Intr")
+   field(PREC, "4")
+}
+
+# ///
+# /// Read the dead time correction All Event Offset parameter.
+# ///
+record(ai, "$(P)$(R)DTC_AEO_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_AEO")
+   field(SCAN, "I/O Intr")
+   field(PREC, "4")
+}
+
+# ///
+# /// Read the dead time correction In Window Grad parameter.
+# ///
+record(ai, "$(P)$(R)DTC_IWG_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_IWG")
+   field(SCAN, "I/O Intr")
+   field(PREC, "4")
+}
+
+# ///
+# /// Read the dead time correction In Window Offset parameter.
+# ///
+record(ai, "$(P)$(R)DTC_IWO_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTC_IWO")
+   field(SCAN, "I/O Intr")
+   field(PREC, "4")
+}
+
+##########################################################################
+# Add in SCA related records
+##########################################################################
+
+# ///
+# /// Read Live Time.
+# ///
+record(ai, "$(P)$(R)SCA0_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA0")
+   field(SCAN, "I/O Intr")
+}
+# ///
+# /// Read Reset Ticks.
+# ///
+record(ai, "$(P)$(R)SCA1_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA1")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Read Reset Count.
+# ///
+record(ai, "$(P)$(R)SCA2_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA2")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Read All Event.
+# ///
+record(ai, "$(P)$(R)SCA3_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA3")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Read All Good.
+# ///
+record(ai, "$(P)$(R)SCA4_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA4")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Read Scaler 1.
+# ///
+record(ai, "$(P)$(R)SCA5_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA5")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Read Scaler 2.
+# ///
+record(ai, "$(P)$(R)SCA6_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA6")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Read Pileup.
+# ///
+record(ai, "$(P)$(R)SCA7_RBV")
+{
+   field(DTYP, "asynFloat64")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_SCA7")
+   field(SCAN, "I/O Intr")
+}
+
+substitute "SCA=4,PARAM=THRESHOLD"
+include "xsp3_chan_scaparam.template"
+
+substitute "SCA=5,PARAM=HLM"
+include "xsp3_chan_scaparam.template"
+
+substitute "SCA=5,PARAM=LLM"
+include "xsp3_chan_scaparam.template"
+
+substitute "SCA=6,PARAM=HLM"
+include "xsp3_chan_scaparam.template"
+
+substitute "SCA=6,PARAM=LLM"
+include "xsp3_chan_scaparam.template"
+

@@ -12,14 +12,9 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 
 DB += xspress3.template
-DB += xspress3Channel.template
-DB += xspress3ChannelSCALimits.template
-DB += xspress3ChannelSCAThreshold.template
-DB += xspress3ChannelMCAROI.template
-DB += xspress3ChannelDTC.template
-DB += xspress3ChannelDeadtime.template
-DB += xspress3Channel.db
-
+DB += xsp3_chan.template
+DB += xsp3_chan_scaparam.template
+DB += xsp3_chan.db
 REQ += xspress3.req
 REQ += xsp3_chan.req
 

@@ -3,10 +3,11 @@
 [ "$1" -gt 0 ] || exit 1
 
 exec > xsp3-"$1"ch.substitutions
-printf 'file "$(ADXSPRESS3)/db/xspress3Channel.db"\n{\n'
-printf 'pattern { P, R, PORT, ADDR, CHAN, TIMEOUT }\n'
+printf 'file "$(ADXSPRESS3)/db/xsp3_chan.db"\n{\n'
+printf 'pattern { P, R, PORT, ADDR, TIMEOUT }\n'
 for i in $(seq "$1"); do
-	printf '{ "$(P_)", "", "$(PORT_)", %d, %d, 1 }\n' "$(expr "$i" - 1)" "$i"
+	printf '{ "$(P_)", "ch%d:", "$(PORT_)", %d, 1 }\n' \
+		"$i" "$(expr "$i" - 1)"
 done
 printf '}\n\n'
 
