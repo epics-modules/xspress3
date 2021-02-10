@@ -883,7 +883,7 @@ asynStatus Xspress3::eraseSCA(void)
     paramStatus = ((setDoubleParam(chan, xsp3ChanDTPercentParam, 0.0) == asynSuccess) && paramStatus);
     paramStatus = ((setDoubleParam(chan, xsp3ChanDTFactorParam, 1.0) == asynSuccess) && paramStatus);
 
-    //callParamCallbacks(chan);
+    callParamCallbacks(chan);
   }
 
   // Send a blank frame

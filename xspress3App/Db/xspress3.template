@@ -198,6 +198,47 @@ record(longin, "$(P)$(R)DEBOUNCE_RBV")
 }
 
 # ///
+# /// Sets the pulses per frame trigger.
+# ///
+record(longout, "$(P)$(R)PPTRIGGER")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_PPTRIGGER")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Reads the pulses per frame trigger.
+# ///
+record(longin, "$(P)$(R)PPTRIGGER_RBV")
+{
+   field(PINI, "YES")
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_PPTRIGGER")
+   field(SCAN, "I/O Intr")
+}
+
+# ///
+# /// Stops the ITFG.
+# ///
+record(longout, "$(P)$(R)IFTG_STOP")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_ITFG_STOP")
+   field(VAL,  "0")
+}
+
+# ///
+# /// Starts the ITFG.
+# ///
+record(longout, "$(P)$(R)IFTG_START")
+{
+   field(DTYP, "asynInt32")
+   field(OUT,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_ITFG_START")
+   field(VAL,  "0")
+}
+
+# ///
 # /// Set the fixed time register, in Software trigger mode.
 # /// This sets the number of the first time frame (not normally used).
 # ///
@@ -368,6 +409,7 @@ record(bo, "$(P)$(R)RESTORE_SETTINGS")
    field(ONAM,"Restore")	
 }
 
+# ///
 # /// Read the max spectra size from the driver. This was set at startup
 # /// in the driver config.
 # ///
