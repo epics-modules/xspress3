@@ -54,7 +54,6 @@ const epicsInt32 Xspress3::ctrlDisable_ = 0;
 const epicsInt32 Xspress3::ctrlEnable_ = 1;
 const epicsInt32 Xspress3::runFlag_MCA_SPECTRA_ = 0;
 const epicsInt32 Xspress3::runFlag_PLAYB_MCA_SPECTRA_ = 1;
-const epicsInt32 Xspress3::maxNumRoi_ = 16;
 const epicsInt32 Xspress3::maxStringSize_ = 256;
 const epicsInt32 Xspress3::maxCheckHistPolls_ = 20;
 const epicsInt32 Xspress3::mbboTriggerFIXED_ = 0;
@@ -123,7 +122,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
   //Initialize non static, non const, data members
   xsp3_handle_ = 0;
   bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
-  paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
+  paramStatus = ((eraseSCA() == asynSuccess) && paramStatus);
   //Create the thread that readouts the data
   status = (epicsThreadCreate("GeDataTask",
                               epicsThreadPriorityHigh,
@@ -176,7 +175,7 @@ Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, n
     //Initialize non static, non const, data members
     xsp3_handle_ = 0;
     bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
-    paramStatus = ((eraseSCAMCAROI() == asynSuccess) && paramStatus);
+    paramStatus = ((eraseSCA() == asynSuccess) && paramStatus);
     if (simTest) {
         paramStatus = ((setStringParam(ADStatusMessage, "Init. Simulation Mode.") == asynSuccess) && paramStatus);
         xsp3 = new xsp3Simulator(this->pasynUserSelf,numChannels,maxSpectra);
@@ -254,7 +253,6 @@ void Xspress3::createInitialParameters()
     createParam(xsp3ChanDtcIwgParamString, asynParamFloat64, &xsp3ChanDtcIwgParam);
     createParam(xsp3ChanDtcIwoParamString, asynParamFloat64, &xsp3ChanDtcIwoParam);
     //These controls calculations
-    createParam(xsp3RoiEnableParamString, asynParamInt32, &xsp3RoiEnableParam);
     createParam(xsp3DtcEnableParamString, asynParamInt32, &xsp3DtcEnableParam);
     createParam(xsp3EventWidthParamString, asynParamFloat64, &xsp3EventWidthParam);
     createParam(xsp3ChanDTPercentParamString, asynParamFloat64, &xsp3ChanDTPercentParam);
@@ -817,54 +815,6 @@ asynStatus Xspress3::setWindow(int channel, int sca, int llm, int hlm)
 }
 
 /**
- * Function to check that the ROI limits make sense.
- * @param channel The asyn address, mapping to xsp3 channel.
- * @param roi The ROI number
- * @param llm The low limit
- * @param hlm The high limit
- * @return asynStatus
- */
-asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
-{
-  asynStatus status = asynSuccess;
-  int maxSpectra = 0;
-  const char *functionName = "Xspress3::checkRoi";
-
-  getIntegerParam(xsp3MaxSpectraParam, &maxSpectra);
-
-  if ((llm < 0) || (hlm < 0)) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Negative ROI limits not allowed.\n", functionName);
-    setStringParam(ADStatusMessage, "ERROR: Negative ROI limits not allowed.");
-    setIntegerParam(ADStatus, ADStatusError);
-    status = asynError;
-  }
-
-  if ((llm >= maxSpectra) || (hlm > maxSpectra)) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: ROI limits set too high.\n", functionName);
-    setStringParam(ADStatusMessage, "ERROR: ROI limits set too high.");
-    setIntegerParam(ADStatus, ADStatusError);
-    status = asynError;
-  }
-
-  if (llm > hlm) {
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR,
-	      "%s ERROR: ROI %d low limit (%d) is higher than high limit (%d) on channel %d.\n",
-	      functionName, roi, llm, hlm, channel+1);
-    setStringParam(ADStatusMessage, "ERROR: ROI low limit is higher than high limit.");
-    setIntegerParam(ADStatus, ADStatusError);
-    status = asynError;
-  }
-
-  if (status != asynError) {
-    setStringParam(ADStatusMessage, "Successfully set ROI limit.");
-    setIntegerParam(ADStatus, ADStatusIdle);
-  }
-
-  return status;
-}
-
-
-/**
  * Call xsp3_histogram_clear, and clear scalar data.
  * @return asynStatus
  */
@@ -879,7 +829,7 @@ asynStatus Xspress3::erase(void)
   if ((status = checkConnected()) == asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erase data.\n", functionName);
 
-    status = eraseSCAMCAROI();
+    status = eraseSCA();
 
     getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
@@ -905,14 +855,14 @@ asynStatus Xspress3::erase(void)
 /**
  * Function to clear the data.
  */
-asynStatus Xspress3::eraseSCAMCAROI(void)
+asynStatus Xspress3::eraseSCA(void)
 {
   int status = asynSuccess;
   int xsp3_num_channels = 0;
   int maxNumFrames = 0;
-  const char *functionName = "Xspress3::eraseSCAMCAROI";
+  const char *functionName = "Xspress3::eraseSCA";
 
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
+  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data and all arrays.\n", functionName);
 
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
   getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
@@ -1317,13 +1267,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     status = setWindow(addr, 1, value, xsp3_sca_lim);
   }
 
-  else if (function == xsp3RoiEnableParam) {
-    if (value == ctrlDisable_) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Disabling ROI Calculations.\n", functionName);
-    } else if (value == ctrlEnable_) {
-      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Enabling ROI Calculations.\n", functionName);
-    }
-  }
   else if (function == xsp3RunFlagsParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The Run Flags.\n", functionName);
   }

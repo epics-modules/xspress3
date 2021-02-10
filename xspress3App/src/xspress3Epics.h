@@ -107,7 +107,6 @@
 #define xsp3ChanDtcIwgParamString            "XSP3_CHAN_DTC_IWG"
 #define xsp3ChanDtcIwoParamString            "XSP3_CHAN_DTC_IWO"
 //Params to enable or disable calculations
-#define xsp3RoiEnableParamString        "XSP3_CTRL_MCA_ROI"
 #define xsp3DtcEnableParamString        "XSP3_CTRL_DTC"
 #define xsp3EventWidthParamString        "XSP3_EVENT_WIDTH"
 #define xsp3ChanDTPercentParamString     "XSP3_CHAN_DTPERCENT"
@@ -164,9 +163,8 @@ class Xspress3 : public ADDriver {
   asynStatus restoreSettings(void);
   asynStatus checkConnected(void);
   asynStatus setWindow(int channel, int sca, int llm, int hlm);
-  asynStatus checkRoi(int channel, int roi, int llm, int hlm);
   asynStatus erase(void);
-  asynStatus eraseSCAMCAROI(void);
+  asynStatus eraseSCA(void);
   asynStatus checkSaveDir(const char *dirName);
   asynStatus readSCAParams(void);
   asynStatus readDTCParams(void);
@@ -182,7 +180,6 @@ class Xspress3 : public ADDriver {
   static const epicsInt32 ctrlEnable_;
   static const epicsInt32 runFlag_MCA_SPECTRA_;
   static const epicsInt32 runFlag_PLAYB_MCA_SPECTRA_;
-  static const epicsInt32 maxNumRoi_;
   static const epicsInt32 maxStringSize_;
   static const epicsInt32 maxCheckHistPolls_;
   static const epicsInt32 mbboTriggerFIXED_;
@@ -255,7 +252,6 @@ class Xspress3 : public ADDriver {
   int xsp3ChanDtcAeoParam;
   int xsp3ChanDtcIwgParam;
   int xsp3ChanDtcIwoParam;
-  int xsp3RoiEnableParam;
   int xsp3DtcEnableParam;
   int xsp3EventWidthParam;
   int xsp3ChanDTPercentParam;
