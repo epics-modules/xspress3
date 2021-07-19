@@ -1166,9 +1166,14 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    //MNewville:  explicitly stop and clear histogram before starting.
 	    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
 	    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s histogram_stop.\n", functionName);
 	    xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
-	    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+//	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s histogram_clear.\n", functionName);
+//	    histogram_clear() API call causes 3 to 4 sec delay	at NSLS2. 
+//	    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s setupITFG().\n", functionName);
             setupITFG();
+	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s histogram_start.\n", functionName);
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 	    if (xsp3_status != XSP3_OK) {
 		checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
