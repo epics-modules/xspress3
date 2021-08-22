@@ -1,0 +1,226 @@
+<html>
+<head>
+<style>
+table { text-align: left; border-collapse: collapse; }
+tr, th, td { border: 1px solid; padding: 6px; }
+</style>
+</head>
+<body>
+<h2>Xspress3 EPICS Support Module</h2>
+
+<h3>Introduction</h3>
+<p>This EPICS module provides <a href="http://cars9.uchicago.edu/software/epics/areaDetector.html">areaDetector</a> based control of the <a href="http://www.quantumdetectors.com/products/xspress-3">Xspress3 Readout System</a>. It uses <a href="libxspress3/index.html">an API</a> provided by Quantum Detectors and STFC to control the hardware and readout data.</p>
+<p>This documentation will provide intructions on how to use the EPICS software interface to Xspress3. More detailed user instructions are provided by Quantum Detectors.</p>
+<p>This software is licensed under the <a href="http://www.gnu.org/licenses/">GNU Lesser General Public License</a>.</p>
+
+<h3>Configuring and Connecting to the Xspress3</h3>
+<p>The Xspress3 iocs need to read Xspress3 setting files as supplied by Quantum detectors or configured using <code>xspress3-autocalib.py</code>. By default (or when you run the calibration procedure yourself), these files will be put in <code>/etc/xspress3/calibration/initial/settings</code> or some similar directory under <code>/etc/xspress3/calibration</code>. If you change detectors or re-run the calibration, these files might be overwritten, so the iocs here all point to settings files in <code>/path/to/iocXspress3/cfg-4ch</code> (substitute the <code>4</code> in <code>4ch</code> with the actual number of channels). You should make copies of the settings in <code>/etc/xspress3/calibration</code> and place the files you want to use in this folder.</p>
+<p>Once the EPICS IOC is running it is necessary to connect to the Xspress3 system. This can be done by setting the following PVs. The <code>${P}</code> is the base part of the PV name, and is by default set to <code>13XSP3:</code>. PVs with an <code>_RBV</code> on the end are readback PVs that can be used to confirm that a parameter has successfully been changed.</p>
+<table>
+<tr>
+<td><code>${P}cam1:NUM_CHANNELS</code></td>
+<td>The number of channels this system is configured for. Must be less than or equal to <code>${P}cam1:MAX_NUM_CHANNELS_RBV</code>, which is the value passed into <code>xspress3Config</code> (a function used at IOC initilization by the IOC developer).</td>
+</tr>
+<tr>
+<td><code>${P}cam1:NUM_FRAMES_CONFIG</code></td>
+<td>The number of frames to configure the system with. This must be less than or equal to <code>${P}cam1:MAX_FRAMES_RBV</code>, which is the value passed into <code>xspress3Config</code>. Normally this should be set equal to <code>${P}cam1:MAX_FRAMES_RBV</code>.</td>
+</tr>
+<tr>
+<td><code>${P}cam1:CONFIG_PATH</code></td>
+<td>This is the path to the Xspress3 configuration files. These files should have been provided with the system.</td>
+</tr>
+</table>
+<p>Once the above PVs are set, connection can take place by writing 1 to <code>${P}cam1:CONNECT</code>. If connection was successful then <code>${P}cam1:CONNECTED</code> will be set to 1. EPICS ca_put_callback is supported by the <code>${P}cam1:CONNECT</code> PV.</p>
+<p>When connection occurs the following API functions are called by the EPICS driver: <code>xsp3_config</code>, <code>xsp3_clocks_setup</code>, <code>xsp3_restore_settings</code>, <code>xsp3_format_run</code>, <code>xsp3_set_run_flags</code>. In additon, if connection was successful, several parameters are read from the system so the EPICS driver can update RBV type PVs (eg. scaler window limits).</p>
+<p>If you are changing detectors, and especially the number of detector elements in use, you may get some cryptic messages about the wrong number of channels. If so, executing <code>rm /dev/shm/xsp*</code> in the Linux shell should remove any stale shared memory files that are used to connect and transfer data to the xspress3. These will be rebuilt by the xspress3 server as needed.</p>
+
+<h3>Data Acquisition</h3>
+<p>The following PVs are involved in data acqusition or monitoring. Some of the PVs map directly onto Xspress3 API functions, and this will be noted below.</p>
+<table>
+<tr>
+<td><code>${P}cam1:Acquire(_RBV)</code></td>
+<td>This is used to start and stop acqusition. Write a 1 to this to begin acqusition. Normally the data collection will finish automatically once <code>${P}cam1:NumImages_RBV</code> is reached. However, to manually stop a data collection write a 0 to this PV. If the driver is in the process of reading a large number of frames, for example at high frame rates, it will finish this before the stop completes. This PV maps directly to <code>xsp3_histogram_start</code> and <code>xsp3_histogram_stop</code>. When writing a 1 to <code>${P}cam1:Acquire</code>, ca_put_callback is supported. NOTE: it can take about 2s after starting acqusition before the system is ready to accept triggers.</td>
+</tr>
+<tr>
+<td><code>${P}cam1:ERASE</code></td>
+<td>This will call the Xspress3 API <code>xsp3_histogram_clear</code> function. It will also clear any data held by EPICS PVs, including the array PVs. Do this before starting a new data collection.</td>
+</tr>
+<tr>
+<td><code>${P}cam1:NumImages(_RBV)</code></td>
+<td>Set and read the number of frames to acquire. This number must be less than <code>${P}cam1:NUM_FRAMES_DRIVER_RBV</code>, which was set when the IOC was configured by the developer. Acquisition will automatically stop when the number of frames acquired equals <code>${P}cam1:NumImages(_RBV)</code>.</td>
+</tr>
+<tr>
+<td><code>${P}cam1:CTRL_DTC(_RBV)</code></td>
+<td>This is used to determine if deadtime corrected data is read out. If this PV is enabled then the MCA spectra will be deadtime corrected, using the API function <code>xsp3_hist_dtc_read4d</code>. If this PV is disabled then un-corrected MCA spectra data is read out using <code>xsp3_histogram_read4d</code>. This option does not affect scaler data, which is always deadtime corrected.</td>
+</tr>
+<tr>
+<td><code>${P}cam1:TriggerMode(_RBV)</code></td>
+<td>Set and read the triggering mode. This PV maps directly on to the API function <code>xsp3_set_glob_timeA</code>. In simulation mode any mode can be selected. Options are:
+<ul>
+<li>Fixed - Corresponds to API option <code>XSP3_GTIMA_SRC_FIXED.</code> Timing controlled by software, incrementing on each subsequent continue.</li>
+<li>Internal - Corresponds to API option <code>XSP3_GTIMA_SRC_INTERNAL.</code> Time frame from internal timing generator (for future expansion).</li>
+<li>IDC - Corresponds to API option <code>XSP3_GTIMA_SRC_IDC.</code> Time frame incremented and rest by signals from IDC expansion connector.</li>
+<li>TTL Veto Only - Use this for external triggering using a gate signal. Corresponds to API option <code>XSP3_GTIMA_SRC_TTL_VETO_ONLY.</code> Use TTL input 1 as Veto. Signal is active low and will to count if high and veto if low.</li>
+<li>TTL Both - Corresponds to API option <code>XSP3_GTIMA_SRC_TTL_BOTH.</code> Use TTL inputs 0 and 1 as Frame Zero and Veto respectively.</li>
+<li>LVDS Veto Only - Corresponds to API option <code>XSP3_GTIMA_SRC_LVDS_VETO_ONLY.</code> Use 4 Pin LEMO00 LVDS input for veto only.</li>
+<li>LVDS Both - Corresponds to API option <code>XSP3_GTIMA_SRC_LVDS_BOTH.</code> Use 4 Pin LEMO00 LVDS input for Veto and Frame 0.</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td><code>${P}cam1:FRAME_COUNT_RBV</code></td>
+<td>This contains the number of frames read out of the Xspress3 each time the driver checks for new data. Only really useful for debugging.</td>
+</tr>
+</table>
+
+<h3>Scaler Data and Window Settings</h3>
+<p>The following PVs provide access to the scalers over channel access, and allow the user to set scaler related parameters. The <code>ch1:</code> part of the PV name indicates channel 1. The lists is duplicated for each channel: <code>ch2:</code>, <code>ch3:</code> etc.</p>
+<p>The first table shows the single value PVs that show the latest scaler value during an acqusition.</p>
+<table>
+<tr>
+<td><code>${P}ch1:SCA0_RBV</code></td>
+<td>The <em>Live Time</em> scaler. Duration of acquisition time of frame in 80MHz cycles. Copied to all channels.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA1_RBV</code></td>
+<td>The <em>Reset Ticks</em> scaler. Time in 80MHz cycles that the internal detector reset signal is high, including time in reset padding if enabled.
+</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA2_RBV</code></td>
+<td>The <em>Reset Count</em> scaler. Number of detector resets.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA3_RBV</code></td>
+<td>The <em>All Event</em> scaler. This count every time the system triggers on an event.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA4_RBV</code></td>
+<td>The <em>All Good</em> scaler. This counts on all triggers which give an apparent energy above a "good event" threshold.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA5_RBV</code></td>
+<td>The <em>Scaler 1</em> scaler. The lower and upper window limits for this are set using <code>${P}ch1:SCA5_LLM</code> and <code>${P}ch1:SCA5_HLM</code>. The window limits are set using API function <code>xsp3_set_window</code>.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA6_RBV</code></td>
+<td>The <em>Scaler 2</em> scaler. The lower and upper window limits for this are set using <code>${P}ch1:SCA6_LLM</code> and <code>${P}ch1:SCA6_HLM</code>. The window limits are set using API function <code>xsp3_set_window</code>.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA7_RBV</code></td>
+<td>The <em>Pileup</em> scaler. Counts number of pileup events detected either in the event detector or from the event width.</td>
+</tr>
+</table>
+<p>The following table shows the set and read parameters for the <em>All Good</em>, <em>Scaler 1</em> and <em>Scaler 2</em> scalers.</p>
+<table>
+<tr>
+<td><code>${P}ch1:SCA4_THRESHOLD(_RBV)</code></td>
+<td>Set and read the <em>All Good</em> scaler window threshold. This is set using the API function <code>xsp3_set_good_thres</code>. The readback value is also read at connection time.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA5_LLM(_RBV)</code></td>
+<td>Set and read the <em>Scaler 1</em> scaler window lower limit. This is set using the API function <code>xsp3_set_window</code>. The readback value is also read at connection time.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA5_HLM(_RBV)</code></td>
+<td>Set and read the <em>Scaler 1</em> scaler window upper limit. This is set using the API function <code>xsp3_set_window</code>. The readback value is also read at connection time.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA6_LLM(_RBV)</code></td>
+<td>Set and read the <em>Scaler 2</em> scaler window lower limit. This is set using the API function <code>xsp3_set_window</code>. The readback value is also read at connection time.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:SCA6_HLM(_RBV)</code></td>
+<td>Set and read the <em>Scaler 2</em> scaler window upper limit. This is set using the API function <code>xsp3_set_window</code>. The readback value is also read at connection time.</td>
+</tr>
+</table>
+
+<h3>The Deadtime Correction Parameters</h3>
+<p>The Xspress3 driver produces MCA spectra by analyzing each X-ray event. Because it does processing of each pulse, there is a finite deadtime that will reduce the output countrate from the true input countrate. Knowing the details of these rates, you can correct (at least partially) for this "deadtime effect". While the Xspress3 can report spectra that are corrected, these corrections are sometimes suspect and so the recommended approach is to collect uncorrected spectra and the factors need to correct the data in post-processing. When the Epics IOC starts up it reads the deadtime correction (DTC) parameters for each channel. These are set by the system configuration files supplied with the readout system.</p>
+<table>
+<tr>
+<td><code>${P}ch1:DTFactor_RBV</code></td>
+<td>The <em>Deadtime Correction Factor</em> parameter.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:DeadTime_RBV</code></td>
+<td>The <em>Percent Deadtime</em> parameter.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:EventWidth(_RBV)</code></td>
+<td>The <em>Event Width</em> parameter.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:DTC_FLAGS_RBV</code></td>
+<td>The <em>DTC Flags</em> parameter.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:DTC_AEG_RBV</code></td>
+<td>The DTC <em>All Good Event Gradient</em> parameter.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:DTC_AEO_RBV</code></td>
+<td>The DTC <em>All Good Event Offset</em> parameter.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:DTC_IWG_RBV</code></td>
+<td>The DTC <em>In Window Gradient</em> parameter.</td>
+</tr>
+<tr>
+<td><code>${P}ch1:DTC_IWO_RBV</code></td>
+<td>The DTC <em>In Window Offset</em> parameter.</td>
+</tr>
+</table>
+<p>The Xspress3 digitizes the signal from each detector using a 12.5 nsec time bin (clock tick). It detects events and measures the intensity of each. Occassionally, it will also reset its charge (using 1 clock tick). Each event has a finite time-width called the <em>Event Width</em> which will include the rise time for the charge collection and the initial detection of the event. Thus for any spectrum that counted for <code>ClockTicks</code> real time, the deadtime will be</p>
+<pre>
+DeadTime = N_Resets + N_AllEvents * EventWidth
+</pre>
+<p>where <code>N_Resets</code> is the number of reset events in the time of that spectrum, <code>N_AllEvents</code> is the number of events processed (the "input counts") and <code>Eventwidth</code> is the time to process each event. The "live time" will be <code>ClockTicks - DeadTime</code>, so the deadtime correction factor and the <em>Percent Deadtime</em> will be<p>
+<pre>
+DT_Factor = ClockTicks / (ClockTicks - N_Resets - N_AllEvents * EventWidth)
+DT_Percent = 100 * (N_Resets + N_AllEvents * EventWidth) / ClockTicks
+</pre>
+<p>From this, the only real adjustable parameter for controlling the deadtime correction is the Event Width, which will be an integer value between about 4 (50 nsec) and 12 (150 nsec), depending on the detector type. This value should be set individually for each detector element in the Xspress3 calibration procedure. But, you may want to measure deadtime curves and tweak these values yourself.</p>
+
+<h3>PV Comparison between Branches</h3>
+<p>This branch of the Xspress3 EPICS support module differs greatly from the QD and APS branches in PV names, but the underlying features are quite similar. The naming convention here mimics the areaDetector convention if applicable, and resorts to the convention of the APS branch if not. Some features missing in this branch now may also be added in the future.</p>
+<table>
+<tr>
+<th>ADXspress3</th>
+<th>APS</th>
+<th>QD</th>
+</tr>
+<tr>
+<td><code>${P}cam1:${POSTFIX}</code><br><code>${P}HDF1:${POSTFIX}</code></td>
+<td><code>${P}det1:${POSTFIX}</code><br><code>${P}HDF1:${POSTFIX}</code></td>
+<td><code>${P}${POSTFIX}</code><br><code>${P}HDF5:${POSTFIX}</code></td>
+</tr>
+<tr>
+<td><code>${P}ch${CHAN}:${POSTFIX}</code><br><code>${P}ch${CHAN}:${POSTFIX}</code></td>
+<td><code>${P}det1:C${CHAN}_${POSTFIX}</code><br><code>${P}C${CHAN}:${POSTFIX}</code></td>
+<td><code>${P}C${CHAN}_${POSTFIX}</code><br><code>${P}C${CHAN}_${POSTFIX}</code></td>
+</tr>
+<tr>
+<td><code>${P}ch${CHAN}:SCA${SCA}_RBV</code><br>N/A</td>
+<td><code>${P}C${CHAN}SCA:${SCA}:Value_RBV</code><br><code>${P}C${CHAN}SCA:${SCA}:TSArrayValue</code></td>
+<td><code>${P}C${CHAN}_SCA${SCA}:Value_RBV</code><br><code>${P}C${CHAN}_SCA${SCA}:ArrayData_RBV</code></td>
+</tr>
+<tr>
+<td><code>${P}MCA${CHAN}:${POSTFIX}</code><br><code>${P}ROIStat${CHAN}:${ROI}:${POSTFIX}</code></td>
+<td><code>${P}MCA${CHAN}:${POSTFIX}</code><br><code>${P}MCA${CHAN}ROI:${ROI}:${POSTFIX}</code></td>
+<td><code>${P}ARR${CHAN}:${POSTFIX}</code><br>N/A</td>
+</tr>
+<tr>
+<td><code>${P}ROIStat${CHAN}:${ROI}:MinX(_RBV)</code><br><code>${P}ROIStat${CHAN}:${ROI}:SizeX(_RBV)</code></td>
+<td><code>${P}MCA${CHAN}ROI:${ROI}:MinX(_RBV)</code><br><code>${P}MCA${CHAN}ROI:${ROI}:SizeX(_RBV)</code></td>
+<td><code>${P}C${CHAN}_MCA_ROI${ROI}_LLM(_RBV)</code><br><code>${P}C${CHAN}_MCA_ROI${ROI}_HLM(_RBV)</code></td>
+</tr>
+<tr>
+<td><code>${P}ROIStat${CHAN}:${ROI}:Total_RBV</code><br><code>${P}ROIStat${CHAN}:${ROI}:TSTotal</code></td>
+<td><code>${P}MCA${CHAN}ROI:${ROI}:Total_RBV</code><br><code>${P}MCA${CHAN}ROI:${ROI}:TSTotal</code></td>
+<td><code>${P}C${CHAN}_ROI${ROI}:Value_RBV</code><br><code>${P}C${CHAN}_ROI${ROI}:ArrayData_RBV</code></td>
+</tr>
+</table>
+</body>
+</html>
+
