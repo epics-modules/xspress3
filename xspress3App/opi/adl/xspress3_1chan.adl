@@ -1,12 +1,12 @@
 
 file {
-	name="/home/epics/support/xspress3-2-2/xspress3App/opi/adl/xspress3_1chan.adl"
-	version=030109
+	name="/home/xspress3/epics/xspress3/xspress3App/opi/adl/xspress3_1chan.adl"
+	version=030112
 }
 display {
 	object {
-		x=207
-		y=68
+		x=200
+		y=100
 		width=450
 		height=525
 	}
@@ -240,7 +240,7 @@ text {
 "text update" {
 	object {
 		x=360
-		y=140
+		y=145
 		width=75
 		height=15
 	}
@@ -281,7 +281,7 @@ text {
 text {
 	object {
 		x=300
-		y=140
+		y=145
 		width=50
 		height=15
 	}
@@ -304,9 +304,9 @@ text {
 }
 "text entry" {
 	object {
-		x=102
+		x=120
 		y=120
-		width=100
+		width=80
 		height=20
 	}
 	control {
@@ -319,13 +319,13 @@ text {
 }
 "choice button" {
 	object {
-		x=155
+		x=120
 		y=175
 		width=120
 		height=20
 	}
 	control {
-		chan="$(P):det1:CTRL_DTC"
+		chan="$(P):det1:EraseOnStart"
 		clr=14
 		bclr=3
 	}
@@ -335,13 +335,13 @@ text {
 	object {
 		x=5
 		y=180
-		width=150
+		width=130
 		height=15
 	}
 	"basic attribute" {
 		clr=14
 	}
-	textix="Dead Time Corr"
+	textix="Erase on Start?"
 }
 text {
 	object {
@@ -541,22 +541,7 @@ byte {
 }
 "text update" {
 	object {
-		x=280
-		y=175
-		width=120
-		height=15
-	}
-	monitor {
-		chan="$(P):det1:CTRL_DTC_RBV"
-		clr=54
-		bclr=0
-	}
-	limits {
-	}
-}
-"text update" {
-	object {
-		x=285
+		x=270
 		y=210
 		width=120
 		height=15
@@ -571,7 +556,7 @@ byte {
 }
 menu {
 	object {
-		x=155
+		x=120
 		y=210
 		width=120
 		height=20
@@ -597,9 +582,9 @@ text {
 }
 "text entry" {
 	object {
-		x=102
+		x=120
 		y=145
-		width=100
+		width=80
 		height=20
 	}
 	control {
