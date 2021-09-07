@@ -206,7 +206,7 @@ void Xspress3::createInitialParameters()
     //createParam adds the parameters to all param lists automatically (using maxAddr).
     createParam(xsp3FirstParamString, asynParamInt32, &xsp3FirstParam);
     createParam(xsp3ResetParamString, asynParamInt32, &xsp3ResetParam);
-    createParam(xsp3EraseParamString, asynParamInt32, &xsp3EraseParam);
+    createParam(xsp3EraseStartParamString, asynParamInt32, &xsp3EraseStartParam);
     createParam(xsp3NumChannelsParamString, asynParamInt32, &xsp3NumChannelsParam);
     createParam(xsp3MaxNumChannelsParamString, asynParamInt32, &xsp3MaxNumChannelsParam);
     createParam(xsp3MaxSpectraParamString, asynParamInt32, &xsp3MaxSpectraParam);
@@ -1133,6 +1133,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int adStatus = 0;
   asynStatus status = asynSuccess;
   int xsp3_num_channels = 0;
+  int xsp3_erasestart = 1;
   const char *functionName = "Xspress3::writeInt32";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeInt32.\n", functionName);
@@ -1163,12 +1164,17 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       if (adStatus != ADStatusAcquire) {
 	  if ((status = checkConnected()) == asynSuccess) {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Starting Data Collection.\n", functionName);
-	    //MNewville:  explicitly stop histogram before starting.
+	    //MNewville: explicitly stop histogram before starting.
 	    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
 	    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
 	    xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
-	    // MNewville July 2021, do not clear histogram here
-	    // xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+	    // MNewville Sept 2021, use EraseOnStart to control whether
+	    // to Erase before Acquire
+	    getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
+	    if (xsp3_erasestart) {
+	      xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+	    }
+
             setupITFG();
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 	    if (xsp3_status != XSP3_OK) {
@@ -1900,7 +1906,9 @@ static void xsp3DataTaskC(void *xspAD)
     void *pSCA;
     NDArray *pMCA;
     NDDataType_t dataType;
-    bool acquire, aborted, error=false;
+    bool acquire=false;
+    bool aborted=false;
+    bool error=false;
     int numChannels, maxSpectra, frameNumber, numFrames=0, acquired, lastAcquired;
     size_t dims[2];
     const double timeout = 0.00001;

@@ -62,6 +62,7 @@
 #define xsp3LastParamString              "XSP3_LAST"
 #define xsp3ResetParamString              "XSP3_RESET"
 #define xsp3EraseParamString              "XSP3_ERASE"
+#define xsp3EraseStartParamString              "XSP3_ERASESTART"
 #define xsp3NumChannelsParamString        "XSP3_NUM_CHANNELS"
 #define xsp3MaxNumChannelsParamString     "XSP3_MAX_NUM_CHANNELS"
 #define xsp3MaxSpectraParamString     "XSP3_MAX_SPECTRA"
@@ -215,6 +216,7 @@ class Xspress3 : public ADDriver {
   #define XSP3_FIRST_DRIVER_COMMAND xsp3FirstParam
   int xsp3ResetParam;
   int xsp3EraseParam;
+  int xsp3EraseStartParam;
   int xsp3NumChannelsParam;
   int xsp3MaxNumChannelsParam;
   int xsp3MaxSpectraParam;
