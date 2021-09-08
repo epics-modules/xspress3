@@ -3,8 +3,8 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 690
-y 186
+x 400
+y 250
 w 450
 h 525
 font "helvetica-medium-r-18.0"
@@ -326,9 +326,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 102
+x 120
 y 120
-w 100
+w 80
 h 20
 controlPv "$(P):det1:NumImages"
 format "decimal"
@@ -344,25 +344,6 @@ smartRefresh
 fastUpdate
 newPos
 objType "controls"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 5
-y 180
-w 150
-h 15
-font "helvetica-medium-r-12.0"
-fgColor rgb 0 0 0
-bgColor index 3
-useDisplayBg
-value {
-  "Dead Time Corr"
-}
 endObjectProperties
 
 # (Static Text)
@@ -587,31 +568,7 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 280
-y 175
-w 120
-h 15
-controlPv "$(P):det1:CTRL_DTC_RBV"
-format "decimal"
-font "helvetica-medium-r-12.0"
-fontAlign "left"
-fgColor rgb 2560 0 47104
-bgColor rgb 65280 65280 65280
-limitsFromDb
-nullColor rgb 60928 46592 11008
-smartRefresh
-fastUpdate
-newPos
-objType "controls"
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 285
+x 270
 y 210
 w 120
 h 15
@@ -654,9 +611,9 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 102
+x 120
 y 145
-w 100
+w 80
 h 20
 controlPv "$(P):det1:AcquireTime"
 format "decimal"
@@ -1055,6 +1012,25 @@ value {
 }
 endObjectProperties
 
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 5
+y 180
+w 110
+h 15
+font "helvetica-medium-r-12.0"
+fgColor rgb 0 0 0
+bgColor index 3
+useDisplayBg
+value {
+  "Erase on Start?"
+}
+endObjectProperties
+
 # (Message Button)
 object activeMessageButtonClass
 beginObjectProperties
@@ -1125,27 +1101,6 @@ onLabel "Stop"
 offLabel "Stop"
 3d
 font "helvetica-medium-r-14.0"
-endObjectProperties
-
-# (Choice Button)
-object activeChoiceButtonClass
-beginObjectProperties
-major 4
-minor 0
-release 0
-x 155
-y 175
-w 120
-h 20
-fgColor rgb 0 0 0
-bgColor rgb 51200 51200 51200
-selectColor rgb 51200 51200 51200
-inconsistentColor rgb 0 0 0
-topShadowColor rgb 65280 65280 65280
-botShadowColor rgb 0 0 0
-controlPv "$(P):det1:CTRL_DTC"
-font "helvetica-medium-r-10.0"
-orientation "horizontal"
 endObjectProperties
 
 # (Message Button)
@@ -1246,7 +1201,7 @@ beginObjectProperties
 major 4
 minor 0
 release 0
-x 155
+x 120
 y 210
 w 120
 h 20
@@ -1394,5 +1349,26 @@ replaceSymbols {
   0 1
   1 1
 }
+endObjectProperties
+
+# (Choice Button)
+object activeChoiceButtonClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 120
+y 175
+w 120
+h 20
+fgColor rgb 0 0 0
+bgColor rgb 51200 51200 51200
+selectColor rgb 51200 51200 51200
+inconsistentColor rgb 0 0 0
+topShadowColor rgb 65280 65280 65280
+botShadowColor rgb 0 0 0
+controlPv "$(P):det1:EraseOnStart"
+font "helvetica-medium-r-10.0"
+orientation "horizontal"
 endObjectProperties
 
