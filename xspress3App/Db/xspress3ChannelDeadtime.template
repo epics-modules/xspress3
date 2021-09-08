@@ -7,19 +7,17 @@ record(ao, "$(P)C$(CHAN):EventWidth") {
 }
 
 # percent deadtime = allevent*event width + time in reset
-record(ai, "$(P)C$(CHAN):DeadTime_RBV") {
+record(ao, "$(P)C$(CHAN):DeadTime_RBV") {
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTPERCENT")
-    field(SCAN, "I/O Intr")
     field(VAL,  "0")
     field(PREC, "5")
 }
 
 # deadtime correction factor 
-record(ai, "$(P)C$(CHAN):DTFactor_RBV") {
+record(ao, "$(P)C$(CHAN):DTFactor_RBV") {
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTFACTOR")
-    field(SCAN, "I/O Intr")
     field(VAL,  "1")
     field(PREC, "5")
 }
