@@ -206,6 +206,7 @@ void Xspress3::createInitialParameters()
     //createParam adds the parameters to all param lists automatically (using maxAddr).
     createParam(xsp3FirstParamString, asynParamInt32, &xsp3FirstParam);
     createParam(xsp3ResetParamString, asynParamInt32, &xsp3ResetParam);
+    createParam(xsp3EraseParamString, asynParamInt32, &xsp3EraseParam);
     createParam(xsp3EraseStartParamString, asynParamInt32, &xsp3EraseStartParam);
     createParam(xsp3NumChannelsParamString, asynParamInt32, &xsp3NumChannelsParam);
     createParam(xsp3MaxNumChannelsParamString, asynParamInt32, &xsp3MaxNumChannelsParam);
