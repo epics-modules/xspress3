@@ -1168,11 +1168,11 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
 	    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
 	    xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
-	    // MNewville Sept 2021, use EraseOnStart to control whether
-	    // to Erase before Acquire
+	    // MNewville Sept 2021, use EraseOnStart to control whether to Erase before Acquire
 	    getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
 	    if (xsp3_erasestart) {
 	      xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+              asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erased Before Data Collection\n", functionName);
 	    }
 
             setupITFG();
