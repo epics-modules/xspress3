@@ -5,8 +5,8 @@ file {
 }
 display {
 	object {
-		x=200
-		y=100
+		x=400
+		y=250
 		width=450
 		height=525
 	}
@@ -361,7 +361,7 @@ text {
 	object {
 		x=5
 		y=180
-		width=130
+		width=110
 		height=15
 	}
 	"basic attribute" {
