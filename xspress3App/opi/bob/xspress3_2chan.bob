@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <display version="2.0.0">
   <name>xspress3_2chan</name>
-  <x>207</x>
-  <y>68</y>
+  <x>400</x>
+  <y>250</y>
   <width>450</width>
   <height>525</height>
   <background_color>
@@ -203,7 +203,7 @@
     <name>text update #41</name>
     <pv_name>$(P):det1:ArrayRate_RBV</pv_name>
     <x>360</x>
-    <y>140</y>
+    <y>145</y>
     <width>75</width>
     <height>15</height>
     <font>
@@ -248,7 +248,7 @@
     <name>text #51</name>
     <text>Rate</text>
     <x>300</x>
-    <y>140</y>
+    <y>145</y>
     <width>50</width>
     <height>15</height>
     <font>
@@ -299,8 +299,9 @@
   <widget type="textentry" version="3.0.0">
     <name>text entry #63</name>
     <pv_name>$(P):det1:NumImages</pv_name>
-    <x>102</x>
+    <x>120</x>
     <y>120</y>
+    <width>80</width>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
@@ -315,8 +316,8 @@
   </widget>
   <widget type="choice" version="2.0.0">
     <name>choice button #67</name>
-    <pv_name>$(P):det1:CTRL_DTC</pv_name>
-    <x>155</x>
+    <pv_name>$(P):det1:EraseOnStart</pv_name>
+    <x>120</x>
     <y>175</y>
     <width>120</width>
     <height>20</height>
@@ -332,10 +333,10 @@
   </widget>
   <widget type="label" version="2.0.0">
     <name>text #70</name>
-    <text>Dead Time Corr</text>
+    <text>Erase on Start?</text>
     <x>5</x>
     <y>180</y>
-    <width>150</width>
+    <width>110</width>
     <height>15</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -578,31 +579,8 @@
   </widget>
   <widget type="textupdate" version="2.0.0">
     <name>text update #118</name>
-    <pv_name>$(P):det1:CTRL_DTC_RBV</pv_name>
-    <x>280</x>
-    <y>175</y>
-    <width>120</width>
-    <height>15</height>
-    <font>
-      <font family="Liberation Sans" style="REGULAR" size="16.0">
-      </font>
-    </font>
-    <foreground_color>
-      <color red="10" green="0" blue="184">
-      </color>
-    </foreground_color>
-    <background_color>
-      <color red="255" green="255" blue="255">
-      </color>
-    </background_color>
-    <format>1</format>
-    <show_units>false</show_units>
-    <border_alarm_sensitive>false</border_alarm_sensitive>
-  </widget>
-  <widget type="textupdate" version="2.0.0">
-    <name>text update #122</name>
     <pv_name>$(P):det1:TriggerMode_RBV</pv_name>
-    <x>285</x>
+    <x>270</x>
     <y>210</y>
     <width>120</width>
     <height>15</height>
@@ -623,9 +601,9 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #126</name>
+    <name>menu #122</name>
     <pv_name>$(P):det1:TriggerMode</pv_name>
-    <x>155</x>
+    <x>120</x>
     <y>210</y>
     <width>120</width>
     <height>20</height>
@@ -640,10 +618,11 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #129</name>
+    <name>text #125</name>
     <text>Dwell Time</text>
     <x>5</x>
     <y>150</y>
+    <width>80</width>
     <height>15</height>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
@@ -652,10 +631,11 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #132</name>
+    <name>text entry #128</name>
     <pv_name>$(P):det1:AcquireTime</pv_name>
-    <x>102</x>
+    <x>120</x>
     <y>145</y>
+    <width>80</width>
     <font>
       <font family="Liberation Sans" style="REGULAR" size="16.0">
       </font>
@@ -669,7 +649,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <name>text update #136</name>
+    <name>text update #132</name>
     <pv_name>$(P):det1:AcquireTime_RBV</pv_name>
     <x>210</x>
     <y>145</y>
@@ -692,7 +672,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #140</name>
+    <name>text #136</name>
     <text>Control &amp; Status</text>
     <x>10</x>
     <y>59</y>
@@ -704,7 +684,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #143</name>
+    <name>text #139</name>
     <text>HDF5 File Saving</text>
     <x>5</x>
     <y>250</y>
@@ -716,7 +696,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #146</name>
+    <name>text #142</name>
     <text>File Path</text>
     <x>10</x>
     <y>318</y>
@@ -724,7 +704,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #149</name>
+    <name>text #145</name>
     <text>Capturing</text>
     <x>335</x>
     <y>250</y>
@@ -737,7 +717,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #152</name>
+    <name>text #148</name>
     <text>Status</text>
     <x>10</x>
     <y>491</y>
@@ -746,7 +726,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <name>text update #155</name>
+    <name>text update #151</name>
     <pv_name>$(P):HDF1:WriteMessage</pv_name>
     <x>100</x>
     <y>491</y>
@@ -769,7 +749,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <name>text update #159</name>
+    <name>text update #155</name>
     <pv_name>$(P):det1:StatusMessage_RBV</pv_name>
     <x>170</x>
     <y>5</y>
@@ -792,7 +772,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #163</name>
+    <name>text #159</name>
     <text>Frames Saved</text>
     <x>10</x>
     <y>441</y>
@@ -801,7 +781,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <name>text update #166</name>
+    <name>text update #162</name>
     <pv_name>$(P):HDF1:NumCaptured_RBV</pv_name>
     <x>100</x>
     <y>441</y>
@@ -823,7 +803,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #170</name>
+    <name>text #166</name>
     <text>Compression</text>
     <x>10</x>
     <y>406</y>
@@ -831,7 +811,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #173</name>
+    <name>menu #169</name>
     <pv_name>$(P):HDF1:Compression</pv_name>
     <x>100</x>
     <y>404</y>
@@ -847,7 +827,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #176</name>
+    <name>text #172</name>
     <text>ZLevel:</text>
     <x>230</x>
     <y>406</y>
@@ -856,7 +836,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #179</name>
+    <name>text entry #175</name>
     <pv_name>$(P):HDF1:ZLevel</pv_name>
     <x>320</x>
     <y>406</y>
@@ -873,7 +853,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #183</name>
+    <name>text #179</name>
     <text>Last File</text>
     <x>10</x>
     <y>466</y>
@@ -881,7 +861,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="textupdate" version="2.0.0">
-    <name>text update #186</name>
+    <name>text update #182</name>
     <pv_name>$(P):HDF1:FullFileName_RBV</pv_name>
     <x>100</x>
     <y>466</y>
@@ -904,7 +884,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #190</name>
+    <name>text #186</name>
     <text>File Format</text>
     <x>10</x>
     <y>376</y>
@@ -913,7 +893,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="textentry" version="3.0.0">
-    <name>text entry #193</name>
+    <name>text entry #189</name>
     <pv_name>$(P):HDF1:FileTemplate</pv_name>
     <x>100</x>
     <y>376</y>
@@ -931,7 +911,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="label" version="2.0.0">
-    <name>text #197</name>
+    <name>text #193</name>
     <text>Auto Number</text>
     <x>230</x>
     <y>376</y>
@@ -940,7 +920,7 @@
     <auto_size>true</auto_size>
   </widget>
   <widget type="combo" version="2.0.0">
-    <name>menu #200</name>
+    <name>menu #196</name>
     <pv_name>$(P):HDF1:AutoIncrement</pv_name>
     <x>320</x>
     <y>375</y>
@@ -956,7 +936,7 @@
     <border_alarm_sensitive>false</border_alarm_sensitive>
   </widget>
   <widget type="action_button" version="3.0.0">
-    <name>related display #203</name>
+    <name>related display #199</name>
     <actions>
       <action type="open_display">
         <file>xspress3_mcarois.opi</file>
@@ -982,7 +962,7 @@
     </background_color>
   </widget>
   <widget type="action_button" version="3.0.0">
-    <name>related display #206</name>
+    <name>related display #202</name>
     <actions>
       <action type="open_display">
         <file>xspress3_mcarois.opi</file>

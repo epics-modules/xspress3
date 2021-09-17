@@ -1,12 +1,12 @@
 
 file {
-	name="/home/epics/support/xspress3/xspress3App/opi/adl/xspress3_8chan.adl"
-	version=030109
+	name="/home/xspress3/epics/xspress3/xspress3App/opi/adl/xspress3_8chan.adl"
+	version=030112
 }
 display {
 	object {
-		x=690
-		y=186
+		x=400
+		y=250
 		width=450
 		height=525
 	}
@@ -330,9 +330,9 @@ text {
 }
 "text entry" {
 	object {
-		x=102
+		x=120
 		y=120
-		width=100
+		width=80
 		height=20
 	}
 	control {
@@ -342,32 +342,6 @@ text {
 	}
 	limits {
 	}
-}
-"choice button" {
-	object {
-		x=155
-		y=175
-		width=120
-		height=20
-	}
-	control {
-		chan="$(P):det1:CTRL_DTC"
-		clr=14
-		bclr=3
-	}
-	stacking="column"
-}
-text {
-	object {
-		x=5
-		y=180
-		width=150
-		height=15
-	}
-	"basic attribute" {
-		clr=14
-	}
-	textix="Dead Time Corr"
 }
 text {
 	object {
@@ -570,22 +544,7 @@ byte {
 }
 "text update" {
 	object {
-		x=280
-		y=175
-		width=120
-		height=15
-	}
-	monitor {
-		chan="$(P):det1:CTRL_DTC_RBV"
-		clr=54
-		bclr=0
-	}
-	limits {
-	}
-}
-"text update" {
-	object {
-		x=285
+		x=270
 		y=210
 		width=120
 		height=15
@@ -600,7 +559,7 @@ byte {
 }
 menu {
 	object {
-		x=155
+		x=120
 		y=210
 		width=120
 		height=20
@@ -626,9 +585,9 @@ text {
 }
 "text entry" {
 	object {
-		x=102
+		x=120
 		y=145
-		width=100
+		width=80
 		height=20
 	}
 	control {
@@ -980,4 +939,30 @@ menu {
 	clr=54
 	bclr=55
 	label="-Combined Plots"
+}
+text {
+	object {
+		x=5
+		y=180
+		width=110
+		height=15
+	}
+	"basic attribute" {
+		clr=14
+	}
+	textix="Erase on Start?"
+}
+"choice button" {
+	object {
+		x=120
+		y=175
+		width=120
+		height=20
+	}
+	control {
+		chan="$(P):det1:EraseOnStart"
+		clr=14
+		bclr=3
+	}
+	stacking="column"
 }

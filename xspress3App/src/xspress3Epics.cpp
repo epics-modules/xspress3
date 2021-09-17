@@ -207,6 +207,7 @@ void Xspress3::createInitialParameters()
     createParam(xsp3FirstParamString, asynParamInt32, &xsp3FirstParam);
     createParam(xsp3ResetParamString, asynParamInt32, &xsp3ResetParam);
     createParam(xsp3EraseParamString, asynParamInt32, &xsp3EraseParam);
+    createParam(xsp3EraseStartParamString, asynParamInt32, &xsp3EraseStartParam);
     createParam(xsp3NumChannelsParamString, asynParamInt32, &xsp3NumChannelsParam);
     createParam(xsp3MaxNumChannelsParamString, asynParamInt32, &xsp3MaxNumChannelsParam);
     createParam(xsp3MaxSpectraParamString, asynParamInt32, &xsp3MaxSpectraParam);
@@ -346,6 +347,7 @@ asynStatus Xspress3::connect(void)
   int xsp3_num_tf = 0;
   int xsp3_status = 0;
   int xsp3_num_channels = 0;
+  int xsp3_erasestart = 1;
   char configPath[maxStringSize_] = {0};
   char configSavePath[maxStringSize_] = {0};
   const char *functionName = "Xspress3::connect";
@@ -353,6 +355,7 @@ asynStatus Xspress3::connect(void)
   getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
   getIntegerParam(xsp3NumFramesConfigParam, &xsp3_num_tf);
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+  getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
   getStringParam(xsp3ConfigPathParam, maxStringSize_, configPath);
   getStringParam(xsp3ConfigSavePathParam, maxStringSize_, configSavePath);
 
@@ -1133,6 +1136,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int adStatus = 0;
   asynStatus status = asynSuccess;
   int xsp3_num_channels = 0;
+  int xsp3_erasestart = 1;
   const char *functionName = "Xspress3::writeInt32";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeInt32.\n", functionName);
@@ -1163,11 +1167,23 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       if (adStatus != ADStatusAcquire) {
 	  if ((status = checkConnected()) == asynSuccess) {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Starting Data Collection.\n", functionName);
-	    //MNewville:  explicitly stop and clear histogram before starting.
+	    //MNewville: explicitly stop histogram before starting.
 	    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
 	    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
 	    xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
-	    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+	    // MNewville Sept 2021, use EraseOnStart to control whether to Erase before Acquire
+	    getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
+	    if (xsp3_erasestart) {
+	      xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+	      if (xsp3_status != XSP3_OK) {
+		checkStatus(xsp3_status, "xsp3_histogram_clear", functionName);
+		status = asynError;
+	      }
+              asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erased Before Data Collection\n", functionName);
+	    } else {
+              asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
+	    }
+
             setupITFG();
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 	    if (xsp3_status != XSP3_OK) {
@@ -1358,6 +1374,10 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Pausing ITFG.\n", functionName);
     printf("Pausing ITFG\n");
     xsp3->itfg_stop(xsp3_handle_, 0);
+  }
+
+  else if (function == xsp3EraseStartParam) {
+    getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
   }
 
   else {
@@ -1720,10 +1740,10 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
           allevt = pScaData[3];
           dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
           dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
+	  // printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
+	  setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
+	  setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
         }
-        // printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
-        setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
-        setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
 
         pScaData += XSP3_SW_NUM_SCALERS;
       }
@@ -1748,11 +1768,10 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
           allevt = 1.0*pScaData[3];
           dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
           dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
+	  // printf(":I> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f\n", chan, evtwidth, dtperc, dtfact);
+	  setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
+	  setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
         }
-        // printf(":I> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f\n", chan, evtwidth, dtperc, dtfact);
-        setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
-        setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
-
         pScaData += XSP3_SW_NUM_SCALERS;
       }
     }
@@ -1899,7 +1918,9 @@ static void xsp3DataTaskC(void *xspAD)
     void *pSCA;
     NDArray *pMCA;
     NDDataType_t dataType;
-    bool acquire, aborted, error=false;
+    bool acquire=false;
+    bool aborted=false;
+    bool error=false;
     int numChannels, maxSpectra, frameNumber, numFrames=0, acquired, lastAcquired;
     size_t dims[2];
     const double timeout = 0.00001;
