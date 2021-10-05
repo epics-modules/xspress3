@@ -57,7 +57,7 @@ required_tools = {'re2c': '/bin/re2c', 'rpcgen': '/bin/rpcgen',
                   'GraphicsMagick-devel ':  '/usr/lib64/libGraphicsMagick.so'}
 
 recommended_tools = {'telnet': '/bin/telnet',
-                     'motif-devel', '/usr/lib64/libXm.so'}
+                     'motif-devel': '/usr/lib64/libXm.so'}
 
 HELP_MESSAGE = '''build_xspress3.py: build Epics Xspress3 module
 
