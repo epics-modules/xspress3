@@ -1165,35 +1165,38 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == ADAcquire) {
     if (value) {
       if (adStatus != ADStatusAcquire) {
-	  if ((status = checkConnected()) == asynSuccess) {
-	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Starting Data Collection.\n", functionName);
-	    //MNewville: explicitly stop histogram before starting.
-	    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
-	    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
-	    xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
-	    // MNewville Sept 2021, use EraseOnStart to control whether to Erase before Acquire
-	    getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
-	    if (xsp3_erasestart) {
-	      xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
-	      if (xsp3_status != XSP3_OK) {
-		checkStatus(xsp3_status, "xsp3_histogram_clear", functionName);
-		status = asynError;
-	      }
-              asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erased Before Data Collection\n", functionName);
-	    } else {
-              asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
-	    }
-
-            setupITFG();
+	if ((status = checkConnected()) == asynSuccess) {
+	  asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Starting Data Collection.\n", functionName);
+	  //MNewville: explicitly stop histogram before starting.
+	  getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
+	  getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+	  xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
+	  // MNewville Sept 2021, use EraseOnStart to control whether to Erase before Acquire
+	  getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
+	  if (xsp3_erasestart) {
+	    xsp3_status = erase();
+	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erased Before Data Collection\n", functionName);
+	  } else {
+	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
+	  }
+	  if (xsp3_status != XSP3_OK) {
+	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erase Failed.\n", functionName);
+	    checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
+	    status = asynError;
+	  } else {
+	    setupITFG();
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 	    if (xsp3_status != XSP3_OK) {
-		checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
-		status = asynError;
+	      checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
+	      status = asynError;
 	    }
 	    if (status == asynSuccess) {
 	      epicsEventSignal(this->startEvent_);
-              asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Collection.\n", functionName);
+	      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Collection.\n", functionName);
+	    } else {
+	      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection, failed.\n", functionName);
 	    }
+	  }
 	}
       }
     } else {
