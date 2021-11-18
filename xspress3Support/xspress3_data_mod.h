@@ -179,7 +179,7 @@ extern "C" {
 #endif
 #undef XSP3_MAX_MODNAME
 #define XSP3_MAX_MODNAME 100
-#define XSP3_MAX_CARDS 16
+#define XSP3_MAX_CARDS 18
 #define XSP3_SCOPE_MODULE_MAGIC "xsp3scp"
 
 /**
