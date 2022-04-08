@@ -50,7 +50,7 @@ LARCH_FNAME = 'xraylarch-0.9.48-Linux-x86_64.sh'
 required_tools = {'re2c': '/bin/re2c', 'rpcgen': '/bin/rpcgen',
                   'readline': '/lib64/libreadline.so.6',
                   'readline-devel': '/usr/lib64/libreadline.so',
-                  'hdf5_devel': '/usr/include/hdf5.h',
+                  'hdf5-devel': '/usr/include/hdf5.h',
                   'libtiff-devel': '/usr/include/tiff.h',
                   'bzip-devel': '/usr/include/bzlib.h',
                   'libxml2-devel': '/usr/lib64/libxml2.so',
