@@ -139,8 +139,8 @@ class Xspress3 : public ADDriver {
   void adReportError(const char* message);
   bool createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataType);
   bool createSCAArray(void *&pSCA);
-  bool readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra);
-  bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra);
+  bool readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra, int framesRemaining);
+  bool readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra, int framesRemaining);
   void writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType);
   void setStartingParameters();
   const NDDataType_t getDataType();
@@ -151,6 +151,8 @@ class Xspress3 : public ADDriver {
   void setNDArrayAttributes(NDArray *&pMCA, int frameNumber);
   void setAcqStopParameters(bool aborted);
   int getNumFramesToAcquire();
+  int getMaxNumFrames();
+  int getFrameCounter();
   void doNDCallbacksIfRequired(NDArray *pMCA);
   int getNumFramesRead();
   void xspAsynPrint(int asynPrintType, const char *format, ...);
