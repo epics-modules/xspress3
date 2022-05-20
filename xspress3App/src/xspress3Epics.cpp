@@ -392,8 +392,8 @@ asynStatus Xspress3::connect(void)
     // Limit frames for Mini > 1 channel
     if (generation == 2 && numChannels_ > 1) {
         int paramStatus;
-        paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, 12216) == asynSuccess) && paramStatus);
-        paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, 12216) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, 20001) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, 20001) == asynSuccess) && paramStatus);
     }
 
     //Restore settings from a file
@@ -690,9 +690,9 @@ asynStatus Xspress3::restoreSettings(void)
   int xsp3_run_flags;
   getIntegerParam(xsp3RunFlagsParam, &xsp3_run_flags);
   if (xsp3_run_flags == runFlag_MCA_SPECTRA_) {
-    xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+    xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
   } else if (xsp3_run_flags == runFlag_PLAYB_MCA_SPECTRA_) {
-    xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+    xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
   } else {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Invalid run flag option when trying to set xsp3_set_run_flags.\n", functionName);
     status = asynError;
@@ -912,13 +912,13 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
 {
   int status = asynSuccess;
   int xsp3_num_channels = 0;
-  int maxNumFrames = 0;
+  // int maxNumFames = 0;
   const char *functionName = "Xspress3::eraseSCAMCAROI";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
 
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
-  getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
+  // getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
 
   bool paramStatus = true;
   paramStatus = ((setIntegerParam(NDArrayCounter, 0) == asynSuccess) && paramStatus);
@@ -1472,7 +1472,7 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
     if (status) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR,
 	      "%s Error Setting Parameter. asynUser->reason: %d\n",
-	      functionName, function);
+		functionName, function);
     }
 
     *nActual = nChars;
@@ -1629,43 +1629,45 @@ bool Xspress3::createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataT
  *
  * @return true if an allocation error occurs otherwise false
  */
-bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameNumber, int maxSpectra)
+bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameOffset, int maxSpectra, int framesRemaining)
 {
     bool error = false;
     int xsp3Status = 0;
     const char* functionName = "Xspress3::readFrame";
-    xsp3Status = xsp3->hist_dtc_read4d(this->xsp3_handle_, pMCAData, pSCA, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, 1);
+    xsp3Status = xsp3->hist_dtc_read4d(this->xsp3_handle_, pMCAData, pSCA, 0, 0, 0, frameOffset, maxSpectra, 1, this->numChannels_, framesRemaining);
 
     if (xsp3Status != XSP3_OK) {
         checkStatus(xsp3Status, "xsp3_hist_dtc_read4d", functionName);
         error = true;
     } else {
-        setIntegerParam(NDArrayCounter, frameNumber+1);
+      setIntegerParam(NDArrayCounter, frameOffset+1);
+        // ?? setIntegerParam(NDArrayCounter, frameOffSet+framesRemaining);??
     }
+    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
     return error;
 }
 
-bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, int maxSpectra)
+bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameOffset, int maxSpectra, int framesRemaining)
 {
     bool error = false;
     int xsp3Status = 0;
     const char* functionName = "Xspress3::readFrame";
-    xsp3Status = xsp3->histogram_read4d(this->xsp3_handle_, pMCAData, 0, 0, 0, frameNumber, maxSpectra, 1, this->numChannels_, 1);
+    xsp3Status = xsp3->histogram_read4d(this->xsp3_handle_, pMCAData, 0, 0, 0, frameOffset, maxSpectra, 1, this->numChannels_, framesRemaining);
     if (xsp3Status != XSP3_OK) {
         checkStatus(xsp3Status, "xsp3_histogram_read4d", functionName);
         error = true;
     } else {
-        setIntegerParam(NDArrayCounter, frameNumber);
-        xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameNumber, XSP3_SW_NUM_SCALERS, this->numChannels_, 1);
+        setIntegerParam(NDArrayCounter, frameOffset);
+        xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, this->numChannels_, framesRemaining);
         if (xsp3Status != XSP3_OK) {
-            checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
-            error = true;
-        }
-        else
-        {
-        setIntegerParam(NDArrayCounter, frameNumber+1);
+	  checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
+	  error = true;
+        } else {
+	  setIntegerParam(NDArrayCounter, frameOffset+1);
+	  // ?? setIntegerParam(NDArrayCounter, frameOffSet+framesRemaining);??
         }
     }
+    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
     return error;
 }
 
@@ -1817,6 +1819,7 @@ void Xspress3::getDims(size_t (&dims)[2])
     dims[1] = numChannels;
 }
 
+
 /**
  * Sets the uniqueId of *pMCA to the frame number and sets the timeStamp
  * to the current time.
@@ -1865,6 +1868,20 @@ int Xspress3::getNumFramesToAcquire()
     int numFrames;
     this->getIntegerParam(ADNumImages, &numFrames);
     return numFrames;
+}
+
+int Xspress3::getMaxNumFrames()
+{
+    int maxnum;
+    this->getIntegerParam(xsp3NumFramesDriverParam, &maxnum);
+    return maxnum;
+}
+
+int  Xspress3::getFrameCounter()
+{
+    int frame_counter;
+    this->getIntegerParam(NDArrayCounter, &frame_counter);
+    return frame_counter;
 }
 
 void Xspress3::doNDCallbacksIfRequired(NDArray *pMCA)
@@ -1916,14 +1933,20 @@ static void xsp3DataTaskC(void *xspAD)
     bool acquire=false;
     bool aborted=false;
     bool error=false;
-    int numChannels, maxSpectra, frameNumber, numFrames=0, acquired, lastAcquired;
+
+    int numChannels, maxSpectra, maxNumFrames, frameNumber, numFrames=0;
+    int frame_count, last_frame_count, frames_to_read, frame_counter, frames_remaining, frame_offset;
     size_t dims[2];
     const double timeout = 0.00001;
     const int checkTimes = 20;
+    const char* functionName = "Xspress3::xps3DataTaskC";
     // The scalar array can be reused so create it now
     pXspAD->createSCAArray(pSCA);
+    // getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
+    maxNumFrames = pXspAD->getMaxNumFrames();
+
     while (1) {
-        acquired = lastAcquired = frameNumber = 0;
+        frame_count = last_frame_count = frameNumber = 0;
         aborted = false;
         pXspAD->checkForStopEvent(timeout, "Got stop event before start event.\n");
         if (pXspAD->waitForStartEvent("Got start event.\n") == epicsEventWaitOK) {
@@ -1938,16 +1961,61 @@ static void xsp3DataTaskC(void *xspAD)
         numChannels = dims[1];
         numFrames = pXspAD->getNumFramesToAcquire();
         pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
+
         while (acquire && (frameNumber < numFrames)) {
-            acquired = pXspAD->getNumFramesRead();
-            if (frameNumber < acquired) {
-                lastAcquired = acquired;
+
+	     frame_count = pXspAD->getNumFramesRead();
+
+	     if (frame_count > last_frame_count) {
+                frame_counter = pXspAD->getFrameCounter();
+  	        frames_to_read   = frame_count - last_frame_count;
+                last_frame_count = frame_count;
+		frames_remaining = frame_counter += frames_to_read;
+		// Check we are not overflowing or reading too many items
+		if (frame_counter > maxNumFrames) {
+		  frames_remaining = maxNumFrames - (frame_counter - frames_to_read);
+		  pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
+		  pXspAD->lock();
+		  // setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
+		  pXspAD->setAcqStopParameters(true);
+		  pXspAD->unlock();
+		  acquire=0;
+		  // setIntegerParam(ADAcquire, ADAcquireFalse_);
+		  // xsp3_status = xsp3->histogram_stop(xsp3_handle_, 0);
+		  //; if (xsp3_status != XSP3_OK) {
+		  //  checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
+		  //}
+		  
+		  // setIntegerParam(ADStatus, ADStatusAborted);
+		} else if (frame_counter >= numFrames) {
+		  // completed = true;
+		  frames_remaining = numFrames - (frame_counter - frames_to_read);
+		  pXspAD->lock();
+		  pXspAD->setAcqStopParameters(true);
+		  pXspAD->unlock();
+		  acquire=0;
+
+		  // xsp3_status = xsp3->histogram_stop(xsp3_handle_, 0);
+		}
+		frame_offset = frame_counter - frames_to_read;
+		if (!acquire) {
+		  frame_counter = frame_offset + frames_remaining;
+		}
+
+		printf("xsp acquire frame_count, frames_to_read, frame_counter, frames_remaining, frame_offset=%d, %d, %d, %d, %d\n", 
+		       frame_count, frames_to_read, frame_counter, frames_remaining, frame_offset);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frame_count=%d.\n", functionName, frame_count);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frames_to_read=%d.\n", functionName, frames_to_read);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frame_counter=%d.\n", functionName, frame_counter);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frames_remaining=%d.\n", functionName, frames_remaining);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frame_offset%d.\n", functionName, frame_offset);
+
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
                     if (dataType == NDFloat64) {
-                        error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frameNumber, maxSpectra);
+  		        error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frame_offset, maxSpectra, frames_remaining);
                     }
                     else {
-                        error = pXspAD->readFrame(static_cast<u_int32_t*>(pSCA), static_cast<u_int32_t*>(pMCA->pData), frameNumber, maxSpectra);
+    		        error = pXspAD->readFrame(static_cast<u_int32_t*>(pSCA), static_cast<u_int32_t*>(pMCA->pData), frame_offset, maxSpectra, frames_remaining);
                     }
                     if (error) {
                         pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "There was an error during read out %d\n", error);
