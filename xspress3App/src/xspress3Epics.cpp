@@ -1935,7 +1935,7 @@ static void xsp3DataTaskC(void *xspAD)
     bool error=false;
 
     int numChannels, maxSpectra, maxNumFrames, frameNumber, numFrames=0;
-    int frame_count, last_frame_count, frames_to_read, frame_counter, frames_remaining, frame_offset;
+    int frame_count, last_frame_count, frame_counter, frames_remaining, frame_offset;
     size_t dims[2];
     const double timeout = 0.00001;
     const int checkTimes = 20;
@@ -1963,33 +1963,34 @@ static void xsp3DataTaskC(void *xspAD)
         pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
 
         while (acquire && (frameNumber < numFrames)) {
-
 	     frame_count = pXspAD->getNumFramesRead();
-
 	     if (frame_count > last_frame_count) {
-                frame_counter = pXspAD->getFrameCounter();
-  	        frames_to_read   = frame_count - last_frame_count;
+  	        frames_remaining = frame_count - last_frame_count;
+		frame_counter    = frames_remaining + pXspAD->getFrameCounter();
                 last_frame_count = frame_count;
-		frames_remaining = frame_counter += frames_to_read;
+
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, numFrames=%d.\n", functionName, numFrames);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frameNumber=%d.\n", functionName, frameNumber);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frame_count=%d.\n", functionName, frame_count);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frames_remaining=%d.\n", functionName, frames_remaining);
 		// Check we are not overflowing or reading too many items
 		if (frame_counter > maxNumFrames) {
-		  frames_remaining = maxNumFrames - (frame_counter - frames_to_read);
+		  frames_remaining += maxNumFrames - frame_counter;
 		  pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "%s ERROR: Stopping Acqusition. We Reached The Max Num Of Frames.\n", functionName);
 		  pXspAD->lock();
-		  // setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
 		  pXspAD->setAcqStopParameters(true);
 		  pXspAD->unlock();
 		  acquire=0;
+		  // setStringParam(ADStatusMessage, "Stopped. Max Frames Reached.");
 		  // setIntegerParam(ADAcquire, ADAcquireFalse_);
 		  // xsp3_status = xsp3->histogram_stop(xsp3_handle_, 0);
 		  //; if (xsp3_status != XSP3_OK) {
 		  //  checkStatus(xsp3_status, "xsp3_histogram_stop", functionName);
 		  //}
-		  
 		  // setIntegerParam(ADStatus, ADStatusAborted);
 		} else if (frame_counter >= numFrames) {
 		  // completed = true;
-		  frames_remaining = numFrames - (frame_counter - frames_to_read);
+		  frames_remaining += numFrames - frame_counter;
 		  pXspAD->lock();
 		  pXspAD->setAcqStopParameters(true);
 		  pXspAD->unlock();
@@ -1997,18 +1998,15 @@ static void xsp3DataTaskC(void *xspAD)
 
 		  // xsp3_status = xsp3->histogram_stop(xsp3_handle_, 0);
 		}
-		frame_offset = frame_counter - frames_to_read;
+		frame_offset = frame_counter - frames_remaining;
 		if (!acquire) {
 		  frame_counter = frame_offset + frames_remaining;
 		}
 
-		printf("xsp acquire frame_count, frames_to_read, frame_counter, frames_remaining, frame_offset=%d, %d, %d, %d, %d\n", 
-		       frame_count, frames_to_read, frame_counter, frames_remaining, frame_offset);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frame_count=%d.\n", functionName, frame_count);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frames_to_read=%d.\n", functionName, frames_to_read);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frame_counter=%d.\n", functionName, frame_counter);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frames_remaining=%d.\n", functionName, frames_remaining);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s frame_offset%d.\n", functionName, frame_offset);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s after read, frame_count=%d.\n", functionName, frame_count);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s after read, frame_offset%d.\n", functionName, frame_offset);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s after read, frame_counter=%d.\n", functionName, frame_counter);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s after read, frames_remaining=%d.\n", functionName, frames_remaining);
 
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
                     if (dataType == NDFloat64) {
