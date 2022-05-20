@@ -691,8 +691,10 @@ asynStatus Xspress3::restoreSettings(void)
   getIntegerParam(xsp3RunFlagsParam, &xsp3_run_flags);
   if (xsp3_run_flags == runFlag_MCA_SPECTRA_) {
     xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
+    //xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
   } else if (xsp3_run_flags == runFlag_PLAYB_MCA_SPECTRA_) {
     xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
+    // xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
   } else {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Invalid run flag option when trying to set xsp3_set_run_flags.\n", functionName);
     status = asynError;
@@ -1640,8 +1642,7 @@ bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameOffset, int ma
         checkStatus(xsp3Status, "xsp3_hist_dtc_read4d", functionName);
         error = true;
     } else {
-      setIntegerParam(NDArrayCounter, frameOffset+1);
-        // ?? setIntegerParam(NDArrayCounter, frameOffSet+framesRemaining);??
+      setIntegerParam(NDArrayCounter, frameOffset+framesRemaining);
     }
     xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
     return error;
@@ -1663,8 +1664,7 @@ bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameOffset, 
 	  checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
 	  error = true;
         } else {
-	  setIntegerParam(NDArrayCounter, frameOffset+1);
-	  // ?? setIntegerParam(NDArrayCounter, frameOffSet+framesRemaining);??
+	  setIntegerParam(NDArrayCounter, frameOffset+framesRemaining);
         }
     }
     xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
@@ -1969,10 +1969,6 @@ static void xsp3DataTaskC(void *xspAD)
 		frame_counter    = frames_remaining + pXspAD->getFrameCounter();
                 last_frame_count = frame_count;
 
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, numFrames=%d.\n", functionName, numFrames);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frameNumber=%d.\n", functionName, frameNumber);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frame_count=%d.\n", functionName, frame_count);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frames_remaining=%d.\n", functionName, frames_remaining);
 		// Check we are not overflowing or reading too many items
 		if (frame_counter > maxNumFrames) {
 		  frames_remaining += maxNumFrames - frame_counter;
@@ -2003,17 +1999,20 @@ static void xsp3DataTaskC(void *xspAD)
 		  frame_counter = frame_offset + frames_remaining;
 		}
 
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s after read, frame_count=%d.\n", functionName, frame_count);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s after read, frame_offset%d.\n", functionName, frame_offset);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s after read, frame_counter=%d.\n", functionName, frame_counter);
-		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s after read, frames_remaining=%d.\n", functionName, frames_remaining);
+
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, numFrames=%d.\n", functionName, numFrames);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frameNumber=%d.\n", functionName, frameNumber);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frame_count=%d.\n", functionName, frame_count);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frame_offset%d.\n", functionName, frame_offset);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frame_counter=%d.\n", functionName, frame_counter);
+		pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "%s before read, frames_remaining=%d.\n", functionName, frames_remaining);
 
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
                     if (dataType == NDFloat64) {
-  		        error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frame_offset, maxSpectra, frames_remaining);
+		        error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frame_offset, maxSpectra, frames_remaining);
                     }
                     else {
-    		        error = pXspAD->readFrame(static_cast<u_int32_t*>(pSCA), static_cast<u_int32_t*>(pMCA->pData), frame_offset, maxSpectra, frames_remaining);
+		        error = pXspAD->readFrame(static_cast<u_int32_t*>(pSCA), static_cast<u_int32_t*>(pMCA->pData), frame_offset, maxSpectra, frames_remaining);
                     }
                     if (error) {
                         pXspAD->xspAsynPrint(ASYN_TRACE_ERROR, "There was an error during read out %d\n", error);
