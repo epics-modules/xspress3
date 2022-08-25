@@ -68,9 +68,6 @@ epicsEnvSet("CHM1",   "7")
 ###############################
 
 dbLoadRecords("xspress3Deadtime_8Channel.template",   "P=$(PREFIX)")
-# Optional: load devIocStats records (requires DEVIOCSTATS module)
-dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC_PREFIX)")
-
 
 < ../common/AutoSave.cmd
 
