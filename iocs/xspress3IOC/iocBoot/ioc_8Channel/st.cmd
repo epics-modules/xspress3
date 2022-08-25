@@ -4,8 +4,8 @@
 errlogInit(20000)
 
 # PREFIX
-#epicsEnvSet("PREFIX", "XSP3_8Chan:")
-epicsEnvSet("PREFIX", "XF:06BM-ES{Xsp:1}:")
+epicsEnvSet("PREFIX", "XSP3_8Chan:")
+epicsEnvSet("IOC_PREFIX", "XSP3_8Chan")
 
 # Number of xspress3 channels
 epicsEnvSet("NUM_CHANNELS",  "8")            
@@ -68,6 +68,9 @@ epicsEnvSet("CHM1",   "7")
 ###############################
 
 dbLoadRecords("xspress3Deadtime_8Channel.template",   "P=$(PREFIX)")
+# Optional: load devIocStats records (requires DEVIOCSTATS module)
+dbLoadRecords("$(DEVIOCSTATS)/db/iocAdminSoft.db", "IOC=$(IOC_PREFIX)")
+
 
 < ../common/AutoSave.cmd
 
