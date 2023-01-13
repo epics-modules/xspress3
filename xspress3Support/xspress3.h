@@ -84,7 +84,7 @@
 #define XSP3_HW_DEFINED_SCALERS 8
 
 #define XSP3_ENERGIES 4096
-#define XSP3_MAX_CARDS 16			//!< Maximum number of cards in a logical system
+#define XSP3_MAX_CARDS 18			//!< Maximum number of cards in a logical system
 #define XSP3_MAX_CARD_INDEX 62		//!< Maximum card index across all systems
 #define XSP3_MAX_PATH 34
 #define XSP3_MAX_IP_CHARS 16
