@@ -17,6 +17,7 @@ epicsEnvSet("XSP3ADDR",  "192.168.0.1")
 
 # Max Number of Frames for data collection
 epicsEnvSet("MAXFRAMES", "16384")
+epicsEnvSet("MAXDRIVERFRAMES", "16384")
 
 # Number of Energy bins
 epicsEnvSet("NUM_BINS",  "4096")

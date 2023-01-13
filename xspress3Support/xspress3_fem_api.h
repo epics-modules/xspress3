@@ -60,7 +60,7 @@ int xspress3FemReadFanControl(void* femHandle, u_int32_t offset, size_t size, u_
 int xspress3FemConfigWrite(void* femHandle, u_int32_t address, size_t size, u_int8_t *value);
 int xspress3FemConfigRead(void* femHandle, u_int32_t address, size_t size, u_int8_t *value);
 
-int32_t xspress3FemSetFarmLUT(void* femHandle, int index, char* hostIPaddress, int hostPort);
+int32_t xspress3FemSetFarmLUT(void* femHandle, int index, unsigned char* hostMAC, char* hostIPaddress, int hostPort);
 int xspress3FemRMW(void* femHandle, int chan, int region, int offset, u_int32_t and_mask, u_int32_t or_mask, u_int32_t *ret_value);
 int xspress3FemRDMARMW(void* femHandle, int address, u_int32_t and_mask, u_int32_t or_mask, u_int32_t *ret_value);
 
@@ -85,6 +85,8 @@ int xspress3FemReadDMAorClk(void* femHandle, int offset, size_t num_reads, u_int
 int xspress3FemMPSPIWrite(void* femHandle, int chip, int reg, u_int32_t *value);
 int xspress3FemMPSPIRead(void* femHandle, int chip, int reg, u_int32_t *value);
 int xspress3FemPersonalityRead(void* femHandle, u_int32_t sub_command, u_int32_t stream_mask, u_int32_t width_bytes, u_int32_t first, u_int32_t num_ops, void* value); 
+int xspress3FemWriteDriverStatics(void* femHandle, int offset, size_t num_writes, u_int32_t* value);
+int xspress3FemReadDriverStatics(void* femHandle, int offset, size_t num_reads, u_int32_t* value); 
 
 #ifdef __cplusplus
 }  /* Closing brace for extern "C" */
