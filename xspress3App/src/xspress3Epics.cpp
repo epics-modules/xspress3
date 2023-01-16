@@ -693,6 +693,7 @@ asynStatus Xspress3::restoreSettings(void)
   if (xsp3_run_flags == runFlag_MCA_SPECTRA_) {
     if (circBuffer_ == 0) {
       xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+	  	std::cout<<"Using normal mode"
     } else {
       xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
     }
@@ -701,6 +702,7 @@ asynStatus Xspress3::restoreSettings(void)
   } else if (xsp3_run_flags == runFlag_PLAYB_MCA_SPECTRA_) {
       if (circBuffer_ == 0) {
         xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+		std::cout<<"Using normal mode"
     } else {
         xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
     }
