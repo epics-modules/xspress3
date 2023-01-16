@@ -164,7 +164,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
  * @param numChannels The number of channels to simulate.
  *
  */
-Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, numChannels, NUM_DRIVER_PARAMS, -1, -1, INTERFACE_MASK, INTERRUPT_MASK, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, 0, 0), debug_(1), numChannels_(numChannels), simTest_(1), baseIP_("127.0.0.1")
+Xspress3::Xspress3(const char *portName, int numChannels) : ADDriver(portName, numChannels, NUM_DRIVER_PARAMS, -1, -1, INTERFACE_MASK, INTERRUPT_MASK, ASYN_CANBLOCK | ASYN_MULTIDEVICE, 1, 0, 0), debug_(1), numChannels_(numChannels), simTest_(1), baseIP_("127.0.0.1"), circBuffer_(0)
 {
     const char *functionName = "Xspress3::Xspress3";
     const int maxFrames = 1000;
