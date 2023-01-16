@@ -86,8 +86,9 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param maxMemory Used by asynPortDriver (set to -1 for unlimited)
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode.
+ * @param circBuffer 0 or 1. Set to run with cirular buffer enabled. Required when more than 12216 frames per acquisition 
  */
-Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
+Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer)
   : ADDriver(portName,
 	     numChannels, /* maxAddr - channels use different param lists*/
 	     NUM_DRIVER_PARAMS,
@@ -99,7 +100,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
 	     1, /* Autoconnect */
 	     0, /* default priority */
 	     0), /* Default stack size*/
-    debug_(debug), numChannels_(numChannels), simTest_(simTest), baseIP_(baseIP)
+    debug_(debug), numChannels_(numChannels), simTest_(simTest), baseIP_(baseIP), circBuffer_(circBuffer)
 {
   int status = asynSuccess;
   const char *functionName = "Xspress3::Xspress3";
@@ -392,8 +393,8 @@ asynStatus Xspress3::connect(void)
     // Limit frames for Mini > 1 channel
     if (generation == 2 && numChannels_ > 1) {
         int paramStatus;
-        paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, 20001) == asynSuccess) && paramStatus);
-        paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, 20001) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, 30001) == asynSuccess) && paramStatus);
+        paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, 30001) == asynSuccess) && paramStatus);
     }
 
     //Restore settings from a file
@@ -914,13 +915,13 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
 {
   int status = asynSuccess;
   int xsp3_num_channels = 0;
-  // int maxNumFames = 0;
+  int maxNumFrames = 0;
   const char *functionName = "Xspress3::eraseSCAMCAROI";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
 
   getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
-  // getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
+  getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
 
   bool paramStatus = true;
   paramStatus = ((setIntegerParam(NDArrayCounter, 0) == asynSuccess) && paramStatus);
@@ -1633,6 +1634,7 @@ bool Xspress3::createMCAArray(size_t dims[2], NDArray *&pMCA, NDDataType_t dataT
  */
 bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameOffset, int maxSpectra, int framesRemaining)
 {
+   // framesRemaining=1;
     bool error = false;
     int xsp3Status = 0;
     const char* functionName = "Xspress3::readFrame";
@@ -1644,29 +1646,35 @@ bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameOffset, int ma
     } else {
       setIntegerParam(NDArrayCounter, frameOffset+framesRemaining);
     }
+//    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, 1);
     xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
     return error;
 }
 
 bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameOffset, int maxSpectra, int framesRemaining)
 {
+ //   framesRemaining=1;
     bool error = false;
     int xsp3Status = 0;
     const char* functionName = "Xspress3::readFrame";
-    xsp3Status = xsp3->histogram_read4d(this->xsp3_handle_, pMCAData, 0, 0, 0, frameOffset, maxSpectra, 1, this->numChannels_, framesRemaining);
+    xsp3Status = xsp3->histogram_read4d(this->xsp3_handle_, pMCAData, 0, 0, 0, frameOffset, maxSpectra, 1, this->numChannels_, 1);
+//    xsp3Status = xsp3->histogram_read4d(this->xsp3_handle_, pMCAData, 0, 0, 0, frameOffset, maxSpectra, 1, this->numChannels_, framesRemaining);
     if (xsp3Status != XSP3_OK) {
         checkStatus(xsp3Status, "xsp3_histogram_read4d", functionName);
         error = true;
     } else {
         setIntegerParam(NDArrayCounter, frameOffset);
-        xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, this->numChannels_, framesRemaining);
+        xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, this->numChannels_, 1);
+   //     xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameOffset, XSP3_SW_NUM_SCALERS, this->numChannels_, framesRemaining);
         if (xsp3Status != XSP3_OK) {
 	  checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
 	  error = true;
         } else {
+	  //setIntegerParam(NDArrayCounter, frameOffset+1);
 	  setIntegerParam(NDArrayCounter, frameOffset+framesRemaining);
         }
     }
+//    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, 1);
     xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
     return error;
 }
@@ -2072,13 +2080,13 @@ extern "C" {
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode.
  */
-  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest)
+  int xspress3Config(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer)
   {
     asynStatus status = asynSuccess;
 
     /*Instantiate class.*/
     try {
-      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxDriverFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest);
+      new Xspress3(portName, numChannels, numCards, baseIP, maxFrames, maxDriverFrames, maxSpectra, maxBuffers, maxMemory, debug, simTest, circBuffer);
     } catch (...) {
       cout << "Unknown exception caught when trying to construct Xspress3." << endl;
       status = asynError;
@@ -2101,6 +2109,7 @@ extern "C" {
   static const iocshArg xspress3ConfigArg8 = {"Max Memory", iocshArgInt};
   static const iocshArg xspress3ConfigArg9 = {"Debug", iocshArgInt};
   static const iocshArg xspress3ConfigArg10 = {"Sim Test", iocshArgInt};
+  static const iocshArg xspress3ConfigArg11 = {"Circular Buffer", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
 							 &xspress3ConfigArg1,
 							 &xspress3ConfigArg2,
@@ -2111,13 +2120,14 @@ extern "C" {
 							 &xspress3ConfigArg7,
 							 &xspress3ConfigArg8,
 							 &xspress3ConfigArg9,
-							 &xspress3ConfigArg10};
+							 &xspress3ConfigArg10,
+               &xspress3ConfigArg11};
 
 
-  static const iocshFuncDef configXspress3 = {"xspress3Config", 11, xspress3ConfigArgs};
+  static const iocshFuncDef configXspress3 = {"xspress3Config", 12, xspress3ConfigArgs};
   static void configXspress3CallFunc(const iocshArgBuf *args)
   {
-    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival, args[10].ival);
+    xspress3Config(args[0].sval, args[1].ival, args[2].ival, args[3].sval, args[4].ival, args[5].ival, args[6].ival, args[7].ival, args[8].ival, args[9].ival, args[10].ival, args[11].ival);
   }
 
   static void xspress3Register(void)

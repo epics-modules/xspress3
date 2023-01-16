@@ -4,8 +4,8 @@
 errlogInit(20000)
 
 # PREFIX
-#epicsEnvSet("PREFIX", "XSP3_8Chan:")
-epicsEnvSet("PREFIX", "XF:06BM-ES{Xsp:1}:")
+epicsEnvSet("PREFIX", "XSP3_8Chan:")
+# epicsEnvSet("PREFIX", "XF:06BM-ES{Xsp:1}:")
 
 # Number of xspress3 channels
 epicsEnvSet("NUM_CHANNELS",  "8")            
@@ -16,6 +16,7 @@ epicsEnvSet("XSP3CARDS", "4")
 epicsEnvSet("XSP3ADDR",  "192.168.0.1")
 
 # Max Number of Frames for data collection
+epicsEnvSet("CIRC_BUFFER", "1")
 epicsEnvSet("MAXFRAMES", "16384")
 epicsEnvSet("MAXDRIVERFRAMES", "16384")
 
