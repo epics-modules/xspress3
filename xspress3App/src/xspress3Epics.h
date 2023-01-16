@@ -123,7 +123,7 @@ extern "C" {
 class Xspress3 : public ADDriver {
 
  public:
-  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest);
+  Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer);
   Xspress3(const char *portName, int numChannels);
   virtual ~Xspress3();
 
@@ -208,6 +208,7 @@ class Xspress3 : public ADDriver {
   const epicsInt32 numChannels_; //The number of channels
   const epicsUInt32 simTest_; //Run in sim mode
   const std::string baseIP_; //Constructor param - IP address of host system
+  const int circBuffer_; //Circular buffer flag to turn on
 
   epicsEventId statusEvent_;
   epicsEventId startEvent_;
