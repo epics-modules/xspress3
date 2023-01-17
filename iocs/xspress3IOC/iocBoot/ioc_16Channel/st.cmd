@@ -12,6 +12,7 @@ epicsEnvSet("XSP3CARDS", "2")
 epicsEnvSet("XSP3ADDR",  "192.168.0.1")
 
 # Max Number of Frames for data collection
+# Use CIRC_BUFFER as 1 for more than 12216 frames
 epicsEnvSet("CIRC_BUFFER", "1")
 epicsEnvSet("MAXFRAMES", "16384")
 epicsEnvSet("MAXDRIVERFRAMES", "16384")
