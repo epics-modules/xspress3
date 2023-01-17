@@ -699,20 +699,15 @@ asynStatus Xspress3::restoreSettings(void)
   if (xsp3_run_flags == runFlag_MCA_SPECTRA_) {
     if (circBuffer_ == 0) {
       xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
-	  	std::cout<<"Using normal mode";
     } else {
       xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
-	  	std::cout<<"Using CB mode";
     }
-    
     //
   } else if (xsp3_run_flags == runFlag_PLAYB_MCA_SPECTRA_) {
       if (circBuffer_ == 0) {
         xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
-		std::cout<<"Using normal mode";
     } else {
         xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
-		std::cout<<"Using CB mode";
     }
   } else {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Invalid run flag option when trying to set xsp3_set_run_flags.\n", functionName);
@@ -1667,7 +1662,6 @@ bool Xspress3::readFrame(double* pSCA, double* pMCAData, int frameOffset, int ma
 //    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, 1);
     if (circBuffer_ == 1) {
     	xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
-		std::cout<<"Using CB mode";
     }
     return error;
 }
@@ -1698,7 +1692,6 @@ bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameOffset, 
 //    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, 1);
     if (circBuffer_ == 1) {
     	xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, framesRemaining);
-		std::cout<<"Using CB mode";
     }
     return error;
 }
