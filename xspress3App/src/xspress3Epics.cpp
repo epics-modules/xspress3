@@ -393,8 +393,14 @@ asynStatus Xspress3::connect(void)
     // Limit frames for Mini > 1 channel
     if (generation == 2 && numChannels_ > 1) {
         int paramStatus;
-        paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, 30001) == asynSuccess) && paramStatus);
-        paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, 30001) == asynSuccess) && paramStatus);
+		if (circBuffer_ == 0) {
+			paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, 12216) == asynSuccess) && paramStatus);
+        	paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, 12216) == asynSuccess) && paramStatus);
+		} else {
+			paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, 100001) == asynSuccess) && paramStatus);
+        	paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, 100001) == asynSuccess) && paramStatus);
+		}
+        
     }
 
     //Restore settings from a file
@@ -702,10 +708,10 @@ asynStatus Xspress3::restoreSettings(void)
     //
   } else if (xsp3_run_flags == runFlag_PLAYB_MCA_SPECTRA_) {
       if (circBuffer_ == 0) {
-        xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
+        xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST);
 		std::cout<<"Using normal mode";
     } else {
-        xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
+        xsp3_status = xsp3->set_run_flags(xsp3_handle_, XSP3_RUN_FLAGS_PLAYBACK | XSP3_RUN_FLAGS_SCALERS | XSP3_RUN_FLAGS_HIST | XSP3_RUN_FLAGS_CIRCULAR_BUFFER);
 		std::cout<<"Using CB mode";
     }
   } else {
@@ -2139,7 +2145,7 @@ extern "C" {
 							 &xspress3ConfigArg8,
 							 &xspress3ConfigArg9,
 							 &xspress3ConfigArg10,
-               &xspress3ConfigArg11};
+               				 &xspress3ConfigArg11};
 
 
   static const iocshFuncDef configXspress3 = {"xspress3Config", 12, xspress3ConfigArgs};
