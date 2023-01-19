@@ -4,8 +4,8 @@
 errlogInit(20000)
 
 # PREFIX
-#epicsEnvSet("PREFIX", "XSP3_8Chan:")
-epicsEnvSet("PREFIX", "XF:06BM-ES{Xsp:1}:")
+epicsEnvSet("PREFIX", "XSP3_8Chan:")
+#epicsEnvSet("PREFIX", "XF:06BM-ES{Xsp:1}:")
 
 # Number of xspress3 channels
 epicsEnvSet("NUM_CHANNELS",  "8")            
