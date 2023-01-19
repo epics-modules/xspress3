@@ -1014,6 +1014,11 @@ asynStatus Xspress3::setupITFG(void)
     getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
 	printf("We are in the setup ITFG function\n");
 	if(trigger_mode == 7) {
+		getIntegerParam(ADNumImages, &num_frames);
+		getDoubleParam(ADAcquireTime, &exposureTime);
+		xsp3_status = xsp3->itfg_setup( xsp3_handle_, 0, num_frames,
+							(u_int32_t) floor(exposureTime*80E6+0.5),
+							XSP3_ITFG_TRIG_MODE_SOFTWARE, XSP3_ITFG_GAP_MODE_1US );
 		xsp3->histogram_arm(xsp3_handle_,0);
 	}
     if (trigger_mode == mbboTriggerINTERNAL_ &&
@@ -1115,13 +1120,6 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
     for (int card=0; card<xsp3_num_cards && status == asynSuccess; card++) {
         if ( card == 0 ) {
 			if (mode == 7) {
-
-				getIntegerParam(ADNumImages, &num_frames);
-				getDoubleParam(ADAcquireTime, &exposureTime);
-				xsp3_status = xsp3->itfg_setup( xsp3_handle_, 0, num_frames,
-									(u_int32_t) floor(exposureTime*80E6+0.5),
-									XSP3_ITFG_TRIG_MODE_SOFTWARE, XSP3_ITFG_GAP_MODE_1US );
-				//printf(exposureTime);
 			mode = 1; // Refactor to 1 to continue to use the internal trigger generator but set up so won't continue until histogram_continue is called
 			}
             status = mapTriggerMode(mode, invert_f0, invert_veto, debounce, &xsp3_trigger_mode);
