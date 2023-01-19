@@ -115,6 +115,8 @@ record(mbbo, "$(P)$(R)TriggerMode")
    field(FVVL, "5")
    field(SXST, "LVDS Both")
    field(SXVL, "6")
+   field(SVVL, "Manual")
+   field(SVVL, "7")
    field(VAL,  "0")
    field(PINI, "NO")
 }
@@ -140,6 +142,8 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
    field(FVVL, "5")
    field(SXST, "LVDS Both")
    field(SXVL, "6")
+   field(SVVL, "Manual")
+   field(SVVL, "7")
    field(SCAN, "I/O Intr")
 }
 

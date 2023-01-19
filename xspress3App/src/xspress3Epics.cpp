@@ -1052,7 +1052,7 @@ asynStatus Xspress3::mapTriggerMode(int mode, int invert_f0, int invert_veto, in
 {
   asynStatus status = asynSuccess;
   const char *functionName = "Xspress3::mapTriggerMode";
-
+  
   if (mode == mbboTriggerFIXED_) {
     *apiMode = XSP3_GTIMA_SRC_FIXED;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_FIXED, value: %d\n",
@@ -1107,6 +1107,10 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
     getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
     for (int card=0; card<xsp3_num_cards && status == asynSuccess; card++) {
         if ( card == 0 ) {
+			if (mode == 7) {
+				printf("set to 7\n");
+				mode = 1;
+			}
             status = mapTriggerMode(mode, invert_f0, invert_veto, debounce, &xsp3_trigger_mode);
         }
         else
