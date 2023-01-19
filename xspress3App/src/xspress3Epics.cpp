@@ -1155,6 +1155,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int xsp3_num_channels = 0;
   int xsp3_erasestart = 1;
   const char *functionName = "Xspress3::writeInt32";
+  //int trigger_mode;
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeInt32.\n", functionName);
 
@@ -1203,7 +1204,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  } else {
 	    setupITFG();
 		getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
-		if (trigger_mode=7){
+		if (trigger_mode==7){
 			for ( test = 0 ; test < 20 ; test++){
 				printf("Looping through the advances %d\n", test);
 				xsp3->histogram_continue(xsp3_handle_,0);
