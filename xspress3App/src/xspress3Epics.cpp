@@ -1204,7 +1204,8 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    setupITFG();
 		getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
 		if (trigger_mode==7){
-			xsp3->histogram_arm(xsp3_handle_,0);
+			xsp3->histogram_start(xsp3_handle_,-1)
+			xsp3->histogram_arm(xsp3_handle_,-1);
 			for ( test = 0 ; test < 20 ; test++){
 				printf("Looping through the advances %d\n", test);
 				xsp3->histogram_continue(xsp3_handle_,0);
