@@ -1019,6 +1019,7 @@ asynStatus Xspress3::setupITFG(void)
 		xsp3_status = xsp3->itfg_setup2( xsp3_handle_, 0, num_frames,
 							(u_int32_t) floor(exposureTime*80E6+0.5),
 							XSP3_ITFG_TRIG_MODE_SOFTWARE, XSP3_ITFG_GAP_MODE_1US,0,0,0 );
+		xsp3->histogram_arm(0,-1);
 	}
     if (trigger_mode == mbboTriggerINTERNAL_ &&
         xsp3->has_itfg(xsp3_handle_, 0) > 0 ) {
@@ -1216,7 +1217,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    } else {
 	      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection, failed.\n", functionName);
 	    }
-		if (trigger_mode==7){
+/*		if (trigger_mode==7){
 			//xsp3->histogram_start(xsp3_handle_,-1);
 			epicsEventSignal(this->startEvent_);
 			xsp3->histogram_arm(xsp3_handle_,-1);
@@ -1227,6 +1228,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 				sleep(2);
 				xsp3->histogram_pause(xsp3_handle_,0);
 			}
+			*/
 		} 
 		}
 	  }
@@ -1983,6 +1985,14 @@ static void xsp3DataTaskC(void *xspAD)
             acquired = pXspAD->getNumFramesRead();
             if (frameNumber < acquired) {
                 lastAcquired = acquired;
+
+				//Loop with the continue pause calls 
+
+				printf("Looping through the advances \n");
+				xsp3->histogram_continue(0,0);
+				sleep(2);
+				xsp3->histogram_pause(0,0);
+
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
                     if (dataType == NDFloat64) {
                         error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frameNumber, maxSpectra);
