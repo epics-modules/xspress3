@@ -1155,7 +1155,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int xsp3_num_channels = 0;
   int xsp3_erasestart = 1;
   const char *functionName = "Xspress3::writeInt32";
-  //int trigger_mode;
+  int trigger_mode, test;
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeInt32.\n", functionName);
 
