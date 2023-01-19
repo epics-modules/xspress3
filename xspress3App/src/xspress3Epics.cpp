@@ -1203,18 +1203,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  } else {
 	    setupITFG();
 		getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
-		if (trigger_mode==7){
-			//xsp3->histogram_start(xsp3_handle_,-1);
-			epicsEventSignal(this->startEvent_);
-			xsp3->histogram_arm(xsp3_handle_,-1);
-			for ( test = 0 ; test < 20 ; test++){
-
-				printf("Looping through the advances %d\n", test);
-				xsp3->histogram_continue(xsp3_handle_,0);
-				sleep(2);
-				xsp3->histogram_pause(xsp3_handle_,0);
-			}
-		} else {
+ {
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 		
 	    if (xsp3_status != XSP3_OK) {
@@ -1227,6 +1216,18 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    } else {
 	      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection, failed.\n", functionName);
 	    }
+		if (trigger_mode==7){
+			//xsp3->histogram_start(xsp3_handle_,-1);
+			epicsEventSignal(this->startEvent_);
+			xsp3->histogram_arm(xsp3_handle_,-1);
+			for ( test = 0 ; test < 20 ; test++){
+
+				printf("Looping through the advances %d\n", test);
+				xsp3->histogram_continue(xsp3_handle_,0);
+				sleep(2);
+				xsp3->histogram_pause(xsp3_handle_,0);
+			}
+		} 
 		}
 	  }
 	}
