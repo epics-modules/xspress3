@@ -1208,7 +1208,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 			for ( test = 0 ; test < 20 ; test++){
 				printf("Looping through the advances %d\n", test);
 				xsp3->histogram_continue(xsp3_handle_,0);
-				sleep(1000);
+				sleep(2);
 				xsp3->histogram_pause(xsp3_handle_,0);
 			}} else {
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
