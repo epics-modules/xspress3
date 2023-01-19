@@ -1019,7 +1019,6 @@ asynStatus Xspress3::setupITFG(void)
 		xsp3_status = xsp3->itfg_setup( xsp3_handle_, 0, num_frames,
 							(u_int32_t) floor(exposureTime*80E6+0.5),
 							XSP3_ITFG_TRIG_MODE_SOFTWARE, XSP3_ITFG_GAP_MODE_1US );
-		xsp3->histogram_arm(xsp3_handle_,0);
 	}
     if (trigger_mode == mbboTriggerINTERNAL_ &&
         xsp3->has_itfg(xsp3_handle_, 0) > 0 ) {
@@ -1205,6 +1204,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    setupITFG();
 		getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
 		if (trigger_mode==7){
+			xsp3->histogram_arm(xsp3_handle_,0);
 			for ( test = 0 ; test < 20 ; test++){
 				printf("Looping through the advances %d\n", test);
 				xsp3->histogram_continue(xsp3_handle_,0);
