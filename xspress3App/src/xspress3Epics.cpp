@@ -1106,7 +1106,7 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
     asynStatus status = asynSuccess;
     int xsp3_num_cards;
     int xsp3_trigger_mode = 0;
-    int num_frames, trigger_mode, ppt;
+    int num_frames;
     double exposureTime;
     int xsp3_status=XSP3_OK;
 
@@ -1120,7 +1120,7 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
 				xsp3_status = xsp3->itfg_setup( xsp3_handle_, 0, num_frames,
 									(u_int32_t) floor(exposureTime*80E6+0.5),
 									XSP3_ITFG_TRIG_MODE_SOFTWARE, XSP3_ITFG_GAP_MODE_1US );
-				printf(xsp3_status);
+				printf(exposureTime);
 			mode = 1; // Refactor to 1 to continue to use the internal trigger generator but set up so won't continue until histogram_continue is called
 			}
             status = mapTriggerMode(mode, invert_f0, invert_veto, debounce, &xsp3_trigger_mode);
