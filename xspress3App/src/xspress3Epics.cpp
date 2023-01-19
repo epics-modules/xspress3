@@ -1015,8 +1015,8 @@ asynStatus Xspress3::setupITFG(void)
 	printf("We are in the setup ITFG function\n");
 	if(trigger_mode == 7) {
 		for ( test = 0 ; test < 20 ; test++){
-			xsp3->xsp3_histogram_continue(xsp3_handle_,0);
-			xsp3->xsp3_histogram_pause(xsp3_handle_,0);
+			xsp3->histogram_continue(xsp3_handle_,0);
+			xsp3->histogram_pause(xsp3_handle_,0);
 		}
 	}
     if (trigger_mode == mbboTriggerINTERNAL_ &&
