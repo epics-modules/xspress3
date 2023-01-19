@@ -1012,6 +1012,7 @@ asynStatus Xspress3::setupITFG(void)
     int xsp3_status=XSP3_OK;
 
     getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
+	printf("We are in the setup ITFG function\n")
     if (trigger_mode == mbboTriggerINTERNAL_ &&
         xsp3->has_itfg(xsp3_handle_, 0) > 0 ) {
         getIntegerParam(ADNumImages, &num_frames);
