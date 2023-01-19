@@ -1015,14 +1015,6 @@ asynStatus Xspress3::setupITFG(void)
 	printf("We are in the setup ITFG function\n");
 	if(trigger_mode == 7) {
 		xsp3->histogram_arm(xsp3_handle_,0);
-		printf("In mode 7\n");
-		sleep(5000);
-		printf("after the wait\n");
-		for ( test = 0 ; test < 20 ; test++){
-			printf("Looping through the advances %d\n", test);
-			xsp3->histogram_continue(xsp3_handle_,0);
-			xsp3->histogram_pause(xsp3_handle_,0);
-		}
 	}
     if (trigger_mode == mbboTriggerINTERNAL_ &&
         xsp3->has_itfg(xsp3_handle_, 0) > 0 ) {
@@ -1212,7 +1204,18 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    status = asynError;
 	  } else {
 	    setupITFG();
+		getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
+		if (trigger_mode=7){
+			printf("In mode 7\n");
+			sleep(10);
+			printf("after the wait\n");
+			for ( test = 0 ; test < 20 ; test++){
+				printf("Looping through the advances %d\n", test);
+				xsp3->histogram_continue(xsp3_handle_,0);
+				xsp3->histogram_pause(xsp3_handle_,0);
+			}} else {
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
+		}
 	    if (xsp3_status != XSP3_OK) {
 	      checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
 	      status = asynError;
