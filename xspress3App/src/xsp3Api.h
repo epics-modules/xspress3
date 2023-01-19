@@ -49,7 +49,7 @@ protected:
                                      unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf) = 0;
     virtual int xsp3Api_histogram_clear(int path, int first_chan, int num_chan, int first_frame, int num_frames) = 0;
     virtual int xsp3Api_histogram_continue(int path, int card) = 0;
-    virtual int xsp3Api_histogram_pause(int path, int card) = 0;
+    //virtual int xsp3Api_histogram_pause(int path, int card) = 0;
     virtual int xsp3Api_histogram_is_any_busy(int path) = 0;
     virtual int xsp3Api_histogram_read4d(int path, uint32_t *buffer, unsigned eng, unsigned aux, unsigned chan, unsigned tf, unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf) = 0;
     virtual int xsp3Api_histogram_start(int path, int card) = 0;
