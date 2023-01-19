@@ -1097,6 +1097,7 @@ asynStatus Xspress3::mapTriggerMode(int mode, int invert_f0, int invert_veto, in
 
 asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce )
 {
+	printf("The mode is set to %d\n", mode);
     const char *functionName = "Xspress3::setTriggerMode";
     asynStatus status = asynSuccess;
     int xsp3_num_cards;
@@ -1107,7 +1108,6 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
     for (int card=0; card<xsp3_num_cards && status == asynSuccess; card++) {
         if ( card == 0 ) {
             status = mapTriggerMode(mode, invert_f0, invert_veto, debounce, &xsp3_trigger_mode);
-            std::cout<<mode;
         }
         else
         {
