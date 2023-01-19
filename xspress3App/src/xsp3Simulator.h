@@ -54,6 +54,7 @@ protected:
     virtual int xsp3Api_histogram_clear(int path, int first_chan, int num_chan, int first_frame, int num_frames);
     virtual int xsp3Api_histogram_continue(int path, int card);
     virtual int xsp3Api_histogram_pause(int path, int card);
+    virtual int xsp3Api_histogram_arm(int path, int card);
     virtual int xsp3Api_histogram_is_any_busy(int path);
     virtual int xsp3Api_histogram_read4d(int path, uint32_t *buffer,
                                          unsigned eng, unsigned aux, unsigned chan, unsigned tf,
