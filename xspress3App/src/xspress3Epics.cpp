@@ -1215,19 +1215,19 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 				xsp3->histogram_pause(xsp3_handle_,0);
 			}
 		} else {
-			xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
+	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 		}
-			if (xsp3_status != XSP3_OK) {
-			checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
-			status = asynError;
-			}
-			if (status == asynSuccess) {
-			epicsEventSignal(this->startEvent_);
-			asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Collection.\n", functionName);
-			} else {
-			asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection, failed.\n", functionName);
-			}
-	  	
+	    if (xsp3_status != XSP3_OK) {
+	      checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
+	      status = asynError;
+	    }
+	    if (status == asynSuccess) {
+	      epicsEventSignal(this->startEvent_);
+	      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Collection.\n", functionName);
+	    } else {
+	      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection, failed.\n", functionName);
+	    }
+	  }
 	}
       }
     } else {
