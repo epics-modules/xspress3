@@ -1007,7 +1007,7 @@ asynStatus Xspress3::setupITFG(void)
 {
     asynStatus status = asynSuccess;
     const char *functionName = "Xspress3::setupITFG";
-    int num_frames, trigger_mode, ppt;
+    int num_frames, trigger_mode, ppt, test;
     double exposureTime;
     int xsp3_status=XSP3_OK;
 
