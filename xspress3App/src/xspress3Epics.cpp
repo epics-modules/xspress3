@@ -1014,7 +1014,10 @@ asynStatus Xspress3::setupITFG(void)
     getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
 	printf("We are in the setup ITFG function\n");
 	if(trigger_mode == 7) {
-		printf("And we are in the case where we want to set up the ");
+		for ( test = 0 ; test < 20 ; test++){
+			xsp3->xsp3_histogram_continue(xsp3_handle_,0);
+			xsp3->xsp3_histogram_pause(xsp3_handle_,0);
+		}
 	}
     if (trigger_mode == mbboTriggerINTERNAL_ &&
         xsp3->has_itfg(xsp3_handle_, 0) > 0 ) {
@@ -1115,6 +1118,7 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
     for (int card=0; card<xsp3_num_cards && status == asynSuccess; card++) {
         if ( card == 0 ) {
 			if (mode == 7) {
+
 				getIntegerParam(ADNumImages, &num_frames);
 				getDoubleParam(ADAcquireTime, &exposureTime);
 				xsp3_status = xsp3->itfg_setup( xsp3_handle_, 0, num_frames,
