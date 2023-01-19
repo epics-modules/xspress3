@@ -1216,7 +1216,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 			}
 		} else {
 			xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
-			
+		}
 			if (xsp3_status != XSP3_OK) {
 			checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
 			status = asynError;
@@ -1227,7 +1227,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 			} else {
 			asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection, failed.\n", functionName);
 			}
-	  	}
+	  	
 	}
       }
     } else {
