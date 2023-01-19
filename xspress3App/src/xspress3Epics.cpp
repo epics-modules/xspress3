@@ -1016,6 +1016,7 @@ asynStatus Xspress3::setupITFG(void)
 	if(trigger_mode == 7) {
 		xsp3->histogram_arm(xsp3_handle_,0);
 		printf("In mode 7\n");
+		sleep(5000);
 		for ( test = 0 ; test < 20 ; test++){
 			printf("Looping through the advances %d\n", test);
 			xsp3->histogram_continue(xsp3_handle_,0);
