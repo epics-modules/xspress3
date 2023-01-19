@@ -48,6 +48,7 @@ protected:
     virtual int xsp3Api_hist_dtc_read4d(int path, double *hist_buff, double *scal_buff, unsigned eng, unsigned aux, unsigned chan, unsigned tf,
                                      unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf) = 0;
     virtual int xsp3Api_histogram_clear(int path, int first_chan, int num_chan, int first_frame, int num_frames) = 0;
+    virtual int xsp3Api_histogram_arm(int path, int card) = 0;
     virtual int xsp3Api_histogram_continue(int path, int card) = 0;
     virtual int xsp3Api_histogram_pause(int path, int card) = 0;
     virtual int xsp3Api_histogram_is_any_busy(int path) = 0;
@@ -86,6 +87,7 @@ public:
                     unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf);
     int histogram_clear(int path, int first_chan, int num_chan, int first_frame, int num_frames);
     int histogram_pause(int path, int card);
+    int histogram_arm(int path, int card);
     int histogram_continue(int path, int card);
     int histogram_is_any_busy(int path);
     int histogram_read4d(int path, uint32_t *buffer, unsigned eng, unsigned aux, unsigned chan, unsigned tf, unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf);

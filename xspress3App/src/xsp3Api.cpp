@@ -164,6 +164,17 @@ int xsp3Api::histogram_pause(int path, int card)
     return status;
 }
 
+int xsp3Api::histogram_arm(int path, int card)
+{
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_histogram_arm( %d, %d ) = ", path, card );
+
+    status = xsp3Api_histogram_arm( path, card);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+}
 
 int xsp3Api::histogram_continue(int path, int card)
 {

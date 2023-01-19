@@ -95,6 +95,13 @@ int xsp3Detector::xsp3Api_histogram_continue(int path, int card)
     return status;
 }
 
+int xsp3Detector::xsp3Api_histogram_arm(int path, int card)
+{
+    int status;
+    status = xsp3_histogram_arm( path, card);
+    return status;  
+}
+
 int xsp3Detector::xsp3Api_histogram_pause(int path, int card)
 {
     int status;

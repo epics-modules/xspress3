@@ -115,6 +115,11 @@ int xsp3Simulator::xsp3Api_histogram_pause(int path, int card)
     return XSP3_OK;
 }
 
+int xsp3Simulator::xsp3Api_histogram_arm(int path, int card)
+{
+    return XSP3_OK;
+}
+
 int xsp3Simulator::xsp3Api_histogram_is_any_busy(int path)
 {
     //TODO: Occasionally return busy (1).
