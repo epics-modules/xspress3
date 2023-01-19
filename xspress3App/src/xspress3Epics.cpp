@@ -1204,7 +1204,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  } else {
 	    setupITFG();
 		getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
- {
+ 
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 		
 	    if (xsp3_status != XSP3_OK) {
@@ -1229,12 +1229,11 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 				xsp3->histogram_pause(xsp3_handle_,0);
 			}
 			*/
-		} 
+			}
+	  	}	
 		}
-	  }
-	}
-      }
-    //} else {
+    }
+
       if (adStatus == ADStatusAcquire) {
 	  if ((status = checkConnected()) == asynSuccess) {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Stop Data Collection.\n", functionName);
@@ -1249,7 +1248,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  }
       }
     }
-  }
+  
   else if (function == xsp3NumChannelsParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Channels.\n", functionName);
     getIntegerParam(xsp3MaxNumChannelsParam, &xsp3_num_channels);
