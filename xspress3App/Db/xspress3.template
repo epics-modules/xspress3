@@ -64,7 +64,7 @@ record(bo, "$(P)$(R)EraseOnStart") {
 # ///
 record(bo, "$(P)$(R)FrameAdvance") {
    field(DTYP, "asynInt32")
-   field(OUT, "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))FrameAdvance")
+   field(OUT, "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_FRAMEADVANCE")
    field(ZNAM, "Idle")
    field(ONAM, "Advance")
    field(VAL,  "0")
