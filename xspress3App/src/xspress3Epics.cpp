@@ -1186,7 +1186,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	getIntegerParam(xsp3FrameAdvanceParam, &xsp3_frame_advance);
 	// Frame advance parameter, 1 to start frame 1 to stop, you need to call both if using itfg mode (manual)
 	if (xsp3_frame_advance==1) {
-		xsp3->histogram_arm(xsp3_handle_,-1);
 		xsp3->histogram_continue(xsp3_handle_,0);
 	} else if (xsp3_frame_advance==0) {
 		xsp3->histogram_pause(xsp3_handle_,0);
