@@ -1228,6 +1228,12 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 				sleep(2);
 				xsp3->histogram_pause(xsp3_handle_,0);
 			}
+							//Loop with the continue pause calls 
+
+				printf("Looping through the advances \n");
+				xsp3->histogram_continue(0,0);
+				sleep(2);
+				xsp3->histogram_pause(0,0);
 			*/
 			}
 	  	}	
@@ -1984,14 +1990,6 @@ static void xsp3DataTaskC(void *xspAD)
             acquired = pXspAD->getNumFramesRead();
             if (frameNumber < acquired) {
                 lastAcquired = acquired;
-
-				//Loop with the continue pause calls 
-
-				printf("Looping through the advances \n");
-				xsp3->histogram_continue(0,0);
-				sleep(2);
-				xsp3->histogram_pause(0,0);
-
                 if (!pXspAD->createMCAArray(dims, pMCA, dataType)) {
                     if (dataType == NDFloat64) {
                         error = pXspAD->readFrame(static_cast<double*>(pSCA), static_cast<double*>(pMCA->pData), frameNumber, maxSpectra);

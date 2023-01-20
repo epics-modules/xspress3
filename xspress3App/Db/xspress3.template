@@ -59,6 +59,17 @@ record(bo, "$(P)$(R)EraseOnStart") {
    field(VAL,  "1")
 }
 
+# ///
+# /// Operates the manual advance
+# ///
+record(bo, "$(P)$(R)FrameAdvance") {
+   field(DTYP, "asynInt32")
+   field(OUT, "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))FrameAdvance")
+   field(ZNAM, "Idle")
+   field(ONAM, "Advance")
+   field(VAL,  "0")
+}
+
 
 # ///
 # /// Set the numer of channels to read out.
