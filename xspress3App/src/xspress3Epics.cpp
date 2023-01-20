@@ -1184,7 +1184,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3FrameAdvanceParam) {
 	printf("The Frame Advance changed");
 	getIntegerParam(xsp3FrameAdvanceParam, &xsp3_frame_advance);
-	printf(xsp3_frame_advance);
+	printf("%d", xsp3_frame_advance);
   }
   else if (function == ADAcquire) {
     if (value) {
