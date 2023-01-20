@@ -1182,32 +1182,12 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   }
   else if (function == xsp3FrameAdvanceParam) {
-	printf("The Frame Advance changed to: ");
 	getIntegerParam(xsp3FrameAdvanceParam, &xsp3_frame_advance);
-	printf("%d\n", xsp3_frame_advance);
+	// Frame advance parameter, 1 to start frame 1 to stop, you need to call both if using itfg mode (manual)
 	if (xsp3_frame_advance==1) {
 		xsp3->histogram_continue(xsp3_handle_,0);
-		sleep(0.25);
+	} else if (xsp3_frame_advance==0) {
 		xsp3->histogram_pause(xsp3_handle_,0);
-
-/*		if (trigger_mode==7){
-			//xsp3->histogram_start(xsp3_handle_,-1);
-			epicsEventSignal(this->startEvent_);
-			xsp3->histogram_arm(xsp3_handle_,-1);
-			for ( test = 0 ; test < 20 ; test++){
-
-				printf("Looping through the advances %d\n", test);
-				
-				sleep(2);
-				xsp3->histogram_pause(xsp3_handle_,0);
-			}
-							//Loop with the continue pause calls 
-
-				printf("Looping through the advances \n");
-				xsp3->histogram_continue(0,0);
-				sleep(2);
-				xsp3->histogram_pause(0,0);
-			*/
 	}
   }
   else if (function == ADAcquire) {
