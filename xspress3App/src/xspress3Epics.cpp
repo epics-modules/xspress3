@@ -1155,6 +1155,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   asynStatus status = asynSuccess;
   int xsp3_num_channels = 0;
   int xsp3_erasestart = 1;
+  int xsp3_frame_advance
   const char *functionName = "Xspress3::writeInt32";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeInt32.\n", functionName);
@@ -1179,6 +1180,11 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     if (adStatus != ADStatusAcquire) {
  	status = erase();
     }
+  }
+  else if (function == xsp3FrameAdvanceParam) {
+	printf("The Frame Advance changed");
+	getIntegerParam(xsp3FrameAdvanceParam, &xsp3_frame_advance);
+	printf(xsp3_frame_advance);
   }
   else if (function == ADAcquire) {
     if (value) {
