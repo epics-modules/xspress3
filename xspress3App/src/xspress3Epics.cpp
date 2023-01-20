@@ -1177,6 +1177,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     }
   }
   else if (function == xsp3EraseParam) {
+	printf("The Erase param changed");
     if (adStatus != ADStatusAcquire) {
  	status = erase();
     }
