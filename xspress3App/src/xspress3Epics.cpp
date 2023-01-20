@@ -1202,9 +1202,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	    checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
 	    status = asynError;
 	  } else {
-	    setupITFG();
-		getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
- 
+	    setupITFG(); 
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 		
 	    if (xsp3_status != XSP3_OK) {
