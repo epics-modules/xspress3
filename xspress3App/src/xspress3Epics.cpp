@@ -1187,6 +1187,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	printf("%d\n", xsp3_frame_advance);
 	if (xsp3_frame_advance==1) {
 		xsp3->histogram_continue(xsp3_handle_,0);
+		sleep(0.25);
 		xsp3->histogram_pause(xsp3_handle_,0);
 
 /*		if (trigger_mode==7){
