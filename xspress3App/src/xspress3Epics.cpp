@@ -1188,7 +1188,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	if (xsp3_frame_advance==1) {
 		status = xsp3->histogram_continue(xsp3_handle_,0);
 	} else if (xsp3_frame_advance==0) {
-		staus = xsp3->histogram_pause(xsp3_handle_,0);
+		status = xsp3->histogram_pause(xsp3_handle_,0);
 	}
   }
   else if (function == ADAcquire) {
