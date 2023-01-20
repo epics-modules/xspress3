@@ -32,7 +32,8 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(XSPRESS3)/db:.")
 # maxMemory Used by asynPortDriver (set to 0 for unlimited)
 # debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
 # simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
-xspress3Config("$(PORT)", "$(NUM_CHANNELS)", "$(XSP3CARDS)", "$(XSP3ADDR)", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(NUM_BINS)", 0, 0, 0, 0)
+# circBuffer 0 or 1. set to 1 if more than 12216 frames required
+xspress3Config("$(PORT)", "$(NUM_CHANNELS)", "$(XSP3CARDS)", "$(XSP3ADDR)", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(NUM_BINS)", 0, 0, 0, 0, "$(CIRC_BUFFER=0)")
 
 #
 # Create a processing plugin
