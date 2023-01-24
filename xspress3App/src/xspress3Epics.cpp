@@ -1954,7 +1954,7 @@ static void xsp3DataTaskC(void *xspAD)
     bool aborted=false;
     bool error=false;
 
-    int numChannels, maxSpectra, maxNumFrames, frameNumber, numFrames=0;
+    int numChannels, maxSpectra, maxNumFrames, frameNumber, numFrames=0, acquired, lastAcquired;
     //int frame_count, last_frame_count, frame_counter, frames_remaining, frame_offset;
     size_t dims[2];
     const double timeout = 0.00001;
