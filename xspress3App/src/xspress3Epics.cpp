@@ -1265,9 +1265,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames To Read Out.\n", functionName);
     getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
     getIntegerParam(xsp3MaxFramesParam, &xsp3_time_frames2);
-    printf("We are trying to set a value of %i\n", value);
-    printf("The maximum value is %i\n", xsp3_time_frames);
-    printf("The other maximum value is %i\n", xsp3_time_frames2);
     if (value > xsp3_time_frames || value > xsp3_time_frames2) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Num Frames Higher Than Number Configured.\n", functionName);
       status = asynError;
