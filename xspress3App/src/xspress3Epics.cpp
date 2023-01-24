@@ -1149,6 +1149,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   int xsp3_status = 0;
   int xsp3_sca_lim = 0;
   int xsp3_time_frames = 0;
+  int xsp3_time_frames2 =0;
   int adStatus = 0;
   asynStatus status = asynSuccess;
   int xsp3_num_channels = 0;
