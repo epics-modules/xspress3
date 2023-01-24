@@ -1261,6 +1261,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       }
   }
   else if (function == ADNumImages) {
+    printf("Changed the number of images");
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Frames To Read Out.\n", functionName);
     getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
     if (value > xsp3_time_frames) {
