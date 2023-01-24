@@ -1684,6 +1684,7 @@ bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, 
         {
         setIntegerParam(NDArrayCounter, frameNumber+1);
     }
+    }
 //    xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameOffset, this->numChannels_, 1);
     if (circBuffer_ == 1) {
     	xsp3_histogram_circ_ack(this->xsp3_handle_, 0, frameNumber, this->numChannels_, 1);
