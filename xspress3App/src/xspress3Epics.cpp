@@ -891,19 +891,20 @@ asynStatus Xspress3::erase(void)
 {
   asynStatus status = asynSuccess;
   int xsp3_status = 0;
-  int xsp3_time_frames = 0;
+  int xsp3_used_frames = 0;
   int xsp3_num_channels = 0;
   const char *functionName = "Xspress3::erase";
 
   if ((status = checkConnected()) == asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erase data.\n", functionName);
 
-    status = eraseSCAMCAROI();
-
-    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+    getIntegerParam(NDArrayCounter, &xsp3_used_frames);
+    if (xsp3_used_frames < 1) { xsp3_used_frames = 1; }
 
-    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+    status = eraseSCAMCAROI();
+    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_used_frames);
+
     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_histogram_clear", functionName);
       setIntegerParam(ADStatus, ADStatusError);
@@ -1956,16 +1957,17 @@ static void xsp3DataTaskC(void *xspAD)
     bool aborted=false;
     bool error=false;
 
-    int numChannels, maxSpectra, maxNumFrames, frameNumber, numFrames=0, acquired, lastAcquired;
+    int numChannels, maxSpectra, frameNumber, numFrames=0, acquired, lastAcquired;
     //int frame_count, last_frame_count, frame_counter, frames_remaining, frame_offset;
     size_t dims[2];
     const double timeout = 0.00001;
     const int checkTimes = 20;
-    const char* functionName = "Xspress3::xps3DataTaskC";
+    // const char* functionName = "Xspress3::xps3DataTaskC";
     // The scalar array can be reused so create it now
     pXspAD->createSCAArray(pSCA);
     // getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
-    maxNumFrames = pXspAD->getMaxNumFrames();
+    // int maxNumFrames;
+    // maxNumFrames = pXspAD->getMaxNumFrames();
 
     while (1) {
         acquired = lastAcquired = frameNumber = 0;
