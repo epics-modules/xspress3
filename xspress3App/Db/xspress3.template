@@ -76,7 +76,9 @@ record(bi, "$(P)$(R)FrameAdvance_RBV")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(INP,   "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_FRAMEADVANCE")
+   field(INP,  "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_FRAMEADVANCE")
+   field(ZNAM, "Idle")
+   field(ONAM, "Advance")
    field(SCAN, "I/O Intr")
 }
 
