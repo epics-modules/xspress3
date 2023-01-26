@@ -1105,7 +1105,7 @@ asynStatus Xspress3::mapTriggerMode(int mode, int invert_f0, int invert_veto, in
 }
 
 asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce )
-
+{
     const char *functionName = "Xspress3::setTriggerMode";
     asynStatus status = asynSuccess;
     int xsp3_num_cards;
