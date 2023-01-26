@@ -1013,7 +1013,6 @@ asynStatus Xspress3::setupITFG(void)
     int xsp3_status=XSP3_OK;
 
     getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
-	printf("We are in the setup ITFG function\n");
 	if(trigger_mode == 7) {
 		getIntegerParam(ADNumImages, &num_frames);
 		getDoubleParam(ADAcquireTime, &exposureTime);
@@ -1106,8 +1105,7 @@ asynStatus Xspress3::mapTriggerMode(int mode, int invert_f0, int invert_veto, in
 }
 
 asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, int debounce )
-{
-	printf("The mode is set to %d\n", mode);
+
     const char *functionName = "Xspress3::setTriggerMode";
     asynStatus status = asynSuccess;
     int xsp3_num_cards;
