@@ -1201,15 +1201,17 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  // MNewville Sept 2021, use EraseOnStart to control whether to Erase before Acquire
 	  getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
 	  if (xsp3_erasestart) {
-	    xsp3_status = erase();
+	    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erased Before Data Collection\n", functionName);
 	  } else {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
 	  }
+	  setupITFG();
+	  xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
 	  if (xsp3_status != XSP3_OK) {
-	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erase Failed.\n", functionName);
 	    checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
 	    status = asynError;
+
 	  } else {
 	    setupITFG(); 
 	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
@@ -1228,6 +1230,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 			}
 	  	}	
 		}
+
     } else {
       if (adStatus == ADStatusAcquire) {
 	  if ((status = checkConnected()) == asynSuccess) {

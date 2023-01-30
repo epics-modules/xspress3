@@ -1,3 +1,5 @@
+file "ADBase_settings.req",  P=$(P), R=det1:
+
 file "built_settings.req",  P=$(P)
 file "NDFileHDF5_settings.req",  P=$(P), R=HDF1:
 file "NDROIStat_settings.req",   P=$(P), R=MCA1ROI:
