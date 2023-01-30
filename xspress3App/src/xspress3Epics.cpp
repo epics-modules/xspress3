@@ -1182,7 +1182,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   }
   else if (function == xsp3FrameAdvanceParam) {
 
-	// Frame advance parameter, 1 to start frame 1 to stop, you need to call both if using itfg mode (manual)
+	// Frame advance parameter, 1 to start frame 0 to stop, you need to call both if using itfg mode (manual)
 	if (value==1) {
 		xsp3_status = xsp3->histogram_continue(xsp3_handle_,0);
 	} else if (value==0) {
@@ -1228,8 +1228,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 			}
 	  	}	
 		}
-    }
-
+    } else {
       if (adStatus == ADStatusAcquire) {
 	  if ((status = checkConnected()) == asynSuccess) {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Stop Data Collection.\n", functionName);
@@ -1244,6 +1243,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  }
       }
     }
+  }
   
   else if (function == xsp3NumChannelsParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Channels.\n", functionName);
