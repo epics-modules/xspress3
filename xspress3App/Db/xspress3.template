@@ -62,9 +62,9 @@ record(bo, "$(P)$(R)EraseOnStart") {
 # ///
 # /// Operates the manual advance
 # ///
-record(bo, "$(P)$(R)FrameAdvance") {
+record(bo, "$(P)$(R)SoftTrigger") {
    field(DTYP, "asynInt32")
-   field(OUT, "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_FRAMEADVANCE")
+   field(OUT, "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_SOFT_TRIGGER")
    field(ZNAM, "Idle")
    field(ONAM, "Advance")
    field(VAL,  "0")
@@ -72,11 +72,11 @@ record(bo, "$(P)$(R)FrameAdvance") {
 # ///
 # /// Reads the manual advance parameter
 # ///
-record(bi, "$(P)$(R)FrameAdvance_RBV")
+record(bi, "$(P)$(R)SoftTrigger_RBV")
 {
    field(PINI, "YES")
    field(DTYP, "asynInt32")
-   field(INP,  "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_FRAMEADVANCE")
+   field(INP,  "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_SOFT_TRIGGER")
    field(ZNAM, "Idle")
    field(ONAM, "Advance")
    field(SCAN, "I/O Intr")
@@ -137,7 +137,7 @@ record(mbbo, "$(P)$(R)TriggerMode")
    field(FVVL, "5")
    field(SXST, "LVDS Both")
    field(SXVL, "6")
-   field(SVST, "Manual ADV")
+   field(SVST, "Software + Internal")
    field(SVVL, "7")
    field(VAL,  "0")
    field(PINI, "NO")
@@ -164,7 +164,7 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
    field(FVVL, "5")
    field(SXST, "LVDS Both")
    field(SXVL, "6")
-   field(SVST, "Manual ADV")
+   field(SVST, "Software + Internal")
    field(SVVL, "7")
    field(SCAN, "I/O Intr")
 }

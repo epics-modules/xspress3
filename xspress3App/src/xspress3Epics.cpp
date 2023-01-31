@@ -208,7 +208,7 @@ void Xspress3::createInitialParameters()
     createParam(xsp3ResetParamString, asynParamInt32, &xsp3ResetParam);
     createParam(xsp3EraseParamString, asynParamInt32, &xsp3EraseParam);
     createParam(xsp3EraseStartParamString, asynParamInt32, &xsp3EraseStartParam);
-	createParam(xsp3FrameAdvanceParamString, asynParamInt32, &xsp3FrameAdvanceParam);
+  	createParam(xsp3SoftTriggerParamString, asynParamInt32, &xsp3SoftTriggerParam);
     createParam(xsp3NumChannelsParamString, asynParamInt32, &xsp3NumChannelsParam);
     createParam(xsp3MaxNumChannelsParamString, asynParamInt32, &xsp3MaxNumChannelsParam);
     createParam(xsp3MaxSpectraParamString, asynParamInt32, &xsp3MaxSpectraParam);
@@ -1180,9 +1180,9 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
  	status = erase();
     }
   }
-  else if (function == xsp3FrameAdvanceParam) {
+  else if (function == xsp3SoftTriggerParam) {
 
-	// Frame advance parameter, 1 to start frame 0 to stop, you need to call both if using itfg mode (manual)
+	// Soft Trigger parameter, 1 to start frame 0 to stop, you need to call both if using itfg mode (manual)
 	if (value==1) {
 		xsp3_status = xsp3->histogram_continue(xsp3_handle_,0);
 	} else if (value==0) {
