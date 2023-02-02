@@ -74,7 +74,6 @@ record(bo, "$(P)$(R)SoftTrigger") {
 # ///
 record(bi, "$(P)$(R)SoftTrigger_RBV")
 {
-   field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_SOFT_TRIGGER")
    field(ZNAM, "Idle")
