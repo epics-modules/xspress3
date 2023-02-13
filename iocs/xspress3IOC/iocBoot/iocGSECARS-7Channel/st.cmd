@@ -17,7 +17,7 @@ xspress3App_registerRecordDeviceDriver(pdbbase)
 
 epicsEnvSet("PREFIX", "13QX7:")
 epicsEnvSet("PORT",   "XSP3")
-epicsEnvSet("QSIZE",  "128")
+epicsEnvSet("QSIZE",  "256")
 
 epicsEnvSet("XSIZE",  "4096")
 # Number of xspress3 channels
@@ -26,8 +26,9 @@ epicsEnvSet("YSIZE",  "7")
 epicsEnvSet("$(PORT)CARDS", "1")
 
 epicsEnvSet("NCHANS", "16384")
-
 epicsEnvSet("MAXFRAMES", "16384")
+epicsEnvSet("MAXDRIVERFRAMES", "16384")
+
 # The maximum number of frames buffered in the NDPluginCircularBuff plugin
 epicsEnvSet("CBUFFS", "4096")
 # The search path for database files
@@ -56,10 +57,10 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(XSPRESS3)/db:.")
 # maxMemory Used by asynPortDriver (set to 0 for unlimited)
 # debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
 # simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
-xspress3Config("$(PORT)", "$(YSIZE)", "$(XSP3CARDS)", "192.168.0.1", "$(NCHANS)", 16384, "$(XSIZE)", 0, 0, 0, 0)
+# circBuffer 0 or 1. 
+xspress3Config("$(PORT)", "$(YSIZE)", "$(XSP3CARDS)", "192.168.0.1", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(XSIZE)", 0, 0, 0, 0, 0)
 
 ############
-
 # Create a processing plugin
 NDProcessConfigure("PROC1", $(QSIZE), 0, "$(PORT)", 0, 0, 0)
 dbLoadRecords("NDProcess.template",   "P=$(PREFIX),R=Proc1:,  PORT=PROC1,ADDR=0,TIMEOUT=1,NDARRAY_PORT=$(PORT)")
