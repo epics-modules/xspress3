@@ -3,7 +3,7 @@
 
 .. _xrf_display_chapter:
 
-Installing and using the Optional XRF Display Application
+Installing and using the ``xrfdisplay_epics`` application
 ============================================================
 
 While the Epics display screens give access to the low-level Epics interface

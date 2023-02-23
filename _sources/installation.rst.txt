@@ -1,5 +1,8 @@
 .. _build_xspress3.py: https://raw.githubusercontent.com/epics-modules/xspress3/master/build_xspress3.py
 .. _xspress3 sources: https://millenia.cars.aps.anl.gov/software/xspress3/sources
+.. _xraylarch: https://xraypy.github.io/xraylarch
+
+.. _install_chapter:
 
 Installation
 =====================================
@@ -79,7 +82,6 @@ https://millenia.cars.aps.anl.gov/software/xspress3.  We expect that newer
 versions of any of the above packages should also work.
 
 
-
 The `build_xspress3.py` script
 --------------------------------
 
@@ -90,12 +92,8 @@ The `build_xspress3.py`_ python script will
    3. configure the require Epics modules, which typically involves writing
       environmental variables into a file in the ``configure`` folder for each
       of the modules.
-   4. write a master `Build.sh` file.
-   5. run the master `Build.sh` file to build each module.
-
-
-
-   6. Download and install
-
-
-.. literalinclude:: ../../build_xspress3.py
+   4. write a master `Build.sh` shell script.
+   5. run the `Build.sh` shell script to build each module.  This shell script
+      may be useful for debugging the build process.
+   6. Download and install `xraylarch`_ for its `xrfdisplay_epics`
+      application (see :ref:`xrf_display_chapter`).

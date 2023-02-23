@@ -34,7 +34,7 @@ modules = {'base': 'base-7.0.3.1.tar.gz',
            'sscan': 'sscan-R2-11-3.tar.gz',
            'calc': 'calc-R3-7-3.tar.gz',
            'areaDetector': 'areaDetector-R3-9.tar.gz',
-           'xspress3': 'xspress3-2-5.tar.gz'}
+           'xspress3': 'xspress3-2-6.tar.gz'}
 
 ad_modules = {'ADSupport': 'adSupport-R1-9.tar.gz',
               'ADCore': 'adCore-R3-9.tar.gz'}
@@ -208,8 +208,8 @@ export EPICS_CA_AUTO_ADDR_LIST=YES
 unset  EPICS_CA_ADDR_LIST
 
 # b) turn off automatic address lookup, explicitly set address
-#    list to the broadcast address (or localhost).  This gives 
-#    fewer warning messages for machines with multiple NICs, 
+#    list to the broadcast address (or localhost).  This gives
+#    fewer warning messages for machines with multiple NICs,
 #    such as non-mini xspress3 units.
 export EPICS_CA_AUTO_ADDR_LIST=NO
 # export EPICS_CA_ADDR_LIST=localhost
