@@ -10,6 +10,9 @@
 .. _Diamond Light Source:   https://www.diamond.ac.uk/
 .. _Advanced Photon Source: https://www.aps.anl.gov/
 
+.. _Xspress3 API Documentation: https://epics-modules.github.io/xspress3/xspress3api
+
+
 Xspress3 Epics Module
 ==================================
 
@@ -27,6 +30,7 @@ development of the driver has been a collaboration between scientists and
 engineers working at the `Advanced Photon Source`_ and `Quantum Detectors`_, and done
 at `xspress3 github page`_.
 
+Documentation for the low-level API to the Xspress3 system are at `Xspress3 API Documentation`.
 
 
 Table of Contents
@@ -38,5 +42,7 @@ Table of Contents
    installation
    whatsnew
    ioc_setup
+   display_
+   screens
    counting_modes
    xrf_display
