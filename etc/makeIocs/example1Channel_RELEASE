@@ -1,5 +1,0 @@
-# Place any example specific dependencies here
-AREADETECTOR=   $(SUPPORT)/areaDetector/1-9dls16
-AUTOSAVE=       $(SUPPORT)/autosave/5-0
-DEVIOCSTATS=    $(SUPPORT)/devIocStats/3-1-5dls4
-SPECTRAPLUGINS= $(SUPPORT)/spectraPlugins/1-7-1
