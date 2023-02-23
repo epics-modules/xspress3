@@ -24,7 +24,9 @@ pdf: latex
 clean:
 	-rm -rf $(BUILDDIR)/*
 
-tarball: html pdf
-	cd $(BUILDDIR)/html
-	tar cvzf ../../_doc.tgz *
-	cd ../..
+tarball: html
+	cd $(BUILDDIR)/html &&  tar cvzf ../../../../_doc.tgz *
+
+
+publish: tarball
+	cd ../..  &&  git checkout gh-pages &&  tar xvzf _doc.tgz && git commit -m "update docs" && git push && git checkout master && cd documentation/sources

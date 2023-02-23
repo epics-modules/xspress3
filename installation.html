@@ -51,13 +51,610 @@
             
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
-<p>The simplest installation process will build a complete Epics environment:</p>
+<p>The Xpsress3 module needs to run on a Linux computer connected to the Xspress3
+module.  Generally, these have used the Redhat/CentOS Linux distribution, and
+run when logged into the <cite>xspress3</cite> user account.  The instruction methods here
+may assume that distribution, but it may be possible to build and run the
+Xspress3 Epics driver on other Linux distribution or other user accounts.</p>
+<p>The installation process described here will build a complete and standalone
+Epics environment under the directory <cite>/home/xspress3/epics</cite>. It is certainly
+possible to install within an existing Epics development environment.</p>
+<p>The <a class="reference external" href="https://raw.githubusercontent.com/epics-modules/xspress3/master/build_xspress3.py">build_xspress3.py</a> python script is simplest and easiest way to install
+the Xspress3 driver.  Ideally, this driver can be installed with:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mkdir</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">xspress3</span><span class="o">/</span><span class="n">epics</span>
 <span class="n">cd</span>    <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">xspress3</span><span class="o">/</span><span class="n">epics</span>
 <span class="n">wget</span>  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">raw</span><span class="o">.</span><span class="n">githubusercontent</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">epics</span><span class="o">-</span><span class="n">modules</span><span class="o">/</span><span class="n">xspress3</span><span class="o">/</span><span class="n">master</span><span class="o">/</span><span class="n">build_xspress3</span><span class="o">.</span><span class="n">py</span>
 <span class="n">python</span> <span class="n">build_xspress3</span><span class="o">.</span><span class="n">py</span> <span class="nb">all</span>
 </pre></div>
 </div>
+<section id="required-system-packages">
+<h2>Required System Packages<a class="headerlink" href="#required-system-packages" title="Permalink to this heading">¶</a></h2>
+<p>The following packages (using the Redhat/Centos names) are required to build
+and run the Xspress3:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>re2c</p></li>
+<li><p>readline, readline-devel</p></li>
+<li><p>hdf5-devel</p></li>
+<li><p>libtiff-devel</p></li>
+<li><p>bzip-devel</p></li>
+<li><p>libxml2-devel</p></li>
+<li><p>GraphicsMagick-devel</p></li>
+</ul>
+</div></blockquote>
+<p>In addition, the <cite>telnet</cite> package is recommended to run the <cite>procServ</cite> process,
+and <cite>motif-devel</cite> is required if you intend to use the MEDM display screens.</p>
+<p>It should be possible to install all of these with:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">re2c</span> <span class="n">readline</span><span class="o">-</span><span class="n">devel</span> <span class="n">hdf5</span><span class="o">-</span><span class="n">devel</span> <span class="n">libtiff</span><span class="o">-</span><span class="n">devel</span> \
+                 <span class="n">bzip</span><span class="o">-</span><span class="n">devel</span> <span class="n">libxml2</span><span class="o">-</span><span class="n">devel</span> <span class="n">GraphicsMagick</span><span class="o">-</span><span class="n">devel</span> \
+                 <span class="n">maktelnet</span> <span class="n">motif</span><span class="o">-</span><span class="n">devel</span>
+</pre></div>
+</div>
+</section>
+<section id="required-epics-modules">
+<h2>Required Epics Modules<a class="headerlink" href="#required-epics-modules" title="Permalink to this heading">¶</a></h2>
+<p>The following Epics modules are needed to build and run the Xspress3
+Input/Output Controller program, with the currently installed versions:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>epics base 7.0.3.1</p></li>
+<li><p>asyn 4-38</p></li>
+<li><p>seq  2.2.6</p></li>
+<li><p>ipac 2.15</p></li>
+<li><p>alive R1-1-1</p></li>
+<li><p>std R3-6</p></li>
+<li><p>autosave R5-10</p></li>
+<li><p>iocStats 3.1.16</p></li>
+<li><p>busy R1-7-2</p></li>
+<li><p>sscan R2-11-3</p></li>
+<li><p>calc R3-7-3</p></li>
+<li><p>areaDetector R3-9</p></li>
+<li><p>adSupport R1-9</p></li>
+<li><p>adCore R3-9</p></li>
+<li><p>procServ 2.6.0</p></li>
+<li><p>medm 3.0.3</p></li>
+<li><p>xspress 3-2-6</p></li>
+</ul>
+</div></blockquote>
+<p>The <a class="reference external" href="https://raw.githubusercontent.com/epics-modules/xspress3/master/build_xspress3.py">build_xspress3.py</a> script will download these versions of these packages
+from the <a class="reference external" href="https://millenia.cars.aps.anl.gov/software/xspress3/sources">xspress3 sources</a> web site, hosted at
+<a class="reference external" href="https://millenia.cars.aps.anl.gov/software/xspress3">https://millenia.cars.aps.anl.gov/software/xspress3</a>.  We expect that newer
+versions of any of the above packages should also work.</p>
+</section>
+<section id="the-build-xspress3-py-script">
+<h2>The <cite>build_xspress3.py</cite> script<a class="headerlink" href="#the-build-xspress3-py-script" title="Permalink to this heading">¶</a></h2>
+<p>The <a class="reference external" href="https://raw.githubusercontent.com/epics-modules/xspress3/master/build_xspress3.py">build_xspress3.py</a> python script will</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>check the installation of required system packages.</p></li>
+<li><p>download the required Epics modules.</p></li>
+<li><p>configure the require Epics modules, which typically involves writing
+environmental variables into a file in the <code class="docutils literal notranslate"><span class="pre">configure</span></code> folder for each
+of the modules.</p></li>
+<li><p>write a master <cite>Build.sh</cite> file.</p></li>
+<li><p>run the master <cite>Build.sh</cite> file to build each module.</p></li>
+<li><p>Download and install</p></li>
+</ol>
+</div></blockquote>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
+<span class="c1">#</span>
+<span class="c1">#  download and build a standalone epics environment for the xspress3</span>
+<span class="c1">#</span>
+<span class="c1">#  to use this script:</span>
+<span class="c1">#    mkdir /home/xspress3/epics</span>
+<span class="c1">#    cd    /home/xspress3/epics</span>
+<span class="c1">#    wget  https://raw.githubusercontent.com/epics-modules/xspress3/master/build_xspress3.py</span>
+<span class="c1">#    python build_xspress3.py all</span>
+
+<span class="c1">#  See INSTALL_Standalone.md  for details.</span>
+<span class="c1">#######</span>
+
+<span class="c1"># Note: centos7 defaults with python2, so this needs to work</span>
+<span class="c1"># with both Py2 and Py3</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">subprocess</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+
+<span class="n">modules</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;base&#39;</span><span class="p">:</span> <span class="s1">&#39;base-7.0.3.1.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;asyn&#39;</span><span class="p">:</span> <span class="s1">&#39;asyn4-38.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;sncseq&#39;</span><span class="p">:</span> <span class="s1">&#39;seq-2.2.6.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;ipac&#39;</span><span class="p">:</span> <span class="s1">&#39;ipac-2.15.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;alive&#39;</span><span class="p">:</span> <span class="s1">&#39;alive-R1-1-1.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="s1">&#39;std-R3-6.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;autosave&#39;</span><span class="p">:</span> <span class="s1">&#39;autosave-R5-10.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;iocStats&#39;</span><span class="p">:</span> <span class="s1">&#39;iocStats-3.1.16.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;busy&#39;</span><span class="p">:</span> <span class="s1">&#39;busy-R1-7-2.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;sscan&#39;</span><span class="p">:</span> <span class="s1">&#39;sscan-R2-11-3.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;calc&#39;</span><span class="p">:</span> <span class="s1">&#39;calc-R3-7-3.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;areaDetector&#39;</span><span class="p">:</span> <span class="s1">&#39;areaDetector-R3-9.tar.gz&#39;</span><span class="p">,</span>
+           <span class="s1">&#39;xspress3&#39;</span><span class="p">:</span> <span class="s1">&#39;xspress3-2-6.tar.gz&#39;</span><span class="p">}</span>
+
+<span class="n">ad_modules</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ADSupport&#39;</span><span class="p">:</span> <span class="s1">&#39;adSupport-R1-9.tar.gz&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;ADCore&#39;</span><span class="p">:</span> <span class="s1">&#39;adCore-R3-9.tar.gz&#39;</span><span class="p">}</span>
+
+<span class="n">other_sources</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;procServ-2.6.0.tar.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;bin.tar.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;medm_ext.tar.gz&#39;</span><span class="p">)</span>
+
+<span class="n">SOURCES_URL</span> <span class="o">=</span> <span class="s1">&#39;https://millenia.cars.aps.anl.gov/software/xspress3/sources&#39;</span>
+
+<span class="n">LARCH_URL</span>   <span class="o">=</span> <span class="s1">&#39;https://millenia.cars.aps.anl.gov/xraylarch/downloads/&#39;</span>
+<span class="n">LARCH_FNAME</span> <span class="o">=</span> <span class="s1">&#39;xraylarch-2022-04-Linux-x86_64.sh&#39;</span>
+
+<span class="c1">######################################################################</span>
+<span class="n">required_tools</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;re2c&#39;</span><span class="p">:</span> <span class="s1">&#39;/bin/re2c&#39;</span><span class="p">,</span> <span class="s1">&#39;rpcgen&#39;</span><span class="p">:</span> <span class="s1">&#39;/bin/rpcgen&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;readline&#39;</span><span class="p">:</span> <span class="s1">&#39;/lib64/libreadline.so.6&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;readline-devel&#39;</span><span class="p">:</span> <span class="s1">&#39;/usr/lib64/libreadline.so&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;hdf5-devel&#39;</span><span class="p">:</span> <span class="s1">&#39;/usr/include/hdf5.h&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;libtiff-devel&#39;</span><span class="p">:</span> <span class="s1">&#39;/usr/include/tiff.h&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;bzip-devel&#39;</span><span class="p">:</span> <span class="s1">&#39;/usr/include/bzlib.h&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;libxml2-devel&#39;</span><span class="p">:</span> <span class="s1">&#39;/usr/lib64/libxml2.so&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;GraphicsMagick-devel &#39;</span><span class="p">:</span>  <span class="s1">&#39;/usr/lib64/libGraphicsMagick.so&#39;</span><span class="p">}</span>
+
+<span class="n">recommended_tools</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;telnet&#39;</span><span class="p">:</span> <span class="s1">&#39;/bin/telnet&#39;</span><span class="p">,</span>
+                     <span class="s1">&#39;motif-devel&#39;</span><span class="p">:</span> <span class="s1">&#39;/usr/lib64/libXm.so&#39;</span><span class="p">}</span>
+
+<span class="n">HELP_MESSAGE</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;build_xspress3.py: build Epics Xspress3 module</span>
+
+<span class="s1">options:</span>
+<span class="s1">   -h, --help   shows this message and exit</span>
+<span class="s1">   -n, --nelem  number of detector elements to configure for [4]</span>
+
+<span class="s1">arguments:</span>
+<span class="s1">    extract     download (if needed) and extract source files only</span>
+<span class="s1">    configure   configure sources only</span>
+<span class="s1">    build       compile sources only (must be configured first)</span>
+<span class="s1">    xrfapp      install and configure XRF display app</span>
+
+<span class="s1">    all         extract, configure, and compile sources, install xrfapp</span>
+<span class="s1">    clean       remove all downloaded source files.</span>
+<span class="s1">    realclean   completely remove all source files and built components</span>
+
+<span class="s1">examples:</span>
+
+<span class="s1">   To build everything for 4 element detector:</span>
+
+<span class="s1">   &gt; python build_xspress3.py n -4 all</span>
+
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">COPY_DMFILES</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">find . -name &quot;*.adl&quot; | sed </span><span class="se">\&#39;</span><span class="s1">s|^|cp |g</span><span class="se">\&#39;</span><span class="s1"> | sed </span><span class="se">\&#39;</span><span class="s1">s|$| adls/.|g</span><span class="se">\&#39;</span><span class="s1"> &gt; tmp_copy_dmfiles</span>
+<span class="s1">find . -name &quot;*.ui&quot;  | sed </span><span class="se">\&#39;</span><span class="s1">s|^|cp |g</span><span class="se">\&#39;</span><span class="s1"> | sed </span><span class="se">\&#39;</span><span class="s1">s|$| uis/.|g</span><span class="se">\&#39;</span><span class="s1">  &gt;&gt; tmp_copy_dmfiles</span>
+<span class="s1">find . -name &quot;*.opi&quot; | sed </span><span class="se">\&#39;</span><span class="s1">s|^|cp |g</span><span class="se">\&#39;</span><span class="s1"> | sed </span><span class="se">\&#39;</span><span class="s1">s|$| opis/.|g</span><span class="se">\&#39;</span><span class="s1"> &gt;&gt; tmp_copy_dmfiles</span>
+
+<span class="s1">sh tmp_copy_dmfiles</span>
+<span class="s1">rm tmp_copy_dmfiles</span>
+
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">HOME_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;HOME&#39;</span><span class="p">,</span> <span class="s1">&#39;/home/xspress3&#39;</span><span class="p">)</span>
+
+<span class="n">START_IOC</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;#!/bin/bash</span>
+<span class="s1">TOPDIR=</span><span class="si">{topdir:s}</span>
+
+<span class="s1">IOCNAME=ioc_</span><span class="si">{nelem:d}</span><span class="s1">Channel</span>
+<span class="s1">SCRIPT=st.cmd</span>
+
+<span class="s1">APPNAME=$TOPDIR/xspress3/iocs/xspress3IOC/bin/linux-x86_64/xspress3App</span>
+<span class="s1">IOCDIR=$TOPDIR/xspress3/iocs/xspress3IOC/iocBoot/$IOCNAME</span>
+
+<span class="s1">source $TOPDIR/bin/bash_profile.sh</span>
+
+<span class="s1">cd $IOCDIR</span>
+<span class="s1">$APPNAME $SCRIPT</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">RUN_MEDM</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;#!/bin/bash</span>
+<span class="si">{topdir:s}</span><span class="s1">/bin/medm -x -macro &quot;P=XSP3_</span><span class="si">{nelem:d}</span><span class="s1">Chan&quot; </span><span class="si">{topdir:s}</span><span class="s1">/adls/xspress3_</span><span class="si">{nelem:d}</span><span class="s1">chan.adl</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">BUILD_PROCSERV</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">cd procServ-2.6.0 &amp;&amp; sh ./configure &amp;&amp; make -j8 &amp;&amp; cp procServ ../bin/. &amp;&amp; cd ..</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">BUILD_MEDM</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">cd extensions/src/medm  &amp;&amp; make -j8 &amp;&amp; cd ../../.. &amp;&amp; cp extensions/bin/linux-x86_64/medm bin/.</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">AD_RELEASE_LOCAL</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">ADSUPPORT=$(AREA_DETECTOR)/ADSupport</span>
+<span class="s1">-include $(TOP)/configure/RELEASE.local.$(EPICS_HOST_ARCH)</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">AD_RELEASE_LIBS_LOCAL</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">SUPPORT=</span><span class="si">{topdir:s}</span>
+<span class="s1">EPICS_BASE=</span><span class="si">{topdir:s}</span><span class="s1">/base</span>
+<span class="s1">ASYN=$(SUPPORT)/asyn</span>
+<span class="s1">AREA_DETECTOR=$(SUPPORT)/areaDetector</span>
+<span class="s1">ADSUPPORT=$(AREA_DETECTOR)/ADSupport</span>
+<span class="s1">ADCORE=$(AREA_DETECTOR)/ADCore</span>
+<span class="s1">-include $(AREA_DETECTOR)/configure/RELEASE_LIBS.local.$(EPICS_HOST_ARCH)</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">AD_RELEASE_PRODS_LOCAL</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">SUPPORT=</span><span class="si">{topdir:s}</span>
+<span class="s1">EPICS_BASE=</span><span class="si">{topdir:s}</span><span class="s1">/base</span>
+<span class="s1">ASYN=$(SUPPORT)/asyn</span>
+<span class="s1">AREA_DETECTOR=$(SUPPORT)/areaDetector</span>
+<span class="s1">ADSUPPORT=$(AREA_DETECTOR)/ADSupport</span>
+<span class="s1">ADCORE=$(AREA_DETECTOR)/ADCore</span>
+<span class="s1">AUTOSAVE=$(SUPPORT)/autosave</span>
+<span class="s1">BUSY=$(SUPPORT)/busy</span>
+<span class="s1">CALC=$(SUPPORT)/calc</span>
+<span class="s1">SNCSEQ=$(SUPPORT)/sncseq</span>
+<span class="s1">SSCAN=$(SUPPORT)/sscan</span>
+<span class="s1">DEVIOCSTATS=$(SUPPORT)/iocStats</span>
+<span class="s1">-include $(AREA_DETECTOR)/configure/RELEASE_PRODS.local.$(EPICS_HOST_ARCH)</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">AD_CONFIG_LOCAL</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">WITH_BOOST     = NO</span>
+<span class="s1">BOOST_EXTERNAL = YES</span>
+<span class="s1">WITH_PVA  = YES</span>
+<span class="s1">WITH_QSRV = YES</span>
+<span class="s1">WITH_BLOSC     = YES</span>
+<span class="s1">BLOSC_EXTERNAL = NO</span>
+<span class="s1">WITH_BITSHUFFLE     = YES</span>
+<span class="s1">BITSHUFFLE_EXTERNAL = NO</span>
+<span class="s1">WITH_GRAPHICSMAGICK     = YES</span>
+<span class="s1">GRAPHICSMAGICK_EXTERNAL = NO</span>
+<span class="s1">GRAPHICSMAGICK_PREFIX_SYMBOLS = YES</span>
+<span class="s1">WITH_HDF5     = YES</span>
+<span class="s1">HDF5_EXTERNAL = NO</span>
+<span class="s1">WITH_JPEG     = YES</span>
+<span class="s1">JPEG_EXTERNAL = NO</span>
+<span class="s1">WITH_NETCDF     = YES</span>
+<span class="s1">NETCDF_EXTERNAL = NO</span>
+<span class="s1">WITH_NEXUS     = YES</span>
+<span class="s1">NEXUS_EXTERNAL = NO</span>
+<span class="s1">WITH_OPENCV     = NO</span>
+<span class="s1">OPENCV_EXTERNAL = YES</span>
+<span class="s1">WITH_SZIP     = YES</span>
+<span class="s1">SZIP_EXTERNAL = NO</span>
+<span class="s1">WITH_TIFF     = YES</span>
+<span class="s1">TIFF_EXTERNAL = NO</span>
+<span class="s1">XML2_EXTERNAL = NO</span>
+<span class="s1">WITH_ZLIB     = YES</span>
+<span class="s1">ZLIB_EXTERNAL = NO</span>
+<span class="s1">ARAVIS_INCLUDE  = /usr/local/include/aravis-0.8</span>
+<span class="s1">GLIB_INCLUDE = /usr/include/glib-2.0 /usr/lib64/glib-2.0/include</span>
+<span class="s1">glib-2.0_DIR = /usr/lib64</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="n">PROFILE</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;#!/bin/bash</span>
+<span class="s1"># startup script to use epics environment for xspress3</span>
+
+<span class="s1">export EPICS_HOST_ARCH=linux-x86_64</span>
+<span class="s1">export EPICS_CA_MAX_ARRAY_BYTES=768000</span>
+
+<span class="s1">export EPICS_BASE=&#39;</span><span class="si">{topdir:s}</span><span class="s1">/base&#39;</span>
+<span class="s1">export EPICS_EXTENSIONS=&#39;</span><span class="si">{topdir:s}</span><span class="s1">/extensions&#39;</span>
+<span class="s1">export EPICS_DISPLAY_PATH=&#39;</span><span class="si">{topdir:s}</span><span class="s1">/adls&#39;</span>
+
+<span class="s1"># turn this off to make sure PVs can be seen by other</span>
+<span class="s1"># machines on your network</span>
+<span class="s1">unset  EPICS_CAS_INTF_ADDR_LIST</span>
+
+<span class="s1"># setting EPICS Address list, there are 2 options:</span>
+<span class="s1"># a) use automatic address lookup.</span>
+<span class="s1">#    works well for  machines with 1 NIC (xpsress3 minis?)</span>
+<span class="s1">export EPICS_CA_AUTO_ADDR_LIST=YES</span>
+<span class="s1">unset  EPICS_CA_ADDR_LIST</span>
+
+<span class="s1"># b) turn off automatic address lookup, explicitly set address</span>
+<span class="s1">#    list to the broadcast address (or localhost).  This gives</span>
+<span class="s1">#    fewer warning messages for machines with multiple NICs,</span>
+<span class="s1">#    such as non-mini xspress3 units.</span>
+<span class="s1">export EPICS_CA_AUTO_ADDR_LIST=NO</span>
+<span class="s1"># export EPICS_CA_ADDR_LIST=localhost</span>
+<span class="s1">export EPICS_CA_ADDR_LIST=</span><span class="si">{broadcast:s}</span>
+
+<span class="s1"># include bin folders in PATH</span>
+<span class="s1">PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/lib64/qt-3.3/bin</span>
+<span class="s1">export PATH=$PATH:$EPICS_BASE/bin/linux-x86_64:$EPICS_EXTENSIONS/bin/linux-x86_64:</span><span class="si">{topdir:s}</span><span class="s1">/bin</span>
+
+<span class="s1"># include bin folders in LD_LIBRARY_PATH</span>
+<span class="s1">LD_LIBRARY_PATH=</span><span class="si">{homedir:s}</span><span class="s1">/software/boost/stage/lib:/usr/local/lib</span>
+<span class="s1">export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$EPICS_BASE/lib/linux-x86_64:$EPICS_EXTENSIONS/lib/linux-x86_64</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+
+<span class="n">XRFAPP_SCRIPT</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;#!</span><span class="si">{homedir:s}</span><span class="s1">/xraylarch/bin/python</span>
+<span class="s1"># Epics XRF Display App</span>
+<span class="s1">from larch.epics import EpicsXRFApp</span>
+
+<span class="s1"># Note: &#39;det_type&#39; determines the layout of the buttons for the</span>
+<span class="s1">#       individual detector elements. Known layouts include:</span>
+<span class="s1">#      ME-4    Hitachi ME-4</span>
+<span class="s1">#      ME-7    Hitachi ME-7</span>
+<span class="s1">#      SXD-7   Canberra SXD-7</span>
+<span class="s1">#      other   all other detector type  (display 4 per row)</span>
+
+<span class="s1">app = EpicsXRFApp(nmca=</span><span class="si">{nelem:d}</span><span class="s1">,</span>
+<span class="s1">                  det_type=&#39;other&#39;,</span>
+<span class="s1">                  environ_file=&#39;</span><span class="si">{topdir:s}</span><span class="s1">/bin/Xspress3.env&#39;,</span>
+<span class="s1">                  prefix=&#39;XSP3_</span><span class="si">{nelem:d}</span><span class="s1">Chan:&#39;,</span>
+<span class="s1">                  ioc_type=&#39;Xspress3&#39;)</span>
+<span class="s1">app.MainLoop()</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="k">def</span> <span class="nf">remove_link_or_dir</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">write_bash_profile</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+    <span class="c1"># grep /sbin/ifconfig output for broadcast</span>
+    <span class="n">broadcast</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">sp</span><span class="o">.</span><span class="n">check_output</span><span class="p">([</span><span class="s1">&#39;/usr/sbin/ifconfig&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s1">&#39;inet&#39;</span> <span class="ow">in</span> <span class="n">line</span> <span class="ow">and</span> <span class="s1">&#39;broadcast&#39;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+            <span class="n">words</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;broadcast&#39;</span><span class="p">)]</span>
+            <span class="n">broadcast</span> <span class="o">=</span> <span class="n">words</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">break</span>
+    <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s1">&#39;bin/bash_profile.sh&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">PROFILE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">topdir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span>
+                                <span class="n">homedir</span><span class="o">=</span><span class="n">HOME_DIR</span><span class="p">,</span> <span class="n">broadcast</span><span class="o">=</span><span class="n">broadcast</span><span class="p">))</span>
+    <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s1">&#39;bin/run_xspress3.sh&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">START_IOC</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">topdir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">))</span>
+    <span class="k">with</span> <span class="nb">open</span> <span class="p">(</span><span class="s1">&#39;bin/run_medm.sh&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">RUN_MEDM</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">topdir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">))</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="s1">&#39;bin/bash_profile.sh&#39;</span><span class="p">,</span> <span class="mi">493</span><span class="p">)</span> <span class="c1"># mod 755</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="s1">&#39;bin/run_xspress3.sh&#39;</span><span class="p">,</span> <span class="mi">493</span><span class="p">)</span> <span class="c1"># mod 755</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="s1">&#39;bin/run_medm.sh&#39;</span><span class="p">,</span> <span class="mi">493</span><span class="p">)</span> <span class="c1"># mod 755</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;# wrote bash_profile.sh&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">create_bindir</span><span class="p">():</span>
+    <span class="n">tarball</span> <span class="o">=</span> <span class="s1">&#39;bin.tar.gz&#39;</span>
+    <span class="n">tball</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;sources&#39;</span><span class="p">,</span> <span class="n">tarball</span><span class="p">))</span>
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tball</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;sources&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# fetch </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">SOURCES_URL</span><span class="p">,</span> <span class="n">tarball</span><span class="p">)))</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;/bin/wget&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">SOURCES_URL</span><span class="p">,</span> <span class="n">tarball</span><span class="p">)])</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s1">&#39;bin&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tball</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# download failed! for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">tball</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tarcmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tar&#39;</span><span class="p">,</span> <span class="s1">&#39;xvzf&#39;</span><span class="p">,</span> <span class="n">tball</span><span class="p">]</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">tarcmd</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">unpack_tarball</span><span class="p">(</span><span class="n">tarball</span><span class="p">,</span> <span class="n">shortname</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sourcedir</span><span class="o">=</span><span class="s1">&#39;sources&#39;</span><span class="p">):</span>
+    <span class="n">tball</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">sourcedir</span><span class="p">,</span> <span class="n">tarball</span><span class="p">)</span>
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">sourcedir</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">sourcedir</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tball</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">sourcedir</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# fetch </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">SOURCES_URL</span><span class="p">,</span> <span class="n">tarball</span><span class="p">)))</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;/bin/wget&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">SOURCES_URL</span><span class="p">,</span> <span class="n">tarball</span><span class="p">)])</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tball</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# download failed! for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">tball</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">tarcmd</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;tar&#39;</span><span class="p">,</span> <span class="s1">&#39;xvzf&#39;</span><span class="p">,</span> <span class="n">tball</span><span class="p">]</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">tarcmd</span><span class="p">)</span><span class="o">.</span><span class="n">splitlines</span><span class="p">()</span>
+        <span class="n">first_line</span> <span class="o">=</span> <span class="n">o</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="n">first_line</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+        <span class="n">outdir</span> <span class="o">=</span> <span class="n">first_line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">shortname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">shortname</span><span class="p">):</span>
+                <span class="n">remove_link_or_dir</span><span class="p">(</span><span class="n">shortname</span><span class="p">)</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">symlink</span><span class="p">(</span><span class="n">outdir</span><span class="p">,</span> <span class="n">shortname</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# downloaded and unpacked source for </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">outdir</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">extract_sources</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;# extracting sources&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">modules</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">unpack_tarball</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">shortname</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;areaDetector&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span>  <span class="ow">in</span> <span class="n">ad_modules</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">unpack_tarball</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">shortname</span><span class="o">=</span><span class="n">key</span><span class="p">,</span> <span class="n">sourcedir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;sources&#39;</span><span class="p">))</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">tarball</span> <span class="ow">in</span> <span class="n">other_sources</span><span class="p">:</span>
+        <span class="n">unpack_tarball</span><span class="p">(</span><span class="n">tarball</span><span class="p">)</span>
+
+    <span class="n">create_bindir</span><span class="p">()</span>
+
+
+<span class="k">def</span> <span class="nf">configure_release</span><span class="p">():</span>
+    <span class="n">subs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">TOP</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+    <span class="n">subs</span><span class="p">[</span><span class="s1">&#39;EPICS_BASE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/base&#39;</span> <span class="o">%</span> <span class="n">TOP</span>
+    <span class="n">subs</span><span class="p">[</span><span class="s1">&#39;SUPPORT&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">TOP</span>
+    <span class="n">epics_mods</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">modules</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">epics_mods</span><span class="p">:</span>
+        <span class="n">subs</span><span class="p">[</span><span class="n">mod</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span>  <span class="o">%</span> <span class="p">(</span><span class="n">TOP</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">epics_mods</span><span class="p">:</span>
+        <span class="n">release</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">TOP</span><span class="p">,</span> <span class="n">mod</span><span class="p">,</span> <span class="s1">&#39;configure&#39;</span><span class="p">,</span> <span class="s1">&#39;RELEASE&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">release</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">fh</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="n">savefile</span> <span class="o">=</span> <span class="n">release</span> <span class="o">+</span> <span class="s1">&#39;.backup&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">savefile</span><span class="p">):</span>
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">release</span><span class="p">,</span> <span class="n">savefile</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">text</span><span class="p">:</span>
+            <span class="n">line</span> <span class="o">=</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">subs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+                    <span class="n">line</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">=</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+            <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+        <span class="n">out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">release</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
+    <span class="c1"># fix asyn rpc.h include if needed</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;/usr/include/rpc/rpc.h&#39;</span><span class="p">):</span>
+        <span class="n">asyn_conffile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">TOP</span><span class="p">,</span> <span class="s1">&#39;asyn&#39;</span><span class="p">,</span> <span class="s1">&#39;configure&#39;</span><span class="p">,</span> <span class="s1">&#39;CONFIG_SITE&#39;</span><span class="p">)</span>
+        <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">asyn_conffile</span><span class="p">,</span> <span class="n">asyn_conffile</span> <span class="o">+</span> <span class="s1">&#39;.backup&#39;</span><span class="p">)</span>
+        <span class="n">buff</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">asyn_conffile</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="n">t</span> <span class="o">=</span> <span class="n">t</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="s1">&#39;TIRPC&#39;</span> <span class="ow">in</span> <span class="n">t</span><span class="p">:</span>
+                <span class="n">t</span> <span class="o">=</span> <span class="s1">&#39;TIRPC=YES&#39;</span>
+            <span class="n">buff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+        <span class="n">buff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">asyn_conffile</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buff</span><span class="p">))</span>
+
+    <span class="c1"># write areaDetector configs</span>
+    <span class="n">ad_configs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;RELEASE.local&#39;</span><span class="p">:</span> <span class="n">AD_RELEASE_LOCAL</span><span class="p">,</span>
+                  <span class="s1">&#39;RELEASE_LIBS.local&#39;</span><span class="p">:</span> <span class="n">AD_RELEASE_LIBS_LOCAL</span><span class="p">,</span>
+                  <span class="s1">&#39;RELEASE_PRODS.local&#39;</span><span class="p">:</span> <span class="n">AD_RELEASE_PRODS_LOCAL</span><span class="p">,</span>
+                  <span class="s1">&#39;CONFIG_SITE.local&#39;</span><span class="p">:</span> <span class="n">AD_CONFIG_LOCAL</span><span class="p">}</span>
+    <span class="k">for</span> <span class="n">fname</span><span class="p">,</span> <span class="n">config</span> <span class="ow">in</span> <span class="n">ad_configs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">fullname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">TOP</span><span class="p">,</span> <span class="s1">&#39;areaDetector&#39;</span><span class="p">,</span> <span class="s1">&#39;configure&#39;</span><span class="p">,</span> <span class="n">fname</span><span class="p">)</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">fullname</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+            <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">config</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">topdir</span><span class="o">=</span><span class="n">TOP</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">create_buildscript</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">write_bash_profile</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">)</span>
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+    <span class="n">script</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#!/bin/bash&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;# build epics sources script&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;source ./bin/bash_profile.sh&#39;</span><span class="p">,</span>
+              <span class="s1">&#39;ROOT=`pwd`&#39;</span><span class="p">]</span>
+
+    <span class="n">bline</span> <span class="o">=</span> <span class="s1">&#39;cd </span><span class="si">{dirname:s}</span><span class="s1"> &amp;&amp; make -j8 install &amp;&amp; cd ..&#39;</span>
+    <span class="n">build_mods</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;base&#39;</span><span class="p">,</span> <span class="s1">&#39;sncseq&#39;</span><span class="p">,</span> <span class="s1">&#39;asyn&#39;</span><span class="p">,</span> <span class="s1">&#39;ipac&#39;</span><span class="p">,</span> <span class="s1">&#39;alive&#39;</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;autosave&#39;</span><span class="p">,</span> <span class="s1">&#39;iocStats&#39;</span><span class="p">,</span> <span class="s1">&#39;busy&#39;</span><span class="p">,</span> <span class="s1">&#39;sscan&#39;</span><span class="p">,</span> <span class="s1">&#39;calc&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;areaDetector&#39;</span><span class="p">,</span> <span class="s1">&#39;xspress3&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">mod</span> <span class="ow">in</span> <span class="n">build_mods</span><span class="p">:</span>
+        <span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwd</span><span class="p">,</span> <span class="n">mod</span><span class="p">)</span>
+        <span class="n">script</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">bline</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">dirname</span><span class="o">=</span><span class="n">mod</span><span class="p">))</span>
+
+    <span class="n">script</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;# build medm&#39;</span><span class="p">)</span>
+    <span class="n">script</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BUILD_MEDM</span><span class="p">)</span>
+    <span class="n">script</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;# build procServ utility&#39;</span><span class="p">)</span>
+    <span class="n">script</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">BUILD_PROCSERV</span><span class="p">)</span>
+    <span class="n">script</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;# copy display files&#39;</span><span class="p">)</span>
+    <span class="n">script</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;mkdir -p adls uis opis&#39;</span><span class="p">)</span>
+    <span class="n">script</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">COPY_DMFILES</span><span class="p">)</span>
+
+    <span class="n">script</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;do_build.sh&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">script</span><span class="p">))</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;# wrote do_build.sh. Now ready to build with &#39;sh do_build.sh&#39;&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">install_xrfapp</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">cwd</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HOME_DIR</span><span class="p">,</span> <span class="s1">&#39;xraylarch&#39;</span><span class="p">)):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;sources&#39;</span><span class="p">)</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;/bin/wget&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">%s</span><span class="s1">/</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">LARCH_URL</span><span class="p">,</span> <span class="n">LARCH_FNAME</span><span class="p">)])</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="s1">&#39;./</span><span class="si">%s</span><span class="s1">&#39;</span> <span class="o">%</span> <span class="n">LARCH_FNAME</span><span class="p">,</span> <span class="s1">&#39;-b&#39;</span><span class="p">])</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">cwd</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bin/run_xrfcontrol.py&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">XRFAPP_SCRIPT</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">topdir</span><span class="o">=</span><span class="n">cwd</span><span class="p">,</span> <span class="n">homedir</span><span class="o">=</span><span class="n">HOME_DIR</span><span class="p">,</span>
+                                      <span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">))</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="s1">&#39;bin/run_xrfcontrol.py&#39;</span><span class="p">,</span> <span class="mi">493</span><span class="p">)</span> <span class="c1"># mod 755</span>
+    <span class="c1"># environ file</span>
+    <span class="n">buff</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;XSP3_</span><span class="si">{nelem:d}</span><span class="s1">Chan:C</span><span class="si">{elem:d}</span><span class="s1">SCA:</span><span class="si">{sca:d}</span><span class="s1">:Value_RBV Chan</span><span class="si">{elem:d}</span><span class="s1"> </span><span class="si">{label:s}</span><span class="s1">&#39;</span>
+    <span class="k">for</span> <span class="n">sca</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">((</span><span class="s1">&#39;ClockTicks&#39;</span><span class="p">,</span> <span class="s1">&#39;ResetTicks&#39;</span><span class="p">,</span> <span class="s1">&#39;ResetCounts&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;AllEvents&#39;</span><span class="p">,</span> <span class="s1">&#39;AllGood&#39;</span><span class="p">,</span> <span class="s1">&#39;Window1&#39;</span><span class="p">,</span> <span class="s1">&#39;Window2&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;Pileup&#39;</span><span class="p">,</span> <span class="s1">&#39;EventWidth&#39;</span><span class="p">,</span> <span class="s1">&#39;DeadTimeFactor&#39;</span><span class="p">,</span>
+                                 <span class="s1">&#39;DeadTimePercent&#39;</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nelem</span><span class="o">+</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">buff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">,</span> <span class="n">elem</span><span class="o">=</span><span class="n">elem</span><span class="p">,</span> <span class="n">sca</span><span class="o">=</span><span class="n">sca</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">))</span>
+
+    <span class="n">buff</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;bin/Xspress3.env&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fh</span><span class="p">:</span>
+        <span class="n">fh</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">buff</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">check_dependencies</span><span class="p">():</span>
+    <span class="n">missing_reqs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">exe</span> <span class="ow">in</span> <span class="n">required_tools</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
+            <span class="n">missing_reqs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_reqs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are missing dependencies. Install with `sudo yum install`:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing_reqs</span><span class="p">))</span>
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">missing_tools</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">exe</span> <span class="ow">in</span> <span class="n">recommended_tools</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">exe</span><span class="p">):</span>
+            <span class="n">missing_tools</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">missing_tools</span>
+
+<span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">missing_tools</span> <span class="o">=</span> <span class="n">check_dependencies</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;do_build.sh&#39;</span><span class="p">):</span>
+        <span class="n">create_buildscript</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">)</span>
+    <span class="n">o</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">call</span><span class="p">([</span><span class="s1">&#39;sh&#39;</span><span class="p">,</span> <span class="s1">&#39;do_build.sh&#39;</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">missing_tools</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;There are missing useful tools. Install with `sudo yum install`:&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">missing_tools</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">clean</span><span class="p">():</span>
+    <span class="n">remove_link_or_dir</span><span class="p">(</span><span class="s1">&#39;sources&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">realclean</span><span class="p">():</span>
+    <span class="n">clean</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s1">&#39;do_build.sh&#39;</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">unlink</span><span class="p">(</span><span class="s1">&#39;do_build.sh&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">slink</span><span class="p">,</span> <span class="n">tarball</span> <span class="ow">in</span> <span class="n">modules</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">remove_link_or_dir</span><span class="p">(</span><span class="n">slink</span><span class="p">)</span>
+        <span class="n">sdir</span> <span class="o">=</span> <span class="n">tarball</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.tar.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">remove_link_or_dir</span><span class="p">(</span><span class="n">sdir</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">dname</span> <span class="ow">in</span> <span class="p">(</span><span class="s1">&#39;do_build.sh&#39;</span><span class="p">,</span> <span class="s1">&#39;adls&#39;</span><span class="p">,</span> <span class="s1">&#39;uis&#39;</span><span class="p">,</span> <span class="s1">&#39;opis&#39;</span><span class="p">,</span> <span class="s1">&#39;procServ&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;procServ-2.6.0&#39;</span><span class="p">,</span> <span class="s1">&#39;extensions&#39;</span><span class="p">):</span>
+        <span class="n">remove_link_or_dir</span><span class="p">(</span><span class="n">dname</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">prog</span><span class="o">=</span><span class="s1">&#39;xspress3_build&#39;</span><span class="p">,</span>
+                            <span class="n">description</span><span class="o">=</span><span class="s1">&#39;build xspress3 epics support&#39;</span><span class="p">,</span>
+                            <span class="n">add_help</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-h&#39;</span><span class="p">,</span> <span class="s1">&#39;--help&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;help&#39;</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;-n&#39;</span><span class="p">,</span> <span class="s1">&#39;--nelem&#39;</span><span class="p">,</span> <span class="n">dest</span><span class="o">=</span><span class="s1">&#39;nelem&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;options&#39;</span><span class="p">,</span> <span class="n">nargs</span><span class="o">=</span><span class="s1">&#39;*&#39;</span><span class="p">)</span>
+
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+    <span class="n">nelem</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">nelem</span>
+    <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">help</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">options</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">HELP_MESSAGE</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">cmd</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">&#39;extract&#39;</span><span class="p">:</span>
+            <span class="n">extract_sources</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">&#39;configure&#39;</span><span class="p">:</span>
+            <span class="n">create_buildscript</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">)</span>
+            <span class="n">configure_release</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">&#39;xrfapp&#39;</span><span class="p">:</span>
+            <span class="n">install_xrfapp</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">&#39;clean&#39;</span><span class="p">:</span>
+            <span class="n">clean</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">&#39;realclean&#39;</span><span class="p">:</span>
+            <span class="n">realclean</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">&#39;build&#39;</span><span class="p">:</span>
+            <span class="n">build</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">cmd</span> <span class="o">==</span> <span class="s1">&#39;all&#39;</span><span class="p">:</span>
+            <span class="n">extract_sources</span><span class="p">()</span>
+            <span class="n">create_buildscript</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">)</span>
+            <span class="n">configure_release</span><span class="p">()</span>
+            <span class="n">build</span><span class="p">()</span>
+            <span class="n">install_xrfapp</span><span class="p">(</span><span class="n">nelem</span><span class="o">=</span><span class="n">nelem</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 
 
@@ -67,6 +664,18 @@
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="index.html">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">Installation</a><ul>
+<li><a class="reference internal" href="#required-system-packages">Required System Packages</a></li>
+<li><a class="reference internal" href="#required-epics-modules">Required Epics Modules</a></li>
+<li><a class="reference internal" href="#the-build-xspress3-py-script">The <cite>build_xspress3.py</cite> script</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
   <div>
     <h4>Previous topic</h4>
     <p class="topless"><a href="index.html"
