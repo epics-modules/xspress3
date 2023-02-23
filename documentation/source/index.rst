@@ -42,7 +42,6 @@ Table of Contents
    installation
    whatsnew
    ioc_setup
-   display_
-   screens
+   display_screens
    counting_modes
    xrf_display
