@@ -1,21 +1,9 @@
-# XSPRESS3
-An EPICS driver based on [areaDetector](https://github.com/areaDetector) for [Quantum Detector](http://www.quantumdetectors.com) Xspress3 electronics.
-
-# Documentation
-
-See https://epics-modules.github.io/xspress3/
-
-# Installation
-
-The simplest installation process will build a complete epics environment:
-
-    mkdir /home/xspress3/epics
-    cd    /home/xspress3/epics
-    wget  https://raw.githubusercontent.com/epics-modules/xspress3/master/build_xspress3.py
-    python build_xspress3.py all
+Setting up and Running an Epics Input/Output Controller
+=========================================================
 
 
-# Run
+Running the Epics IOC
+=======================
 
 The above installation will build all the epics modules, including the
 Xspress3 application in the current folder. It will also create a

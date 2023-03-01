@@ -26,6 +26,8 @@
 
 #include <iostream>
 #include <string>
+//needs c++11 #include <chrono>
+//needs c++11 #include <unistd.h>
 #include <stdexcept>
 #include "dirent.h"
 #include <sys/types.h>
@@ -892,25 +894,30 @@ asynStatus Xspress3::erase(void)
 {
   asynStatus status = asynSuccess;
   int xsp3_status = 0;
+  int xsp3_time_frames = 0;
   int xsp3_used_frames = 0;
   int xsp3_num_channels = 0;
   const char *functionName = "Xspress3::erase";
 
+  //needs c++11 using namespace std::chrono;
+  //needs c++11 high_resolution_clock::time_point t1 = high_resolution_clock::now();
+
   if ((status = checkConnected()) == asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erase data.\n", functionName);
 
+    getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
     getIntegerParam(NDArrayCounter, &xsp3_used_frames);
-    if (xsp3_used_frames < 1) { xsp3_used_frames = 1; }
+    xsp3_used_frames += 2;
+    if (xsp3_used_frames > xsp3_time_frames) {xsp3_used_frames = xsp3_time_frames;}
 
-    status = eraseSCAMCAROI();
     xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_used_frames);
-
     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_histogram_clear", functionName);
       setIntegerParam(ADStatus, ADStatusError);
       status = asynError;
     } else {
+      status = eraseSCAMCAROI();
       if (status == asynSuccess) {
 	setStringParam(ADStatusMessage, "Erased Data");
       } else {
@@ -919,7 +926,9 @@ asynStatus Xspress3::erase(void)
       }
     }
   }
-
+  // needs c++11 high_resolution_clock::time_point t2 = high_resolution_clock::now();
+  // needs c++11 duration<double, std::milli> time_span = t2 - t1;
+  // needs c++11 std::cout << "erase took " << time_span.count() << " msec " << std::endl;
   return status;
 }
 
@@ -1218,8 +1227,9 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  xsp3_status = xsp3->histogram_stop(xsp3_handle_, -1);
 	  // MNewville Sept 2021, use EraseOnStart to control whether to Erase before Acquire
 	  getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
+	  // printf(" erase on start %d\n " , xsp3_erasestart);
 	  if (xsp3_erasestart) {
-	    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_time_frames);
+	    erase();
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erased Before Data Collection\n", functionName);
 	  } else {
 	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
