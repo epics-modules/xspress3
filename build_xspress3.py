@@ -34,12 +34,12 @@ modules = {'base': 'base-7.0.3.1.tar.gz',
            'sscan': 'sscan-R2-11-3.tar.gz',
            'calc': 'calc-R3-7-3.tar.gz',
            'areaDetector': 'areaDetector-R3-9.tar.gz',
-           'xspress3': 'xspress3-2-6.tar.gz'}
+           'xspress3': 'xspress3-2-7.tar.gz'}
 
 ad_modules = {'ADSupport': 'adSupport-R1-9.tar.gz',
               'ADCore': 'adCore-R3-9.tar.gz'}
 
-other_sources = ('procServ-2.6.0.tar.gz', 'bin.tar.gz', 'medm_ext.tar.gz')
+other_sources = ('procServ-2.6.0.tar.gz', 'bin_softioc.tar.gz', 'medm_ext.tar.gz')
 
 SOURCES_URL = 'https://millenia.cars.aps.anl.gov/software/xspress3/sources'
 
