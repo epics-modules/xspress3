@@ -25,11 +25,10 @@ Bug fixes and enhancements:
   very fast.
 
 
-  Version 3.2.6 Release Notes (2021-Oct-27)
+Version 3.2.6 Release Notes (2021-Oct-27)
 =================================================
 
-
-New features
+New features:
 
 - Added "Erase on Start" option, which will control whether `Erase` happens for
   each `Acquire`.
