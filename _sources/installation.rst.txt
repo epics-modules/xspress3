@@ -17,7 +17,6 @@ The installation process described here will build a complete and standalone
 Epics environment under the directory `/home/xspress3/epics`. It is certainly
 possible to install within an existing Epics development environment.
 
-
 The `build_xspress3.py`_ python script is simplest and easiest way to install
 the Xspress3 driver.  Ideally, this driver can be installed with::
 
@@ -74,7 +73,7 @@ Input/Output Controller program, with the currently installed versions:
   * adCore R3-9
   * procServ 2.6.0
   * medm 3.0.3
-  * xspress 3-2-6
+  * xspress 3.2.7
 
 The `build_xspress3.py`_ script will download these versions of these packages
 from the `xspress3 sources`_ web site, hosted at
