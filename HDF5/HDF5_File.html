@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HDF5 File Structure &mdash; Xspress3 Epics Module</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Python Interpreter" href="Python_Interpreter.html" />
+    <link rel="prev" title="HDF5 File" href="../file_structure.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            xspress3epics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ioc_index.html">IOC Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../display_screens.html">Xspress 3 Display Screens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../counting_modes.html">Counting Modes for the Xspress 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xrfdisplay_epics.html">Installing and using the <code class="docutils literal notranslate"><span class="pre">xrfdisplay_epics</span></code> application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usefulPVs.html">Useful PVs</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../file_structure.html">HDF5 File</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">HDF5 File Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#data">Data</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#scaler-data">Scaler Data</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ndattributes">NDAttributes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dtfactor">DTFactor</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dtpercent">DTPercent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#eventwidth">EventWidth</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sca0">SCA0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sca1">SCA1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sca2">SCA2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sca3">SCA3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sca4">SCA4</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sca5">SCA5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sca6">SCA6</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sca7">SCA7</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Python_Interpreter.html">Python Interpreter</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">xspress3epics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../file_structure.html">HDF5 File</a></li>
+      <li class="breadcrumb-item active">HDF5 File Structure</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/HDF5/HDF5_File.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="hdf5-file-structure">
+<h1>HDF5 File Structure<a class="headerlink" href="#hdf5-file-structure" title="Permalink to this heading"></a></h1>
+<p>The files generated by EPICS are an HDF5 data format which can be interpreted via dedicted viewers or through scripts. <a class="reference external" href="https://www.hdfgroup.org/downloads/hdfview/">HDFView</a> is a useful tool to get an overview of the data you have generated.</p>
+<p>Various names of the data are not clear and therefore are described below.</p>
+<p>The overall structure is:</p>
+<pre class="literal-block">&lt;File Name&gt;
+        └─Entry
+          ├─ <a class="reference internal" href="#data"><span class="std std-ref">data</span></a>
+          |   └─ <a class="reference internal" href="#scaler-data"><span class="std std-ref">data</span></a>
+          └─instrument
+                  ├─NDAttributes
+                  |     ├─DTFactor
+                  |     ├─DTPercent
+                  |     ├─EventWidth
+                  |     ├─SCA0
+                  |     ├─SCA1
+                  |     ├─SCA2
+                  |     ├─SCA3
+                  |     ├─SCA4
+                  |     ├─SCA5
+                  |     ├─SCA6
+                  |     └─SCA7
+                  ├─Detector
+                  └─Performance</pre>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this heading"></a></h2>
+<p>The histogram data is stored within the data sturcture, this is an array of integers from bin 0 to 4096 relating to the number of events that occured in that energy range. By default each bin is 10 eV but can be changed during calibration.</p>
+<section id="scaler-data">
+<h3>Scaler Data<a class="headerlink" href="#scaler-data" title="Permalink to this heading"></a></h3>
+<p>The file is structured as a 3 dimmensional 0-indexed array of</p>
+<blockquote>
+<div><p>Frame x Channel x Bin</p>
+</div></blockquote>
+<p>Therefore a 100 frame scan for 8 channels will have the dimensions:</p>
+<blockquote>
+<div><p>100 x 8 x 4096</p>
+</div></blockquote>
+<p>The Scaler data for the first frame on the second channel will be stored in:</p>
+<p><code class="docutils literal notranslate"><span class="pre">&lt;file</span> <span class="pre">name&gt;['entry']['data']['data'][0][1]</span></code></p>
+<p>This is an array of length 4096 containing the spectrum histogram.</p>
+</section>
+</section>
+<section id="ndattributes">
+<h2>NDAttributes<a class="headerlink" href="#ndattributes" title="Permalink to this heading"></a></h2>
+<p>Various parameters from the scan are stored for each channel and frame to provide additional information about the scan conditions.</p>
+<p>These parameters are stored seperatley for each channel in the format:</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;&lt;Parameter&gt;</span></code></p>
+<p>where n is the channel and Parameter is one of the values listed below. Each array will be a 0-indexed array with length equal to the number of frames in the scan</p>
+<section id="dtfactor">
+<h3>DTFactor<a class="headerlink" href="#dtfactor" title="Permalink to this heading"></a></h3>
+<p>Dead time factor is the the input count rate (ICR) divided by the output count rate (OCR).</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;DTFactor</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+<section id="dtpercent">
+<h3>DTPercent<a class="headerlink" href="#dtpercent" title="Permalink to this heading"></a></h3>
+<p>Dead time percent is the calculated from the amount of time the system is not counting during the scan based on the event width and the input count rate (ICR)</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;DTPercent</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+<section id="eventwidth">
+<h3>EventWidth<a class="headerlink" href="#eventwidth" title="Permalink to this heading"></a></h3>
+<p>Provides information about the configured event width per channel and frame.</p>
+</section>
+<section id="sca0">
+<h3>SCA0<a class="headerlink" href="#sca0" title="Permalink to this heading"></a></h3>
+<p>This is the ‘time’ scaler, in clock ticks for each frame of the scan. The Xspress 3 clock is 80 Mhz, therefore each clock tick is 12.5 ns.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;SCA0</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+<section id="sca1">
+<h3>SCA1<a class="headerlink" href="#sca1" title="Permalink to this heading"></a></h3>
+<p>This is the ‘reset tick’ scaler and specifies how many clock ticks the resets caused to be made dead during the frame.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;SCA1</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+<section id="sca2">
+<h3>SCA2<a class="headerlink" href="#sca2" title="Permalink to this heading"></a></h3>
+<p>This is the ‘reset count’ scaler, this is the number of resets that occured within the frame.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;SCA2</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+<section id="sca3">
+<h3>SCA3<a class="headerlink" href="#sca3" title="Permalink to this heading"></a></h3>
+<p>This is the ‘all event’ scaler, and is what the system has determined as all the photon events. This is commonly refered to as the Input Count Rate (ICR).</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;SCA3</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+<section id="sca4">
+<h3>SCA4<a class="headerlink" href="#sca4" title="Permalink to this heading"></a></h3>
+<p>This is the ‘all good’ scaler, and is what the system has determined as all the photon events that have been processed and placed into the energy bins. This is commonly refered to as the Output Count Rate (OCR).</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;SCA4</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+<section id="sca5">
+<h3>SCA5<a class="headerlink" href="#sca5" title="Permalink to this heading"></a></h3>
+<p>This is the ‘Window 0’ scaler, this counts the number of events in the first configured window. By default there is no window defined.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;SCA5</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+<section id="sca6">
+<h3>SCA6<a class="headerlink" href="#sca6" title="Permalink to this heading"></a></h3>
+<p>This is the ‘Window 1’ scaler, this counts the number of events in the first configured window. By default there is no window defined.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;SCA6</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+<section id="sca7">
+<h3>SCA7<a class="headerlink" href="#sca7" title="Permalink to this heading"></a></h3>
+<p>This is the ‘Pileup’ scaler, this is a counter for the number of events that get rejected as pileup events i.e. events that happenend before the system was ready to recieve the next event.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CHAN&lt;n&gt;SCA7</span></code> will be an 1 dimensional 0-indexed array of length the number of frames in the scan.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../file_structure.html" class="btn btn-neutral float-left" title="HDF5 File" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Python_Interpreter.html" class="btn btn-neutral float-right" title="Python Interpreter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Public Domain.
+      <span class="lastupdated">Last updated on 2023-March-03.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

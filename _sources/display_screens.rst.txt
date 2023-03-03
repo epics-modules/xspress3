@@ -1,4 +1,4 @@
-Xspress3 Display Screens
+Xspress 3 Display Screens
 ==================================
 
 Because the Xspress3 driver provides a complex set of Epics data structures,

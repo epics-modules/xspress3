@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Setting up and Running an Epics Input/Output Controller &mdash; Xspress3 Epics Module</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Configuring your IOC" href="configure_IOC.html" />
+    <link rel="prev" title="IOC Setup" href="../ioc_index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            xspress3epics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">Release Notes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../ioc_index.html">IOC Setup</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Setting up and Running an Epics Input/Output Controller</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-epics-ioc">Running the Epics IOC</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="configure_IOC.html">Configuring your IOC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../display_screens.html">Xspress 3 Display Screens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../counting_modes.html">Counting Modes for the Xspress 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xrfdisplay_epics.html">Installing and using the <code class="docutils literal notranslate"><span class="pre">xrfdisplay_epics</span></code> application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usefulPVs.html">Useful PVs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_structure.html">HDF5 File</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">xspress3epics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../ioc_index.html">IOC Setup</a></li>
+      <li class="breadcrumb-item active">Setting up and Running an Epics Input/Output Controller</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/ioc_setup/ioc_setup.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="setting-up-and-running-an-epics-input-output-controller">
+<h1>Setting up and Running an Epics Input/Output Controller<a class="headerlink" href="#setting-up-and-running-an-epics-input-output-controller" title="Permalink to this heading"></a></h1>
+<section id="running-the-epics-ioc">
+<h2>Running the Epics IOC<a class="headerlink" href="#running-the-epics-ioc" title="Permalink to this heading"></a></h2>
+<p>The above installation will build all the epics modules, including the
+Xspress 3 application in the current folder. It will also create a
+‘bin’ directory in your /home/xspress3/epics’ folder that contains
+scripts to set your environment and run the Xspress 3 IOC</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 38%" />
+<col style="width: 62%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>bin/bash_profile.sh</p></td>
+<td><p>bash script to set environmental variables</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/procServ</p></td>
+<td><p>useful utility for long-running tasks like an IOC</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/medm</p></td>
+<td><p>simple, minimal Epics display manager</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/run_xspress3.sh</p></td>
+<td><p>bash script to run an XSPRESS 3 IOC</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/start_ioc</p></td>
+<td><p>python script to run the Xspress3 using procServ</p></td>
+</tr>
+<tr class="row-odd"><td><p>bin/run_xrfcontrol.py</p></td>
+<td><p>python script to view and control the Xspress 3</p></td>
+</tr>
+<tr class="row-even"><td><p>bin/run_medm.sh</p></td>
+<td><p>bash script to launch medm for your Xspress 3</p></td>
+</tr>
+</tbody>
+</table>
+<p>After building you can configure an Xspress 3 IOC, starting with one of
+the defaults in the ioc directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home/xspress3/epics/xspress3/iocs/xspress3IOC/iocBoot
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you change the prefix or the number of detector elements used, you may need to edit several of the files in the bin/ directory to match your <a class="reference internal" href="configure_IOC.html#configuring-your-ioc"><span class="std std-ref">configuration</span></a>.</p>
+</div>
+<p>Once properly configured, you should be able to run your xspress 3 in a
+long-running procServ process with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home/xspress3/epics/bin/start_ioc<span class="w"> </span>xspress3
+</pre></div>
+</div>
+<p>and then view screens for your detector either using an Epics display
+manager like medm, caqtdm, or css/boy.  Display screens for these
+display managers can be found in the folders:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>File</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>/home/xspress3/epics/adls</p></td>
+<td><p>screen files for medm</p></td>
+</tr>
+<tr class="row-odd"><td><p>/home/xspress3/epics/uis</p></td>
+<td><p>screen files for caqtm</p></td>
+</tr>
+<tr class="row-even"><td><p>/home/xspress3/epics/opis</p></td>
+<td><p>screen files for css/boy</p></td>
+</tr>
+</tbody>
+</table>
+<p>For example, you will be able to run MEDM for your Xspress 3 with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home/xspress3/epics/bin/run_medm.sh
+</pre></div>
+</div>
+<p>You will also be able to run a dedicated XRF Control application with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home/xspress3/epics/bin/run_xrfcontrol.py
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../ioc_index.html" class="btn btn-neutral float-left" title="IOC Setup" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configure_IOC.html" class="btn btn-neutral float-right" title="Configuring your IOC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Public Domain.
+      <span class="lastupdated">Last updated on 2023-March-03.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

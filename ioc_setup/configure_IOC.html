@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuring your IOC &mdash; Xspress3 Epics Module</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Xspress 3 Display Screens" href="../display_screens.html" />
+    <link rel="prev" title="Setting up and Running an Epics Input/Output Controller" href="ioc_setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            xspress3epics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../whatsnew.html">Release Notes</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../ioc_index.html">IOC Setup</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="ioc_setup.html">Setting up and Running an Epics Input/Output Controller</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Configuring your IOC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#st-cmd">st.cmd</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#prefix">Prefix</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#number-of-channels">Number of Channels</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#number-of-cards">Number of Cards</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ip-address">IP Address</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#circular-buffer">Circular Buffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-frames">Maximum Frames</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#settings-configuration">Settings Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../display_screens.html">Xspress 3 Display Screens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../counting_modes.html">Counting Modes for the Xspress 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xrfdisplay_epics.html">Installing and using the <code class="docutils literal notranslate"><span class="pre">xrfdisplay_epics</span></code> application</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../usefulPVs.html">Useful PVs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_structure.html">HDF5 File</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">xspress3epics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../ioc_index.html">IOC Setup</a></li>
+      <li class="breadcrumb-item active">Configuring your IOC</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/ioc_setup/configure_IOC.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuring-your-ioc">
+<h1>Configuring your IOC<a class="headerlink" href="#configuring-your-ioc" title="Permalink to this heading"></a></h1>
+<section id="st-cmd">
+<h2>st.cmd<a class="headerlink" href="#st-cmd" title="Permalink to this heading"></a></h2>
+<p>The st.cmd file sets the default parameters for the system, this is located in:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/home/xspress3/epics/xspress3/iocs/xspress3IOC/iocBoot/ioc_&lt;N&gt;Channel/st.cmd
+</pre></div>
+</div>
+<p>There is a default configuration structure for most common number of channels. If there is not a suitable option you can configure your own or contact Quantum Detectors</p>
+<p>These are configured at start of IOC and cannot be changed during operation. This file is generally cofigured once for the system and then it is used to launch the IOC.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you change any of the settings below you will need to clear the shared memory before restarting the IOC:     <code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">/dev/shm/xsp*</span></code></p>
+</div>
+<p>The important configurable values are explained below:</p>
+<section id="prefix">
+<h3>Prefix<a class="headerlink" href="#prefix" title="Permalink to this heading"></a></h3>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp"># PREFIX</span>
+<span class="n">epicsEnvSet</span><span class="p">(</span><span class="s">&quot;PREFIX&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;XSP3_&lt;N&gt;Chan:&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Option to provide a prefix for all system PVs. Use a sensible name so that you can recognise the system that is being used. Changing this may be required if you wish to control multiple systems with the same control PC. This then avoids name conflicts.</p>
+</section>
+<section id="number-of-channels">
+<h3>Number of Channels<a class="headerlink" href="#number-of-channels" title="Permalink to this heading"></a></h3>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp"># Number of xspress3 channels</span>
+<span class="n">epicsEnvSet</span><span class="p">(</span><span class="s">&quot;NUM_CHANNELS&quot;</span><span class="p">,</span><span class="w">  </span><span class="s">&quot;&lt;N&gt;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The number of channels the IOC will configure for the system. You will require connection to this many channels and settings files for all the channels trying to connect.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can configure fewer channels than your system has, but not more</p>
+</div>
+</section>
+<section id="number-of-cards">
+<h3>Number of Cards<a class="headerlink" href="#number-of-cards" title="Permalink to this heading"></a></h3>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp"># Number of xspress3 cards</span>
+<span class="n">epicsEnvSet</span><span class="p">(</span><span class="s">&quot;XSP3CARDS&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;M&gt;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The number of cards the IOC will connect to, for a X3X/M system this value will be the number of channels diveded by 2. For an X3 system it is divided by 8.</p>
+</section>
+<section id="ip-address">
+<h3>IP Address<a class="headerlink" href="#ip-address" title="Permalink to this heading"></a></h3>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp"># IP ADDR</span>
+<span class="n">epicsEnvSet</span><span class="p">(</span><span class="s">&quot;XSP3ADDR&quot;</span><span class="p">,</span><span class="w">  </span><span class="s">&quot;192.168.0.1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Default IP address configured for connection to the Xspress 3 system. If required this can be changed. Please contact Quantum Detectors if you need to reconfigure the Xspress boxes.</p>
+</section>
+<section id="circular-buffer">
+<h3>Circular Buffer<a class="headerlink" href="#circular-buffer" title="Permalink to this heading"></a></h3>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp"># Control of Circular Buffer</span>
+<span class="cp"># Use CIRC_BUFFER as 1 for more than 12216 frames</span>
+<span class="n">epicsEnvSet</span><span class="p">(</span><span class="s">&quot;CIRC_BUFFER&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Control of circular buffer option, 1 will activate the circular buffer increasing the number of potential frames above 12216. To turn this off select 0.</p>
+<p>Circular buffer adds a flag to data that has been read out signifying that it can be overwritten without data loss.</p>
+</section>
+<section id="maximum-frames">
+<h3>Maximum Frames<a class="headerlink" href="#maximum-frames" title="Permalink to this heading"></a></h3>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp"># Max Number of Frames for data collection</span>
+<span class="n">epicsEnvSet</span><span class="p">(</span><span class="s">&quot;MAXFRAMES&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;NumFrames&gt;&quot;</span><span class="p">)</span>
+<span class="n">epicsEnvSet</span><span class="p">(</span><span class="s">&quot;MAXDRIVERFRAMES&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;&lt;NumFrames&gt;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Number provided to the system determining the maximum number of frames that will be possible in one scan. This value is required to allocate memory for file creation and saving.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Tested up to maximum of 500,000.</p>
+</div>
+</section>
+<section id="settings-configuration">
+<h3>Settings Configuration<a class="headerlink" href="#settings-configuration" title="Permalink to this heading"></a></h3>
+<div class="highlight-C notranslate"><div class="highlight"><pre><span></span><span class="cp">#Configure and connect to Xspress3</span>
+<span class="n">dbpf</span><span class="p">(</span><span class="s">&quot;$(PREFIX)det1:CONFIG_PATH&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/home/xspress3/xspress3_settings/current/&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is the location that the IOC looks for the settings files, this can be changed if you have a different folder structure.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="ioc_setup.html" class="btn btn-neutral float-left" title="Setting up and Running an Epics Input/Output Controller" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../display_screens.html" class="btn btn-neutral float-right" title="Xspress 3 Display Screens" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Public Domain.
+      <span class="lastupdated">Last updated on 2023-March-03.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

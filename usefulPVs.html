@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Useful PVs &mdash; Xspress3 Epics Module</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="HDF5 File" href="file_structure.html" />
+    <link rel="prev" title="Installing and using the xrfdisplay_epics application" href="xrfdisplay_epics.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            xspress3epics
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="whatsnew.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioc_index.html">IOC Setup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="display_screens.html">Xspress 3 Display Screens</a></li>
+<li class="toctree-l1"><a class="reference internal" href="counting_modes.html">Counting Modes for the Xspress 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xrfdisplay_epics.html">Installing and using the <code class="docutils literal notranslate"><span class="pre">xrfdisplay_epics</span></code> application</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Useful PVs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#scanning">Scanning</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#start">Start</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#number-of-frames">Number of frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#frame-time">Frame Time</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#file-saving">File saving</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#trigger-mode">Trigger Mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#invert-veto">Invert Veto</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#erase-on-start">Erase on Start</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="file_structure.html">HDF5 File</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">xspress3epics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Useful PVs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/usefulPVs.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="useful-pvs">
+<h1>Useful PVs<a class="headerlink" href="#useful-pvs" title="Permalink to this heading"></a></h1>
+<p>There are many configurable variables that can be used during the scan, the most common ones are described below.</p>
+<p>The system will be configured with a prefix and a suffix this is set up in the <a class="reference internal" href="ioc_setup/configure_IOC.html#st-cmd"><span class="std std-ref">st.cmd</span></a> file.</p>
+<p>The prefix by default will be of the form “XSP3_NCHAN”. The suffix will be of the form “det1”. These both can be changed during configuration.</p>
+<p>The process variables are of the for (P):(R):&lt;Process Variable&gt; and can be controlled with <a class="reference external" href="https://epics.anl.gov/base/R3-14/12-docs/CAref.html">Channel Access</a> (CA) commands.</p>
+<p>Most of the PVs will have a readback value which you can ‘get’ without influencing the value these will have the same name with ‘_RBV’ affixed to the end.</p>
+<section id="scanning">
+<h2>Scanning<a class="headerlink" href="#scanning" title="Permalink to this heading"></a></h2>
+<section id="start">
+<h3>Start<a class="headerlink" href="#start" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>(P):(R):Acquire</dt><dd><p>Starts the scan by setting it to 1 and stop by setting to 0.</p>
+</dd>
+<dt>(P):(R):DetectorState_RBV</dt><dd><p>Contains information about the acquisition state of the system. Idle, Acquire, Aborted.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>XSP3_8Chan:det1:Acquire<span class="w"> </span><span class="m">1</span>
+caget<span class="w"> </span>XSP3_8Chan:det1:DetectorState_RBV
+caput<span class="w"> </span>XSP3_8Chan:det1:Acquire<span class="w"> </span><span class="m">0</span>
+caget<span class="w"> </span>XSP3_8Chan:det1:DetectorState_RBV
+</pre></div>
+</div>
+<p>This code will start the scan, the readback value would then inform us that the scan has started by being in the state ‘acquire’. Then the scanning is stopped, before the number of frames specified is reached therefore the state would be read back as ‘aborted’. If the system has completed the acquisition then it would be in the state ‘idle’</p>
+</section>
+<section id="number-of-frames">
+<h3>Number of frames<a class="headerlink" href="#number-of-frames" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>(P):(R):NumImages</dt><dd><p>Specifies the number of frames to acquire for this acquisition. Integer values between 1 and MAXFRAMES.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>XSP3_8Chan:det1:NumImages<span class="w"> </span><span class="m">1000</span>
+</pre></div>
+</div>
+<p>Sets the number of frames to be 1000</p>
+</section>
+<section id="frame-time">
+<h3>Frame Time<a class="headerlink" href="#frame-time" title="Permalink to this heading"></a></h3>
+<dl class="simple">
+<dt>(P):(R):AcquireTime</dt><dd><p>Sets the frame time if using the internal time frame generator. This is used in certain <a class="reference internal" href="counting_modes.html#counting-modes-for-the-xspress-3"><span class="std std-ref">couting modes</span></a>. The time is a floating number in seconds for the desired frame time.</p>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>XSP3_8Chan:det1:AcquireTime<span class="w"> </span><span class="m">0</span>.05
+</pre></div>
+</div>
+<p>Sets the dwell time of the frame to be 50 ms.</p>
+</section>
+<section id="file-saving">
+<h3>File saving<a class="headerlink" href="#file-saving" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Before file saving can be turned on an acquisition will need to be performed to allow the system to know the size of the histograms.</p>
+</div>
+<dl class="simple">
+<dt>(P):HDF1:FilePath</dt><dd><p>Location that the file will be saved to, this should be provided as a absolute path and has to exist as it will not be created by the system.</p>
+</dd>
+</dl>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>-S<span class="w"> </span>XSP3_8Chan:HDF1:FilePath<span class="w"> </span>/home/xspress3/data/
+</pre></div>
+</div>
+<p>Sets the file saving location to be in the folder ‘/home/xspress3/data’</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You are required to have the ‘-S’ option to put the string as a an array of characters so it can be inpepreted by the CA commands</p>
+</div>
+<dl class="simple">
+<dt>(P):HDF1:FileName</dt><dd><p>File name prefeix for the saving of files. Files will be numbered after this prefix.</p>
+</dd>
+</dl>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>-S<span class="w"> </span>XSP3_8Chan:HDF1:FileName<span class="w"> </span>DemoScan
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You are required to have the ‘-S’ option to put the string as a an array of characters so it can be inpepreted by the CA commands</p>
+</div>
+<dl class="simple">
+<dt>(P):HDF1:FileNumber</dt><dd><p>Starting number to be suffix onto the specified file name. Integer.</p>
+</dd>
+</dl>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>XSP3_8Chan:HDF1:FileNumber<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>Starts the numbering for the file from 0. When a new file is set to capture this will increment automatically if <code class="docutils literal notranslate"><span class="pre">XSP3_8Chan:HDF1:AutoIncrement</span></code> is set to 1. If you do not want this behaviour you can set this auto increment to 0 however this will overwrite your file if you start a new capture.</p>
+<dl class="simple">
+<dt>(P):HDF1:Capture</dt><dd><p>Variable to control the file saving. If set to 1 then the next acquisition will be saved as specified by the file parameters. If set to 0 then the acquisition will not be saved</p>
+</dd>
+</dl>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>XSP3_8Chan:HDF1:Capture<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>Configures the system to save the next acquisition.</p>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h2>
+<p>Some PVs are usful to set before you start any scans these are usually set to help with integration with the wider setup of your capturing system.</p>
+<section id="trigger-mode">
+<h3>Trigger Mode<a class="headerlink" href="#trigger-mode" title="Permalink to this heading"></a></h3>
+<p>Depending on the <a class="reference internal" href="counting_modes.html#counting-modes-for-the-xspress-3"><span class="std std-ref">trigger methods</span></a> you will need to set the corresponding mode to correctly advance your frame.</p>
+<dl class="simple">
+<dt>(P):(R):TriggerMode</dt><dd><p>PV to select the mode required for your frame advancing. Ecamples are shown below for the common methods.</p>
+</dd>
+</dl>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>XSP3_8Chan:det1:TriggerMode<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>Internal trigger mode, frame advance will happen automatically after the system is ready once the acquisition is started. The frame time will be specified in the <a class="reference internal" href="#frame-time"><span class="std std-ref">frame time</span></a> PV.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>XSP3_8Chan:det1:TriggerMode<span class="w"> </span><span class="m">3</span>
+</pre></div>
+</div>
+<p>TTL Veto Only mode, frame advance comes from TTL signal going high and frame stopped when the signal goes low. When acquisition is started the system will get ready and go into the state ‘acquire’ it is then ready to recieve hardware triggers.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>XSP3_8Chan:det1:TriggerMode<span class="w"> </span><span class="m">0</span>
+</pre></div>
+</div>
+<p>Software Trigger with variable acquisition time</p>
+<p>The frame is advanced by setting <code class="docutils literal notranslate"><span class="pre">XSP3_8Chan:det1:SoftTrigger</span></code> to 1 and stopped after this is set to 0.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>caput<span class="w"> </span>XSP3_8Chan:det1:TriggerMode<span class="w"> </span><span class="m">7</span>
+</pre></div>
+</div>
+<p>Software + Internal with acquisition time set by <a class="reference internal" href="#frame-time"><span class="std std-ref">frame time</span></a> PV.</p>
+<p>The frame is advanced by setting <code class="docutils literal notranslate"><span class="pre">XSP3_8Chan:det1:SoftTrigger</span></code> to 1 and stopped after the dwell time is reached. Setting the softTrigger PV to 0 will ready the system to recieve the next trigger.</p>
+</section>
+<section id="invert-veto">
+<h3>Invert Veto<a class="headerlink" href="#invert-veto" title="Permalink to this heading"></a></h3>
+<p>If you are using a <a class="reference internal" href="counting_modes.html#hardware-triggers"><span class="std std-ref">hardware trigger method</span></a> then you can choose to invert the frame start signal so that it will start when the TTL signal goes low instead of high. This is useful if you do not want to reconfigure your hardware triggering system.</p>
+<dl class="simple">
+<dt>(P):(R):INVERT_VETO</dt><dd><p>Set to 1 to invert the Veto, 0 to leave as default.</p>
+</dd>
+</dl>
+</section>
+<section id="erase-on-start">
+<h3>Erase on Start<a class="headerlink" href="#erase-on-start" title="Permalink to this heading"></a></h3>
+<p>When starting a scan one of the steps clears data from a frame so that it is empty ready to start counting the new frame, in some circumstances, this is not required.</p>
+<dl class="simple">
+<dt>(P):(R):EraseOnStart</dt><dd><p>Setting EraseOnStart to 0 you will significantly reduce the time taken for the system to be ready to start acquiring frames.</p>
+</dd>
+</dl>
+<p>Example:
+.. code:: bash</p>
+<blockquote>
+<div><p>caput XSP3_8Chan:det1:EraseOnStart 0</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="xrfdisplay_epics.html" class="btn btn-neutral float-left" title="Installing and using the xrfdisplay_epics application" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="file_structure.html" class="btn btn-neutral float-right" title="HDF5 File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Public Domain.
+      <span class="lastupdated">Last updated on 2023-March-03.
+      </span></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

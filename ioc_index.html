@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Xspress 3 Display Screens &mdash; Xspress3 Epics Module</title>
+  <title>IOC Setup &mdash; Xspress3 Epics Module</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -18,8 +18,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Counting Modes for the Xspress 3" href="counting_modes.html" />
-    <link rel="prev" title="Configuring your IOC" href="ioc_setup/configure_IOC.html" /> 
+    <link rel="next" title="Setting up and Running an Epics Input/Output Controller" href="ioc_setup/ioc_setup.html" />
+    <link rel="prev" title="Release Notes" href="whatsnew.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,8 +44,12 @@
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="whatsnew.html">Release Notes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="ioc_index.html">IOC Setup</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Xspress 3 Display Screens</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">IOC Setup</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ioc_setup/ioc_setup.html">Setting up and Running an Epics Input/Output Controller</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ioc_setup/configure_IOC.html">Configuring your IOC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="display_screens.html">Xspress 3 Display Screens</a></li>
 <li class="toctree-l1"><a class="reference internal" href="counting_modes.html">Counting Modes for the Xspress 3</a></li>
 <li class="toctree-l1"><a class="reference internal" href="xrfdisplay_epics.html">Installing and using the <code class="docutils literal notranslate"><span class="pre">xrfdisplay_epics</span></code> application</a></li>
 <li class="toctree-l1"><a class="reference internal" href="usefulPVs.html">Useful PVs</a></li>
@@ -66,9 +70,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Xspress 3 Display Screens</li>
+      <li class="breadcrumb-item active">IOC Setup</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/display_screens.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/ioc_index.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -76,21 +80,37 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="xspress-3-display-screens">
-<h1>Xspress 3 Display Screens<a class="headerlink" href="#xspress-3-display-screens" title="Permalink to this heading"></a></h1>
-<p>Because the Xspress3 driver provides a complex set of Epics data structures,
-there are a fairly large number of simple display screens for interacting with
-Epics variables to control these electronics.  As is customary for Epics
-modules, these screens were created as <code class="docutils literal notranslate"><span class="pre">adl</span></code> files for the MEDM tool, and
-have been translated to <code class="docutils literal notranslate"><span class="pre">ui</span></code> screens for caQtDM.</p>
+  <section id="ioc-setup">
+<h1>IOC Setup<a class="headerlink" href="#ioc-setup" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="ioc_setup/ioc_setup.html">Setting up and Running an Epics Input/Output Controller</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ioc_setup/ioc_setup.html#running-the-epics-ioc">Running the Epics IOC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ioc_setup/configure_IOC.html">Configuring your IOC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ioc_setup/configure_IOC.html#st-cmd">st.cmd</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="ioc_setup/configure_IOC.html#prefix">Prefix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ioc_setup/configure_IOC.html#number-of-channels">Number of Channels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ioc_setup/configure_IOC.html#number-of-cards">Number of Cards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ioc_setup/configure_IOC.html#ip-address">IP Address</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ioc_setup/configure_IOC.html#circular-buffer">Circular Buffer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ioc_setup/configure_IOC.html#maximum-frames">Maximum Frames</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ioc_setup/configure_IOC.html#settings-configuration">Settings Configuration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="ioc_setup/configure_IOC.html" class="btn btn-neutral float-left" title="Configuring your IOC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="counting_modes.html" class="btn btn-neutral float-right" title="Counting Modes for the Xspress 3" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="whatsnew.html" class="btn btn-neutral float-left" title="Release Notes" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ioc_setup/ioc_setup.html" class="btn btn-neutral float-right" title="Setting up and Running an Epics Input/Output Controller" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -7,12 +7,12 @@ The latest version of the Xspress3 Epics driver is |release|
 .. _whatsnew_327_label:
 
 Version 3.2.7 Release Notes (2023-March-02)
-=================================================
+--------------------------------------------
 
 New features:
 
 - Circular buffer mode
-- Software channel advance
+- Software frame advance
 
 
 Bug fixes and enhancements:
@@ -26,7 +26,7 @@ Bug fixes and enhancements:
 
 
 Version 3.2.6 Release Notes (2021-Oct-27)
-=================================================
+------------------------------------------
 
 New features:
 
