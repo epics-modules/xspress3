@@ -2,5 +2,5 @@ HDF5 File
 ==========
 
 .. toctree::
-	HDF5/page1
-	HDF5/page2
+	HDF5/HDF5_File
+	HDF5/Python_Interpreter
