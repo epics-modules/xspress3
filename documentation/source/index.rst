@@ -4,7 +4,7 @@
 .. _Quantum Detectors:      https://quantumdetectors.com/
 .. _Xspress3:               https://quantumdetectors.com/products/xspress3/
 .. _epics-modules:          https://github.com/epics-modules
-.. _xspress3 github page:   https://github.com/epics-modules/xspress3
+.. _xspress 3 github page:   https://github.com/epics-modules/xspress3
 .. _areaDetector:           https://areadetector.github.io/master/index.html
 
 .. _Diamond Light Source:   https://www.diamond.ac.uk/
