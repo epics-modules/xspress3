@@ -2630,7 +2630,7 @@ typedef struct _x3m_fan_cont
 #define XSP3_ITFG_MAX_NUM_FRAMES 				0xFFFFFF				//!< Maximum number of time frames for internal TFG. Note that configurAtion of rest of system will usually limit the number of frame to less than this.
 #define XSP3_ITFG_GET_FRAMES(x)					((x)&0xFFFFFF)			//!< Get number of frames for internal TFG
 #define XSP3_ITFG_GET_TRIG_MODE(x)				(((x)>>24)&7)			//!< Get trigger mode for internal TFG
-#define XSP3_ITFG_GET_GAP_MODE(x)				(((x)>>30)&3)			//!< Get fraem to frame gap mode for internal TFG
+#define XSP3_ITFG_GET_GAP_MODE(x)				(((x)>>30)&3)			//!< Get frame to frame gap mode for internal TFG
 
 #define XSP3_ITFG_SET_MARK_FRAME(x)				((x)&0xFFFF)			//!< Set marker frame of ITFG Marker register where supported
 #define XSP3_ITFG_SET_MARK_PERIOD(x)			(((x)&0xFFFF)<<16)		//!< Set marker period of ITFG Marker register where supported. Actually write reguired period-1

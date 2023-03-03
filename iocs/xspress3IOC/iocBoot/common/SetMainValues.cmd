@@ -7,6 +7,7 @@ dbpf("$(PREFIX)det1:CONNECT",      "1")
 dbpf("$(PREFIX)det1:CTRL_DTC",     "Disable")
 dbpf("$(PREFIX)det1:TriggerMode",  "Internal")
 dbpf("$(PREFIX)det1:EraseOnStart", "Yes")
+dbpf("$(PREFIX)det1:FrameAdvance", 0)
 
 #Enable Array Callbacks, set Attributes file
 dbpf("$(PREFIX)det1:ArrayCallbacks",   "Enable")

@@ -3,7 +3,7 @@
 
 import sys, os
 
-release = '3.2'
+release = '3.2.7'
 project = 'xspress3epics'
 html_title = html_short_title = 'Xspress3 Epics Module'
 

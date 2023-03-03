@@ -59,6 +59,27 @@ record(bo, "$(P)$(R)EraseOnStart") {
    field(VAL,  "1")
 }
 
+# ///
+# /// Operates the manual advance
+# ///
+record(bo, "$(P)$(R)SoftTrigger") {
+   field(DTYP, "asynInt32")
+   field(OUT, "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_SOFT_TRIGGER")
+   field(ZNAM, "Idle")
+   field(ONAM, "Trigger")
+   field(VAL,  "0")
+}
+# ///
+# /// Reads the manual advance parameter
+# ///
+record(bi, "$(P)$(R)SoftTrigger_RBV")
+{
+   field(DTYP, "asynInt32")
+   field(INP,  "@asyn($(PORT),$(ADDR=0),$(TIMEOUT=1))XSP3_SOFT_TRIGGER")
+   field(ZNAM, "Idle")
+   field(ONAM, "Trigger")
+   field(SCAN, "I/O Intr")
+}
 
 # ///
 # /// Set the numer of channels to read out.
@@ -77,7 +98,7 @@ record(longout, "$(P)$(R)NUM_CHANNELS")
 # ///
 record(longin, "$(P)$(R)NUM_CHANNELS_RBV")
 {
-   field(PINI, "1")
+   field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_NUM_CHANNELS")
    field(SCAN, "I/O Intr")
@@ -88,7 +109,7 @@ record(longin, "$(P)$(R)NUM_CHANNELS_RBV")
 # ///
 record(longin, "$(P)$(R)MAX_NUM_CHANNELS_RBV")
 {
-   field(PINI, "1")
+   field(PINI, "YES")
    field(DTYP, "asynInt32")
    field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_MAX_NUM_CHANNELS")
    field(SCAN, "I/O Intr")
@@ -115,6 +136,8 @@ record(mbbo, "$(P)$(R)TriggerMode")
    field(FVVL, "5")
    field(SXST, "LVDS Both")
    field(SXVL, "6")
+   field(SVST, "Software + Internal")
+   field(SVVL, "7")
    field(VAL,  "0")
    field(PINI, "NO")
 }
@@ -140,6 +163,8 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
    field(FVVL, "5")
    field(SXST, "LVDS Both")
    field(SXVL, "6")
+   field(SVST, "Software + Internal")
+   field(SVVL, "7")
    field(SCAN, "I/O Intr")
 }
 

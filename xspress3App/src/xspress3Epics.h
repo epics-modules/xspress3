@@ -69,6 +69,7 @@
 #define xsp3MaxFramesParamString     "XSP3_MAX_FRAMES"
 #define xsp3FrameCountParamString     "XSP3_FRAME_COUNT"
 #define xsp3TriggerModeParamString        "XSP3_TRIGGER_MODE"
+#define xsp3SoftTriggerParamString       "XSP3_SOFT_TRIGGER"
 #define xsp3FixedTimeParamString        "XSP3_FIXED_TIME"
 #define xsp3NumFramesConfigParamString          "XSP3_NUM_FRAMES_CONFIG"
 #define xsp3NumFramesDriverParamString          "XSP3_NUM_FRAMES_DRIVER"
@@ -223,6 +224,7 @@ class Xspress3 : public ADDriver {
   int xsp3NumChannelsParam;
   int xsp3MaxNumChannelsParam;
   int xsp3MaxSpectraParam;
+  int xsp3SoftTriggerParam;
   int xsp3MaxFramesParam;
   int xsp3FrameCountParam;
   int xsp3TriggerModeParam;

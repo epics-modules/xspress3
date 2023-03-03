@@ -211,6 +211,7 @@ void Xspress3::createInitialParameters()
     createParam(xsp3ResetParamString, asynParamInt32, &xsp3ResetParam);
     createParam(xsp3EraseParamString, asynParamInt32, &xsp3EraseParam);
     createParam(xsp3EraseStartParamString, asynParamInt32, &xsp3EraseStartParam);
+  	createParam(xsp3SoftTriggerParamString, asynParamInt32, &xsp3SoftTriggerParam);
     createParam(xsp3NumChannelsParamString, asynParamInt32, &xsp3NumChannelsParam);
     createParam(xsp3MaxNumChannelsParamString, asynParamInt32, &xsp3MaxNumChannelsParam);
     createParam(xsp3MaxSpectraParamString, asynParamInt32, &xsp3MaxSpectraParam);
@@ -1033,11 +1034,19 @@ asynStatus Xspress3::setupITFG(void)
 {
     asynStatus status = asynSuccess;
     const char *functionName = "Xspress3::setupITFG";
-    int num_frames, trigger_mode, ppt;
+    int num_frames, trigger_mode, ppt, test;
     double exposureTime;
     int xsp3_status=XSP3_OK;
 
     getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
+	if(trigger_mode == 7) {
+		getIntegerParam(ADNumImages, &num_frames);
+		getDoubleParam(ADAcquireTime, &exposureTime);
+		xsp3_status = xsp3->itfg_setup2( xsp3_handle_, 0, num_frames,
+							(u_int32_t) floor(exposureTime*80E6+0.5),
+							XSP3_ITFG_TRIG_MODE_SOFTWARE, XSP3_ITFG_GAP_MODE_1US,0,0,0 );
+		xsp3->histogram_arm(0,-1);
+	}
     if (trigger_mode == mbboTriggerINTERNAL_ &&
         xsp3->has_itfg(xsp3_handle_, 0) > 0 ) {
         getIntegerParam(ADNumImages, &num_frames);
@@ -1078,7 +1087,7 @@ asynStatus Xspress3::mapTriggerMode(int mode, int invert_f0, int invert_veto, in
 {
   asynStatus status = asynSuccess;
   const char *functionName = "Xspress3::mapTriggerMode";
-
+  
   if (mode == mbboTriggerFIXED_) {
     *apiMode = XSP3_GTIMA_SRC_FIXED;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_FIXED, value: %d\n",
@@ -1127,13 +1136,21 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
     asynStatus status = asynSuccess;
     int xsp3_num_cards;
     int xsp3_trigger_mode = 0;
+    int num_frames;
+    double exposureTime;
+    int xsp3_status=XSP3_OK;
 
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Trigger Mode.\n", functionName);
     getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
     for (int card=0; card<xsp3_num_cards && status == asynSuccess; card++) {
         if ( card == 0 ) {
+			if (mode == 7) {
+			mode = 1; // Refactor to 1 to continue to use the internal trigger generator but set up so won't continue until histogram_continue is called
+			}
+			// probably want to arm the histogram here
             status = mapTriggerMode(mode, invert_f0, invert_veto, debounce, &xsp3_trigger_mode);
-        }
+        	}
+
         else
         {
             status = mapTriggerMode(mbboTriggerTTLVETO_, invert_f0, 0, debounce, &xsp3_trigger_mode);
@@ -1164,6 +1181,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   asynStatus status = asynSuccess;
   int xsp3_num_channels = 0;
   int xsp3_erasestart = 1;
+  int xsp3_frame_advance =0;
   const char *functionName = "Xspress3::writeInt32";
 
   asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeInt32.\n", functionName);
@@ -1189,6 +1207,15 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
  	status = erase();
     }
   }
+  else if (function == xsp3SoftTriggerParam) {
+
+	// Soft Trigger parameter, 1 to start frame 0 to stop, you need to call both if using itfg mode (manual)
+	if (value==1) {
+		xsp3_status = xsp3->histogram_continue(xsp3_handle_,0);
+	} else if (value==0) {
+		xsp3_status = xsp3->histogram_pause(xsp3_handle_,0);
+	}
+  }
   else if (function == ADAcquire) {
     if (value) {
       if (adStatus != ADStatusAcquire) {
@@ -1212,13 +1239,26 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 	  if (xsp3_status != XSP3_OK) {
 	    checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
 	    status = asynError;
-	  }
-	  if (status == asynSuccess) {
-	    epicsEventSignal(this->startEvent_);
-	    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Collection.\n", functionName);
-	  }
-	}
-      }
+
+	  } else {
+	    setupITFG(); 
+	    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1 );
+		
+	    if (xsp3_status != XSP3_OK) {
+	      checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
+	      status = asynError;
+	    }
+	    if (status == asynSuccess) {
+	      epicsEventSignal(this->startEvent_);
+	      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Started Data Collection.\n", functionName);
+	    } else {
+	      asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Start Data Collection, failed.\n", functionName);
+	    }
+
+			}
+	  	}	
+		}
+
     } else {
       if (adStatus == ADStatusAcquire) {
 	  if ((status = checkConnected()) == asynSuccess) {
@@ -1235,6 +1275,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       }
     }
   }
+  
   else if (function == xsp3NumChannelsParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Channels.\n", functionName);
     getIntegerParam(xsp3MaxNumChannelsParam, &xsp3_num_channels);
