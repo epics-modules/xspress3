@@ -13,7 +13,9 @@ copyright = 'Public Domain'
 extensions = ['sphinx.ext.autodoc',
               'sphinx.ext.mathjax',
               'sphinx.ext.extlinks',
-              'sphinx.ext.napoleon']
+              'sphinx.ext.napoleon',
+              'sphinx_rtd_theme',
+              'sphinx.ext.autosectionlabel']
 
 todo_include_todos = True
 
@@ -30,7 +32,7 @@ add_module_names = False
 pygments_style = 'sphinx'
 
 # html themes: 'default', 'sphinxdoc',  'alabaster', 'agogo', 'nature', 'pyramid'
-html_theme = 'pyramid'
+html_theme = 'sphinx_rtd_theme'
 
 html_static_path = ['_static']
 html_last_updated_fmt = '%Y-%B-%d'
