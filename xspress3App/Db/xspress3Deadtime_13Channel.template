@@ -1,0 +1,62 @@
+# max and mean deadtimes for 13 Channel detector
+
+record(calcout, "$(P)MeanDeadTime_RBV1") {
+    field(INPA, "$(P)C1:DeadTime_RBV NPP NMS")
+    field(INPB, "$(P)C2:DeadTime_RBV NPP NMS")
+    field(INPC, "$(P)C3:DeadTime_RBV NPP NMS")
+    field(INPD, "$(P)C4:DeadTime_RBV NPP NMS")
+    field(INPE, "$(P)C5:DeadTime_RBV NPP NMS")
+    field(INPF, "$(P)C6:DeadTime_RBV NPP NMS")
+    field(INPG, "$(P)C7:DeadTime_RBV NPP NMS")
+    field(INPH, "$(P)C8:DeadTime_RBV NPP NMS")
+    field(CALC, "(A+B+C+D+E+F+G+H)")
+    field(PREC, "5")
+}
+
+record(calcout, "$(P)MeanDeadTime_RBV2") {
+    field(INPA, "$(P)C9:DeadTime_RBV NPP NMS")
+    field(INPB, "$(P)C10:DeadTime_RBV NPP NMS")
+    field(INPC, "$(P)C11:DeadTime_RBV NPP NMS")
+    field(INPD, "$(P)C12:DeadTime_RBV NPP NMS")
+    field(INPE, "$(P)C13:DeadTime_RBV NPP NMS")
+    field(CALC, "(A+B+C+D+E)")
+    field(PREC, "5")
+}
+
+record(calcout, "$(P)MeanDeadTime_RBV") {
+    field(INPA, "$(P)MeanDeadTime_RBV1 NPP NMS")
+    field(INPB, "$(P)MeanDeadTime_RBV2 NPP NMS")
+    field(CALC, "(A+B)/14.0")
+    field(PREC, "5")
+}
+
+record(calcout, "$(P)MaxDeadTime_RBV1") {
+    field(INPA, "$(P)C1:DeadTime_RBV NPP NMS")
+    field(INPB, "$(P)C2:DeadTime_RBV NPP NMS")
+    field(INPC, "$(P)C3:DeadTime_RBV NPP NMS")
+    field(INPD, "$(P)C4:DeadTime_RBV NPP NMS")
+    field(INPE, "$(P)C5:DeadTime_RBV NPP NMS")
+    field(INPF, "$(P)C6:DeadTime_RBV NPP NMS")
+    field(INPG, "$(P)C7:DeadTime_RBV NPP NMS")
+    field(INPH, "$(P)C8:DeadTime_RBV NPP NMS")
+    field(CALC, "MAX(A,B,C,D,E,F,G,H)")
+    field(PREC, "5")
+}
+
+record(calcout, "$(P)MaxDeadTime_RBV2") {
+    field(INPA, "$(P)C9:DeadTime_RBV NPP NMS")
+    field(INPB, "$(P)C10:DeadTime_RBV NPP NMS")
+    field(INPC, "$(P)C11:DeadTime_RBV NPP NMS")
+    field(INPD, "$(P)C12:DeadTime_RBV NPP NMS")
+    field(INPE, "$(P)C13:DeadTime_RBV NPP NMS")
+    field(CALC, "MAX(A,B,C,D,E)")
+    field(PREC, "5")
+}
+
+record(calcout, "$(P)MaxDeadTime_RBV") {
+    field(INPA, "$(P)MaxDeadTime_RBV1 NPP NMS")
+    field(INPB, "$(P)MaxDeadTime_RBV2 NPP NMS")
+    field(CALC, "max(A,B)")
+    field(PREC, "5")
+}
+

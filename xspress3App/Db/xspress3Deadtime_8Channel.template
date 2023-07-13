@@ -16,12 +16,12 @@ record(calcout, "$(P)MeanDeadTime_RBV") {
 record(calcout, "$(P)MaxDeadTime_RBV") {
     field(INPA, "$(P)C1:DeadTime_RBV NPP NMS")
     field(INPB, "$(P)C2:DeadTime_RBV NPP NMS")
-    field(INPD, "$(P)C3:DeadTime_RBV NPP NMS")
+    field(INPC, "$(P)C3:DeadTime_RBV NPP NMS")
     field(INPD, "$(P)C4:DeadTime_RBV NPP NMS")
     field(INPE, "$(P)C5:DeadTime_RBV NPP NMS")
     field(INPF, "$(P)C6:DeadTime_RBV NPP NMS")
     field(INPG, "$(P)C7:DeadTime_RBV NPP NMS")
-    field(INPH, "$(P)C8:DeadTime_RBV NPP NMS")
+    field(INPH, "$(P)C8:DeadTime_RBV NPP NMS")    
     field(CALC, "MAX(A,B,C,D,E,F,G,H)")
     field(PREC, "5")
 }

@@ -1,4 +1,4 @@
-# max and mean deadtimes for 8 Channel detector
+# max and mean deadtimes for 7 Channel detector
 
 record(calcout, "$(P)MeanDeadTime_RBV") {
     field(INPA, "$(P)C1:DeadTime_RBV NPP NMS")
