@@ -1,7 +1,7 @@
 #
 dbpf("$(PREFIX)det1:RUN_FLAGS",    "0")
 dbpf("$(PREFIX)det1:NUM_CHANNELS", "$(NUM_CHANNELS)")
-dbpf("$(PREFIX)det1:NumImages",    2000)
+dbpf("$(PREFIX)det1:NumImages",    16000)
 dbpf("$(PREFIX)det1:AcquireTime",  0.25)
 dbpf("$(PREFIX)det1:CONNECT",      "1")
 dbpf("$(PREFIX)det1:CTRL_DTC",     "Disable")
