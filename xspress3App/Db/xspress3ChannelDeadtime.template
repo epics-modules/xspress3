@@ -12,6 +12,8 @@ record(ai, "$(P)C$(CHAN):DeadTime_RBV") {
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTPERCENT")
     field(VAL,  "0")
     field(PREC, "5")
+    field(DISA, "1")
+    field(SCAN, "PASSIVE")
 }
 
 # deadtime correction factor 
@@ -20,4 +22,6 @@ record(ai, "$(P)C$(CHAN):DTFactor_RBV") {
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTFACTOR")
     field(VAL,  "1")
     field(PREC, "5")
+    field(DISA, "1")
+    field(SCAN, "PASSIVE")
 }
