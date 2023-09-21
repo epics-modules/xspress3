@@ -87,7 +87,7 @@ private:
     double frame_time;
     int num_frames;
     xsp3TimeRegister timeRegister;
-    unsigned int current_frame;
+    int current_frame;
     epicsTime scanStart;
 };
 
