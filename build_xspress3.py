@@ -22,33 +22,32 @@ import shutil
 import time
 from argparse import ArgumentParser
 
-modules = {'base': 'base-7.0.3.1.tar.gz',
-           'asyn': 'asyn4-38.tar.gz',
+modules = {'base': 'base-7.0.7.tar.gz',
+           'asyn': 'asyn-R4-44-2.tar.gz',
+           'ipac': 'ipac-2.16.tar.gz',
+           'areaDetector': 'areaDetector-R3-12-1.tar.gz',
+           'busy': 'busy-R1-7-4.tar.gz',
+           'alive': 'alive-R1-4-1.tar.gz',
+           'std': 'std-R3-6-4.tar.gz',
+           'autosave': 'autosave-R5-11.tar.gz',
+           'iocStats': 'iocStats-3.2.0.tar.gz',
+           'sscan': 'sscan-R2-11-5.tar.gz',
+           'calc': 'calc-R3-7-5.tar.gz',
            'sncseq': 'seq-2.2.6.tar.gz',
-           'ipac': 'ipac-2.15.tar.gz',
-           'alive': 'alive-R1-1-1.tar.gz',
-           'std': 'std-R3-6.tar.gz',
-           'autosave': 'autosave-R5-10.tar.gz',
-           'iocStats': 'iocStats-3.1.16.tar.gz',
-           'busy': 'busy-R1-7-2.tar.gz',
-           'sscan': 'sscan-R2-11-3.tar.gz',
-           'calc': 'calc-R3-7-3.tar.gz',
-           'areaDetector': 'areaDetector-R3-9.tar.gz',
            'xspress3': 'xspress3-2-7.tar.gz'}
 
-ad_modules = {'ADSupport': 'adSupport-R1-9.tar.gz',
-              'ADCore': 'adCore-R3-9.tar.gz'}
+ad_modules = {'ADSupport': 'adSupport-R1-10.tar.gz',
+              'ADCore': 'adCore-R3-12-1.tar.gz'}
 
-other_sources = ('procServ-2.6.0.tar.gz', 'bin_softioc.tar.gz', 'medm_ext.tar.gz')
+other_sources = ('procServ-2.8.0.tar.gz', 'bin_softioc.tar.gz', 'medm_ext.tar.gz')
 
 SOURCES_URL = 'https://millenia.cars.aps.anl.gov/software/xspress3/sources'
 
-LARCH_URL   = 'https://millenia.cars.aps.anl.gov/xraylarch/downloads/'
-LARCH_FNAME = 'xraylarch-2022-04-Linux-x86_64.sh'
+LARCH_URL = 'https://millenia.cars.aps.anl.gov/xraylarch/downloads/'
+GETLARCH  = 'GetLarch.sh'
 
 ######################################################################
 required_tools = {'re2c': '/bin/re2c', 'rpcgen': '/bin/rpcgen',
-                  'readline': '/lib64/libreadline.so.6',
                   'readline-devel': '/usr/lib64/libreadline.so',
                   'hdf5-devel': '/usr/include/hdf5.h',
                   'libtiff-devel': '/usr/include/tiff.h',
@@ -72,14 +71,15 @@ arguments:
     xrfapp      install and configure XRF display app
 
     all         extract, configure, and compile sources, install xrfapp
-    clean       remove all downloaded source files.
-    realclean   completely remove all source files and built components
+    clean       run 'make clean' for all modules
+    realclean   remove all module folders created by 'build'
+    distclean   do realclean and remove source packages
 
 examples:
 
    To build everything for 4 element detector:
 
-   > python build_xspress3.py n -4 all
+   > python build_xspress3.py -n 4 all
 
 '''
 
@@ -115,7 +115,7 @@ RUN_MEDM = '''#!/bin/bash
 '''
 
 BUILD_PROCSERV = '''
-cd procServ-2.6.0 && sh ./configure && make -j8 && cp procServ ../bin/. && cd ..
+cd procServ-2.8.0 && sh ./configure && make -j8 && cp procServ ../bin/. && cd ..
 '''
 
 BUILD_MEDM = '''
@@ -326,9 +326,7 @@ def extract_sources():
 
     for tarball in other_sources:
         unpack_tarball(tarball)
-
     create_bindir()
-
 
 def configure_release():
     subs = {}
@@ -347,6 +345,9 @@ def configure_release():
         if not os.path.exists(savefile):
             shutil.copy(release, savefile)
         out = []
+        if mod in ('asyn', ):
+            for key in ('EPICS_BASE', 'SUPPORT'):
+                out.append(f'{key}={subs[key]}')
         for line in text:
             line = line[:-1]
             for key, val in subs.items():
@@ -416,8 +417,8 @@ def install_xrfapp(nelem=4):
     cwd = os.path.abspath(os.getcwd())
     if not os.path.exists(os.path.join(HOME_DIR, 'xraylarch')):
         os.chdir('sources')
-        o = sp.call(['/bin/wget', '%s/%s' % (LARCH_URL, LARCH_FNAME)])
-        o = sp.call(['sh', './%s' % LARCH_FNAME, '-b'])
+        o = sp.call(['/bin/wget', f"{LARCH_URL}{GETLARCH}"])
+        o = sp.call(['sh', GETLARCH])
         os.chdir(cwd)
 
     with open('bin/run_xrfcontrol.py', 'w') as fh:
@@ -464,12 +465,14 @@ def build(nelem=4):
         print("There are missing useful tools. Install with `sudo yum install`:")
         print("  ".join(missing_tools))
 
-
 def clean():
-    remove_link_or_dir('sources')
+    cwd = os.path.abspath(os.getcwd())
+    for slink in modules:
+        os.chdir(slink)
+        o = sp.call(['make', 'clean'])
+        os.chdir(cwd)
 
-def realclean():
-    clean()
+def realclean(with_source_kits=False):
     if os.path.exists('do_build.sh'):
         os.unlink('do_build.sh')
     for slink, tarball in modules.items():
@@ -478,20 +481,24 @@ def realclean():
         remove_link_or_dir(sdir)
 
     for dname in ('do_build.sh', 'adls', 'uis', 'opis', 'procServ',
-                  'procServ-2.6.0', 'extensions'):
+                  'procServ-2.8.0', 'extensions'):
         remove_link_or_dir(dname)
+    if with_source_kits:
+        remove_link_or_dir('sources')
+
+def distclean():
+    realclean(with_source_kits=True)
 
 if __name__ == '__main__':
     parser = ArgumentParser(prog='xspress3_build',
-                            description='build xspress3 epics support',
-                            add_help=False)
-    parser.add_argument('-h', '--help', dest='help', default=False)
+                            description='build xspress3 epics support')
+    # parser.add_argument('-h', '--help', dest='help')
     parser.add_argument('-n', '--nelem', dest='nelem', type=int, default=4)
     parser.add_argument('options', nargs='*')
 
     args = parser.parse_args()
     nelem = args.nelem
-    if args.help or len(args.options) == 0:
+    if len(args.options) == 0:
         print(HELP_MESSAGE)
     else:
         cmd = args.options.pop(0)
