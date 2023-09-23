@@ -381,7 +381,6 @@ def configure_release():
         with open(fullname, 'w') as fh:
             fh.write(config.format(topdir=TOP))
 
-
 def create_buildscript(nelem=4):
     write_bash_profile(nelem=nelem)
     cwd = os.path.abspath(os.getcwd())
@@ -421,10 +420,10 @@ def install_xrfapp(nelem=4):
         o = sp.call(['sh', GETLARCH])
         os.chdir(cwd)
 
-    with open('bin/run_xrfcontrol.py', 'w') as fh:
+    with open(f'bin/run_xrfapp.py', 'w') as fh:
         fh.write(XRFAPP_SCRIPT.format(topdir=cwd, homedir=HOME_DIR,
                                       nelem=nelem))
-    os.chmod('bin/run_xrfcontrol.py', 493) # mod 755
+    os.chmod('bin/run_xrfapp.py', 493) # mod 755
     # environ file
     buff = []
     template = 'XSP3_{nelem:d}Chan:C{elem:d}SCA:{sca:d}:Value_RBV Chan{elem:d} {label:s}'
@@ -438,7 +437,14 @@ def install_xrfapp(nelem=4):
     buff.append('')
     with open('bin/Xspress3.env', 'w') as fh:
         fh.write('\n'.join(buff))
-
+  
+    # make desktop shortcut
+    shortcut_command = ['pyshortcut', f'{HOME_DIR}/support/bin/run_xrfapp.py', '-n', 'Xspress3_Detector',
+                        '--icon', f'{HOME_DIR}/support/xspress3/documentation/source/_static/ptable.ico']
+    sp.call(shortcut_command)
+   
+        
+        
 def check_dependencies():
     missing_reqs = []
     for name, exe in required_tools.items():
@@ -521,3 +527,4 @@ if __name__ == '__main__':
             configure_release()
             build()
             install_xrfapp(nelem=nelem)
+
