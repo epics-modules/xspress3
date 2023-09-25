@@ -17,6 +17,7 @@ from __future__ import print_function
 
 import os
 import sys
+import multiprocessing as mp
 import subprocess as sp
 import shutil
 import time
@@ -193,9 +194,9 @@ PROFILE = '''#!/bin/bash
 export EPICS_HOST_ARCH=linux-x86_64
 export EPICS_CA_MAX_ARRAY_BYTES=768000
 
-export EPICS_BASE='{topdir:s}/base'
-export EPICS_EXTENSIONS='{topdir:s}/extensions'
-export EPICS_DISPLAY_PATH='{topdir:s}/adls'
+export EPICS_BASE={topdir:s}/base
+export EPICS_EXTENSIONS={topdir:s}/extensions
+export EPICS_DISPLAY_PATH={topdir:s}/adls
 
 # turn this off to make sure PVs can be seen by other
 # machines on your network
@@ -204,23 +205,23 @@ unset  EPICS_CAS_INTF_ADDR_LIST
 # setting EPICS Address list, there are 2 options:
 # a) use automatic address lookup.
 #    works well for  machines with 1 NIC (xpsress3 minis?)
-export EPICS_CA_AUTO_ADDR_LIST=YES
 unset  EPICS_CA_ADDR_LIST
+export EPICS_CA_AUTO_ADDR_LIST=YES
 
 # b) turn off automatic address lookup, explicitly set address
 #    list to the broadcast address (or localhost).  This gives
 #    fewer warning messages for machines with multiple NICs,
 #    such as non-mini xspress3 units.
-export EPICS_CA_AUTO_ADDR_LIST=NO
+# export EPICS_CA_AUTO_ADDR_LIST=NO
 # export EPICS_CA_ADDR_LIST=localhost
-export EPICS_CA_ADDR_LIST={broadcast:s}
+# export EPICS_CA_ADDR_LIST={broadcast:s}
 
 # include bin folders in PATH
-PATH=/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/lib64/qt-3.3/bin
+PATH={homedir:s}/xraylarch/bin:/usr/local/bin:/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/sbin
 export PATH=$PATH:$EPICS_BASE/bin/linux-x86_64:$EPICS_EXTENSIONS/bin/linux-x86_64:{topdir:s}/bin
 
 # include bin folders in LD_LIBRARY_PATH
-LD_LIBRARY_PATH={homedir:s}/software/boost/stage/lib:/usr/local/lib
+LD_LIBRARY_PATH=/usr/local/lib
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$EPICS_BASE/lib/linux-x86_64:$EPICS_EXTENSIONS/lib/linux-x86_64
 '''
 
@@ -262,7 +263,8 @@ def write_bash_profile(nelem=4):
             break
     with open ('bin/bash_profile.sh', 'w') as fh:
         fh.write(PROFILE.format(topdir=os.getcwd(),
-                                homedir=HOME_DIR, broadcast=broadcast))
+                                homedir=HOME_DIR,
+                                broadcast=broadcast))
     with open ('bin/run_xspress3.sh', 'w') as fh:
         fh.write(START_IOC.format(topdir=os.getcwd(), nelem=nelem))
     with open ('bin/run_medm.sh', 'w') as fh:
@@ -273,7 +275,7 @@ def write_bash_profile(nelem=4):
     print('# wrote bash_profile.sh')
 
 def create_bindir():
-    tarball = 'bin.tar.gz'
+    tarball = 'bin_softioc.tar.gz'
     tball = os.path.abspath(os.path.join('sources', tarball))
     cwd = os.path.abspath(os.getcwd())
     if not os.path.exists(tball):
@@ -289,7 +291,7 @@ def create_bindir():
         tarcmd = ['tar', 'xvzf', tball]
         o = sp.check_output(tarcmd).splitlines()
 
-def unpack_tarball(tarball, shortname=None, sourcedir='sources'):
+def unpack_tarball(tarball, shortname, sourcedir):
     tball = os.path.join(sourcedir, tarball)
     cwd = os.path.abspath(os.getcwd())
     if not os.path.exists(sourcedir):
@@ -316,16 +318,21 @@ def unpack_tarball(tarball, shortname=None, sourcedir='sources'):
 
 def extract_sources():
     print('# extracting sources')
-    for key, value in modules.items():
-        unpack_tarball(value, shortname=key)
+    workers = []
+    with mp.Pool(8) as pool:
+        for key, value in modules.items():
+            w = pool.apply_async(unpack_tarball, (value, key, 'sources'))
+            workers.append(w)
 
+        for tarball in other_sources:
+            w = pool.apply_async(unpack_tarball, (tarball, None, 'sources'))
+            workers.append(w)
+        [w.wait() for w in workers]
+        
     os.chdir('areaDetector')
     for key, value  in ad_modules.items():
-        unpack_tarball(value, shortname=key, sourcedir=os.path.join('..', 'sources'))
+        unpack_tarball(value, key, os.path.join('..', 'sources'))
     os.chdir('..')
-
-    for tarball in other_sources:
-        unpack_tarball(tarball)
     create_bindir()
 
 def configure_release():
@@ -409,10 +416,10 @@ def create_buildscript(nelem=4):
     script.append('')
     with open('do_build.sh', 'w') as fh:
         fh.write('\n'.join(script))
-    time.sleep(1)
+    time.sleep(0.25)
     print("# wrote do_build.sh. Now ready to build with 'sh do_build.sh'")
 
-def install_xrfapp(nelem=4):
+def install_xrfapp(nelem):
     cwd = os.path.abspath(os.getcwd())
     if not os.path.exists(os.path.join(HOME_DIR, 'xraylarch')):
         os.chdir('sources')
@@ -442,7 +449,6 @@ def install_xrfapp(nelem=4):
     shortcut_command = ['pyshortcut', f'{HOME_DIR}/support/bin/run_xrfapp.py', '-n', 'Xspress3_Detector',
                         '--icon', f'{HOME_DIR}/support/xspress3/documentation/source/_static/ptable.ico']
     sp.call(shortcut_command)
-   
         
         
 def check_dependencies():
@@ -465,6 +471,7 @@ def build(nelem=4):
     missing_tools = check_dependencies()
     if not os.path.exists('do_build.sh'):
         create_buildscript(nelem=nelem)
+        configure_release()        
     o = sp.call(['sh', 'do_build.sh'])
 
     if len(missing_tools) > 0:
@@ -514,7 +521,7 @@ if __name__ == '__main__':
             create_buildscript(nelem=nelem)
             configure_release()
         elif cmd == 'xrfapp':
-            install_xrfapp(nelem=nelem)
+            install_xrfapp(nelem)
         elif cmd == 'clean':
             clean()
         elif cmd == 'realclean':
@@ -522,9 +529,11 @@ if __name__ == '__main__':
         elif cmd == 'build':
             build()
         elif cmd == 'all':
+            xrfapp_proc = mp.Process(target=install_xrfapp, args=(nelem,))
+            xrfapp_proc.start()
             extract_sources()
             create_buildscript(nelem=nelem)
             configure_release()
             build()
-            install_xrfapp(nelem=nelem)
+            xrfapp_proc.join()
 
