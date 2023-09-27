@@ -8,11 +8,11 @@ callbackSetQueueSize(8000)
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
 epicsEnvSet("PORT",   "XSP3")
-epicsEnvSet("QSIZE",  "256")
+epicsEnvSet("QSIZE",  "512")
 epicsEnvSet("XSIZE",  "$(NUM_BINS)")
 
 # The maximum number of frames buffered in the NDPluginCircularBuff plugin
-epicsEnvSet("CBUFFS", "4096")
+epicsEnvSet("CBUFFS", "8192")
 
 # The search path for database files
 epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(XSPRESS3)/db:.")
@@ -33,7 +33,7 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(XSPRESS3)/db:.")
 # debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
 # simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
 # circBuffer 0 or 1. set to 1 if more than 12216 frames required
-xspress3Config("$(PORT)", "$(NUM_CHANNELS)", "$(XSP3CARDS)", "$(XSP3ADDR)", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(NUM_BINS)", 0, 0, 0, 0, "$(CIRC_BUFFER=0)")
+xspress3Config("$(PORT)", "$(NUM_CHANNELS)", "$(XSP3CARDS)", "$(XSP3ADDR)", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(NUM_BINS)", 0, 0, 0, 0, "$(CIRC_BUFFER)")
 
 #
 # Create a processing plugin
