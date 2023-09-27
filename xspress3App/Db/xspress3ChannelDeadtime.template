@@ -13,7 +13,6 @@ record(ai, "$(P)C$(CHAN):DeadTime_RBV") {
     field(VAL,  "0")
     field(PREC, "5")
     field(DISA, "1")
-    field(SCAN, "PASSIVE")
 }
 
 # deadtime correction factor 
@@ -23,5 +22,4 @@ record(ai, "$(P)C$(CHAN):DTFactor_RBV") {
     field(VAL,  "1")
     field(PREC, "5")
     field(DISA, "1")
-    field(SCAN, "PASSIVE")
 }
