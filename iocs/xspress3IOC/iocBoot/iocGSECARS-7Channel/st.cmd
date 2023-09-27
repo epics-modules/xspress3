@@ -58,7 +58,7 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(XSPRESS3)/db:.")
 # debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
 # simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
 # circBuffer 0 or 1. 
-xspress3Config("$(PORT)", "$(YSIZE)", "$(XSP3CARDS)", "192.168.0.1", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(XSIZE)", 0, 0, 0, 0, 0)
+xspress3Config("$(PORT)", "$(YSIZE)", "$(XSP3CARDS)", "192.168.0.1", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(XSIZE)", 0, 0, 0, 0, 1)
 
 ############
 # Create a processing plugin

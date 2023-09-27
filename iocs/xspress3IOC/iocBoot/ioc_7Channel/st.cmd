@@ -20,6 +20,7 @@ epicsEnvSet("MAXDRIVERFRAMES", "16384")
 # Number of Energy bins
 epicsEnvSet("NUM_BINS",  "4096")
 
+
 < ../common/DefineXSP3Driver.cmd
 
 ###############################
@@ -69,11 +70,13 @@ dbLoadRecords("xspress3Deadtime_7Channel.template",   "P=$(PREFIX)")
 # start IOC
 iocInit
 
+# Configure Xspress3:
+# The "CONFIG_PATH" value points to the calibration folder with files:
+#     card0_clocks.dat, chan1_reion0.dat, etc
+# dbpf("$(PREFIX)det1:CONFIG_PATH", "/etc/xspress3/calibration/initial")
+dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3_settings/current/")
+
 # setup startup values
-
-#Configure and connect to Xspress3
-dbpf("$(PREFIX)det1:CONFIG_PATH", "/home/xspress3/xspress3_settings/current/")
-
 < ../common/SetMainValues.cmd
 
 ###############################
