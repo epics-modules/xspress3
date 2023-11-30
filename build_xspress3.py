@@ -319,16 +319,23 @@ def unpack_tarball(tarball, shortname, sourcedir):
 def extract_sources():
     print('# extracting sources')
     workers = []
-    with mp.Pool(8) as pool:
+    if sys.version_info.major == 2:
         for key, value in modules.items():
-            w = pool.apply_async(unpack_tarball, (value, key, 'sources'))
-            workers.append(w)
-
+            unpack_tarball(value, key, 'sources')
         for tarball in other_sources:
-            w = pool.apply_async(unpack_tarball, (tarball, None, 'sources'))
-            workers.append(w)
-        [w.wait() for w in workers]
-        
+            unpack_tarball(tarball, None, 'sources')
+
+    else:
+        with mp.Pool(8) as pool:
+            for key, value in modules.items():
+                w = pool.apply_async(unpack_tarball, (value, key, 'sources'))
+                workers.append(w)
+
+            for tarball in other_sources:
+                w = pool.apply_async(unpack_tarball, (tarball, None, 'sources'))
+                workers.append(w)
+            [w.wait() for w in workers]
+
     os.chdir('areaDetector')
     for key, value  in ad_modules.items():
         unpack_tarball(value, key, os.path.join('..', 'sources'))
@@ -354,7 +361,8 @@ def configure_release():
         out = []
         if mod in ('asyn', ):
             for key in ('EPICS_BASE', 'SUPPORT'):
-                out.append(f'{key}={subs[key]}')
+                # out.append(f'{key}={subs[key]}')
+                out.append('%s=%s' % (key, subs[key]))
         for line in text:
             line = line[:-1]
             for key, val in subs.items():
@@ -423,11 +431,11 @@ def install_xrfapp(nelem):
     cwd = os.path.abspath(os.getcwd())
     if not os.path.exists(os.path.join(HOME_DIR, 'xraylarch')):
         os.chdir('sources')
-        o = sp.call(['/bin/wget', f"{LARCH_URL}{GETLARCH}"])
+        o = sp.call(['/bin/wget', '%s%s' % (LARCH_URL, GETLARCH)])
         o = sp.call(['sh', GETLARCH])
         os.chdir(cwd)
 
-    with open(f'bin/run_xrfapp.py', 'w') as fh:
+    with open('bin/run_xrfapp.py', 'w') as fh:
         fh.write(XRFAPP_SCRIPT.format(topdir=cwd, homedir=HOME_DIR,
                                       nelem=nelem))
     os.chmod('bin/run_xrfapp.py', 493) # mod 755
@@ -444,13 +452,14 @@ def install_xrfapp(nelem):
     buff.append('')
     with open('bin/Xspress3.env', 'w') as fh:
         fh.write('\n'.join(buff))
-  
+
     # make desktop shortcut
-    shortcut_command = ['pyshortcut', f'{HOME_DIR}/support/bin/run_xrfapp.py', '-n', 'Xspress3_Detector',
-                        '--icon', f'{HOME_DIR}/support/xspress3/documentation/source/_static/ptable.ico']
+    shortcut_command = ['pyshortcut', '%s/support/bin/run_xrfapp.py'%(HOME_DIR),
+                        '-n', 'Xspress3_Detector', '--icon',
+                        '%s/support/xspress3/documentation/source/_static/ptable.ico'%(HOME_DIR)]
     sp.call(shortcut_command)
-        
-        
+
+
 def check_dependencies():
     missing_reqs = []
     for name, exe in required_tools.items():
@@ -471,7 +480,7 @@ def build(nelem=4):
     missing_tools = check_dependencies()
     if not os.path.exists('do_build.sh'):
         create_buildscript(nelem=nelem)
-        configure_release()        
+        configure_release()
     o = sp.call(['sh', 'do_build.sh'])
 
     if len(missing_tools) > 0:
@@ -536,4 +545,3 @@ if __name__ == '__main__':
             configure_release()
             build()
             xrfapp_proc.join()
-
