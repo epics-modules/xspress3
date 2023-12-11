@@ -35,7 +35,7 @@ modules = {'base': 'base-7.0.7.tar.gz',
            'sscan': 'sscan-R2-11-5.tar.gz',
            'calc': 'calc-R3-7-5.tar.gz',
            'sncseq': 'seq-2.2.6.tar.gz',
-           'xspress3': 'xspress3-2-7.tar.gz'}
+           'xspress3': 'xspress3-2-8.tar.gz'}
 
 ad_modules = {'ADSupport': 'adSupport-R1-10.tar.gz',
               'ADCore': 'adCore-R3-12-1.tar.gz'}
@@ -318,6 +318,10 @@ def unpack_tarball(tarball, shortname, sourcedir):
 
 def extract_sources():
     print('# extracting sources')
+    try:
+        os.mkdir('areaDetector')
+    except:
+        pass
     workers = []
     if sys.version_info.major == 2:
         for key, value in modules.items():
