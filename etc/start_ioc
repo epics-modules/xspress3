@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+# start processes with procServ (as for Epics IOCs)
+
+##
+## Edit this list to update the list of Processes
+##
+##  NAME  PORT   Command
+## Notes:
+##   1. NAME       must be a unique name
+##   2. PORT       must be unique number > 2048
+##   3. COMMAND    shell script to run
+## lines beginning with '#' are ignored.
+
+import os
+import subprocess
+import sys
+import socket
+from telnetlib import Telnet
+from argparse import ArgumentParser
+
+PROC_LIST = [('xspress3', '34561',  'run_xspress3.sh')]
+
+logdir = os.path.expanduser('~/logs')
+proc_command = '{exe:s} -n "{name:s}" -L {logdir:s}/{name:s}.log {port:s} {script:s}'
+
+
+def start(name, connect=False):
+    procs = read_proc_list()
+    if name in procs:
+        port, script = procs[name]
+        here, me = os.path.split(os.path.realpath(__file__))
+        script = os.path.join(here, script)
+
+        # try telnet
+        running = False
+        try:
+            tnet = Telnet('localhost', port)
+            running = True
+        except socket.error:
+            pass
+
+        if not running:
+            cmd = proc_command.format(exe=os.path.join(here, 'procServ'),
+                                      logdir=logdir, name=name,
+                                      port=port, script=script)
+            subprocess.call(cmd.split())
+        if connect:
+            subprocess.call(["telnet", "localhost", "%s" % port])
+    else:
+        print('unknown Process: ', name)
+        print('to list known Processes, use  start_process -l')
+
+def read_proc_list():
+    procs = {}
+    for name, port, script in PROC_LIST:
+        procs[name] = (port, script)
+    return procs
+
+if __name__ == '__main__':
+    parser = ArgumentParser(prog='start_ioc',
+                            description='start or connect to a known long-running process with procServ',
+                            add_help=True)
+    # parser.add_argument('-h', '--help', dest='help', action='store_true',
+    #                     default=False, help='show help')
+    parser.add_argument('-l', '--list', dest='list', action='store_true',
+                        default=False, help='show list of processes')
+    parser.add_argument('-s', '--silent', dest='silent', action='store_true',
+                        default=False, help='do not connect to process after starting')
+    parser.add_argument('options', nargs='*')
+
+    connect = True
+    args = parser.parse_args()
+
+    if args.list:
+        print("# Available Processes\n# NAME           Telnet Port   Command")
+        for name, port, script in PROC_LIST:
+            print(" {name:15s} {port:12s}  {script:s}".format(name=name,
+                                                              port=port,
+                                                              script=script))
+        sys.exit()
+    if args.silent:
+        connect = False
+
+    if len(args.options) == 0:
+        parser.print_help()
+    for procname in args.options:
+        start(procname, connect=connect)
