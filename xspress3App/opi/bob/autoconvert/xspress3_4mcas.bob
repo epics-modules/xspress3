@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2024-01-15 13:35:43 by epics-->
 <display version="2.0.0">
   <name>xspress3_4mcas</name>
   <x>200</x>
@@ -11,7 +12,7 @@
   </background_color>
   <grid_visible>false</grid_visible>
   <grid_step_x>5</grid_step_x>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #6</name>
     <x>449</x>
     <y>250</y>
@@ -51,7 +52,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -74,7 +80,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #13</name>
     <width>450</width>
     <height>250</height>
@@ -112,7 +118,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -135,7 +146,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #20</name>
     <y>250</y>
     <width>450</width>
@@ -174,7 +185,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -197,7 +213,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #27</name>
     <x>449</x>
     <width>450</width>
@@ -236,7 +252,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>

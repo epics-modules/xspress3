@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2024-01-15 13:35:43 by epics-->
 <display version="2.0.0">
   <name>xspress3_7mcas_me7</name>
   <x>609</x>
@@ -11,7 +12,7 @@
   </background_color>
   <grid_visible>false</grid_visible>
   <grid_step_x>5</grid_step_x>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #6</name>
     <x>640</x>
     <y>360</y>
@@ -51,7 +52,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -74,7 +80,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #13</name>
     <x>320</x>
     <y>240</y>
@@ -114,7 +120,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -137,7 +148,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #20</name>
     <x>320</x>
     <width>320</width>
@@ -176,7 +187,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -199,7 +215,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #27</name>
     <x>320</x>
     <y>480</y>
@@ -239,7 +255,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -262,7 +283,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #34</name>
     <x>640</x>
     <y>120</y>
@@ -302,7 +323,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -325,7 +351,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #41</name>
     <y>120</y>
     <width>320</width>
@@ -364,7 +390,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -387,7 +418,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #48</name>
     <y>360</y>
     <width>320</width>
@@ -426,7 +457,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>

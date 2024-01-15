@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--Saved on 2024-01-15 13:35:43 by epics-->
 <display version="2.0.0">
   <name>xspress3_mcarois</name>
   <x>695</x>
@@ -23,7 +24,7 @@
     </font>
     <horizontal_alignment>1</horizontal_alignment>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #9</name>
     <x>5</x>
     <y>20</y>
@@ -63,7 +64,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>
@@ -86,7 +92,7 @@
       </trace>
     </traces>
   </widget>
-  <widget type="xyplot" version="2.0.0">
+  <widget type="xyplot" version="3.0.0">
     <name>cartesian plot #15</name>
     <x>5</x>
     <y>305</y>
@@ -126,7 +132,12 @@
           <font name="Default" family="Liberation Sans" style="REGULAR" size="14.0">
           </font>
         </scale_font>
+        <on_right>false</on_right>
         <visible>true</visible>
+        <color>
+          <color name="Text" red="0" green="0" blue="0">
+          </color>
+        </color>
       </y_axis>
     </y_axes>
     <traces>

@@ -85,6 +85,16 @@ caChoice &gt; QPushButton {
       padding: 1px;
 }
 
+/* when font specified, no font sizing is done any more,  font: 10pt; is not bad. You could Enable this when you converted from .adl files
+caRelatedDisplay  &gt; QPushButton {
+font: 10pt;
+}
+
+caShellCommand  &gt; QPushButton {
+font: 10pt;
+}
+*/
+
 caSlider::groove:horizontal {
 border: 1px solid #bbb;
 background: lightgrey;
@@ -1372,7 +1382,7 @@ border-radius: 2px;
                 <string>AreaDetector Base;HDF5 File Plugin;PROC1 (For MCA Sums);PROC1 (For MCA Sums)</string>
             </property>
             <property name="files">
-                <string>ADBase.adl;NDFileHDF5.adl;NDProcess.adl;l</string>
+                <string>ADBase.ui ;NDFileHDF5.ui ;NDProcess.ui ;l</string>
             </property>
             <property name="args">
                 <string>P=$(P):, R=det1:;P=$(P), R=:HDF1:;P=$(P):, R=Proc1:;P=$(P):, R=Proc1:</string>
@@ -2467,7 +2477,7 @@ border-radius: 2px;
                 <string>MCA 1;MCA 2;MCA 3;MCA 4;MCA 5;MCA 6;MCA 7;MCA 8</string>
             </property>
             <property name="files">
-                <string>xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl;xspress3_mcarois.adl</string>
+                <string>xspress3_mcarois.ui ;xspress3_mcarois.ui ;xspress3_mcarois.ui ;xspress3_mcarois.ui ;xspress3_mcarois.ui ;xspress3_mcarois.ui ;xspress3_mcarois.ui ;xspress3_mcarois.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P), CHAN=1;P=$(P), CHAN=2;P=$(P), CHAN=3;P=$(P), CHAN=4;P=$(P), CHAN=5;P=$(P), CHAN=6;P=$(P), CHAN=7;P=$(P), CHAN=8</string>
@@ -2509,7 +2519,7 @@ border-radius: 2px;
                 <string>Single MCA Plots [ME7];Summed MCA Plots [ME7]</string>
             </property>
             <property name="files">
-                <string>xspress3_8mcas.adl;xspress3_8mcas.adl</string>
+                <string>xspress3_8mcas.ui ;xspress3_8mcas.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P), R=MCA;P=$(P), R=MCASUM</string>

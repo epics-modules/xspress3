@@ -85,6 +85,16 @@ caChoice &gt; QPushButton {
       padding: 1px;
 }
 
+/* when font specified, no font sizing is done any more,  font: 10pt; is not bad. You could Enable this when you converted from .adl files
+caRelatedDisplay  &gt; QPushButton {
+font: 10pt;
+}
+
+caShellCommand  &gt; QPushButton {
+font: 10pt;
+}
+*/
+
 caSlider::groove:horizontal {
 border: 1px solid #bbb;
 background: lightgrey;
@@ -1349,7 +1359,7 @@ border-radius: 2px;
                 <string></string>
             </property>
             <property name="files">
-                <string>xspress3_chan_plugins.adl</string>
+                <string>xspress3_chan_plugins.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):, R=$(CHAN)</string>
@@ -1391,7 +1401,7 @@ border-radius: 2px;
                 <string>Main ROIStats</string>
             </property>
             <property name="files">
-                <string>NDROIStat.adl</string>
+                <string>NDROIStat.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):,R=MCA$(CHAN)ROI:</string>
@@ -1433,7 +1443,7 @@ border-radius: 2px;
                 <string>SCAs</string>
             </property>
             <property name="files">
-                <string>NDPluginAttribute.adl</string>
+                <string>NDPluginAttribute.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):,R=C$(CHAN)SCA:</string>
@@ -1475,7 +1485,7 @@ border-radius: 2px;
                 <string>SCAs</string>
             </property>
             <property name="files">
-                <string>xspress3_sca_tseries.adl</string>
+                <string>xspress3_sca_tseries.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):,R=C$(CHAN)SCA:, A0=0:, A1=1:, A2=2:, A3=3:, A4=4:, A5=5:, A6=6:, A7=7:, A8=8:, A9=9:, A10=10:</string>
@@ -1517,7 +1527,7 @@ border-radius: 2px;
                 <string>ROIS</string>
             </property>
             <property name="files">
-                <string>NDROIStat8.adl</string>
+                <string>NDROIStat8.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):,R=MCA$(CHAN)ROI:,  ROI1=1:, ROI2=2:, ROI3=3:, ROI4=4:, ROI5=5:, ROI6=6:, ROI7=7:, ROI8=8:</string>
@@ -1559,7 +1569,7 @@ border-radius: 2px;
                 <string>ROIS</string>
             </property>
             <property name="files">
-                <string>NDROIStat8.adl</string>
+                <string>NDROIStat8.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):,R=MCA$(CHAN)ROI:,  ROI1=9:, ROI2=10:, ROI3=11:, ROI4=12:, ROI5=13:, ROI6=14:, ROI7=15:, ROI8=16:</string>
@@ -1601,7 +1611,7 @@ border-radius: 2px;
                 <string>ROIS</string>
             </property>
             <property name="files">
-                <string>NDROIStat8.adl</string>
+                <string>NDROIStat8.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):,R=MCA$(CHAN)ROI:,  ROI1=17:, ROI2=18:, ROI3=19:, ROI4=20:, ROI5=21:, ROI6=22:, ROI7=23:, ROI8=24:</string>
@@ -1643,7 +1653,7 @@ border-radius: 2px;
                 <string>ROIS</string>
             </property>
             <property name="files">
-                <string>NDROIStat8.adl</string>
+                <string>NDROIStat8.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):,R=MCA$(CHAN)ROI:,  ROI1=25:, ROI2=26:, ROI3=27:, ROI4=28:, ROI5=29:, ROI6=30:, ROI7=31:, ROI8=32:</string>
@@ -1685,7 +1695,7 @@ border-radius: 2px;
                 <string>ROIS</string>
             </property>
             <property name="files">
-                <string>NDROIStat8.adl</string>
+                <string>NDROIStat8.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):,R=MCA$(CHAN)ROI:,  ROI1=33:, ROI2=34:, ROI3=35:, ROI4=36:, ROI5=37:, ROI6=38:, ROI7=39:, ROI8=40:</string>
@@ -1727,7 +1737,7 @@ border-radius: 2px;
                 <string>ROIS</string>
             </property>
             <property name="files">
-                <string>NDROIStat8.adl</string>
+                <string>NDROIStat8.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P):,R=MCA$(CHAN)ROI:,  ROI1=41:, ROI2=42:, ROI3=43:, ROI4=44:, ROI5=45:, ROI6=46:, ROI7=47:, ROI8=48:</string>

@@ -85,6 +85,16 @@ caChoice &gt; QPushButton {
       padding: 1px;
 }
 
+/* when font specified, no font sizing is done any more,  font: 10pt; is not bad. You could Enable this when you converted from .adl files
+caRelatedDisplay  &gt; QPushButton {
+font: 10pt;
+}
+
+caShellCommand  &gt; QPushButton {
+font: 10pt;
+}
+*/
+
 caSlider::groove:horizontal {
 border: 1px solid #bbb;
 background: lightgrey;
@@ -970,7 +980,7 @@ border-radius: 2px;
                 <string>ROI</string>
             </property>
             <property name="files">
-                <string>NDROI.adl</string>
+                <string>NDROI.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P),R=ROI$(R):</string>
@@ -1066,7 +1076,7 @@ border-radius: 2px;
                 <string>ROIStats</string>
             </property>
             <property name="files">
-                <string>NDROIStat.adl</string>
+                <string>NDROIStat.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P),R=MCA$(R)ROI:</string>
@@ -1723,7 +1733,7 @@ border-radius: 2px;
                 <string>ROISUM</string>
             </property>
             <property name="files">
-                <string>NDROI.adl</string>
+                <string>NDROI.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P),R=ROISUM$(R):</string>
@@ -1927,7 +1937,7 @@ border-radius: 2px;
                 <string>SCAs</string>
             </property>
             <property name="files">
-                <string>NDPluginAttribute.adl</string>
+                <string>NDPluginAttribute.ui </string>
             </property>
             <property name="args">
                 <string>P=$(P),R=C$(R)SCA:</string>
