@@ -1037,13 +1037,22 @@ asynStatus Xspress3::setupITFG(void)
     int num_frames, trigger_mode, ppt;
     double exposureTime;
     int xsp3_status=XSP3_OK;
+    int clock_freq = 80e6;
+    int actual_clock_freq = xsp3_measure_clock_frequency(0, 0);
+    if (actual_clock_freq > 0) {
+      clock_freq = actual_clock_freq;
+    }
+    else printf(
+      "Error measuring onboard clock frequency, defaulting to 80MHz. error code: %d\n",
+      actual_clock_freq
+    );
 
     getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
 	if(trigger_mode == 7) {
 		getIntegerParam(ADNumImages, &num_frames);
 		getDoubleParam(ADAcquireTime, &exposureTime);
 		xsp3_status = xsp3->itfg_setup2( xsp3_handle_, 0, num_frames,
-							(u_int32_t) floor(exposureTime*80E6+0.5),
+							(u_int32_t) floor(exposureTime*clock_freq+0.5),
 							XSP3_ITFG_TRIG_MODE_SOFTWARE, XSP3_ITFG_GAP_MODE_1US,0,0,0 );
 		xsp3->histogram_arm(0,-1);
 	}
@@ -1052,7 +1061,7 @@ asynStatus Xspress3::setupITFG(void)
         getIntegerParam(ADNumImages, &num_frames);
         getDoubleParam(ADAcquireTime, &exposureTime);
         xsp3_status = xsp3->itfg_setup( xsp3_handle_, 0, num_frames,
-                                       (u_int32_t) floor(exposureTime*80E6+0.5),
+                                       (u_int32_t) floor(exposureTime*clock_freq+0.5),
                                        XSP3_ITFG_TRIG_MODE_BURST, XSP3_ITFG_GAP_MODE_1US );
     }
 
