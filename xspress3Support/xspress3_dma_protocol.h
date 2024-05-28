@@ -38,6 +38,9 @@
 #define XSP3_DMA_CMD_READ_TF_MARKERS		20
 #define XSP3_DMA_CMD_READ_SEND_LIST			21
 
+#define XSP3_DMA_INIT_ADC_CAPTURE			100
+
+
 //! [XSP3_DMA_COMMANDS]
 
 #define XSP3_MBOX_MAGIC	0xF0123456
@@ -155,6 +158,7 @@
 #define XSP3_DMA_DEBUG_DESC_SHORT_BURSTS	0x20000
 
 #define XSP3_DMA_START_CIRCULAR				1		// Set Tail descriptor so DMA will try to cycle the buffers.
+#define XSP3_DMA_INIT_CAPTURE_NO_RETRY		1		//!< Disable retry of ADC timing calibration
 
 /*! @defgroup XSP3_DMA_LAYOUT MACROS to interpret the layout option when configuring memory, currently on XSPRESS3-mini only.
     @ingroup XSP3_DMA
