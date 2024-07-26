@@ -624,7 +624,7 @@ int     xsp3_set_debug(int path, int level, int burst_len);
 int 	xsp3_do_config(int ncards, int num_tf, char* baseIPaddress, int basePort, char* baseMACaddress, int num_chan, int create_module, char* modname, int debug, int card_index, 
 			Xsp3Init do_init, Xsp3Init disable_udp_init, Xsp3mReadoutMode xsp3m_readout, XspressDummy dummy_system);
 int		xsp3_config_tcp(char femHostName[][XSP3_MAX_IP_CHARS], int femPort, int card, int chan, int debug, XspressDummy dummy_system);
-int 	xsp3_close(int path, Xsp3Unlink unlink_what);
+int 	xsp3_close(int path);
 char* 	xsp3_get_error_message();
 int		xsp3_get_revision(int path);
 int 	xsp3_get_features(int path, int card, Xspress3_features * features);
