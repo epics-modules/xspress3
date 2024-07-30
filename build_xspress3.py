@@ -52,7 +52,7 @@ required_tools = {'re2c': '/bin/re2c', 'rpcgen': '/bin/rpcgen',
                   'readline-devel': '/usr/lib64/libreadline.so',
                   'hdf5-devel': '/usr/include/hdf5.h',
                   'libtiff-devel': '/usr/include/tiff.h',
-                  'bzip-devel': '/usr/include/bzlib.h',
+                  'bzip2-devel': '/usr/include/bzlib.h',
                   'libxml2-devel': '/usr/lib64/libxml2.so',
                   'GraphicsMagick-devel ':  '/usr/lib64/libGraphicsMagick.so'}
 
