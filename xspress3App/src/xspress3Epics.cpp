@@ -380,10 +380,19 @@ asynStatus Xspress3::connect(void)
     setIntegerParam(xsp3ConnectedParam, 1);
 
     int generation = xsp3->get_generation(xsp3_handle_, 0);
+    int mark = 1;
 
     //Set up clocks on each card
+    // TODO: XSP4_CLK_SRC_MIDPLN_LMK61E2 for Mk2 systems 
+    if (xsp3_is_xsp3m_plus(0) == 1) {
+      printf("#################################\n##########gfgfdgd##############");
+      int mark = 2;
+    }
+
+
+
     for (int i=0; i<xsp3_num_cards && status == asynSuccess; i++) {
-      xsp3_status = xsp3->clocks_setup(xsp3_handle_, i, generation == 3 ? XSP3M_CLK_SRC_LMK61E2 : (generation == 2 ? XSP3M_CLK_SRC_CDCM61004 : XSP3_CLK_SRC_XTAL),
+      xsp3_status = xsp3->clocks_setup(xsp3_handle_, i, generation == 3 ? XSP3M_CLK_SRC_LMK61E2 : (generation == 2 ? ((mark == 2) ? XSP4_CLK_SRC_MIDPLN_LMK61E2 : XSP4_CLK_SRC_MIDPLN_LMK61E2) : XSP3_CLK_SRC_XTAL),
                                       XSP3_CLK_FLAGS_MASTER | XSP3_CLK_FLAGS_NO_DITHER, 0);
       if (xsp3_status < 0) {
 	      checkStatus(xsp3_status, "xsp3_clocks_setup", functionName);
@@ -1161,7 +1170,10 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
         {
             status = mapTriggerMode(mbboTriggerTTLVETO_, invert_f0, 0, debounce, &xsp3_trigger_mode);
         }
-
+        if (xsp3_is_xsp3m_plus(0) == 1) {
+          printf("Mark 2 system");
+          xsp3_trigger_mode = xsp3_trigger_mode | XSP3_GLOB_TIMA_FROM_RADIAL;
+        }
         int xsp3_status = xsp3->set_glob_timeA(xsp3_handle_, card, xsp3_trigger_mode);
         if (xsp3_status != XSP3_OK) {
             checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
