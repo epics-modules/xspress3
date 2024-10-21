@@ -60,7 +60,7 @@ iocInit
 # The "CONFIG_PATH" value points to the calibration folder with files:
 #     card0_clocks.dat, chan1_reion0.dat, etc
 # dbpf("$(PREFIX)det1:CONFIG_PATH", "/etc/xspress3/calibration/initial")
-dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3_settings/current/")
+dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3_settings/4channel/")
 
 < ../common/SetMainValues.cmd
 

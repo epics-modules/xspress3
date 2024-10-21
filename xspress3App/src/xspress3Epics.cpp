@@ -386,7 +386,7 @@ asynStatus Xspress3::connect(void)
     // TODO: XSP4_CLK_SRC_MIDPLN_LMK61E2 for Mk2 systems 
     if (xsp3_is_xsp3m_plus(0) == 1) {
       printf("#################################\n##########gfgfdgd##############");
-      int mark = 2;
+      mark = 2;
     }
 
 
