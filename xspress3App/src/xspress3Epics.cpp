@@ -385,7 +385,6 @@ asynStatus Xspress3::connect(void)
     //Set up clocks on each card
     // TODO: XSP4_CLK_SRC_MIDPLN_LMK61E2 for Mk2 systems 
     if (xsp3_is_xsp3m_plus(0) == 1) {
-      printf("#################################\n##########gfgfdgd##############");
       mark = 2;
     }
 
@@ -1171,7 +1170,6 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
             status = mapTriggerMode(mbboTriggerTTLVETO_, invert_f0, 0, debounce, &xsp3_trigger_mode);
         }
         if (xsp3_is_xsp3m_plus(0) == 1) {
-          printf("Mark 2 system");
           xsp3_trigger_mode = xsp3_trigger_mode | XSP3_GLOB_TIMA_FROM_RADIAL;
         }
         int xsp3_status = xsp3->set_glob_timeA(xsp3_handle_, card, xsp3_trigger_mode);
