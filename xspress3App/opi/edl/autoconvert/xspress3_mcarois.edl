@@ -183,7 +183,7 @@ fgColor rgb 0 0 0
 bgColor index 3
 useDisplayBg
 value {
-  "SCAs, Timing Info: (80MHz clock)"
+  "SCAs, Timing Info:"
 }
 endObjectProperties
 
