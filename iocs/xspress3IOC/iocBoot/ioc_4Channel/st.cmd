@@ -64,6 +64,9 @@ dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3_settings/4channel/")
 
 < ../common/SetMainValues.cmd
 
+asynSetTraceMask("XSP3",-1, 0x100)
+asynSetTraceIOMask("XSP3",-1, 0x100)
+
 ###############################
 # SET UP CHANNELS
 #Channel 1

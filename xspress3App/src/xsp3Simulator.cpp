@@ -250,3 +250,7 @@ int xsp3Simulator::xsp3Api_get_generation(int path, int card)
 {
     return 0;
 }
+int xsp3Simulator::xsp3Api_set_sync_mode(int path, int sync_mode, int enb_global_reset, int gr_card)
+{
+    return XSP3_OK;
+}

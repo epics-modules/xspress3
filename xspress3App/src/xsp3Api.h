@@ -72,6 +72,7 @@ protected:
     virtual int xsp3Api_get_trigger_b(int path, unsigned chan, Xspress3_TriggerB *trig_b) = 0;
     virtual int xsp3Api_get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan) = 0;
     virtual int xsp3Api_get_generation(int path, int card) = 0;
+    virtual int xsp3Api_set_sync_mode(int path, int sync_mode, int enb_global_reset, int gr_card) = 0;
 
 public:
     int clocks_setup(int path, int card, int clk_src, int flags, int tp_type);
@@ -110,6 +111,7 @@ public:
     int get_trigger_b(int path, unsigned card, Xspress3_TriggerB *trig_b);
     int get_dtcfactor(int path, u_int32_t *scaData, double *dtcFactor, double *dtcAllEvent, unsigned chan);
     int get_generation(int path, int card);
+    int set_sync_mode(int path, int sync_mode, int enb_global_reset, int gr_card);
 
 private:
     asynUser * pasynUser;
