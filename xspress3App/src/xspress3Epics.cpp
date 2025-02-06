@@ -387,17 +387,12 @@ asynStatus Xspress3::connect(void)
     if (xsp3_is_xsp3m_plus(0) == 1) {
       mark = 2;
     }
-
-
-
-
     xsp3_status = xsp3->clocks_setup(xsp3_handle_, -1, generation == 3 ? XSP3M_CLK_SRC_LMK61E2 : (generation == 2 ? ((mark == 2) ? XSP4_CLK_SRC_MIDPLN_LMK61E2 : XSP3M_CLK_SRC_CDCM61004) : XSP3_CLK_SRC_XTAL),
                                     XSP3_CLK_FLAGS_MASTER | XSP3_CLK_FLAGS_NO_DITHER, 0);
     if (xsp3_status < 0) {
       checkStatus(xsp3_status, "xsp3_clocks_setup", functionName);
       status = asynError;
     }
-
     printf("xsp3_clocks_setup: Measured frequency %.2f MHz\n", float(xsp3_status)/1.0e6);
     
 
@@ -1178,16 +1173,15 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
             checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
             status = asynError;
         }
-        xsp3_status = xsp3->set_sync_mode(xsp3_handle_, XSP3_SYNC_MIDPLANE, 0 , 0);
-        if (xsp3_status != XSP3_OK)
-          {
-            checkStatus(xsp3_status, "xsp3_set_sync_mode", functionName);
-            status = asynError;
-          }
+
         
     u_int32_t actual_trigger_mode;
     xsp3_get_glob_timeA(xsp3_handle_, card, &actual_trigger_mode);
-    printf("######################\n Values for xsp3_trigger_mode: %i for card %i\n####################\n ", actual_trigger_mode, card);
+    }
+    int xsp3_status = xsp3->set_sync_mode(xsp3_handle_, XSP3_SYNC_MIDPLANE, 0 , 0);
+    if (xsp3_status != XSP3_OK) {
+      checkStatus(xsp3_status, "xsp3_set_sync_mode", functionName);
+      status = asynError;
     }
 
     return status;
@@ -1261,8 +1255,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
     }
     setupITFG();
-    xsp3_status = xsp3->histogram_start(xsp3_handle_, 1 );
-    xsp3_status = xsp3->histogram_start(xsp3_handle_, 0 );
+    xsp3_status = xsp3->histogram_start(xsp3_handle_, -1);
     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_histogram_start", functionName);
       status = asynError;
@@ -1379,10 +1372,9 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set The SCA4 Threshold Register.\n", functionName);
       xsp3_status = xsp3->set_good_thres(xsp3_handle_, addr, value);
       if (xsp3_status != XSP3_OK) {
-  checkStatus(xsp3_status, "xsp3_set_good_thres", functionName);
-  status = asynError;
+        checkStatus(xsp3_status, "xsp3_set_good_thres", functionName);
+        status = asynError;
       }
-    printf("#############################\nSetting threshold to %i\n################", value );
     }
   }
   else if (function == xsp3TriggerParam) {
