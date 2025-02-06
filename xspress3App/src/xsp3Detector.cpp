@@ -254,3 +254,10 @@ int xsp3Detector::xsp3Api_get_generation(int path, int card)
     return xsp3_get_generation(path, card);
 }
 
+int xsp3Detector::xsp3Api_set_sync_mode(int path, int sync_mode, int enb_global_reset, int gr_card)
+{
+    int status;
+    status = xsp3_set_sync_mode(path, sync_mode, enb_global_reset, gr_card);
+
+    return status;
+}
