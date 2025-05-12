@@ -1848,6 +1848,10 @@ int xsp3mp_read_adc_capture_status(int path, int first_chan, int num, Xsp3mpAdcC
 #define XSP3_GTIMA_SRC_TTL_BOTH			5		//!< Time frame incremented by TTL Input 1 and reset to Fixed register by TTL Input 0.
 #define XSP3_GTIMA_SRC_LVDS_VETO_ONLY	6		//!< Time frame incremented by LVDS Input.
 #define XSP3_GTIMA_SRC_LVDS_BOTH		7		//!< Time frame incremented and reset by LVDS Inputs.
+#define XSP3_GTIMA_SRC_SOFT_INT			8		//!< Time frame incremented by software and reset by internal timeframe.
+#define XSP3_GTIMA_SRC_TTL_INT			9		//!< Time frame incremented by TTL and reset by internal timeframe.
+
+
 //! [XSP3_GLOBAL_TIMEA_SOURCE]
 
 //! [XSP3_GLOBAL_TIMEA_REGISTER]
