@@ -138,6 +138,8 @@ record(mbbo, "$(P)$(R)TriggerMode")
    field(SXVL, "6")
    field(SVST, "Software + Internal")
    field(SVVL, "7")
+   field(EIST, "TTL + Internal")
+   field(EIVL, "8")
    field(VAL,  "0")
    field(PINI, "NO")
 }
@@ -165,6 +167,8 @@ record(mbbi, "$(P)$(R)TriggerMode_RBV")
    field(SXVL, "6")
    field(SVST, "Software + Internal")
    field(SVVL, "7")
+   field(EIST, "TTL + Internal")
+   field(EIVL, "8")
    field(SCAN, "I/O Intr")
 }
 

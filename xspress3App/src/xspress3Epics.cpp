@@ -1191,14 +1191,14 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
           checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
           status = asynError;
       }
-
-    u_int32_t actual_trigger_mode;
-    xsp3_get_glob_timeA(xsp3_handle_, card, &actual_trigger_mode);
-    }
-    int xsp3_status = xsp3->set_sync_mode(xsp3_handle_, XSP3_SYNC_MIDPLANE, 0 , 0);
-    if (xsp3_status != XSP3_OK) {
-      checkStatus(xsp3_status, "xsp3_set_sync_mode", functionName);
-      status = asynError;
+    // TODO Is this needed for Mk2?
+    // u_int32_t actual_trigger_mode;
+    // xsp3_get_glob_timeA(xsp3_handle_, card, &actual_trigger_mode);
+    // }
+    // int xsp3_status = xsp3->set_sync_mode(xsp3_handle_, XSP3_SYNC_MIDPLANE, 0 , 0);
+    // if (xsp3_status != XSP3_OK) {
+    //   checkStatus(xsp3_status, "xsp3_set_sync_mode", functionName);
+    //   status = asynError;
     }
 
     return status;
