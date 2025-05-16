@@ -11,13 +11,13 @@ dbLoadDatabase("$(TOP)/dbd/xspress3App.dbd")
 # This should suppress
 #    "callbackRequest: cbLow ring buffer full"
 # but I'm not really sure why this happens
-callbackSetQueueSize(8000)
+callbackSetQueueSize(28000)
 
 xspress3App_registerRecordDeviceDriver(pdbbase) 
 
 epicsEnvSet("PREFIX", "13QX7:")
 epicsEnvSet("PORT",   "XSP3")
-epicsEnvSet("QSIZE",  "256")
+epicsEnvSet("QSIZE",  "512")
 
 epicsEnvSet("XSIZE",  "4096")
 # Number of xspress3 channels
@@ -58,7 +58,7 @@ epicsEnvSet("EPICS_DB_INCLUDE_PATH", "$(ADCORE)/db:$(XSPRESS3)/db:.")
 # debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
 # simTest 0 or 1. Set to 1 to run up this driver in simulation mode. 
 # circBuffer 0 or 1. 
-xspress3Config("$(PORT)", "$(YSIZE)", "$(XSP3CARDS)", "192.168.0.1", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(XSIZE)", 0, 0, 0, 0, 1)
+xspress3Config("$(PORT)", "$(YSIZE)", "$(XSP3CARDS)", "192.168.0.1", "$(MAXFRAMES)", "$(MAXDRIVERFRAMES)", "$(XSIZE)", 0, 0, 0, 0, 0)
 
 ############
 # Create a processing plugin
