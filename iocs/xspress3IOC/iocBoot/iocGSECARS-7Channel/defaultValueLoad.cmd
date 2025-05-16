@@ -19,16 +19,19 @@ dbpf("$(PREFIX)Proc1:EnableFilter", "Enable")
 dbpf("$(PREFIX)Proc1:FilterType", "Sum")
 dbpf("$(PREFIX)Proc1:EnableCallbacks", "Enable")
 
+
+#Configure and connect to Xspress3
 # Configure Xspress3:
 # The "CONFIG_PATH" value points to the calibration folder with files:
 #     card0_clocks.dat, chan1_reion0.dat, etc
 # dbpf("$(PREFIX)det1:CONFIG_PATH", "/etc/xspress3/calibration/initial")
-dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3_settings/current/")
+
+dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3/settings/current/")
 
 dbpf("$(PREFIX)det1:RUN_FLAGS","0")
 dbpf("$(PREFIX)det1:NUM_CHANNELS","7")
-dbpf("$(PREFIX)det1:NumImages", 16000)
-dbpf("$(PREFIX)det1:AcquireTime", 0.25)
+dbpf("$(PREFIX)det1:NumImages", 15000)
+dbpf("$(PREFIX)det1:AcquireTime", 0.1)
 dbpf("$(PREFIX)det1:CONNECT","1")
 dbpf("$(PREFIX)det1:CTRL_DTC",  "Disable")
 dbpf("$(PREFIX)det1:TriggerMode","Internal")
