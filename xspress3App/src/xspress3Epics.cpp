@@ -896,6 +896,7 @@ asynStatus Xspress3::erase(void)
   int xsp3_status = 0;
   int xsp3_time_frames = 0;
   int xsp3_used_frames = 0;
+  int xsp3_curr_frames = 0;
   int xsp3_num_channels = 0;
   const char *functionName = "Xspress3::erase";
 
@@ -908,11 +909,14 @@ asynStatus Xspress3::erase(void)
     getIntegerParam(xsp3NumFramesDriverParam, &xsp3_time_frames);
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
     getIntegerParam(NDArrayCounter, &xsp3_used_frames);
-    xsp3_used_frames += 2;
-    if (xsp3_used_frames > xsp3_time_frames) {xsp3_used_frames = xsp3_time_frames;}
+    getIntegerParam(ADNumImages, &xsp3_curr_frames);
 
-    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_used_frames);
-    if (xsp3_status != XSP3_OK) {
+    xsp3_curr_frames += 1;
+    if (xsp3_used_frames == 0)  {xsp3_curr_frames = 1;}
+    if (xsp3_used_frames > xsp3_curr_frames) {xsp3_curr_frames = xsp3_used_frames;}
+    if (xsp3_curr_frames > xsp3_time_frames) {xsp3_curr_frames = xsp3_time_frames;}
+    xsp3_status = xsp3->histogram_clear(xsp3_handle_, 0, xsp3_num_channels, 0, xsp3_curr_frames);
+     if (xsp3_status != XSP3_OK) {
       checkStatus(xsp3_status, "xsp3_histogram_clear", functionName);
       setIntegerParam(ADStatus, ADStatusError);
       status = asynError;
@@ -1003,9 +1007,6 @@ asynStatus Xspress3::eraseSCAMCAROI(void)
 
   return static_cast<asynStatus>(status);
 }
-
-
-
 
 
 /** Report status of the driver.
