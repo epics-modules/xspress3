@@ -51,6 +51,14 @@
 using std::cout;
 using std::endl;
 
+//Defining enums for custom trigger modes
+#ifndef XSP3_GTIMA_SRC_SOFT_INT
+#define XSP3_GTIMA_SRC_SOFT_INT			8		//!< Time frame incremented by software and reset by internal timeframe.
+#endif
+#ifndef XSP3_GTIMA_SRC_TTL_INT
+#define XSP3_GTIMA_SRC_TTL_INT			9		//!< Time frame incremented by TTL and reset by internal timeframe.
+#endif
+
 //Definitions of static class data members
 const epicsInt32 Xspress3::ctrlDisable_ = 0;
 const epicsInt32 Xspress3::ctrlEnable_ = 1;
