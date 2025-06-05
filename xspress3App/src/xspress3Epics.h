@@ -196,6 +196,8 @@ class Xspress3 : public ADDriver {
   static const epicsInt32 mbboTriggerTTLBOTH_;
   static const epicsInt32 mbboTriggerLVDSVETO_;
   static const epicsInt32 mbboTriggerLVDSBOTH_;
+  static const epicsInt32 mbboTriggerSOFTINTERNAL_;
+  static const epicsInt32 mbboTriggerTTLINTERNAL_;
   static const epicsInt32 ADAcquireFalse_;
   static const epicsInt32 ADAcquireTrue_;
 

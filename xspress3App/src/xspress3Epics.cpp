@@ -51,6 +51,14 @@
 using std::cout;
 using std::endl;
 
+//Defining enums for custom trigger modes
+#ifndef XSP3_GTIMA_SRC_SOFT_INT
+#define XSP3_GTIMA_SRC_SOFT_INT			8		//!< Time frame incremented by software and reset by internal timeframe.
+#endif
+#ifndef XSP3_GTIMA_SRC_TTL_INT
+#define XSP3_GTIMA_SRC_TTL_INT			9		//!< Time frame incremented by TTL and reset by internal timeframe.
+#endif
+
 //Definitions of static class data members
 const epicsInt32 Xspress3::ctrlDisable_ = 0;
 const epicsInt32 Xspress3::ctrlEnable_ = 1;
@@ -66,6 +74,8 @@ const epicsInt32 Xspress3::mbboTriggerTTLVETO_ = 3;
 const epicsInt32 Xspress3::mbboTriggerTTLBOTH_ = 4;
 const epicsInt32 Xspress3::mbboTriggerLVDSVETO_ = 5;
 const epicsInt32 Xspress3::mbboTriggerLVDSBOTH_ = 6;
+const epicsInt32 Xspress3::mbboTriggerSOFTINTERNAL_ = 7;
+const epicsInt32 Xspress3::mbboTriggerTTLINTERNAL_ = 8;
 const epicsInt32 Xspress3::ADAcquireFalse_ = 0;
 const epicsInt32 Xspress3::ADAcquireTrue_ = 1;
 
@@ -1035,23 +1045,23 @@ void Xspress3::report(FILE *fp, int details)
 
 asynStatus Xspress3::setupITFG(void)
 {
-    asynStatus status = asynSuccess;
-    const char *functionName = "Xspress3::setupITFG";
-    int num_frames, trigger_mode, ppt;
-    double exposureTime;
-    int xsp3_status=XSP3_OK;
-    int clock_freq = 80e6;
-    int actual_clock_freq = xsp3_measure_clock_frequency(0, 0);
-    if (actual_clock_freq > 0) {
-      clock_freq = actual_clock_freq;
-    }
-    else printf(
-      "Error measuring onboard clock frequency, defaulting to 80MHz. error code: %d\n",
-      actual_clock_freq
-    );
+  asynStatus status = asynSuccess;
+  const char *functionName = "Xspress3::setupITFG";
+  int num_frames, trigger_mode, ppt;
+  double exposureTime;
+  int xsp3_status=XSP3_OK;
+  int clock_freq = 80e6;
+  int actual_clock_freq = xsp3_measure_clock_frequency(0, 0);
+  if (actual_clock_freq > 0) {
+    clock_freq = actual_clock_freq;
+  }
+  else printf(
+    "Error measuring onboard clock frequency, defaulting to 80MHz. error code: %d\n",
+    actual_clock_freq
+  );
 
-    getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
-  if(trigger_mode == 7) {
+  getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
+  if(trigger_mode == mbboTriggerSOFTINTERNAL_) {
     getIntegerParam(ADNumImages, &num_frames);
     getDoubleParam(ADAcquireTime, &exposureTime);
     xsp3_status = xsp3->itfg_setup2( xsp3_handle_, 0, num_frames,
@@ -1059,33 +1069,41 @@ asynStatus Xspress3::setupITFG(void)
               XSP3_ITFG_TRIG_MODE_SOFTWARE, XSP3_ITFG_GAP_MODE_1US,0,0,0 );
     xsp3->histogram_arm(0,-1);
   }
-    if (trigger_mode == mbboTriggerINTERNAL_ &&
-        xsp3->has_itfg(xsp3_handle_, 0) > 0 ) {
-        getIntegerParam(ADNumImages, &num_frames);
-        getDoubleParam(ADAcquireTime, &exposureTime);
-        xsp3_status = xsp3->itfg_setup( xsp3_handle_, 0, num_frames,
-                                       (u_int32_t) floor(exposureTime*clock_freq+0.5),
-                                       XSP3_ITFG_TRIG_MODE_BURST, XSP3_ITFG_GAP_MODE_1US );
-    }
+  if(trigger_mode == mbboTriggerTTLINTERNAL_) {
+    getIntegerParam(ADNumImages, &num_frames);
+    getDoubleParam(ADAcquireTime, &exposureTime);
+    xsp3_status = xsp3->itfg_setup2( xsp3_handle_, 0, num_frames,
+              (u_int32_t) floor(exposureTime*clock_freq+0.5),
+              XSP3_ITFG_TRIG_MODE_HARDWARE, XSP3_ITFG_GAP_MODE_1US,0,0,0 );
+    xsp3->histogram_arm(0,-1);
+  }
+  if (trigger_mode == mbboTriggerINTERNAL_ &&
+      xsp3->has_itfg(xsp3_handle_, 0) > 0 ) {
+      getIntegerParam(ADNumImages, &num_frames);
+      getDoubleParam(ADAcquireTime, &exposureTime);
+      xsp3_status = xsp3->itfg_setup( xsp3_handle_, 0, num_frames,
+                                      (u_int32_t) floor(exposureTime*clock_freq+0.5),
+                                      XSP3_ITFG_TRIG_MODE_BURST, XSP3_ITFG_GAP_MODE_1US );
+  }
 
-    getIntegerParam(xsp3PulsePerTriggerParam, &ppt);
-    if (trigger_mode == mbboTriggerTTLVETO_ &&
-        (xsp3->has_itfg(xsp3_handle_, 0) > 0) && ppt) {
+  getIntegerParam(xsp3PulsePerTriggerParam, &ppt);
+  if (trigger_mode == mbboTriggerTTLVETO_ &&
+      (xsp3->has_itfg(xsp3_handle_, 0) > 0) && ppt) {
 
-        getIntegerParam(ADNumImages, &num_frames);
-        // printf("setupIFTG - Pulse per trigger: %d\n", ppt);
-        xsp3_status = xsp3->itfg_setup2( xsp3_handle_, 0, num_frames,
-                                       (u_int32_t) ppt,
-                                       XSP3_ITFG_TRIG_MODE_HARDWARE,
-                                       XSP3_ITFG_GAP_MODE_1US, XSP3_ITFG_TRIG_ACQ_PAUSED_ALL, 0, 0 );
-    }
+      getIntegerParam(ADNumImages, &num_frames);
+      // printf("setupIFTG - Pulse per trigger: %d\n", ppt);
+      xsp3_status = xsp3->itfg_setup2( xsp3_handle_, 0, num_frames,
+                                      (u_int32_t) ppt,
+                                      XSP3_ITFG_TRIG_MODE_HARDWARE,
+                                      XSP3_ITFG_GAP_MODE_1US, XSP3_ITFG_TRIG_ACQ_PAUSED_ALL, 0, 0 );
+  }
 
-    if (xsp3_status != XSP3_OK) {
-        checkStatus(xsp3_status, " xsp3_itfg_setup", functionName);
-        status = asynError;
-    }
+  if (xsp3_status != XSP3_OK) {
+      checkStatus(xsp3_status, " xsp3_itfg_setup", functionName);
+      status = asynError;
+  }
 
-    return status;
+  return status;
 }
 
 /**
@@ -1128,6 +1146,14 @@ asynStatus Xspress3::mapTriggerMode(int mode, int invert_f0, int invert_veto, in
     *apiMode = XSP3_GTIMA_SRC_LVDS_BOTH;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_LVDS_BOTH, value: %d\n",
         functionName, XSP3_GTIMA_SRC_LVDS_BOTH);
+  } else if (mode == mbboTriggerSOFTINTERNAL_) {
+    *apiMode = XSP3_GTIMA_SRC_SOFT_INT;
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_SOFT_INT	, value: %d\n",
+        functionName, XSP3_GTIMA_SRC_SOFT_INT	);
+  } else if (mode == mbboTriggerTTLINTERNAL_) {
+    *apiMode = XSP3_GTIMA_SRC_TTL_INT;
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_TTL_INT	, value: %d\n",
+        functionName, XSP3_GTIMA_SRC_TTL_INT	);
   } else {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Mapping an unknown trigger mode. mode: %d\n", functionName, mode);
     setStringParam(ADStatusMessage, "ERROR Unknown Trigger Mode");
@@ -1152,36 +1178,35 @@ asynStatus Xspress3::setTriggerMode(int mode, int invert_f0, int invert_veto, in
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Trigger Mode.\n", functionName);
     getIntegerParam(xsp3NumCardsParam, &xsp3_num_cards);
     for (int card=0; card<xsp3_num_cards && status == asynSuccess; card++) {
-        if ( card == 0 ) {
-          if (mode == 7) {
-            mode = 1; // Refactor to 1 to continue to use the internal trigger generator but set up so won't continue until histogram_continue is called
-          }
-          // probably want to arm the histogram here
-            status = mapTriggerMode(mode, invert_f0, invert_veto, debounce, &xsp3_trigger_mode);
+      if ( card == 0 ) {
+        if (mode == mbboTriggerSOFTINTERNAL_ || mode == mbboTriggerTTLINTERNAL_)  {
+          mode = 1; // Refactor to 1 to continue to use the internal trigger generator but set up so won't continue until histogram_continue is called
         }
-        else
-        {
-            status = mapTriggerMode(mbboTriggerTTLVETO_, invert_f0, 0, debounce, &xsp3_trigger_mode);
-            // status = mapTriggerMode(mode, invert_f0, 0, debounce, &xsp3_trigger_mode);
-            // xsp3_trigger_mode = 0;
-        }
-        if (xsp3_is_xsp3m_plus(0) == 1) {
-          xsp3_trigger_mode = xsp3_trigger_mode | XSP3_GLOB_TIMA_FROM_RADIAL;
-        }
-        int xsp3_status = xsp3->set_glob_timeA(xsp3_handle_, card, xsp3_trigger_mode);
-        if (xsp3_status != XSP3_OK) {
-            checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
-            status = asynError;
-        }
-
-        
-    u_int32_t actual_trigger_mode;
-    xsp3_get_glob_timeA(xsp3_handle_, card, &actual_trigger_mode);
-    }
-    int xsp3_status = xsp3->set_sync_mode(xsp3_handle_, XSP3_SYNC_MIDPLANE, 0 , 0);
-    if (xsp3_status != XSP3_OK) {
-      checkStatus(xsp3_status, "xsp3_set_sync_mode", functionName);
-      status = asynError;
+        // probably want to arm the histogram here
+          status = mapTriggerMode(mode, invert_f0, invert_veto, debounce, &xsp3_trigger_mode);
+      }
+      else
+      {
+          status = mapTriggerMode(mbboTriggerTTLVETO_, invert_f0, 0, debounce, &xsp3_trigger_mode);
+          // status = mapTriggerMode(mode, invert_f0, 0, debounce, &xsp3_trigger_mode);
+          // xsp3_trigger_mode = 0;
+      }
+      if (xsp3_is_xsp3m_plus(0) == 1) {
+        xsp3_trigger_mode = xsp3_trigger_mode | XSP3_GLOB_TIMA_FROM_RADIAL;
+      }
+      int xsp3_status = xsp3->set_glob_timeA(xsp3_handle_, card, xsp3_trigger_mode);
+      if (xsp3_status != XSP3_OK) {
+          checkStatus(xsp3_status, "xsp3_set_glob_timeA", functionName);
+          status = asynError;
+      }
+    // TODO Is this needed for Mk2?
+    // u_int32_t actual_trigger_mode;
+    // xsp3_get_glob_timeA(xsp3_handle_, card, &actual_trigger_mode);
+    // }
+    // int xsp3_status = xsp3->set_sync_mode(xsp3_handle_, XSP3_SYNC_MIDPLANE, 0 , 0);
+    // if (xsp3_status != XSP3_OK) {
+    //   checkStatus(xsp3_status, "xsp3_set_sync_mode", functionName);
+    //   status = asynError;
     }
 
     return status;
