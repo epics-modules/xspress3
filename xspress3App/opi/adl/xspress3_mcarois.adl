@@ -134,7 +134,7 @@ text {
 		height=280
 	}
 	plotcom {
-		title="Last Frame"
+		title="Last Fram"
 		clr=14
 		bclr=0
 	}
@@ -178,7 +178,7 @@ text {
 	"basic attribute" {
 		clr=14
 	}
-	textix="SCAs, Timing Info: (80MHz clock)"
+	textix="SCAs, Timing Info: "
 }
 text {
 	object {

@@ -10,6 +10,17 @@ xsp3Api::xsp3Api( asynUser * user ) :
 xsp3Api::~xsp3Api()
 {
 }
+int xsp3Api::set_sync_mode(int path, int sync_mode, int enb_global_reset, int gr_card)
+{
+    int status;
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "xsp3_set_sync_mode( %i, %i, %i, %i ) = ", path, sync_mode, enb_global_reset, gr_card );
+
+    status = xsp3Api_set_sync_mode(path, sync_mode, enb_global_reset, gr_card);
+
+    asynPrint(this->pasynUser, XSP3IF_DEBUG, "%d\n", status );
+
+    return status;
+}
 
 int xsp3Api::clocks_setup(int path, int card, int clk_src, int flags, int tp_type)
 {

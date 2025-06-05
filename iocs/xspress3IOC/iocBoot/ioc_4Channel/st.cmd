@@ -8,7 +8,7 @@ epicsEnvSet("PREFIX", "XSP3_4Chan:")
 epicsEnvSet("NUM_CHANNELS",  "4")            
 
 # Number of xspress3 cards and IP ADDR
-epicsEnvSet("XSP3CARDS", "1")
+epicsEnvSet("XSP3CARDS", "2")
 epicsEnvSet("XSP3ADDR",  "192.168.0.1")
 
 # Max Number of Frames for data collection
@@ -60,9 +60,14 @@ iocInit
 # The "CONFIG_PATH" value points to the calibration folder with files:
 #     card0_clocks.dat, chan1_reion0.dat, etc
 # dbpf("$(PREFIX)det1:CONFIG_PATH", "/etc/xspress3/calibration/initial")
-dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3_settings/current/")
+dbpf("$(PREFIX)det1:CONFIG_PATH", "$(SUPPORT)/../xspress3_settings/4channel/")
 
 < ../common/SetMainValues.cmd
+
+
+# Uncomment for debug tracing
+# asynSetTraceMask("XSP3",-1, 0x100)
+# asynSetTraceIOMask("XSP3",-1, 0x100)
 
 ###############################
 # SET UP CHANNELS
