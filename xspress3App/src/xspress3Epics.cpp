@@ -2004,6 +2004,7 @@ static void xsp3DataTaskC(void *xspAD)
     bool acquire=false;
     bool aborted=false;
     bool error=false;
+    bool notready=false;
 
     int numChannels, maxSpectra, frameNumber, numFrames=0, acquired, lastAcquired;
     //int frame_count, last_frame_count, frame_counter, frames_remaining, frame_offset;
@@ -2033,9 +2034,16 @@ static void xsp3DataTaskC(void *xspAD)
         numChannels = dims[1];
         numFrames = pXspAD->getNumFramesToAcquire();
         pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
-	// printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
-        while (acquire && (frameNumber < numFrames)) {
-            if (acquired == 0) { usleep(25000); }
+	//printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
+	if (acquire && (frameNumber == 0)) {
+          notready = pXspAD->getNumFramesRead();
+	  while (notready) {
+	    usleep(250);
+	    notready = pXspAD->getNumFramesRead();
+	  }
+	}
+	while (acquire && (frameNumber < numFrames)) {
+	    usleep(1);
             acquired = pXspAD->getNumFramesRead();
             if (frameNumber < acquired) {
                 lastAcquired = acquired;
