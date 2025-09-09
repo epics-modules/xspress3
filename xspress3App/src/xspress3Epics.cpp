@@ -212,7 +212,7 @@ void Xspress3::createInitialParameters()
     createParam(xsp3ResetParamString, asynParamInt32, &xsp3ResetParam);
     createParam(xsp3EraseParamString, asynParamInt32, &xsp3EraseParam);
     createParam(xsp3EraseStartParamString, asynParamInt32, &xsp3EraseStartParam);
-  	createParam(xsp3SoftTriggerParamString, asynParamInt32, &xsp3SoftTriggerParam);
+    createParam(xsp3SoftTriggerParamString, asynParamInt32, &xsp3SoftTriggerParam);
     createParam(xsp3NumChannelsParamString, asynParamInt32, &xsp3NumChannelsParam);
     createParam(xsp3MaxNumChannelsParamString, asynParamInt32, &xsp3MaxNumChannelsParam);
     createParam(xsp3MaxSpectraParamString, asynParamInt32, &xsp3MaxSpectraParam);
@@ -2004,7 +2004,8 @@ static void xsp3DataTaskC(void *xspAD)
     bool acquire=false;
     bool aborted=false;
     bool error=false;
-
+    bool notready=false;
+    int notready_count;
     int numChannels, maxSpectra, frameNumber, numFrames=0, acquired, lastAcquired;
     //int frame_count, last_frame_count, frame_counter, frames_remaining, frame_offset;
     size_t dims[2];
@@ -2033,9 +2034,25 @@ static void xsp3DataTaskC(void *xspAD)
         numChannels = dims[1];
         numFrames = pXspAD->getNumFramesToAcquire();
         pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
-	// printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
-        while (acquire && (frameNumber < numFrames)) {
-            if (acquired == 0) { usleep(25000); }
+	//printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
+
+	// add check that getNumFrames returns 0 for the 0th frame.
+	// using this counter to indicate "ready to read frame" seems
+	// fragile at frames 0 and 1.
+	if (acquire && (frameNumber == 0) ) {
+	  notready_count = 0;
+	  notready = pXspAD->getNumFramesRead();
+	  while (notready) {
+	    usleep(100);
+	    notready = pXspAD->getNumFramesRead();
+	    notready_count +=1;
+	    if (notready_count > 5000) {
+	      notready = 0;
+	    }
+	  }
+	}
+	while (acquire && (frameNumber < numFrames)) {
+	    usleep(2);
             acquired = pXspAD->getNumFramesRead();
             if (frameNumber < acquired) {
                 lastAcquired = acquired;
