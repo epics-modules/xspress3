@@ -49,6 +49,10 @@ Fixed:
   on `$(PREFIX)det1:RUN_FLAGS`) between real and playback data. This fixes an
   issue where real data could not be acquired if the settings files being
   loaded include playback data.
+- Fixed scalar addresses in the 16 channel XSP3.xml file
+- Fixed macro in SetChannelValues.cmd to set the number of points in the time
+  series to MAXFRAMES. The invalid value causes an error in EPICS R7.0.9 and
+  later.
 
 ### Library
 
