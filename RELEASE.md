@@ -27,6 +27,9 @@ Changed:
 - Now set `XSP3READOUT` environment variable to `frames` by default
   in `st.cmd` if not already set so that readout is optimised for MCA mode
 - Update from `bzip-devel` to `bzip2-devel` in `build_xspress3.py`
+- Changed number of cards in ioc_<N>Channel st.cmd files based on assuming
+  an Xspress 3X system with 2 channels per card (instead of 8 for the
+  older Xspress 3 systems)
 - Update of autoconverted `.bob` screen files
 - Removed symbol, adl and edl Makefiles as not used
 
