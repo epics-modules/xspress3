@@ -54,10 +54,10 @@ using std::endl;
 
 //Defining enums for custom trigger modes
 #ifndef XSP3_GTIMA_SRC_SOFT_INT
-#define XSP3_GTIMA_SRC_SOFT_INT			8		//!< Time frame incremented by software and reset by internal timeframe.
+#define XSP3_GTIMA_SRC_SOFT_INT                 8               //!< Time frame incremented by software and reset by internal timeframe.
 #endif
 #ifndef XSP3_GTIMA_SRC_TTL_INT
-#define XSP3_GTIMA_SRC_TTL_INT			9		//!< Time frame incremented by TTL and reset by internal timeframe.
+#define XSP3_GTIMA_SRC_TTL_INT                  9               //!< Time frame incremented by TTL and reset by internal timeframe.
 #endif
 
 //Definitions of static class data members
@@ -99,7 +99,7 @@ static void xsp3DataTaskC(void *drvPvt);
  * @param maxMemory Used by asynPortDriver (set to -1 for unlimited)
  * @param debug This debug flag is passed to xsp3_config in the Xspress API (0 or 1)
  * @param simTest 0 or 1. Set to 1 to run up this driver in simulation mode.
- * @param circBuffer 0 or 1. Set to run with cirular buffer enabled. Required when more than 12216 frames per acquisition 
+ * @param circBuffer 0 or 1. Set to run with cirular buffer enabled. Required when more than 12216 frames per acquisition
  */
 Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const char *baseIP, int maxFrames, int maxDriverFrames, int maxSpectra, int maxBuffers, size_t maxMemory, int debug, int simTest, int circBuffer)
   : ADDriver(portName,
@@ -422,7 +422,7 @@ asynStatus Xspress3::connect(void)
       status = asynError;
     }
     printf("xsp3_clocks_setup: Measured frequency %.2f MHz\n", float(xsp3_status)/1.0e6);
-    
+
 
     // Limit frames for Mini > 1 channel
     if (generation == 2 && numChannels_ > 1) {
@@ -434,7 +434,7 @@ asynStatus Xspress3::connect(void)
       paramStatus = ((setIntegerParam(xsp3NumFramesConfigParam, 100001) == asynSuccess) && paramStatus);
           paramStatus = ((setIntegerParam(xsp3NumFramesDriverParam, 100001) == asynSuccess) && paramStatus);
     }
-        
+
     }
 
     // Restore settings from a file
@@ -757,7 +757,7 @@ asynStatus Xspress3::restoreSettings(void)
     /*
     * We need to now update the channel control registers based on whether we want to use
     * playback data or real data signals.
-    * 
+    *
     * This is to handle the case where the settings files includes playback data, but the
     * user wants the run flags to get real data. When the settings files are loaded the
     * playback data means that the data source for each channel is set to playback data
@@ -1181,7 +1181,7 @@ asynStatus Xspress3::mapTriggerMode(int mode, int invert_f0, int invert_veto, in
 {
   asynStatus status = asynSuccess;
   const char *functionName = "Xspress3::mapTriggerMode";
-  
+
   if (mode == mbboTriggerFIXED_) {
     *apiMode = XSP3_GTIMA_SRC_FIXED;
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_FIXED, value: %d\n",
@@ -1212,12 +1212,12 @@ asynStatus Xspress3::mapTriggerMode(int mode, int invert_f0, int invert_veto, in
         functionName, XSP3_GTIMA_SRC_LVDS_BOTH);
   } else if (mode == mbboTriggerSOFTINTERNAL_) {
     *apiMode = XSP3_GTIMA_SRC_SOFT_INT;
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_SOFT_INT	, value: %d\n",
-        functionName, XSP3_GTIMA_SRC_SOFT_INT	);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_SOFT_INT    , value: %d\n",
+        functionName, XSP3_GTIMA_SRC_SOFT_INT   );
   } else if (mode == mbboTriggerTTLINTERNAL_) {
     *apiMode = XSP3_GTIMA_SRC_TTL_INT;
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_TTL_INT	, value: %d\n",
-        functionName, XSP3_GTIMA_SRC_TTL_INT	);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Trigger Mode XSP3_GTIMA_SRC_TTL_INT     , value: %d\n",
+        functionName, XSP3_GTIMA_SRC_TTL_INT    );
   } else {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Mapping an unknown trigger mode. mode: %d\n", functionName, mode);
     setStringParam(ADStatusMessage, "ERROR Unknown Trigger Mode");
@@ -1365,7 +1365,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
       }
     }
   }
-  
+
   else if (function == xsp3NumChannelsParam) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Set Number Of Channels.\n", functionName);
     getIntegerParam(xsp3MaxNumChannelsParam, &xsp3_num_channels);
@@ -1539,7 +1539,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   else if (function == xsp3DtcEnableParam) {
     // Turning on DTC changes array type to float
     if (value == 1) setIntegerParam(NDDataType, NDFloat64);
-    else setIntegerParam(NDDataType, NDUInt32);;
+        else setIntegerParam(NDDataType, NDUInt32);;
   }
 
   else {
@@ -1561,8 +1561,8 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
   status = (asynStatus) setIntegerParam(addr, function, value);
   if (status!=asynSuccess) {
     asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR,
-        "%s Error Setting Parameter. Asyn addr: %d, asynUser->reason: %d, value: %d\n",
-        functionName, addr, function, value);
+            "%s Error Setting Parameter. Asyn addr: %d, asynUser->reason: %d, value: %d\n",
+    functionName, addr, function, value);
     return(status);
   }
 
@@ -1622,7 +1622,7 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
     } else {
         /* If this parameter belongs to a base class call its method */
       if (function < XSP3_FIRST_DRIVER_COMMAND) {
-  status = asynNDArrayDriver::writeOctet(pasynUser, value, nChars, nActual);
+        status = asynNDArrayDriver::writeOctet(pasynUser, value, nChars, nActual);
       }
     }
 
@@ -1638,8 +1638,8 @@ asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
 
     if (status) {
       asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR,
-        "%s Error Setting Parameter. asynUser->reason: %d\n",
-    functionName, function);
+                "%s Error Setting Parameter. asynUser->reason: %d\n",
+      functionName, function);
     }
 
     *nActual = nChars;
@@ -1669,11 +1669,11 @@ asynStatus Xspress3::checkSaveDir(const char *dirName)
   if (status != asynError) {
     while ((d = readdir(dir)) != NULL) {
       if (++countFiles > 2) {
-  asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Files Already Exist In This Directory.\n", functionName);
-  setStringParam(ADStatusMessage, "ERROR Files Already Exist In This Directory.");
-  setIntegerParam(ADStatus, ADStatusError);
-  status = asynError;
-  break;
+        asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s ERROR: Files Already Exist In This Directory.\n", functionName);
+        setStringParam(ADStatusMessage, "ERROR Files Already Exist In This Directory.");
+        setIntegerParam(ADStatus, ADStatusError);
+        status = asynError;
+        break;
       }
     }
   }
@@ -1710,7 +1710,7 @@ asynStatus Xspress3::checkHistBusy(int checkTimes)
   while (notBusyCount<2) {
     for (int chan=0; chan<numChannels; chan++) {
       if ((xsp3->histogram_is_any_busy(xsp3_handle_)) == 0) {
-  ++notBusyChan;
+          ++notBusyChan;
       }
     }
     if (notBusyChan == numChannels) {
@@ -1828,8 +1828,8 @@ bool Xspress3::readFrame(u_int32_t* pSCA, u_int32_t* pMCAData, int frameNumber, 
         setIntegerParam(NDArrayCounter, frameNumber);
         xsp3Status = xsp3->scaler_read(this->xsp3_handle_, pSCA, 0, 0, frameNumber, XSP3_SW_NUM_SCALERS, this->numChannels_, 1);
         if (xsp3Status != XSP3_OK) {
-    checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
-    error = true;
+            checkStatus(xsp3Status, "xsp3_scaler_read", functionName);
+            error = true;
         }
         else
         {
@@ -1909,9 +1909,9 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
           allevt = pScaData[3];
           dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
           dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
-    //printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
-    setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
-    setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
+          //printf(":D> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f", chan, evtwidth, dtperc, dtfact);
+          setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
+          setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
         }
 
         pScaData += XSP3_SW_NUM_SCALERS;
@@ -1937,11 +1937,11 @@ void Xspress3::writeOutScas(void *&pSCA, int numChannels, NDDataType_t dataType)
           allevt = 1.0*pScaData[3];
           dtperc = 100.0*(allevt*(evtwidth+1) + resets)/ctime;
           dtfact = ctime/(ctime - (allevt*(evtwidth+1) + resets));
-    // printf(":I> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f\n", chan, evtwidth, dtperc, dtfact);
-    // setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
-    // setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
-    setDoubleParam(chan, xsp3ChanDTPercentParam, dtperc);
-    setDoubleParam(chan, xsp3ChanDTFactorParam, dtfact);
+          // printf(":I> chan=%i, event_width=%.1f DTpercent=%.3f, DTfactor=%.6f\n", chan, evtwidth, dtperc, dtfact);
+          // setDoubleParam(chan, xsp3ChanDTPercentParam, static_cast<epicsFloat64>(dtperc));
+          // setDoubleParam(chan, xsp3ChanDTFactorParam, static_cast<epicsFloat64>(dtfact));
+          setDoubleParam(chan, xsp3ChanDTPercentParam, dtperc);
+          setDoubleParam(chan, xsp3ChanDTFactorParam, dtfact);
         }
         pScaData += XSP3_SW_NUM_SCALERS;
       }
@@ -2106,7 +2106,8 @@ static void xsp3DataTaskC(void *xspAD)
     bool acquire=false;
     bool aborted=false;
     bool error=false;
-
+    bool notready=false;
+    int notready_count;
     int numChannels, maxSpectra, frameNumber, numFrames=0, acquired, lastAcquired;
     //int frame_count, last_frame_count, frame_counter, frames_remaining, frame_offset;
     size_t dims[2];
@@ -2135,9 +2136,25 @@ static void xsp3DataTaskC(void *xspAD)
         numChannels = dims[1];
         numFrames = pXspAD->getNumFramesToAcquire();
         pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
-  // printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
+        //printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
+
+        // add check that getNumFrames returns 0 for the 0th frame.
+        // using this counter to indicate "ready to read frame" seems
+        // fragile at frames 0 and 1.
+        if (acquire && (frameNumber == 0) ) {
+          notready_count = 0;
+          notready = pXspAD->getNumFramesRead();
+          while (notready) {
+            usleep(100);
+            notready = pXspAD->getNumFramesRead();
+            notready_count +=1;
+            if (notready_count > 5000) {
+              notready = 0;
+            }
+          }
+        }
         while (acquire && (frameNumber < numFrames)) {
-            if (acquired == 0) { usleep(25000); }
+            usleep(2);
             acquired = pXspAD->getNumFramesRead();
             if (frameNumber < acquired) {
                 lastAcquired = acquired;
@@ -2237,17 +2254,17 @@ extern "C" {
   static const iocshArg xspress3ConfigArg10 = {"Sim Test", iocshArgInt};
   static const iocshArg xspress3ConfigArg11 = {"Circular Buffer", iocshArgInt};
   static const iocshArg * const xspress3ConfigArgs[] =  {&xspress3ConfigArg0,
-               &xspress3ConfigArg1,
-               &xspress3ConfigArg2,
-               &xspress3ConfigArg3,
-               &xspress3ConfigArg4,
-               &xspress3ConfigArg5,
-               &xspress3ConfigArg6,
-               &xspress3ConfigArg7,
-               &xspress3ConfigArg8,
-               &xspress3ConfigArg9,
-               &xspress3ConfigArg10,
-                        &xspress3ConfigArg11};
+                                                         &xspress3ConfigArg1,
+                                                         &xspress3ConfigArg2,
+                                                         &xspress3ConfigArg3,
+                                                         &xspress3ConfigArg4,
+                                                         &xspress3ConfigArg5,
+                                                         &xspress3ConfigArg6,
+                                                         &xspress3ConfigArg7,
+                                                         &xspress3ConfigArg8,
+                                                         &xspress3ConfigArg9,
+                                                         &xspress3ConfigArg10,
+                                                         &xspress3ConfigArg11};
 
 
   static const iocshFuncDef configXspress3 = {"xspress3Config", 12, xspress3ConfigArgs};
