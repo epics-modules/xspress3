@@ -9,7 +9,7 @@ changes to the driver and underlying xspress3 library.
 
 This file tracks changes since v3.2.8.
 
-## __4.0.0 (Unreleased)__
+## 3.3.0  2026-Jan-30
 
 ### Driver
 
