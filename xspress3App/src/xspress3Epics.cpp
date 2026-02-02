@@ -1119,10 +1119,10 @@ asynStatus Xspress3::setupITFG(void)
   if (actual_clock_freq > 0) {
     clock_freq = actual_clock_freq;
   }
-  else printf(
-    "Error measuring onboard clock frequency, defaulting to 80MHz. error code: %d\n",
-    actual_clock_freq
-  );
+  // else printf(
+  //  "Error measuring onboard clock frequency, defaulting to 80MHz. error code: %d\n",
+  //  actual_clock_freq
+  // );
 
   getIntegerParam(xsp3TriggerModeParam, &trigger_mode);
   if(trigger_mode == mbboTriggerSOFTINTERNAL_) {
