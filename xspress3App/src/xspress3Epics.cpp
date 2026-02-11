@@ -2136,7 +2136,7 @@ static void xsp3DataTaskC(void *xspAD)
         numChannels = dims[1];
         numFrames = pXspAD->getNumFramesToAcquire();
         pXspAD->xspAsynPrint(ASYN_TRACE_FLOW, "Collect %d frames\n", numFrames);
-        //printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
+        // printf("data task acquire=%d, numframes=%d  / frameNumber=%d\n", (int)acquire, numFrames, frameNumber);
 
         // add check that getNumFrames returns 0 for the 0th frame.
         // using this counter to indicate "ready to read frame" seems
@@ -2145,11 +2145,12 @@ static void xsp3DataTaskC(void *xspAD)
           notready_count = 0;
           notready = pXspAD->getNumFramesRead();
           while (notready) {
-            usleep(100);
+            usleep(50);
             notready = pXspAD->getNumFramesRead();
             notready_count +=1;
-            if (notready_count > 5000) {
+            if (notready_count > 30000) {
               notready = 0;
+              printf("frames may not be ready.\n");
             }
           }
         }
