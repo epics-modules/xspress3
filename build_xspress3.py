@@ -16,6 +16,7 @@
 from __future__ import print_function
 
 import os
+from pathlib import Path
 import sys
 import multiprocessing as mp
 import subprocess as sp
@@ -35,7 +36,8 @@ modules = {'base': 'base-7.0.7.tar.gz',
            'sscan': 'sscan-R2-11-5.tar.gz',
            'calc': 'calc-R3-7-5.tar.gz',
            'sncseq': 'seq-2.2.6.tar.gz',
-           'xspress3': 'xspress-3.3.0.tar.gz'}
+           'xspress3': 'xspress-3.3.0.tar.gz'
+           }
 
 ad_modules = {'ADSupport': 'adSupport-R1-10.tar.gz',
               'ADCore': 'adCore-R3-12-1.tar.gz'}
@@ -66,11 +68,11 @@ options:
    -n, --nelem  number of detector elements to configure for [4]
 
 arguments:
+    epics_ioc   extract, configure, and compile sources for epics ioc 
     extract     download (if needed) and extract source files only
     configure   configure sources only
     build       compile sources only (must be configured first)
     xrfapp      install and configure XRF display app
-
     all         extract, configure, and compile sources, install xrfapp
     clean       run 'make clean' for all modules
     realclean   remove all module folders created by 'build'
@@ -80,7 +82,7 @@ examples:
 
    To build everything for 4 element detector:
 
-   > python build_xspress3.py -n 4 all
+   > python build_xspress3.py -n 4 epics_ioc
 
 '''
 
@@ -94,7 +96,7 @@ rm tmp_copy_dmfiles
 
 '''
 
-HOME_DIR = os.environ.get('HOME', '/home/xspress3')
+HOME_DIR = Path.home().as_posix()
 
 START_IOC = '''#!/bin/bash
 TOPDIR={topdir:s}
@@ -442,10 +444,11 @@ def create_buildscript(nelem=4):
 
 def install_xrfapp(nelem):
     cwd = os.path.abspath(os.getcwd())
-    if not os.path.exists(os.path.join(HOME_DIR, 'xraylarch')):
+    if not Path(HOME_DIR, 'xraylarch').exists():
         os.chdir('sources')
-        o = sp.call(['/bin/wget', '%s%s' % (LARCH_URL, GETLARCH)])
+        o = sp.call(['/bin/wget', f'{LARCH_URL}{GETLARCH}'])
         o = sp.call(['sh', GETLARCH])
+        o = sp.call([f'{HOME_DIR}/xraylarch/bin/python', '-m', 'pip', 'install', 'xraylarch[epics]'])
         os.chdir(cwd)
 
     with open('bin/run_xrfapp.py', 'w') as fh:
@@ -467,9 +470,9 @@ def install_xrfapp(nelem):
         fh.write('\n'.join(buff))
 
     # make desktop shortcut
-    shortcut_command = ['pyshortcut', '%s/support/bin/run_xrfapp.py'%(HOME_DIR),
+    shortcut_command = ['pyshortcut', f'{HOME_DIR}/support/bin/run_xrfapp.py',
                         '-n', 'Xspress3_Detector', '--icon',
-                        '%s/support/xspress3/documentation/source/_static/ptable.ico'%(HOME_DIR)]
+                        f'{HOME_DIR}/support/xspress3/documentation/source/_static/ptable.ico']
     sp.call(shortcut_command)
 
 
@@ -527,7 +530,6 @@ def distclean():
 if __name__ == '__main__':
     parser = ArgumentParser(prog='xspress3_build',
                             description='build xspress3 epics support')
-    # parser.add_argument('-h', '--help', dest='help')
     parser.add_argument('-n', '--nelem', dest='nelem', type=int, default=4)
     parser.add_argument('options', nargs='*')
 
@@ -542,14 +544,19 @@ if __name__ == '__main__':
         elif cmd == 'configure':
             create_buildscript(nelem=nelem)
             configure_release()
-        elif cmd == 'xrfapp':
-            install_xrfapp(nelem)
         elif cmd == 'clean':
             clean()
         elif cmd == 'realclean':
             realclean()
         elif cmd == 'build':
             build()
+        elif cmd.startswith('epics') or cmd.startswith('ioc'):
+            extract_sources()
+            create_buildscript(nelem=nelem)
+            configure_release()
+            build()
+        elif cmd == 'xrfapp':
+            install_xrfapp(nelem)
         elif cmd == 'all':
             xrfapp_proc = mp.Process(target=install_xrfapp, args=(nelem,))
             xrfapp_proc.start()
