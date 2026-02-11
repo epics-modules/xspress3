@@ -15,11 +15,35 @@ record(ai, "$(P)C$(CHAN):DeadTime_RBV") {
     field(DISA, "1")
 }
 
-# deadtime correction factor 
+# deadtime correction factor
 record(ai, "$(P)C$(CHAN):DTFactor_RBV") {
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTFACTOR")
     field(VAL,  "1")
     field(PREC, "5")
     field(DISA, "1")
+}
+
+# energy calibration convenience values for downstream apps, in case calibration drifts from 10 eV/bin
+# calibration offset
+record(ao, "$(P)C$(CHAN):CALO") {
+    field(DTYP, "asynFloat64")
+    field(DESC, "Energy Calibration offset")
+    field(VAL,  "0.0000")
+    field(PREC, "5")
+}
+# calibration slope
+record(ao, "$(P)C$(CHAN):CALS") {
+    field(DTYP, "asynFloat64")
+    field(DESC, "Energy Calibration slope (keV/bin)")
+    field(VAL,  "0.0100")
+    field(PREC, "5")
+}
+
+# calibration quadratic
+record(ao, "$(P)C$(CHAN):CALQ") {
+    field(DTYP, "asynFloat64")
+    field(DESC, "Energy Calibration quadratic (keV^2/bin)")
+    field(VAL,  "0.0000")
+    field(PREC, "5")
 }
