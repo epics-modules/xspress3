@@ -294,8 +294,10 @@ def create_bindir():
         print("# fetch %s" % ('%s/%s' % (SOURCES_URL, tarball)))
         o = sp.call(['/bin/wget', '%s/%s' % (SOURCES_URL, tarball)])
         os.chdir(cwd)
-    if not os.path.exists('bin'):
+    try:
         os.mkdir('bin')
+    except OSError:
+        pass
     if not os.path.exists(tball):
         print("# download failed! for %s" % tball)
     else:
@@ -305,8 +307,10 @@ def create_bindir():
 def unpack_tarball(tarball, shortname, sourcedir):
     tball = os.path.join(sourcedir, tarball)
     cwd = os.path.abspath(os.getcwd())
-    if not os.path.exists(sourcedir):
+    try:
         os.mkdir(sourcedir)
+    except OSError:
+        pass
     if not os.path.exists(tball):
         os.chdir(sourcedir)
         print("# fetch %s" % ('%s/%s' % (SOURCES_URL, tarball)))
