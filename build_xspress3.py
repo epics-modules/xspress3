@@ -349,7 +349,7 @@ def extract_sources():
             for tarball in other_sources:
                 w = pool.apply_async(unpack_tarball, (tarball, None, 'sources'))
                 workers.append(w)
-            [w.wait() for w in workers]
+            [w.get() for w in workers]
 
     os.chdir('areaDetector')
     for key, value  in ad_modules.items():
