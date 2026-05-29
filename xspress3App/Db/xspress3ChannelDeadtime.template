@@ -27,14 +27,14 @@ record(ai, "$(P)C$(CHAN):DTFactor_RBV") {
 # energy calibration convenience values for downstream apps, in case calibration drifts from 10 eV/bin
 # calibration offset
 record(ao, "$(P)C$(CHAN):CALO") {
-    field(DTYP, "float")
+    field(DTYP, "Soft Channel")
     field(DESC, "Energy Calibration offset")
     field(VAL,  "0.0000")
     field(PREC, "5")
 }
 # calibration slope
 record(ao, "$(P)C$(CHAN):CALS") {
-    field(DTYP, "float")
+    field(DTYP, "Soft Channel")
     field(DESC, "Energy Calibration slope (keV/bin)")
     field(VAL,  "0.0100")
     field(PREC, "5")
@@ -42,7 +42,7 @@ record(ao, "$(P)C$(CHAN):CALS") {
 
 # calibration quadratic
 record(ao, "$(P)C$(CHAN):CALQ") {
-    field(DTYP, "float")
+    field(DTYP, "Soft Channel")
     field(DESC, "Energy Calibration quadratic (keV^2/bin)")
     field(VAL,  "0.0000")
     field(PREC, "5")
