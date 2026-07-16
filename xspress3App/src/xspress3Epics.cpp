@@ -1576,10 +1576,10 @@ asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 
     // Set in param lib so the user sees a readback straight away. We might overwrite this in the
     // status task, depending on the parameter.
-    status = (asynStatus)setDoubleParam(function, value);
+    status = (asynStatus)setDoubleParam(addr, function, value);
 
     // Do callbacks so higher layers see any changes
-    callParamCallbacks();
+    callParamCallbacks(addr);
 
     return status;
 }
