@@ -2,17 +2,17 @@
  * Author: Diamond Light Source, Copyright 2014
  *
  * License: This file is part of 'xspress3'
- * 
+ *
  * 'xspress3' is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * 
+ *
  * 'xspress3' is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public License
  * along with 'xspress3'.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -26,27 +26,29 @@
 #ifndef XSPRESS3INTERFACE_H
 #define XSPRESS3INTERFACE_H
 
+#include "asynDriver.h"
 #include "inttypes.h"
 #include "xspress3.h"
-#include "asynDriver.h"
 
 class xsp3Api {
 public:
-    xsp3Api(asynUser * pasynUser);
+    xsp3Api(asynUser *pasynUser);
     ~xsp3Api();
 
 protected:
     virtual int xsp3Api_clocks_setup(int path, int card, int clk_src, int flags, int tp_type) = 0;
     virtual int xsp3Api_close(int path) = 0;
-    virtual int xsp3Api_config(int ncards, int num_tf, char* baseIPaddress, int basePort, char* baseMACaddress, int nchan, int createmodule, char* modname, int debug, int card_index) = 0;
+    virtual int xsp3Api_config(int ncards, int num_tf, char *baseIPaddress, int basePort, char *baseMACaddress, int nchan, int createmodule, char *modname, int debug, int card_index) = 0;
     virtual int xsp3Api_format_run(int path, int chan, int aux1_mode, int res_thres, int aux2_cont, int disables, int aux2_mode, int nbits_eng) = 0;
     virtual int xsp3Api_getDeadtimeCorrectionParameters(int path, int chan, int *flags, double *processDeadTimeAllEventGradient,
-                                                     double *processDeadTimeAllEventOffset, double *processDeadTimeInWindowOffset, double *processDeadTimeInWindowGradient) = 0;
-    virtual char* xsp3Api_get_error_message() = 0;
+        double *processDeadTimeAllEventOffset, double *processDeadTimeInWindowOffset, double *processDeadTimeInWindowGradient)
+        = 0;
+    virtual char *xsp3Api_get_error_message() = 0;
     virtual int xsp3Api_get_good_thres(int path, int chan, uint32_t *good_thres) = 0;
     virtual int xsp3Api_get_window(int path, int chan, int win, uint32_t *low, uint32_t *high) = 0;
     virtual int xsp3Api_hist_dtc_read4d(int path, double *hist_buff, double *scal_buff, unsigned eng, unsigned aux, unsigned chan, unsigned tf,
-                                     unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf) = 0;
+        unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf)
+        = 0;
     virtual int xsp3Api_histogram_clear(int path, int first_chan, int num_chan, int first_frame, int num_frames) = 0;
     virtual int xsp3Api_histogram_arm(int path, int card) = 0;
     virtual int xsp3Api_histogram_continue(int path, int card) = 0;
@@ -80,15 +82,15 @@ protected:
 public:
     int clocks_setup(int path, int card, int clk_src, int flags, int tp_type);
     int close(int path);
-    int config(int ncards, int num_tf, char* baseIPaddress, int basePort, char* baseMACaddress, int nchan, int createmodule, char* modname, int debug, int card_index);
+    int config(int ncards, int num_tf, char *baseIPaddress, int basePort, char *baseMACaddress, int nchan, int createmodule, char *modname, int debug, int card_index);
     int format_run(int path, int chan, int aux1_mode, int res_thres, int aux2_cont, int disables, int aux2_mode, int nbits_eng);
     int getDeadtimeCorrectionParameters(int path, int chan, int *flags, double *processDeadTimeAllEventGradient,
-                                      double *processDeadTimeAllEventOffset, double *processDeadTimeInWindowOffset, double *processDeadTimeInWindowGradient);
-    char* get_error_message();
+        double *processDeadTimeAllEventOffset, double *processDeadTimeInWindowOffset, double *processDeadTimeInWindowGradient);
+    char *get_error_message();
     int get_good_thres(int path, int chan, uint32_t *good_thres);
     int get_window(int path, int chan, int win, uint32_t *low, uint32_t *high);
     int hist_dtc_read4d(int path, double *hist_buff, double *scal_buff, unsigned eng, unsigned aux, unsigned chan, unsigned tf,
-                    unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf);
+        unsigned num_eng, unsigned num_aux, unsigned num_chan, unsigned num_tf);
     int histogram_clear(int path, int first_chan, int num_chan, int first_frame, int num_frames);
     int histogram_pause(int path, int card);
     int histogram_arm(int path, int card);
@@ -120,7 +122,7 @@ public:
     int set_chan_cont2(int path, int chan, u_int32_t chan_cont2);
 
 private:
-    asynUser * pasynUser;
+    asynUser *pasynUser;
 };
 
 #endif /* XSPRESS3INTERFACE_H */
