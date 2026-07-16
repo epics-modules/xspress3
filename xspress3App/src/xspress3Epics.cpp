@@ -511,9 +511,9 @@ asynStatus Xspress3::readSCAParams(void)
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA4 threshold limit: %d\n",
                 functionName, chan, xsp3_sca_param1);
         }
-
-        callParamCallbacks(chan);
     }
+
+    callParamCallbacksAllChannels();
 
     return status;
 }
@@ -557,9 +557,9 @@ asynStatus Xspress3::readDTCParams(void)
             setDoubleParam(chan, xsp3ChanDtcIwgParam, static_cast<epicsFloat64>(xsp3_dtc_in_window_grad));
             setDoubleParam(chan, xsp3ChanDtcIwoParam, static_cast<epicsFloat64>(xsp3_dtc_in_window_off));
         }
-
-        callParamCallbacks(chan);
     }
+
+    callParamCallbacksAllChannels();
 
     return status;
 }
@@ -594,8 +594,9 @@ asynStatus Xspress3::readTrigB(void)
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %.1f\n", functionName, chan, width);
             setDoubleParam(chan, xsp3EventWidthParam, width);
         }
-        callParamCallbacks(chan);
     }
+
+    callParamCallbacksAllChannels();
 
     return status;
 }
