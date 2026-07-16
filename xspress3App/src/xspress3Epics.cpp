@@ -2035,6 +2035,14 @@ int Xspress3::getMaxNumFrames()
 //     return frame_counter;
 // }
 
+void Xspress3::callParamCallbacksAllChannels()
+{
+    int xsp3_num_channels;
+    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+    for (int chan = 0; chan < xsp3_num_channels; chan++)
+        callParamCallbacks(chan);
+}
+
 void Xspress3::doNDCallbacksIfRequired(NDArray *pMCA)
 {
     int arrayCallbacks;

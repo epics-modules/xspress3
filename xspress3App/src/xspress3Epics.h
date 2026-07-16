@@ -152,6 +152,7 @@ public:
     int getNumFramesToAcquire();
     int getMaxNumFrames();
     int getFrameCounter();
+    void callParamCallbacksAllChannels();
     void doNDCallbacksIfRequired(NDArray *pMCA);
     int getNumFramesRead();
     void xspAsynPrint(int asynPrintType, const char *format, ...);
