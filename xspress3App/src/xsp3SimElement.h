@@ -10,25 +10,23 @@
 
 #include <stdint.h>
 
-typedef struct xsp3Window
-{
+typedef struct xsp3Window {
     int low;
     int high;
 } xsp3Window_t;
 
-class xsp3SimElement
-{
+class xsp3SimElement {
 private:
     int detector;
 
 public:
-    xsp3SimElement( int numSpectra );
-    ~xsp3SimElement( void );
+    xsp3SimElement(int numSpectra);
+    ~xsp3SimElement(void);
 
-    void generateRawSpectra( int frame, unsigned int start, unsigned int stop, uint32_t * buffer );
-    void generateDTCSpectra( int frame, unsigned int start, unsigned int stop, double * buffer );
-    uint32_t generateRawROI( int frame, int win );
-    double generateDTCROI( int frame, int win );
+    void generateRawSpectra(int frame, unsigned int start, unsigned int stop, uint32_t *buffer);
+    void generateDTCSpectra(int frame, unsigned int start, unsigned int stop, double *buffer);
+    uint32_t generateRawROI(int frame, int win);
+    double generateDTCROI(int frame, int win);
 
     uint32_t threshold;
     xsp3Window_t window[2];
@@ -38,7 +36,5 @@ public:
     double processDeadTimeInWindowOffset;
     double processDeadTimeInWindowGradient;
 };
-
-
 
 #endif /* XSP3SIMDATA_H_ */
