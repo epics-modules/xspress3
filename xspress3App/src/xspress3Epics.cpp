@@ -164,7 +164,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
         xsp3 = new xsp3Detector(this->pasynUserSelf);
     }
 
-    callParamCallbacks();
+    callParamCallbacksAllChannels();
 
     if (!paramStatus) {
         asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
@@ -210,7 +210,7 @@ Xspress3::Xspress3(const char *portName, int numChannels)
         xsp3 = new xsp3Detector(this->pasynUserSelf);
     }
 
-    callParamCallbacks();
+    callParamCallbacksAllChannels();
 
     if (!paramStatus) {
         asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
@@ -2162,7 +2162,7 @@ static void xsp3DataTaskC(void *xspAD)
                     frameNumber++;
                     pXspAD->setNDArrayAttributes(pMCA, frameNumber);
                     pXspAD->lock();
-                    pXspAD->callParamCallbacks();
+                    pXspAD->callParamCallbacksAllChannels();
                     pXspAD->unlock();
                     pXspAD->doNDCallbacksIfRequired(pMCA);
                     pMCA->release();
