@@ -1022,13 +1022,11 @@ asynStatus Xspress3::clearDriverAndPlugins(void)
 {
     int status = asynSuccess;
     int xsp3_num_channels = 0;
-    int maxNumFrames = 0;
     const char *functionName = "Xspress3::clearDriverAndPlugins";
 
     asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
 
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
-    getIntegerParam(xsp3NumFramesDriverParam, &maxNumFrames);
 
     bool paramStatus = true;
     paramStatus = ((setIntegerParam(NDArrayCounter, 0) == asynSuccess) && paramStatus);
