@@ -167,7 +167,7 @@ private:
     asynStatus setWindow(int channel, int sca, int llm, int hlm);
     asynStatus checkRoi(int channel, int roi, int llm, int hlm);
     asynStatus erase(void);
-    asynStatus eraseSCAMCAROI(void);
+    asynStatus clearDriverAndPlugins(void);
     asynStatus checkSaveDir(const char *dirName);
     asynStatus readSCAParams(void);
     asynStatus readDTCParams(void);
