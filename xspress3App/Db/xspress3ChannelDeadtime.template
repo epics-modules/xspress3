@@ -10,18 +10,18 @@ record(ao, "$(P)C$(CHAN):EventWidth") {
 record(ai, "$(P)C$(CHAN):DeadTime_RBV") {
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTPERCENT")
+    field(SCAN, "I/O Intr")
     field(VAL,  "0")
     field(PREC, "5")
-    field(DISA, "1")
 }
 
 # deadtime correction factor
 record(ai, "$(P)C$(CHAN):DTFactor_RBV") {
     field(DTYP, "asynFloat64")
     field(INP,  "@asyn($(PORT),$(ADDR),$(TIMEOUT))XSP3_CHAN_DTFACTOR")
+    field(SCAN, "I/O Intr")
     field(VAL,  "1")
     field(PREC, "5")
-    field(DISA, "1")
 }
 
 # energy calibration convenience values for downstream apps, in case calibration drifts from 10 eV/bin
