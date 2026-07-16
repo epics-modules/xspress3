@@ -142,7 +142,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
     // Initialize non static, non const, data members
     xsp3_handle_ = 0;
     bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
-    paramStatus = ((clearDriverAndPlugins() == asynSuccess) && paramStatus);
+    paramStatus = ((clearDriverAndPlugins(true) == asynSuccess) && paramStatus);
     // Create the thread that reads out the data
     status = (epicsThreadCreate("GeDataTask",
                   epicsThreadPriorityHigh,
@@ -201,7 +201,7 @@ Xspress3::Xspress3(const char *portName, int numChannels)
     // Initialize non static, non const, data members
     xsp3_handle_ = 0;
     bool paramStatus = this->setInitialParameters(maxFrames, maxDriverFrames, numCards, maxSpectra);
-    paramStatus = ((clearDriverAndPlugins() == asynSuccess) && paramStatus);
+    paramStatus = ((clearDriverAndPlugins(true) == asynSuccess) && paramStatus);
     if (simTest) {
         paramStatus = ((setStringParam(ADStatusMessage, "Init. Simulation Mode.") == asynSuccess) && paramStatus);
         xsp3 = new xsp3Simulator(this->pasynUserSelf, numChannels, maxSpectra);
@@ -963,7 +963,7 @@ asynStatus Xspress3::checkRoi(int channel, int roi, int llm, int hlm)
  * Call xsp3_histogram_clear, and clear scalar data.
  * @return asynStatus
  */
-asynStatus Xspress3::erase(void)
+asynStatus Xspress3::erase(bool sendFrame)
 {
     asynStatus status = asynSuccess;
     int xsp3_status = 0;
@@ -1000,7 +1000,7 @@ asynStatus Xspress3::erase(void)
             setIntegerParam(ADStatus, ADStatusError);
             status = asynError;
         } else {
-            status = clearDriverAndPlugins();
+            status = clearDriverAndPlugins(sendFrame);
             if (status == asynSuccess) {
                 setStringParam(ADStatusMessage, "Erased Data");
             } else {
@@ -1018,13 +1018,13 @@ asynStatus Xspress3::erase(void)
 /**
  * Function to clear the driver parameters and any connected plugins (by sending an empty frame).
  */
-asynStatus Xspress3::clearDriverAndPlugins(void)
+asynStatus Xspress3::clearDriverAndPlugins(bool sendFrame)
 {
     int status = asynSuccess;
     int xsp3_num_channels = 0;
     const char *functionName = "Xspress3::clearDriverAndPlugins";
 
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear SCA data, MCA ROI data and all arrays.\n", functionName);
+    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Clear driver parameters%s.\n", functionName, sendFrame ? " and connected plugins" : "");
 
     getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
 
@@ -1047,29 +1047,31 @@ asynStatus Xspress3::clearDriverAndPlugins(void)
         // callParamCallbacks(chan);
     }
 
-    // Send a blank frame
-    NDArray *pMCA;
-    int xsp3_max_spectra = 0;
-    getIntegerParam(xsp3MaxSpectraParam, &xsp3_max_spectra);
+    if (sendFrame) {
+        // Send a blank frame
+        NDArray *pMCA;
+        int xsp3_max_spectra = 0;
+        getIntegerParam(xsp3MaxSpectraParam, &xsp3_max_spectra);
 
-    NDDataType_t dataType = this->getDataType();
+        NDDataType_t dataType = this->getDataType();
 
-    size_t dims[2];
-    this->getDims(dims);
+        size_t dims[2];
+        this->getDims(dims);
 
-    pMCA = this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
+        pMCA = this->pNDArrayPool->alloc(2, dims, dataType, 0, NULL);
 
-    if (pMCA != NULL) {
-        memset(pMCA->pData, 0, pMCA->dataSize);
-        this->setNDArrayAttributes(pMCA, -1);
+        if (pMCA != NULL) {
+            memset(pMCA->pData, 0, pMCA->dataSize);
+            this->setNDArrayAttributes(pMCA, -1);
 
-        this->lock();
+            this->lock();
 
-        this->callParamCallbacks();
-        this->unlock();
-        this->doNDCallbacksIfRequired(pMCA);
+            this->callParamCallbacks();
+            this->unlock();
+            this->doNDCallbacksIfRequired(pMCA);
 
-        pMCA->release();
+            pMCA->release();
+        }
     }
 
     if (!paramStatus) {
@@ -1299,7 +1301,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
         }
     } else if (function == xsp3EraseParam) {
         if (adStatus != ADStatusAcquire) {
-            status = erase();
+            status = erase(true);
         }
     } else if (function == xsp3SoftTriggerParam) {
 
@@ -1322,7 +1324,7 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
                     getIntegerParam(xsp3EraseStartParam, &xsp3_erasestart);
                     // printf(" erase on start %d\n", xsp3_erasestart);
                     if (xsp3_erasestart) {
-                        erase();
+                        erase(false);
                         asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Erased Before Data Collection\n", functionName);
                     } else {
                         asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s No Erase Before Data Collection\n", functionName);
