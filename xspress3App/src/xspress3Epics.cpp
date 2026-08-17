@@ -164,7 +164,7 @@ Xspress3::Xspress3(const char *portName, int numChannels, int numCards, const ch
         xsp3 = new xsp3Detector(this->pasynUserSelf);
     }
 
-    callParamCallbacks();
+    callParamCallbacksAllChannels();
 
     if (!paramStatus) {
         asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
@@ -210,7 +210,7 @@ Xspress3::Xspress3(const char *portName, int numChannels)
         xsp3 = new xsp3Detector(this->pasynUserSelf);
     }
 
-    callParamCallbacks();
+    callParamCallbacksAllChannels();
 
     if (!paramStatus) {
         asynPrint(this->pasynUserSelf, ASYN_TRACE_ERROR, "%s Unable To Set Driver Parameters In Constructor.\n", functionName);
@@ -511,9 +511,9 @@ asynStatus Xspress3::readSCAParams(void)
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d, Read back SCA4 threshold limit: %d\n",
                 functionName, chan, xsp3_sca_param1);
         }
-
-        callParamCallbacks(chan);
     }
+
+    callParamCallbacksAllChannels();
 
     return status;
 }
@@ -557,9 +557,9 @@ asynStatus Xspress3::readDTCParams(void)
             setDoubleParam(chan, xsp3ChanDtcIwgParam, static_cast<epicsFloat64>(xsp3_dtc_in_window_grad));
             setDoubleParam(chan, xsp3ChanDtcIwoParam, static_cast<epicsFloat64>(xsp3_dtc_in_window_off));
         }
-
-        callParamCallbacks(chan);
     }
+
+    callParamCallbacksAllChannels();
 
     return status;
 }
@@ -594,8 +594,9 @@ asynStatus Xspress3::readTrigB(void)
             asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Channel %d Event Width: %.1f\n", functionName, chan, width);
             setDoubleParam(chan, xsp3EventWidthParam, width);
         }
-        callParamCallbacks(chan);
     }
+
+    callParamCallbacksAllChannels();
 
     return status;
 }
@@ -1043,9 +1044,9 @@ asynStatus Xspress3::clearDriverAndPlugins(bool sendFrame)
         paramStatus = ((setDoubleParam(chan, xsp3ChanSca7Param, 0.0) == asynSuccess) && paramStatus);
         paramStatus = ((setDoubleParam(chan, xsp3ChanDTPercentParam, 0.0) == asynSuccess) && paramStatus);
         paramStatus = ((setDoubleParam(chan, xsp3ChanDTFactorParam, 1.0) == asynSuccess) && paramStatus);
-
-        // callParamCallbacks(chan);
     }
+
+    callParamCallbacksAllChannels();
 
     if (sendFrame) {
         // Send a blank frame
@@ -1576,10 +1577,10 @@ asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
 
     // Set in param lib so the user sees a readback straight away. We might overwrite this in the
     // status task, depending on the parameter.
-    status = (asynStatus)setDoubleParam(function, value);
+    status = (asynStatus)setDoubleParam(addr, function, value);
 
     // Do callbacks so higher layers see any changes
-    callParamCallbacks();
+    callParamCallbacks(addr);
 
     return status;
 }
@@ -2035,6 +2036,14 @@ int Xspress3::getMaxNumFrames()
 //     return frame_counter;
 // }
 
+void Xspress3::callParamCallbacksAllChannels()
+{
+    int xsp3_num_channels;
+    getIntegerParam(xsp3NumChannelsParam, &xsp3_num_channels);
+    for (int chan = 0; chan < xsp3_num_channels; chan++)
+        callParamCallbacks(chan);
+}
+
 void Xspress3::doNDCallbacksIfRequired(NDArray *pMCA)
 {
     int arrayCallbacks;
@@ -2153,7 +2162,7 @@ static void xsp3DataTaskC(void *xspAD)
                     frameNumber++;
                     pXspAD->setNDArrayAttributes(pMCA, frameNumber);
                     pXspAD->lock();
-                    pXspAD->callParamCallbacks();
+                    pXspAD->callParamCallbacksAllChannels();
                     pXspAD->unlock();
                     pXspAD->doNDCallbacksIfRequired(pMCA);
                     pMCA->release();
