@@ -19,6 +19,8 @@ LIB_INSTALLS_Linux += ../os/linux-x86_64/libxspress3.so.1.0
 LIB_INSTALLS_Linux += ../os/linux-x86_64/libimg_mod.so.1.0
 LIB_INSTALLS_Linux += ../os/linux-x86_64/libxspress3.so
 LIB_INSTALLS_Linux += ../os/linux-x86_64/libimg_mod.so
+LIB_INSTALLS_Linux += ../os/linux-x86_64/libxspress3.a
+LIB_INSTALLS_Linux += ../os/linux-x86_64/libimg_mod.a
 
 #LIB_INSTALLS_Linux += ../os/linux-x86_64)/libXspress3FemApi.a
 
