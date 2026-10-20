@@ -128,7 +128,6 @@ public:
 
     /* These are the methods that we override from asynPortDriver */
     virtual asynStatus writeInt32(asynUser *pasynUser, epicsInt32 value);
-    virtual asynStatus writeFloat64(asynUser *pasynUser, epicsFloat64 value);
     virtual asynStatus writeOctet(asynUser *pasynUser, const char *value,
         size_t nChars, size_t *nActual);
     virtual void report(FILE *fp, int details);

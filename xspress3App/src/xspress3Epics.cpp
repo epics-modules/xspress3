@@ -1557,34 +1557,6 @@ asynStatus Xspress3::writeInt32(asynUser *pasynUser, epicsInt32 value)
 }
 
 /**
- * Reimplementing this function from ADDriver to deal with floating point values.
- */
-asynStatus Xspress3::writeFloat64(asynUser *pasynUser, epicsFloat64 value)
-{
-    int function = pasynUser->reason;
-    int addr = 0;
-    asynStatus status = asynSuccess;
-    const char *functionName = "Xspress3::writeFloat64";
-
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s Calling writeFloat64.\n", functionName);
-    // Read address (ie. channel number).
-    status = getAddress(pasynUser, &addr);
-    if (status != asynSuccess) {
-        return (status);
-    }
-    asynPrint(this->pasynUserSelf, ASYN_TRACE_FLOW, "%s asynUser->reason: %d, value: %f, addr: %d\n", functionName, function, value, addr);
-
-    // Set in param lib so the user sees a readback straight away. We might overwrite this in the
-    // status task, depending on the parameter.
-    status = (asynStatus)setDoubleParam(addr, function, value);
-
-    // Do callbacks so higher layers see any changes
-    callParamCallbacks(addr);
-
-    return status;
-}
-
-/**
  * Reimplementing this function from asynNDArrayDriver to deal with strings.
  */
 asynStatus Xspress3::writeOctet(asynUser *pasynUser, const char *value,
