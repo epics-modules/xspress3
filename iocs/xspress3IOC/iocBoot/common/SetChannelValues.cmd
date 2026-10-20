@@ -49,8 +49,6 @@ dbpf("$(PREFIX)MCA$(CHAN)ROI:EnableCallbacks", "Enable")
 dbpf("$(PREFIX)MCA$(CHAN)ROI:TSNumPoints", "$(MAXFRAMES)")
 
 dbpf("$(PREFIX)MCA$(CHAN):ArrayData.LOPR", 0.5)
-dbpf("$(PREFIX)C$(CHAN):DeadTime_RBV.SCAN", ".1 second")
-dbpf("$(PREFIX)C$(CHAN):DTFactor_RBV.SCAN", ".1 second")
 
 dbpf("$(PREFIX)MCA$(CHAN)ROI:1:Use", "Yes")
 dbpf("$(PREFIX)MCA$(CHAN)ROI:2:Use", "Yes")
